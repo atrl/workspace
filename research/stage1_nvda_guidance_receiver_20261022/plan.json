@@ -1,0 +1,78 @@
+{
+  "schema_version": 1,
+  "experiment": "stage1_nvda_guidance_receiver_20261022",
+  "status": "frozen_before_model_fit_and_0bp_account",
+  "execution_authorized": false,
+  "parent": {
+    "plan": "research/stage1_domain_heads_20261018/plan.json",
+    "plan_sha256": "96dc55af2318e26162e7ff8f74c4fdf24bcd15c4d9a3c4e1e2ca18357e3e17c7",
+    "summary": "research/stage1_domain_heads_20261018/summary.json",
+    "summary_sha256": "3b51938ca56ddf45029ff5e4a01a6bbc2f1d1407458efcad7d7c68b0ef5a1d37",
+    "account_recorder_id": "6e227278b7a64eafbcf34b965e16d2b9",
+    "baseline_family": "A_active_research_replay_0",
+    "baseline_role": "f696f656+b472a458 original full Stage1 chain under the same raw-share research clocks; attribution comparator only"
+  },
+  "source": {
+    "card": "research/nvda_own_guidance_realization_source_20261015",
+    "recorder_id": "9fb35ff59c1b43b7ba3906a46d7002c0",
+    "verification_manifest_sha256": "5439a610a2d429a7dfdbcc9becbb7e751dcd2c5ed771582785e36191f6d61ba7",
+    "pairs_artifact_sha256": "53cbe204a6ae0b6dea6a27c6428d299c960e8a03e67401bdc8d13aaaf0524bc8",
+    "NAS_archive_sha256": "a77a7be5d5aa1ff7580fb297e19d873f38a04166c76fa12ba974327cf38ab414",
+    "alignment_module": "src/data/nvda_own_guidance_realization.py",
+    "alignment_module_sha256": "9a22ee2a8f13b89b2898bfbd3db1c2cc8926e80f203db29b1e457fd2495d2388",
+    "availability": "Use each source report only after its delayed actual_report_available_at and before 09:29 New York decision. Unknown or noncomparable reports reset the numeric value to NaN; no later revision or source update is backfilled.",
+    "qualification_limit": "Historical first-public timestamp, all update coverage and original HTML bytes remain unverified; any historical result is development-only."
+  },
+  "novelty": "The already closed tangent-head realization route is not rerun. One new receiver architecture places its unchanged single numeric state in the original Stage1 primary allocation head, with a flag-only matched arm; action, risk, recovery, training target and economic account contract remain frozen.",
+  "model": {
+    "adapter": "src/model/stage1_nvda_guidance.py",
+    "adapter_sha256": "94bdc0bc87dd0d9fb7f7920199343bf19a16e24945c72b127235d81334f9f31c",
+    "seeds": [71,172,273],
+    "epochs_each": 300,
+    "arms": {
+      "B_flags_only": "three source-state flags and numeric latent coordinate fixed to zero",
+      "C_realization": "same flags plus train-only standardized actual/guide_midpoint-1; clip standardized value to [-8,8], missing latent zero"
+    },
+    "base_primary_features": 39,
+    "shared_common_features": 16,
+    "primary_training_rows_expected": 3014,
+    "auxiliary_training_rows_expected": 20741,
+    "source_comparable_primary_rows_expected": 2859,
+    "training_cutoff": "2023-01-01T00:00:00-05:00; every label_available_at strictly before cutoff",
+    "objective_optimizer_and_smoothing": "exact original MinutePitAllocator/base_outer seed spec, 300 final epochs and frozen Stage1 EMA/acceptance; no loss, class threshold, source formula or risk optimization",
+    "model_barrier": "Persist all six model/checkpoint, scaler, training row, source hash, prediction, feature-order and seed identities before loading evaluation account objects or computing any 2023+ evaluation score. The pinned training-source container may include later rows for calendar alignment; none may enter fitting, scaling, early stopping, candidate selection or hidden inspection. Do not cancel either arm based on training/classification feedback."
+  },
+  "economics_first_stage": {
+    "assets": ["SOXL", "SOXX", "CASH"],
+    "start_signal": "2023-01-03",
+    "terminal_exit": "2026-10-09",
+    "funded_sessions": 944,
+    "initial_cash_usd": 100000,
+    "long_only_no_financing": true,
+    "slippage_bps": [0],
+    "fees": "Exact frozen IBKR Pro Tiered projection from parent plan; zero added slippage does not mean zero commission or fees",
+    "new_accounts": ["B_flags_only_0", "C_realization_0"],
+    "reference_accounts": ["A_active_research_replay_0", "SOXX_0", "strong9097_0", "additional27baa_0"],
+    "policy": "Original Stage1 b472 opening execute/HOLD classifier, recovery classifier, risk clock/cap, source EMA and guard; each B/C path owns cash, raw shares, receivable, fees, peak NAV and state. No tangent composition conversion or restored recovery-threshold tuning.",
+    "price_plane": "Use exact pinned parent raw points, calendar guard, corporate-action and native Qlib accounting; if any source hash/calendar differs, stop before accounts."
+  },
+  "hard_screen_0bp": {
+    "SOXX_terminal_net_relative_wealth": ">1+1e-8",
+    "available_close_and_sampled_drawdown": "<=30%; full-minute risk qualification separately required",
+    "CVaR5": "no worse than same-accounting SOXX",
+    "complete_annual": "at least 2 complete trade years and >=70% positive net SOXX excess",
+    "contiguous_126_session": ">=70% of all windows positive net SOXX excess",
+    "SOXX_paired_block_lower_bound": "strictly positive; stationary bootstrap mean block63, 10000 draws, seed20261014, alpha=.025/16 for this additional candidate",
+    "module_increment": "Report C versus B and original Stage1 at the same dates/source/cost; neither replaces SOXX as final hard comparator",
+    "historical_independence": false
+  },
+  "budget": {
+    "model_fit_attempts_max": 6,
+    "candidate_native_accounts_max": 2,
+    "new_other_cost_accounts_before_0bp_pass": 0,
+    "new_market_HTTP_requests": 0,
+    "new_writable_Qlib_Recorders_max": 1,
+    "new_bootstrap_runs_max": 1
+  },
+  "approval_and_stop": "Finalize executable workflow/notebook, exact code/provider/source hashes and independent design check before first fit. Record every attempt durably; resume an interrupted run only from its verified Recorder and handle. If any 0bp economic gate fails, close this fixed version without tuning the sign, source delay, feature normalization, seed, epoch, risk cap or threshold. A 0bp historical pass only allows separately frozen 2/5bp and prospective source-qualified forward work; no automatic promotion."
+}

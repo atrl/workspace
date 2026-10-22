@@ -1,7 +1,8 @@
 {
   "schema_version": 1,
-  "status": "design_only_adapter_contract_checked",
+  "status": "frozen_0bp_plan_pending_executable_review",
   "execution_authorized": false,
+  "frozen_execution_plan": "research/stage1_nvda_guidance_receiver_20261022/plan.json",
   "objective": "Test whether the already source-audited NVDA original same-quarter revenue-guidance realization state adds 0bp SOXX-relative economic information when received by the original Stage1 allocation network, with the frozen Stage1 action, risk and recovery chain unchanged.",
   "why_this_mechanism": "The old Stage1 0bp native account has relative SOXX wealth 0.6860 and 31.14% positive 126-session windows. A previously fixed small tangent allocation-head version using this numeric state exceeded SOXX in terminal wealth but missed rolling and bootstrap gates. This design changes the receiving architecture, not the numeric formula, timing or historical evaluation window. It is selected after seeing reused historical results and can only produce development evidence.",
   "parent_and_controls": {

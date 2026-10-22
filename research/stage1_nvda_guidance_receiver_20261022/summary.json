@@ -4,6 +4,7 @@
   "objective_achieved": false,
   "source_preflight": "source_preflight_result.json",
   "implementation_preflight_result": "implementation_preflight_result.json",
+  "frozen_execution_plan": "plan.json",
   "implementation_preflight": "design_brief.json#implementation_preflight",
   "new_fits": 0,
   "new_native_accounts": 0,
