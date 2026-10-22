@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "status": "fixed_PPI_YoY_leverage_information_route_closed",
+  "scope": "one_bounded_attribution_from_existing_native_Qlib_Recorder_no_refit_or_replay",
+  "result_review_sha256": "d63468786d264619521ff3ffa6ce84a3b68b60b8c8c1263fc3709a7d536ecc4b",
+  "source_qualified_date_vintage": true,
+  "information_gate_pass": false,
+  "candidate_coefficient": -0.054950873759655745,
+  "paired_MSE_improvement": -0.008773575886522758,
+  "held_half_improvements": [
+    -0.018358854123969908,
+    -0.005179096547480076
+  ],
+  "stationary_bootstrap_lower": -0.021004850071441265,
+  "interpretation": "The preregistered positive PPI pricing-power coefficient did not materialize, and the matched candidate had higher held squared error overall and in both frozen held subwindows. This rejects this fixed source/YoY/21-session leverage-information mechanism; it does not invalidate ALFRED source provenance or justify reversing sign, changing the horizon, or fitting another model to the same held history.",
+  "new_market_outcome_reads": 0,
+  "new_model_fits": 0,
+  "new_accounts": 0,
+  "promotion_permission": false,
+  "next_independent_work": "Continue already frozen Cboe preopen and IBKR regular-hours source gates at their clocks; no PPI account."
+}

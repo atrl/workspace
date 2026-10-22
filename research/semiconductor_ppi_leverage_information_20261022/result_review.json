@@ -1,0 +1,29 @@
+{
+  "status": "not_promoted_information_gate_failed",
+  "train_events": 46,
+  "held_events": 44,
+  "candidate_PPI_coefficient": -0.054950873759655745,
+  "held_mse_baseline": 0.042071689545670414,
+  "held_mse_candidate": 0.050845265432193185,
+  "held_paired_mse_improvement": -0.008773575886522758,
+  "held_half_improvements": [
+    -0.018358854123969908,
+    -0.005179096547480076
+  ],
+  "stationary_bootstrap_lower": -0.021004850071441265,
+  "information_gate_pass": false,
+  "historical_intraday_first_receipt_qualified": false,
+  "historical_market_independence": false,
+  "new_model_fits": 2,
+  "new_bootstraps": 1,
+  "new_native_accounts": 0,
+  "qualified_forward_days": 0,
+  "SOXX_goal_achieved": false,
+  "trading_or_promotion_permission": false,
+  "plan_sha256": "f094e97dbf4b3526afd8585fa87c0f0f6d2e44a207a37fb52c916ba14b1f61f3",
+  "source_recorder_id": "77aa6351b89b44a392a28b6ad53ef93d",
+  "recorder_id": "1c50e1fc49f24562ba985298cef859f8",
+  "experiment_id": "905102142117073572",
+  "recorder_uri": "/Users/rziiiii/dev/workspace/research/semiconductor_ppi_leverage_information_20261022/qlib_recorder",
+  "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/semiconductor_ppi_leverage_information_20261022/qlib_recorder/905102142117073572/1c50e1fc49f24562ba985298cef859f8"
+}

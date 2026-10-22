@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "status": "targeted_Qlib_Recorder_readback_passed",
+  "recorder_id": "1c50e1fc49f24562ba985298cef859f8",
+  "verification_manifest_sha256": "3de547357f364f2a8372b848f9c631d3e4f2e4e24ac9555b1c9fdaab5e78e65e",
+  "loaded_artifact_sha256": {
+    "analysis/result": "c9eeab748fff904730d79d608424094e69cf8f11ad4b92ffcd50041d25baee14",
+    "predictions/held": "5698f63121dc20b1c0bba9bd97bd96ef174bfb867bd6db943564f71bd38a512d"
+  },
+  "held_events": 44,
+  "information_gate_pass": false,
+  "hashes_checked_before_unpickling": true
+}

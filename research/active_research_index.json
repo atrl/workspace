@@ -31,15 +31,6 @@
       "execution_authorized": false,
       "result": "research/korea_semiconductor_exports_korean_vintage_20261022/numeric_pair_repair_review.json",
       "official_same_day_mirror_probe": "research/korea_semiconductor_exports_korean_vintage_20261022/official_mirror_2020_05_probe.json"
-    },
-    {
-      "card": "research/semiconductor_ppi_alfred_source_20261022",
-      "phase": "same_vintage_source_qualified_bounded_information_design_pending",
-      "role": "distinct_US_semiconductor_producer_price_information_source",
-      "full_economic_experiment": false,
-      "status": "93_ALFRED_vintages_92_same_vintage_yoy_2025_10_shutdown_gap_preserved",
-      "execution_authorized": false,
-      "result": "research/semiconductor_ppi_alfred_source_20261022/source_quality.json"
     }
   ],
   "framework": [
@@ -122,6 +113,13 @@
       "default_search": false,
       "evidence_preserved": true,
       "result": "research/occ_put_share_tail_information_20261022/result_review.json"
+    },
+    {
+      "card": "research/semiconductor_ppi_leverage_information_20261022",
+      "status": "not_promoted_fixed_information_screen",
+      "default_search": false,
+      "evidence_preserved": true,
+      "result": "research/semiconductor_ppi_leverage_information_20261022/result_review.json"
     }
   ],
   "deferred_sources": {
@@ -131,7 +129,8 @@
     "cboe_total_options_activity_card": "research/cboe_total_options_activity_source_20261022",
     "TSMC_monthly_release_source_gap": "research/tsmc_monthly_revenue_release_source_20261022/source_probe_result.json",
     "Korean_semiconductor_exports_full_archive": "research/korea_semiconductor_exports_full_source_20261022/source_qualification_result.json",
-    "Korean_semiconductor_exports_current_vintage_gap": "research/korea_semiconductor_exports_korean_full_source_20261022/source_qualification_result.json"
+    "Korean_semiconductor_exports_current_vintage_gap": "research/korea_semiconductor_exports_korean_full_source_20261022/source_qualification_result.json",
+    "US_semiconductor_PPI_date_vintages": "research/semiconductor_ppi_alfred_source_20261022/source_quality.json"
   },
   "do_not_reload": [
     "closed Recorder/model objects without new bounded need",
@@ -146,7 +145,7 @@
     "execution_authorized": false,
     "parallel_source_gap": "Korean source-only automatic pairing verified 27/93 current-document month pairs; 66 months including all three dual-version months remain unresolved. Four known controls pass, so unresolved means extractor/source semantics need original-document review, not factor failure. Historical first-public vintage is unqualified. No SOXX outcome or Korea fit may be read.",
     "parallel_source_progress": "research/korea_semiconductor_exports_korean_vintage_20261022/numeric_pair_repair_review.json",
-    "parallel_qualified_PPI_source": "research/semiconductor_ppi_alfred_source_20261022/source_quality.json"
+    "closed_PPI_information_result": "research/semiconductor_ppi_leverage_information_20261022/result_review.json"
   },
   "closed_source_probes": [
     {
