@@ -1,0 +1,14 @@
+{
+  "experiment": "stage1_soxx_2017_amendment_semantics_20261023",
+  "decision": "frozen_amendment_source_batch_not_executed",
+  "objective_achieved": false,
+  "plan": "plan.json",
+  "GETs": 0,
+  "model_fits": 0,
+  "native_accounts": 0,
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": []
+  }
+}

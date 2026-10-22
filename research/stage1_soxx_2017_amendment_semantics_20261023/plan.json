@@ -1,0 +1,67 @@
+{
+  "schema_version": 1,
+  "frozen": true,
+  "phase": "four_delayed_2017_SOXX_report_amendment_original_body_reads",
+  "series_calendar_sha256": "84de74dd586d975e02fd5852acfb4d024408b0272c063e92fa3965b0d3df545b",
+  "original_numeric_result_sha256": "6bd98e059b3dd09c2c3fda208d0e6d210932ed585d90c9a8a0ebc57754c0e26d",
+  "reports": [
+    {
+      "report_date": "2017-03-31",
+      "form": "N-CSR/A",
+      "accession": "0001193125-17-257387",
+      "accepted_at_utc": "2017-08-15T01:15:12.000Z",
+      "primary_document": "d426597dncsra.htm",
+      "url": "https://www.sec.gov/Archives/edgar/data/1100663/000119312517257387/d426597dncsra.htm"
+    },
+    {
+      "report_date": "2017-03-31",
+      "form": "N-CSR/A",
+      "accession": "0001193125-18-009766",
+      "accepted_at_utc": "2018-01-12T21:50:26.000Z",
+      "primary_document": "d491396dncsra.htm",
+      "url": "https://www.sec.gov/Archives/edgar/data/1100663/000119312518009766/d491396dncsra.htm"
+    },
+    {
+      "report_date": "2017-03-31",
+      "form": "N-CSR/A",
+      "accession": "0001193125-18-152961",
+      "accepted_at_utc": "2018-05-05T01:05:23.000Z",
+      "primary_document": "d575725dncsra.htm",
+      "url": "https://www.sec.gov/Archives/edgar/data/1100663/000119312518152961/d575725dncsra.htm"
+    },
+    {
+      "report_date": "2017-09-30",
+      "form": "N-CSRS/A",
+      "accession": "0001193125-18-152996",
+      "accepted_at_utc": "2018-05-05T01:14:47.000Z",
+      "primary_document": "d577154dncsrsa.htm",
+      "url": "https://www.sec.gov/Archives/edgar/data/1100663/000119312518152996/d577154dncsrsa.htm"
+    }
+  ],
+  "target_fund_title": "PHLX SEMICONDUCTOR ETF",
+  "request": {
+    "method": "GET",
+    "user_agent": "SOXL research codex@openai.com",
+    "max_GETs": 4,
+    "max_response_bytes_each": 75000000,
+    "connect_timeout_seconds": 10,
+    "total_timeout_seconds_each": 120,
+    "minimum_seconds_between_requests": 1
+  },
+  "source_gate": "Save exact amendment body/header/UTC/SHA; verify NAS remote hash and scoped raw-member restore. Identify SOXX schedule only through fund-named TOC href followed by its same-ID anchor or bounded title/date/equity table. Do not infer SOXX revision from trust form alone.",
+  "semantic_gate": "For qualified amended SOXX equity tables parse the same positive shares/positive USD value and printed-total closure rules; compare exact original security names/shares/values, top5/HHI and ordered amendment vintages within each report period. A form that does not contain SOXX equity schedule is not a numeric amendment.",
+  "availability": "Each amendment is usable no earlier than a conservative next actual Qlib session after its own SEC acceptance date, never at the original report date. Preserve original first source value and every amendment byte identity.",
+  "budget": {
+    "amendment_body_GETs": 4,
+    "market_outcome_reads": 0,
+    "model_fits": 0,
+    "native_accounts": 0
+  },
+  "stop": "Transport/size/NAS failure stops before the next request. Identity/printed-total failure preserves that amendment as unqualified; no substitution, future backfill, model or account.",
+  "scientific_boundary": "Revision classification completes only one source component; full Stage1 Qlib availability and information/economic gates remain separate.",
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": []
+  }
+}
