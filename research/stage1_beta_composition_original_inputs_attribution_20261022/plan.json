@@ -1,0 +1,59 @@
+{
+  "schema_version": 1,
+  "experiment": "stage1_beta_composition_original_inputs_attribution_20261022",
+  "phase": "read_only_original_Stage1_input_and_own_account_regime_attribution",
+  "execution_authorized": true,
+  "parent": "Frozen original Stage1 39 primary inputs and fixed 0bp beta-composition own-state account; SOXX remains final benchmark. Attribution only, no new strategy selection.",
+  "source_original": {
+    "card": "research/minute_information_pit_allocator_20261012",
+    "recorder_id": "68e31a0a0fad44e7ba1d1f7d856c7a0d",
+    "experiment_id": "905520356740140469",
+    "features_artifact": "inputs/features",
+    "features_sha256": "482d6a908ae95230143dc08014732c3247d22ccb1560f8509f6ac564a4d647ec",
+    "model_artifact": "models/base_outer_71",
+    "model_sha256": "5945030ca770bb7ca63c6b03d53e6cf7265f239312cac1308debfde93afddcac",
+    "provider": "data/qlib/minute_information_pit_allocator_20261012/daily_prices",
+    "provider_manifest_sha256": "d80a08d479b73098053006909b5e6227b03a56ab705681742d7261088e0a7e6c"
+  },
+  "source_account": {
+    "card": "research/stage1_beta_composition_0bp_20261022",
+    "summary_sha256": "262f9a5bfe855ae94310d802505e2dcdc71de441c6b6e1bf025a7f3b4b36dc35",
+    "recorder_id": "4cd2029dc98740349e34db8c7c6eae3e",
+    "experiment_id": "395462564842588671",
+    "native_artifact": "native/candidate_0",
+    "native_artifact_sha256": "b34937d3a6fea8754beda743168845c402a76b0f8e6fe85e97ec0b94d8cc0408",
+    "quarter_artifact": "analysis/quarter",
+    "quarter_artifact_sha256": "fd58f9b130dce070f06e6985b72241693632ee965ee5c30c6cf7178632334b6e"
+  },
+  "method": "Join all 944 funded original Stage1 signal dates to original Qlib Recorder inputs. Transform exact original 39 features with frozen training scalers, then summarize each complete/partial trade-date quarter without selecting dates. Join candidate own-account target, ending holdings, risk state and SOXX quarter-relative wealth only after all feature rows are fixed. Highlight 2024Q3 and 2026Q3 as pre-existing examples from beta-composition attribution, not as trading-rule training labels.",
+  "illustrative_periods": [
+    "2024Q3",
+    "2026Q3"
+  ],
+  "required_complete_rows": 944,
+  "required_quarters": 16,
+  "all_39_features_required": true,
+  "output": "Full quarter x feature matrix and daily joined data in one native Qlib Recorder; compact all-quarter financial/feature summary and Chinese conclusion in card.",
+  "limits": [
+    "A retrospective contrast does not prove feature causal value or prospective tradability",
+    "Endogenous risk states and holdings cannot be used as exogenous market regimes",
+    "Do not choose a threshold, sign, interval or model from this attribution"
+  ],
+  "budget": {
+    "new_writable_Qlib_Recorders_max": 1,
+    "model_fits": 0,
+    "new_native_accounts": 0,
+    "bootstrap_runs": 0,
+    "market_requests": 0,
+    "source_recorder_artifact_loads_max": 8
+  },
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "inputs/*",
+      "analysis/daily/*",
+      "analysis/quarter/*"
+    ]
+  }
+}

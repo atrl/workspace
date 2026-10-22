@@ -1,0 +1,28 @@
+{
+  "verdict": "CONFIRM_DESCRIPTIVE_ATTRIBUTION_ONLY",
+  "reviewer": "independent_scoped_stage1_nvda_design_review",
+  "plan_sha256": "ad2037897fc9b84201e0334fcdf7bdd31c50785f66cc3a5491c499edda031068",
+  "recorder_id": "66739637c55a4558818b18f978852e10",
+  "recorder_status": "FINISHED",
+  "joined_daily_rows": 944,
+  "unique_signals": 944,
+  "account_quarters": 16,
+  "original_features": 39,
+  "quarter_feature_matrix_shape": [
+    16,
+    39
+  ],
+  "finite_feature_cells": 624,
+  "manifest_entries_hash_size_verified": 11,
+  "nas_archive_sha256": "fe6afa906c494ed13c12c0d2849594b1173998ec6aba0615354782cb49b7e15f",
+  "nas_archive_bytes": 249458,
+  "remote_hash_readback_verified": true,
+  "illustrative_periods": [
+    "2024Q3",
+    "2026Q3"
+  ],
+  "causal_or_trading_rule_claim": false,
+  "new_fits_in_review": 0,
+  "new_accounts_in_review": 0,
+  "conclusion": "The target-to-ending cash means nearly coincide in the two selected descriptive quarters; predecision original inputs differ. This cannot establish a causal trading switch or promotion."
+}

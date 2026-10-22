@@ -1,0 +1,318 @@
+{
+  "experiment": "stage1_beta_composition_original_inputs_attribution_20261022",
+  "decision": "descriptive_original_Stage1_input_regime_attribution_only",
+  "objective_achieved": false,
+  "plan_sha256": "ad2037897fc9b84201e0334fcdf7bdd31c50785f66cc3a5491c499edda031068",
+  "source_recorder_ids": {
+    "original": "68e31a0a0fad44e7ba1d1f7d856c7a0d",
+    "account": "4cd2029dc98740349e34db8c7c6eae3e"
+  },
+  "matched_sessions": 944,
+  "quarters": 16,
+  "original_features": 39,
+  "all_quarter_account_summary": [
+    {
+      "period": "2023Q1",
+      "sessions": 61,
+      "complete_period": false,
+      "SOXX_relative_wealth": 1.0250187795166803,
+      "mean_target_soxl_weight": 0.12990931695888602,
+      "mean_target_cash_weight": 0.019672131147540985,
+      "mean_ending_soxl_weight": 0.1296058855756063,
+      "mean_ending_cash_weight": 0.020365331223604406,
+      "target_to_ending_cash_gap": 0.0006932000760634209,
+      "risk_state_ge2_fraction": 0.0,
+      "hold_fraction": 0.0
+    },
+    {
+      "period": "2023Q2",
+      "sessions": 62,
+      "complete_period": true,
+      "SOXX_relative_wealth": 0.9773917452436354,
+      "mean_target_soxl_weight": 0.06262543905366622,
+      "mean_target_cash_weight": 0.14901234889533618,
+      "mean_ending_soxl_weight": 0.06193096177720019,
+      "mean_ending_cash_weight": 0.14938688865283198,
+      "target_to_ending_cash_gap": 0.0003745397574957954,
+      "risk_state_ge2_fraction": 0.3225806451612903,
+      "hold_fraction": 0.0
+    },
+    {
+      "period": "2023Q3",
+      "sessions": 63,
+      "complete_period": true,
+      "SOXX_relative_wealth": 0.9685797482518845,
+      "mean_target_soxl_weight": 0.0842035397116697,
+      "mean_target_cash_weight": 0.2487795042741695,
+      "mean_ending_soxl_weight": 0.08310265775106426,
+      "mean_ending_cash_weight": 0.24936686628339594,
+      "target_to_ending_cash_gap": 0.0005873620092264331,
+      "risk_state_ge2_fraction": 0.4126984126984127,
+      "hold_fraction": 0.07936507936507936
+    },
+    {
+      "period": "2023Q4",
+      "sessions": 63,
+      "complete_period": true,
+      "SOXX_relative_wealth": 0.9318805100536526,
+      "mean_target_soxl_weight": 0.03571536434068696,
+      "mean_target_cash_weight": 0.27194244689109937,
+      "mean_ending_soxl_weight": 0.034938867167055805,
+      "mean_ending_cash_weight": 0.27243382646402586,
+      "target_to_ending_cash_gap": 0.000491379572926498,
+      "risk_state_ge2_fraction": 0.8412698412698413,
+      "hold_fraction": 0.12698412698412698
+    },
+    {
+      "period": "2024Q1",
+      "sessions": 61,
+      "complete_period": true,
+      "SOXX_relative_wealth": 1.0673333476895905,
+      "mean_target_soxl_weight": 0.12175687260051846,
+      "mean_target_cash_weight": 0.03278688524590164,
+      "mean_ending_soxl_weight": 0.12196070055570235,
+      "mean_ending_cash_weight": 0.03366270721008619,
+      "target_to_ending_cash_gap": 0.0008758219641845505,
+      "risk_state_ge2_fraction": 0.01639344262295082,
+      "hold_fraction": 0.0
+    },
+    {
+      "period": "2024Q2",
+      "sessions": 63,
+      "complete_period": true,
+      "SOXX_relative_wealth": 0.9946326615779956,
+      "mean_target_soxl_weight": 0.11021010614650026,
+      "mean_target_cash_weight": 0.13933405699739293,
+      "mean_ending_soxl_weight": 0.10982280878955832,
+      "mean_ending_cash_weight": 0.1397069490407852,
+      "target_to_ending_cash_gap": 0.00037289204339227555,
+      "risk_state_ge2_fraction": 0.31746031746031744,
+      "hold_fraction": 0.015873015873015872
+    },
+    {
+      "period": "2024Q3",
+      "sessions": 64,
+      "complete_period": true,
+      "SOXX_relative_wealth": 1.0658788835819686,
+      "mean_target_soxl_weight": 0.027637049998574227,
+      "mean_target_cash_weight": 0.39231490157004617,
+      "mean_ending_soxl_weight": 0.027488826711676653,
+      "mean_ending_cash_weight": 0.3926692908165098,
+      "target_to_ending_cash_gap": 0.0003543892464636378,
+      "risk_state_ge2_fraction": 0.546875,
+      "hold_fraction": 0.0
+    },
+    {
+      "period": "2024Q4",
+      "sessions": 64,
+      "complete_period": true,
+      "SOXX_relative_wealth": 1.0038202137840295,
+      "mean_target_soxl_weight": 0.010969771957850604,
+      "mean_target_cash_weight": 0.3388279246576225,
+      "mean_ending_soxl_weight": 0.010706956226606924,
+      "mean_ending_cash_weight": 0.33903952657261405,
+      "target_to_ending_cash_gap": 0.0002116019149915327,
+      "risk_state_ge2_fraction": 0.59375,
+      "hold_fraction": 0.03125
+    },
+    {
+      "period": "2025Q1",
+      "sessions": 60,
+      "complete_period": true,
+      "SOXX_relative_wealth": 1.0893043898613661,
+      "mean_target_soxl_weight": 0.006098015291237861,
+      "mean_target_cash_weight": 0.3713321502963248,
+      "mean_ending_soxl_weight": 0.005997514738178134,
+      "mean_ending_cash_weight": 0.3718002722499167,
+      "target_to_ending_cash_gap": 0.00046812195359186015,
+      "risk_state_ge2_fraction": 0.7833333333333333,
+      "hold_fraction": 0.05
+    },
+    {
+      "period": "2025Q2",
+      "sessions": 62,
+      "complete_period": true,
+      "SOXX_relative_wealth": 1.0206114778868065,
+      "mean_target_soxl_weight": 0.046035604365293005,
+      "mean_target_cash_weight": 0.3395830188256223,
+      "mean_ending_soxl_weight": 0.046190078461029654,
+      "mean_ending_cash_weight": 0.3397339385302009,
+      "target_to_ending_cash_gap": 0.00015091970457858928,
+      "risk_state_ge2_fraction": 0.6451612903225806,
+      "hold_fraction": 0.03225806451612903
+    },
+    {
+      "period": "2025Q3",
+      "sessions": 64,
+      "complete_period": true,
+      "SOXX_relative_wealth": 1.0002535084431667,
+      "mean_target_soxl_weight": 0.12894735480639627,
+      "mean_target_cash_weight": 0.03125,
+      "mean_ending_soxl_weight": 0.12895019983098654,
+      "mean_ending_cash_weight": 0.031439385625579665,
+      "target_to_ending_cash_gap": 0.0001893856255796647,
+      "risk_state_ge2_fraction": 0.0,
+      "hold_fraction": 0.0
+    },
+    {
+      "period": "2025Q4",
+      "sessions": 64,
+      "complete_period": true,
+      "SOXX_relative_wealth": 0.959347352926636,
+      "mean_target_soxl_weight": 0.10199563198072052,
+      "mean_target_cash_weight": 0.14523167691518282,
+      "mean_ending_soxl_weight": 0.10152126569953987,
+      "mean_ending_cash_weight": 0.14510245164746705,
+      "target_to_ending_cash_gap": -0.0001292252677157768,
+      "risk_state_ge2_fraction": 0.3125,
+      "hold_fraction": 0.0
+    },
+    {
+      "period": "2026Q1",
+      "sessions": 61,
+      "complete_period": true,
+      "SOXX_relative_wealth": 0.9835055882735818,
+      "mean_target_soxl_weight": 0.11700106386997434,
+      "mean_target_cash_weight": 0.16275394891479614,
+      "mean_ending_soxl_weight": 0.11691230074536728,
+      "mean_ending_cash_weight": 0.16293044336685977,
+      "target_to_ending_cash_gap": 0.0001764944520636358,
+      "risk_state_ge2_fraction": 0.22950819672131148,
+      "hold_fraction": 0.01639344262295082
+    },
+    {
+      "period": "2026Q2",
+      "sessions": 62,
+      "complete_period": true,
+      "SOXX_relative_wealth": 1.1078436923956336,
+      "mean_target_soxl_weight": 0.14221124603389887,
+      "mean_target_cash_weight": 0.06451612903225806,
+      "mean_ending_soxl_weight": 0.14409225314997703,
+      "mean_ending_cash_weight": 0.06455705306983617,
+      "target_to_ending_cash_gap": 4.092403757810503e-05,
+      "risk_state_ge2_fraction": 0.0967741935483871,
+      "hold_fraction": 0.0
+    },
+    {
+      "period": "2026Q3",
+      "sessions": 64,
+      "complete_period": true,
+      "SOXX_relative_wealth": 0.8919380926838862,
+      "mean_target_soxl_weight": 0.015367028362915446,
+      "mean_target_cash_weight": 0.6200373687072238,
+      "mean_ending_soxl_weight": 0.014703448652718255,
+      "mean_ending_cash_weight": 0.6197740245333385,
+      "target_to_ending_cash_gap": -0.00026334417388529374,
+      "risk_state_ge2_fraction": 0.828125,
+      "hold_fraction": 0.0
+    },
+    {
+      "period": "2026Q4",
+      "sessions": 6,
+      "complete_period": false,
+      "SOXX_relative_wealth": 1.011790506722736,
+      "mean_target_soxl_weight": 0.0,
+      "mean_target_cash_weight": 0.7022682194114568,
+      "mean_ending_soxl_weight": 0.0,
+      "mean_ending_cash_weight": 0.7025719746660212,
+      "target_to_ending_cash_gap": 0.00030375525456438623,
+      "risk_state_ge2_fraction": 1.0,
+      "hold_fraction": 0.5
+    }
+  ],
+  "illustrative_feature_contrast_top8": [
+    {
+      "original_Stage1_feature": "rv60",
+      "mean_standardized_2026Q3_minus_2024Q3": 1.9573471068470099,
+      "2024Q3_mean_z": 1.2139928371580027,
+      "2026Q3_mean_z": 3.1713399440050125
+    },
+    {
+      "original_Stage1_feature": "semis_vs_cross_60",
+      "mean_standardized_2026Q3_minus_2024Q3": 1.212981137141469,
+      "2024Q3_mean_z": -0.940209954205784,
+      "2026Q3_mean_z": 0.2727711829356849
+    },
+    {
+      "original_Stage1_feature": "vix_z_60",
+      "mean_standardized_2026Q3_minus_2024Q3": -1.0832092947493948,
+      "2024Q3_mean_z": 0.6312860732577974,
+      "2026Q3_mean_z": -0.45192322149159736
+    },
+    {
+      "original_Stage1_feature": "cross_dispersion_20",
+      "mean_standardized_2026Q3_minus_2024Q3": 0.9343490566534456,
+      "2024Q3_mean_z": 0.6547173117287457,
+      "2026Q3_mean_z": 1.5890663683821913
+    },
+    {
+      "original_Stage1_feature": "soxx_lead_10",
+      "mean_standardized_2026Q3_minus_2024Q3": 0.8371546317648608,
+      "2024Q3_mean_z": 0.42107295428286307,
+      "2026Q3_mean_z": 1.258227586047724
+    },
+    {
+      "original_Stage1_feature": "levered_decay_20",
+      "mean_standardized_2026Q3_minus_2024Q3": -0.764961180228056,
+      "2024Q3_mean_z": -1.0246571140160086,
+      "2026Q3_mean_z": -1.7896182942440646
+    },
+    {
+      "original_Stage1_feature": "soxx_vol20",
+      "mean_standardized_2026Q3_minus_2024Q3": 0.7354712940577883,
+      "2024Q3_mean_z": 1.578761986194877,
+      "2026Q3_mean_z": 2.3142332802526653
+    },
+    {
+      "original_Stage1_feature": "rv20",
+      "mean_standardized_2026Q3_minus_2024Q3": 0.7140031449089292,
+      "2024Q3_mean_z": 1.5588236482290085,
+      "2026Q3_mean_z": 2.272826793137938
+    }
+  ],
+  "illustrative_periods": [
+    "2024Q3",
+    "2026Q3"
+  ],
+  "new_model_fits": 0,
+  "new_native_accounts": 0,
+  "new_bootstrap_runs": 0,
+  "recorder_id": "66739637c55a4558818b18f978852e10",
+  "experiment_id": "585856773921239142",
+  "recorder_uri": "/Users/rziiiii/dev/workspace/research/stage1_beta_composition_original_inputs_attribution_20261022/qlib_recorder",
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "inputs/*",
+      "analysis/daily/*",
+      "analysis/quarter/*"
+    ]
+  },
+  "limitations": [
+    "Illustrative periods were identified from reused outcomes; standardized input contrasts are descriptive, not an ex-ante rule.",
+    "Risk state and holdings are account feedback, not independent market states.",
+    "No new source, model, economic account or qualified forward evidence."
+  ],
+  "nas_evidence": {
+    "sha256": "fe6afa906c494ed13c12c0d2849594b1173998ec6aba0615354782cb49b7e15f",
+    "size_bytes": 249458,
+    "media_type": "application/gzip",
+    "storage_uri": "sha256/fe/6a/fe6afa906c494ed13c12c0d2849594b1173998ec6aba0615354782cb49b7e15f",
+    "uploaded_by": "soxl-minute-research",
+    "created_at": "2026-10-22 23:41:41.895531+08",
+    "duplicate": false,
+    "nas_path": "/volume1/docker/yanxuan/registry/research-artifacts/fe/6a/fe6afa906c494ed13c12c0d2849594b1173998ec6aba0615354782cb49b7e15f",
+    "recorder_id": "66739637c55a4558818b18f978852e10",
+    "experiment_id": "585856773921239142",
+    "archive_root": "qlib_recorder"
+  },
+  "nas_readback": {
+    "sha256": "fe6afa906c494ed13c12c0d2849594b1173998ec6aba0615354782cb49b7e15f",
+    "bytes": 249458,
+    "verified": true
+  },
+  "interpretation": "For these two already-selected descriptive quarters, the composed target and ending cash weights nearly coincide; 2026Q3 held more cash and had higher risk-state frequency. Original Stage1 inputs also differ, especially rv60, semis_vs_cross_60, vix_z_60 and cross_dispersion_20. This does not establish that an ex-ante rule using them would improve the full account.",
+  "next_action": "Seek a genuinely distinct decision-time signal of recovery versus persistent weakness that adds information beyond all original 39 inputs. Do not tune the closed composition fraction, risk cap, volatility threshold, sign, or highlighted quarter on reused history. First qualify the original G17 Table1 numerical-vintage and publication boundary if pursuing physical activity.",
+  "independent_review": "independent_review.json"
+}
