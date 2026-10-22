@@ -10,6 +10,7 @@ source_cards:
 outputs:
   - availability_audit.json
   - readback_verification.json
+  - source_conflict_correction.json
   - yearly_availability.csv
   - summary.json
   - qlib_recorder

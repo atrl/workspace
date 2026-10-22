@@ -5,3 +5,5 @@
 使用冻结 Stage1 同源 Qlib 日历一次，将报表印出的美东 08:30 发布日期保守延到**下一实际交易日 09:31**才可用，且只映射该交易日收盘及以后的 Stage1 信号。2011–2022 训练 **3020/3020** 日、2023–2026 复用留出 **944/944** 日均能取得当时最近一条可用来源；没有发布当日使用，来源最大年龄 **76 天**。2012 年过渡期间保留此前最后已知旧口径事件，直到 2012-02 报表可用；不回填被隔离的 2012-01 值。完整事件、信号映射和 DatasetH 准备结果在 Qlib Recorder `0b4c648c44d24561a8c21e0182381aa3`，NAS 归档 SHA-256 `5287cd0280623e0e4f607d79bfe8cc3161d67d89dc1c68f1882ddbc14296504e`，限定原生读回及远端哈希见 `readback_verification.json`。初次解析因一份 PDF 日期逗号后无空格而停在 Qlib 之前；失败、44 份页首诊断和唯一机械修复的实际消耗均保留。
 
 决定：`FT900_source_calendar_alignment_complete_information_and_first_public_unqualified`。**这是开发期保守时钟，不证明历史首次公开 PDF 字节或跨 2012 年分类统计可比性。** 本卡零市场结果、零拟合、零账户。下一步如要测试增量，应事前冻结原 Stage1 39 输入的匹配信息门；信息通过仍须独立完整 0bp Tiered 费用账户、2/5bp 路径及合格前向证据才能谈超过 SOXX。
+
+**后续来源冲突更正：本卡的数值映射在 2012 年分类断点后自动延续了旧口径值 23 个信号日，违反先前冻结的“不得跨断点自动延续”审查。** 本 Recorder 和上述原始审计保留，但不能作因子输入。规范替代来源是 `research/stage1_ft900_export_availability_20261023`：它保留全部 3964 个信号日期、将该 23 日数值标为未知，独立来源复核已核对其余 3941 日一致。精确对象哈希和裁决见 `source_conflict_correction.json`。本卡当前决策更新为 `superseded_invalid_cross_transition_carry_for_factor`。

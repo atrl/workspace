@@ -80,7 +80,7 @@
     },
     {
       "card": "research/census_ft900_semiconductor_export_source_20261023",
-      "phase": "188_original_month_rows_Stage1_Qlib_calendar_aligned_first_public_and_information_pending",
+      "phase": "188_original_month_rows_canonical_Stage1_map_23_transition_unknown_first_public_and_information_pending",
       "role": "distinct_US_semiconductor_export_demand_source_preflight_for_Stage1",
       "full_economic_experiment": false,
       "status": "source_only_full_training_PDF_and_row_coverage_no_factor_or_account",
@@ -95,8 +95,10 @@
       "held_source_result": "research/census_ft900_semiconductor_export_source_20261023/held_source_result.json",
       "held_readback": "research/census_ft900_semiconductor_export_source_20261023/held_readback.json",
       "held_row_identity_audit": "research/census_ft900_semiconductor_export_source_20261023/held_row_identity_audit.json",
-      "Stage1_availability_result": "research/census_ft900_stage1_availability_20261023/availability_audit.json",
-      "Stage1_availability_readback": "research/census_ft900_stage1_availability_20261023/readback_verification.json",
+      "Stage1_availability_result": "research/stage1_ft900_export_availability_20261023/availability_audit.json",
+      "Stage1_availability_readback": "research/stage1_ft900_export_availability_20261023/readback_verification.json",
+      "superseded_carry_map": "research/census_ft900_stage1_availability_20261023/source_conflict_correction.json",
+      "blocked_information_design": "research/stage1_ft900_export_information_20261023/design_halt.json",
       "nas_archive_sha256": "0b45a088957196f7dda43827224aec38aa36c263803e93f768942952923e840b"
     }
   ],

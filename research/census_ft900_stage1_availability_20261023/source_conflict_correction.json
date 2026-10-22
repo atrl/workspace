@@ -1,0 +1,21 @@
+{
+  "status": "old_FT900_carry_map_superseded_for_factor_use",
+  "old_recorder_id": "0b4c648c44d24561a8c21e0182381aa3",
+  "old_map_artifact_sha256": "c72b0e65440a41f1669f51b0d25ef7531f6b74aa1382fe8640d9fff7287772ed",
+  "canonical_card": "research/stage1_ft900_export_availability_20261023",
+  "canonical_summary": "research/stage1_ft900_export_availability_20261023/summary.json",
+  "canonical_recorder_id": "e96807ef987d4abcb048dd350abc9428",
+  "canonical_map_artifact_sha256": "87ee84aa936598ec5eaa97e43a0ff0099086328f35b061a0a4226cc9c0f88b8f",
+  "independent_review_sha256": "69b0804c28a30f1940074aed2ccf2079c1abb99b30ba45e146796f35afbe0bdf",
+  "transition_unknown_rows": 23,
+  "transition_unknown_dates": [
+    "2012-03-12",
+    "2012-04-12"
+  ],
+  "matched_nontransition_rows": 3941,
+  "reason": "Frozen 2012 classification adjudication forbids automatic carry of pre-break numeric source across the January 2012 release. Original map carried it for 23 sessions; canonical map keeps the source clock and numeric coordinate unknown.",
+  "old_map_factor_input_authorized": false,
+  "new_model_fits": 0,
+  "new_native_accounts": 0,
+  "SOXX_goal_achieved": false
+}

@@ -1,6 +1,6 @@
 {
   "experiment": "census_ft900_stage1_availability_20261023",
-  "decision": "FT900_source_calendar_alignment_complete_information_and_first_public_unqualified",
+  "decision": "superseded_invalid_cross_transition_carry_for_factor",
   "objective_achieved": false,
   "result": "availability_audit.json",
   "readback_verification": "readback_verification.json",
@@ -31,5 +31,7 @@
       "sources/*",
       "analysis/*"
     ]
-  }
+  },
+  "source_conflict_correction": "source_conflict_correction.json",
+  "factor_input_authorized": false
 }
