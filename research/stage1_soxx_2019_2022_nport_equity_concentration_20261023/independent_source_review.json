@@ -1,0 +1,56 @@
+{
+  "verdict": "CONFIRM_SOURCE_ONLY",
+  "scope": "Original SOXX NPORT-P disclosed common-equity concentration events for the 2019-2022 late Stage1 training segment; no information fit or account",
+  "plan_sha256": "d54defb17b5e6a6850901d330f4e95f386dae44c51e1442e47da23afeafe4b60",
+  "parent_source_hashes_verified": {
+    "filing_metadata_result_sha256": "7a4c5d6ef6359b95a9871243d307db27024ef2682a527d334054c4add5553d53",
+    "twelve_original_XML_source_result_sha256": "be62443e6c59215a1bd0a163eb85866ca294181bc8c29ae27e72ef6c80075c25",
+    "reused_2019_specimen_schema_result_sha256": "9e111f9e3bd36ebe95a4147fab7f8a3b8075edb3643459adff100b9066fc32fe"
+  },
+  "source_checks": {
+    "original_XML_SHA256_verified": 13,
+    "original_XML_and_header_receipts_verified": 13,
+    "series_id": "S000004354",
+    "class_id": "C000012084",
+    "ticker_in_filing_metadata": "SOXX",
+    "EC_Long_NS_USD_CORP_rows_per_report": 30,
+    "total_EC_rows": 390,
+    "excluded_DE_rows_per_report": 2,
+    "excluded_STIV_rows_per_report": 2,
+    "all_original_pctVal_close_to_100_times_valUSD_over_original_netAssets_within_0_000001_percentage_points": true,
+    "top5_and_HHI_recomputed_from_EC_valUSD_over_EC_value_sum": true,
+    "placeholder_CUSIP_rows_preserved": 33,
+    "placeholder_values": ["000000000", "N/A"],
+    "cross_report_identity_inferred_from_placeholders": false
+  },
+  "bounded_repair_checks": {
+    "first_placeholder_failure_preserved": true,
+    "last_report_placeholder_failure_preserved": true,
+    "diagnostics_and_final_repairs_frozen_before_final_pass": true,
+    "original_XML_reads_recorded_total": 29,
+    "final_repair_XML_read_budget": 29,
+    "rows_dropped_for_CUSIP": 0
+  },
+  "native_alignment": {
+    "Qlib_Recorder_id": "7f2b90c01f3c4820a6173a113018adf3",
+    "Qlib_Recorder_status": "FINISHED",
+    "DatasetH_late_train_sessions": 1008,
+    "known_sessions": 780,
+    "unknown_prefix_sessions": 228,
+    "first_effective_signal": "2019-11-26",
+    "last_effective_signal": "2022-11-29",
+    "all_event_clocks_equal_next_actual_Qlib_session_strictly_after_filing_date": true,
+    "saved_Recorder_events_members_mapping_and_DatasetH_readback_verified": true
+  },
+  "NAS_remote_archive_SHA256_readback": {
+    "filing_metadata": "dfdf9c63a15972786078b8c2058e1c677c9c173f4e66dff47cd2d0109a21abda",
+    "twelve_original_XML": "a5834ee5d13a560409aca89f6e56d2abc36e099b7dc937e67d67af3697f30641",
+    "reused_2019_specimen": "4a5fc73692fcf3b3d43171a2dc156f98c2bb753c53d5ab0e07595ea193503308",
+    "native_Recorder": "720ed1ed5437451dd39a2b3ce324c4f503062177339bde861561a8050feb2393"
+  },
+  "limits": "The source and timing qualification covers only 2019-2022 late training. The 228-session prefix and earlier Stage1 history remain unknown; SEC accepted-display timezone and exact intraday receipt are not certified. These disclosed EC concentration values are neither official daily index weights nor SOXX outcome evidence.",
+  "material_evidence_defects": [],
+  "market_outcome_reads": 0,
+  "model_fits": 0,
+  "native_accounts": 0
+}

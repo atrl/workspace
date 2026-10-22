@@ -1,0 +1,11 @@
+{
+  "status": "first_original_2019_NPORT_XML_stopped_on_EC_CUSIP_identity_assertion",
+  "plan_sha256": "d54defb17b5e6a6850901d330f4e95f386dae44c51e1442e47da23afeafe4b60",
+  "code_sha256": "aacccb27a4775e3395cc57c630879974fcc6ab65f325c3af62c019a2c79b3158",
+  "XML_reads_consumed": 1,
+  "failure_location": "first EC row asserting nonempty unique cusip and name",
+  "market_outcome_reads": 0,
+  "model_fits": 0,
+  "native_accounts": 0,
+  "recorder_created": false
+}

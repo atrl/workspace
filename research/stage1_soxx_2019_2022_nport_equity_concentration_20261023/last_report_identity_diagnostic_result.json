@@ -1,0 +1,41 @@
+{
+  "status": "last_2022_EC_identity_diagnostic_complete_no_values",
+  "source_raw_sha256": "869d6e6597307b4ece7a22870665f3ec3a6da90554142fab1e2fdf8608da069f",
+  "EC_rows": 30,
+  "missing_CUSIP_rows": 0,
+  "duplicate_CUSIP_values": {
+    "N/A": 2
+  },
+  "missing_name_rows": 0,
+  "problem_rows": [
+    {
+      "name": "ASML Holding NV",
+      "title": "ASML Holding NV (Registered)",
+      "cusip": "N/A",
+      "identifiers": [
+        {
+          "tag": "isin",
+          "value": ""
+        }
+      ],
+      "reason": "duplicate_CUSIP"
+    },
+    {
+      "name": "NXP Semiconductors NV",
+      "title": "NXP Semiconductors NV",
+      "cusip": "N/A",
+      "identifiers": [
+        {
+          "tag": "isin",
+          "value": ""
+        }
+      ],
+      "reason": "duplicate_CUSIP"
+    }
+  ],
+  "XML_reads_total_after_diagnostic": 16,
+  "valUSD_or_pctVal_inspected": false,
+  "market_outcome_reads": 0,
+  "model_fits": 0,
+  "native_accounts": 0
+}

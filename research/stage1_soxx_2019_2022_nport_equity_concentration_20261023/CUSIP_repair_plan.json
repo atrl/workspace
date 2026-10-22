@@ -1,0 +1,21 @@
+{
+  "frozen": true,
+  "phase": "within_report_original_EC_row_identity_placeholder_CUSIP_repair",
+  "parent_plan": "plan.json",
+  "attempt1_failure": "attempt1_failure.json",
+  "diagnostic": "CUSIP_diagnostic_result.json",
+  "diagnostic_sha256": "8db1cd2699d54f8481c645b41178685c2a80f2e4be1a4801defea61a3e07dd9a",
+  "observed_source_semantics": "The original 2019-09-30 NPORT XML reports NXP Semiconductors NV, Marvell Technology Group Ltd and ASML Holding NV with placeholder CUSIP 000000000 and empty ISIN. All 30 original issuer names are nonempty. The placeholder is not a security identifier.",
+  "fixed_identity_rule": "Retain every EC row and original CUSIP string. Require all 30 original issuer names to be unique within each report; require non-placeholder CUSIPs to be unique and nonempty. Allow repeated exact placeholder 000000000 only with distinct names and label identifier_status=placeholder_CUSIP_name_only; do not map it to a current ticker, ISIN or cross-date identity. Keep same EC value denominator, 30-row requirement, net-asset percentage closure, timing and all gates.",
+  "revised_budget": {
+    "total_original_XML_reads_max": 15,
+    "additional_full_source_passes_max": 1,
+    "Qlib_D_calendar_calls_max": 1,
+    "DatasetH_builds_max": 1,
+    "new_Qlib_Recorders_max": 1,
+    "market_outcome_reads": 0,
+    "model_fits": 0,
+    "native_accounts": 0
+  },
+  "stop": "If any EC issuer name duplicates, real CUSIP duplicates, other fake/blank CUSIP occurs, or numeric checks fail, stop and retain source without dropping rows or selecting survivors."
+}

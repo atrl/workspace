@@ -1,0 +1,17 @@
+{
+  "frozen": true,
+  "parent_plan": "plan.json",
+  "failure": "attempt1_failure.json",
+  "scope": "Read only the exact first 2019-09-30 source XML once to classify which EC rows have missing or duplicate original CUSIP/name and which nested identifiers are present. Do not read valUSD/pctVal or market outcomes in this diagnostic. Preserve all original rows. Then decide whether a uniquely identified economic security can be established without dropping or filling any EC record.",
+  "source_raw_path": "data/snapshots/stage1_soxx_2019_nport_source_specimen_20261023/primary_doc.xml",
+  "source_raw_sha256": "951d162d4e996b74a7e1818e13c4c118c348320a95e54a72a4158a20c88d0e73",
+  "revised_budget": {
+    "total_original_XML_reads_max": 15,
+    "additional_diagnostic_reads_max": 1,
+    "final_full_source_passes_max": 1,
+    "market_outcome_reads": 0,
+    "model_fits": 0,
+    "native_accounts": 0
+  },
+  "stop": "If identity cannot be made unique from original filing fields, stop numeric concentration; no current ticker/CUSIP backfill or survivor deletion."
+}

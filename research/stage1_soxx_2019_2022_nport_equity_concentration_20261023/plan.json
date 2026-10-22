@@ -1,0 +1,135 @@
+{
+  "schema_version": 1,
+  "frozen": true,
+  "phase": "thirteen_original_NPORT_P_EC_equity_concentration_source_events_no_market_outcomes",
+  "question": "Do all 13 original SOXX NPORT-P reports from 2019-09 to 2022-09 yield a comparable, internally closed disclosed-common-equity concentration coordinate after each original SEC filing date?",
+  "sources": {
+    "metadata_result_path": "research/stage1_soxx_2019_2022_nport_filing_metadata_20261023/metadata_result.json",
+    "metadata_result_sha256": "7a4c5d6ef6359b95a9871243d307db27024ef2682a527d334054c4add5553d53",
+    "new_XML_source_result_path": "research/stage1_soxx_2019_2022_nport_original_xml_20261023/source_result.json",
+    "new_XML_source_result_sha256": "be62443e6c59215a1bd0a163eb85866ca294181bc8c29ae27e72ef6c80075c25",
+    "new_XML_NAS_archive_sha256": "a5834ee5d13a560409aca89f6e56d2abc36e099b7dc937e67d67af3697f30641",
+    "reused_2019_specimen_schema_result_path": "research/stage1_soxx_2019_nport_source_specimen_20261023/schema_semantics_result.json",
+    "reused_2019_specimen_schema_sha256": "9e111f9e3bd36ebe95a4147fab7f8a3b8075edb3643459adff100b9066fc32fe",
+    "reused_2019_NAS_archive_sha256": "4a5fc73692fcf3b3d43171a2dc156f98c2bb753c53d5ab0e07595ea193503308",
+    "original_XML": [
+      {
+        "accession": "0001752724-19-177706",
+        "report_period": "2019-09-30",
+        "filed": "2019-11-25",
+        "raw_path": "data/snapshots/stage1_soxx_2019_nport_source_specimen_20261023/primary_doc.xml",
+        "raw_sha256": "951d162d4e996b74a7e1818e13c4c118c348320a95e54a72a4158a20c88d0e73"
+      },
+      {
+        "accession": "0001752724-20-038669",
+        "report_period": "2019-12-31",
+        "filed": "2020-02-27",
+        "raw_path": "data/snapshots/stage1_soxx_2019_2022_nport_original_xml_20261023/0001752724-20-038669.xml",
+        "raw_sha256": "ca61d60001cf3ec4eaabecad09b4a51655fe07ef917d0b946ef2e52438cf1bd4"
+      },
+      {
+        "accession": "0001752724-20-112013",
+        "report_period": "2020-03-31",
+        "filed": "2020-06-01",
+        "raw_path": "data/snapshots/stage1_soxx_2019_2022_nport_original_xml_20261023/0001752724-20-112013.xml",
+        "raw_sha256": "0543fea92ecbdf2a6342ad5acede276f79c116a3d9af1a6c8787c7bc5b9df8a7"
+      },
+      {
+        "accession": "0001752724-20-176975",
+        "report_period": "2020-06-30",
+        "filed": "2020-08-27",
+        "raw_path": "data/snapshots/stage1_soxx_2019_2022_nport_original_xml_20261023/0001752724-20-176975.xml",
+        "raw_sha256": "c901df92fdedd6500bd9904af5bec5f7d05e8e25939396da2f8c8e25629bc69e"
+      },
+      {
+        "accession": "0001752724-20-247778",
+        "report_period": "2020-09-30",
+        "filed": "2020-11-25",
+        "raw_path": "data/snapshots/stage1_soxx_2019_2022_nport_original_xml_20261023/0001752724-20-247778.xml",
+        "raw_sha256": "7ad3b348a5711d46eb04849334f2f2f78003a545ebe1620d48b97b829e6c2387"
+      },
+      {
+        "accession": "0001752724-21-040706",
+        "report_period": "2020-12-31",
+        "filed": "2021-02-25",
+        "raw_path": "data/snapshots/stage1_soxx_2019_2022_nport_original_xml_20261023/0001752724-21-040706.xml",
+        "raw_sha256": "b589d98b79c4a0bc1e8f3a105330eed58d6b1e8620d263f84e3631e6afd7e7da"
+      },
+      {
+        "accession": "0001752724-21-116396",
+        "report_period": "2021-03-31",
+        "filed": "2021-05-27",
+        "raw_path": "data/snapshots/stage1_soxx_2019_2022_nport_original_xml_20261023/0001752724-21-116396.xml",
+        "raw_sha256": "1587b82078471a918eb0f6a85f7046a376238e5fa3f24fa0e9178053618833a5"
+      },
+      {
+        "accession": "0001752724-21-186189",
+        "report_period": "2021-06-30",
+        "filed": "2021-08-26",
+        "raw_path": "data/snapshots/stage1_soxx_2019_2022_nport_original_xml_20261023/0001752724-21-186189.xml",
+        "raw_sha256": "c6ca63fc0af4830f1b820c44bdb3b307d829937bcb717b406e84fdaf510bde8f"
+      },
+      {
+        "accession": "0001752724-21-255817",
+        "report_period": "2021-09-30",
+        "filed": "2021-11-24",
+        "raw_path": "data/snapshots/stage1_soxx_2019_2022_nport_original_xml_20261023/0001752724-21-255817.xml",
+        "raw_sha256": "718e651a358b8595b058d6ff74e14085293e9cc60f9860f5950e2e0263c575c4"
+      },
+      {
+        "accession": "0001752724-22-046342",
+        "report_period": "2021-12-31",
+        "filed": "2022-02-25",
+        "raw_path": "data/snapshots/stage1_soxx_2019_2022_nport_original_xml_20261023/0001752724-22-046342.xml",
+        "raw_sha256": "152f21fa26f944c56518308951ccefd7aa78e20fdb6a8678ee693cc2d7930a0e"
+      },
+      {
+        "accession": "0001752724-22-122864",
+        "report_period": "2022-03-31",
+        "filed": "2022-05-26",
+        "raw_path": "data/snapshots/stage1_soxx_2019_2022_nport_original_xml_20261023/0001752724-22-122864.xml",
+        "raw_sha256": "86e91dfcbfe5a0ff09340deccbb8e754386495974b5abfe2864f074e0ee44c4e"
+      },
+      {
+        "accession": "0001752724-22-193694",
+        "report_period": "2022-06-30",
+        "filed": "2022-08-25",
+        "raw_path": "data/snapshots/stage1_soxx_2019_2022_nport_original_xml_20261023/0001752724-22-193694.xml",
+        "raw_sha256": "a04e5192f680d6d72806e89c2b1439e6faee6478b4faf6ab55f89b0f89271bbc"
+      },
+      {
+        "accession": "0001752724-22-268670",
+        "report_period": "2022-09-30",
+        "filed": "2022-11-28",
+        "raw_path": "data/snapshots/stage1_soxx_2019_2022_nport_original_xml_20261023/0001752724-22-268670.xml",
+        "raw_sha256": "869d6e6597307b4ece7a22870665f3ec3a6da90554142fab1e2fdf8608da069f"
+      }
+    ],
+    "official_field_reference": "https://www.sec.gov/files/nport_readme.pdf"
+  },
+  "fixed_semantics": "Select only invstOrSec records where assetCat=EC, payoffProfile=Long, units=NS, curCd=USD and issuerCat=CORP. Require exactly 30 distinct original CUSIPs per report, positive balance and valUSD, and pctVal within 0.000001 percentage points of 100*valUSD/original netAssets. Exclude DE and STIV from the equity denominator but keep their counts. For each report normalize EC weights as valUSD/sum_EC_valUSD, report top-five share and sum of squared EC weights; do not substitute fund NAV percentages, current index weights or vendor current holdings.",
+  "availability": "Use original SEC filing calendar date, never report-period date or XML signature date. First eligible Stage1 signal is the next actual native Qlib session strictly after the filing date; accepted-display clock is retained but timezone not certified. This source event does not assert exact intraday receipt. Retain every late-train Qlib session and keep all dates before the first 2019 NPORT public filing missing; no survivor compaction.",
+  "calendar_provider": "data/qlib/minute_information_pit_allocator_20261012/daily_prices",
+  "cohort": "2019-01-02 to 2022-12-30 source-calendar audit only; no SOXX outcome or model read",
+  "budget": {
+    "original_XML_reads_max": 13,
+    "Qlib_D_calendar_calls_max": 1,
+    "new_Qlib_Recorders_max": 1,
+    "NAS_recorder_archives_max": 1,
+    "market_outcome_reads": 0,
+    "model_fits": 0,
+    "native_accounts": 0,
+    "DatasetH_builds_max": 1
+  },
+  "acceptance": "All 13 raw hashes, source identities, 30 EC rows, net-asset percentage checks and uniqueness pass; one native Qlib calendar/DatasetH alignment over every 2019-2022 session and Recorder readback pass, with pre-first-filing values missing; Recorder archive NAS SHA and scoped restore pass. This qualifies source event semantics for the late training segment, not a full 2011-2022 feature or SOXX alpha.",
+  "stop": "Any raw/NAS identity drift, missing or duplicate CUSIP, nonpositive/unknown EC value, unexpected category, pctVal closure failure, filing-date collision or Qlib/Recorder/NAS mismatch stops; do not select survivor reports, renormalize missing rows or read market returns.",
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "inputs/*",
+      "analysis/*",
+      "metadata/*"
+    ]
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "status": "NPORT_original_13_report_EC_concentration_source_events_Qlib_mapped_no_fit",
+  "source_plan_sha256": "d54defb17b5e6a6850901d330f4e95f386dae44c51e1442e47da23afeafe4b60",
+  "report_events": 13,
+  "member_rows": 390,
+  "placeholder_CUSIP_rows": 33,
+  "XML_reads_total": 29,
+  "late_train_Qlib_sessions": 1008,
+  "known_signal_sessions": 780,
+  "unknown_prefix_sessions": 228,
+  "first_effective_signal": "2019-11-26",
+  "last_effective_signal": "2022-11-29",
+  "max_source_age_days": 95,
+  "top5_source_bounds": [
+    0.35091771331210675,
+    0.4128431776823888
+  ],
+  "HHI_source_bounds": [
+    0.04712960754009855,
+    0.05405313693416049
+  ],
+  "market_outcome_reads": 0,
+  "model_fits": 0,
+  "native_accounts": 0,
+  "full_Stage1_training_coverage_qualified": false
+}

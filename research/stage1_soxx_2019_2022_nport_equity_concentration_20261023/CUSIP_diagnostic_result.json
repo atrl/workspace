@@ -1,0 +1,53 @@
+{
+  "status": "first_2019_EC_identity_diagnostic_complete_no_values",
+  "source_raw_sha256": "951d162d4e996b74a7e1818e13c4c118c348320a95e54a72a4158a20c88d0e73",
+  "EC_rows": 30,
+  "missing_CUSIP_rows": 0,
+  "duplicate_CUSIP_values": {
+    "000000000": 3
+  },
+  "missing_name_rows": 0,
+  "problem_rows": [
+    {
+      "name": "NXP Semiconductors NV",
+      "title": "NXP Semiconductors NV",
+      "cusip": "000000000",
+      "identifiers": [
+        {
+          "tag": "isin",
+          "value": ""
+        }
+      ],
+      "reason": "duplicate_CUSIP"
+    },
+    {
+      "name": "Marvell Technology Group Ltd",
+      "title": "Marvell Technology Group Ltd",
+      "cusip": "000000000",
+      "identifiers": [
+        {
+          "tag": "isin",
+          "value": ""
+        }
+      ],
+      "reason": "duplicate_CUSIP"
+    },
+    {
+      "name": "ASML Holding NV",
+      "title": "ASML Holding NV",
+      "cusip": "000000000",
+      "identifiers": [
+        {
+          "tag": "isin",
+          "value": ""
+        }
+      ],
+      "reason": "duplicate_CUSIP"
+    }
+  ],
+  "XML_reads_total_after_diagnostic": 2,
+  "valUSD_or_pctVal_inspected": false,
+  "market_outcome_reads": 0,
+  "model_fits": 0,
+  "native_accounts": 0
+}

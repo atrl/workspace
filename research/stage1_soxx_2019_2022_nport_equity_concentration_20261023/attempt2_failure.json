@@ -1,0 +1,16 @@
+{
+  "status": "second_full_source_pass_stopped_on_last_report_nonplaceholder_CUSIP_identity_assertion",
+  "source_accession": "0001752724-22-268670",
+  "report_period": "2022-09-30",
+  "source_raw_sha256": "869d6e6597307b4ece7a22870665f3ec3a6da90554142fab1e2fdf8608da069f",
+  "plan_sha256": "d54defb17b5e6a6850901d330f4e95f386dae44c51e1442e47da23afeafe4b60",
+  "repair_code_sha256": "00880d645d822759088dcd5d08db2a2ef7d23c6223032def823f1d1f72672243",
+  "total_XML_reads_consumed": 15,
+  "successful_reports_before_failure": 12,
+  "Qlib_D_calendar_calls": 0,
+  "DatasetH_builds": 0,
+  "new_Qlib_Recorders": 0,
+  "market_outcome_reads": 0,
+  "model_fits": 0,
+  "native_accounts": 0
+}

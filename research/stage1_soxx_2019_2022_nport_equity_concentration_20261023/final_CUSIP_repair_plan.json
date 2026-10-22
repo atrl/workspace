@@ -1,0 +1,21 @@
+{
+  "frozen": true,
+  "phase": "final_original_CUSIP_placeholder_representation_repair_no_financial_choice_change",
+  "parent_plan": "plan.json",
+  "prior_failure": "attempt2_failure.json",
+  "diagnostic": "last_report_identity_diagnostic_result.json",
+  "diagnostic_sha256": "f62cc93e683468259b32e0348f55478c50d95dc9dba326d55a078efd70a2fee2",
+  "observed_semantics": "Last 2022-09-30 original NPORT XML has ASML Holding NV and NXP Semiconductors NV each reporting CUSIP N/A with empty ISIN, whereas first 2019 XML used repeated 000000000 placeholder for three foreign issuers. Within-report original names remain nonempty and unique.",
+  "fixed_identity_rule": "Accept exact original CUSIP placeholders 000000000 and N/A as unknown identifiers only, keyed within one report by distinct original issuer name/title; preserve placeholder string and identifier_status. Nonplaceholder CUSIPs must be nonempty and unique. No cross-date security identity is inferred. All 30 EC rows, valUSD/pctVal/netAssets checks, normalized equity denominator, filing-time rule, source hashes and scientific gates remain unchanged.",
+  "budget": {
+    "total_original_XML_reads_max": 29,
+    "additional_full_source_passes_max": 1,
+    "Qlib_D_calendar_calls_max": 1,
+    "DatasetH_builds_max": 1,
+    "new_Qlib_Recorders_max": 1,
+    "market_outcome_reads": 0,
+    "model_fits": 0,
+    "native_accounts": 0
+  },
+  "stop": "Any unexpected placeholder, duplicate issuer name, real duplicate CUSIP, missing value, pctVal closure or Qlib/NAS error stops this fixed source version; no fourth pass or parameter/row rescue."
+}
