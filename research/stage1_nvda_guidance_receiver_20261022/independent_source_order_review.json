@@ -1,0 +1,12 @@
+{
+  "schema_version": 1,
+  "scope": "Independent read-only execution-order review before any B/C fit",
+  "verdict": "NEEDS_PREFIT_ACCOUNT_SOURCE_IDENTITY_RECHECK",
+  "reviewed_plan_sha256": "89030af17eaa90d283346aecce0da85a6cfc712575f189e5c2cb3d111d91bafa",
+  "reviewed_workflow_sha256": "62be1b5bee4d565a2545c09d803344c2880ecfcf86647b5894a32cc9291c8733",
+  "finding": "run() calls fit_and_seal_models() before prepare_account_sources(). Training preparation verifies model and guidance sources, but the current raw-price, controller and native reference identities are not rechecked at fit start. A changed account source can consume up to six fixed fits before the account preflight detects it.",
+  "existing_evidence": "account_source_preflight.json is a valid prior snapshot bound to this plan; it does not itself assert source bytes remain identical when fit begins.",
+  "required_repair": "Before R.start or any fit attempt, verify the pinned raw-price, guard, schedule, controller, action-selection, release and reference Recorder artifact hashes against the approved plan without loading 2023+ evaluation returns. Keep full account-object loading and all outcome reads behind the six-model prediction seal.",
+  "model_fits_or_accounts_performed_by_review": 0,
+  "promotion_or_fit_approval": false
+}
