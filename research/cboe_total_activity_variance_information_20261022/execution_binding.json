@@ -1,0 +1,26 @@
+{
+  "schema_version": 1,
+  "status": "execution_identity_frozen_before_outcome_read",
+  "plan_sha256": "1277744ab022cad5ee17fa15c90cba08864dec4fae6ce31b4f4e49a7929b72b8",
+  "source_recorder_id": "c3b812bc5fda409fac836fdd3a08fe0a",
+  "source_verification_manifest_sha256": "2f43544ab2b3625dff9f5eb6d6d3377a648b8d97c72828a23efc487c7413e248",
+  "source_artifact": "analysis/observed_daily",
+  "source_artifact_sha256": "6cdfc350b72b0a95237f42a97bab55666249b1faec844abba3884b033d3d9e55",
+  "provider_files_sha256": {
+    "data/qlib/soxl/qlib_store_manifest.json": "3a18d2f4059f08a4de036e250a31fee0aec4c1e0891226dfdfec2a6f88993420",
+    "data/qlib/soxl/calendars/day.txt": "eec86bc6deab1067feaf4b78d6385f83c82fbdfa57e54df068686556a539593e",
+    "data/qlib/soxl/features/SOXX/open.day.bin": "5a6a48fb7482e8d0cd3490f0bef68ab52e57af21016779b979be92ea92572666",
+    "data/qlib/soxl/features/SOXX/close.day.bin": "2b8f690d6d1db8f3ee9740905c3540d36aa14afca8d4b1cd7a635b40aad9bb6e",
+    "data/qlib/soxl/features/SOXX/volume.day.bin": "d29ade39f91f2c3a9ae7f9c304fe2f84c139ef34d6d70b17c79e63e8071b7ac3"
+  },
+  "forward_plan_sha256": "760ec13f63a4f285840d004d715e54728c1b3baf749154f62fde61b103af7666",
+  "forward_addendum_sha256": "2ae5bd2155bd2cf74798bcf2e99d4f233a4068478a9382dacc5638803229a69c",
+  "prior_receipts_sha256": {
+    "20261022T040020511695Z.json": "38e8205bb9182e23dc3edc28e095f632c5a4040643eee2bb0b3a238e53b06b72",
+    "20261022T043839228878Z.json": "45b733a63ce65583e805c1e7cc50cccc107653eb43a9af0315ef44d632851dfc"
+  },
+  "third_receipt_not_before_utc": "2026-10-22T12:45:00+00:00",
+  "market_outcome_reads": 0,
+  "model_fits": 0,
+  "accounts": 0
+}

@@ -1,0 +1,10 @@
+experiment: cboe_total_activity_variance_information_20261022
+plan: precommitted_information_plan.json
+execution_binding: execution_binding.json
+provider_uri: data/qlib/soxl
+frequency: day
+instruments: [SOXX]
+source_artifact: analysis/observed_daily
+source_gate: third_same_date_Cboe_preopen_vintage
+model_budget: 2
+native_account_budget: 0

@@ -13,12 +13,14 @@
     },
     {
       "card": "research/cboe_total_activity_variance_information_20261022",
-      "phase": "fixed_information_plan_frozen_source_gate_pending",
+      "phase": "source_gate_pending_notebook_preflight_verified",
       "role": "separate_total_option_activity_variance_mechanism",
       "full_economic_experiment": false,
-      "status": "precommitted_no_model_fit_third_Cboe_vintage_due_1245_UTC",
+      "status": "two_frozen_vintages_only_no_model_fit_third_due_1245_UTC",
       "execution_authorized": true,
-      "design_brief": "research/cboe_total_activity_variance_information_20261022/precommitted_information_plan.json"
+      "design_brief": "research/cboe_total_activity_variance_information_20261022/precommitted_information_plan.json",
+      "implementation_notebook": "research/cboe_total_activity_variance_information_20261022/cboe_total_activity_variance_information_20261022.ipynb",
+      "execution_binding": "research/cboe_total_activity_variance_information_20261022/execution_binding.json"
     },
     {
       "card": "research/korea_semiconductor_exports_korean_vintage_20261022",

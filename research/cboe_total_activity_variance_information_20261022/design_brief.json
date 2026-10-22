@@ -1,5 +1,5 @@
 {
-  "status": "fixed_information_plan_frozen_source_gate_pending",
+  "status": "source_gate_pending_notebook_preflight_verified",
   "objective": "Test whether pretrade total Cboe SOXX option activity adds next-five-session realized-variance information beyond price, realized variance and stock volume. A later risk or SOXX outperformance claim requires separate evidence.",
   "mechanism": "Within-symbol surprise in total Cboe SOXX option participation may anticipate future realized volatility beyond prior SOXX RV, signed return and stock volume. This measures intensity, not put/call direction or implied skew.",
   "distinctness": "Cboe 2019-2026 four-exchange total contract count; different quantity and history from the closed OCC put-share composition screen. Closed signed semivariance and SIA/inventory routes are not retuned.",
@@ -26,5 +26,8 @@
   "qualified_forward_days": 0,
   "promotion_boundary": "All v2 SOXX fee-net, risk, annual, rolling, bootstrap and independent forward gates still required.",
   "next_due_source_observation": "2026-10-22T12:45:00+00:00 after the US preopen observation gate; third exact Oct21 report vintage, not a new factor fit",
-  "frozen_information_plan": "research/cboe_total_activity_variance_information_20261022/precommitted_information_plan.json"
+  "frozen_information_plan": "research/cboe_total_activity_variance_information_20261022/precommitted_information_plan.json",
+  "implementation_notebook": "research/cboe_total_activity_variance_information_20261022/cboe_total_activity_variance_information_20261022.ipynb",
+  "execution_binding": "research/cboe_total_activity_variance_information_20261022/execution_binding.json",
+  "preopen_gate_verified_before_market_read": true
 }
