@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "status": "current_OFR_FSI_pre_2017_full_Stage1_PIT_unqualified",
+  "official_2017_announcement": "https://www.financialresearch.gov/from-the-director/2017/10/25/the-ofr-introduces-financial-stability-index-and-financial-vulnerabilities-monitor/",
+  "official_2017_announcement_published": "2017-10-25",
+  "2017_statement": "OFR introduced the current FSI among two new tools and announced daily updates. This establishes a hard caution for treating the current CSV backhistory 2000-2017 as a historically tradeable current-method signal.",
+  "official_2014_report": "https://www.financialresearch.gov/annual-reports/files/office-of-financial-research-annual-report-2014.pdf",
+  "2014_context": "An earlier OFR FSI existed in 2014 using a rolling principal-component description; this does not certify identity of the current 33-variable FSI historical backfill or exact old funding subcomponent values.",
+  "current_CSV_first_date": "2000-01-03",
+  "current_CSV_last_date": "2026-10-20",
+  "major_revision": "The official 2023 workbook documents old/new FSI and Funding values for 382 dates 2022-01-03..2023-06-23. Funding median absolute change 0.307337, maximum 0.763905. Updated workbook values exactly match current CSV on those dates up to floating precision.",
+  "conservative_scope": "No full 2011-2022 current-FSI Stage1 allocation feature or account is qualified. A separate 2018-2022 10:32 recovery-action source map may be researched conditionally using OFR release lag and documented old-versus-new values, but first-public individual daily source and 2026 corrections remain unqualified.",
+  "SOXX_outcome_reads": 0,
+  "model_fits": 0,
+  "accounts": 0
+}

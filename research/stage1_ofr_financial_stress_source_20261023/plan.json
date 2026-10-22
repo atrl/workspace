@@ -1,0 +1,46 @@
+{
+  "schema_version": 1,
+  "frozen": true,
+  "experiment": "stage1_ofr_financial_stress_source_20261023",
+  "phase": "official_OFR_FSI_source_coverage_and_revision_only_no_factor",
+  "question": "Does the U.S. Office of Financial Research supply full original-source daily systemic-financial-stress history and revision documentation across the 2011-2026 frozen Stage1 calendar, with category columns that may represent funding stress distinct from the old 39 price/VIX/breadth inputs?",
+  "official_context": {
+    "page": "https://www.financialresearch.gov/financial-stress-index/",
+    "published_data_lag": "The OFR page says the FSI publishes data current from two business days prior. This is a current website statement, not historical first-receipt proof.",
+    "current_revision_warning": "The page reports corrected May 2026 CEMBI feed dates; the current CSV may contain retrospective changes.",
+    "indicator_methodology_change": "Official June 2023 release replaced seven reference-rate components effective from 2022-01-01. Do not assume the current full-history data were exactly the values available historically."
+  },
+  "exact_requests": [
+    {
+      "name": "fsi.csv",
+      "url": "https://www.financialresearch.gov/financial-stress-index/data/fsi.csv",
+      "expected": "text/csv"
+    },
+    {
+      "name": "FSI_Revision_History_2023-06-27.xlsx",
+      "url": "https://www.financialresearch.gov/financial-stress-index/files/FSI_Revision_History_2023-06-27.xlsx",
+      "expected": "xlsx"
+    }
+  ],
+  "request": {
+    "method": "GET",
+    "user_agent": "Mozilla/5.0 soxl-qlib-source-research",
+    "connect_timeout_seconds": 10,
+    "total_timeout_seconds_each": 60,
+    "max_response_bytes_each": 15000000,
+    "seconds_between_requests": 1,
+    "max_GETs": 2,
+    "retries": 0
+  },
+  "identity_gate": "CSV HTTP200, valid header with date and numeric FSI-related fields, unique dates, at least one nonmissing numeric observation before 2011-01-03 and after 2026-10-07. Save exact rows and column names; do not choose a factor from source values. XLSX HTTP200 ZIP office workbook identity and nonempty revision text; if second request fails stop and archive received bytes.",
+  "conditional_second_request": "Fetch revision workbook only after CSV passes transport, schema and full-span identity.",
+  "NAS_backup": "Archive exact response bodies, headers, request/receipt UTC clocks, SHA-256 and source manifest; verify remote archive hash and scoped raw-member restore. Raw files local under data/snapshots only; no large CSV committed.",
+  "budget": {
+    "external_GETs_max": 2,
+    "SOXX_outcome_reads": 0,
+    "model_fits": 0,
+    "native_accounts": 0,
+    "Qlib_Recorders": 0
+  },
+  "stop": "Any transport/identity/coverage/NAS failure stops without source substitution. A successful source capture is retrospective availability only; next phase must pre-register a single column/formula, conservative publication lag, 2022 methodology transition and revision treatment, Qlib map and old39 redundancy before information fit. No 0bp account from this source-only card."
+}

@@ -1,0 +1,30 @@
+[
+  {
+    "name": "fsi.csv",
+    "url": "https://www.financialresearch.gov/financial-stress-index/data/fsi.csv",
+    "requested_at_utc": "2026-10-22T20:46:54.803852+00:00",
+    "received_at_utc": "2026-10-22T20:46:56.313676+00:00",
+    "curl_exit_code": 0,
+    "http_status": 200,
+    "final_url": "https://www.financialresearch.gov/financial-stress-index/data/fsi.csv",
+    "stderr": "",
+    "raw_sha256": "c59b58d64c9d63e4684071baf8ff54b127158f76025638634df91a49fbea89e9",
+    "raw_bytes": 516721,
+    "headers_sha256": "d4b3516f75989ef2e867cf70ce8e58d93df63169e4007b6f2c0c5dbaa5755044",
+    "headers_bytes": 1449
+  },
+  {
+    "name": "FSI_Revision_History_2023-06-27.xlsx",
+    "url": "https://www.financialresearch.gov/financial-stress-index/files/FSI_Revision_History_2023-06-27.xlsx",
+    "requested_at_utc": "2026-10-22T20:46:57.354542+00:00",
+    "received_at_utc": "2026-10-22T20:46:58.454294+00:00",
+    "curl_exit_code": 0,
+    "http_status": 200,
+    "final_url": "https://www.financialresearch.gov/financial-stress-index/files/FSI_Revision_History_2023-06-27.xlsx",
+    "stderr": "",
+    "raw_sha256": "f59409523075f5b8224e148f828e6138a988814fe753c3e72366b220b0696585",
+    "raw_bytes": 125482,
+    "headers_sha256": "57f8bd50b83c5041800f0d540fd6b112dd241c9ab5ce6012215ef7a3318edf8f",
+    "headers_bytes": 1441
+  }
+]

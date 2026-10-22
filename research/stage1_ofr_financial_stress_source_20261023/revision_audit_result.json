@@ -1,0 +1,88 @@
+{
+  "schema_version": 1,
+  "status": "official_OFR_revision_materiality_audited_current_snapshot_not_PIT",
+  "plan_sha256": "073e2685f1ddf57159b2304149609d971e2e3dc75e5a77e7664024d5bfc0d961",
+  "source_NAS_archive_sha256": "074e2c56f6f95a4f56382a32e25c65ad560e5a53ee6e4bb7fd58e50bc247b369",
+  "posted_revision_events": [
+    {
+      "posted_revision_date": "2018-05-18",
+      "description": "Values of the OFR FSI and all of its subcomponents between 10/2/2017 and 5/17/2018 (inclusive) were revised to correct for missing values for the ICE BAML Euro Area Corp Bond Index (OAS), which was found not to be updating."
+    },
+    {
+      "posted_revision_date": "2018-12-04",
+      "description": "Values of the OFR FSI and all of its subcomponents on 8/30/2018 were revised to correct for erroneous input data received on that date for the MSCI Emerging Markets Index. Values of the OFR FSI and all of its subcomponents on 11/1/2018 were revised to correct for erroneous input data received on that date for the JPMorgan CEMBI Strip Spread and the JPMorgan EMBI Global Strip Spread."
+    },
+    {
+      "posted_revision_date": "2021-02-12",
+      "description": "The the JP Morgan Emerging Market Volatility Index (EM-VXY) was miscategorized. It is now properly classified as Emerging Markets (EM)."
+    },
+    {
+      "posted_revision_date": "2022-10-27",
+      "description": "The FSI visualization was changed to illustrate the contents of the resulting measurements better. There was no change to the tool's input data, calculation, or output."
+    },
+    {
+      "posted_revision_date": "2023-06-27",
+      "description": "Variables in the funding category were replaced with new variables. The old variables were tied to obsolete reference rates, including USD LIBOR, JPY LIBOR, and EONIA. As outlined in OFR Working paper 23-06, these variables have been replaced with appropriate substitutes. This update revises the FSI values from Jan. 1, 2022 to June 26, 2023. The revised values use the new variables. FSI values from before Jan. 1, 2022 are left unchanged."
+    }
+  ],
+  "paired_revision_sheets": [
+    {
+      "revision_date": "2018-05-18",
+      "sheet": "sheet2.xml",
+      "paired_rows": 158,
+      "first_affected_date": "2017-10-02",
+      "last_affected_date": "2018-05-17",
+      "old_vs_updated_total_abs_median": 0.040999999999999925,
+      "old_vs_updated_total_abs_max": 0.16500000000000004,
+      "old_vs_updated_total_share_gt_0p1": 0.26582278481012656,
+      "old_vs_updated_funding_abs_median": 0.006500000000000002,
+      "old_vs_updated_funding_abs_max": 0.045999999999999985,
+      "old_vs_updated_funding_share_gt_0p1": 0.0,
+      "updated_vs_current_CSV_total_abs_max": 0.0,
+      "updated_vs_current_CSV_total_rows_gt_0p01": 0,
+      "updated_vs_current_CSV_funding_abs_max": 0.0,
+      "updated_vs_current_CSV_funding_rows_gt_0p01": 0
+    },
+    {
+      "revision_date": "2018-12-04",
+      "sheet": "sheet3.xml",
+      "paired_rows": 2,
+      "first_affected_date": "2018-08-30",
+      "last_affected_date": "2018-11-01",
+      "old_vs_updated_total_abs_median": 0.7665,
+      "old_vs_updated_total_abs_max": 0.8,
+      "old_vs_updated_total_share_gt_0p1": 1.0,
+      "old_vs_updated_funding_abs_median": 0.013500000000000012,
+      "old_vs_updated_funding_abs_max": 0.02100000000000002,
+      "old_vs_updated_funding_share_gt_0p1": 0.0,
+      "updated_vs_current_CSV_total_abs_max": 0.0,
+      "updated_vs_current_CSV_total_rows_gt_0p01": 0,
+      "updated_vs_current_CSV_funding_abs_max": 0.0,
+      "updated_vs_current_CSV_funding_rows_gt_0p01": 0
+    },
+    {
+      "revision_date": "2023-06-27",
+      "sheet": "sheet4.xml",
+      "paired_rows": 382,
+      "first_affected_date": "2022-01-03",
+      "last_affected_date": "2023-06-23",
+      "old_vs_updated_total_abs_median": 0.417975120580815,
+      "old_vs_updated_total_abs_max": 1.48850356227226,
+      "old_vs_updated_total_share_gt_0p1": 0.7801047120418848,
+      "old_vs_updated_funding_abs_median": 0.3073371101612832,
+      "old_vs_updated_funding_abs_max": 0.763904506946454,
+      "old_vs_updated_funding_share_gt_0p1": 0.9633507853403142,
+      "updated_vs_current_CSV_total_abs_max": 1.021405182655144e-14,
+      "updated_vs_current_CSV_total_rows_gt_0p01": 0,
+      "updated_vs_current_CSV_funding_abs_max": 9.159339953157541e-16,
+      "updated_vs_current_CSV_funding_rows_gt_0p01": 0
+    }
+  ],
+  "current_csv_rows": 6784,
+  "historical_first_public_vintage_qualified": false,
+  "historical_methodology_revisions_fully_qualified": false,
+  "SOXX_outcome_reads": 0,
+  "model_fits": 0,
+  "accounts": 0,
+  "interpretation": "The official revision workbook exposes original versus updated values for named 2018 and 2023 revision windows. The current CSV is a retrospective snapshot; posted revision list and two-business-day current page note do not certify all daily first-public versions, and the page reports an additional 2026 correction after workbook date."
+}

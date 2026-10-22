@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "frozen": true,
+  "phase": "official_OFR_FSI_revision_materiality_and_current_snapshot_reconciliation_no_factor",
+  "source_plan_sha256": "9c693c1987a34dce37966fec831a8c5ab7e9e850bd973079f152ff9bc139b83f",
+  "source_result_sha256": "d9e772e0ad4703bda149945173a02376c34c2778700674c53c078aeb9efaa440",
+  "CSV_sha256": "c59b58d64c9d63e4684071baf8ff54b127158f76025638634df91a49fbea89e9",
+  "revision_workbook_sha256": "f59409523075f5b8224e148f828e6138a988814fe753c3e72366b220b0696585",
+  "worksheets": {
+    "2018-05-18": "sheet2.xml",
+    "2018-12-04": "sheet3.xml",
+    "2023-06-27": "sheet4.xml"
+  },
+  "audit": "Extract posted revision dates/descriptions from sheet1 and original/updated row pairs from three named sheets. For each revision and total FSI plus Funding, report affected date range, paired row count, old-new absolute difference median/max and share changed >0.1 index point. Compare workbook updated values with current CSV on exact dates without assuming they match. Preserve workbook 2023 sheet-title typo, do not reinterpret date from that title.",
+  "source_boundary": "Current CSV is retrospective; workbook revision dates do not prove first-public times for every daily value or unlisted later corrections. The OFR page reports a 2026 CEMBI feed correction not represented in this 2023 workbook. No feature/label/model/account in this audit.",
+  "budget": {
+    "raw_local_source_reads": 2,
+    "SOXX_outcome_reads": 0,
+    "model_fits": 0,
+    "accounts": 0
+  }
+}

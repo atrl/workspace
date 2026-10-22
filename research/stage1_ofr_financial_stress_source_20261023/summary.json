@@ -1,0 +1,27 @@
+{
+  "experiment": "stage1_ofr_financial_stress_source_20261023",
+  "decision": "official_full_numeric_history_received_pre2017_PIT_and_revision_boundaries_unqualified",
+  "objective_achieved": false,
+  "source_result": "source_result.json",
+  "revision_audit": "revision_audit_result.json",
+  "publication_boundary": "publication_boundary.json",
+  "CSV_rows": 6784,
+  "CSV_first_last": [
+    "2000-01-03",
+    "2026-10-20"
+  ],
+  "funding_numeric_rows": 6784,
+  "revision_2023_funding_median_abs_delta": 0.3073371101612832,
+  "revision_2023_funding_max_abs_delta": 0.763904506946454,
+  "pre_2017_current_index_PIT_qualified": false,
+  "historical_first_public_vintage_qualified": false,
+  "new_model_fits": 0,
+  "new_native_accounts": 0,
+  "NAS_archive_sha256": "074e2c56f6f95a4f56382a32e25c65ad560e5a53ee6e4bb7fd58e50bc247b369",
+  "NAS_remote_and_scoped_restore_verified": true,
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": []
+  }
+}

@@ -1,0 +1,98 @@
+{
+  "status": "OFR_FSI_official_current_full_span_and_revision_document_received_PIT_pending",
+  "failure": null,
+  "GET_attempts": 2,
+  "checks": [
+    {
+      "name": "fsi.csv",
+      "status": "official_CSV_schema_full_span_passed",
+      "raw_sha256": "c59b58d64c9d63e4684071baf8ff54b127158f76025638634df91a49fbea89e9",
+      "columns": [
+        "Date",
+        "OFR FSI",
+        "Credit",
+        "Equity valuation",
+        "Safe assets",
+        "Funding",
+        "Volatility",
+        "United States",
+        "Other advanced economies",
+        "Emerging markets"
+      ],
+      "date_column": "Date",
+      "rows": 6784,
+      "first_date": "2000-01-03",
+      "last_date": "2026-10-20",
+      "numeric_columns": [
+        {
+          "column": "OFR FSI",
+          "numeric_rows": 6784
+        },
+        {
+          "column": "Credit",
+          "numeric_rows": 6784
+        },
+        {
+          "column": "Equity valuation",
+          "numeric_rows": 6784
+        },
+        {
+          "column": "Safe assets",
+          "numeric_rows": 6784
+        },
+        {
+          "column": "Funding",
+          "numeric_rows": 6784
+        },
+        {
+          "column": "Volatility",
+          "numeric_rows": 6784
+        },
+        {
+          "column": "United States",
+          "numeric_rows": 6784
+        },
+        {
+          "column": "Other advanced economies",
+          "numeric_rows": 6784
+        },
+        {
+          "column": "Emerging markets",
+          "numeric_rows": 6784
+        }
+      ],
+      "duplicate_dates": 0
+    },
+    {
+      "name": "FSI_Revision_History_2023-06-27.xlsx",
+      "status": "official_revision_workbook_identity_passed",
+      "raw_sha256": "f59409523075f5b8224e148f828e6138a988814fe753c3e72366b220b0696585",
+      "zip_member_count": 21,
+      "nonempty_text_tokens": 6489,
+      "sample_text_tokens": [
+        "-3.605",
+        "-3.4550000000000001",
+        "-0.70699999999999996",
+        "-0.70799999999999996",
+        "-0.379",
+        "-0.22800000000000001",
+        "-0.16500000000000001",
+        "-0.16700000000000001",
+        "-0.38700000000000001",
+        "-0.38500000000000001",
+        "-1.9670000000000001",
+        "-1.9670000000000001",
+        "-1.4570000000000001",
+        "-1.393",
+        "-1.901"
+      ]
+    }
+  ],
+  "NAS_archive_sha256": "074e2c56f6f95a4f56382a32e25c65ad560e5a53ee6e4bb7fd58e50bc247b369",
+  "NAS_remote_and_scoped_restore_verified": true,
+  "SOXX_outcome_reads": 0,
+  "model_fits": 0,
+  "native_accounts": 0,
+  "historical_first_public_vintage_qualified": false,
+  "historical_methodology_revisions_qualified": false
+}
