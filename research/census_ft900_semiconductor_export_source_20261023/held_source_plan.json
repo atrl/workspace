@@ -1,0 +1,26 @@
+{
+  "schema_version": 1,
+  "frozen": true,
+  "phase": "source_only_2023_01_to_2026_08_FT900_monthly_PDF_intake",
+  "url_manifest": "held_url_manifest.json",
+  "url_manifest_sha256": "9209e350f76b0b224445bd23f483c7858d4a14cf3f4729914922093c6ad02502",
+  "source_identity": "Official Census/BEA FT-900 monthly full-report PDFs for 44 reference months, January 2023 through August 2026, from the already archived official index. September 2026 is not yet published at this run's UTC time.",
+  "purpose": "Complete the same source-field coverage over the reused 2023-2026 Stage1 held interval before any fixed Stage1 information screen. This is source collection, not independent forward strategy evidence.",
+  "new_request_rule": "At most one HTTP GET for each of 43 months without a verified local PDF. Persist a started event before every request; an uncertain request is never retried automatically. Stop on first HTTP, size, PDF-header or identity failure.",
+  "source_archive": "For each 2023-2025 full year and the available January-August 2026 partial year, archive exact PDFs to NAS, verify remote SHA-256, and preserve local bytes. Perform one scoped NAS PDF restore per archive before treating its local bytes as backed up.",
+  "scientific_limits": [
+    "Historical first-public PDF bytes and availability remain unqualified.",
+    "Source-byte coverage alone does not establish Exhibit 7 row completeness or same-definition MoM comparability.",
+    "Do not read SOXX market outcomes, construct a Qlib factor, fit a model, run a native account, place orders or count a qualified strategy forward day."
+  ],
+  "budget": {
+    "target_reference_months": 44,
+    "reused_exact_PDFs": 1,
+    "new_monthly_PDF_GETs_max": 43,
+    "NAS_archives_max": 4,
+    "market_outcome_reads": 0,
+    "Qlib_factor_rows": 0,
+    "model_fits": 0,
+    "native_accounts": 0
+  }
+}
