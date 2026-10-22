@@ -1,0 +1,14 @@
+{
+  "experiment": "stage1_soxx_legacy_filing_index_20261023",
+  "decision": "frozen_source_probe_not_executed",
+  "objective_achieved": false,
+  "plan": "plan.json",
+  "http_GETs": 0,
+  "model_fits": 0,
+  "native_accounts": 0,
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": []
+  }
+}

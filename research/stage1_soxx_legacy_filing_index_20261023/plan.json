@@ -1,0 +1,32 @@
+{
+  "schema_version": 1,
+  "frozen": true,
+  "phase": "one_read_only_SEC_submissions_index_source_probe",
+  "question": "Can the official SEC submissions API identify dated pre-2019 iShares Trust N-Q/N-CSR filings needed to reconstruct a previously disclosed SOXX basket before the 2011 Stage1 training start?",
+  "parent_mechanism": "stage1_regime_feature_direction_20261022 new-low diffusion and downside concentration; source history only, no factor or economic test",
+  "source_url": "https://data.sec.gov/submissions/CIK0001100663.json",
+  "source_authority": "https://www.sec.gov/search-filings/edgar-application-programming-interfaces",
+  "target_cik": "0001100663",
+  "target_series_id": "S000004354",
+  "target_class_id": "C000012084",
+  "request": {
+    "method": "GET",
+    "user_agent": "SOXL research codex@openai.com",
+    "max_requests": 1,
+    "connect_timeout_seconds": 10,
+    "total_timeout_seconds": 60,
+    "max_response_bytes": 12000000
+  },
+  "inspection": "Record HTTP status, exact raw bytes and SHA-256, response headers and UTC request/response times. If JSON is valid, list only filing-history sidecar date ranges and form counts from the current compact array. A trust-level N-Q is only a candidate: it must be inspected for the SOXX series schedule before any holdings claim.",
+  "stop": "If the request fails, is oversized, malformed or lacks a relevant historic sidecar, preserve the exact receipt and stop this fixed probe. Do not retry the earlier 403 archive directory URL, infer SOXX holdings from trust metadata, request filing bodies, fetch sidecars, read returns, fit models or run accounts.",
+  "budgets": {
+    "http_GETs": 1,
+    "filing_body_GETs": 0,
+    "sidecar_GETs": 0,
+    "market_outcome_reads": 0,
+    "model_fits": 0,
+    "native_accounts": 0
+  },
+  "source_preservation": "Keep raw response and headers outside Git under data/snapshots and archive exact bytes and receipt to Yanxuan NAS with remote SHA-256 and scoped restore before any local cache is disposable.",
+  "scientific_boundary": "A filing index can establish possible historic disclosure coverage and accession/acceptance clocks. It does not supply SOXX holdings, point-in-time constituent prices, decision-time feature coverage, incremental information or SOXX account success."
+}
