@@ -1,14 +1,28 @@
 {
   "experiment": "stage1_soxx_legacy_reported_concentration_source_20261023",
-  "decision": "frozen_2012_original_source_batch_not_executed",
+  "decision": "four_original_2012_SOXX_reported_equity_value_sources_closed_2013_2022_pending",
   "objective_achieved": false,
   "plan": "plan.json",
-  "filing_body_GETs": 0,
+  "filing_body_GETs": 4,
   "model_fits": 0,
   "native_accounts": 0,
   "artifact_policy": {
     "policy": "slim_card_recorder_first",
     "workflow_config": "workflow.yaml",
     "recorder_only_artifacts": []
-  }
+  },
+  "transport_result": "transport_result.json",
+  "identity_result": "identity_result.json",
+  "numeric_plan": "numeric_2012_plan.json",
+  "numeric_result": "numeric_2012_result.json",
+  "SOXX_schedule_identities_qualified": 4,
+  "reports_with_numeric_closure": 4,
+  "source_NAS_archive_sha256": "eb45aac5e3aa4943b958037a78ec2359ffdf32877735cbf4ee90d8922ab5df27",
+  "source_NAS_scoped_restore_verified": true,
+  "top5_share_range": [
+    0.38698030177949594,
+    0.4106007739631027
+  ],
+  "full_2013_2022_training_coverage": false,
+  "held_2023_2026_coverage": false
 }

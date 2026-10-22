@@ -1,0 +1,250 @@
+{
+  "status": "four_2012_original_SOXX_schedule_identities_confirmed_source_only",
+  "plan_sha256": "c4a0db4604739625b3c78d4cfc6ec09aaab546b8e3545d2b1dd1853fb58282a0",
+  "checks": [
+    {
+      "report_date": "2012-01-31",
+      "form": "N-CSRS",
+      "accession": "0001193125-12-151845",
+      "raw_sha256": "a55b775b6d8c1babfedd3b2e41cb2eeb6879bf7507e2c0d3a24aaf5128ae2bec",
+      "raw_bytes": 21015312,
+      "inline_hits": [
+        {
+          "method": "inline_original_title",
+          "offset": 11737,
+          "date_near_title": true,
+          "table_header_near_title": false,
+          "schedule_phrase": false,
+          "accepted": false
+        },
+        {
+          "method": "inline_original_title",
+          "offset": 143431,
+          "date_near_title": true,
+          "table_header_near_title": false,
+          "schedule_phrase": false,
+          "accepted": false
+        },
+        {
+          "method": "inline_original_title",
+          "offset": 143840,
+          "date_near_title": true,
+          "table_header_near_title": false,
+          "schedule_phrase": false,
+          "accepted": false
+        },
+        {
+          "method": "inline_original_title",
+          "offset": 895673,
+          "date_near_title": true,
+          "table_header_near_title": true,
+          "schedule_phrase": false,
+          "accepted": false
+        },
+        {
+          "method": "inline_original_title",
+          "offset": 3362455,
+          "date_near_title": false,
+          "table_header_near_title": false,
+          "schedule_phrase": false,
+          "accepted": false
+        }
+      ],
+      "TOC_hits": [
+        {
+          "method": "TOC_anchor",
+          "anchor": "tx302334_8",
+          "start": 895501,
+          "end": 3737588,
+          "section_sha256": "f4d973870c4316f5b7e4ce0d3bc660a1e390e58635bfbdf36be34c171066051c",
+          "accepted": true
+        }
+      ],
+      "SOXX_schedule_identity_pass": true,
+      "selected_identity_method": "TOC_anchor",
+      "selected_identity_location": {
+        "method": "TOC_anchor",
+        "anchor": "tx302334_8",
+        "start": 895501,
+        "end": 3737588,
+        "section_sha256": "f4d973870c4316f5b7e4ce0d3bc660a1e390e58635bfbdf36be34c171066051c",
+        "accepted": true
+      }
+    },
+    {
+      "report_date": "2012-04-30",
+      "form": "N-Q",
+      "accession": "0001193125-12-289215",
+      "raw_sha256": "bef2958489ce36162823910732ec8d435495a9ae8cfc4f46acee5757e584f470",
+      "raw_bytes": 17304780,
+      "inline_hits": [
+        {
+          "method": "inline_original_title",
+          "offset": 15041423,
+          "date_near_title": true,
+          "table_header_near_title": true,
+          "schedule_phrase": false,
+          "accepted": true
+        },
+        {
+          "method": "inline_original_title",
+          "offset": 15085664,
+          "date_near_title": true,
+          "table_header_near_title": false,
+          "schedule_phrase": false,
+          "accepted": false
+        }
+      ],
+      "TOC_hits": [],
+      "SOXX_schedule_identity_pass": true,
+      "selected_identity_method": "inline_original_title",
+      "selected_identity_location": {
+        "method": "inline_original_title",
+        "offset": 15041423,
+        "date_near_title": true,
+        "table_header_near_title": true,
+        "schedule_phrase": false,
+        "accepted": true
+      }
+    },
+    {
+      "report_date": "2012-07-31",
+      "form": "N-CSR",
+      "accession": "0001193125-12-418172",
+      "raw_sha256": "2278fb696e75c3deaa1b8add0c6026bd448c20416fce7522b5fd5377e80ba4b9",
+      "raw_bytes": 24487284,
+      "inline_hits": [
+        {
+          "method": "inline_original_title",
+          "offset": 6181,
+          "date_near_title": false,
+          "table_header_near_title": false,
+          "schedule_phrase": false,
+          "accepted": false
+        },
+        {
+          "method": "inline_original_title",
+          "offset": 11632,
+          "date_near_title": false,
+          "table_header_near_title": false,
+          "schedule_phrase": false,
+          "accepted": false
+        },
+        {
+          "method": "inline_original_title",
+          "offset": 162662,
+          "date_near_title": false,
+          "table_header_near_title": false,
+          "schedule_phrase": false,
+          "accepted": false
+        },
+        {
+          "method": "inline_original_title",
+          "offset": 175966,
+          "date_near_title": true,
+          "table_header_near_title": false,
+          "schedule_phrase": false,
+          "accepted": false
+        },
+        {
+          "method": "inline_original_title",
+          "offset": 928337,
+          "date_near_title": true,
+          "table_header_near_title": true,
+          "schedule_phrase": false,
+          "accepted": false
+        },
+        {
+          "method": "inline_original_title",
+          "offset": 3363541,
+          "date_near_title": false,
+          "table_header_near_title": false,
+          "schedule_phrase": false,
+          "accepted": false
+        },
+        {
+          "method": "inline_original_title",
+          "offset": 3571794,
+          "date_near_title": false,
+          "table_header_near_title": false,
+          "schedule_phrase": false,
+          "accepted": false
+        },
+        {
+          "method": "inline_original_title",
+          "offset": 3739450,
+          "date_near_title": true,
+          "table_header_near_title": false,
+          "schedule_phrase": false,
+          "accepted": false
+        },
+        {
+          "method": "inline_original_title",
+          "offset": 3869067,
+          "date_near_title": false,
+          "table_header_near_title": false,
+          "schedule_phrase": false,
+          "accepted": false
+        }
+      ],
+      "TOC_hits": [
+        {
+          "method": "TOC_anchor",
+          "anchor": "toc391477_8",
+          "start": 928170,
+          "end": 982738,
+          "section_sha256": "14e4d20dc507ba725d37e4a74e8ddda793c235e11b0320298efe43ecfd4f4619",
+          "accepted": true
+        }
+      ],
+      "SOXX_schedule_identity_pass": true,
+      "selected_identity_method": "TOC_anchor",
+      "selected_identity_location": {
+        "method": "TOC_anchor",
+        "anchor": "toc391477_8",
+        "start": 928170,
+        "end": 982738,
+        "section_sha256": "14e4d20dc507ba725d37e4a74e8ddda793c235e11b0320298efe43ecfd4f4619",
+        "accepted": true
+      }
+    },
+    {
+      "report_date": "2012-10-31",
+      "form": "N-Q",
+      "accession": "0001193125-12-517738",
+      "raw_sha256": "0538495c737dbb331a65fb9b514a988216811757001ee0356181a3d03ab69121",
+      "raw_bytes": 21189602,
+      "inline_hits": [
+        {
+          "method": "inline_original_title",
+          "offset": 18915579,
+          "date_near_title": true,
+          "table_header_near_title": true,
+          "schedule_phrase": false,
+          "accepted": true
+        }
+      ],
+      "TOC_hits": [],
+      "SOXX_schedule_identity_pass": true,
+      "selected_identity_method": "inline_original_title",
+      "selected_identity_location": {
+        "method": "inline_original_title",
+        "offset": 18915579,
+        "date_near_title": true,
+        "table_header_near_title": true,
+        "schedule_phrase": false,
+        "accepted": true
+      }
+    }
+  ],
+  "identity_pass_count": 4,
+  "source_NAS_archive_sha256": "eb45aac5e3aa4943b958037a78ec2359ffdf32877735cbf4ee90d8922ab5df27",
+  "source_NAS_scoped_restore_verified": true,
+  "new_GETs": 0,
+  "security_values_extracted": false,
+  "market_outcome_reads": 0,
+  "model_fits": 0,
+  "native_accounts": 0,
+  "full_2012_2022_coverage": false,
+  "interpretation": "Only source identity and bounded schedule layout were checked; no original security quantities or predictive result."
+}
