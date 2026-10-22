@@ -1,0 +1,37 @@
+{
+  "status": "two_Table1D_blank_line_layout_exceptions_adjudicated_source_only",
+  "layout_plan_sha256": "53664d2a866c03cd27a255123a6580b6100712770ccf70170f78b7fa423733e3",
+  "source_scan_sha256": "240a231a45621941c8a378068377a8c51e3504ad9f0ee2d542ad662c6a6d50bd",
+  "source_recorder_id": "5fc5ec0a971848db94a9c0c4954b1f80",
+  "cases": [
+    {
+      "release_file": "20120316_sup.txt",
+      "raw_source_sha256": "89a8cbb8710c3dc3614c90bce98e0c715b22609459da107a6c82576e4e351e39",
+      "heading": "Table 1D Industrial Production: Industry Subtotals and Individual Series",
+      "first_label_line": 591,
+      "source_context_sha256": "942b29fb135b1ef46df8ba625e65ea430c4ec437d9d49a067bb6888a91d91586",
+      "NAICS_code": "3344",
+      "layout_difference": "one intervening blank line before continuation label and NAICS row"
+    },
+    {
+      "release_file": "20160316_sup.txt",
+      "raw_source_sha256": "56a467bf3917e6291f5e8e8f611ca68bb51131222a25ff4f2e98c6911bc8e37d",
+      "heading": "Table 1D Industrial Production: Industry Subtotals and Individual Series",
+      "first_label_line": 583,
+      "source_context_sha256": "9274f1f2f1224e357748b135384d91ba702f0eead7e56dc6a23155689aff6364",
+      "NAICS_code": "3344",
+      "layout_difference": "one intervening blank line before continuation label and NAICS row"
+    }
+  ],
+  "prior_machine_exact_one": 190,
+  "adjudicated_additional_unambiguous": 2,
+  "total_original_releases_with_Table1_3344_row": 192,
+  "numeric_factor_values_parsed": 0,
+  "market_outcome_reads": 0,
+  "new_source_object_loads_for_adjudication": 0,
+  "model_fits": 0,
+  "native_accounts": 0,
+  "definition_and_base_continuity_qualified": false,
+  "first_public_or_first_receipt_qualified": false,
+  "next_action": "Freeze exact same-vintage numeric extraction and base-year/definition continuity audit on all 192 releases; only then align to Stage1 calendar and test information. No automatic account."
+}

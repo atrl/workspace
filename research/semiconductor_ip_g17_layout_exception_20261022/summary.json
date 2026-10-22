@@ -1,0 +1,16 @@
+{
+  "experiment": "semiconductor_ip_g17_layout_exception_20261022",
+  "decision": "two_Table1D_blank_line_layout_exceptions_adjudicated_source_only",
+  "objective_achieved": false,
+  "source_recorder_id": "5fc5ec0a971848db94a9c0c4954b1f80",
+  "source_result": "adjudication.json",
+  "new_source_object_loads": 1,
+  "new_model_fits": 0,
+  "new_native_accounts": 0,
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [],
+    "source_recorder_authority": true
+  }
+}
