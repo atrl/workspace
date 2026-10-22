@@ -1,0 +1,44 @@
+{
+  "experiment": "stage1_original_0bp_signal_loss_chain_v2_20261023",
+  "decision": "descriptive_original_Stage1_signal_cap_loss_chain_no_promotion",
+  "objective_achieved": false,
+  "plan_sha256": "a8873dc909cbad74b1ad28387ae364f7b8c25a9704cc2988a865a88c8345f4d7",
+  "result": "result.json",
+  "recorder_id": "2f0392615c4c4b15928b4ada6e01ecd9",
+  "experiment_id": "954993860986722516",
+  "recorder_uri": "/Users/rziiiii/dev/workspace/research/stage1_original_0bp_signal_loss_chain_v2_20261023/qlib_recorder",
+  "source_Stage1_recorder_id": "6e227278b7a64eafbcf34b965e16d2b9",
+  "source_component_recorder_id": "bf012e010e3f4a5b9fd030b939ab989f",
+  "new_model_fits": 0,
+  "new_native_accounts": 0,
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "inputs/*",
+      "analysis/*"
+    ]
+  },
+  "limitations": [
+    "Account cash and selection contributions are descriptive physical path components, not causal switches.",
+    "End-of-interval beta is not exact post-open action beta.",
+    "All 2023-2026 history is reused development data; no independent forward evidence."
+  ],
+  "nas_evidence": {
+    "sha256": "54c6e93b4c304774c272b07312c856a9a2a255086d372066db418b5efed359c7",
+    "size_bytes": 292154,
+    "media_type": "application/gzip",
+    "storage_uri": "sha256/54/c6/54c6e93b4c304774c272b07312c856a9a2a255086d372066db418b5efed359c7",
+    "uploaded_by": "soxl-minute-research",
+    "created_at": "2026-10-23 06:45:53.581+08",
+    "duplicate": false,
+    "nas_path": "/volume1/docker/yanxuan/registry/research-artifacts/54/c6/54c6e93b4c304774c272b07312c856a9a2a255086d372066db418b5efed359c7",
+    "recorder_id": "2f0392615c4c4b15928b4ada6e01ecd9",
+    "experiment_id": "954993860986722516",
+    "archive_root": "qlib_recorder"
+  },
+  "nas_readback": {
+    "verified": true,
+    "sha256": "54c6e93b4c304774c272b07312c856a9a2a255086d372066db418b5efed359c7"
+  }
+}

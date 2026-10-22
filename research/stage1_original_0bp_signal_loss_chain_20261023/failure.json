@@ -1,0 +1,10 @@
+{
+  "status": "read_only_v1_stopped_before_Recorder_on_provider_calendar_mismatch",
+  "cause": "The account-replay provider data/qlib/stage1_domain_heads_20261018 D.calendar starts 2023-01-04, while the frozen original Stage1 signal frame has 2023-01-03..2026-10-07, 944 dates. Original Stage1 daily_prices Qlib provider D.calendar has all 944 exact dates.",
+  "attempted_source_recorder_loads": 5,
+  "new_model_fits": 0,
+  "new_native_accounts": 0,
+  "new_bootstraps": 0,
+  "new_recorder": false,
+  "repair": "Use the original Stage1 primary-input daily_prices provider for D.calendar and DatasetH alignment; keep all source Recorder object hashes, result definitions, accounting and 944 dates unchanged."
+}

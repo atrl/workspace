@@ -1,0 +1,16 @@
+{
+  "experiment": "stage1_original_0bp_signal_loss_chain_20261023",
+  "decision": "read_only_v1_stopped_before_Recorder_on_provider_calendar_mismatch",
+  "objective_achieved": false,
+  "failure": "failure.json",
+  "new_model_fits": 0,
+  "new_native_accounts": 0,
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "inputs/*",
+      "analysis/*"
+    ]
+  }
+}
