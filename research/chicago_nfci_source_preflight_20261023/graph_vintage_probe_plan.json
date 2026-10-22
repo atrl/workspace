@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "frozen": true,
+  "phase": "source_only_FRED_graph_CSV_vintage_parameter_behavior_probe",
+  "official_origin": "https://fred.stlouisfed.org",
+  "fixed_urls": [
+    "https://fred.stlouisfed.org/graph/fredgraph.csv?id=NFCI&vintage_date=2011-05-25",
+    "https://fred.stlouisfed.org/graph/fredgraph.csv?id=NFCI&vintage_date=2026-10-21"
+  ],
+  "question": "Does the public graph CSV export honor vintage_date for NFCI sufficiently to return a historical as-of sample without an API key?",
+  "method": "Exactly one HTTP GET per fixed URL; preserve exact response byte SHA, size, headers and requested/received UTC times. Accept only CSV with NFCI header, first-vintage observation dates no later than 2011-05-25, and a distinct later-vintage observation tail. If the first response extends into later years or both bytes match, treat the vintage parameter as ignored, not PIT data.",
+  "budget": {
+    "HTTP_GETs_max": 2,
+    "max_response_bytes_each": 2000000,
+    "market_outcome_reads": 0,
+    "model_fits": 0,
+    "native_accounts": 0
+  },
+  "NAS_rule": "If both exact CSV responses are valid source specimens, archive both raw bytes to Yanxuan NAS with remote SHA and scoped member readback; do not treat unqualified or error bytes as financial data.",
+  "stop": "Graph export is a different public endpoint than ALFRED form; a successful sample does not certify all 801 vintages, first-public release clocks, Stage1 feature qualification or SOXX excess. Never use a current revised history if vintage_date is ignored."
+}

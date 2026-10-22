@@ -1,6 +1,6 @@
 {
   "experiment": "chicago_nfci_source_preflight_20261023",
-  "decision": "official_browser_vintage_selector_visible_single_sample_download_unobserved_needs_source_delivery",
+  "decision": "NFCI_vintage_metadata_visible_values_need_authorized_API_or_source_delivery_public_graph_vintage_ignored",
   "objective_achieved": false,
   "plan": "plan.json",
   "attempts": [
@@ -27,5 +27,9 @@
   "command_line_response_bytes_received": 0,
   "browser_form_submissions": 1,
   "browser_download_events_observed": 0,
-  "conclusion": "conclusion.md"
+  "conclusion": "conclusion.md",
+  "api_route_assessment": "api_route_assessment.json",
+  "graph_vintage_probe_result": "graph_vintage_probe_result.json",
+  "graph_vintage_probe_status": "public_graph_vintage_parameter_ignored_current_series_returned_rejected",
+  "rejected_diagnostic_raw_response_nas_sha256": "220de8b46bd636a0e9fce8818bdda0b53dbcaab5ae8015d5b4393b83ac5390c5"
 }

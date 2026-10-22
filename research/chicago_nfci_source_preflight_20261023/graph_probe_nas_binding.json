@@ -1,0 +1,18 @@
+{
+  "status": "rejected_graph_CSV_exact_bytes_NAS_restored",
+  "archive_sha256": "220de8b46bd636a0e9fce8818bdda0b53dbcaab5ae8015d5b4393b83ac5390c5",
+  "archive_bytes": 14346,
+  "response_sha256": "869ecd21cb3ad3fc06ce94a909fecfc77c8c7814c286e0679483907de7040b5d",
+  "nas_artifact": {
+    "sha256": "220de8b46bd636a0e9fce8818bdda0b53dbcaab5ae8015d5b4393b83ac5390c5",
+    "size_bytes": 14346,
+    "media_type": "application/gzip",
+    "storage_uri": "sha256/22/0d/220de8b46bd636a0e9fce8818bdda0b53dbcaab5ae8015d5b4393b83ac5390c5",
+    "uploaded_by": "soxl-minute-research",
+    "created_at": "2026-10-23 01:21:45.861677+08",
+    "duplicate": false
+  },
+  "remote_hash_verified": true,
+  "scoped_restore_verified": true,
+  "model_input_qualified": false
+}

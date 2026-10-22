@@ -1,0 +1,39 @@
+{
+  "status": "public_graph_vintage_parameter_ignored_current_series_returned_rejected",
+  "plan_sha256": "c187d93e0b2681278a8cae77bce1ebb266bc92f81bdc475311764bc7c3ca5943",
+  "attempts": [
+    {
+      "url": "https://fred.stlouisfed.org/graph/fredgraph.csv?id=NFCI&vintage_date=2011-05-25",
+      "requested_at_utc": "2026-10-22T17:21:10.766034+00:00",
+      "received_at_utc": "2026-10-22T17:21:12.746838+00:00",
+      "curl_exit_code": 0,
+      "curl_stderr": "",
+      "bytes": 51565,
+      "sha256": "869ecd21cb3ad3fc06ce94a909fecfc77c8c7814c286e0679483907de7040b5d",
+      "csv_header": [
+        "observation_date",
+        "NFCI"
+      ],
+      "observation_rows": 2911,
+      "first_observation_date": "1971-01-08",
+      "last_observation_date": "2026-10-16",
+      "vintage_parameter_ignored_or_unqualified": true,
+      "response_headers_allowlisted": {
+        "Content-Type": "application/csv",
+        "Last-Modified": "Wed, 21 Oct 2026 12:37:28 GMT",
+        "Content-Length": "51565",
+        "Cache-Control": "public, max-age=600",
+        "Date": "Thu, 22 Oct 2026 17:21:12 GMT"
+      }
+    }
+  ],
+  "GETs_consumed": 1,
+  "market_outcome_reads": 0,
+  "model_fits": 0,
+  "native_accounts": 0,
+  "SOXX_goal_achieved": false,
+  "rejected_response_nas_archive_sha256": "220de8b46bd636a0e9fce8818bdda0b53dbcaab5ae8015d5b4393b83ac5390c5",
+  "rejected_response_nas_remote_hash_verified": true,
+  "rejected_response_scoped_restore_verified": true,
+  "nas_evidence_role": "rejected diagnostic response only; never model input"
+}

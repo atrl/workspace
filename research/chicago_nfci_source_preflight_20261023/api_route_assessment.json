@@ -1,0 +1,18 @@
+{
+  "status": "official_vintage_API_requires_auth_no_current_route",
+  "source_series": "NFCI",
+  "official_api_docs": [
+    "https://fred.stlouisfed.org/docs/api/fred/series_observations.html",
+    "https://fred.stlouisfed.org/docs/api/fred/series_vintagedates.html"
+  ],
+  "api_request_capability": "fred/series/observations supports output_type=2 observations by vintage date and explicit vintage_dates; FRED API key is required.",
+  "local_authorization_check": "No FRED_API_KEY, fred_api_key, or STLOUIS_FED_API_KEY variable found in current environment or searched workspace/.config configuration names. Key values were not read or printed.",
+  "official_mcp_connector": "Official FRED MCP connector advertises no API key, but requires a distinct MCP account, sign-in and terms acceptance; no FRED tool is connected in this task environment.",
+  "browser_download_state": "Single frozen first-vintage 2011-05-25 Zipped CSV submission yielded no observed download or source bytes; no repeat authorized.",
+  "scientific_boundary": "The 801 browser-visible vintage dates establish metadata only. No historical NFCI value bytes, per-release clocks, source NAS backup, Stage1 feature, model fit or account exists.",
+  "next_if_authorized": "Use an already authorized FRED API key or connected FRED MCP to request one exact 2011-05-25 vintage sample with source receipt and NAS readback; keep pre-2011-05-25 Stage1 dates unknown. Otherwise pursue independent source branches.",
+  "market_outcome_reads": 0,
+  "model_fits": 0,
+  "native_accounts": 0,
+  "SOXX_goal_achieved": false
+}

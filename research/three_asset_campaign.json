@@ -135,7 +135,8 @@
     "FT900_V3_duplicate_closeout": "research/stage1_ft900_export_information_v3_20261023/duplicate_closeout.json",
     "stage1_beta_composition_component_attribution": "research/stage1_beta_composition_account_contributions_20261023/summary.json",
     "NFCI_source_preflight": "research/chicago_nfci_source_preflight_20261023/summary.json",
-    "NFCI_source_status": "official_801_vintage_selector_dates_visible_in_browser_but_three_command_line_zero_byte_failures_one_unobserved_single_vintage_download_no_values_no_fit_early_2011_gap"
+    "NFCI_source_status": "official_801_vintage_selector_dates_visible_no_value_delivery_three_command_line_failures_one_unobserved_browser_download_public_graph_vintage_parameter_ignored_rejected_response_NAS_backed_zero_fits",
+    "NFCI_graph_vintage_probe": "research/chicago_nfci_source_preflight_20261023/graph_vintage_probe_result.json"
   },
   "parallel_source_task": {
     "card": "research/korea_semiconductor_exports_korean_vintage_20261022",

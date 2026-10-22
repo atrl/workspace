@@ -7,3 +7,7 @@
 本卡 0 市场结果、0 模型拟合、0 资金账户、0 合格前向日；SOXX 稳定超额未实现。后续只有在官方原件传输恢复或获得已授权的等价首发版本来源时，才能另冻来源资格核查。
 
 浏览器限定收据见 `browser_fallback_result.json`、`single_vintage_download_result.json`；早于 2011-05-25 的 Stage1 训练信号缺历史版本，不能以后来的版本填充。
+
+官方 FRED API 的 `series/observations` 可按版本日期返回历史观测，但要求已注册 API key；当前工作环境未发现配置的 FRED key。官方 FRED MCP 免 API key，但需要独立账户登录和条款接受，目前未连接。此来源仍 `needs_source_delivery_or_auth`；详细替代路径及边界见 `api_route_assessment.json`。
+
+免 key 的 FRED 图表 CSV 来源探针已拒绝：URL 明确请求 `vintage_date=2011-05-25`，实际返回 1971-01-08 至 2026-10-16 的 2911 条 NFCI 行，说明不能把它当作 2011 年版本。该响应原字节仅作为拒绝证据保存到 NAS 并定点恢复（SHA‑256 `220de8b46bd636a0e9fce8818bdda0b53dbcaab5ae8015d5b4393b83ac5390c5`），绝不用于模型。见 `graph_vintage_probe_result.json`。
