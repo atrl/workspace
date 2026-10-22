@@ -65,15 +65,16 @@
     },
     {
       "card": "research/semiconductor_ip_original_g17_bridge_20261022",
-      "phase": "original_G17_Table1_NAICS3344_row_presence_190_of_192_numeric_definition_and_timing_pending",
+      "phase": "original_G17_Table1_NAICS3344_row_presence_192_of_192_numeric_definition_and_timing_pending",
       "role": "distinct_US_semiconductor_physical_production_source_qualification_for_Stage1",
       "full_economic_experiment": false,
-      "status": "source_row_presence_only_no_fit_or_account",
+      "status": "source_row_presence_qualified_numeric_and_PIT_unqualified",
       "execution_authorized": false,
       "result": "research/semiconductor_ip_original_g17_bridge_20261022/summary.json",
       "ALFRED_form_gap": "research/semiconductor_ip_alfred_preflight_20261022/source_preflight_result.json",
       "main_release_legacy_scope_negative_control": "research/semiconductor_ip_fed_original_bridge_probe_20261022/source_probe_result.json",
-      "original_source_recorder": "research/fed_semiconductor_capacity_source_20261013/summary.json"
+      "original_source_recorder": "research/fed_semiconductor_capacity_source_20261013/summary.json",
+      "layout_adjudication": "research/semiconductor_ip_g17_layout_exception_20261022/adjudication.json"
     }
   ],
   "framework": [
