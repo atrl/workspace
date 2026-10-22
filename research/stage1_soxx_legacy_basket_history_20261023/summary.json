@@ -34,7 +34,7 @@
   "semiannual_identity_plan": "2011_semiannual_body_identity_plan.json",
   "semiannual_identity_result": "2011_semiannual_identity_result.json",
   "jan_2011_original_schedule_identity_passed": true,
-  "july_2011_NCSR_schedule_identity_passed": false,
+  "july_2011_NCSR_schedule_identity_passed": true,
   "july_2011_NCSR_body_received": true,
   "semiannual_NAS_archive_sha256": "89052e9471992b27fb14abf007a2a4fbed6b03631b3e125c5269c33b74f17dc2",
   "semiannual_NAS_scoped_restore_verified": true,
@@ -49,5 +49,7 @@
   "october_2011_accession": "0001193125-11-355398",
   "october_2011_NAS_archive_sha256": "1108372c9cddd41e62492c7377e5ef04d29b954aa31cab94df5194b6d0f57e74",
   "october_2011_NAS_scoped_restore_verified": true,
-  "numeric_concentration_2011_qualified": false
+  "numeric_concentration_2011_qualified": false,
+  "july_initial_contiguous_byte_title_gate_passed": false,
+  "july_final_identity_basis": "toc216041_8_bounded_Schedule_of_Investments_anchor"
 }
