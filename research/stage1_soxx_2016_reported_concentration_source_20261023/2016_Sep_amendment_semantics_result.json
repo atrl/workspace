@@ -1,0 +1,24 @@
+{
+  "status": "amendment_SOXX_equity_schedule_unqualified",
+  "plan_sha256": "1dba63571f35f62b8ec5f21e2f69c4349c50d1fd57f6b8f0dbba8b8b5094aabb",
+  "original_first_version_result_sha256": "c5d63cd18677a633ec2b79b76b224f4745b935fe3947675fb2a9f0c91066f69a",
+  "amendment_raw_sha256": "f84d338131e549780e41b4d96e893daf492a443bdbaa093146a44c27162521f5",
+  "amendment_NAS_archive_sha256": "9aeaa24d20f984cc589f87b7972a7149f3b5797433ed071d3eebfa44af8deeee",
+  "amendment_accepted_at_utc": "2017-08-15T01:09:35.000Z",
+  "report_date": "2016-09-30",
+  "TOC_locations": [
+    {
+      "anchor": "toc441273_10",
+      "start": 4913714,
+      "end": 5070518,
+      "section_sha256": "c64a3fbec6f8af5a422e3127a5e91d1a8d2203f6baafc328149fa066fbb00057",
+      "identity_pass": false
+    }
+  ],
+  "SOXX_equity_schedule_identity_pass": false,
+  "new_GETs": 0,
+  "market_outcome_reads": 0,
+  "model_fits": 0,
+  "native_accounts": 0,
+  "pre_amendment_first_version_preserved": true
+}

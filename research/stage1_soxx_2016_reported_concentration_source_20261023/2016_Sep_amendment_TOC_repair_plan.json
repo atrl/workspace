@@ -1,0 +1,25 @@
+{
+  "schema_version": 1,
+  "frozen": true,
+  "phase": "one_delayed_amendment_TOC_namespace_reuse_source_repair",
+  "prior_semantics_result_sha256": "d511e9c155912f5454ea6d0a10051f178c216f9af067982c35bae47dd2a3d52f",
+  "parent_semantics_plan_sha256": "1dba63571f35f62b8ec5f21e2f69c4349c50d1fd57f6b8f0dbba8b8b5094aabb",
+  "raw_sha256": "f84d338131e549780e41b4d96e893daf492a443bdbaa093146a44c27162521f5",
+  "source_NAS_archive_sha256": "9aeaa24d20f984cc589f87b7972a7149f3b5797433ed071d3eebfa44af8deeee",
+  "fund_named_TOC_href_byte_offset": 31692128,
+  "reused_anchor_id": "toc441273_10",
+  "correct_following_anchor_byte_offset": 32667397,
+  "next_anchor_byte_offset": 32728114,
+  "bounded_SOXX_section_sha256": "7f0c64157ef87577c889dcd37218732ed19eb5157a7645bb7839ddbfd1fac508",
+  "diagnosis": "Concatenated amended annual report reuses toc441273_10 in multiple fund sections. The first global NAME belongs to another fund; the first matching NAME after the SOXX-named HREF is the target Schedule of Investments.",
+  "fixed_repair": "Require the exact SOXX-named HREF at pinned offset; find the first same-id NAME only after that href. Verify start/end and bounded section SHA, title, September 30 2016, Security/Shares/Value and COMMON STOCKS. Then apply unchanged fixed shares/value/total parser and exact comparison with first version.",
+  "budget": {
+    "new_HTTP_GETs": 0,
+    "amendment_raw_rechecks_max": 1,
+    "market_outcome_reads": 0,
+    "model_fits": 0,
+    "native_accounts": 0
+  },
+  "availability_boundary": "No amendment value may be used before 2017-08-15 acceptance and conservative next-session gate, even if numerically equal to the original.",
+  "stop": "Any byte offset, section hash, date, table or printed-total mismatch leaves amendment semantics unqualified; no other anchor search or refetch."
+}
