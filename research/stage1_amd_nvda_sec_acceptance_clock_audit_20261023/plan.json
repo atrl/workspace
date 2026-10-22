@@ -1,0 +1,29 @@
+{
+  "schema_version": 1,
+  "frozen": true,
+  "phase": "126_selected_AMD_NVDA_SEC_original_acceptance_to_next_Stage1_Qlib_session",
+  "source": {
+    "quarter_event_result": "research/stage1_amd_nvda_sec_guidance_original_probe_20261023/quarter_event_adjudication_result.json",
+    "quarter_event_result_sha256": "322aa6b4f8e3b167a1c17ecb79dd72d2b2d96d55f2dbf43f59d4429163cdda4a",
+    "item202_inventory_result_sha256": "f6fe5cbae488dfed86e47df8e90edbc964282e560affab8a6d19ed9388ffcfd6",
+    "item202_inventory_manifest_sha256": "67279014e4d2a3c7962d6e6b65c4003911a1b2c65fa2bc9dbe6d775b4204dfa9",
+    "raw_NAS_archive_sha256": "8273fd8c00608f5b2f1faf81368b9f3c238919f297b5d868c8af319b115d9cee",
+    "Qlib_provider": "data/qlib/minute_information_pit_allocator_20261012/daily_prices",
+    "Qlib_provider_manifest_sha256": "d80a08d479b73098053006909b5e6227b03a56ab705681742d7261088e0a7e6c"
+  },
+  "clock_rule": "For each selected original filing, verify accession, issuer, raw SHA-256 and SGML ACCEPTANCE-DATETIME against the saved source inventory. Interpret the SGML header both as America/New_York civil time and as fixed EST, take the later UTC instant, and assign the first actual Qlib daily session strictly after the acceptance calendar date at 09:46 America/New_York. Require decision at least 12 hours after the later UTC interpretation, within 7 calendar days, and inside the frozen Qlib calendar. Do not backdate NVDA 2014 May 8 outlook to the May 6 preliminary earnings release.",
+  "interpretation": "This is a conservative date-level timing screen, not proof of exact first public availability. The SEC says it has no timestamp for first website availability and does not guarantee the acceptance-to-public lag. A numeric guidance vector and any model/account need separate frozen source-semantic and information gates.",
+  "official_sources": [
+    "https://www.sec.gov/about/webmaster-frequently-asked-questions",
+    "https://www.sec.gov/files/info/edgar/specifications/pds-dissemination-spec022315.pdf",
+    "https://qlib.readthedocs.io/en/latest/component/data.html"
+  ],
+  "budget": {
+    "new_external_GETs": 0,
+    "Qlib_D_calendar_calls": 1,
+    "market_outcome_reads": 0,
+    "model_fits": 0,
+    "native_accounts": 0
+  },
+  "stop": "Stop on any source identity, NAS receipt, Qlib manifest, calendar or timing-margin mismatch. Preserve every selected event and mark unknown or out_of_snapshot; do not impute unavailable dates."
+}

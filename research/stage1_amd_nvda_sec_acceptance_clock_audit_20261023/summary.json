@@ -1,0 +1,24 @@
+{
+  "experiment": "stage1_amd_nvda_sec_acceptance_clock_audit_20261023",
+  "decision": "conditional_date_gate_only_no_feature_or_account",
+  "result_sha256": "1d60da55aa33813acb08865e9b6b6824f70582d4437032002461c38eb2f0a6e7",
+  "selected_events": 126,
+  "status_counts": {
+    "conditional_date_gate_pass": 126
+  },
+  "minimum_margin_hours": 12.145833333333334,
+  "maximum_lag_calendar_days": 4,
+  "first_public_exact_qualified": false,
+  "numeric_harmonization_qualified": false,
+  "new_external_GETs": 0,
+  "Qlib_D_calendar_calls": 1,
+  "market_outcome_reads": 0,
+  "model_fits": 0,
+  "native_accounts": 0,
+  "objective_achieved": false,
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": []
+  }
+}
