@@ -1,0 +1,22 @@
+{
+  "status": "passed_targeted_native_Qlib_and_NAS_hash_readback",
+  "recorder_id": "f493de946e7f4101bf119107089a2ed7",
+  "manifest_verified_objects": [
+    "models/baseline",
+    "models/candidate",
+    "predictions/held",
+    "analysis/gates"
+  ],
+  "sealed_model_hashes_match": true,
+  "held_prediction_rows": 940,
+  "saved_gates": {
+    "coefficient_positive": false,
+    "full_held_mean_positive": false,
+    "both_halves_positive": false,
+    "bootstrap_lower_positive": false
+  },
+  "NAS_archive_sha256": "a47b7decfdec25105d84016f5d688bdd6c7f62b5f55bff438537b996d5d16c56",
+  "NAS_remote_archive_sha256_matched": true,
+  "new_model_fits_or_accounts_for_readback": 0,
+  "limitation": "Targeted local Recorder object readback plus remote archive hash; no full cold restore or independent market sample qualification."
+}

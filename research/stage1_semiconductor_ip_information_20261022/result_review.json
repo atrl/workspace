@@ -1,0 +1,112 @@
+{
+  "status": "not_promoted_fixed_Stage1_IP_information_failed",
+  "plan_sha256": "10771d60278a769cea85791487cc980b9a5636eecfd2ae4f9bdf226f7d9e98e5",
+  "recorder_id": "f493de946e7f4101bf119107089a2ed7",
+  "experiment_id": "940687695738013304",
+  "training_mature_rows": 3014,
+  "held_mature_rows": 940,
+  "candidate_standardized_IP_coefficient": -0.0035982764581261703,
+  "baseline_held_mse": 0.002781712176314588,
+  "candidate_held_mse": 0.002893824695282143,
+  "held_paired_mse_improvement": -0.00011211251896755586,
+  "held_half_improvements": [
+    -9.443650616932328e-05,
+    -0.00013237132815639775
+  ],
+  "bootstrap_lower": -0.00023278182029115135,
+  "gates": {
+    "coefficient_positive": false,
+    "full_held_mean_positive": false,
+    "both_halves_positive": false,
+    "bootstrap_lower_positive": false
+  },
+  "information_gate_pass": false,
+  "quarterly_information_attribution": [
+    {
+      "quarter": "2023Q1",
+      "sessions": 62,
+      "paired_mean_mse_improvement": -8.441176967982426e-05
+    },
+    {
+      "quarter": "2023Q2",
+      "sessions": 62,
+      "paired_mean_mse_improvement": -0.00018243034321817003
+    },
+    {
+      "quarter": "2023Q3",
+      "sessions": 63,
+      "paired_mean_mse_improvement": 2.2110854101857165e-05
+    },
+    {
+      "quarter": "2023Q4",
+      "sessions": 63,
+      "paired_mean_mse_improvement": 6.514767941812955e-06
+    },
+    {
+      "quarter": "2024Q1",
+      "sessions": 61,
+      "paired_mean_mse_improvement": -0.0003547606890503106
+    },
+    {
+      "quarter": "2024Q2",
+      "sessions": 63,
+      "paired_mean_mse_improvement": -4.123214508777478e-05
+    },
+    {
+      "quarter": "2024Q3",
+      "sessions": 64,
+      "paired_mean_mse_improvement": -6.1027589508755644e-05
+    },
+    {
+      "quarter": "2024Q4",
+      "sessions": 64,
+      "paired_mean_mse_improvement": -7.066463101432423e-05
+    },
+    {
+      "quarter": "2025Q1",
+      "sessions": 60,
+      "paired_mean_mse_improvement": 4.8393606088668236e-05
+    },
+    {
+      "quarter": "2025Q2",
+      "sessions": 62,
+      "paired_mean_mse_improvement": -0.0006193921208248888
+    },
+    {
+      "quarter": "2025Q3",
+      "sessions": 64,
+      "paired_mean_mse_improvement": -0.00010348292591790681
+    },
+    {
+      "quarter": "2025Q4",
+      "sessions": 64,
+      "paired_mean_mse_improvement": -1.0960177364082092e-05
+    },
+    {
+      "quarter": "2026Q1",
+      "sessions": 61,
+      "paired_mean_mse_improvement": -1.789334919163742e-05
+    },
+    {
+      "quarter": "2026Q2",
+      "sessions": 62,
+      "paired_mean_mse_improvement": -0.0001632756602926576
+    },
+    {
+      "quarter": "2026Q3",
+      "sessions": 64,
+      "paired_mean_mse_improvement": -6.24031947617858e-05
+    },
+    {
+      "quarter": "2026Q4",
+      "sessions": 1,
+      "paired_mean_mse_improvement": 5.280170695704088e-05
+    }
+  ],
+  "new_model_fits": 2,
+  "new_bootstraps": 1,
+  "new_native_accounts": 0,
+  "historical_first_receipt_qualified": false,
+  "historical_window_independent": false,
+  "SOXX_goal_achieved": false
+}

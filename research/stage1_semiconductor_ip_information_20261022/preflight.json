@@ -1,0 +1,14 @@
+{
+  "status": "matched_Stage1_39_plus_publication_controls_and_IP_source_verified_before_fit",
+  "plan_sha256": "10771d60278a769cea85791487cc980b9a5636eecfd2ae4f9bdf226f7d9e98e5",
+  "parent_source_loads": 4,
+  "candidate_source_loads": 1,
+  "train_mature_rows": 3014,
+  "held_mature_expected": 940,
+  "source_train_missing": 0,
+  "source_held_missing": 0,
+  "historical_first_receipt_qualified": false,
+  "model_fits": 0,
+  "native_accounts": 0,
+  "market_outcome_scores_read": 0
+}

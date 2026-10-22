@@ -1,0 +1,14 @@
+{
+  "status": "two_fixed_models_sealed_before_held_prepare",
+  "plan_sha256": "10771d60278a769cea85791487cc980b9a5636eecfd2ae4f9bdf226f7d9e98e5",
+  "recorder_id": "f493de946e7f4101bf119107089a2ed7",
+  "model_sha256": {
+    "baseline": "4aec7b722d6ef750b2f1434281da8c38276be7fe8327814584494e342ce37a66",
+    "candidate": "06055ea5338c351d26d0c075d21ff047cee065385f99e4061c5023bbd839bac0"
+  },
+  "fits_done": [
+    "baseline",
+    "candidate"
+  ],
+  "held_rows_scored": 0
+}

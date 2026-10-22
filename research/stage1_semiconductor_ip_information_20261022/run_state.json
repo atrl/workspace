@@ -1,0 +1,20 @@
+{
+  "status": "completed",
+  "plan_sha256": "10771d60278a769cea85791487cc980b9a5636eecfd2ae4f9bdf226f7d9e98e5",
+  "source_object_loads": 5,
+  "DatasetH_builds": 1,
+  "fit_attempts": [
+    "baseline",
+    "candidate"
+  ],
+  "fits_done": [
+    "baseline",
+    "candidate"
+  ],
+  "bootstrap_attempted": true,
+  "native_accounts": 0,
+  "recorder_id": "f493de946e7f4101bf119107089a2ed7",
+  "experiment_id": "940687695738013304",
+  "held_scored_rows": 940,
+  "information_gate_pass": false
+}
