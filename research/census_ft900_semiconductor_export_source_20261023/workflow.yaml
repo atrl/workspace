@@ -10,6 +10,8 @@ outputs:
   - source_preflight_result.json
   - capture_receipts.json
   - nas_binding.json
+  - training_index_audit.json
+  - index_typo_adjudication.json
 market_outcome_reads: 0
 model_fits: 0
 native_accounts: 0

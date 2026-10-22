@@ -1,0 +1,20 @@
+{
+  "status": "one_index_title_typo_adjudicated_144_of_144_URL_bindings",
+  "raw_index_sha256": "cdf3d48e9f6ff7a571c9d1d0d982499d59750df2f915a40ec95a9fe49730e0ad",
+  "corrected_month": "2019-02",
+  "literal_title": "Ferbruary 2019",
+  "url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_1902.pdf",
+  "year_section": "sec_2019",
+  "neighbors": {
+    "March 2019": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_1903.pdf",
+    "January 2019": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_1901.pdf"
+  },
+  "ordinary_bindings": 143,
+  "adjudicated_bindings": 1,
+  "total_bindings": 144,
+  "monthly_PDF_GETs": 0,
+  "full_PDF_source_coverage_qualified": false,
+  "market_outcome_reads": 0,
+  "model_fits": 0,
+  "native_accounts": 0
+}
