@@ -1,0 +1,19 @@
+{
+  "status": "design_only_no_execution",
+  "objective": "Find a distinct falsifiable way to reduce SOXX opportunity cost while retaining the campaign's drawdown protection, after the fixed four-issuer inventory-sales information screen failed.",
+  "question": "Does the existing risk projection protect genuinely adverse SOXX paths, or does an unreachable recovery state keep the account in cash during recoveries?",
+  "distinctness": "Tests the action-to-projection-to-reentry control mechanism and path-dependent opportunity cost, not inventory/sales factor sign, horizon, member subset or model coefficient tuning.",
+  "prior_frozen_evidence": {
+    "P3_result": "research/path_area_action_bridge_20261018/P3_result_overview.json",
+    "P3_failure_attribution": "research/path_area_action_bridge_20261018/P3/failure_attribution.json",
+    "inventory_information_negative_result": "research/inventory_sales_soxx_h63_information_20261022/result_review.json"
+  },
+  "already_observed": "The P3 2bp account's mean post-fill cash weight was about 47%, projected cash exceeded source-target cash, and its recorded recovery fraction was zero. These are descriptive path locations, not removable-loss or profitable-reentry proof.",
+  "minimum_next_design": [
+    "Pin exact native P3 Recorder objects and same-account SOXX benchmark paths before loading arrays.",
+    "Define one training-period matched counterfactual that settles holdings, fees, dividends, switching and risk state independently; distinguish protective loss avoided from SOXX rebound opportunity cost.",
+    "Freeze one pretrade-observable reentry hypothesis only if the counterfactual shows a material reachable interval. No retrospective threshold, sign, window, or seed search on P3 held history."
+  ],
+  "execution_authorized": false,
+  "promotion_boundary": "A diagnostic or passing counterfactual is not fee-net stable SOXX excess; full 0/2/5bp native accounts, risk, annual/rolling/bootstrap and independent forward gates remain required."
+}

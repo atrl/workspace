@@ -3,23 +3,13 @@
   "scope": "three_asset_continuous_campaign_only_not_repository_inventory",
   "active": [
     {
-      "card": "research/inventory_sales_source_qualification_20261021",
-      "phase": "four_original_values_36_29_source_only_one_information_screen_design_next",
-      "role": "inventory_demand_mechanism_source_reconstruction",
+      "card": "research/risk_projection_reachability_20261022",
+      "phase": "design_only_no_execution",
+      "role": "risk_projection_opportunity_cost_and_recovery_reachability",
       "full_economic_experiment": false,
-      "status": "source_qualification_complete_next_design_pending",
-      "source_gap_report": "research/inventory_sales_source_qualification_20261021/gap_triage.json",
-      "source_probe": "research/inventory_sales_source_qualification_20261021/original_filing_reconstruction_20261022.json",
-      "source_reconstruction": "research/inventory_sales_source_qualification_20261021/source_reconstruction_20261022/summary.json",
-      "nvda_gap_cause": "research/inventory_sales_source_qualification_20261021/source_reconstruction_20261022/nvda_gap_cause.json",
-      "source_bridge_card": "research/inventory_sales_nvda_alias_bridge_20261022",
-      "source_bridge_summary": "research/inventory_sales_nvda_alias_bridge_20261022/summary.json",
-      "security_identity_progress": "research/inventory_sales_source_qualification_20261021/source_reconstruction_20261022/security_identity_progress.json",
-      "original_source_archive": "data/snapshots/inventory_sales_original_sec_20261022/archive_manifest.json",
-      "original_value_source_card": "research/inventory_sales_original_value_source_20261022",
-      "original_value_source_summary": "research/inventory_sales_original_value_source_20261022/summary.json",
-      "TSM_revenue_bridge_card": "research/inventory_sales_tsm_revenue_bridge_20261022",
-      "TSM_revenue_bridge_summary": "research/inventory_sales_tsm_revenue_bridge_20261022/summary.json"
+      "status": "design_brief_written_source_inventory_next",
+      "execution_authorized": false,
+      "source_failure_attribution": "research/path_area_action_bridge_20261018/P3/failure_attribution.json"
     }
   ],
   "framework": [
@@ -88,6 +78,13 @@
       "default_search": false,
       "evidence_preserved": true,
       "result": "research/signed_variance_information_20261020/result_review.json"
+    },
+    {
+      "card": "research/inventory_sales_soxx_h63_information_20261022",
+      "status": "not_promoted_fixed_information_screen",
+      "default_search": false,
+      "evidence_preserved": true,
+      "result": "research/inventory_sales_soxx_h63_information_20261022/result_review.json"
     }
   ],
   "deferred_sources": {
@@ -101,9 +98,10 @@
     "all provider bin files for documentation"
   ],
   "next_information_need": {
-    "status": "deferred_while_distinct_factor_screen_runs",
+    "status": "design_brief_written",
     "topic": "risk_projection_protection_vs_SOXX_opportunity_cost_and_recovery_reachability",
     "source": "research/path_area_action_bridge_20261018/P3/failure_attribution.json",
-    "execution_authorized": false
+    "execution_authorized": false,
+    "design_brief": "research/risk_projection_reachability_20261022/design_brief.json"
   }
 }

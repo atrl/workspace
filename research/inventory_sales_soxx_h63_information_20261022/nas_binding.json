@@ -1,0 +1,24 @@
+{
+  "schema_version": "recorder_evidence_binding_v1",
+  "authority": "yanxuan_nas",
+  "source_id": "inventory_sales_soxx_h63_information_20261022",
+  "ssh": {
+    "host": "rziiiii@192.168.1.3",
+    "port": 911
+  },
+  "source_plan": "plan.json",
+  "as_of": "2026-09-25",
+  "evidence": {
+    "sha256": "1f218fe9272d0c29b36d13f6c7a037ffdfc6e5744df47ed19da8846e74388785",
+    "size_bytes": 81696,
+    "media_type": "application/gzip",
+    "storage_uri": "sha256/1f/21/1f218fe9272d0c29b36d13f6c7a037ffdfc6e5744df47ed19da8846e74388785",
+    "uploaded_by": "soxl-minute-research",
+    "created_at": "2026-10-22 11:11:28.665534+08",
+    "duplicate": false,
+    "nas_path": "/volume1/docker/yanxuan/registry/research-artifacts/1f/21/1f218fe9272d0c29b36d13f6c7a037ffdfc6e5744df47ed19da8846e74388785",
+    "recorder_id": "2033653213e1487caefe4790826f6ced",
+    "experiment_id": "560669762706569092",
+    "archive_root": "qlib_recorder"
+  }
+}

@@ -1,0 +1,173 @@
+{
+  "schema_version": 1,
+  "experiment": "inventory_sales_soxx_h63_information_20261022",
+  "frozen": true,
+  "execution_authorized": true,
+  "phase": "single_fixed_information_screen_no_account",
+  "question": "Does high originally filed inventory growth relative to sales growth in the then-disclosed four-name SOXX basket predict weaker next-63-session SOXX open-to-open price returns beyond trailing trend/volatility and raw four-name weight?",
+  "hypothesis_sign": "negative candidate coefficient on inventory-minus-sales log growth",
+  "mechanism_sources": [
+    {
+      "url": "https://link.springer.com/article/10.1023/A:1020221918065",
+      "role": "stock-level inventory-change negative future abnormal-return lead, not ETF proof"
+    },
+    {
+      "url": "https://www.sciencedirect.com/science/article/pii/S0272696313000399",
+      "role": "manufacturing-firm abnormal inventory growth relative to sales associated with weaker long-term returns, not semiconductor ETF proof"
+    }
+  ],
+  "source_recorder": {
+    "card": "research/inventory_sales_tsm_revenue_bridge_20261022",
+    "recorder_id": "b17476ef090346e8bcbb45c85312da5a",
+    "summary_sha256": "fd8ac9edc87ccf9faa17c797007e97e3cadea66e1a2f382da66f36cd725a89c4",
+    "verification_manifest_sha256": "355ff05cfef5d34d8fbf0a93ebf0f55546a6ac8c4da74ef6f3294620b2094153",
+    "artifacts": {
+      "analysis/bridged_comparable_pairs": "c80506a89cd5f6bec5e70909772c60db129542ac3dcbd5f6e43859c8b9a606fc",
+      "analysis/four_name_monthly_support": "d5bf049e3954a2e8b9ba453596076e544e9ffb2473ae996adaa713cc434d1cd2"
+    },
+    "source_status_required": "completed_source_only_not_promoted",
+    "expected_issuer_years": 36,
+    "expected_pairs": 29,
+    "expected_issuer_months": 278,
+    "expected_supported_issuer_months": 275,
+    "historical_validation_independent": false
+  },
+  "price_source": {
+    "provider_uri": "data/qlib/soxx_extended_published_affine_20260925_v1",
+    "instrument": "SOXX",
+    "field": "$open",
+    "price_plane": "published_Futu_affine_split_adjusted_price_not_total_return_or_historical_PIT",
+    "files": {
+      "manifest": {
+        "path": "data/qlib/soxx_extended_published_affine_20260925_v1/qlib_store_manifest.json",
+        "sha256": "529078b11917e95691e583968981281cb40c786fd30404fd1cabf90964f3d289",
+        "bytes": 825
+      },
+      "calendar": {
+        "path": "data/qlib/soxx_extended_published_affine_20260925_v1/calendars/day.txt",
+        "sha256": "7f1fcf14a667d8d10ab8af4bc75002c5c786a79614f9cd4f7b451038350a8041",
+        "bytes": 55231
+      },
+      "instruments": {
+        "path": "data/qlib/soxx_extended_published_affine_20260925_v1/instruments/all.txt",
+        "sha256": "baaf6319df4112e154696cef6eefa09a14e9c88f14e6e0c6c1ca3b0c29037274",
+        "bytes": 27
+      },
+      "SOXX_open": {
+        "path": "data/qlib/soxx_extended_published_affine_20260925_v1/features/soxx/open.day.bin",
+        "sha256": "182881f0b0887c00b7ed36ff3e673a85752336e83c02a1f27dcc0099b603ed20",
+        "bytes": 20088
+      }
+    },
+    "bounds": [
+      "2019-01-01",
+      "2026-09-25"
+    ],
+    "source_description": "Previously qualified single-SOXX published-affine extension, split-adjusted and bitwise equal to the canonical 2010+ overlap. Retrospective affine does not establish total return or historical PIT; only price-return information labels and scale-invariant trailing-return controls are used.",
+    "price_source_independent_validation": false,
+    "qualification_summary": {
+      "path": "research/soxx_extended_history_20261009/summary.json",
+      "sha256": "56cc4044d31c83e8ad1ec443b6f65ecbff2875c938c3b341fd29b344fb18a4fe"
+    }
+  },
+  "signal": {
+    "decision_schedule": "first native Qlib session of each calendar month",
+    "source_eligibility": "every then-disclosed member among NVDA,TSM,UMC,ASX must have one original own-period comparable pair available by decision session and no older than 550 calendar days; exclude the three early NVDA months",
+    "issuer_term": "log(inventory_current/inventory_prior) - log(revenue_current/revenue_prior)",
+    "basket_aggregation": "sum over eligible fund-disclosed four-name holdings of raw weight_pct/100 times issuer_term; never renormalize missing or absent basket weight",
+    "coverage_control": "sum raw weight_pct/100 of those four names; no member means zero weight, an active but missing member excludes the month",
+    "availability": "original filing values first usable on native Qlib session strictly after filed date, N-PORT basket only after its filing date"
+  },
+  "target": {
+    "horizon_sessions": 63,
+    "decision_information_time": "after decision-session open; next session open is earliest hypothetical entry",
+    "label": "log(SOXX open at decision index+64 / SOXX open at decision index+1)",
+    "label_maturity": "decision index+64 open",
+    "trailing_controls": [
+      "log(SOXX open[t]/open[t-63])",
+      "sample standard deviation of 20 daily open-to-open log returns ending at t",
+      "raw four-name disclosed weight fraction"
+    ],
+    "primary_training": "monthly decisions from 2020-03-01 through 2023-12-31 with label maturity strictly before first held decision",
+    "primary_held": "monthly decisions from 2024-01-01 through 2025-12-31",
+    "partial_2026": "diagnostic only, never candidate selection or primary gate",
+    "training_decision_bounds": [
+      "2020-03-01",
+      "2023-12-31"
+    ],
+    "held_decision_bounds": [
+      "2024-01-01",
+      "2025-12-31"
+    ]
+  },
+  "model": {
+    "baseline": "Ridge alpha=10.0 with intercept on three standardized controls",
+    "candidate": "same Ridge alpha=10.0 plus standardized inventory-sales mismatch",
+    "scaler": "fit mean and population standard deviation on eligible training decisions only; zero-variance column invalidates the screen",
+    "candidates": 1,
+    "seeds": [
+      20261014
+    ],
+    "fit_budget": 2,
+    "hyperparameter_search": false,
+    "ridge_alpha": 10.0
+  },
+  "information_gate": {
+    "required_train_candidate_signal_coefficient": "negative",
+    "required_held_mean_paired_squared_error_improvement_baseline_minus_candidate": "positive",
+    "bootstrap": "stationary bootstrap of held monthly paired loss differences, mean block 3 observations, 10000 draws, seed 20261014, lower quantile alpha=0.025/15 strictly positive",
+    "minimum_held_months": 18,
+    "interpretation": "information-only development screen; no SOXX wealth, cost/risk/annual/rolling or independent forward promotion follows",
+    "minimum_train_months": 24,
+    "bootstrap_lower_quantile": 0.0016666666666666668,
+    "bootstrap_mean_block_observations": 3,
+    "bootstrap_draws": 10000,
+    "bootstrap_seed": 20261014
+  },
+  "budget": {
+    "source_recorder_object_loads": 2,
+    "D_calendar_calls": 1,
+    "D_features_calls": 1,
+    "DatasetH_constructions": 1,
+    "model_fits": 2,
+    "bootstrap_runs": 1,
+    "native_accounts": 0,
+    "external_HTTP": 0,
+    "attempts": 1
+  },
+  "stops": [
+    "Any source Recorder, price-provider file, calendar or code/notebook identity differs before market read.",
+    "Missing/duplicate source pair, active disclosed member without a valid pair, invalid price rows, immature label or insufficient held months are explicit exclusions/needs_data, never filled from future information.",
+    "No threshold/window/sign/alpha refit or second candidate after the held result.",
+    "Positive information, if any, is reused historical development only and cannot be called stable fee-net SOXX excess."
+  ],
+  "outputs": [
+    "Executable notebook, DatasetH/Recorder with exact source and price identities, fixed forecasts and paired loss rows in Recorder",
+    "Slim summary and Chinese conclusion with train/held counts, yearly held differences, coefficient sign, bootstrap gate and non-promotion"
+  ],
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "inputs/*",
+      "analysis/*",
+      "metadata/*",
+      "sources/*"
+    ]
+  },
+  "implementation": {
+    "module": "src/workflow/inventory_sales_soxx_h63_information.py",
+    "module_sha256": "54690d476a3ac30cb5bf3f6208593998ca6110698dc7245d15567c285998828e",
+    "notebook": "research/inventory_sales_soxx_h63_information_20261022/inventory_sales_soxx_h63_information_20261022.ipynb",
+    "notebook_sha256": "1037278fde9b60d657e1be90bb486c2a85deb8f43e000a96b0a14a64a812dd02"
+  },
+  "pre_market_source_correction": {
+    "prior_plan": "plan_pre_split_source_review.json",
+    "prior_plan_sha256": "9354b9446dbf09a6fcbb6db1b9c666480c0766183edac1b1810a13ce723102cf",
+    "reason": "Official iShares 3-for-1 SOXX split effective March 2024 falls inside fixed held interval; raw NONE open-to-open would count the corporate action as a return. Select already-qualified split-adjusted published-affine price plane before any market value read or model fit.",
+    "official_split_notice": "https://www.ishares.com/us/literature/press-release/stock-split-press-release-2023.pdf",
+    "market_value_reads_before_change": 0,
+    "fit_attempts_before_change": 0,
+    "accounts_before_change": 0
+  }
+}

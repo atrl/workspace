@@ -1,0 +1,12 @@
+experiment: inventory_sales_soxx_h63_information_20261022
+phase: one_fixed_information_screen_no_account
+notebook: inventory_sales_soxx_h63_information_20261022.ipynb
+plan: plan.json
+module: src.workflow.inventory_sales_soxx_h63_information
+entrypoint: run
+qlib_source_provider: data/qlib/soxx_extended_published_affine_20260925_v1
+source_recorder: research/inventory_sales_tsm_revenue_bridge_20261022
+price_field: $open
+market_return_horizon_sessions: 63
+model_fits: 2
+native_accounts: 0

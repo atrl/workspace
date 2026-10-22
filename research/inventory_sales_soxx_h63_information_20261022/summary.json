@@ -1,0 +1,67 @@
+{
+  "experiment": "inventory_sales_soxx_h63_information_20261022",
+  "status": "completed_fixed_information_screen",
+  "decision": "not_promoted_fixed_information_gate_failed",
+  "hypothesis_sign": "negative",
+  "train_months": 43,
+  "held_months": 24,
+  "held_years": {
+    "2024": {
+      "months": 12,
+      "mean_paired_MSE_improvement": -0.01114363378472811
+    },
+    "2025": {
+      "months": 12,
+      "mean_paired_MSE_improvement": -0.004686747647364867
+    }
+  },
+  "partial_2026_diagnostic_months": 6,
+  "source_eligible_months": 77,
+  "source_excluded_months": 3,
+  "price_or_label_excluded_months": 1,
+  "candidate_signal_coefficient_standardized": -0.035103702776763925,
+  "baseline_held_MSE": 0.019738039921372075,
+  "candidate_held_MSE": 0.027653230637418567,
+  "held_mean_paired_MSE_improvement": -0.00791519071604649,
+  "stationary_bootstrap_lower_alpha_0p025_div_15": -0.01994393973141806,
+  "fixed_information_gate_pass": false,
+  "source_history_independent": false,
+  "forward_qualified_days": 0,
+  "fee_net_SOXX_excess_established": false,
+  "trading_or_promotion_permission": false,
+  "D_calendar_calls": 1,
+  "D_features_calls": 1,
+  "model_fits": 2,
+  "bootstrap_runs": 1,
+  "native_accounts": 0,
+  "source_recorder_object_loads": 2,
+  "source_recorder_id": "b17476ef090346e8bcbb45c85312da5a",
+  "plan_sha256": "909936a6a5da42e38a1f3374ec0e9629c02452dfd6dbc8b8d7aa34df4cfee565",
+  "module_sha256": "54690d476a3ac30cb5bf3f6208593998ca6110698dc7245d15567c285998828e",
+  "recorder_id": "2033653213e1487caefe4790826f6ced",
+  "experiment_id": "560669762706569092",
+  "recorder_uri": "/Users/rziiiii/dev/workspace/research/inventory_sales_soxx_h63_information_20261022/qlib_recorder",
+  "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/inventory_sales_soxx_h63_information_20261022/qlib_recorder/560669762706569092/2033653213e1487caefe4790826f6ced",
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "inputs/*",
+      "analysis/*",
+      "metadata/*",
+      "sources/*"
+    ]
+  },
+  "fixed_version_closed": true,
+  "result_review": "result_review.json",
+  "next_action": "Do not flip inventory signal sign, change horizon/weights/controls or rerun this version on reused history. Pursue a substantively different mechanism; inspect the existing SOXX opportunity-cost versus risk-projection/recovery-reachability evidence before any new execution.",
+  "nas_evidence": {
+    "sha256": "1f218fe9272d0c29b36d13f6c7a037ffdfc6e5744df47ed19da8846e74388785",
+    "size_bytes": 81696,
+    "media_type": "application/gzip",
+    "storage_uri": "sha256/1f/21/1f218fe9272d0c29b36d13f6c7a037ffdfc6e5744df47ed19da8846e74388785",
+    "recorder_id": "2033653213e1487caefe4790826f6ced",
+    "experiment_id": "560669762706569092",
+    "archive_root": "qlib_recorder"
+  }
+}

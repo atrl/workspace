@@ -1,0 +1,28 @@
+{
+  "status": "frozen_single_negative_information_readback_and_attribution",
+  "recorder_id": "2033653213e1487caefe4790826f6ced",
+  "summary_sha256": "7c05bd322055cbdd2afda0ece3a55426e31b422c4d5fa8b86671a2ad7c616429",
+  "verification_manifest_sha256": "768f5e702c4665493b35afadc0b9ffc05b6f9456d632167bcfdfee6e8935f445",
+  "artifacts": {
+    "analysis/summary": "f0bcf4b4ab87877e24e80efec435e26603bf87cdb2abd7b34be24c92b17c8262",
+    "analysis/fixed_train": "9860b5901b973f189df7d69f77c9807c91307a7cfa28e70f3ec7f8ec73b17e3c",
+    "analysis/fixed_held": "2ee237bb17795876cd04293c5beb56f2ea7c803765bf3530c7151a6330accef8",
+    "analysis/baseline_model": "c38cae1013bc03db4dca3184a60f077e9923ab0b470cab3e6508750b918d2ca8",
+    "analysis/candidate_model": "5b588398e204533f64403577e3c10e2aee014f6faedc2fd512db0d354e57a36c",
+    "analysis/source_monthly_signal": "f636e96d85bd25444baaf53e2fb304554324e6cf98c867a667fe167755f9a935",
+    "metadata/information_dataset": "65bed152cab0b8d5844612bf8512ca45beb1e6b476140c53e101300392f673f4"
+  },
+  "budget": {
+    "read_only_recorder_object_loads": 7,
+    "new_model_fits": 0,
+    "new_bootstraps": 0,
+    "new_accounts": 0,
+    "market_source_reads": 0
+  },
+  "checks": [
+    "Native DatasetH prepared labels/features reproduce held baseline/candidate forecasts from saved model/scaler objects without fitting.",
+    "Paired MSE mean and yearly 2024/2025 negative gate match summary, train signal coefficient sign and maturity boundary.",
+    "Descriptive held signal/label correlation, weight and distribution drift only; no window/sign/seed/model selection."
+  ],
+  "decision_rule": "If saved native evidence matches and held mean improvement remains negative, close this fixed information version as not promoted. A bootstrap replay is unnecessary for this negative decision."
+}

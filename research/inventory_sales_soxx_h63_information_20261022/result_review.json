@@ -1,0 +1,42 @@
+{
+  "status": "accepted_fixed_native_information_result_not_promoted",
+  "plan": "readback_attribution_plan.json",
+  "recorder_id": "2033653213e1487caefe4790826f6ced",
+  "artifact_sha256": {
+    "analysis/summary": "f0bcf4b4ab87877e24e80efec435e26603bf87cdb2abd7b34be24c92b17c8262",
+    "analysis/fixed_train": "9860b5901b973f189df7d69f77c9807c91307a7cfa28e70f3ec7f8ec73b17e3c",
+    "analysis/fixed_held": "2ee237bb17795876cd04293c5beb56f2ea7c803765bf3530c7151a6330accef8",
+    "analysis/baseline_model": "c38cae1013bc03db4dca3184a60f077e9923ab0b470cab3e6508750b918d2ca8",
+    "analysis/candidate_model": "5b588398e204533f64403577e3c10e2aee014f6faedc2fd512db0d354e57a36c",
+    "analysis/source_monthly_signal": "f636e96d85bd25444baaf53e2fb304554324e6cf98c867a667fe167755f9a935",
+    "metadata/information_dataset": "65bed152cab0b8d5844612bf8512ca45beb1e6b476140c53e101300392f673f4"
+  },
+  "read_only_object_loads": 7,
+  "max_saved_prediction_reconstruction_error": {
+    "baseline": 0.0,
+    "candidate": 0.0
+  },
+  "train_months": 43,
+  "held_months": 24,
+  "train_label_maturity_before_held": true,
+  "candidate_standardized_signal_coefficient": -0.035103702776763925,
+  "held_mean_paired_MSE_improvement": -0.00791519071604649,
+  "held_year_mean_paired_MSE_improvement": {
+    "2024": -0.01114363378472811,
+    "2025": -0.004686747647364867
+  },
+  "held_signal_target_Pearson_diagnostic": 0.6143033476224433,
+  "train_signal_mean": 0.003226691490668113,
+  "held_signal_mean": -0.03175674196540107,
+  "train_raw_four_name_weight_mean": 0.12667383986943584,
+  "held_raw_four_name_weight_mean": 0.1306125175891971,
+  "bootstrap_lower_from_completed_run": -0.01994393973141806,
+  "bootstrap_replayed": false,
+  "new_fits_accounts_or_replays": 0,
+  "decision": "Both full held years and overall paired MSE improvement are negative; fixed inventory-sales source signal does not earn a fee account or promotion. No sign/window/weight/model rescue on reused history.",
+  "limits": [
+    "The paper is stock-level/long-horizon and the four-name basket is partial; ETF transfer is unproven.",
+    "Source history and held period have been used in repository research, so this is development-only, not independent forward evidence.",
+    "The negative mean already closes the fixed information gate; saved bootstrap quantile was not rerun."
+  ]
+}
