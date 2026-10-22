@@ -2,3 +2,5 @@ experiment: stage1_amd_nvda_guidance_breadth_qlib_map_20261023
 phase: source_only
 plan: plan.json
 notebook: stage1_amd_nvda_guidance_breadth_qlib_map_20261023.ipynb
+repair_notebook: clock_equality_repair.ipynb
+source_audit: source_audit.json

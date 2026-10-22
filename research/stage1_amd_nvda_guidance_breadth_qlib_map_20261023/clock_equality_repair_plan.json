@@ -1,0 +1,26 @@
+{
+  "schema_version": 1,
+  "frozen": true,
+  "phase": "one_mechanical_clock_equality_repair_after_pre_recorder_failure",
+  "original_plan_sha256": "3e579dcc45d4ddfbe10e5dc4072d2c65c092621448d7b6fa3983abe1b9f82a00",
+  "failed_attempt_notebook_sha256": "9bdca61910e935f1ba981d4862ef7334fe196375d8284b7224c53db3da4cf3a6",
+  "failure_sha256": "cb7c3c9a4e50bd542d8c44091d85d63a1b8abf8e2f46b1961b43cd05a8c78d01",
+  "clock_overlay_sha256": "340983bc71dedf68c64709a29273db516b717ff4c3d39aa02d104b1a37fc093c",
+  "exact_exception": {
+    "accession": "0001193125-11-011350",
+    "prior_acceptance_based_Qlib_session": "2011-01-21",
+    "first_Qlib_session_strictly_after_SEC_filing_date": "2011-01-24",
+    "source_value": "qualitative_unknown"
+  },
+  "change": "Preserve the original failed notebook and failure receipt. In one new notebook, accept the one independently audited conservative later date; require equality for the other 125 events and keep all original source values, stale-age rule, calendar, feature formula, source hashes and Qlib/Recorder/NAS checks identical. The failed attempt created zero Recorders.",
+  "budget": {
+    "external_GETs": 0,
+    "Qlib_D_calendar_calls_max": 1,
+    "DatasetH_builds_max": 1,
+    "new_writable_Qlib_Recorders_max": 1,
+    "market_outcome_reads": 0,
+    "model_fits": 0,
+    "native_accounts": 0
+  },
+  "stop": "Stop on any second date/source mismatch or unexpected preexisting Recorder. Do not change numbers, thresholds, missingness, or labels after seeing a result."
+}

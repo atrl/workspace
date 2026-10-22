@@ -1,9 +1,9 @@
 {
-  "status": "failed_before_recorder_on_overstrict_clock_equality",
+  "status": "completed",
   "plan_sha256": "3e579dcc45d4ddfbe10e5dc4072d2c65c092621448d7b6fa3983abe1b9f82a00",
   "model_fits": 0,
   "native_accounts": 0,
   "market_outcome_reads": 0,
-  "failure": "failure.json",
-  "new_writable_recorders": 0
+  "recorder_id": "da4b00c81cfb4904b498f39bae156e45",
+  "nas_archive_sha256": "396d7904778416816929ae94297b69ab843d363f84efe938a69c2952b3ff492e"
 }

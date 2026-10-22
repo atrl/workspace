@@ -1,12 +1,31 @@
 {
   "experiment": "stage1_amd_nvda_guidance_breadth_qlib_map_20261023",
-  "decision": "failed_pre_recorder_source_clock_equality_assertion_no_model_or_account",
+  "decision": "original_AMD_NVDA_positive_guidance_breadth_Qlib_full_calendar_mapped_development_only",
   "objective_achieved": false,
-  "plan_sha256": "3e579dcc45d4ddfbe10e5dc4072d2c65c092621448d7b6fa3983abe1b9f82a00",
-  "failure": "failure.json",
+  "plan": "plan.json",
+  "source_audit": "source_audit.json",
+  "recorder_id": "da4b00c81cfb4904b498f39bae156e45",
+  "experiment_id": "598956725500720033",
+  "recorder_uri": "/Users/rziiiii/dev/workspace/research/stage1_amd_nvda_guidance_breadth_qlib_map_20261023/qlib_recorder",
+  "nas_evidence": {
+    "sha256": "396d7904778416816929ae94297b69ab843d363f84efe938a69c2952b3ff492e",
+    "size_bytes": 150225,
+    "media_type": "application/gzip",
+    "storage_uri": "sha256/39/6d/396d7904778416816929ae94297b69ab843d363f84efe938a69c2952b3ff492e",
+    "uploaded_by": "soxl-minute-research",
+    "created_at": "2026-10-23 06:28:25.087849+08",
+    "duplicate": false,
+    "nas_path": "/volume1/docker/yanxuan/registry/research-artifacts/39/6d/396d7904778416816929ae94297b69ab843d363f84efe938a69c2952b3ff492e",
+    "recorder_id": "da4b00c81cfb4904b498f39bae156e45",
+    "experiment_id": "598956725500720033",
+    "archive_root": "qlib_recorder"
+  },
+  "nas_readback": {
+    "sha256": "396d7904778416816929ae94297b69ab843d363f84efe938a69c2952b3ff492e",
+    "verified": true
+  },
   "model_fits": 0,
   "native_accounts": 0,
-  "market_outcome_reads": 0,
   "artifact_policy": {
     "policy": "slim_card_recorder_first",
     "workflow_config": "workflow.yaml",
@@ -16,5 +35,11 @@
       "analysis/*",
       "metadata/*"
     ]
-  }
+  },
+  "clock_equality_repair_plan": "clock_equality_repair_plan.json",
+  "clock_equality_repair_plan_sha256": "0f3f2c1ba222d6d0f532cb8231065963dc8de9fed5c26b54f09b22b576f2cd62",
+  "failed_first_attempt": "failure.json",
+  "original_source_NAS_readback_verified": true,
+  "first_public_exact_qualified": false,
+  "market_outcome_reads": 0
 }
