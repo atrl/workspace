@@ -1,0 +1,19 @@
+{
+  "status": "official_public_sample_archived_remote_hash_verified",
+  "sample_url": "https://s3.amazonaws.com/assets.orats.com/ORATS_SMV_Strikes_20240103.zip",
+  "official_product_url": "https://orats.com/near-eod-data",
+  "sample_date": "2024-01-03",
+  "sha256": "e04a37310b0f453fedc03a000c55adfc517a119279150173916ebdc5fb514570",
+  "bytes": 66808802,
+  "nas_path": "/volume1/docker/yanxuan/registry/research-artifacts/e0/4a/e04a37310b0f453fedc03a000c55adfc517a119279150173916ebdc5fb514570",
+  "nas_evidence": {
+    "storage_uri": "sha256/e0/4a/e04a37310b0f453fedc03a000c55adfc517a119279150173916ebdc5fb514570",
+    "uploaded_by": "soxl-minute-research",
+    "created_at": "2026-10-22 21:56:52.418319+08",
+    "duplicate": false
+  },
+  "market_outcome_reads": 0,
+  "model_fits": 0,
+  "accounts": 0,
+  "purchases": 0
+}

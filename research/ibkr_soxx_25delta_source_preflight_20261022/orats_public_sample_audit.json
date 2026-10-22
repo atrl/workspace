@@ -1,0 +1,92 @@
+{
+  "schema_version": 1,
+  "status": "one_public_vendor_sample_SOXX_fields_and_brackets_verified_history_unqualified",
+  "sample_archive_receipt": "orats_public_sample_archive.json",
+  "sample_sha256": "e04a37310b0f453fedc03a000c55adfc517a119279150173916ebdc5fb514570",
+  "sample_date": "2024-01-03",
+  "compressed_bytes": 66808802,
+  "uncompressed_csv_bytes": 222935113,
+  "total_option_rows": 716822,
+  "distinct_tickers": 5787,
+  "SOXX_rows": 1124,
+  "SOXX_expirations_16_and_44d": {
+    "16": {
+      "call": {
+        "eligible_rows": 96,
+        "target_call_delta_coordinate": 0.25,
+        "bracket": [
+          {
+            "strike": 565.0,
+            "call_delta": 0.226658,
+            "mid_iv": 0.22624
+          },
+          {
+            "strike": 560.0,
+            "call_delta": 0.288381,
+            "mid_iv": 0.22739
+          }
+        ]
+      },
+      "put": {
+        "eligible_rows": 76,
+        "target_call_delta_coordinate": 0.75,
+        "bracket": [
+          {
+            "strike": 530.0,
+            "call_delta": 0.709202,
+            "mid_iv": 0.24687
+          },
+          {
+            "strike": 525.0,
+            "call_delta": 0.765291,
+            "mid_iv": 0.25245
+          }
+        ]
+      }
+    },
+    "44": {
+      "call": {
+        "eligible_rows": 96,
+        "target_call_delta_coordinate": 0.25,
+        "bracket": [
+          {
+            "strike": 580.0,
+            "call_delta": 0.239598,
+            "mid_iv": 0.23431
+          },
+          {
+            "strike": 575.0,
+            "call_delta": 0.275406,
+            "mid_iv": 0.23605
+          }
+        ]
+      },
+      "put": {
+        "eligible_rows": 75,
+        "target_call_delta_coordinate": 0.75,
+        "bracket": [
+          {
+            "strike": 520.0,
+            "call_delta": 0.725841,
+            "mid_iv": 0.26498
+          },
+          {
+            "strike": 515.0,
+            "call_delta": 0.756203,
+            "mid_iv": 0.26769
+          }
+        ]
+      }
+    }
+  },
+  "thirty_day_exact_expiration_present": false,
+  "thirty_day_term_interpolation_required": true,
+  "per_row_quote_timestamp_column_present": false,
+  "historical_2011_2022_SOXX_coverage_verified": false,
+  "source_delivery_before_next_Stage1_decision_verified": false,
+  "market_outcome_reads": 0,
+  "model_fits": 0,
+  "accounts": 0,
+  "purchases": 0,
+  "acceptance_before_purchase": "Require symbol- and contract-adjustment-specific SOXX samples across 2011-2022, exact original quote date/time and delivery availability, 25Delta brackets at two expiries around 30 days, no missing-date compaction, and reconciliation to ETF price plane."
+}

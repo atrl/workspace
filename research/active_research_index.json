@@ -14,7 +14,9 @@
       "result": "research/ibkr_soxx_option_skew_forward_source_20261022/regular_hours_result.json",
       "source_archive": "research/ibkr_soxx_option_skew_forward_source_20261022/source_archive_receipt.json",
       "fixed_delta25_source_preflight": "research/ibkr_soxx_25delta_source_preflight_20261022/summary.json",
-      "fixed_delta25_source_status": "single_day_bracketed_not_PIT"
+      "fixed_delta25_source_status": "single_day_bracketed_not_PIT",
+      "vendor_sample_audit": "research/ibkr_soxx_25delta_source_preflight_20261022/orats_public_sample_audit.json",
+      "vendor_sample_status": "one_day_SOXX_25delta_brackets_historical_coverage_unqualified"
     },
     {
       "card": "research/cboe_total_options_activity_source_20261022",

@@ -68,7 +68,8 @@
     "IBKR_fixed_delta25_source_status": "one_25delta_bracketed_source_sample_quote_timestamps_and_history_missing_no_factor",
     "stage1_daily_volume_source_preflight": "research/stage1_daily_volume_participation_source_20261022/source_preflight_result.json",
     "stage1_daily_volume_tail_bridge": "research/stage1_daily_volume_participation_source_20261022/tail_bridge_result.json",
-    "stage1_daily_volume_source_status": "train_3020_and_funded_signal_944_coverage_passed_information_unrun"
+    "stage1_daily_volume_source_status": "train_3020_and_funded_signal_944_coverage_passed_information_unrun",
+    "IBKR_ORATS_public_sample_audit": "research/ibkr_soxx_25delta_source_preflight_20261022/orats_public_sample_audit.json"
   },
   "parallel_source_task": {
     "card": "research/korea_semiconductor_exports_korean_vintage_20261022",
@@ -130,7 +131,7 @@
     ]
   },
   "active_index": "research/active_research_index.json",
-  "updated_at_utc": "2026-10-22T13:46:52.912310+00:00",
+  "updated_at_utc": "2026-10-22T13:57:42.091295+00:00",
   "execution_totals": {
     "new_model_fits": 51,
     "new_native_accounts": 46,

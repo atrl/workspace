@@ -23,5 +23,7 @@
   },
   "next_action": "A separate forward source-capture plan needs quote timestamp/provenance and exclusive claim. Historical SOXX 2011-2022 25Delta IV/Delta requires verified vendor sample/coverage before any model fit or account.",
   "nas_source_archive_sha256": "b042206e39d3c37f007c3e0d283bd399317c82480f84ae09fbd521a9e1a29d5a",
-  "source_archive_receipt": "source_archive_receipt.json"
+  "source_archive_receipt": "source_archive_receipt.json",
+  "orats_public_sample_audit": "orats_public_sample_audit.json",
+  "orats_public_sample_status": "one_2024_day_SOXX_25delta_brackets_present_historical_coverage_unqualified"
 }
