@@ -1,0 +1,13 @@
+{
+  "status": "bounded_identity_only_repair_before_second_read",
+  "original_plan_sha256": "0de77525e201775a882c307e7de218c7f4d96c35b4bb41d8d520def669d98c7e",
+  "unchanged_source_recorder_id": "5fc5ec0a971848db94a9c0c4954b1f80",
+  "unchanged_raw_artifact_sha256": "d2b8467087dfbb45008b1fc88bbfda85f87f24eb3f0f83526a3c82222a215d55",
+  "repair": "Use publication_inventory raw_sha256 to resolve every release date, retaining a positive filename/date agreement check for the 191 dated keys and one exact Current_sup.txt mapping to 2026-09-18. No numeric field or row-selection logic change.",
+  "source_object_loads_previously_consumed": 1,
+  "additional_verified_source_object_loads_max": 1,
+  "new_total_max": 2,
+  "market_outcome_reads": 0,
+  "new_model_fits": 0,
+  "native_accounts": 0
+}

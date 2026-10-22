@@ -1,0 +1,17 @@
+{
+  "status": "mechanical_preflight_failed_after_one_verified_Qlib_source_object_load",
+  "plan_sha256": "0de77525e201775a882c307e7de218c7f4d96c35b4bb41d8d520def669d98c7e",
+  "failed_assertion": "filename-prefix release-date set equality",
+  "observed_mismatch": {
+    "raw_key": "Current_sup.txt",
+    "raw_bytes_sha256": "208fb16b8f6341665e9285107e38165955827d8b14a55e61b0254c4c8d1ef8f0",
+    "inventory_release_date": "2026-09-18"
+  },
+  "result_sidecars_written": 0,
+  "numeric_factor_rows": 0,
+  "market_outcome_reads": 0,
+  "model_fits": 0,
+  "native_accounts": 0,
+  "source_object_loads_consumed": 1,
+  "reason": "Archive stores the final dated publication under a generic Current_sup.txt filename; its exact raw SHA equals the dated publication_inventory entry. The audit must bind by raw bytes rather than assume every filename embeds a date."
+}
