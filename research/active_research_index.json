@@ -141,7 +141,8 @@
     "Korean_semiconductor_exports_current_vintage_gap": "research/korea_semiconductor_exports_korean_full_source_20261022/source_qualification_result.json",
     "US_semiconductor_PPI_date_vintages": "research/semiconductor_ppi_alfred_source_20261022/source_quality.json",
     "TSMC_next_issuer_revenue_calendar": "research/tsmc_monthly_revenue_release_source_20261022/future_2026_10_revenue_calendar_probe.json",
-    "TSMC_prospective_original_press_capture": "research/tsmc_monthly_revenue_release_source_20261022/future_2026_10_press_capture_plan.json"
+    "TSMC_prospective_original_press_capture": "research/tsmc_monthly_revenue_release_source_20261022/future_2026_10_press_capture_plan.json",
+    "TSMC_SEC_browser_bridge_gap": "research/tsmc_monthly_revenue_release_source_20261022/browser_bridge_access_probe.json"
   },
   "do_not_reload": [
     "closed Recorder/model objects without new bounded need",

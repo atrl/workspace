@@ -1,0 +1,19 @@
+{
+  "schema_version": 1,
+  "status": "needs_browser_extension_for_exact_SEC_original",
+  "previous_SEC_fallback_plan_sha256": "dfdade14ee895581f632856e8f14e8a47d7c1f84584a885a034f5c2bed7a6e27",
+  "attempted_exact_frozen_SEC_URL": "https://www.sec.gov/Archives/edgar/data/1046179/000104617926000680/tsm-revenue20261008.htm",
+  "browser_bridge_session": "tsmc-sec-original",
+  "navigate_HTTP_status": 502,
+  "list_tabs_HTTP_status": 502,
+  "bridge_error_code": "tool_error",
+  "bridge_error_message": "no extension connected",
+  "SEC_page_opened": false,
+  "raw_SEC_bytes_obtained": false,
+  "original_filing_source_qualified": false,
+  "first_public_time_qualified": false,
+  "market_outcome_reads": 0,
+  "model_fits": 0,
+  "accounts": 0,
+  "next_action": "Do not repeat this browser path while no extension is connected. An enabled browser extension or another accessible official exact-byte SEC source is needed for historical original filing qualification; continue independent scheduled Cboe/IBKR and prospective issuer source capture."
+}
