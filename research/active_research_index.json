@@ -75,6 +75,16 @@
   ],
   "closed_fixed_versions": [
     {
+      "card": "research/stage1_beta_composition_0bp_20261022",
+      "status": "not_promoted_fixed_Stage1_beta_composition_0bp",
+      "default_search": false,
+      "evidence_preserved": true,
+      "result": "research/stage1_beta_composition_0bp_20261022/summary.json",
+      "failure_attribution": "research/stage1_beta_composition_attribution_20261022/failure_attribution.json",
+      "recorder_id": "4cd2029dc98740349e34db8c7c6eae3e",
+      "nas_archive_sha256": "276d3de7940772e0e8e6f25b21ea108cfbf7c5dbb15d1fc489544eeda5395af4"
+    },
+    {
       "card": "research/stage1_issuer_share_creation_information_20261022",
       "status": "not_promoted_fixed_issuer_share_creation_information_failed",
       "default_search": false,
