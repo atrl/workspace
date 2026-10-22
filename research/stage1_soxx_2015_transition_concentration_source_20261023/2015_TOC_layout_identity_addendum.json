@@ -1,0 +1,53 @@
+{
+  "schema_version": 1,
+  "frozen": true,
+  "phase": "three_2015_original_TOC_anchor_layout_identity_rechecks",
+  "prior_identity_result_sha256": "7906f55cd99d08d254fb6a9dcc77ca77378ae7961ec8e2dc53a8019e81800701",
+  "input_plan_sha256": "6f6c69e9dddbaddd535149ce3c6656c2d8f5b4a282c67eec9d1576139459bef2",
+  "target_title": "PHLX SEMICONDUCTOR ETF",
+  "failed_reports": [
+    {
+      "report_date": "2015-01-31",
+      "accession": "0001193125-15-122693",
+      "raw_sha256": "c481d867c2002e4cb9d19cd0e0e6454483deb2a7820f64c008f0b8cdd02668dd",
+      "TOC_anchor": "toc875397_9",
+      "bounded_start": 769783,
+      "bounded_end": 820732,
+      "bounded_section_sha256": "995d09ed630f8973a17d41540ad221886efda5801dee577497b4481b2873263c"
+    },
+    {
+      "report_date": "2015-07-31",
+      "accession": "0001193125-15-339410",
+      "raw_sha256": "f4066b79e07007b02fe09c5a3103f727ff59f61413b2084e775143180fd262d5",
+      "TOC_anchor": "toc98289_10",
+      "bounded_start": 1071567,
+      "bounded_end": 1122831,
+      "bounded_section_sha256": "5c606bcb72155d8b07b0540845b6e0f44838ef965517b7da031e1a9905ca8779"
+    },
+    {
+      "report_date": "2015-09-30",
+      "accession": "0001193125-15-396474",
+      "raw_sha256": "c3cc85a5554434ff5155eb59d8a9cb4fd7c3553bfa8ac3ac602208659c902e67",
+      "TOC_anchor": "toc22690_10",
+      "bounded_start": 32806746,
+      "bounded_end": 32858147,
+      "bounded_section_sha256": "8510e49f00206d8b9530b7d91e463a462610543983ed54a19d519c6151191f5f"
+    }
+  ],
+  "source_layout_finding": "Each frozen TOC anchor section has the exact fund title, report date, Security/Shares/Value header and COMMON STOCKS rows, but omits a repeated Schedule of Investments phrase within the anchored section.",
+  "fixed_identity_repair": "Verify exact fund-named TOC href to the pinned anchor and unchanged raw/section hashes; require fund title, exact report date, Security/Shares/Value header and COMMON STOCKS within the bounded anchor section. The TOC anchor serves as the schedule locator; do not require literal schedule phrase inside section.",
+  "unchanged": [
+    "Same three SEC raw bodies and accept times",
+    "Same report dates and fund title",
+    "Same tabular equity header and common-stock evidence",
+    "No numeric extraction or market outcomes"
+  ],
+  "budget": {
+    "new_HTTP_GETs": 0,
+    "raw_body_rechecks_max": 3,
+    "market_outcome_reads": 0,
+    "model_fits": 0,
+    "native_accounts": 0
+  },
+  "stop": "Any missing pinned TOC link/anchor, raw or section hash, title, date or equity header remains unqualified; no further alias or URL search in this fixed version."
+}
