@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "frozen_before_repair_execution": true,
+  "original_plan_sha256": "70c2ba0c867874052878ef22bc02f7dfd500db5bc5ce1ef19c843db521fc77d6",
+  "attempt1_failure": "attempt1_failure.json",
+  "only_source_change": "Use the same original Stage1 training Qlib daily_prices provider, whose manifest spans 2010-03-11 through 2026-10-09, instead of the 2023+ held-account provider for the calendar.",
+  "replacement_provider": "data/qlib/minute_information_pit_allocator_20261012/daily_prices",
+  "replacement_provider_manifest_sha256": "d80a08d479b73098053006909b5e6227b03a56ab705681742d7261088e0a7e6c",
+  "new_mechanical_gates": ["D.calendar first date no later than 2011-07-28 and last date no earlier than 2026-07-17", "Each next Qlib trading day is strictly after the SEC acceptance date and at most 7 calendar days later", "Same 12-hour margin after both conservative header clock interpretations"],
+  "additional_budget": {"Qlib_D_calendar_calls": 1, "new_external_GETs": 0, "model_fits": 0, "native_accounts": 0},
+  "cumulative_actual_max": {"Qlib_D_calendar_calls": 2, "new_external_GETs": 0, "model_fits": 0, "native_accounts": 0},
+  "unchanged": ["three exact SEC accession identities", "EDGAR acceptance bytes and NAS identity", "next actual Qlib day at 09:46 New York", "no outcomes, model or account"],
+  "stop": "Only one repair execution. If a source or clock gate fails, preserve exact failure and stop this version."
+}

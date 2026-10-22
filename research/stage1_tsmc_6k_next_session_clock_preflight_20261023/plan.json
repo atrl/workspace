@@ -1,0 +1,19 @@
+{
+  "schema_version": 1,
+  "frozen": true,
+  "experiment": "stage1_tsmc_6k_next_session_clock_preflight_20261023",
+  "phase": "three_anchor_original_SEC_6K_acceptance_to_next_Stage1_session_source_clock_only",
+  "source": {
+    "acceptance_result": "research/stage1_tsmc_sec_6k_guidance_source_probe_20261023/acceptance_clock_result.json",
+    "acceptance_result_sha256": "90fda1752a46c8110b92d5602cc16d8affad538220df1d7a5f460ad3f56ac982",
+    "required_accessions": ["0001193125-11-199728", "0001564590-22-014381", "0001046179-26-000451"],
+    "SEC_NAS_remote_and_scoped_restore_required": true,
+    "provider": "data/qlib/stage1_domain_heads_20261018",
+    "provider_manifest_sha256": "b9b00a50e86cf26f254d169c886f981b6e90a9daafc3612e3c7ef7c6479b8083",
+    "Stage1_summary_sha256": "3b51938ca56ddf45029ff5e4a01a6bbc2f1d1407458efcad7d7c68b0ef5a1d37"
+  },
+  "clock_rule": "Parse each EDGAR header ACCEPTANCE-DATETIME date and time. For an anchor, the earliest candidate feature use is the next actual Qlib US day after the acceptance calendar date at 09:46 America/New_York, never the accepted day. Compare it against both America/New_York and fixed UTC-05:00 readings of the SEC header clock and require at least 12 hours after the later UTC interpretation. This buffers daylight-label ambiguity and ordinary dissemination, but is not proof of exact first web receipt.",
+  "official_context": ["https://www.sec.gov/files/info/edgar/specifications/pds_dissemination_spec.pdf", "https://www.sec.gov/info/edgar/specifications/pdsdissemspec-092812.pdf"],
+  "budget": {"new_external_GETs": 0, "Qlib_D_calendar_calls": 1, "Qlib_DatasetH_builds": 0, "new_Qlib_Recorders": 0, "market_outcome_reads": 0, "model_fits": 0, "native_accounts": 0},
+  "stop": "Any source/NAS/provider identity, missing next trading day or 12-hour buffer failure stops. A three-anchor pass only defines a conservative candidate timing rule for separately audited 2011-2026 filings; it does not certify full coverage, semantic currency comparability, actual first-public dissemination or a Stage1 factor/account."
+}

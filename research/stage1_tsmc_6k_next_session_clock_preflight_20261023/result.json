@@ -1,0 +1,49 @@
+{
+  "status": "three_SEC_6K_anchors_conservative_next_Qlib_session_clock_passed",
+  "plan_sha256": "70c2ba0c867874052878ef22bc02f7dfd500db5bc5ce1ef19c843db521fc77d6",
+  "mechanical_provider_repair_sha256": "e1ae567e4fccfdee2a52b13147d350d8fe35e23b58782126aaa449d75906192d",
+  "invalid_attempt1_result": "attempt1_invalid_provider_result.json",
+  "anchors": [
+    {
+      "anchor": "2011Q2_reported_2011_07_28",
+      "accession": "0001193125-11-199728",
+      "EDGAR_header_acceptance_naive": "20110728063534",
+      "NY_interpretation_UTC": "2011-07-28T10:35:34+00:00",
+      "fixed_EST_interpretation_UTC": "2011-07-28T11:35:34+00:00",
+      "next_Qlib_trade_date": "2011-07-29",
+      "earliest_research_decision_ET": "2011-07-29T09:46:00-04:00",
+      "minimum_hours_from_later_acceptance_interpretation": 26.17388888888889,
+      "source_text_identity_only": true
+    },
+    {
+      "anchor": "2022Q1_reported_2022_04_14",
+      "accession": "0001564590-22-014381",
+      "EDGAR_header_acceptance_naive": "20220414060233",
+      "NY_interpretation_UTC": "2022-04-14T10:02:33+00:00",
+      "fixed_EST_interpretation_UTC": "2022-04-14T11:02:33+00:00",
+      "next_Qlib_trade_date": "2022-04-18",
+      "earliest_research_decision_ET": "2022-04-18T09:46:00-04:00",
+      "minimum_hours_from_later_acceptance_interpretation": 98.72416666666666,
+      "source_text_identity_only": true
+    },
+    {
+      "anchor": "2026Q2_reported_2026_07_16",
+      "accession": "0001046179-26-000451",
+      "EDGAR_header_acceptance_naive": "20260716074543",
+      "NY_interpretation_UTC": "2026-07-16T11:45:43+00:00",
+      "fixed_EST_interpretation_UTC": "2026-07-16T12:45:43+00:00",
+      "next_Qlib_trade_date": "2026-07-17",
+      "earliest_research_decision_ET": "2026-07-17T09:46:00-04:00",
+      "minimum_hours_from_later_acceptance_interpretation": 25.004722222222224,
+      "source_text_identity_only": true
+    }
+  ],
+  "minimum_hours_across_anchors": 25.004722222222224,
+  "SEC_source_NAS_archive_sha256": "aef18786ad2ac993c7461136e1ef79b2e902fc4cd0034ff546f43f7d91a00a89",
+  "SEC_source_NAS_scoped_restore_verified": true,
+  "historical_first_public_clock_qualified": false,
+  "full_2011_2026_guidance_inventory_qualified": false,
+  "market_outcome_reads": 0,
+  "model_fits": 0,
+  "native_accounts": 0
+}

@@ -1,0 +1,10 @@
+{
+  "status": "invalid_Qlib_provider_does_not_cover_2011_2022_acceptance_dates",
+  "original_plan_sha256": "70c2ba0c867874052878ef22bc02f7dfd500db5bc5ce1ef19c843db521fc77d6",
+  "invalid_result_sha256": "891fbdd98daaba70af8e601c4ac1029d13c367cca1e62b49ea850b6733d01bd8",
+  "executed_cell_sha256": "915747c95f98654223d07241960c85e16bf01059c5adfdcf2ea4b3c15423b279",
+  "actual_provider_calendar_start": "2023-01-04",
+  "invalid_mappings": {"2011-07-28": "2023-01-04", "2022-04-14": "2023-01-04"},
+  "consumed": {"Qlib_D_calendar_calls": 1, "model_fits": 0, "native_accounts": 0, "market_outcome_reads": 0},
+  "decision": "Do not use the first result as availability evidence. Preserve original plan, result and executed notebook output."
+}

@@ -1,0 +1,16 @@
+{
+  "experiment": "stage1_tsmc_6k_next_session_clock_preflight_20261023",
+  "decision": "conditional_three_anchor_next_session_clock_pass_after_provider_repair_full_history_pending",
+  "objective_achieved": false,
+  "plan_sha256": "70c2ba0c867874052878ef22bc02f7dfd500db5bc5ce1ef19c843db521fc77d6",
+  "result": "result.json",
+  "source_anchors": 3,
+  "minimum_hours_buffer": 25.004722222222224,
+  "model_fits": 0,
+  "native_accounts": 0,
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": []
+  }
+}
