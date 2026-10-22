@@ -1,0 +1,12 @@
+{
+  "schema_version": 1,
+  "experiment": "soxx_issuer_premium_source_probe_20261022",
+  "phase": "read_only_current_issuer_field_and_historical_parameter_probe",
+  "parent_problem": "Current issuer Historical workbook has 8928 NAV/shares rows but no matching market-price or premium field; prior exclusion remains until exact issuer historical measurement and publication clock are proven.",
+  "default_url": "https://www.ishares.com/us/products/239705/fund",
+  "historical_parameter_url": "https://www.ishares.com/us/products/239705/fund?asOfDate=20161230",
+  "raw_paths": ["data/raw/external/soxx_issuer_premium_probe_20261022/default.html", "data/raw/external/soxx_issuer_premium_probe_20261022/asof_20161230.html"],
+  "parser_scope": "Read the embedded premiumDiscountChartData asOfDate and value arrays only; require equal lengths and report exact first/last/count. Do not infer the page's historical endpoint or first-public date from this response.",
+  "budget": {"page_observations": 2, "model_fits": 0, "market_outcome_reads": 0, "native_accounts": 0},
+  "stop": "If the explicit old-date parameter does not return 2011-2022 daily issuer premium values, keep the old exclusion. Do not splice an unrelated adjusted close into issuer NAV or select a shorter training window."
+}

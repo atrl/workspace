@@ -40,7 +40,7 @@
     "execution_authorized": false,
     "parent": "Frozen Stage1 f696f656 allocator plus b472a458 action/recovery chain under the same Qlib source, decision clocks, and full funded account contract; use its 0bp native account as the attribution baseline.",
     "first_screen": "0bp means zero added slippage with frozen IBKR Tiered fees still charged. A Stage1-derived candidate must first clear the SOXX 0bp wealth, <=30% available-mark drawdown, CVaR5, complete-year, rolling-126 and preregistered uncertainty screens on one full native account. Compare the matched frozen Stage1 account for module attribution.",
-    "next_action": "A source-complete Stage1 daily volume participation feature was trained once with matched 39-feature control: 3014 mature training rows, 940 reused held rows, two Ridge fits and one block test. Held MSE improvement -7.737e-7, second half negative, lower bound -1.149e-5. Fixed information route closed before any 0bp account; do not reverse sign, change trend gate/window/horizon, or reuse selected weak quarters as a switch. Continue with a materially distinct mechanism or source-qualified new information; SOXX 0bp/2/5bp and independent-forward objective remains unmet.",
+    "next_action": "Closed Stage1 daily-volume information and original-Stage1 NVDA receiver remain failed. An official SOXX premium/discount HTML source was observed, but only 452 daily rows from 2025-01-02 onward; explicit 2016 asOfDate URL returned the same array. No 2011-2022 source or historical publication clock, so no matched Stage1 factor/account. Continue only with a genuinely qualified historical source or future original receipts; do not splice adjusted close into issuer NAV or shorten training.",
     "baseline_evidence": "research/stage1_domain_heads_20261018/conclusion.md",
     "layer_diagnosis": "research/stage1_uniform_layer_attribution_20261010/conclusion.md",
     "cross_account_attribution": "research/three_asset_failure_attribution_20261015/conclusion.md",
@@ -72,7 +72,9 @@
     "IBKR_ORATS_public_sample_audit": "research/ibkr_soxx_25delta_source_preflight_20261022/orats_public_sample_audit.json",
     "stage1_daily_volume_information_result": "research/stage1_daily_volume_participation_information_20261022/result_review.json",
     "stage1_daily_volume_information_status": "closed_fixed_information_gate_failed_two_fits_zero_accounts",
-    "IBKR_historical_skew_data_acceptance": "research/ibkr_soxx_25delta_source_preflight_20261022/historical_data_acceptance_brief.json"
+    "IBKR_historical_skew_data_acceptance": "research/ibkr_soxx_25delta_source_preflight_20261022/historical_data_acceptance_brief.json",
+    "issuer_premium_source_probe": "research/soxx_issuer_premium_source_probe_20261022/source_probe_result.json",
+    "issuer_premium_source_status": "current_issuer_HTML_452_days_2025_2026_history_missing_no_fit"
   },
   "parallel_source_task": {
     "card": "research/korea_semiconductor_exports_korean_vintage_20261022",

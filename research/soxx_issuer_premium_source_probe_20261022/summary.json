@@ -1,0 +1,15 @@
+{
+  "experiment": "soxx_issuer_premium_source_probe_20261022",
+  "decision": "needs_original_full_history_and_publication_clock_no_factor",
+  "objective_achieved": false,
+  "result": "source_probe_result.json",
+  "nas_source_archive": "nas_source_archive_receipt.json",
+  "training_source_qualified": false,
+  "new_model_fits": 0,
+  "new_native_accounts": 0,
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": []
+  }
+}

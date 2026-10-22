@@ -1,0 +1,40 @@
+{
+  "status": "current_issuer_premium_html_2025_2026_only_historical_endpoint_missing",
+  "plan_sha256": "e0ad9a8e522b4ff7f82e82eacc0d5ca5b0c1611c351178dd4a6e1f90a69b8e0d",
+  "sources": [
+    {
+      "path": "data/raw/external/soxx_issuer_premium_probe_20261022/default.html",
+      "sha256": "634c8f42c0a8cd77ba7869b346b6dca6558734f10c89f6be2d2ca173c86741c4",
+      "bytes": 1771515,
+      "local_file_mtime_utc": "2026-10-22T14:21:39.620635+00:00",
+      "http_url": "https://www.ishares.com/us/products/239705/fund",
+      "embedded_daily_rows": 452,
+      "first_date": "20250102",
+      "last_date": "20261021",
+      "first_value_pct": "0.027624546306648234",
+      "last_value_pct": "-0.007379540029828213"
+    },
+    {
+      "path": "data/raw/external/soxx_issuer_premium_probe_20261022/asof_20161230.html",
+      "sha256": "0f66469ecbece5cec5057e6503b9c3563142bcb851b6675316d27d30e4357105",
+      "bytes": 1771533,
+      "local_file_mtime_utc": "2026-10-22T14:21:39.624279+00:00",
+      "http_url": "https://www.ishares.com/us/products/239705/fund?asOfDate=20161230",
+      "embedded_daily_rows": 452,
+      "first_date": "20250102",
+      "last_date": "20261021",
+      "first_value_pct": "0.027624546306648234",
+      "last_value_pct": "-0.007379540029828213"
+    }
+  ],
+  "two_page_date_arrays_equal": true,
+  "two_page_value_arrays_equal": true,
+  "Stage1_2011_2022_training_coverage": 0,
+  "historical_first_public_timing_qualified": false,
+  "same_basis_NAV_market_price_history_qualified": false,
+  "new_model_fits": 0,
+  "market_outcome_reads": 0,
+  "new_native_accounts": 0,
+  "decision": "needs_original_full_history_and_publication_clock_no_factor",
+  "caveat": "The default HTML response and one URL parameter do not rule out another official historical endpoint; no source-qualified full Stage1 feature is available from these observations."
+}

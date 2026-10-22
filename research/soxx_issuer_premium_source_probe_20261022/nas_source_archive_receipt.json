@@ -1,0 +1,19 @@
+{
+  "status": "uploaded_exact_two_issuer_HTML_observations",
+  "archive_sha256": "3d31b8780744556780b84023f9418331da345019feb6872962f4f336e8ecfe50",
+  "archive_bytes": 479272,
+  "raw_sha256": {
+    "data/raw/external/soxx_issuer_premium_probe_20261022/default.html": "634c8f42c0a8cd77ba7869b346b6dca6558734f10c89f6be2d2ca173c86741c4",
+    "data/raw/external/soxx_issuer_premium_probe_20261022/asof_20161230.html": "0f66469ecbece5cec5057e6503b9c3563142bcb851b6675316d27d30e4357105"
+  },
+  "nas_artifact": {
+    "sha256": "3d31b8780744556780b84023f9418331da345019feb6872962f4f336e8ecfe50",
+    "size_bytes": 479272,
+    "media_type": "application/gzip",
+    "storage_uri": "sha256/3d/31/3d31b8780744556780b84023f9418331da345019feb6872962f4f336e8ecfe50",
+    "uploaded_by": "soxl-minute-research",
+    "created_at": "2026-10-22 22:21:53.006847+08",
+    "duplicate": false
+  },
+  "remote_hash_verified": true
+}
