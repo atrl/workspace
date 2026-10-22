@@ -1,0 +1,50 @@
+{
+  "recorder_id": "0b4c648c44d24561a8c21e0182381aa3",
+  "entries": [
+    {
+      "path": "qlib_recorder/449371276764721344/0b4c648c44d24561a8c21e0182381aa3/artifacts/analysis/availability_audit",
+      "sha256": "ee8295148b2d63fbb8157727afc171d1e2cfcff90c765e7b6377e1bc4ae898c6",
+      "bytes": 855
+    },
+    {
+      "path": "qlib_recorder/449371276764721344/0b4c648c44d24561a8c21e0182381aa3/artifacts/analysis/mapped_signals",
+      "sha256": "c72b0e65440a41f1669f51b0d25ef7531f6b74aa1382fe8640d9fff7287772ed",
+      "bytes": 197443
+    },
+    {
+      "path": "qlib_recorder/449371276764721344/0b4c648c44d24561a8c21e0182381aa3/artifacts/analysis/prepared_feature",
+      "sha256": "1f235c2a6c4dee40a2f56aae55bc88a7e79730203e7d07c5d940fd8cffed12ae",
+      "bytes": 140322
+    },
+    {
+      "path": "qlib_recorder/449371276764721344/0b4c648c44d24561a8c21e0182381aa3/artifacts/code_cached.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "qlib_recorder/449371276764721344/0b4c648c44d24561a8c21e0182381aa3/artifacts/code_diff.txt",
+      "sha256": "cd73ef27c0cf155507f3eecd41e2d52ea4b432029b656ac3ae74fd10dd5a8995",
+      "bytes": 433712
+    },
+    {
+      "path": "qlib_recorder/449371276764721344/0b4c648c44d24561a8c21e0182381aa3/artifacts/code_status.txt",
+      "sha256": "6237e97a461f1400c5420988e4bc1662abd2bc1bddfefd05e72e4b34b85c758a",
+      "bytes": 61359
+    },
+    {
+      "path": "qlib_recorder/449371276764721344/0b4c648c44d24561a8c21e0182381aa3/artifacts/inputs/plan",
+      "sha256": "e17cfef5271929e794f6a3245a08358e91fb4be5fa14d6a8a741eaba7f64916f",
+      "bytes": 3654
+    },
+    {
+      "path": "qlib_recorder/449371276764721344/0b4c648c44d24561a8c21e0182381aa3/artifacts/sources/available_sessions",
+      "sha256": "cde6d67a7103122d2ec6c3ba5d13d54292179b3f92308d0d9ba17d775be186e6",
+      "bytes": 5935
+    },
+    {
+      "path": "qlib_recorder/449371276764721344/0b4c648c44d24561a8c21e0182381aa3/artifacts/sources/vintage_events",
+      "sha256": "3079494b84d64fa40e7e8c344c6a9613359821757465f4dc03e92a6ca54a5d90",
+      "bytes": 38304
+    }
+  ]
+}

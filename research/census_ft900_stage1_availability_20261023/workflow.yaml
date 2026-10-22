@@ -9,6 +9,7 @@ source_cards:
   - research/census_ft900_index_boundary_20261023
 outputs:
   - availability_audit.json
+  - readback_verification.json
   - yearly_availability.csv
   - summary.json
   - qlib_recorder

@@ -1,0 +1,13 @@
+{
+  "status": "targeted_native_Qlib_objects_and_NAS_archive_hash_verified",
+  "recorder_id": "0b4c648c44d24561a8c21e0182381aa3",
+  "verified_manifest_entries": 9,
+  "source_events": 191,
+  "quarantined_source_events": 1,
+  "mapped_signal_rows": 3964,
+  "DatasetH_prepared_rows": 3964,
+  "NAS_archive_sha256": "5287cd0280623e0e4f607d79bfe8cc3161d67d89dc1c68f1882ddbc14296504e",
+  "NAS_remote_hash_verified": true,
+  "new_model_fits_or_accounts": 0,
+  "limitation": "Targeted local Qlib object readback and remote archive SHA; no full cold restore and no historical first-public or independent market qualification."
+}

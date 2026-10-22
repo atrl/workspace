@@ -1,0 +1,18 @@
+{
+  "source_id": "census_ft900_stage1_availability_20261023",
+  "source_plan": "plan.json",
+  "as_of": "2026-10-07",
+  "evidence": {
+    "sha256": "5287cd0280623e0e4f607d79bfe8cc3161d67d89dc1c68f1882ddbc14296504e",
+    "size_bytes": 149417,
+    "media_type": "application/gzip",
+    "storage_uri": "sha256/52/87/5287cd0280623e0e4f607d79bfe8cc3161d67d89dc1c68f1882ddbc14296504e",
+    "uploaded_by": "soxl-minute-research",
+    "created_at": "2026-10-23 00:45:54.51114+08",
+    "duplicate": false,
+    "nas_path": "/volume1/docker/yanxuan/registry/research-artifacts/52/87/5287cd0280623e0e4f607d79bfe8cc3161d67d89dc1c68f1882ddbc14296504e",
+    "recorder_id": "0b4c648c44d24561a8c21e0182381aa3",
+    "experiment_id": "449371276764721344",
+    "archive_root": "qlib_recorder"
+  }
+}

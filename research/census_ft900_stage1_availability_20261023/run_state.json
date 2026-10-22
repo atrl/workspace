@@ -1,14 +1,15 @@
 {
-  "status": "failed_pre_Qlib_header_parser",
+  "status": "completed_after_mechanical_header_repair",
   "plan_sha256": "aa929632bf971a35cf9fd67c2956f70caa60d2d6999b39f80487d11496ca9ba6",
-  "source_JSON_loads": 4,
-  "held_PDF_open_attempts": 44,
-  "D_calendar_attempts": 1,
-  "DatasetH_attempts": 1,
-  "model_fits": 0,
-  "native_accounts": 0,
-  "held_PDF_opens_completed_before_failure": 20,
-  "D_calendar_calls": 0,
-  "DatasetH_builds": 0,
-  "new_writable_Recorders": 0
+  "attempt1_source_JSON_loads": 4,
+  "completion_source_JSON_loads": 4,
+  "attempt1_held_PDF_opens": 20,
+  "diagnostic_held_PDF_opens": 44,
+  "completion_held_PDF_opens": 44,
+  "total_held_PDF_opens": 108,
+  "D_calendar_calls": 1,
+  "DatasetH_builds": 1,
+  "recorder_id": "0b4c648c44d24561a8c21e0182381aa3",
+  "new_fits": 0,
+  "accounts": 0
 }
