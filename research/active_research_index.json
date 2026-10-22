@@ -90,6 +90,15 @@
   ],
   "closed_fixed_versions": [
     {
+      "card": "research/stage1_semiconductor_ip_information_20261022",
+      "status": "not_promoted_fixed_Stage1_IP_information_failed",
+      "default_search": false,
+      "evidence_preserved": true,
+      "result": "research/stage1_semiconductor_ip_information_20261022/result_review.json",
+      "recorder_id": "f493de946e7f4101bf119107089a2ed7",
+      "nas_archive_sha256": "a47b7decfdec25105d84016f5d688bdd6c7f62b5f55bff438537b996d5d16c56"
+    },
+    {
       "card": "research/stage1_beta_composition_0bp_20261022",
       "status": "not_promoted_fixed_Stage1_beta_composition_0bp",
       "default_search": false,
