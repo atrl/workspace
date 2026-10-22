@@ -1,0 +1,3903 @@
+{
+  "status": "full_row_audit_complete",
+  "source_months": 144,
+  "unique_numeric_Exhibit7_rows": 144,
+  "release_headers_found": 144,
+  "exceptions": [],
+  "historical_first_public_bytes_qualified": false,
+  "classification_continuity_qualified": false,
+  "Qlib_factor_rows": 0,
+  "market_outcome_reads": 0,
+  "model_fits": 0,
+  "native_accounts": 0,
+  "rows": [
+    {
+      "reference_month": "2011-01",
+      "source_pdf_sha256": "08514b3a8875a61a3ada290e1212711af8e272a31e119f386ad3f66e6ad82484",
+      "source_bytes": 362522,
+      "source_url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_1101.pdf",
+      "printed_release_header": "FOR IMMEDIATE RELEASE 8:30 A.M. EST THURSDAY, MARCH 10, 2011",
+      "row_candidate_count": 1,
+      "row_candidates": [
+        {
+          "page": 13,
+          "tokens_after_label": [
+            "4,266",
+            "3,860",
+            "405",
+            "4,266",
+            "3,840",
+            "425"
+          ]
+        }
+      ],
+      "status": "unique_numeric_Exhibit7_row",
+      "page": 13,
+      "current_month_million_usd": 4266,
+      "prior_month_same_release_million_usd": 3860,
+      "printed_change_million_usd": 405,
+      "printed_change_minus_rounded_arithmetic": -1
+    },
+    {
+      "reference_month": "2011-02",
+      "source_pdf_sha256": "8a80b5bc40621d7896ee41657b07186c435db5def4b2406bcce66b6be4c841d6",
+      "source_bytes": 358380,
+      "source_url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_1102.pdf",
+      "printed_release_header": "FOR IMMEDIATE RELEASE 8:30 A.M. EDT TUESDAY, APRIL 12, 2011",
+      "row_candidate_count": 1,
+      "row_candidates": [
+        {
+          "page": 11,
+          "tokens_after_label": [
+            "3,929",
+            "4,266",
+            "-337",
+            "8,195",
+            "7,709",
+            "487"
+          ]
+        }
+      ],
+      "status": "unique_numeric_Exhibit7_row",
+      "page": 11,
+      "current_month_million_usd": 3929,
+      "prior_month_same_release_million_usd": 4266,
+      "printed_change_million_usd": -337,
+      "printed_change_minus_rounded_arithmetic": 0
+    },
+    {
+      "reference_month": "2011-03",
+      "source_pdf_sha256": "c3b8fc5a2253dd4659ae55c257e31f032a6e59327e2cf4e1e753609077827bf5",
+      "source_bytes": 361829,
+      "source_url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_1103.pdf",
+      "printed_release_header": "FOR IMMEDIATE RELEASE 8:30 A.M. EDT WEDNESDAY, MAY 11, 2011",
+      "row_candidate_count": 1,
+      "row_candidates": [
+        {
+          "page": 11,
+          "tokens_after_label": [
+            "3,874",
+            "3,930",
+            "-55",
+            "12,070",
+            "11,802",
+            "268"
+          ]
+        }
+      ],
+      "status": "unique_numeric_Exhibit7_row",
+      "page": 11,
+      "current_month_million_usd": 3874,
+      "prior_month_same_release_million_usd": 3930,
+      "printed_change_million_usd": -55,
+      "printed_change_minus_rounded_arithmetic": 1
+    },
+    {
+      "reference_month": "2011-04",
+      "source_pdf_sha256": "ef74b634dd72e2bb2fa8dbc34210f5a9178bcae33639e3d0b2e4deee46762286",
+      "source_bytes": 394374,
+      "source_url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_1104.pdf",
+      "printed_release_header": "FOR IMMEDIATE RELEASE 8:30 A.M. EDT THURSDAY, JUNE 9, 2011",
+      "row_candidate_count": 1,
+      "row_candidates": [
+        {
+          "page": 13,
+          "tokens_after_label": [
+            "3,564",
+            "3,744",
+            "-179",
+            "15,364",
+            "15,652",
+            "-287"
+          ]
+        }
+      ],
+      "status": "unique_numeric_Exhibit7_row",
+      "page": 13,
+      "current_month_million_usd": 3564,
+      "prior_month_same_release_million_usd": 3744,
+      "printed_change_million_usd": -179,
+      "printed_change_minus_rounded_arithmetic": 1
+    },
+    {
+      "reference_month": "2011-05",
+      "source_pdf_sha256": "df6b69327e8180b9829b9629a6e811601e902fb3f07e761cec4318df1d620362",
+      "source_bytes": 389058,
+      "source_url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_1105.pdf",
+      "printed_release_header": "FOR IMMEDIATE RELEASE 8:30 A.M. EDT TUESDAY, JULY 12, 2011",
+      "row_candidate_count": 1,
+      "row_candidates": [
+        {
+          "page": 13,
+          "tokens_after_label": [
+            "3,727",
+            "3,564",
+            "163",
+            "19,091",
+            "19,729",
+            "-638"
+          ]
+        }
+      ],
+      "status": "unique_numeric_Exhibit7_row",
+      "page": 13,
+      "current_month_million_usd": 3727,
+      "prior_month_same_release_million_usd": 3564,
+      "printed_change_million_usd": 163,
+      "printed_change_minus_rounded_arithmetic": 0
+    },
+    {
+      "reference_month": "2011-06",
+      "source_pdf_sha256": "66e0b9420f1a7c27f6d9d9c38ddfbfde8dbe5fc38e166a7b898aa0e0e8ec3b5c",
+      "source_bytes": 387961,
+      "source_url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_1106.pdf",
+      "printed_release_header": "FOR IMMEDIATE RELEASE 8:30 A.M. EDT THURSDAY, AUGUST 11, 2011",
+      "row_candidate_count": 1,
+      "row_candidates": [
+        {
+          "page": 11,
+          "tokens_after_label": [
+            "3,539",
+            "3,729",
+            "-190",
+            "22,632",
+            "23,671",
+            "-1,039"
+          ]
+        }
+      ],
+      "status": "unique_numeric_Exhibit7_row",
+      "page": 11,
+      "current_month_million_usd": 3539,
+      "prior_month_same_release_million_usd": 3729,
+      "printed_change_million_usd": -190,
+      "printed_change_minus_rounded_arithmetic": 0
+    },
+    {
+      "reference_month": "2011-07",
+      "source_pdf_sha256": "cffa8f32476621bd0d379e140f81c126d6c9aa3fbecf1f38250a4b6aa6c74e91",
+      "source_bytes": 382916,
+      "source_url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_1107.pdf",
+      "printed_release_header": "FOR IMMEDIATE RELEASE 8:30 A.M. EDT THURSDAY, SEPTEMBER 8, 2011",
+      "row_candidate_count": 1,
+      "row_candidates": [
+        {
+          "page": 13,
+          "tokens_after_label": [
+            "3,636",
+            "3,538",
+            "98",
+            "26,267",
+            "27,602",
+            "-1,335"
+          ]
+        }
+      ],
+      "status": "unique_numeric_Exhibit7_row",
+      "page": 13,
+      "current_month_million_usd": 3636,
+      "prior_month_same_release_million_usd": 3538,
+      "printed_change_million_usd": 98,
+      "printed_change_minus_rounded_arithmetic": 0
+    },
+    {
+      "reference_month": "2011-08",
+      "source_pdf_sha256": "88fc5caf9d2029b01378fc9d1a1211cf27949ab38734ebaac0f3a6d3dacf86fe",
+      "source_bytes": 382599,
+      "source_url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_1108.pdf",
+      "printed_release_header": "FOR IMMEDIATE RELEASE 8:30 A.M. EDT THURSDAY, OCTOBER 13, 2011",
+      "row_candidate_count": 1,
+      "row_candidates": [
+        {
+          "page": 13,
+          "tokens_after_label": [
+            "3,536",
+            "3,634",
+            "-98",
+            "29,801",
+            "31,654",
+            "-1,853"
+          ]
+        }
+      ],
+      "status": "unique_numeric_Exhibit7_row",
+      "page": 13,
+      "current_month_million_usd": 3536,
+      "prior_month_same_release_million_usd": 3634,
+      "printed_change_million_usd": -98,
+      "printed_change_minus_rounded_arithmetic": 0
+    },
+    {
+      "reference_month": "2011-09",
+      "source_pdf_sha256": "b6e671a78ded2befe5a9a273e85d3fc441d47f9551b090fe299bddf8656ae2e4",
+      "source_bytes": 398446,
+      "source_url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_1109.pdf",
+      "printed_release_header": "FOR IMMEDIATE RELEASE 8:30 A.M. EST THURSDAY, NOVEMBER 10, 2011",
+      "row_candidate_count": 1,
+      "row_candidates": [
+        {
+          "page": 11,
+          "tokens_after_label": [
+            "3,567",
+            "3,536",
+            "31",
+            "33,367",
+            "35,547",
+            "-2,179"
+          ]
+        }
+      ],
+      "status": "unique_numeric_Exhibit7_row",
+      "page": 11,
+      "current_month_million_usd": 3567,
+      "prior_month_same_release_million_usd": 3536,
+      "printed_change_million_usd": 31,
+      "printed_change_minus_rounded_arithmetic": 0
+    },
+    {
+      "reference_month": "2011-10",
+      "source_pdf_sha256": "19c479c2df0ad51be3b8baa832ceb936e7f758e7e32ff2f23e2c31d6ce820948",
+      "source_bytes": 377361,
+      "source_url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_1110.pdf",
+      "printed_release_header": "FOR IMMEDIATE RELEASE 8:30 A.M. EST FRIDAY, DECEMBER 9, 2011",
+      "row_candidate_count": 1,
+      "row_candidates": [
+        {
+          "page": 13,
+          "tokens_after_label": [
+            "3,531",
+            "3,566",
+            "-36",
+            "36,898",
+            "39,308",
+            "-2,410"
+          ]
+        }
+      ],
+      "status": "unique_numeric_Exhibit7_row",
+      "page": 13,
+      "current_month_million_usd": 3531,
+      "prior_month_same_release_million_usd": 3566,
+      "printed_change_million_usd": -36,
+      "printed_change_minus_rounded_arithmetic": -1
+    },
+    {
+      "reference_month": "2011-11",
+      "source_pdf_sha256": "5eba7e8bebfc0d246eae200e6036e6d21603f22e759e6dee5abcd22729ebc0ef",
+      "source_bytes": 390654,
+      "source_url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_1111.pdf",
+      "printed_release_header": "FOR IMMEDIATE RELEASE 8:30 A.M. EST FRIDAY, JANUARY 13, 2012",
+      "row_candidate_count": 1,
+      "row_candidates": [
+        {
+          "page": 13,
+          "tokens_after_label": [
+            "3,508",
+            "3,531",
+            "-23",
+            "40,406",
+            "43,229",
+            "-2,822"
+          ]
+        }
+      ],
+      "status": "unique_numeric_Exhibit7_row",
+      "page": 13,
+      "current_month_million_usd": 3508,
+      "prior_month_same_release_million_usd": 3531,
+      "printed_change_million_usd": -23,
+      "printed_change_minus_rounded_arithmetic": 0
+    },
+    {
+      "reference_month": "2011-12",
+      "source_pdf_sha256": "ca8d4508c09b28bc3b13fb879a792d7ef868efcb9d0350535bf02dfcb20408dc",
+      "source_bytes": 514902,
+      "source_url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_1112.pdf",
+      "printed_release_header": "FOR IMMEDIATE RELEASE 8:30 A.M. EST FRIDAY, FEBRUARY 10, 2012",
+      "row_candidate_count": 1,
+      "row_candidates": [
+        {
+          "page": 13,
+          "tokens_after_label": [
+            "3,438",
+            "3,503",
+            "-64",
+            "43,775",
+            "47,185",
+            "-3,411"
+          ]
+        }
+      ],
+      "status": "unique_numeric_Exhibit7_row",
+      "page": 13,
+      "current_month_million_usd": 3438,
+      "prior_month_same_release_million_usd": 3503,
+      "printed_change_million_usd": -64,
+      "printed_change_minus_rounded_arithmetic": 1
+    },
+    {
+      "reference_month": "2012-01",
+      "source_pdf_sha256": "827efe67a3bb680d144ca185845c6d888260f5c85782aa22c842e44c0df7403f",
+      "source_bytes": 449548,
+      "source_url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_1201.pdf",
+      "printed_release_header": "FOR IMMEDIATE RELEASE 8:30 A.M. EST FRIDAY, MARCH 9, 2012",
+      "row_candidate_count": 1,
+      "row_candidates": [
+        {
+          "page": 12,
+          "tokens_after_label": [
+            "3,678",
+            "3,438",
+            "240",
+            "3,678",
+            "4,129",
+            "-451"
+          ]
+        }
+      ],
+      "status": "unique_numeric_Exhibit7_row",
+      "page": 12,
+      "current_month_million_usd": 3678,
+      "prior_month_same_release_million_usd": 3438,
+      "printed_change_million_usd": 240,
+      "printed_change_minus_rounded_arithmetic": 0
+    },
+    {
+      "reference_month": "2012-02",
+      "source_pdf_sha256": "a29c96d09feccf0be3ee399b6d4251d9c9b511fcbde73380c5017e7f74f38184",
+      "source_bytes": 395812,
+      "source_url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_1202.pdf",
+      "printed_release_header": "FOR IMMEDIATE RELEASE 8:30 A.M. EDT THURSDAY, APRIL 12, 2012",
+      "row_candidate_count": 1,
+      "row_candidates": [
+        {
+          "page": 13,
+          "tokens_after_label": [
+            "3,621",
+            "3,678",
+            "-57",
+            "7,299",
+            "8,044",
+            "-745"
+          ]
+        }
+      ],
+      "status": "unique_numeric_Exhibit7_row",
+      "page": 13,
+      "current_month_million_usd": 3621,
+      "prior_month_same_release_million_usd": 3678,
+      "printed_change_million_usd": -57,
+      "printed_change_minus_rounded_arithmetic": 0
+    },
+    {
+      "reference_month": "2012-03",
+      "source_pdf_sha256": "f7f27cd465418d3d2db4663d22079d0e1a000a636bc8cb560407276a6f404523",
+      "source_bytes": 372856,
+      "source_url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_1203.pdf",
+      "printed_release_header": "FOR IMMEDIATE RELEASE 8:30 A.M. EDT THURSDAY, MAY 10, 2012",
+      "row_candidate_count": 1,
+      "row_candidates": [
+        {
+          "page": 13,
+          "tokens_after_label": [
+            "3,542",
+            "3,621",
+            "-78",
+            "10,841",
+            "11,781",
+            "-940"
+          ]
+        }
+      ],
+      "status": "unique_numeric_Exhibit7_row",
+      "page": 13,
+      "current_month_million_usd": 3542,
+      "prior_month_same_release_million_usd": 3621,
+      "printed_change_million_usd": -78,
+      "printed_change_minus_rounded_arithmetic": 1
+    },
+    {
+      "reference_month": "2012-04",
+      "source_pdf_sha256": "3809840e23acb1680745c370597cad6578e376f9dab5277105c8f16ff96c009b",
+      "source_bytes": 656047,
+      "source_url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_1204.pdf",
+      "printed_release_header": "FOR IMMEDIATE RELEASE 8:30 A.M. EDT FRIDAY, JUNE 8, 2012",
+      "row_candidate_count": 1,
+      "row_candidates": [
+        {
+          "page": 13,
+          "tokens_after_label": [
+            "3,601",
+            "3,524",
+            "77",
+            "14,224",
+            "15,477",
+            "-1,253"
+          ]
+        }
+      ],
+      "status": "unique_numeric_Exhibit7_row",
+      "page": 13,
+      "current_month_million_usd": 3601,
+      "prior_month_same_release_million_usd": 3524,
+      "printed_change_million_usd": 77,
+      "printed_change_minus_rounded_arithmetic": 0
+    },
+    {
+      "reference_month": "2012-05",
+      "source_pdf_sha256": "f705e6fb12365378880cf2d20669e536a531c330be64459e6af3382583d0089b",
+      "source_bytes": 697644,
+      "source_url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_1205.pdf",
+      "printed_release_header": "FOR IMMEDIATE RELEASE 8:30 A.M. EDT WEDNESDAY, JULY 11, 2012",
+      "row_candidate_count": 1,
+      "row_candidates": [
+        {
+          "page": 11,
+          "tokens_after_label": [
+            "3,569",
+            "3,601",
+            "-32",
+            "17,793",
+            "19,242",
+            "-1,449"
+          ]
+        }
+      ],
+      "status": "unique_numeric_Exhibit7_row",
+      "page": 11,
+      "current_month_million_usd": 3569,
+      "prior_month_same_release_million_usd": 3601,
+      "printed_change_million_usd": -32,
+      "printed_change_minus_rounded_arithmetic": 0
+    },
+    {
+      "reference_month": "2012-06",
+      "source_pdf_sha256": "3e9bc11a5216f569ba56858e794987b41ff10680a613c5fd726a70addb7b4868",
+      "source_bytes": 592527,
+      "source_url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_1206.pdf",
+      "printed_release_header": "FOR IMMEDIATE RELEASE 8:30 A.M. EDT THURSDAY, AUGUST 9, 2012",
+      "row_candidate_count": 1,
+      "row_candidates": [
+        {
+          "page": 11,
+          "tokens_after_label": [
+            "3,462",
+            "3,569",
+            "-107",
+            "21,255",
+            "22,907",
+            "-1,652"
+          ]
+        }
+      ],
+      "status": "unique_numeric_Exhibit7_row",
+      "page": 11,
+      "current_month_million_usd": 3462,
+      "prior_month_same_release_million_usd": 3569,
+      "printed_change_million_usd": -107,
+      "printed_change_minus_rounded_arithmetic": 0
+    },
+    {
+      "reference_month": "2012-07",
+      "source_pdf_sha256": "cb2480cf0a4d927dc2568def81d15b94c162e874b77960fd2b5cfaa7d7ec164a",
+      "source_bytes": 707546,
+      "source_url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_1207.pdf",
+      "printed_release_header": "FOR IMMEDIATE RELEASE 8:30 A.M. EDT TUESDAY, SEPTEMBER 11, 2012",
+      "row_candidate_count": 1,
+      "row_candidates": [
+        {
+          "page": 11,
+          "tokens_after_label": [
+            "3,575",
+            "3,462",
+            "113",
+            "24,830",
+            "26,633",
+            "-1,804"
+          ]
+        }
+      ],
+      "status": "unique_numeric_Exhibit7_row",
+      "page": 11,
+      "current_month_million_usd": 3575,
+      "prior_month_same_release_million_usd": 3462,
+      "printed_change_million_usd": 113,
+      "printed_change_minus_rounded_arithmetic": 0
+    },
+    {
+      "reference_month": "2012-08",
+      "source_pdf_sha256": "d7928b94e159ac100ede5deece4b5449eac8325711be055bcd8aa3cd175dccfe",
+      "source_bytes": 720797,
+      "source_url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_1208.pdf",
+      "printed_release_header": "FOR IMMEDIATE RELEASE 8:30 A.M. EDT THURSDAY, OCTOBER 11, 2012",
+      "row_candidate_count": 1,
+      "row_candidates": [
+        {
+          "page": 11,
+          "tokens_after_label": [
+            "3,519",
+            "3,575",
+            "-55",
+            "28,349",
+            "30,319",
+            "-1,971"
+          ]
+        }
+      ],
+      "status": "unique_numeric_Exhibit7_row",
+      "page": 11,
+      "current_month_million_usd": 3519,
+      "prior_month_same_release_million_usd": 3575,
+      "printed_change_million_usd": -55,
+      "printed_change_minus_rounded_arithmetic": 1
+    },
+    {
+      "reference_month": "2012-09",
+      "source_pdf_sha256": "498b985d39f9397f46653093c0fa3a2342f4b26b394d14aec9a624b9765dc0a0",
+      "source_bytes": 326780,
+      "source_url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_1209.pdf",
+      "printed_release_header": "FOR IMMEDIATE RELEASE 8:30 A.M. EST THURSDAY, NOVEMBER 8, 2012",
+      "row_candidate_count": 1,
+      "row_candidates": [
+        {
+          "page": 11,
+          "tokens_after_label": [
+            "3,376",
+            "3,520",
+            "-144",
+            "31,726",
+            "33,987",
+            "-2,262"
+          ]
+        }
+      ],
+      "status": "unique_numeric_Exhibit7_row",
+      "page": 11,
+      "current_month_million_usd": 3376,
+      "prior_month_same_release_million_usd": 3520,
+      "printed_change_million_usd": -144,
+      "printed_change_minus_rounded_arithmetic": 0
+    },
+    {
+      "reference_month": "2012-10",
+      "source_pdf_sha256": "a23d78136411424e266fb8e4f651725bbb6b6b0ab43221b5ff5a384b1fa66c85",
+      "source_bytes": 376383,
+      "source_url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_1210.pdf",
+      "printed_release_header": "FOR IMMEDIATE RELEASE 8:30 A.M. EST TUESDAY, DECEMBER 11, 2012",
+      "row_candidate_count": 1,
+      "row_candidates": [
+        {
+          "page": 13,
+          "tokens_after_label": [
+            "3,532",
+            "3,376",
+            "156",
+            "35,257",
+            "37,591",
+            "-2,334"
+          ]
+        }
+      ],
+      "status": "unique_numeric_Exhibit7_row",
+      "page": 13,
+      "current_month_million_usd": 3532,
+      "prior_month_same_release_million_usd": 3376,
+      "printed_change_million_usd": 156,
+      "printed_change_minus_rounded_arithmetic": 0
+    },
+    {
+      "reference_month": "2012-11",
+      "source_pdf_sha256": "2feac801cbf6c1cc28c442833f9ee19c1e964e7ccac8f74ddf9bb13dfc39a320",
+      "source_bytes": 726534,
+      "source_url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_1211.pdf",
+      "printed_release_header": "FOR IMMEDIATE RELEASE 8:30 A.M. EST FRIDAY, JANUARY 11, 2013",
+      "row_candidate_count": 1,
+      "row_candidates": [
+        {
+          "page": 13,
+          "tokens_after_label": [
+            "3,446",
+            "3,532",
+            "-86",
+            "38,703",
+            "41,214",
+            "-2,511"
+          ]
+        }
+      ],
+      "status": "unique_numeric_Exhibit7_row",
+      "page": 13,
+      "current_month_million_usd": 3446,
+      "prior_month_same_release_million_usd": 3532,
+      "printed_change_million_usd": -86,
+      "printed_change_minus_rounded_arithmetic": 0
+    },
+    {
+      "reference_month": "2012-12",
+      "source_pdf_sha256": "027f974979bc17646943b128fd55e46954bfb2e8de479647d93eff9e1b476ed7",
+      "source_bytes": 754158,
+      "source_url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_1212.pdf",
+      "printed_release_header": "FOR IMMEDIATE RELEASE 8:30 A.M. EST FRIDAY, FEBRUARY 8, 2013",
+      "row_candidate_count": 1,
+      "row_candidates": [
+        {
+          "page": 13,
+          "tokens_after_label": [
+            "3,392",
+            "3,445",
+            "-53",
+            "42,087",
+            "44,714",
+            "-2,627"
+          ]
+        }
+      ],
+      "status": "unique_numeric_Exhibit7_row",
+      "page": 13,
+      "current_month_million_usd": 3392,
+      "prior_month_same_release_million_usd": 3445,
+      "printed_change_million_usd": -53,
+      "printed_change_minus_rounded_arithmetic": 0
+    },
+    {
+      "reference_month": "2013-01",
+      "source_pdf_sha256": "c955853075771a71599db696017a94ad22a589c903e758a3d5ee26521a7ceeee",
+      "source_bytes": 1019606,
+      "source_url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_1301.pdf",
+      "printed_release_header": "FOR IMMEDIATE RELEASE 8:30 A.M. EST THURSDAY, MARCH 7, 2013",
+      "row_candidate_count": 1,
+      "row_candidates": [
+        {
+          "page": 13,
+          "tokens_after_label": [
+            "3,499",
+            "3,392",
+            "107",
+            "3,499",
+            "3,566",
+            "-68"
+          ]
+        }
+      ],
+      "status": "unique_numeric_Exhibit7_row",
+      "page": 13,
+      "current_month_million_usd": 3499,
+      "prior_month_same_release_million_usd": 3392,
+      "printed_change_million_usd": 107,
+      "printed_change_minus_rounded_arithmetic": 0
+    },
+    {
+      "reference_month": "2013-02",
+      "source_pdf_sha256": "5c4e15906930435f7eb4b3fc88b99279d644cf4e38f2b052f0004dee37009a73",
+      "source_bytes": 1011680,
+      "source_url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_1302.pdf",
+      "printed_release_header": "FOR IMMEDIATE RELEASE 8:30 A.M. EDT FRIDAY, APRIL 5, 2013",
+      "row_candidate_count": 1,
+      "row_candidates": [
+        {
+          "page": 13,
+          "tokens_after_label": [
+            "3,407",
+            "3,499",
+            "-92",
+            "6,906",
+            "7,097",
+            "-192"
+          ]
+        }
+      ],
+      "status": "unique_numeric_Exhibit7_row",
+      "page": 13,
+      "current_month_million_usd": 3407,
+      "prior_month_same_release_million_usd": 3499,
+      "printed_change_million_usd": -92,
+      "printed_change_minus_rounded_arithmetic": 0
+    },
+    {
+      "reference_month": "2013-03",
+      "source_pdf_sha256": "d6ac68bc0bdad67cf18928cf47d22bfdd7a1171986018998b983433a4dbda854",
+      "source_bytes": 1019333,
+      "source_url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_1303.pdf",
+      "printed_release_header": "FOR IMMEDIATE RELEASE 8:30 A.M. EDT THURSDAY, MAY 2, 2013",
+      "row_candidate_count": 1,
+      "row_candidates": [
+        {
+          "page": 13,
+          "tokens_after_label": [
+            "3,440",
+            "3,407",
+            "34",
+            "10,346",
+            "10,621",
+            "-275"
+          ]
+        }
+      ],
+      "status": "unique_numeric_Exhibit7_row",
+      "page": 13,
+      "current_month_million_usd": 3440,
+      "prior_month_same_release_million_usd": 3407,
+      "printed_change_million_usd": 34,
+      "printed_change_minus_rounded_arithmetic": 1
+    },
+    {
+      "reference_month": "2013-04",
+      "source_pdf_sha256": "62882ae325a6892af956387b6605daf968e06f7dfb764dde9656df2bd6a7e277",
+      "source_bytes": 816450,
+      "source_url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_1304.pdf",
+      "printed_release_header": "FOR IMMEDIATE RELEASE 8:30 A.M. EDT TUESDAY, JUNE 4, 2013",
+      "row_candidate_count": 1,
+      "row_candidates": [
+        {
+          "page": 13,
+          "tokens_after_label": [
+            "3,563",
+            "3,458",
+            "105",
+            "13,892",
+            "14,155",
+            "-263"
+          ]
+        }
+      ],
+      "status": "unique_numeric_Exhibit7_row",
+      "page": 13,
+      "current_month_million_usd": 3563,
+      "prior_month_same_release_million_usd": 3458,
+      "printed_change_million_usd": 105,
+      "printed_change_minus_rounded_arithmetic": 0
+    },
+    {
+      "reference_month": "2013-05",
+      "source_pdf_sha256": "3c1864cb8c7f50dc8b83cadec37c23b45cea1b960300dff76c708fbb9fb43f66",
+      "source_bytes": 670550,
+      "source_url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_1305.pdf",
+      "printed_release_header": "FOR IMMEDIATE RELEASE 8:30 A.M. EDT WEDNESDAY, JULY 3, 2013",
+      "row_candidate_count": 1,
+      "row_candidates": [
+        {
+          "page": 13,
+          "tokens_after_label": [
+            "3,477",
+            "3,563",
+            "-86",
+            "17,368",
+            "17,705",
+            "-336"
+          ]
+        }
+      ],
+      "status": "unique_numeric_Exhibit7_row",
+      "page": 13,
+      "current_month_million_usd": 3477,
+      "prior_month_same_release_million_usd": 3563,
+      "printed_change_million_usd": -86,
+      "printed_change_minus_rounded_arithmetic": 0
+    },
+    {
+      "reference_month": "2013-06",
+      "source_pdf_sha256": "73935e3424ce100413ca3ade9924b57f66b17db93084b079e33566fe98c85c2e",
+      "source_bytes": 1094806,
+      "source_url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_1306.pdf",
+      "printed_release_header": "FOR IMMEDIATE RELEASE 8:30 A.M. EDT TUESDAY, AUGUST 6, 2013",
+      "row_candidate_count": 1,
+      "row_candidates": [
+        {
+          "page": 13,
+          "tokens_after_label": [
+            "3,600",
+            "3,476",
+            "123",
+            "20,968",
+            "21,190",
+            "-222"
+          ]
+        }
+      ],
+      "status": "unique_numeric_Exhibit7_row",
+      "page": 13,
+      "current_month_million_usd": 3600,
+      "prior_month_same_release_million_usd": 3476,
+      "printed_change_million_usd": 123,
+      "printed_change_minus_rounded_arithmetic": -1
+    },
+    {
+      "reference_month": "2013-07",
+      "source_pdf_sha256": "6ca46b44a1b26c11918ed7fe336655d3daf0d8a839305942f29b65a79579db83",
+      "source_bytes": 1074769,
+      "source_url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_1307.pdf",
+      "printed_release_header": "FOR IMMEDIATE RELEASE 8:30 A.M. EDT WEDNESDAY, SEPTEMBER 4, 2013",
+      "row_candidate_count": 1,
+      "row_candidates": [
+        {
+          "page": 13,
+          "tokens_after_label": [
+            "3,655",
+            "3,600",
+            "55",
+            "24,623",
+            "24,734",
+            "-111"
+          ]
+        }
+      ],
+      "status": "unique_numeric_Exhibit7_row",
+      "page": 13,
+      "current_month_million_usd": 3655,
+      "prior_month_same_release_million_usd": 3600,
+      "printed_change_million_usd": 55,
+      "printed_change_minus_rounded_arithmetic": 0
+    },
+    {
+      "reference_month": "2013-08",
+      "source_pdf_sha256": "2b71cf6c7caef065f8432cef210a826c744c1731a5fda1aa32791b34868ca56c",
+      "source_bytes": 1076353,
+      "source_url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_1308.pdf",
+      "printed_release_header": "FOR IMMEDIATE RELEASE 8:30 A.M. EDT THURSDAY, OCTOBER 24, 2013",
+      "row_candidate_count": 1,
+      "row_candidates": [
+        {
+          "page": 13,
+          "tokens_after_label": [
+            "3,472",
+            "3,655",
+            "-183",
+            "28,096",
+            "28,253",
+            "-157"
+          ]
+        }
+      ],
+      "status": "unique_numeric_Exhibit7_row",
+      "page": 13,
+      "current_month_million_usd": 3472,
+      "prior_month_same_release_million_usd": 3655,
+      "printed_change_million_usd": -183,
+      "printed_change_minus_rounded_arithmetic": 0
+    },
+    {
+      "reference_month": "2013-09",
+      "source_pdf_sha256": "4ff6f9a57e6a460c43e85144fa104d0c2554355a704b11c53a0aedf3561fc33d",
+      "source_bytes": 1086888,
+      "source_url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_1309.pdf",
+      "printed_release_header": "FOR IMMEDIATE RELEASE 8:30 A.M. EST THURSDAY, NOVEMBER 14, 2013",
+      "row_candidate_count": 1,
+      "row_candidates": [
+        {
+          "page": 13,
+          "tokens_after_label": [
+            "3,638",
+            "3,472",
+            "166",
+            "31,733",
+            "31,655",
+            "78"
+          ]
+        }
+      ],
+      "status": "unique_numeric_Exhibit7_row",
+      "page": 13,
+      "current_month_million_usd": 3638,
+      "prior_month_same_release_million_usd": 3472,
+      "printed_change_million_usd": 166,
+      "printed_change_minus_rounded_arithmetic": 0
+    },
+    {
+      "reference_month": "2013-10",
+      "source_pdf_sha256": "8d46e3586da51eca8d10681ca4b3740fb2f23bd5a72468c59ac1546af4408007",
+      "source_bytes": 1037028,
+      "source_url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_1310.pdf",
+      "printed_release_header": "FOR IMMEDIATE RELEASE 8:30 A.M. EST WEDNESDAY, DECEMBER 4, 2013",
+      "row_candidate_count": 1,
+      "row_candidates": [
+        {
+          "page": 13,
+          "tokens_after_label": [
+            "3,672",
+            "3,638",
+            "34",
+            "35,405",
+            "35,206",
+            "199"
+          ]
+        }
+      ],
+      "status": "unique_numeric_Exhibit7_row",
+      "page": 13,
+      "current_month_million_usd": 3672,
+      "prior_month_same_release_million_usd": 3638,
+      "printed_change_million_usd": 34,
+      "printed_change_minus_rounded_arithmetic": 0
+    },
+    {
+      "reference_month": "2013-11",
+      "source_pdf_sha256": "14d9da535ce2b328bde73279883e6dc49d73c7d79d5b67786bf261009676eec4",
+      "source_bytes": 1082674,
+      "source_url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_1311.pdf",
+      "printed_release_header": "FOR IMMEDIATE RELEASE 8:30 A.M. EST TUESDAY, JANUARY 7, 2014",
+      "row_candidate_count": 1,
+      "row_candidates": [
+        {
+          "page": 13,
+          "tokens_after_label": [
+            "3,464",
+            "3,674",
+            "-210",
+            "38,870",
+            "38,656",
+            "214"
+          ]
+        }
+      ],
+      "status": "unique_numeric_Exhibit7_row",
+      "page": 13,
+      "current_month_million_usd": 3464,
+      "prior_month_same_release_million_usd": 3674,
+      "printed_change_million_usd": -210,
+      "printed_change_minus_rounded_arithmetic": 0
+    },
+    {
+      "reference_month": "2013-12",
+      "source_pdf_sha256": "c30144c17932de1eb5d96188fe8aa5525a0949961879a168701b6e70695f9cae",
+      "source_bytes": 1158394,
+      "source_url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_1312.pdf",
+      "printed_release_header": "FOR IMMEDIATE RELEASE 8:30 A.M. EST THURSDAY, FEBRUARY 6, 2014",
+      "row_candidate_count": 1,
+      "row_candidates": [
+        {
+          "page": 13,
+          "tokens_after_label": [
+            "3,710",
+            "3,462",
+            "248",
+            "42,580",
+            "42,067",
+            "513"
+          ]
+        }
+      ],
+      "status": "unique_numeric_Exhibit7_row",
+      "page": 13,
+      "current_month_million_usd": 3710,
+      "prior_month_same_release_million_usd": 3462,
+      "printed_change_million_usd": 248,
+      "printed_change_minus_rounded_arithmetic": 0
+    },
+    {
+      "reference_month": "2014-01",
+      "source_pdf_sha256": "202d56d71927f7d9629e2956eb57bdeb8273ec9e7fdf09332280ffd0c3881a30",
+      "source_bytes": 1023804,
+      "source_url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_1401.pdf",
+      "printed_release_header": "FOR IMMEDIATE RELEASE 8:30 A.M. EST FRIDAY, MARCH 7, 2014",
+      "row_candidate_count": 1,
+      "row_candidates": [
+        {
+          "page": 13,
+          "tokens_after_label": [
+            "3,577",
+            "3,710",
+            "-133",
+            "3,577",
+            "3,463",
+            "114"
+          ]
+        }
+      ],
+      "status": "unique_numeric_Exhibit7_row",
+      "page": 13,
+      "current_month_million_usd": 3577,
+      "prior_month_same_release_million_usd": 3710,
+      "printed_change_million_usd": -133,
+      "printed_change_minus_rounded_arithmetic": 0
+    },
+    {
+      "reference_month": "2014-02",
+      "source_pdf_sha256": "9667d9c7641e03c124885dba336154484dcc4ccf654cbedcc8f74b49c9243308",
+      "source_bytes": 949870,
+      "source_url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_1402.pdf",
+      "printed_release_header": "FOR IMMEDIATE RELEASE 8:30 A.M. EDT THURSDAY, APRIL 3, 2014",
+      "row_candidate_count": 1,
+      "row_candidates": [
+        {
+          "page": 13,
+          "tokens_after_label": [
+            "3,607",
+            "3,577",
+            "31",
+            "7,184",
+            "6,872",
+            "313"
+          ]
+        }
+      ],
+      "status": "unique_numeric_Exhibit7_row",
+      "page": 13,
+      "current_month_million_usd": 3607,
+      "prior_month_same_release_million_usd": 3577,
+      "printed_change_million_usd": 31,
+      "printed_change_minus_rounded_arithmetic": 1
+    },
+    {
+      "reference_month": "2014-03",
+      "source_pdf_sha256": "d4f3e1476fb5972fc80a1093d31034d46e10d1e7ac2fde4f16fa0dbc732e9bdf",
+      "source_bytes": 989741,
+      "source_url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_1403.pdf",
+      "printed_release_header": "FOR IMMEDIATE RELEASE 8:30 A.M. EDT TUESDAY, MAY 6, 2014",
+      "row_candidate_count": 1,
+      "row_candidates": [
+        {
+          "page": 13,
+          "tokens_after_label": [
+            "3,707",
+            "3,607",
+            "100",
+            "10,891",
+            "10,330",
+            "561"
+          ]
+        }
+      ],
+      "status": "unique_numeric_Exhibit7_row",
+      "page": 13,
+      "current_month_million_usd": 3707,
+      "prior_month_same_release_million_usd": 3607,
+      "printed_change_million_usd": 100,
+      "printed_change_minus_rounded_arithmetic": 0
+    },
+    {
+      "reference_month": "2014-04",
+      "source_pdf_sha256": "45f15227fba2f2ed71929608ff2e14239e971e5c30bd140c57bb2c7c5ce8732f",
+      "source_bytes": 1284611,
+      "source_url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_1404.pdf",
+      "printed_release_header": "FOR IMMEDIATE RELEASE 8:30 A.M. EDT WEDNESDAY, JUNE 4, 2014",
+      "row_candidate_count": 1,
+      "row_candidates": [
+        {
+          "page": 13,
+          "tokens_after_label": [
+            "3,628",
+            "3,648",
+            "-20",
+            "14,487",
+            "13,899",
+            "588"
+          ]
+        }
+      ],
+      "status": "unique_numeric_Exhibit7_row",
+      "page": 13,
+      "current_month_million_usd": 3628,
+      "prior_month_same_release_million_usd": 3648,
+      "printed_change_million_usd": -20,
+      "printed_change_minus_rounded_arithmetic": 0
+    },
+    {
+      "reference_month": "2014-05",
+      "source_pdf_sha256": "b57226f1e2f0ffd56fb893398abd2e7af6b33b590b5fd5861240868014b2b43f",
+      "source_bytes": 1196808,
+      "source_url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_1405.pdf",
+      "printed_release_header": "FOR IMMEDIATE RELEASE 8:30 A.M. EDT THURSDAY, JULY 3, 2014",
+      "row_candidate_count": 1,
+      "row_candidates": [
+        {
+          "page": 11,
+          "tokens_after_label": [
+            "3,538",
+            "3,629",
+            "-91",
+            "18,025",
+            "17,442",
+            "583"
+          ]
+        }
+      ],
+      "status": "unique_numeric_Exhibit7_row",
+      "page": 11,
+      "current_month_million_usd": 3538,
+      "prior_month_same_release_million_usd": 3629,
+      "printed_change_million_usd": -91,
+      "printed_change_minus_rounded_arithmetic": 0
+    },
+    {
+      "reference_month": "2014-06",
+      "source_pdf_sha256": "59a7e93f2f3bbea31258cda88e76c0232d4d14bff677587a7f3174ebb4f88c29",
+      "source_bytes": 1074843,
+      "source_url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_1406.pdf",
+      "printed_release_header": "FOR IMMEDIATE RELEASE 8:30 A.M. EDT WEDNESDAY, AUGUST 6, 2014",
+      "row_candidate_count": 1,
+      "row_candidates": [
+        {
+          "page": 11,
+          "tokens_after_label": [
+            "3,570",
+            "3,538",
+            "33",
+            "21,595",
+            "21,022",
+            "573"
+          ]
+        }
+      ],
+      "status": "unique_numeric_Exhibit7_row",
+      "page": 11,
+      "current_month_million_usd": 3570,
+      "prior_month_same_release_million_usd": 3538,
+      "printed_change_million_usd": 33,
+      "printed_change_minus_rounded_arithmetic": 1
+    },
+    {
+      "reference_month": "2014-07",
+      "source_pdf_sha256": "d1d4a44fc37791f3d350a0eb1732631003f51d47e5d7644ac40900b809e5c181",
+      "source_bytes": 947082,
+      "source_url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_1407.pdf",
+      "printed_release_header": "FOR IMMEDIATE RELEASE 8:30 A.M. EDT THURSDAY, SEPTEMBER 4, 2014",
+      "row_candidate_count": 1,
+      "row_candidates": [
+        {
+          "page": 13,
+          "tokens_after_label": [
+            "3,630",
+            "3,570",
+            "59",
+            "25,225",
+            "24,634",
+            "591"
+          ]
+        }
+      ],
+      "status": "unique_numeric_Exhibit7_row",
+      "page": 13,
+      "current_month_million_usd": 3630,
+      "prior_month_same_release_million_usd": 3570,
+      "printed_change_million_usd": 59,
+      "printed_change_minus_rounded_arithmetic": -1
+    },
+    {
+      "reference_month": "2014-08",
+      "source_pdf_sha256": "6e518c925fe5a608ecb1bc233750e1d5c38468285bd99666d91466c07d82f9ad",
+      "source_bytes": 954124,
+      "source_url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_1408.pdf",
+      "printed_release_header": "FOR IMMEDIATE RELEASE 8:30 A.M. EDT FRIDAY, OCTOBER 3, 2014",
+      "row_candidate_count": 1,
+      "row_candidates": [
+        {
+          "page": 13,
+          "tokens_after_label": [
+            "3,692",
+            "3,630",
+            "62",
+            "28,917",
+            "28,179",
+            "738"
+          ]
+        }
+      ],
+      "status": "unique_numeric_Exhibit7_row",
+      "page": 13,
+      "current_month_million_usd": 3692,
+      "prior_month_same_release_million_usd": 3630,
+      "printed_change_million_usd": 62,
+      "printed_change_minus_rounded_arithmetic": 0
+    },
+    {
+      "reference_month": "2014-09",
+      "source_pdf_sha256": "523c40848f6342a4262684e4d8f6ee1cdc6b4eaeb5f247310b9e8da0190024a8",
+      "source_bytes": 974638,
+      "source_url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_1409.pdf",
+      "printed_release_header": "FOR IMMEDIATE RELEASE 8:30 A.M. EST TUESDAY, NOVEMBER 4, 2014",
+      "row_candidate_count": 1,
+      "row_candidates": [
+        {
+          "page": 13,
+          "tokens_after_label": [
+            "3,653",
+            "3,692",
+            "-39",
+            "32,570",
+            "31,734",
+            "837"
+          ]
+        }
+      ],
+      "status": "unique_numeric_Exhibit7_row",
+      "page": 13,
+      "current_month_million_usd": 3653,
+      "prior_month_same_release_million_usd": 3692,
+      "printed_change_million_usd": -39,
+      "printed_change_minus_rounded_arithmetic": 0
+    },
+    {
+      "reference_month": "2014-10",
+      "source_pdf_sha256": "ab2675813881942f27e944076d2646bec0ff211efc581d92c4ff41644c6fda2e",
+      "source_bytes": 712557,
+      "source_url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_1410.pdf",
+      "printed_release_header": "FOR IMMEDIATE RELEASE AT 8:30 A.M. EST, FRIDAY, DECEMBER 5, 2014",
+      "row_candidate_count": 1,
+      "row_candidates": [
+        {
+          "page": 13,
+          "tokens_after_label": [
+            "3,544",
+            "3,654",
+            "-109",
+            "36,115",
+            "35,427",
+            "688"
+          ]
+        }
+      ],
+      "status": "unique_numeric_Exhibit7_row",
+      "page": 13,
+      "current_month_million_usd": 3544,
+      "prior_month_same_release_million_usd": 3654,
+      "printed_change_million_usd": -109,
+      "printed_change_minus_rounded_arithmetic": 1
+    },
+    {
+      "reference_month": "2014-11",
+      "source_pdf_sha256": "6094bae9938f044cf47cb231a503de544dbcb3413d29193ba36a3d9e2ff0565c",
+      "source_bytes": 1041461,
+      "source_url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_1411.pdf",
+      "printed_release_header": "FOR IMMEDIATE RELEASE AT 8:30 A.M. EST, WEDNESDAY, JANUARY 7, 2015",
+      "row_candidate_count": 1,
+      "row_candidates": [
+        {
+          "page": 13,
+          "tokens_after_label": [
+            "3,523",
+            "3,547",
+            "-25",
+            "39,641",
+            "38,989",
+            "652"
+          ]
+        }
+      ],
+      "status": "unique_numeric_Exhibit7_row",
+      "page": 13,
+      "current_month_million_usd": 3523,
+      "prior_month_same_release_million_usd": 3547,
+      "printed_change_million_usd": -25,
+      "printed_change_minus_rounded_arithmetic": -1
+    },
+    {
+      "reference_month": "2014-12",
+      "source_pdf_sha256": "23f9df8f332ae40ccc72e204b3892afe536ef4afc948358447cf9a9ef2f92f08",
+      "source_bytes": 1023272,
+      "source_url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_1412.pdf",
+      "printed_release_header": "FOR IMMEDIATE RELEASE AT 8:30 A.M. EST, THURSDAY, FEBRUARY 5, 2015",
+      "row_candidate_count": 1,
+      "row_candidates": [
+        {
+          "page": 13,
+          "tokens_after_label": [
+            "3,864",
+            "3,517",
+            "348",
+            "43,475",
+            "42,592",
+            "883"
+          ]
+        }
+      ],
+      "status": "unique_numeric_Exhibit7_row",
+      "page": 13,
+      "current_month_million_usd": 3864,
+      "prior_month_same_release_million_usd": 3517,
+      "printed_change_million_usd": 348,
+      "printed_change_minus_rounded_arithmetic": 1
+    },
+    {
+      "reference_month": "2015-01",
+      "source_pdf_sha256": "6c799fe9fbb473dd2e1b56fb34cdf5e0d9e6e7c88c05ca9c09f085f48a26a936",
+      "source_bytes": 907370,
+      "source_url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_1501.pdf",
+      "printed_release_header": "FOR IMMEDIATE RELEASE AT 8:30 A.M. EST, FRIDAY, MARCH 6, 2015",
+      "row_candidate_count": 1,
+      "row_candidates": [
+        {
+          "page": 12,
+          "tokens_after_label": [
+            "3,782",
+            "3,864",
+            "-83",
+            "3,782",
+            "3,586",
+            "196"
+          ]
+        }
+      ],
+      "status": "unique_numeric_Exhibit7_row",
+      "page": 12,
+      "current_month_million_usd": 3782,
+      "prior_month_same_release_million_usd": 3864,
+      "printed_change_million_usd": -83,
+      "printed_change_minus_rounded_arithmetic": -1
+    },
+    {
+      "reference_month": "2015-02",
+      "source_pdf_sha256": "dfc3a136b2c03d6341674ffbd86588fc54b7b4733cbe69fdf327ea5cf9b80d17",
+      "source_bytes": 1250040,
+      "source_url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_1502.pdf",
+      "printed_release_header": "FOR IMMEDIATE RELEASE AT 8:30 A.M. EDT, THURSDAY, APRIL 2, 2015",
+      "row_candidate_count": 1,
+      "row_candidates": [
+        {
+          "page": 13,
+          "tokens_after_label": [
+            "3,457",
+            "3,782",
+            "-324",
+            "7,239",
+            "7,206",
+            "33"
+          ]
+        }
+      ],
+      "status": "unique_numeric_Exhibit7_row",
+      "page": 13,
+      "current_month_million_usd": 3457,
+      "prior_month_same_release_million_usd": 3782,
+      "printed_change_million_usd": -324,
+      "printed_change_minus_rounded_arithmetic": 1
+    },
+    {
+      "reference_month": "2015-03",
+      "source_pdf_sha256": "1cc907ff70d4d9c3dfe8f988be0726c40f4bb715c13cdee3e4bcd23093e47784",
+      "source_bytes": 972403,
+      "source_url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_1503.pdf",
+      "printed_release_header": "FOR IMMEDIATE RELEASE AT 8:30 A.M. EDT, TUESDAY, MAY 5, 2015",
+      "row_candidate_count": 1,
+      "row_candidates": [
+        {
+          "page": 13,
+          "tokens_after_label": [
+            "3,577",
+            "3,458",
+            "119",
+            "10,817",
+            "10,851",
+            "-35"
+          ]
+        }
+      ],
+      "status": "unique_numeric_Exhibit7_row",
+      "page": 13,
+      "current_month_million_usd": 3577,
+      "prior_month_same_release_million_usd": 3458,
+      "printed_change_million_usd": 119,
+      "printed_change_minus_rounded_arithmetic": 0
+    },
+    {
+      "reference_month": "2015-04",
+      "source_pdf_sha256": "390e39beb0e2c13510a382b33d73a063bf545b479e9329337b2b9e017f9deb91",
+      "source_bytes": 1025128,
+      "source_url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_1504.pdf",
+      "printed_release_header": "FOR IMMEDIATE RELEASE AT 8:30 A.M. EDT, WEDNESDAY, JUNE 3, 2015",
+      "row_candidate_count": 1,
+      "row_candidates": [
+        {
+          "page": 13,
+          "tokens_after_label": [
+            "3,653",
+            "3,562",
+            "90",
+            "14,438",
+            "14,461",
+            "-23"
+          ]
+        }
+      ],
+      "status": "unique_numeric_Exhibit7_row",
+      "page": 13,
+      "current_month_million_usd": 3653,
+      "prior_month_same_release_million_usd": 3562,
+      "printed_change_million_usd": 90,
+      "printed_change_minus_rounded_arithmetic": -1
+    },
+    {
+      "reference_month": "2015-05",
+      "source_pdf_sha256": "0dedf60721356831d051efa071b84da734d342082bcd795ac3fe769bc0134baa",
+      "source_bytes": 1010711,
+      "source_url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_1505.pdf",
+      "printed_release_header": "FOR IMMEDIATE RELEASE AT 8:30 A.M. EDT, TUESDAY, JULY 7, 2015",
+      "row_candidate_count": 1,
+      "row_candidates": [
+        {
+          "page": 13,
+          "tokens_after_label": [
+            "3,415",
+            "3,652",
+            "-237",
+            "17,852",
+            "18,007",
+            "-154"
+          ]
+        }
+      ],
+      "status": "unique_numeric_Exhibit7_row",
+      "page": 13,
+      "current_month_million_usd": 3415,
+      "prior_month_same_release_million_usd": 3652,
+      "printed_change_million_usd": -237,
+      "printed_change_minus_rounded_arithmetic": 0
+    },
+    {
+      "reference_month": "2015-06",
+      "source_pdf_sha256": "a8a32486afbe24926cd53a15eb8fe24dee7f7f8bc30b8310a1d6ed7c2922442a",
+      "source_bytes": 1012490,
+      "source_url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_1506.pdf",
+      "printed_release_header": "FOR IMMEDIATE RELEASE AT 8:30 A.M. EDT, WEDNESDAY, AUGUST 5, 2015",
+      "row_candidate_count": 1,
+      "row_candidates": [
+        {
+          "page": 13,
+          "tokens_after_label": [
+            "3,662",
+            "3,415",
+            "248",
+            "21,515",
+            "21,582",
+            "-67"
+          ]
+        }
+      ],
+      "status": "unique_numeric_Exhibit7_row",
+      "page": 13,
+      "current_month_million_usd": 3662,
+      "prior_month_same_release_million_usd": 3415,
+      "printed_change_million_usd": 248,
+      "printed_change_minus_rounded_arithmetic": 1
+    },
+    {
+      "reference_month": "2015-07",
+      "source_pdf_sha256": "767f12c242cb6f0e19955c4c59aab49f80fe3a13b61eba498cc6389aab76c283",
+      "source_bytes": 998345,
+      "source_url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_1507.pdf",
+      "printed_release_header": "FOR IMMEDIATE RELEASE AT 8:30 A.M. EDT, THURSDAY, SEPTEMBER 3, 2015",
+      "row_candidate_count": 1,
+      "row_candidates": [
+        {
+          "page": 13,
+          "tokens_after_label": [
+            "3,702",
+            "3,663",
+            "39",
+            "25,218",
+            "25,206",
+            "12"
+          ]
+        }
+      ],
+      "status": "unique_numeric_Exhibit7_row",
+      "page": 13,
+      "current_month_million_usd": 3702,
+      "prior_month_same_release_million_usd": 3663,
+      "printed_change_million_usd": 39,
+      "printed_change_minus_rounded_arithmetic": 0
+    },
+    {
+      "reference_month": "2015-08",
+      "source_pdf_sha256": "d98b4efa81a59e537e08180b5c73003564e35e9f5493e8ccf823bdfe17605fcd",
+      "source_bytes": 1000259,
+      "source_url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_1508.pdf",
+      "printed_release_header": "FOR IMMEDIATE RELEASE AT 8:30 A.M. EDT, TUESDAY, OCTOBER 6, 2015",
+      "row_candidate_count": 1,
+      "row_candidates": [
+        {
+          "page": 13,
+          "tokens_after_label": [
+            "3,406",
+            "3,702",
+            "-296",
+            "28,623",
+            "28,873",
+            "-250"
+          ]
+        }
+      ],
+      "status": "unique_numeric_Exhibit7_row",
+      "page": 13,
+      "current_month_million_usd": 3406,
+      "prior_month_same_release_million_usd": 3702,
+      "printed_change_million_usd": -296,
+      "printed_change_minus_rounded_arithmetic": 0
+    },
+    {
+      "reference_month": "2015-09",
+      "source_pdf_sha256": "25969eef14757e6d47513a4e165c9f32d6264d04df9992e78bd6fa8e1db2d86d",
+      "source_bytes": 1009675,
+      "source_url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_1509.pdf",
+      "printed_release_header": "FOR IMMEDIATE RELEASE AT 8:30 A.M. EST, WEDNESDAY, NOVEMBER 4, 2015",
+      "row_candidate_count": 1,
+      "row_candidates": [
+        {
+          "page": 11,
+          "tokens_after_label": [
+            "3,445",
+            "3,405",
+            "40",
+            "32,068",
+            "32,533",
+            "-465"
+          ]
+        }
+      ],
+      "status": "unique_numeric_Exhibit7_row",
+      "page": 11,
+      "current_month_million_usd": 3445,
+      "prior_month_same_release_million_usd": 3405,
+      "printed_change_million_usd": 40,
+      "printed_change_minus_rounded_arithmetic": 0
+    },
+    {
+      "reference_month": "2015-10",
+      "source_pdf_sha256": "0a16e65f9328833cb08a4684d5487bba2bf0cf7da0b5565e46111ae650d8dd14",
+      "source_bytes": 1020254,
+      "source_url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_1510.pdf",
+      "printed_release_header": "FOR IMMEDIATE RELEASE AT 8:30 A.M. EST, FRIDAY, DECEMBER 4, 2015",
+      "row_candidate_count": 1,
+      "row_candidates": [
+        {
+          "page": 13,
+          "tokens_after_label": [
+            "3,435",
+            "3,445",
+            "-10",
+            "35,503",
+            "36,105",
+            "-602"
+          ]
+        }
+      ],
+      "status": "unique_numeric_Exhibit7_row",
+      "page": 13,
+      "current_month_million_usd": 3435,
+      "prior_month_same_release_million_usd": 3445,
+      "printed_change_million_usd": -10,
+      "printed_change_minus_rounded_arithmetic": 0
+    },
+    {
+      "reference_month": "2015-11",
+      "source_pdf_sha256": "3d0e7d17347c7f8246809d341f716cae54838935c49f010a5e77c43906dd91d3",
+      "source_bytes": 1034922,
+      "source_url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_1511.pdf",
+      "printed_release_header": "FOR IMMEDIATE RELEASE AT 8:30 A.M. EST, WEDNESDAY, JANUARY 6, 2016",
+      "row_candidate_count": 1,
+      "row_candidates": [
+        {
+          "page": 13,
+          "tokens_after_label": [
+            "3,389",
+            "3,435",
+            "-46",
+            "38,892",
+            "39,619",
+            "-727"
+          ]
+        }
+      ],
+      "status": "unique_numeric_Exhibit7_row",
+      "page": 13,
+      "current_month_million_usd": 3389,
+      "prior_month_same_release_million_usd": 3435,
+      "printed_change_million_usd": -46,
+      "printed_change_minus_rounded_arithmetic": 0
+    },
+    {
+      "reference_month": "2015-12",
+      "source_pdf_sha256": "a5abc3f3b2f9bfb7374a36743b3771e2cd6dffb3471427f7bf0f580b43b167ff",
+      "source_bytes": 1155652,
+      "source_url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_1512.pdf",
+      "printed_release_header": "FOR IMMEDIATE RELEASE AT 8:30 A.M. EST, FRIDAY, FEBRUARY 5, 2016",
+      "row_candidate_count": 1,
+      "row_candidates": [
+        {
+          "page": 13,
+          "tokens_after_label": [
+            "3,668",
+            "3,389",
+            "279",
+            "42,539",
+            "43,480",
+            "-941"
+          ]
+        }
+      ],
+      "status": "unique_numeric_Exhibit7_row",
+      "page": 13,
+      "current_month_million_usd": 3668,
+      "prior_month_same_release_million_usd": 3389,
+      "printed_change_million_usd": 279,
+      "printed_change_minus_rounded_arithmetic": 0
+    },
+    {
+      "reference_month": "2016-01",
+      "source_pdf_sha256": "53a080a0cb14d72ccc9a5f57f9558403716eab3e9704e2b9fed72dbc3e9b785d",
+      "source_bytes": 916265,
+      "source_url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_1601.pdf",
+      "printed_release_header": "FOR IMMEDIATE RELEASE AT 8:30 A.M. EST, FRIDAY, MARCH 4, 2016",
+      "row_candidate_count": 1,
+      "row_candidates": [
+        {
+          "page": 12,
+          "tokens_after_label": [
+            "3,522",
+            "3,665",
+            "-144",
+            "3,522",
+            "3,772",
+            "-251"
+          ]
+        }
+      ],
+      "status": "unique_numeric_Exhibit7_row",
+      "page": 12,
+      "current_month_million_usd": 3522,
+      "prior_month_same_release_million_usd": 3665,
+      "printed_change_million_usd": -144,
+      "printed_change_minus_rounded_arithmetic": -1
+    },
+    {
+      "reference_month": "2016-02",
+      "source_pdf_sha256": "707d44e1227dcdac5d7f2d2ccde6f664846d96fe5a40a03190d5200b30ac1eb0",
+      "source_bytes": 996233,
+      "source_url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_1602.pdf",
+      "printed_release_header": "FOR IMMEDIATE RELEASE AT 8:30 A.M. EDT, TUESDAY, APRIL 5, 2016",
+      "row_candidate_count": 1,
+      "row_candidates": [
+        {
+          "page": 12,
+          "tokens_after_label": [
+            "3,554",
+            "3,522",
+            "32",
+            "7,075",
+            "7,220",
+            "-144"
+          ]
+        }
+      ],
+      "status": "unique_numeric_Exhibit7_row",
+      "page": 12,
+      "current_month_million_usd": 3554,
+      "prior_month_same_release_million_usd": 3522,
+      "printed_change_million_usd": 32,
+      "printed_change_minus_rounded_arithmetic": 0
+    },
+    {
+      "reference_month": "2016-03",
+      "source_pdf_sha256": "1b205769a2df120aefaf21f446fb91fe9ea940a76a92a5de37634dffe637d771",
+      "source_bytes": 700418,
+      "source_url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_1603.pdf",
+      "printed_release_header": "FOR IMMEDIATE RELEASE AT 8:30 A.M. EDT, WEDNESDAY, MAY 4, 2016",
+      "row_candidate_count": 1,
+      "row_candidates": [
+        {
+          "page": 13,
+          "tokens_after_label": [
+            "3,917",
+            "3,554",
+            "363",
+            "10,993",
+            "10,780",
+            "213"
+          ]
+        }
+      ],
+      "status": "unique_numeric_Exhibit7_row",
+      "page": 13,
+      "current_month_million_usd": 3917,
+      "prior_month_same_release_million_usd": 3554,
+      "printed_change_million_usd": 363,
+      "printed_change_minus_rounded_arithmetic": 0
+    },
+    {
+      "reference_month": "2016-04",
+      "source_pdf_sha256": "097c42af0971dff7feccaabc3bfc8435245f0651be1f4d2cb39f7593d285b0da",
+      "source_bytes": 1127251,
+      "source_url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_1604.pdf",
+      "printed_release_header": "FOR IMMEDIATE RELEASE AT 8:30 A.M. EDT, FRIDAY, JUNE 3, 2016",
+      "row_candidate_count": 1,
+      "row_candidates": [
+        {
+          "page": 13,
+          "tokens_after_label": [
+            "3,685",
+            "3,873",
+            "-188",
+            "14,672",
+            "14,416",
+            "256"
+          ]
+        }
+      ],
+      "status": "unique_numeric_Exhibit7_row",
+      "page": 13,
+      "current_month_million_usd": 3685,
+      "prior_month_same_release_million_usd": 3873,
+      "printed_change_million_usd": -188,
+      "printed_change_minus_rounded_arithmetic": 0
+    },
+    {
+      "reference_month": "2016-05",
+      "source_pdf_sha256": "607a64bc0fbf80795a755d66fd42b595840530a708a88c69bf0a3b7179c061b0",
+      "source_bytes": 975807,
+      "source_url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_1605.pdf",
+      "printed_release_header": "FOR IMMEDIATE RELEASE AT 8:30 A.M. EDT, WEDNESDAY, JULY 6, 2016",
+      "row_candidate_count": 1,
+      "row_candidates": [
+        {
+          "page": 12,
+          "tokens_after_label": [
+            "3,776",
+            "3,685",
+            "91",
+            "18,449",
+            "17,841",
+            "607"
+          ]
+        }
+      ],
+      "status": "unique_numeric_Exhibit7_row",
+      "page": 12,
+      "current_month_million_usd": 3776,
+      "prior_month_same_release_million_usd": 3685,
+      "printed_change_million_usd": 91,
+      "printed_change_minus_rounded_arithmetic": 0
+    },
+    {
+      "reference_month": "2016-06",
+      "source_pdf_sha256": "be83bfa84fece34aeca42f5d0f598c6fa0e41c1bc0a270d0661fdd06aabd4bc4",
+      "source_bytes": 1016150,
+      "source_url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_1606.pdf",
+      "printed_release_header": "FOR IMMEDIATE RELEASE AT 8:30 A.M. EDT, FRIDAY, AUGUST 5, 2016",
+      "row_candidate_count": 1,
+      "row_candidates": [
+        {
+          "page": 18,
+          "tokens_after_label": [
+            "3,654",
+            "3,776",
+            "-122",
+            "22,102",
+            "21,523",
+            "580"
+          ]
+        }
+      ],
+      "status": "unique_numeric_Exhibit7_row",
+      "page": 18,
+      "current_month_million_usd": 3654,
+      "prior_month_same_release_million_usd": 3776,
+      "printed_change_million_usd": -122,
+      "printed_change_minus_rounded_arithmetic": 0
+    },
+    {
+      "reference_month": "2016-07",
+      "source_pdf_sha256": "8e913e878b48d781e4d8c8c939dcdf5fbbc5b16ca74dffbd22037dbd949783a4",
+      "source_bytes": 996841,
+      "source_url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_1607.pdf",
+      "printed_release_header": "FOR IMMEDIATE RELEASE AT 8:30 A.M. EDT, FRIDAY, SEPTEMBER 2, 2016",
+      "row_candidate_count": 1,
+      "row_candidates": [
+        {
+          "page": 12,
+          "tokens_after_label": [
+            "3,631",
+            "3,654",
+            "-22",
+            "25,733",
+            "25,166",
+            "568"
+          ]
+        }
+      ],
+      "status": "unique_numeric_Exhibit7_row",
+      "page": 12,
+      "current_month_million_usd": 3631,
+      "prior_month_same_release_million_usd": 3654,
+      "printed_change_million_usd": -22,
+      "printed_change_minus_rounded_arithmetic": 1
+    },
+    {
+      "reference_month": "2016-08",
+      "source_pdf_sha256": "74f62494cc1f04948b1702f41a4780c54c032e71891a2b98ac28e8c5d966d5f9",
+      "source_bytes": 1095057,
+      "source_url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_1608.pdf",
+      "printed_release_header": "FOR IMMEDIATE RELEASE AT 8:30 A.M. EDT, WEDNESDAY, OCTOBER 5, 2016",
+      "row_candidate_count": 1,
+      "row_candidates": [
+        {
+          "page": 12,
+          "tokens_after_label": [
+            "3,643",
+            "3,632",
+            "11",
+            "29,377",
+            "28,633",
+            "744"
+          ]
+        }
+      ],
+      "status": "unique_numeric_Exhibit7_row",
+      "page": 12,
+      "current_month_million_usd": 3643,
+      "prior_month_same_release_million_usd": 3632,
+      "printed_change_million_usd": 11,
+      "printed_change_minus_rounded_arithmetic": 0
+    },
+    {
+      "reference_month": "2016-09",
+      "source_pdf_sha256": "af81412a71e5dbdb953c4c84e1e1724b615dc146d0e56ce6a4f6773947fcb41f",
+      "source_bytes": 1151963,
+      "source_url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_1609.pdf",
+      "printed_release_header": "FOR IMMEDIATE RELEASE AT 8:30 A.M. EDT, FRIDAY, NOVEMBER 4, 2016",
+      "row_candidate_count": 1,
+      "row_candidates": [
+        {
+          "page": 12,
+          "tokens_after_label": [
+            "3,528",
+            "3,646",
+            "-118",
+            "32,907",
+            "32,044",
+            "863"
+          ]
+        }
+      ],
+      "status": "unique_numeric_Exhibit7_row",
+      "page": 12,
+      "current_month_million_usd": 3528,
+      "prior_month_same_release_million_usd": 3646,
+      "printed_change_million_usd": -118,
+      "printed_change_minus_rounded_arithmetic": 0
+    },
+    {
+      "reference_month": "2016-10",
+      "source_pdf_sha256": "e6b2587b5512c1781fcf5ccc3830f1e97d2868fe41fc038b74c2eb32039f22e3",
+      "source_bytes": 1132702,
+      "source_url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_1610.pdf",
+      "printed_release_header": "FOR IMMEDIATE RELEASE AT 8:30 A.M. EST, TUESDAY, DECEMBER 6, 2016",
+      "row_candidate_count": 1,
+      "row_candidates": [
+        {
+          "page": 11,
+          "tokens_after_label": [
+            "3,616",
+            "3,530",
+            "86",
+            "36,526",
+            "35,458",
+            "1,068"
+          ]
+        }
+      ],
+      "status": "unique_numeric_Exhibit7_row",
+      "page": 11,
+      "current_month_million_usd": 3616,
+      "prior_month_same_release_million_usd": 3530,
+      "printed_change_million_usd": 86,
+      "printed_change_minus_rounded_arithmetic": 0
+    },
+    {
+      "reference_month": "2016-11",
+      "source_pdf_sha256": "6403253e4b30382bb57fb88fd8944197931acd252ed8d75df4e232744f71da98",
+      "source_bytes": 1074537,
+      "source_url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_1611.pdf",
+      "printed_release_header": "FOR IMMEDIATE RELEASE AT 8:30 A.M. EST, FRIDAY, JANUARY 6, 2017",
+      "row_candidate_count": 1,
+      "row_candidates": [
+        {
+          "page": 11,
+          "tokens_after_label": [
+            "3,784",
+            "3,610",
+            "174",
+            "40,304",
+            "38,956",
+            "1,348"
+          ]
+        }
+      ],
+      "status": "unique_numeric_Exhibit7_row",
+      "page": 11,
+      "current_month_million_usd": 3784,
+      "prior_month_same_release_million_usd": 3610,
+      "printed_change_million_usd": 174,
+      "printed_change_minus_rounded_arithmetic": 0
+    },
+    {
+      "reference_month": "2016-12",
+      "source_pdf_sha256": "7c8946d531d11abd33f009325d2834c16865c99a85ada373e8c76e2238e9d122",
+      "source_bytes": 946309,
+      "source_url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_1612.pdf",
+      "printed_release_header": "FOR IMMEDIATE RELEASE AT 8:30 A.M. EST, TUESDAY, FEBRUARY 7, 2017",
+      "row_candidate_count": 1,
+      "row_candidates": [
+        {
+          "page": 13,
+          "tokens_after_label": [
+            "3,865",
+            "3,795",
+            "70",
+            "44,288",
+            "42,535",
+            "1,752"
+          ]
+        }
+      ],
+      "status": "unique_numeric_Exhibit7_row",
+      "page": 13,
+      "current_month_million_usd": 3865,
+      "prior_month_same_release_million_usd": 3795,
+      "printed_change_million_usd": 70,
+      "printed_change_minus_rounded_arithmetic": 0
+    },
+    {
+      "reference_month": "2017-01",
+      "source_pdf_sha256": "b873765a2109cfc721165c66426a7e2c0e752cf197922f2e38cbbbebee495fd9",
+      "source_bytes": 1059159,
+      "source_url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_1701.pdf",
+      "printed_release_header": "FOR IMMEDIATE RELEASE AT 8:30 A.M. EST, TUESDAY, MARCH 7, 2017",
+      "row_candidate_count": 1,
+      "row_candidates": [
+        {
+          "page": 12,
+          "tokens_after_label": [
+            "3,829",
+            "3,865",
+            "-36",
+            "3,829",
+            "3,484",
+            "345"
+          ]
+        }
+      ],
+      "status": "unique_numeric_Exhibit7_row",
+      "page": 12,
+      "current_month_million_usd": 3829,
+      "prior_month_same_release_million_usd": 3865,
+      "printed_change_million_usd": -36,
+      "printed_change_minus_rounded_arithmetic": 0
+    },
+    {
+      "reference_month": "2017-02",
+      "source_pdf_sha256": "2b09ef44af5f6e429ad46e6a44fe8989302f6ccd1c5278f1db7bf8ebfaa383c0",
+      "source_bytes": 1310086,
+      "source_url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_1702.pdf",
+      "printed_release_header": "FOR IMMEDIATE RELEASE AT 8:30 A.M. EDT, TUESDAY, APRIL 4, 2017",
+      "row_candidate_count": 1,
+      "row_candidates": [
+        {
+          "page": 12,
+          "tokens_after_label": [
+            "4,074",
+            "3,830",
+            "244",
+            "7,904",
+            "7,135",
+            "769"
+          ]
+        }
+      ],
+      "status": "unique_numeric_Exhibit7_row",
+      "page": 12,
+      "current_month_million_usd": 4074,
+      "prior_month_same_release_million_usd": 3830,
+      "printed_change_million_usd": 244,
+      "printed_change_minus_rounded_arithmetic": 0
+    },
+    {
+      "reference_month": "2017-03",
+      "source_pdf_sha256": "d9452b4b286a02c0c0abc28e021b3f5b589d6f963fdc6023e54590cd09f312ef",
+      "source_bytes": 1258574,
+      "source_url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_1703.pdf",
+      "printed_release_header": "FOR IMMEDIATE RELEASE AT 8:30 A.M. EDT, THURSDAY, MAY 4, 2017",
+      "row_candidate_count": 1,
+      "row_candidates": [
+        {
+          "page": 12,
+          "tokens_after_label": [
+            "3,829",
+            "4,074",
+            "-245",
+            "11,733",
+            "11,019",
+            "714"
+          ]
+        }
+      ],
+      "status": "unique_numeric_Exhibit7_row",
+      "page": 12,
+      "current_month_million_usd": 3829,
+      "prior_month_same_release_million_usd": 4074,
+      "printed_change_million_usd": -245,
+      "printed_change_minus_rounded_arithmetic": 0
+    },
+    {
+      "reference_month": "2017-04",
+      "source_pdf_sha256": "d2b20b1a54a64541c4f979b78bfdebd1aa178ac64cdc26bade99280c6275c173",
+      "source_bytes": 1253565,
+      "source_url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_1704.pdf",
+      "printed_release_header": "FOR IMMEDIATE RELEASE AT 8:30 A.M. EDT, FRIDAY, JUNE 2, 2017",
+      "row_candidate_count": 1,
+      "row_candidates": [
+        {
+          "page": 12,
+          "tokens_after_label": [
+            "3,866",
+            "3,746",
+            "120",
+            "15,480",
+            "14,559",
+            "921"
+          ]
+        }
+      ],
+      "status": "unique_numeric_Exhibit7_row",
+      "page": 12,
+      "current_month_million_usd": 3866,
+      "prior_month_same_release_million_usd": 3746,
+      "printed_change_million_usd": 120,
+      "printed_change_minus_rounded_arithmetic": 0
+    },
+    {
+      "reference_month": "2017-05",
+      "source_pdf_sha256": "89be84ce00077286bd5fd8fec8b6bc49a528bfcd96fe2fa0c25004992199e822",
+      "source_bytes": 815192,
+      "source_url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_1705.pdf",
+      "printed_release_header": "FOR IMMEDIATE RELEASE AT 8:30 A.M. EDT, THURSDAY, JULY 6, 2017",
+      "row_candidate_count": 1,
+      "row_candidates": [
+        {
+          "page": 11,
+          "tokens_after_label": [
+            "3,862",
+            "3,865",
+            "-3",
+            "19,342",
+            "18,302",
+            "1,040"
+          ]
+        }
+      ],
+      "status": "unique_numeric_Exhibit7_row",
+      "page": 11,
+      "current_month_million_usd": 3862,
+      "prior_month_same_release_million_usd": 3865,
+      "printed_change_million_usd": -3,
+      "printed_change_minus_rounded_arithmetic": 0
+    },
+    {
+      "reference_month": "2017-06",
+      "source_pdf_sha256": "1c8b8a9bfddb61dfb2bab4e14bda4aae166284e0effafb0ae86af105e64ab2ba",
+      "source_bytes": 835062,
+      "source_url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_1706.pdf",
+      "printed_release_header": "FOR IMMEDIATE RELEASE AT 8:30 A.M. EDT, FRIDAY, AUGUST 4, 2017",
+      "row_candidate_count": 1,
+      "row_candidates": [
+        {
+          "page": 11,
+          "tokens_after_label": [
+            "3,899",
+            "3,863",
+            "37",
+            "23,242",
+            "21,997",
+            "1,245"
+          ]
+        }
+      ],
+      "status": "unique_numeric_Exhibit7_row",
+      "page": 11,
+      "current_month_million_usd": 3899,
+      "prior_month_same_release_million_usd": 3863,
+      "printed_change_million_usd": 37,
+      "printed_change_minus_rounded_arithmetic": 1
+    },
+    {
+      "reference_month": "2017-07",
+      "source_pdf_sha256": "5e758b93530d4be537f83da9f9cc719284b5d60013fae4bce8a190635a228bef",
+      "source_bytes": 1261373,
+      "source_url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_1707.pdf",
+      "printed_release_header": "FOR IMMEDIATE RELEASE AT 8:30 A.M. EDT, WEDNESDAY, SEPTEMBER 6, 2017",
+      "row_candidate_count": 1,
+      "row_candidates": [
+        {
+          "page": 12,
+          "tokens_after_label": [
+            "3,816",
+            "3,899",
+            "-83",
+            "27,058",
+            "25,657",
+            "1,402"
+          ]
+        }
+      ],
+      "status": "unique_numeric_Exhibit7_row",
+      "page": 12,
+      "current_month_million_usd": 3816,
+      "prior_month_same_release_million_usd": 3899,
+      "printed_change_million_usd": -83,
+      "printed_change_minus_rounded_arithmetic": 0
+    },
+    {
+      "reference_month": "2017-08",
+      "source_pdf_sha256": "d69c1eb45d0fe97eabbbf80570603ff9fec02577da62218581714399086299eb",
+      "source_bytes": 1273355,
+      "source_url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_1708.pdf",
+      "printed_release_header": "FOR IMMEDIATE RELEASE AT 8:30 A.M. EDT, THURSDAY, OCTOBER 5, 2017",
+      "row_candidate_count": 1,
+      "row_candidates": [
+        {
+          "page": 12,
+          "tokens_after_label": [
+            "4,042",
+            "3,817",
+            "225",
+            "31,101",
+            "29,342",
+            "1,759"
+          ]
+        }
+      ],
+      "status": "unique_numeric_Exhibit7_row",
+      "page": 12,
+      "current_month_million_usd": 4042,
+      "prior_month_same_release_million_usd": 3817,
+      "printed_change_million_usd": 225,
+      "printed_change_minus_rounded_arithmetic": 0
+    },
+    {
+      "reference_month": "2017-09",
+      "source_pdf_sha256": "34bcac08a9d716ced61dc2ce3fc1ffce7627d6ad5320931051faff9f694add6d",
+      "source_bytes": 1438075,
+      "source_url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_1709.pdf",
+      "printed_release_header": "FOR IMMEDIATE RELEASE AT 8:30 A.M. EDT, FRIDAY, NOVEMBER 3, 2017",
+      "row_candidate_count": 1,
+      "row_candidates": [
+        {
+          "page": 12,
+          "tokens_after_label": [
+            "4,022",
+            "4,043",
+            "-20",
+            "35,124",
+            "32,946",
+            "2,178"
+          ]
+        }
+      ],
+      "status": "unique_numeric_Exhibit7_row",
+      "page": 12,
+      "current_month_million_usd": 4022,
+      "prior_month_same_release_million_usd": 4043,
+      "printed_change_million_usd": -20,
+      "printed_change_minus_rounded_arithmetic": 1
+    },
+    {
+      "reference_month": "2017-10",
+      "source_pdf_sha256": "cc23cd09af1b1c5cc654f821a6c027bb1eb96b827508b70307e669aa93be5b50",
+      "source_bytes": 1339317,
+      "source_url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_1710.pdf",
+      "printed_release_header": "FOR IMMEDIATE RELEASE AT 8:30 A.M. EST, TUESDAY, DECEMBER 5, 2017",
+      "row_candidate_count": 1,
+      "row_candidates": [
+        {
+          "page": 12,
+          "tokens_after_label": [
+            "4,323",
+            "4,021",
+            "302",
+            "39,446",
+            "36,602",
+            "2,844"
+          ]
+        }
+      ],
+      "status": "unique_numeric_Exhibit7_row",
+      "page": 12,
+      "current_month_million_usd": 4323,
+      "prior_month_same_release_million_usd": 4021,
+      "printed_change_million_usd": 302,
+      "printed_change_minus_rounded_arithmetic": 0
+    },
+    {
+      "reference_month": "2017-11",
+      "source_pdf_sha256": "d4729488eb0d9beb09865fc92cc5ae67cb39339d52a5bb7de9bec3230428cf1c",
+      "source_bytes": 1269937,
+      "source_url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_1711.pdf",
+      "printed_release_header": "FOR IMMEDIATE RELEASE AT 8:30 A.M. EST, FRIDAY, JANUARY 5, 2018",
+      "row_candidate_count": 1,
+      "row_candidates": [
+        {
+          "page": 12,
+          "tokens_after_label": [
+            "4,254",
+            "4,323",
+            "-70",
+            "43,701",
+            "40,247",
+            "3,453"
+          ]
+        }
+      ],
+      "status": "unique_numeric_Exhibit7_row",
+      "page": 12,
+      "current_month_million_usd": 4254,
+      "prior_month_same_release_million_usd": 4323,
+      "printed_change_million_usd": -70,
+      "printed_change_minus_rounded_arithmetic": -1
+    },
+    {
+      "reference_month": "2017-12",
+      "source_pdf_sha256": "348196577447694683a704caee26d3ae731a83b84cb2aebcc3c4ca4fb1e8ee30",
+      "source_bytes": 1321536,
+      "source_url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_1712.pdf",
+      "printed_release_header": "FOR IMMEDIATE RELEASE AT 8:30 A.M. EST, TUESDAY, FEBRUARY 6, 2018",
+      "row_candidate_count": 1,
+      "row_candidates": [
+        {
+          "page": 13,
+          "tokens_after_label": [
+            "4,081",
+            "4,244",
+            "-163",
+            "47,693",
+            "44,091",
+            "3,602"
+          ]
+        }
+      ],
+      "status": "unique_numeric_Exhibit7_row",
+      "page": 13,
+      "current_month_million_usd": 4081,
+      "prior_month_same_release_million_usd": 4244,
+      "printed_change_million_usd": -163,
+      "printed_change_minus_rounded_arithmetic": 0
+    },
+    {
+      "reference_month": "2018-01",
+      "source_pdf_sha256": "e54b8eb5c8ca212ea723cee07e9acb31acbfa2015d1eca7851fb1d8ec6cbdbf7",
+      "source_bytes": 1481137,
+      "source_url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_1801.pdf",
+      "printed_release_header": "FOR RELEASE AT 8:30 AM EST, WEDNESDAY, MARCH 7, 2018",
+      "row_candidate_count": 1,
+      "row_candidates": [
+        {
+          "page": 25,
+          "tokens_after_label": [
+            "4,188",
+            "4,081",
+            "107",
+            "4,188",
+            "3,834",
+            "354"
+          ]
+        }
+      ],
+      "status": "unique_numeric_Exhibit7_row",
+      "page": 25,
+      "current_month_million_usd": 4188,
+      "prior_month_same_release_million_usd": 4081,
+      "printed_change_million_usd": 107,
+      "printed_change_minus_rounded_arithmetic": 0
+    },
+    {
+      "reference_month": "2018-02",
+      "source_pdf_sha256": "733651297a96bfd8bbfd542793e5d2829f4f0d26258096b294fc337c79413126",
+      "source_bytes": 1599657,
+      "source_url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_1802.pdf",
+      "printed_release_header": "FOR RELEASE AT 8:30 AM EDT, THURSDAY, APRIL 5, 2018",
+      "row_candidate_count": 1,
+      "row_candidates": [
+        {
+          "page": 27,
+          "tokens_after_label": [
+            "4,049",
+            "4,190",
+            "-141",
+            "8,240",
+            "7,853",
+            "387"
+          ]
+        }
+      ],
+      "status": "unique_numeric_Exhibit7_row",
+      "page": 27,
+      "current_month_million_usd": 4049,
+      "prior_month_same_release_million_usd": 4190,
+      "printed_change_million_usd": -141,
+      "printed_change_minus_rounded_arithmetic": 0
+    },
+    {
+      "reference_month": "2018-03",
+      "source_pdf_sha256": "f80b5e4027857382b04fd6a04e190717b87c6385b247eca12ff03b1cb897199a",
+      "source_bytes": 1579732,
+      "source_url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_1803.pdf",
+      "printed_release_header": "FOR RELEASE AT 8:30 AM EDT, THURSDAY, MAY 3, 2018",
+      "row_candidate_count": 1,
+      "row_candidates": [
+        {
+          "page": 27,
+          "tokens_after_label": [
+            "3,913",
+            "4,047",
+            "-134",
+            "12,150",
+            "11,591",
+            "559"
+          ]
+        }
+      ],
+      "status": "unique_numeric_Exhibit7_row",
+      "page": 27,
+      "current_month_million_usd": 3913,
+      "prior_month_same_release_million_usd": 4047,
+      "printed_change_million_usd": -134,
+      "printed_change_minus_rounded_arithmetic": 0
+    },
+    {
+      "reference_month": "2018-04",
+      "source_pdf_sha256": "8cdcf624b9d856f05a4735e19b7b52e0ace56bb2f625ff5269748851264d46f4",
+      "source_bytes": 1611878,
+      "source_url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_1804.pdf",
+      "printed_release_header": "FOR RELEASE AT 8:30 AM EDT, WEDNESDAY, JUNE 6, 2018",
+      "row_candidate_count": 1,
+      "row_candidates": [
+        {
+          "page": 26,
+          "tokens_after_label": [
+            "4,172",
+            "3,992",
+            "180",
+            "16,299",
+            "15,466",
+            "833"
+          ]
+        }
+      ],
+      "status": "unique_numeric_Exhibit7_row",
+      "page": 26,
+      "current_month_million_usd": 4172,
+      "prior_month_same_release_million_usd": 3992,
+      "printed_change_million_usd": 180,
+      "printed_change_minus_rounded_arithmetic": 0
+    },
+    {
+      "reference_month": "2018-05",
+      "source_pdf_sha256": "375ababdef6c3ba1bb2b41283c68153d6abde1498a67fc93d58f31855d05084f",
+      "source_bytes": 1235128,
+      "source_url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_1805.pdf",
+      "printed_release_header": "FOR RELEASE AT 8:30 AM EDT, FRIDAY, JULY 6, 2018",
+      "row_candidate_count": 1,
+      "row_candidates": [
+        {
+          "page": 24,
+          "tokens_after_label": [
+            "3,991",
+            "4,175",
+            "-184",
+            "20,293",
+            "19,330",
+            "964"
+          ]
+        }
+      ],
+      "status": "unique_numeric_Exhibit7_row",
+      "page": 24,
+      "current_month_million_usd": 3991,
+      "prior_month_same_release_million_usd": 4175,
+      "printed_change_million_usd": -184,
+      "printed_change_minus_rounded_arithmetic": 0
+    },
+    {
+      "reference_month": "2018-06",
+      "source_pdf_sha256": "b876e614be157db121ec85aac26a8c54f67a5590b3d5795746deec2919b025d4",
+      "source_bytes": 1332548,
+      "source_url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_1806.pdf",
+      "printed_release_header": "FOR RELEASE AT 8:30 AM EDT, FRIDAY, AUGUST 3, 2018",
+      "row_candidate_count": 1,
+      "row_candidates": [
+        {
+          "page": 25,
+          "tokens_after_label": [
+            "4,030",
+            "3,992",
+            "37",
+            "24,324",
+            "23,257",
+            "1,068"
+          ]
+        }
+      ],
+      "status": "unique_numeric_Exhibit7_row",
+      "page": 25,
+      "current_month_million_usd": 4030,
+      "prior_month_same_release_million_usd": 3992,
+      "printed_change_million_usd": 37,
+      "printed_change_minus_rounded_arithmetic": -1
+    },
+    {
+      "reference_month": "2018-07",
+      "source_pdf_sha256": "c525b71328163564c9eb26f3d5e5ae55f12a46a09621b8e8c864a50c8b34a022",
+      "source_bytes": 1320749,
+      "source_url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_1807.pdf",
+      "printed_release_header": "FOR RELEASE AT 8:30 AM EDT, WEDNESDAY, SEPTEMBER 5, 2018",
+      "row_candidate_count": 1,
+      "row_candidates": [
+        {
+          "page": 26,
+          "tokens_after_label": [
+            "3,977",
+            "4,026",
+            "-49",
+            "28,297",
+            "27,103",
+            "1,194"
+          ]
+        }
+      ],
+      "status": "unique_numeric_Exhibit7_row",
+      "page": 26,
+      "current_month_million_usd": 3977,
+      "prior_month_same_release_million_usd": 4026,
+      "printed_change_million_usd": -49,
+      "printed_change_minus_rounded_arithmetic": 0
+    },
+    {
+      "reference_month": "2018-08",
+      "source_pdf_sha256": "c39fc11c254856d89ba5a6c1d03d3c044f76b3f42c0fedd29c6850718a47685a",
+      "source_bytes": 1281959,
+      "source_url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_1808.pdf",
+      "printed_release_header": "FOR RELEASE AT 8:30 AM EDT, FRIDAY, OCTOBER 5, 2018",
+      "row_candidate_count": 1,
+      "row_candidates": [
+        {
+          "page": 25,
+          "tokens_after_label": [
+            "4,029",
+            "3,980",
+            "49",
+            "32,329",
+            "31,132",
+            "1,197"
+          ]
+        }
+      ],
+      "status": "unique_numeric_Exhibit7_row",
+      "page": 25,
+      "current_month_million_usd": 4029,
+      "prior_month_same_release_million_usd": 3980,
+      "printed_change_million_usd": 49,
+      "printed_change_minus_rounded_arithmetic": 0
+    },
+    {
+      "reference_month": "2018-09",
+      "source_pdf_sha256": "4d77877c1680cf7a050a09a5dda5e9ea7d498dc031da85ed7d493eb9548ef595",
+      "source_bytes": 1521349,
+      "source_url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_1809.pdf",
+      "printed_release_header": "FOR RELEASE AT 8:30 AM EDT, FRIDAY, NOVEMBER 2, 2018",
+      "row_candidate_count": 1,
+      "row_candidates": [
+        {
+          "page": 27,
+          "tokens_after_label": [
+            "3,902",
+            "4,030",
+            "-127",
+            "36,232",
+            "35,153",
+            "1,079"
+          ]
+        }
+      ],
+      "status": "unique_numeric_Exhibit7_row",
+      "page": 27,
+      "current_month_million_usd": 3902,
+      "prior_month_same_release_million_usd": 4030,
+      "printed_change_million_usd": -127,
+      "printed_change_minus_rounded_arithmetic": 1
+    },
+    {
+      "reference_month": "2018-10",
+      "source_pdf_sha256": "5256edb52ae336df77a704abf36cee15340d4ae07c925fcfa114dab79d08ac3d",
+      "source_bytes": 1417992,
+      "source_url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_1810.pdf",
+      "printed_release_header": "FOR RELEASE AT 8:30 AM EST, THURSDAY, DECEMBER 6, 2018",
+      "row_candidate_count": 1,
+      "row_candidates": [
+        {
+          "page": 28,
+          "tokens_after_label": [
+            "4,064",
+            "3,900",
+            "164",
+            "40,294",
+            "39,411",
+            "882"
+          ]
+        }
+      ],
+      "status": "unique_numeric_Exhibit7_row",
+      "page": 28,
+      "current_month_million_usd": 4064,
+      "prior_month_same_release_million_usd": 3900,
+      "printed_change_million_usd": 164,
+      "printed_change_minus_rounded_arithmetic": 0
+    },
+    {
+      "reference_month": "2018-11",
+      "source_pdf_sha256": "4cef0476dae7f29d5ca53c9fc2f59c47d0c36f667b07f25fdf69f4497188e799",
+      "source_bytes": 1405394,
+      "source_url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_1811.pdf",
+      "printed_release_header": "FOR RELEASE AT 8:30 AM EST, WEDNESDAY, FEBRUARY 6, 2019",
+      "row_candidate_count": 1,
+      "row_candidates": [
+        {
+          "page": 27,
+          "tokens_after_label": [
+            "4,125",
+            "4,061",
+            "65",
+            "44,416",
+            "43,603",
+            "813"
+          ]
+        }
+      ],
+      "status": "unique_numeric_Exhibit7_row",
+      "page": 27,
+      "current_month_million_usd": 4125,
+      "prior_month_same_release_million_usd": 4061,
+      "printed_change_million_usd": 65,
+      "printed_change_minus_rounded_arithmetic": 1
+    },
+    {
+      "reference_month": "2018-12",
+      "source_pdf_sha256": "f6ed238e385353160d8b40b144b0961865e9a05fe8ec6c68cfe771a7bf624e19",
+      "source_bytes": 1402450,
+      "source_url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_1812.pdf",
+      "printed_release_header": "FOR RELEASE AT 8:30 AM EST, WEDNESDAY, MARCH 6, 2019",
+      "row_candidate_count": 1,
+      "row_candidates": [
+        {
+          "page": 29,
+          "tokens_after_label": [
+            "4,024",
+            "4,118",
+            "-94",
+            "48,365",
+            "47,699",
+            "666"
+          ]
+        }
+      ],
+      "status": "unique_numeric_Exhibit7_row",
+      "page": 29,
+      "current_month_million_usd": 4024,
+      "prior_month_same_release_million_usd": 4118,
+      "printed_change_million_usd": -94,
+      "printed_change_minus_rounded_arithmetic": 0
+    },
+    {
+      "reference_month": "2019-01",
+      "source_pdf_sha256": "6ac6ef30327aa955e00106087ad848420fd7a728a35a023b924b4c6877200e26",
+      "source_bytes": 1281834,
+      "source_url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_1901.pdf",
+      "printed_release_header": "FOR RELEASE AT 8:30 AM EDT, WEDNESDAY, MARCH 27, 2019",
+      "row_candidate_count": 1,
+      "row_candidates": [
+        {
+          "page": 27,
+          "tokens_after_label": [
+            "3,927",
+            "4,024",
+            "-96",
+            "3,927",
+            "4,152",
+            "-225"
+          ]
+        }
+      ],
+      "status": "unique_numeric_Exhibit7_row",
+      "page": 27,
+      "current_month_million_usd": 3927,
+      "prior_month_same_release_million_usd": 4024,
+      "printed_change_million_usd": -96,
+      "printed_change_minus_rounded_arithmetic": 1
+    },
+    {
+      "reference_month": "2019-02",
+      "source_pdf_sha256": "ccf18ce3d8b139bb7a1df938b979d237962f527115ce832c89d23854ce999c7c",
+      "source_bytes": 1295111,
+      "source_url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_1902.pdf",
+      "printed_release_header": "FOR RELEASE AT 8:30 AM EDT, WEDNESDAY, APRIL 17, 2019",
+      "row_candidate_count": 1,
+      "row_candidates": [
+        {
+          "page": 27,
+          "tokens_after_label": [
+            "4,338",
+            "3,974",
+            "363",
+            "8,312",
+            "8,122",
+            "190"
+          ]
+        }
+      ],
+      "status": "unique_numeric_Exhibit7_row",
+      "page": 27,
+      "current_month_million_usd": 4338,
+      "prior_month_same_release_million_usd": 3974,
+      "printed_change_million_usd": 363,
+      "printed_change_minus_rounded_arithmetic": -1
+    },
+    {
+      "reference_month": "2019-03",
+      "source_pdf_sha256": "5080e7ff02f1fe8e7920e5cefae79e9966c52da4a9d9d17b3c0aac1c291884db",
+      "source_bytes": 1326613,
+      "source_url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_1903.pdf",
+      "printed_release_header": "FOR RELEASE AT 8:30 AM EDT, THURSDAY, MAY 9, 2019",
+      "row_candidate_count": 1,
+      "row_candidates": [
+        {
+          "page": 27,
+          "tokens_after_label": [
+            "3,926",
+            "4,287",
+            "-361",
+            "12,187",
+            "12,107",
+            "80"
+          ]
+        }
+      ],
+      "status": "unique_numeric_Exhibit7_row",
+      "page": 27,
+      "current_month_million_usd": 3926,
+      "prior_month_same_release_million_usd": 4287,
+      "printed_change_million_usd": -361,
+      "printed_change_minus_rounded_arithmetic": 0
+    },
+    {
+      "reference_month": "2019-04",
+      "source_pdf_sha256": "39901b29e1271253a2d8b62ff3e8cf83f921dd89583dcf4932a13086455ffd52",
+      "source_bytes": 1859229,
+      "source_url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_1904.pdf",
+      "printed_release_header": "FOR RELEASE AT 8:30 AM EDT, THURSDAY, JUNE 6, 2019",
+      "row_candidate_count": 1,
+      "row_candidates": [
+        {
+          "page": 28,
+          "tokens_after_label": [
+            "3,934",
+            "3,948",
+            "-14",
+            "16,179",
+            "16,321",
+            "-143"
+          ]
+        }
+      ],
+      "status": "unique_numeric_Exhibit7_row",
+      "page": 28,
+      "current_month_million_usd": 3934,
+      "prior_month_same_release_million_usd": 3948,
+      "printed_change_million_usd": -14,
+      "printed_change_minus_rounded_arithmetic": 0
+    },
+    {
+      "reference_month": "2019-05",
+      "source_pdf_sha256": "9f9789e47f6f3115abceda466d7b45ff8e4ca6dddfaddc04cdbb2320ee514607",
+      "source_bytes": 1388159,
+      "source_url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_1905.pdf",
+      "printed_release_header": "FOR RELEASE AT 8:30 AM EDT, WEDNESDAY, JULY 3, 2019",
+      "row_candidate_count": 1,
+      "row_candidates": [
+        {
+          "page": 26,
+          "tokens_after_label": [
+            "3,884",
+            "3,934",
+            "-50",
+            "20,063",
+            "20,322",
+            "-259"
+          ]
+        }
+      ],
+      "status": "unique_numeric_Exhibit7_row",
+      "page": 26,
+      "current_month_million_usd": 3884,
+      "prior_month_same_release_million_usd": 3934,
+      "printed_change_million_usd": -50,
+      "printed_change_minus_rounded_arithmetic": 0
+    },
+    {
+      "reference_month": "2019-06",
+      "source_pdf_sha256": "784be9a74ff4034e76bce72cc1c183b490279215770f7f501220c85e457943d3",
+      "source_bytes": 1393057,
+      "source_url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_1906.pdf",
+      "printed_release_header": "FOR RELEASE AT 8:30 AM EDT, FRIDAY, AUGUST 2, 2019",
+      "row_candidate_count": 1,
+      "row_candidates": [
+        {
+          "page": 26,
+          "tokens_after_label": [
+            "4,149",
+            "3,884",
+            "265",
+            "24,211",
+            "24,344",
+            "-133"
+          ]
+        }
+      ],
+      "status": "unique_numeric_Exhibit7_row",
+      "page": 26,
+      "current_month_million_usd": 4149,
+      "prior_month_same_release_million_usd": 3884,
+      "printed_change_million_usd": 265,
+      "printed_change_minus_rounded_arithmetic": 0
+    },
+    {
+      "reference_month": "2019-07",
+      "source_pdf_sha256": "23018ad493e9807c43c1a83b711a042bb2a43568bb6c48377af929055e47844c",
+      "source_bytes": 1923610,
+      "source_url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_1907.pdf",
+      "printed_release_header": "FOR RELEASE AT 8:30 AM EDT, WEDNESDAY, SEPTEMBER 4, 2019",
+      "row_candidate_count": 1,
+      "row_candidates": [
+        {
+          "page": 26,
+          "tokens_after_label": [
+            "4,103",
+            "4,149",
+            "-46",
+            "28,315",
+            "28,329",
+            "-14"
+          ]
+        }
+      ],
+      "status": "unique_numeric_Exhibit7_row",
+      "page": 26,
+      "current_month_million_usd": 4103,
+      "prior_month_same_release_million_usd": 4149,
+      "printed_change_million_usd": -46,
+      "printed_change_minus_rounded_arithmetic": 0
+    },
+    {
+      "reference_month": "2019-08",
+      "source_pdf_sha256": "a732f37d214638b7a55f59e9bfc96ae40907a4c9a170e91469586f80680d494a",
+      "source_bytes": 1471889,
+      "source_url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_1908.pdf",
+      "printed_release_header": "FOR RELEASE AT 8:30 AM EDT, FRIDAY, OCTOBER 4, 2019",
+      "row_candidate_count": 1,
+      "row_candidates": [
+        {
+          "page": 26,
+          "tokens_after_label": [
+            "4,233",
+            "4,102",
+            "130",
+            "32,547",
+            "32,341",
+            "206"
+          ]
+        }
+      ],
+      "status": "unique_numeric_Exhibit7_row",
+      "page": 26,
+      "current_month_million_usd": 4233,
+      "prior_month_same_release_million_usd": 4102,
+      "printed_change_million_usd": 130,
+      "printed_change_minus_rounded_arithmetic": -1
+    },
+    {
+      "reference_month": "2019-09",
+      "source_pdf_sha256": "286e5095ad1927a0bfb6b6fe28334e0beeda9ba539f773d211c098d7c83e21f7",
+      "source_bytes": 1449879,
+      "source_url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_1909.pdf",
+      "printed_release_header": "FOR RELEASE AT 8:30 AM EST, TUESDAY, NOVEMBER 5, 2019",
+      "row_candidate_count": 1,
+      "row_candidates": [
+        {
+          "page": 26,
+          "tokens_after_label": [
+            "4,244",
+            "4,233",
+            "11",
+            "36,791",
+            "36,256",
+            "535"
+          ]
+        }
+      ],
+      "status": "unique_numeric_Exhibit7_row",
+      "page": 26,
+      "current_month_million_usd": 4244,
+      "prior_month_same_release_million_usd": 4233,
+      "printed_change_million_usd": 11,
+      "printed_change_minus_rounded_arithmetic": 0
+    },
+    {
+      "reference_month": "2019-10",
+      "source_pdf_sha256": "a38d24dba498edef37dc847f3bb67c5035327438150f54eec5e93da8b5b75d60",
+      "source_bytes": 1444332,
+      "source_url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_1910.pdf",
+      "printed_release_header": "FOR RELEASE AT 8:30 AM EST, THURSDAY, DECEMBER 5, 2019",
+      "row_candidate_count": 1,
+      "row_candidates": [
+        {
+          "page": 28,
+          "tokens_after_label": [
+            "4,255",
+            "4,244",
+            "11",
+            "41,046",
+            "40,276",
+            "770"
+          ]
+        }
+      ],
+      "status": "unique_numeric_Exhibit7_row",
+      "page": 28,
+      "current_month_million_usd": 4255,
+      "prior_month_same_release_million_usd": 4244,
+      "printed_change_million_usd": 11,
+      "printed_change_minus_rounded_arithmetic": 0
+    },
+    {
+      "reference_month": "2019-11",
+      "source_pdf_sha256": "ee47b8b38158f6e368eb92ccc37dd57d45677d998990fa3c309d6d40e1907952",
+      "source_bytes": 1429448,
+      "source_url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_1911.pdf",
+      "printed_release_header": "FOR RELEASE AT 8:30 AM EST, TUESDAY, JANUARY 7, 2020",
+      "row_candidate_count": 1,
+      "row_candidates": [
+        {
+          "page": 26,
+          "tokens_after_label": [
+            "4,339",
+            "4,256",
+            "83",
+            "45,386",
+            "44,358",
+            "1,028"
+          ]
+        }
+      ],
+      "status": "unique_numeric_Exhibit7_row",
+      "page": 26,
+      "current_month_million_usd": 4339,
+      "prior_month_same_release_million_usd": 4256,
+      "printed_change_million_usd": 83,
+      "printed_change_minus_rounded_arithmetic": 0
+    },
+    {
+      "reference_month": "2019-12",
+      "source_pdf_sha256": "ab8cd998a439575b93816b159566dddcef5de4fd4422ebd7eee9a70efae916d1",
+      "source_bytes": 2024869,
+      "source_url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_1912.pdf",
+      "printed_release_header": "FOR RELEASE AT 8:30 AM EST, WEDNESDAY, FEBRUARY 5, 2020",
+      "row_candidate_count": 1,
+      "row_candidates": [
+        {
+          "page": 28,
+          "tokens_after_label": [
+            "4,574",
+            "4,334",
+            "240",
+            "49,913",
+            "48,362",
+            "1,551"
+          ]
+        }
+      ],
+      "status": "unique_numeric_Exhibit7_row",
+      "page": 28,
+      "current_month_million_usd": 4574,
+      "prior_month_same_release_million_usd": 4334,
+      "printed_change_million_usd": 240,
+      "printed_change_minus_rounded_arithmetic": 0
+    },
+    {
+      "reference_month": "2020-01",
+      "source_pdf_sha256": "b1cfa18560bc0bbb4c325d5b49bdba078407d6d247197ce1edc2d6ae30be61bf",
+      "source_bytes": 1386800,
+      "source_url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_2001.pdf",
+      "printed_release_header": "FOR RELEASE AT 8:30 AM EST, FRIDAY, MARCH 6, 2020",
+      "row_candidate_count": 1,
+      "row_candidates": [
+        {
+          "page": 28,
+          "tokens_after_label": [
+            "4,535",
+            "4,574",
+            "-39",
+            "4,535",
+            "3,950",
+            "585"
+          ]
+        }
+      ],
+      "status": "unique_numeric_Exhibit7_row",
+      "page": 28,
+      "current_month_million_usd": 4535,
+      "prior_month_same_release_million_usd": 4574,
+      "printed_change_million_usd": -39,
+      "printed_change_minus_rounded_arithmetic": 0
+    },
+    {
+      "reference_month": "2020-02",
+      "source_pdf_sha256": "5c32f19b5b556d479de8a7cd228bda3348e5b1ceec8dfd9d327d6a783847bb7c",
+      "source_bytes": 1436099,
+      "source_url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_2002.pdf",
+      "printed_release_header": "FOR RELEASE AT 8:30 AM EDT, THURSDAY, APRIL 2, 2020",
+      "row_candidate_count": 1,
+      "row_candidates": [
+        {
+          "page": 28,
+          "tokens_after_label": [
+            "4,559",
+            "4,535",
+            "24",
+            "9,094",
+            "8,289",
+            "805"
+          ]
+        }
+      ],
+      "status": "unique_numeric_Exhibit7_row",
+      "page": 28,
+      "current_month_million_usd": 4559,
+      "prior_month_same_release_million_usd": 4535,
+      "printed_change_million_usd": 24,
+      "printed_change_minus_rounded_arithmetic": 0
+    },
+    {
+      "reference_month": "2020-03",
+      "source_pdf_sha256": "e78fd48355753e763a569142743a19d9273d82bc10d229740029b7ed2a114ef7",
+      "source_bytes": 1409857,
+      "source_url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_2003.pdf",
+      "printed_release_header": "FOR RELEASE AT 8:30 AM EDT, TUESDAY, MAY 5, 2020",
+      "row_candidate_count": 1,
+      "row_candidates": [
+        {
+          "page": 27,
+          "tokens_after_label": [
+            "4,534",
+            "4,559",
+            "-25",
+            "13,628",
+            "12,232",
+            "1,396"
+          ]
+        }
+      ],
+      "status": "unique_numeric_Exhibit7_row",
+      "page": 27,
+      "current_month_million_usd": 4534,
+      "prior_month_same_release_million_usd": 4559,
+      "printed_change_million_usd": -25,
+      "printed_change_minus_rounded_arithmetic": 0
+    },
+    {
+      "reference_month": "2020-04",
+      "source_pdf_sha256": "5638d468319dac43016c7d4857ad30055f76d64295b556b253e2a650ebe0f42a",
+      "source_bytes": 1460308,
+      "source_url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_2004.pdf",
+      "printed_release_header": "FOR RELEASE AT 8:30 AM EDT, THURSDAY, JUNE 4, 2020",
+      "row_candidate_count": 1,
+      "row_candidates": [
+        {
+          "page": 29,
+          "tokens_after_label": [
+            "4,593",
+            "4,472",
+            "121",
+            "18,269",
+            "16,134",
+            "2,136"
+          ]
+        }
+      ],
+      "status": "unique_numeric_Exhibit7_row",
+      "page": 29,
+      "current_month_million_usd": 4593,
+      "prior_month_same_release_million_usd": 4472,
+      "printed_change_million_usd": 121,
+      "printed_change_minus_rounded_arithmetic": 0
+    },
+    {
+      "reference_month": "2020-05",
+      "source_pdf_sha256": "70ba355551b16c6ea2c9f91bf5763dad2aab49fa87a52699e3acf3a8fe3f61a2",
+      "source_bytes": 1124344,
+      "source_url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_2005.pdf",
+      "printed_release_header": "FOR RELEASE AT 8:30 AM EDT, THURSDAY, JULY 2, 2020",
+      "row_candidate_count": 1,
+      "row_candidates": [
+        {
+          "page": 27,
+          "tokens_after_label": [
+            "4,204",
+            "4,594",
+            "-389",
+            "22,474",
+            "20,104",
+            "2,370"
+          ]
+        }
+      ],
+      "status": "unique_numeric_Exhibit7_row",
+      "page": 27,
+      "current_month_million_usd": 4204,
+      "prior_month_same_release_million_usd": 4594,
+      "printed_change_million_usd": -389,
+      "printed_change_minus_rounded_arithmetic": 1
+    },
+    {
+      "reference_month": "2020-06",
+      "source_pdf_sha256": "d3b7d72ac9149e219a474688689388ea106e639c554a821248ee0b1b5dec09f4",
+      "source_bytes": 1024965,
+      "source_url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_2006.pdf",
+      "printed_release_header": "FOR RELEASE AT 8:30 AM EDT, WEDNESDAY, AUGUST 5, 2020",
+      "row_candidate_count": 1,
+      "row_candidates": [
+        {
+          "page": 28,
+          "tokens_after_label": [
+            "4,515",
+            "4,206",
+            "309",
+            "26,991",
+            "24,263",
+            "2,728"
+          ]
+        }
+      ],
+      "status": "unique_numeric_Exhibit7_row",
+      "page": 28,
+      "current_month_million_usd": 4515,
+      "prior_month_same_release_million_usd": 4206,
+      "printed_change_million_usd": 309,
+      "printed_change_minus_rounded_arithmetic": 0
+    },
+    {
+      "reference_month": "2020-07",
+      "source_pdf_sha256": "538cd1219cb06236048a237f9968acf81fc355e964b6aad0768efb8a9f3c6200",
+      "source_bytes": 1995159,
+      "source_url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_2007.pdf",
+      "printed_release_header": "FOR RELEASE AT 8:30 AM EDT, THURSDAY, SEPTEMBER 3, 2020",
+      "row_candidate_count": 1,
+      "row_candidates": [
+        {
+          "page": 28,
+          "tokens_after_label": [
+            "5,344",
+            "4,513",
+            "831",
+            "32,333",
+            "28,342",
+            "3,991"
+          ]
+        }
+      ],
+      "status": "unique_numeric_Exhibit7_row",
+      "page": 28,
+      "current_month_million_usd": 5344,
+      "prior_month_same_release_million_usd": 4513,
+      "printed_change_million_usd": 831,
+      "printed_change_minus_rounded_arithmetic": 0
+    },
+    {
+      "reference_month": "2020-08",
+      "source_pdf_sha256": "471949a5669bbaa78c588afe434261729a8fbe21f5cba0764c10a6429dcfe297",
+      "source_bytes": 1445566,
+      "source_url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_2008.pdf",
+      "printed_release_header": "FOR RELEASE AT 8:30 AM EDT, TUESDAY, OCTOBER 6, 2020",
+      "row_candidate_count": 1,
+      "row_candidates": [
+        {
+          "page": 27,
+          "tokens_after_label": [
+            "4,125",
+            "5,344",
+            "-1,219",
+            "36,458",
+            "32,593",
+            "3,865"
+          ]
+        }
+      ],
+      "status": "unique_numeric_Exhibit7_row",
+      "page": 27,
+      "current_month_million_usd": 4125,
+      "prior_month_same_release_million_usd": 5344,
+      "printed_change_million_usd": -1219,
+      "printed_change_minus_rounded_arithmetic": 0
+    },
+    {
+      "reference_month": "2020-09",
+      "source_pdf_sha256": "11de6b2beb62277961ea1a43bc0cb98f3252656bbc15e17d25c698626c80dd36",
+      "source_bytes": 1484151,
+      "source_url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_2009.pdf",
+      "printed_release_header": "FOR RELEASE AT 8:30 AM EST, WEDNESDAY, NOVEMBER 4, 2020",
+      "row_candidate_count": 1,
+      "row_candidates": [
+        {
+          "page": 27,
+          "tokens_after_label": [
+            "4,300",
+            "4,125",
+            "175",
+            "40,757",
+            "36,775",
+            "3,982"
+          ]
+        }
+      ],
+      "status": "unique_numeric_Exhibit7_row",
+      "page": 27,
+      "current_month_million_usd": 4300,
+      "prior_month_same_release_million_usd": 4125,
+      "printed_change_million_usd": 175,
+      "printed_change_minus_rounded_arithmetic": 0
+    },
+    {
+      "reference_month": "2020-10",
+      "source_pdf_sha256": "c9d3d31c48c7c65e9008faf28f995d9285e67cf2e51fa1cd12d9757329b648e7",
+      "source_bytes": 1501591,
+      "source_url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_2010.pdf",
+      "printed_release_header": "FOR RELEASE AT 8:30 AM EST, FRIDAY, DECEMBER 4, 2020",
+      "row_candidate_count": 1,
+      "row_candidates": [
+        {
+          "page": 28,
+          "tokens_after_label": [
+            "4,683",
+            "4,300",
+            "383",
+            "45,440",
+            "41,048",
+            "4,392"
+          ]
+        }
+      ],
+      "status": "unique_numeric_Exhibit7_row",
+      "page": 28,
+      "current_month_million_usd": 4683,
+      "prior_month_same_release_million_usd": 4300,
+      "printed_change_million_usd": 383,
+      "printed_change_minus_rounded_arithmetic": 0
+    },
+    {
+      "reference_month": "2020-11",
+      "source_pdf_sha256": "6937c8494faf5a9511cd5a66bb97fce6e4daaa4820bd768e0febb7f6a463918f",
+      "source_bytes": 1509700,
+      "source_url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_2011.pdf",
+      "printed_release_header": "FOR RELEASE AT 8:30 AM EST, THURSDAY, JANUARY 7, 2021",
+      "row_candidate_count": 1,
+      "row_candidates": [
+        {
+          "page": 27,
+          "tokens_after_label": [
+            "4,595",
+            "4,684",
+            "-89",
+            "50,035",
+            "45,380",
+            "4,655"
+          ]
+        }
+      ],
+      "status": "unique_numeric_Exhibit7_row",
+      "page": 27,
+      "current_month_million_usd": 4595,
+      "prior_month_same_release_million_usd": 4684,
+      "printed_change_million_usd": -89,
+      "printed_change_minus_rounded_arithmetic": 0
+    },
+    {
+      "reference_month": "2020-12",
+      "source_pdf_sha256": "d853faf34384fbddb2afa5a275e7a1045b93eebe504a03205a759c9ff328133d",
+      "source_bytes": 1579733,
+      "source_url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_2012.pdf",
+      "printed_release_header": "FOR RELEASE AT 8:30 AM EST, FRIDAY, FEBRUARY 5, 2021",
+      "row_candidate_count": 1,
+      "row_candidates": [
+        {
+          "page": 30,
+          "tokens_after_label": [
+            "5,029",
+            "4,607",
+            "422",
+            "55,207",
+            "49,828",
+            "5,380"
+          ]
+        }
+      ],
+      "status": "unique_numeric_Exhibit7_row",
+      "page": 30,
+      "current_month_million_usd": 5029,
+      "prior_month_same_release_million_usd": 4607,
+      "printed_change_million_usd": 422,
+      "printed_change_minus_rounded_arithmetic": 0
+    },
+    {
+      "reference_month": "2021-01",
+      "source_pdf_sha256": "652c639ba59b9533af44b034a9cfe6eb4b4468890e5aa267e186233d755610b7",
+      "source_bytes": 1441662,
+      "source_url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_2101.pdf",
+      "printed_release_header": "FOR RELEASE AT 8:30 AM EST, FRIDAY, MARCH 5, 2021",
+      "row_candidate_count": 1,
+      "row_candidates": [
+        {
+          "page": 28,
+          "tokens_after_label": [
+            "5,242",
+            "5,029",
+            "213",
+            "5,242",
+            "4,617",
+            "625"
+          ]
+        }
+      ],
+      "status": "unique_numeric_Exhibit7_row",
+      "page": 28,
+      "current_month_million_usd": 5242,
+      "prior_month_same_release_million_usd": 5029,
+      "printed_change_million_usd": 213,
+      "printed_change_minus_rounded_arithmetic": 0
+    },
+    {
+      "reference_month": "2021-02",
+      "source_pdf_sha256": "9d0491259f0430e02d6a56b46a79beb7537270f73992613b7574957d8739a558",
+      "source_bytes": 1505965,
+      "source_url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_2102.pdf",
+      "printed_release_header": "FOR RELEASE AT 8:30 AM EDT, WEDNESDAY, APRIL 7, 2021",
+      "row_candidate_count": 1,
+      "row_candidates": [
+        {
+          "page": 28,
+          "tokens_after_label": [
+            "4,836",
+            "5,245",
+            "-409",
+            "10,081",
+            "9,230",
+            "851"
+          ]
+        }
+      ],
+      "status": "unique_numeric_Exhibit7_row",
+      "page": 28,
+      "current_month_million_usd": 4836,
+      "prior_month_same_release_million_usd": 5245,
+      "printed_change_million_usd": -409,
+      "printed_change_minus_rounded_arithmetic": 0
+    },
+    {
+      "reference_month": "2021-03",
+      "source_pdf_sha256": "27645ab9f276e5e8618a2fe744d730c8f3cabfed80a098b130cabe5bba7663dc",
+      "source_bytes": 1520445,
+      "source_url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_2103.pdf",
+      "printed_release_header": "FOR RELEASE AT 8:30 AM EDT, TUESDAY, MAY 4, 2021",
+      "row_candidate_count": 1,
+      "row_candidates": [
+        {
+          "page": 28,
+          "tokens_after_label": [
+            "5,242",
+            "4,833",
+            "409",
+            "15,320",
+            "13,715",
+            "1,605"
+          ]
+        }
+      ],
+      "status": "unique_numeric_Exhibit7_row",
+      "page": 28,
+      "current_month_million_usd": 5242,
+      "prior_month_same_release_million_usd": 4833,
+      "printed_change_million_usd": 409,
+      "printed_change_minus_rounded_arithmetic": 0
+    },
+    {
+      "reference_month": "2021-04",
+      "source_pdf_sha256": "836bef0965e8048fca4c69da4a62d25408ac3b64496d639661a0bbc5e9d8b8e8",
+      "source_bytes": 1528198,
+      "source_url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_2104.pdf",
+      "printed_release_header": "FOR RELEASE AT 8:30 AM EDT, TUESDAY, JUNE 8, 2021",
+      "row_candidate_count": 1,
+      "row_candidates": [
+        {
+          "page": 29,
+          "tokens_after_label": [
+            "5,552",
+            "5,246",
+            "305",
+            "20,737",
+            "18,053",
+            "2,684"
+          ]
+        }
+      ],
+      "status": "unique_numeric_Exhibit7_row",
+      "page": 29,
+      "current_month_million_usd": 5552,
+      "prior_month_same_release_million_usd": 5246,
+      "printed_change_million_usd": 305,
+      "printed_change_minus_rounded_arithmetic": -1
+    },
+    {
+      "reference_month": "2021-05",
+      "source_pdf_sha256": "4103fbc81782dda0ec65abee2a79c90ea248559842befb9379a6ef3e4f1546ca",
+      "source_bytes": 1494964,
+      "source_url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_2105.pdf",
+      "printed_release_header": "FOR RELEASE AT 8:30 AM EDT, FRIDAY, JULY 2, 2021",
+      "row_candidate_count": 1,
+      "row_candidates": [
+        {
+          "page": 27,
+          "tokens_after_label": [
+            "5,969",
+            "5,540",
+            "428",
+            "26,695",
+            "22,313",
+            "4,381"
+          ]
+        }
+      ],
+      "status": "unique_numeric_Exhibit7_row",
+      "page": 27,
+      "current_month_million_usd": 5969,
+      "prior_month_same_release_million_usd": 5540,
+      "printed_change_million_usd": 428,
+      "printed_change_minus_rounded_arithmetic": -1
+    },
+    {
+      "reference_month": "2021-06",
+      "source_pdf_sha256": "45c16ffa0be7b9f04c6deacff6af3b64c472df6df96dec63e87fa27c33a967bd",
+      "source_bytes": 1500259,
+      "source_url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_2106.pdf",
+      "printed_release_header": "FOR RELEASE AT 8:30 AM EDT, THURSDAY, AUGUST 5, 2021",
+      "row_candidate_count": 1,
+      "row_candidates": [
+        {
+          "page": 27,
+          "tokens_after_label": [
+            "5,826",
+            "6,008",
+            "-182",
+            "32,560",
+            "26,910",
+            "5,650"
+          ]
+        }
+      ],
+      "status": "unique_numeric_Exhibit7_row",
+      "page": 27,
+      "current_month_million_usd": 5826,
+      "prior_month_same_release_million_usd": 6008,
+      "printed_change_million_usd": -182,
+      "printed_change_minus_rounded_arithmetic": 0
+    },
+    {
+      "reference_month": "2021-07",
+      "source_pdf_sha256": "e2fbaee0105cdc40ac31bcf07014f5a5dcd4618150a74bc606c505bab7d30bfc",
+      "source_bytes": 1482571,
+      "source_url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_2107.pdf",
+      "printed_release_header": "FOR RELEASE AT 8:30 AM EDT, THURSDAY, SEPTEMBER 2, 2021",
+      "row_candidate_count": 1,
+      "row_candidates": [
+        {
+          "page": 27,
+          "tokens_after_label": [
+            "5,904",
+            "5,790",
+            "114",
+            "38,428",
+            "32,318",
+            "6,109"
+          ]
+        }
+      ],
+      "status": "unique_numeric_Exhibit7_row",
+      "page": 27,
+      "current_month_million_usd": 5904,
+      "prior_month_same_release_million_usd": 5790,
+      "printed_change_million_usd": 114,
+      "printed_change_minus_rounded_arithmetic": 0
+    },
+    {
+      "reference_month": "2021-08",
+      "source_pdf_sha256": "121c24571a2396f5f9a1de67ce569d0d6d8fd414173cfe730d8517eb300e48ac",
+      "source_bytes": 1504054,
+      "source_url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_2108.pdf",
+      "printed_release_header": "FOR RELEASE AT 8:30 AM EDT, TUESDAY, OCTOBER 5, 2021",
+      "row_candidate_count": 1,
+      "row_candidates": [
+        {
+          "page": 27,
+          "tokens_after_label": [
+            "5,683",
+            "5,904",
+            "-221",
+            "44,111",
+            "36,575",
+            "7,536"
+          ]
+        }
+      ],
+      "status": "unique_numeric_Exhibit7_row",
+      "page": 27,
+      "current_month_million_usd": 5683,
+      "prior_month_same_release_million_usd": 5904,
+      "printed_change_million_usd": -221,
+      "printed_change_minus_rounded_arithmetic": 0
+    },
+    {
+      "reference_month": "2021-09",
+      "source_pdf_sha256": "d952f2164dc79a2fc4234219b54921b540bf0b232e19264da81e630ff971374f",
+      "source_bytes": 1507017,
+      "source_url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_2109.pdf",
+      "printed_release_header": "FOR RELEASE AT 8:30 AM EDT, THURSDAY, NOVEMBER 4, 2021",
+      "row_candidate_count": 1,
+      "row_candidates": [
+        {
+          "page": 27,
+          "tokens_after_label": [
+            "5,355",
+            "5,683",
+            "-329",
+            "49,465",
+            "40,944",
+            "8,521"
+          ]
+        }
+      ],
+      "status": "unique_numeric_Exhibit7_row",
+      "page": 27,
+      "current_month_million_usd": 5355,
+      "prior_month_same_release_million_usd": 5683,
+      "printed_change_million_usd": -329,
+      "printed_change_minus_rounded_arithmetic": -1
+    },
+    {
+      "reference_month": "2021-10",
+      "source_pdf_sha256": "c73c2ce32cd7d6b0d95048a680982026982ee27d06fcaa0709253d3c0764d6c2",
+      "source_bytes": 1542808,
+      "source_url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_2110.pdf",
+      "printed_release_header": "FOR RELEASE AT 8:30 AM EST, TUESDAY, DECEMBER 7, 2021",
+      "row_candidate_count": 1,
+      "row_candidates": [
+        {
+          "page": 28,
+          "tokens_after_label": [
+            "5,631",
+            "5,356",
+            "275",
+            "55,097",
+            "45,609",
+            "9,488"
+          ]
+        }
+      ],
+      "status": "unique_numeric_Exhibit7_row",
+      "page": 28,
+      "current_month_million_usd": 5631,
+      "prior_month_same_release_million_usd": 5356,
+      "printed_change_million_usd": 275,
+      "printed_change_minus_rounded_arithmetic": 0
+    },
+    {
+      "reference_month": "2021-11",
+      "source_pdf_sha256": "b2acdeb674ce7de0a8613153c8edfc1d2d3c6deb715c4c9af5bc2d91a0745615",
+      "source_bytes": 1552520,
+      "source_url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_2111.pdf",
+      "printed_release_header": "FOR RELEASE AT 8:30 AM EST, THURSDAY, JANUARY 6, 2022",
+      "row_candidate_count": 1,
+      "row_candidates": [
+        {
+          "page": 27,
+          "tokens_after_label": [
+            "5,460",
+            "5,630",
+            "-170",
+            "60,555",
+            "50,296",
+            "10,259"
+          ]
+        }
+      ],
+      "status": "unique_numeric_Exhibit7_row",
+      "page": 27,
+      "current_month_million_usd": 5460,
+      "prior_month_same_release_million_usd": 5630,
+      "printed_change_million_usd": -170,
+      "printed_change_minus_rounded_arithmetic": 0
+    },
+    {
+      "reference_month": "2021-12",
+      "source_pdf_sha256": "3c1b4984da564fe7ee06049b30d173710bfd2bd27134300585154a98733952a5",
+      "source_bytes": 1560305,
+      "source_url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_2112.pdf",
+      "printed_release_header": "FOR RELEASE AT 8:30 AM EST, TUESDAY, FEBRUARY 8, 2022",
+      "row_candidate_count": 1,
+      "row_candidates": [
+        {
+          "page": 30,
+          "tokens_after_label": [
+            "5,576",
+            "5,457",
+            "119",
+            "66,098",
+            "55,143",
+            "10,955"
+          ]
+        }
+      ],
+      "status": "unique_numeric_Exhibit7_row",
+      "page": 30,
+      "current_month_million_usd": 5576,
+      "prior_month_same_release_million_usd": 5457,
+      "printed_change_million_usd": 119,
+      "printed_change_minus_rounded_arithmetic": 0
+    },
+    {
+      "reference_month": "2022-01",
+      "source_pdf_sha256": "35b49992a5c9fba615423084d6fcf60bb11e45adce50676eb8e87b46c6903375",
+      "source_bytes": 1457197,
+      "source_url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_2201.pdf",
+      "printed_release_header": "FOR RELEASE AT 8:30 AM EST, TUESDAY, MARCH 8, 2022",
+      "row_candidate_count": 1,
+      "row_candidates": [
+        {
+          "page": 29,
+          "tokens_after_label": [
+            "5,694",
+            "5,576",
+            "118",
+            "5,694",
+            "5,148",
+            "545"
+          ]
+        }
+      ],
+      "status": "unique_numeric_Exhibit7_row",
+      "page": 29,
+      "current_month_million_usd": 5694,
+      "prior_month_same_release_million_usd": 5576,
+      "printed_change_million_usd": 118,
+      "printed_change_minus_rounded_arithmetic": 0
+    },
+    {
+      "reference_month": "2022-02",
+      "source_pdf_sha256": "00b53773e3b75fec056c2d339f057fef79f1ae228501d62a0b8ddad10b211c02",
+      "source_bytes": 1535043,
+      "source_url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_2202.pdf",
+      "printed_release_header": "FOR RELEASE AT 8:30 AM EDT, TUESDAY, APRIL 5, 2022",
+      "row_candidate_count": 1,
+      "row_candidates": [
+        {
+          "page": 28,
+          "tokens_after_label": [
+            "5,493",
+            "5,693",
+            "-201",
+            "11,186",
+            "9,933",
+            "1,253"
+          ]
+        }
+      ],
+      "status": "unique_numeric_Exhibit7_row",
+      "page": 28,
+      "current_month_million_usd": 5493,
+      "prior_month_same_release_million_usd": 5693,
+      "printed_change_million_usd": -201,
+      "printed_change_minus_rounded_arithmetic": -1
+    },
+    {
+      "reference_month": "2022-03",
+      "source_pdf_sha256": "ad8e23f4ad52e3a70754b1552d09f4e7479a824cc5aad2f0770949a152c93f47",
+      "source_bytes": 1589273,
+      "source_url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_2203.pdf",
+      "printed_release_header": "FOR RELEASE AT 8:30 AM EDT, WEDNESDAY, MAY 4, 2022",
+      "row_candidate_count": 1,
+      "row_candidates": [
+        {
+          "page": 28,
+          "tokens_after_label": [
+            "5,588",
+            "5,493",
+            "95",
+            "16,774",
+            "15,176",
+            "1,597"
+          ]
+        }
+      ],
+      "status": "unique_numeric_Exhibit7_row",
+      "page": 28,
+      "current_month_million_usd": 5588,
+      "prior_month_same_release_million_usd": 5493,
+      "printed_change_million_usd": 95,
+      "printed_change_minus_rounded_arithmetic": 0
+    },
+    {
+      "reference_month": "2022-04",
+      "source_pdf_sha256": "6bee93fa34e1bbeb6ef9bc6cab3c379d914405325c288f2a3cfe773e0ad319eb",
+      "source_bytes": 1564864,
+      "source_url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_2204.pdf",
+      "printed_release_header": "FOR RELEASE AT 8:30 AM EDT, TUESDAY, JUNE 7, 2022",
+      "row_candidate_count": 1,
+      "row_candidates": [
+        {
+          "page": 29,
+          "tokens_after_label": [
+            "5,478",
+            "5,728",
+            "-249",
+            "22,577",
+            "21,356",
+            "1,221"
+          ]
+        }
+      ],
+      "status": "unique_numeric_Exhibit7_row",
+      "page": 29,
+      "current_month_million_usd": 5478,
+      "prior_month_same_release_million_usd": 5728,
+      "printed_change_million_usd": -249,
+      "printed_change_minus_rounded_arithmetic": 1
+    },
+    {
+      "reference_month": "2022-05",
+      "source_pdf_sha256": "352aabcaa67ca8c76376fc6dc93d2855b45fbe60c5624028b0d404392f61dbde",
+      "source_bytes": 1567695,
+      "source_url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_2205.pdf",
+      "printed_release_header": "FOR RELEASE AT 8:30 AM EDT, THURSDAY, JULY 7, 2022",
+      "row_candidate_count": 1,
+      "row_candidates": [
+        {
+          "page": 27,
+          "tokens_after_label": [
+            "5,487",
+            "5,478",
+            "9",
+            "28,065",
+            "27,262",
+            "803"
+          ]
+        }
+      ],
+      "status": "unique_numeric_Exhibit7_row",
+      "page": 27,
+      "current_month_million_usd": 5487,
+      "prior_month_same_release_million_usd": 5478,
+      "printed_change_million_usd": 9,
+      "printed_change_minus_rounded_arithmetic": 0
+    },
+    {
+      "reference_month": "2022-06",
+      "source_pdf_sha256": "ad67720560771567d6f9d0a9424c260a2203d8a634fa68b237b1bbd09e309ea3",
+      "source_bytes": 1592689,
+      "source_url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_2206.pdf",
+      "printed_release_header": "FOR RELEASE AT 8:30 AM EDT, THURSDAY, AUGUST 4, 2022",
+      "row_candidate_count": 1,
+      "row_candidates": [
+        {
+          "page": 27,
+          "tokens_after_label": [
+            "5,538",
+            "5,487",
+            "50",
+            "33,602",
+            "32,873",
+            "729"
+          ]
+        }
+      ],
+      "status": "unique_numeric_Exhibit7_row",
+      "page": 27,
+      "current_month_million_usd": 5538,
+      "prior_month_same_release_million_usd": 5487,
+      "printed_change_million_usd": 50,
+      "printed_change_minus_rounded_arithmetic": -1
+    },
+    {
+      "reference_month": "2022-07",
+      "source_pdf_sha256": "3fa1a72b10e33fc87abbd64550cb3b26d8bb8939a15a7648b0c75ccc2f91cc36",
+      "source_bytes": 1405848,
+      "source_url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_2207.pdf",
+      "printed_release_header": "FOR RELEASE AT 8:30 AM EDT, WEDNESDAY, SEPTEMBER 7, 2022",
+      "row_candidate_count": 1,
+      "row_candidates": [
+        {
+          "page": 29,
+          "tokens_after_label": [
+            "5,579",
+            "5,537",
+            "41",
+            "39,181",
+            "38,598",
+            "582"
+          ]
+        }
+      ],
+      "status": "unique_numeric_Exhibit7_row",
+      "page": 29,
+      "current_month_million_usd": 5579,
+      "prior_month_same_release_million_usd": 5537,
+      "printed_change_million_usd": 41,
+      "printed_change_minus_rounded_arithmetic": -1
+    },
+    {
+      "reference_month": "2022-08",
+      "source_pdf_sha256": "98f19126a3e3229c0d6c7bffec3b4d90ddc4e28b025c783647659fcf90902630",
+      "source_bytes": 1567783,
+      "source_url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_2208.pdf",
+      "printed_release_header": "FOR RELEASE AT 8:30 AM EDT, WEDNESDAY, OCTOBER 5, 2022",
+      "row_candidate_count": 1,
+      "row_candidates": [
+        {
+          "page": 27,
+          "tokens_after_label": [
+            "5,273",
+            "5,579",
+            "-306",
+            "44,454",
+            "44,130",
+            "324"
+          ]
+        }
+      ],
+      "status": "unique_numeric_Exhibit7_row",
+      "page": 27,
+      "current_month_million_usd": 5273,
+      "prior_month_same_release_million_usd": 5579,
+      "printed_change_million_usd": -306,
+      "printed_change_minus_rounded_arithmetic": 0
+    },
+    {
+      "reference_month": "2022-09",
+      "source_pdf_sha256": "47b049897dc9af8d656f6b59fa8bdb2fd66f4bca8c9a31c84b2f73189f58fb21",
+      "source_bytes": 1641835,
+      "source_url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_2209.pdf",
+      "printed_release_header": "FOR RELEASE AT 8:30 AM EDT, THURSDAY, NOVEMBER 3, 2022",
+      "row_candidate_count": 1,
+      "row_candidates": [
+        {
+          "page": 27,
+          "tokens_after_label": [
+            "5,660",
+            "5,275",
+            "385",
+            "50,116",
+            "49,450",
+            "665"
+          ]
+        }
+      ],
+      "status": "unique_numeric_Exhibit7_row",
+      "page": 27,
+      "current_month_million_usd": 5660,
+      "prior_month_same_release_million_usd": 5275,
+      "printed_change_million_usd": 385,
+      "printed_change_minus_rounded_arithmetic": 0
+    },
+    {
+      "reference_month": "2022-10",
+      "source_pdf_sha256": "cfda7194a3559f7ad7817e2157b6b9dc1d5c9ffb14bae1283fe0e9b01c1e33c2",
+      "source_bytes": 1638070,
+      "source_url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_2210.pdf",
+      "printed_release_header": "FOR RELEASE AT 8:30 AM EST, TUESDAY, DECEMBER 6, 2022",
+      "row_candidate_count": 1,
+      "row_candidates": [
+        {
+          "page": 28,
+          "tokens_after_label": [
+            "5,609",
+            "5,658",
+            "-49",
+            "55,723",
+            "55,053",
+            "670"
+          ]
+        }
+      ],
+      "status": "unique_numeric_Exhibit7_row",
+      "page": 28,
+      "current_month_million_usd": 5609,
+      "prior_month_same_release_million_usd": 5658,
+      "printed_change_million_usd": -49,
+      "printed_change_minus_rounded_arithmetic": 0
+    },
+    {
+      "reference_month": "2022-11",
+      "source_pdf_sha256": "7743210a11edec7ecdd9473004ad0e340092ab1857c54691b6b7de5a1b4fa610",
+      "source_bytes": 1595279,
+      "source_url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_2211.pdf",
+      "printed_release_header": "FOR RELEASE AT 8:30 AM EST, THURSDAY, JANUARY 5, 2023",
+      "row_candidate_count": 1,
+      "row_candidates": [
+        {
+          "page": 29,
+          "tokens_after_label": [
+            "5,582",
+            "5,609",
+            "-27",
+            "61,305",
+            "60,613",
+            "691"
+          ]
+        }
+      ],
+      "status": "unique_numeric_Exhibit7_row",
+      "page": 29,
+      "current_month_million_usd": 5582,
+      "prior_month_same_release_million_usd": 5609,
+      "printed_change_million_usd": -27,
+      "printed_change_minus_rounded_arithmetic": 0
+    },
+    {
+      "reference_month": "2022-12",
+      "source_pdf_sha256": "e18ca70c37083727204a2013c4bece279e4692b48048695172b0b8b50458b655",
+      "source_bytes": 1639042,
+      "source_url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_2212.pdf",
+      "printed_release_header": "FOR RELEASE AT 8:30 AM EST, TUESDAY, FEBRUARY 7, 2023",
+      "row_candidate_count": 1,
+      "row_candidates": [
+        {
+          "page": 30,
+          "tokens_after_label": [
+            "5,208",
+            "5,581",
+            "-373",
+            "66,459",
+            "66,316",
+            "143"
+          ]
+        }
+      ],
+      "status": "unique_numeric_Exhibit7_row",
+      "page": 30,
+      "current_month_million_usd": 5208,
+      "prior_month_same_release_million_usd": 5581,
+      "printed_change_million_usd": -373,
+      "printed_change_minus_rounded_arithmetic": 0
+    }
+  ]
+}

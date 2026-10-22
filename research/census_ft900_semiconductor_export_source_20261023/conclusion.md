@@ -10,4 +10,6 @@
 
 来源采集进展：已按冻结的 144 个月份 URL 映射取得 **144/144 份训练期 PDF 字节**（复用既有 4 份、新 GET 140 次）。每年 12 份构成一个 NAS 年包，12 包远端 SHA-256 全部一致；另从每个年包实际恢复 1 份 PDF 并核对尺寸与 SHA-256，144 份本地 PDF 均按请求收据复核。账本见 `full_training_request_ledger.jsonl`、`full_training_year_archives.jsonl`，限定恢复见 `full_training_readback.json`。本地源字节继续保留。**字节覆盖不等于**逐月 Exhibit 7 行、历史首次公开字节、2012 跨分类可比性或 Stage1 因子资格；尚未构造因子、拟合或运行账户。
 
+随后只读原始 PDF 的固定行审核在 **144/144 个月份**找到唯一的 Exhibit 7 半导体出口数值行和首页发布标识，详细页码、当前及同版上月值、印出的月变化与原 PDF 哈希在 `full_training_row_audit.json`。此项已解决来源字段行覆盖；仍须核对每份报表的月份身份、历史首次公开字节与 2012 分类连续性。没有 Qlib 因子、模型或资金账户。
+
 官方原件：[2011-12 FT-900](https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_1112.pdf)、[2017-05 FT-900](https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_1705.pdf)、[2024-04 FT-900](https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_2404.pdf)；[历史发布索引](https://www.census.gov/foreign-trade/Press-Release/ft900_index.html)、[2012 分类变动说明](https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_1202.pdf)。
