@@ -1,0 +1,11 @@
+{
+  "status": "mechanical_trade_date_endpoint_error_no_result",
+  "plan": "account_window_alignment_plan.json",
+  "attempted_source_Recorder_object_loads": 1,
+  "observed": "Using trade_date inclusively from account first_trade=2025-04-07 through last_exit=2025-10-07 selected 127 rows; the account window has 126 funded trade intervals and 2025-10-07 is the last exit mark, not a trade-entry date in the window.",
+  "failed_assertion": "len(g)==126",
+  "new_model_fits": 0,
+  "new_bootstraps": 0,
+  "new_native_accounts": 0,
+  "valid_aligned_result_written": false
+}

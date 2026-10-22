@@ -1,0 +1,17 @@
+{
+  "frozen": true,
+  "reason": "The first named worst-window diagnostic filtered signal_date, yielding 127 rows. The frozen account attribution defines its worst 126-day window by trade_date. Align only that descriptive cell to the account's exact trade-date boundary.",
+  "source_audit_sha256": "107d8656aea23493b9a244454d90f0b9fddaf7852339a0ffba8ff8228b95dc1d",
+  "account_component_result": "research/stage1_beta_composition_account_contributions_20261023/component_result.json",
+  "account_component_result_sha256": "fa81ebcb92492f40340d8b034bdab39a45da8c1b9c5eb38e4ddfc6e5411a40e9",
+  "source_recorder_id": "7e833a37c0e84e25a4c4c46c624f9141",
+  "source_object": "analysis/matched_daily",
+  "filter": "Use the account component's exact first_trade through last_exit inclusive as trade_date on already saved 944 matched rows; report mature H5 row count, mean SOXL target, mean relative H5 and Spearman. Do not reselect or alter the window, source path, primary full-period statistic or bootstrap.",
+  "budget": {
+    "source_Recorder_object_loads": 1,
+    "new_model_fits": 0,
+    "new_bootstraps": 0,
+    "new_native_accounts": 0
+  },
+  "stop": "If saved account window identity, exactly 126 trade dates or saved source audit hash differ, stop and retain the 127-signal-date cell as explicitly nonmatching rather than silently rewriting the original result."
+}

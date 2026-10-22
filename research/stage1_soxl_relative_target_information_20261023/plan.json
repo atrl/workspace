@@ -1,0 +1,55 @@
+{
+  "schema_version": 1,
+  "frozen": true,
+  "question": "Does the frozen complete Stage1 09:46 SOXL target weight rank later SOXL-minus-SOXX funded open-to-open relative returns, or is its positive relative accounting contribution unsupported by decision-time ranking information?",
+  "stage1_source": {
+    "summary": "research/stage1_domain_heads_20261018/summary.json",
+    "summary_sha256": "3b51938ca56ddf45029ff5e4a01a6bbc2f1d1407458efcad7d7c68b0ef5a1d37",
+    "recorder_id": "6e227278b7a64eafbcf34b965e16d2b9",
+    "experiment_id": "283510277269468590",
+    "artifact": "paths/A_active_research_replay_0",
+    "artifact_sha256": "3901f80a552b01addbc6dadc5ad677f71a175d65e5a17fe3ad1137e101c891ef"
+  },
+  "label_source": {
+    "recorder_id": "68e31a0a0fad44e7ba1d1f7d856c7a0d",
+    "experiment_id": "905520356740140469",
+    "card": "research/minute_information_pit_allocator_20261012",
+    "daily_frame_sha256": "674443e012ef98d21438891666e32e9fca8dcde6eb60fb3141f89ed6e0ca330c",
+    "timing_sha256": "66e3292d7f47ac6981f2e488ed198d1109f340f2c3a4bf2a5f538fa41465764e"
+  },
+  "provider": "data/qlib/minute_information_pit_allocator_20261012/daily_prices",
+  "cohort": {
+    "signal_dates": ["2023-01-03", "2026-10-07"],
+    "Stage1_account_intervals": 944,
+    "mature_H1_rows_expected": 944,
+    "mature_H5_rows_expected": 940,
+    "history_reused": true
+  },
+  "score": "The original A_active_research_replay_0 paths/targets.soxl_weight on each saved signal row after the frozen risk projection but before 09:47 execution. Preserve the full Stage1 allocation/action/risk/recovery chain; this score mixes model preference and account state and is not a pure SOXL alpha probability.",
+  "labels": {
+    "H1": "log1p(soxl_forward_open_return)-log1p(soxx_forward_open_return) for the original funded open interval; mature only after original timing.return_available_at.",
+    "H5": "sum j=0..4 of the same paired open-interval relative log returns; mature only after the fifth interval's timing.return_available_at. No feature/score refit or future path use at decision.",
+    "primary": "H5 signed time-series Spearman of target SOXL weight against SOXL-minus-SOXX relative log return on the 940 mature matched rows.",
+    "secondary": "H1 Spearman and year/quarter descriptive slices, all dates retained."
+  },
+  "uncertainty": "For primary H5, use 2000 paired stationary circular bootstrap replicates on chronological score/label pairs with mean block 63 sessions, seed 20261023, two-sided descriptive 95% percentile interval. Do not convert a point estimate or a positive isolated quarter into a trading rule or promotion claim.",
+  "named_regimes": {
+    "cash_helped_2024Q3": ["2024-07-01", "2024-09-30"],
+    "worst_126_cash_drag": ["2025-04-07", "2025-10-07"],
+    "cash_and_SOXL_selection_weak_2026Q3": ["2026-07-01", "2026-09-30"]
+  },
+  "risk_and_scope": "This diagnostic does not reconstruct a counterfactual account or change SOXL exposure. Existing Stage1 0bp beta-composition account failed drawdown, rolling126 and uncertainty gates even though its SOXL-relative accounting term was positive. A positive rank result would only justify a separately frozen allocation mechanism and native 0bp account, not stable SOXX excess.",
+  "price_plane_limit": "H1/H5 responses come from the original Stage1 daily_frame open-return training plane and timing object, not a newly reconciled raw-share dividend/fee ledger. The later 0bp account must separately use the native raw-share execution and corporate-action price plane.",
+  "artifacts": "Save full matched 944 H1/940 H5 rows, grouped diagnostics, bootstrap replicates and DatasetH in Qlib Recorder; NAS archive with remote hash and scoped restore.",
+  "budget": {
+    "new_GETs": 0,
+    "source_Recorder_object_loads": 3,
+    "reused_label_objects": 2,
+    "DatasetH_builds": 1,
+    "bootstrap_replicates": 2000,
+    "model_fits": 0,
+    "native_accounts": 0,
+    "new_source_Recorders": 1
+  },
+  "stop": "Source hashes, 944/940 exact matched dates, original label maturation, Qlib DatasetH/Recorder or NAS failure stops. No sign flip, score threshold, sample-window selection, strategy account or broker action."
+}

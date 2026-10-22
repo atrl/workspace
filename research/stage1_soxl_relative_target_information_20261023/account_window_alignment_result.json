@@ -1,0 +1,16 @@
+{
+  "status": "exact_account_trade_date_worst126_descriptive_alignment_passed",
+  "account_first_trade": "2025-04-07",
+  "account_last_exit_exclusive": "2025-10-07",
+  "matched_trade_dates": 126,
+  "first_signal_date": "2025-04-04",
+  "last_signal_date": "2025-10-03",
+  "mean_Stage1_SOXL_target_weight": 0.1723043641289243,
+  "mean_forward_relative_H5_log": 0.03617238445056357,
+  "target_vs_forward_relative_H5_spearman": -0.18168669279564847,
+  "original_signal_date_named_cell_rows": 127,
+  "full_primary_statistic_changed": false,
+  "new_model_fits": 0,
+  "new_bootstraps": 0,
+  "new_native_accounts": 0
+}

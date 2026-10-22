@@ -1,0 +1,11 @@
+{
+  "frozen": true,
+  "reason": "The prior fixed account window names first trade and last exit. An entry trade_date equal to last_exit belongs to the next interval. Use a half-open trade_date interval to match exactly 126 funded intervals.",
+  "initial_failure": "account_window_alignment_attempt1_failure.json",
+  "repair": "Change only the descriptive filter to first_trade <= trade_date < last_exit; preserve source objects, full-period H1/H5 statistics, block bootstrap, and original 127-signal-date cell.",
+  "additional_source_Recorder_object_loads_max": 1,
+  "new_model_fits": 0,
+  "new_bootstraps": 0,
+  "new_native_accounts": 0,
+  "stop": "If 126 mature unique entry trade dates do not result, stop without another boundary adjustment."
+}

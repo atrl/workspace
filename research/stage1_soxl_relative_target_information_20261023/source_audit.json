@@ -1,0 +1,194 @@
+{
+  "status": "frozen_Stage1_SOXL_target_relative_return_rank_diagnostic_only",
+  "plan_sha256": "38470d397b43c6b63109c5e2d2bb943b755d18221f98d3fd871fb5891560d956",
+  "matched_account_dates": 944,
+  "mature_H1_rows": 944,
+  "mature_H5_rows": 940,
+  "target_weight_min": 0.0,
+  "target_weight_max": 0.3,
+  "H1_spearman": -0.013569445118868631,
+  "H5_primary_spearman": -0.04492366931125242,
+  "H5_descriptive_95pct_block_interval": [
+    -0.21356661103528224,
+    0.08190292598560087
+  ],
+  "annual": [
+    {
+      "year": 2023,
+      "mature_rows": 250,
+      "mean_target_weight": 0.172251346839232,
+      "mean_relative_H5_log": 0.00996077032966544,
+      "target_vs_relative_H5_spearman": -0.23182282484959554
+    },
+    {
+      "year": 2024,
+      "mature_rows": 252,
+      "mean_target_weight": 0.12855161718678046,
+      "mean_relative_H5_log": -0.0011144807030173697,
+      "target_vs_relative_H5_spearman": -0.044310761535394476
+    },
+    {
+      "year": 2025,
+      "mature_rows": 250,
+      "mean_target_weight": 0.1445275437649024,
+      "mean_relative_H5_log": 0.0030211890947998868,
+      "target_vs_relative_H5_spearman": -0.05654795073250608
+    },
+    {
+      "year": 2026,
+      "mature_rows": 188,
+      "mean_target_weight": 0.16306467123483923,
+      "mean_relative_H5_log": 0.01398716309179357,
+      "target_vs_relative_H5_spearman": 0.10188263252396006
+    }
+  ],
+  "quarters": [
+    {
+      "quarter": "2023Q1",
+      "mature_rows": 62,
+      "mean_target_weight": 0.26350522704393037,
+      "mean_relative_H5_log": 0.021018379493547918,
+      "target_vs_relative_H5_spearman": 0.2234604445292517
+    },
+    {
+      "quarter": "2023Q2",
+      "mature_rows": 62,
+      "mean_target_weight": 0.15254835796063052,
+      "mean_relative_H5_log": 0.01790672704342934,
+      "target_vs_relative_H5_spearman": -0.31130305589151264
+    },
+    {
+      "quarter": "2023Q3",
+      "mature_rows": 63,
+      "mean_target_weight": 0.14027209370260077,
+      "mean_relative_H5_log": -0.01530781394439096,
+      "target_vs_relative_H5_spearman": -0.4025169327005001
+    },
+    {
+      "quarter": "2023Q4",
+      "mature_rows": 63,
+      "mean_target_weight": 0.13381543708351396,
+      "mean_relative_H5_log": 0.016527432628895247,
+      "target_vs_relative_H5_spearman": -0.6412998903308726
+    },
+    {
+      "quarter": "2024Q1",
+      "mature_rows": 61,
+      "mean_target_weight": 0.17216614464501953,
+      "mean_relative_H5_log": 0.027129102825341533,
+      "target_vs_relative_H5_spearman": -0.542510926488206
+    },
+    {
+      "quarter": "2024Q2",
+      "mature_rows": 63,
+      "mean_target_weight": 0.1864361248937815,
+      "mean_relative_H5_log": 0.013082191215211888,
+      "target_vs_relative_H5_spearman": -0.1449093734668677
+    },
+    {
+      "quarter": "2024Q3",
+      "mature_rows": 64,
+      "mean_target_weight": 0.08604734030711486,
+      "mean_relative_H5_log": -0.03313435584204007,
+      "target_vs_relative_H5_spearman": 0.0660548352580135
+    },
+    {
+      "quarter": "2024Q4",
+      "mature_rows": 64,
+      "mean_target_weight": 0.07250573530873289,
+      "mean_relative_H5_log": -0.009989120033968683,
+      "target_vs_relative_H5_spearman": -0.08337912087912086
+    },
+    {
+      "quarter": "2025Q1",
+      "mature_rows": 60,
+      "mean_target_weight": 0.0531892582165742,
+      "mean_relative_H5_log": -0.060547775495695615,
+      "target_vs_relative_H5_spearman": -0.29069255897438556
+    },
+    {
+      "quarter": "2025Q2",
+      "mature_rows": 62,
+      "mean_target_weight": 0.08493881052168364,
+      "mean_relative_H5_log": 0.03901574863134335,
+      "target_vs_relative_H5_spearman": 0.19122273627937672
+    },
+    {
+      "quarter": "2025Q3",
+      "mature_rows": 64,
+      "mean_target_weight": 0.25117537124610545,
+      "mean_relative_H5_log": 0.022083334105684697,
+      "target_vs_relative_H5_spearman": -0.26769202808316755
+    },
+    {
+      "quarter": "2025Q4",
+      "mature_rows": 64,
+      "mean_target_weight": 0.18123594431462509,
+      "mean_relative_H5_log": 0.00868521883647814,
+      "target_vs_relative_H5_spearman": -0.28886444963993185
+    },
+    {
+      "quarter": "2026Q1",
+      "mature_rows": 61,
+      "mean_target_weight": 0.20416550625913513,
+      "mean_relative_H5_log": 0.0023072694308238005,
+      "target_vs_relative_H5_spearman": -0.14334327614646675
+    },
+    {
+      "quarter": "2026Q2",
+      "mature_rows": 62,
+      "mean_target_weight": 0.2677441490270179,
+      "mean_relative_H5_log": 0.055528683654367555,
+      "target_vs_relative_H5_spearman": 0.11332865855827595
+    },
+    {
+      "quarter": "2026Q3",
+      "mature_rows": 64,
+      "mean_target_weight": 0.025030079229178628,
+      "mean_relative_H5_log": -0.013723785775581634,
+      "target_vs_relative_H5_spearman": -0.1075745199963193
+    },
+    {
+      "quarter": "2026Q4",
+      "mature_rows": 1,
+      "mean_target_weight": 0.0,
+      "mean_relative_H5_log": -0.07561287095662422,
+      "target_vs_relative_H5_spearman": null
+    }
+  ],
+  "named_regimes": [
+    {
+      "regime": "cash_helped_2024Q3",
+      "signal_start": "2024-07-01",
+      "signal_end": "2024-09-30",
+      "mature_rows": 64,
+      "mean_target_weight": 0.08604734030711486,
+      "mean_relative_H5_log": -0.03313435584204007,
+      "target_vs_relative_H5_spearman": 0.0660548352580135
+    },
+    {
+      "regime": "worst_126_cash_drag",
+      "signal_start": "2025-04-07",
+      "signal_end": "2025-10-07",
+      "mature_rows": 127,
+      "mean_target_weight": 0.17511098071846873,
+      "mean_relative_H5_log": 0.03351922584693036,
+      "target_vs_relative_H5_spearman": -0.1738675845338634
+    },
+    {
+      "regime": "cash_and_SOXL_selection_weak_2026Q3",
+      "signal_start": "2026-07-01",
+      "signal_end": "2026-09-30",
+      "mature_rows": 64,
+      "mean_target_weight": 0.025030079229178628,
+      "mean_relative_H5_log": -0.013723785775581634,
+      "target_vs_relative_H5_spearman": -0.1075745199963193
+    }
+  ],
+  "bootstrap_replicates": 2000,
+  "model_fits": 0,
+  "native_accounts": 0,
+  "reused_history": true,
+  "target_is_pure_alpha_probability": false,
+  "full_account_counterfactual": false
+}
