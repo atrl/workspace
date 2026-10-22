@@ -10,6 +10,8 @@
     "Stage1_0bp_funded_component_attribution": "research/stage1_beta_composition_account_contributions_20261023/component_result.json",
     "Stage1_0bp_risk_projection_gap": "research/stage1_risk_projection_gap_20261023/summary.json",
     "Stage1_dynamic_risk_bypass_0bp_result": "research/stage1_dynamic_risk_bypass_0bp_20261023/summary.json",
+    "Stage1_cap_gap_cash_information": "research/stage1_cap_gap_cash_information_20261023/summary.json",
+    "Stage1_cap_gap_cash_information_interpretation": "On the original Stage1 own-state 0bp path, the predecision positive raw-beta-minus-risk-cap gap occurs on 730/944 dates but does not rank the 940 mature H5 SOXX cash-advantage labels in the preregistered positive direction: Spearman -0.0622, descriptive stationary-block 95% interval [-0.2250,0.0771]. The 2024/2025 complete-year points are both negative. This necessary-condition diagnostic closes cap-gap-as-standalone-signal; no sign reversal or threshold rescue, no new fit/account.",
     "Stage1_dynamic_risk_bypass_failure_attribution": "research/stage1_dynamic_risk_bypass_0bp_20261023/failure_attribution.json",
     "Stage1_dynamic_risk_bypass_interpretation": "Original Stage1 own-state 0bp whole-layer bypass reaches SOXX relative wealth 1.119475, but available-mark drawdown 49.75%, CVaR5 -5.918% versus SOXX -4.905%, 126-day positive share 59.71%, and paired bootstrap lower -0.000382374 all fail. In 2024Q3 the original Stage1 relative wealth 1.0789 falls to 0.9397 under bypass; 2026Q3 improves from 0.8439 to 0.8894 but both lose. This closes the no-dynamic-risk version and requires a genuinely predictive decision-time mechanism that preserves protection when needed.",
     "Stage1_disclosed_downside_concentration_source_preflight": "research/stage1_disclosed_loss_concentration_preflight_20261023/source_preflight_result.json",
@@ -53,7 +55,7 @@
   },
   "current_task": {
     "card": "research/three_asset_campaign.json",
-    "phase": "Stage1_0bp_goal_active_whole_risk_bypass_failed_selective_recovery_information_needed",
+    "phase": "Stage1_0bp_goal_active_risk_bypass_and_cap_gap_signal_failed_new_predecision_information_needed",
     "implementation_executor": null,
     "independent_reviewer": null,
     "execution_authorized": false,
@@ -281,7 +283,7 @@
     ]
   },
   "active_index": "research/active_research_index.json",
-  "updated_at_utc": "2026-10-22T20:01:01.398956+00:00",
+  "updated_at_utc": "2026-10-22T20:02:21+00:00",
   "execution_totals": {
     "new_model_fits": 70,
     "new_native_accounts": 49,

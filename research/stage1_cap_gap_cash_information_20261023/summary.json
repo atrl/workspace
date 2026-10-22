@@ -1,0 +1,216 @@
+{
+  "experiment": "stage1_cap_gap_cash_information_20261023",
+  "decision": "descriptive_cap_gap_cash_rank_necessary_condition_failed",
+  "objective_achieved": false,
+  "plan_sha256": "dfbb6a61475c8cc21ea62e4abb229319fb4ab142e392505c750140610698b5cc",
+  "main": {
+    "calendar_rows": 944,
+    "mature_rows": 940,
+    "spearman": -0.06221657820209111,
+    "status": "estimable"
+  },
+  "matched_cash_control": {
+    "calendar_rows": 944,
+    "mature_rows": 940,
+    "spearman": -0.018156445425217316,
+    "status": "estimable"
+  },
+  "bootstrap_interval_95_descriptive": [
+    -0.22502791520632612,
+    0.07706379555242657
+  ],
+  "annual": [
+    {
+      "year": "2023",
+      "complete_year": false,
+      "calendar_rows": 249,
+      "mature_rows": 249,
+      "spearman": -0.21044618306340748,
+      "status": "estimable"
+    },
+    {
+      "year": "2024",
+      "complete_year": true,
+      "calendar_rows": 252,
+      "mature_rows": 252,
+      "spearman": -0.0748468902100833,
+      "status": "estimable"
+    },
+    {
+      "year": "2025",
+      "complete_year": true,
+      "calendar_rows": 250,
+      "mature_rows": 250,
+      "spearman": -0.0905582122030417,
+      "status": "estimable"
+    },
+    {
+      "year": "2026",
+      "complete_year": false,
+      "calendar_rows": 193,
+      "mature_rows": 189,
+      "spearman": 0.17044944669162426,
+      "status": "estimable"
+    }
+  ],
+  "quarter": [
+    {
+      "quarter": "2023Q1",
+      "calendar_rows": 61,
+      "mature_rows": 61,
+      "spearman": 0.20579184127277067,
+      "status": "estimable"
+    },
+    {
+      "quarter": "2023Q2",
+      "calendar_rows": 62,
+      "mature_rows": 62,
+      "spearman": -0.14724860282690339,
+      "status": "estimable"
+    },
+    {
+      "quarter": "2023Q3",
+      "calendar_rows": 63,
+      "mature_rows": 63,
+      "spearman": -0.45159509674988507,
+      "status": "estimable"
+    },
+    {
+      "quarter": "2023Q4",
+      "calendar_rows": 63,
+      "mature_rows": 63,
+      "spearman": -0.5718951402950639,
+      "status": "estimable"
+    },
+    {
+      "quarter": "2024Q1",
+      "calendar_rows": 61,
+      "mature_rows": 61,
+      "spearman": -0.4634446190907004,
+      "status": "estimable"
+    },
+    {
+      "quarter": "2024Q2",
+      "calendar_rows": 63,
+      "mature_rows": 63,
+      "spearman": -0.1492593507658817,
+      "status": "estimable"
+    },
+    {
+      "quarter": "2024Q3",
+      "calendar_rows": 64,
+      "mature_rows": 64,
+      "spearman": 0.06757996442032313,
+      "status": "estimable"
+    },
+    {
+      "quarter": "2024Q4",
+      "calendar_rows": 64,
+      "mature_rows": 64,
+      "spearman": 0.1138278388278388,
+      "status": "estimable"
+    },
+    {
+      "quarter": "2025Q1",
+      "calendar_rows": 60,
+      "mature_rows": 60,
+      "spearman": -0.2918062754086821,
+      "status": "estimable"
+    },
+    {
+      "quarter": "2025Q2",
+      "calendar_rows": 62,
+      "mature_rows": 62,
+      "spearman": 0.21817907104384934,
+      "status": "estimable"
+    },
+    {
+      "quarter": "2025Q3",
+      "calendar_rows": 64,
+      "mature_rows": 64,
+      "spearman": -0.3136920962789783,
+      "status": "estimable"
+    },
+    {
+      "quarter": "2025Q4",
+      "calendar_rows": 64,
+      "mature_rows": 64,
+      "spearman": -0.32815253419019835,
+      "status": "estimable"
+    },
+    {
+      "quarter": "2026Q1",
+      "calendar_rows": 61,
+      "mature_rows": 61,
+      "spearman": 0.08968832801901713,
+      "status": "estimable"
+    },
+    {
+      "quarter": "2026Q2",
+      "calendar_rows": 62,
+      "mature_rows": 62,
+      "spearman": 0.22715209525895816,
+      "status": "estimable"
+    },
+    {
+      "quarter": "2026Q3",
+      "calendar_rows": 64,
+      "mature_rows": 64,
+      "spearman": 0.02953296703296703,
+      "status": "estimable"
+    },
+    {
+      "quarter": "2026Q4",
+      "calendar_rows": 6,
+      "mature_rows": 2,
+      "spearman": null,
+      "status": "too_small_or_constant"
+    }
+  ],
+  "rolling_126_windows": 819,
+  "rolling_126_estimable": 819,
+  "cap_binding_days": 730,
+  "necessary_support": false,
+  "new_model_fits": 0,
+  "new_native_accounts": 0,
+  "new_bootstraps": 1,
+  "historical_independence": false,
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "inputs/*",
+      "analysis/daily",
+      "analysis/rolling",
+      "analysis/bootstrap_replicates"
+    ]
+  },
+  "limitations": [
+    "Unadjusted descriptive interval after many prior research routes; no independent validation.",
+    "Own-state risk cap is endogenous to previous NAV and is not a causal treatment.",
+    "A positive rank does not establish incremental value beyond original Stage1 39 inputs or a fee-net SOXX account."
+  ],
+  "recorder_id": "a13aeef00d184cbeaeef7b46f0f57db0",
+  "experiment_id": "637721039095475070",
+  "recorder_uri": "/Users/rziiiii/dev/workspace/research/stage1_cap_gap_cash_information_20261023/qlib_recorder",
+  "nas_evidence": {
+    "sha256": "175fd9f714bdd7b0d3a73ba0c4882550052488d92e331dd58d728af008c32520",
+    "size_bytes": 151056,
+    "media_type": "application/gzip",
+    "storage_uri": "sha256/17/5f/175fd9f714bdd7b0d3a73ba0c4882550052488d92e331dd58d728af008c32520",
+    "uploaded_by": "soxl-minute-research",
+    "created_at": "2026-10-23 04:01:25.97028+08",
+    "duplicate": false,
+    "nas_path": "/volume1/docker/yanxuan/registry/research-artifacts/17/5f/175fd9f714bdd7b0d3a73ba0c4882550052488d92e331dd58d728af008c32520",
+    "recorder_id": "a13aeef00d184cbeaeef7b46f0f57db0",
+    "experiment_id": "637721039095475070",
+    "archive_root": "qlib_recorder"
+  },
+  "nas_readback": {
+    "sha256": "175fd9f714bdd7b0d3a73ba0c4882550052488d92e331dd58d728af008c32520",
+    "bytes": 151056,
+    "verified": true
+  },
+  "verification_manifest": "verification_manifest.json",
+  "nas_scoped_restore": "nas_scoped_restore.json"
+}
