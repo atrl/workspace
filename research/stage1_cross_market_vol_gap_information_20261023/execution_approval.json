@@ -1,0 +1,12 @@
+{
+  "approved": true,
+  "scope": "Exactly two fixed Ridge fits, one paired bootstrap, zero native accounts under the continuous Stage1 SOXX Goal",
+  "plan_sha256": "689c53e5092d6ce491f45fd07175e53117612bbdce05e18f03e9b89b351073b7",
+  "review_sha256": "405b667679630b4c75fea596845c20ba76c691f7d5dd728f79fe20151edc231e",
+  "preflight_sha256": "32670bf25335e9594455c0383c361bfe000276869999017484fcbb15a318d9f3",
+  "preflight_cell_source_sha256": "4015286540828fd45d38f2176aaef791709391ee5f57f30c86be716d6630ddec",
+  "fit_cell_source_sha256": "255e45b31979dadecf9dc422e47e4ccd9e1f6f973062c57a757ac4772d35c3c9",
+  "model_fit_attempts_max": 2,
+  "bootstrap_attempts_max": 1,
+  "native_accounts": 0
+}

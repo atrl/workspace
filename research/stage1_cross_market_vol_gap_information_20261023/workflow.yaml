@@ -1,0 +1,5 @@
+experiment: stage1_cross_market_vol_gap_information_20261023
+phase: matched_information_pre_fit
+plan: plan.json
+notebook: stage1_cross_market_vol_gap_information_20261023.ipynb
+parent: research/minute_information_pit_allocator_20261012

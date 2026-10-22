@@ -1,0 +1,35 @@
+{
+  "status": "not_promoted_fixed_cross_market_vol_gap_information_failed",
+  "plan_sha256": "689c53e5092d6ce491f45fd07175e53117612bbdce05e18f03e9b89b351073b7",
+  "recorder_id": "7a53d937b7b7404e9e575668f4971e70",
+  "metrics": {
+    "baseline_held_mse": 0.0025262669365982205,
+    "candidate_held_mse": 0.0025362830020336687,
+    "held_paired_mse_improvement": -1.0016065435447932e-05,
+    "held_half_paired_improvements": [
+      -2.4704931965818238e-05,
+      6.819119492054115e-06
+    ],
+    "candidate_standardized_coordinate_coefficient": -0.0049700470344789735,
+    "bootstrap_lower": -0.00010904770082260141,
+    "bootstrap_upper": 9.56337730949382e-05,
+    "bootstrap": {
+      "paired_mean_loss_improvement": -1.0016065435447932e-05,
+      "lower_bound": -0.00010904770082260141,
+      "upper_bound": 9.56337730949382e-05,
+      "valid_replicates": 10000,
+      "invalid_replicates": 0,
+      "calendar_rows": 940,
+      "scored_rows": 940
+    }
+  },
+  "gates": {
+    "coefficient_positive": false,
+    "full_held_mean_positive": false,
+    "both_halves_positive": false,
+    "bootstrap_lower_positive": false
+  },
+  "new_model_fits": 2,
+  "new_native_accounts": 0,
+  "source_same_as_frozen_Stage1": true
+}

@@ -1,0 +1,35 @@
+{
+  "verdict": "CONFIRM_NOT_PROMOTED",
+  "scope": "Fixed matched Stage1 cross-market volatility-gap H5 information result; no native account or financial promotion certification",
+  "plan_sha256": "689c53e5092d6ce491f45fd07175e53117612bbdce05e18f03e9b89b351073b7",
+  "preflight_sha256": "32670bf25335e9594455c0383c361bfe000276869999017484fcbb15a318d9f3",
+  "design_review_sha256": "405b667679630b4c75fea596845c20ba76c691f7d5dd728f79fe20151edc231e",
+  "preflight_cell_source_sha256": "4015286540828fd45d38f2176aaef791709391ee5f57f30c86be716d6630ddec",
+  "fit_cell_source_sha256": "255e45b31979dadecf9dc422e47e4ccd9e1f6f973062c57a757ac4772d35c3c9",
+  "recorder_id": "7a53d937b7b7404e9e575668f4971e70",
+  "recorder_status": "FINISHED",
+  "execution_verified": {
+    "mature_training_rows": 3014,
+    "mature_held_rows": 940,
+    "fixed_model_fits": 2,
+    "paired_bootstrap_attempts": 1,
+    "bootstrap_replicates": 10000,
+    "native_accounts": 0,
+    "manifest_files_sha256_verified": 17,
+    "quarter_rows": 16,
+    "quarter_sessions": 940,
+    "nas_archive_sha256_remote_readback": "f77d8ff5fba92dbc959bcd4e99277303e31ab790527c2df60715b04c306279da"
+  },
+  "result": {
+    "baseline_held_mse": 0.0025262669365982205,
+    "candidate_held_mse": 0.0025362830020336687,
+    "paired_mean_mse_improvement": -0.000010016065435447932,
+    "held_half_paired_improvements": [-0.000024704931965818238, 0.000006819119492054115],
+    "candidate_standardized_coordinate_coefficient": -0.0049700470344789735,
+    "family_corrected_bootstrap_lower": -0.00010904770082260141,
+    "failed_gates": ["coefficient_positive", "full_held_mean_positive", "both_halves_positive", "bootstrap_lower_positive"]
+  },
+  "decision": "Close this fixed log-ratio information version. The reused held history and quarterly variation cannot authorize sign, threshold, window, or receiver selection. No 0bp account is warranted for this failed candidate.",
+  "delivery_status": "Complete: conclusion.md and the notebook final Chinese cell both state the saved failed 2-fit, 1-bootstrap, 0-account result and not_promoted decision. No rerun was needed.",
+  "material_evidence_defects": []
+}

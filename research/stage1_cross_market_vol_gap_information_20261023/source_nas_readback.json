@@ -1,0 +1,11 @@
+{
+  "status": "immutable_parent_archive_remote_hash_matches_prior_scoped_restore",
+  "checked_at_utc": "2026-10-22T17:59:05.763051+00:00",
+  "parent_recorder_id": "68e31a0a0fad44e7ba1d1f7d856c7a0d",
+  "nas_archive_sha256": "ee328cab292f178bf3582ef574fb411561c93b82545cd3bb90842ecd9a9a24f1",
+  "remote_sha256": "ee328cab292f178bf3582ef574fb411561c93b82545cd3bb90842ecd9a9a24f1",
+  "prior_scoped_restore": "research/minute_information_pit_allocator_20261012/nas_readback.json",
+  "new_source_bytes": 0,
+  "model_fits": 0,
+  "native_accounts": 0
+}

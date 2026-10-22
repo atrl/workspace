@@ -1,0 +1,19 @@
+{
+  "verdict": "APPROVE_DESIGN",
+  "scope": "Fixed matched Stage1 H5 information screen before first fit; no account or promotion certification",
+  "plan_sha256": "689c53e5092d6ce491f45fd07175e53117612bbdce05e18f03e9b89b351073b7",
+  "preflight_sha256": "32670bf25335e9594455c0383c361bfe000276869999017484fcbb15a318d9f3",
+  "preflight_cell_source_sha256": "4015286540828fd45d38f2176aaef791709391ee5f57f30c86be716d6630ddec",
+  "fit_cell_source_sha256": "255e45b31979dadecf9dc422e47e4ccd9e1f6f973062c57a757ac4772d35c3c9",
+  "reviewed_evidence": [
+    "plan.json and review_request.json exact hashes match current files and notebook cells",
+    "preflight_result.json reports 3014 mature training and 940 mature held rows, zero derived-coordinate missing rows, zero fits and zero accounts",
+    "Original Stage1 Recorder 68e31a0a0fad44e7ba1d1f7d856c7a0d four object hashes and NAS readback SHA are pinned before DatasetH construction",
+    "Both Ridge fits use identical original 39 inputs, rows, label, preprocessing and held cohort; candidate adds only the frozen log ratio",
+    "Fit cell gates on separate exact execution permit, persists attempt state, uses one paired stationary bootstrap at alpha 0.025/26, and archives Recorder with remote SHA readback"
+  ],
+  "scientific_boundary": "This tests an additional nonlinear representation of existing decision-time inputs on reused history. A passing information gate would require a separately frozen complete native 0bp account against SOXX; it would not establish independent forward evidence or promotion.",
+  "material_blockers": [],
+  "new_model_fits_reviewed": 0,
+  "new_native_accounts_reviewed": 0
+}
