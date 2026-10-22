@@ -1,0 +1,36 @@
+{
+  "experiment": "stage1_tsmc_quarterly_guidance_source_preflight_20261023",
+  "decision": "needs_source_access_three_frozen_official_pages_HTTP403",
+  "objective_achieved": false,
+  "plan_sha256": "69890787b3e9bd9ab296683d39e3d4fb0b23f83fd514acbf95a73fd6463aa7d2",
+  "official_page_GETs": 3,
+  "all_status_403": true,
+  "body_sha256_by_anchor": [
+    "cc53f96657f108901ce93a3ed2103134e30b7bcadf7f2675d86ccac6a834b147",
+    "82c6613c19060a5742227bdfa3c578886aa30ed6387bf199206436c9aa330136",
+    "49346bafede95074bb130b74deed3ef5552ce7a4b8b7f3a8e52932da7b119408"
+  ],
+  "retrieved_original_issuer_guidance_text": false,
+  "historical_first_public_qualified": false,
+  "model_fits": 0,
+  "native_accounts": 0,
+  "market_outcome_reads": 0,
+  "next_action": "Close this exact three-URL direct transport version; a materially different authorized source route must supply original issuer bytes and publication timing before any Stage1 feature or information screen.",
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": []
+  },
+  "nas_evidence": {
+    "sha256": "24a098f7411cb28f3ca2aa282a8dd416ec1c649bf3a5bc9a0d4a4a17c21276fd",
+    "size_bytes": 9133,
+    "media_type": "application/gzip",
+    "storage_uri": "sha256/24/a0/24a098f7411cb28f3ca2aa282a8dd416ec1c649bf3a5bc9a0d4a4a17c21276fd",
+    "uploaded_by": "soxl-minute-research",
+    "created_at": "2026-10-23 05:03:07.611642+08",
+    "duplicate": false,
+    "nas_path": "/volume1/docker/yanxuan/registry/research-artifacts/24/a0/24a098f7411cb28f3ca2aa282a8dd416ec1c649bf3a5bc9a0d4a4a17c21276fd"
+  },
+  "nas_scoped_restore_verified": true,
+  "raw_byte_policy": "Exact 403 bodies and headers remain local under data/snapshots and in the NAS archive. Headers include ephemeral Cloudflare Set-Cookie values and are intentionally excluded from Git; the receipt pins every byte by SHA-256."
+}

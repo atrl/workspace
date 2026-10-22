@@ -72,7 +72,9 @@
     "OFR_Funding_1032_conservative_Qlib_source_map": "research/stage1_ofr_funding_1032_source_map_20261023/summary.json",
     "OFR_Funding_1032_source_status": "published_after_2017_2018_2022_action_train_1059_of_1061_known_2023_2026_reused_held_940_of_944_known_249_train_120_held_revision_old_values_Qlib_Recorder_NAS_restored_first_public_pending_zero_fits_accounts",
     "OFR_Funding_1032_0bp_action_information_result": "research/stage1_ofr_funding_0bp_action_information_20261023/summary.json",
-    "OFR_Funding_1032_0bp_action_information_interpretation": "Old21 Stage1 recovery features plus one revision-aware lagged OFR Funding category on identical 0bp Tiered beta0.6 local action-value labels: 173 mature train and 265 mature 2021/2022 evaluation. Candidate MSE 7.75705e-5 versus baseline 8.38254e-5, but standardized coefficient positive against preregistered negative, 2021 paired mean negative and corrected block lower -4.4953e-6. Two fits, one bootstrap, zero accounts. Close without sign/lag/revision/year rescue; first daily receipt remains unqualified."
+    "OFR_Funding_1032_0bp_action_information_interpretation": "Old21 Stage1 recovery features plus one revision-aware lagged OFR Funding category on identical 0bp Tiered beta0.6 local action-value labels: 173 mature train and 265 mature 2021/2022 evaluation. Candidate MSE 7.75705e-5 versus baseline 8.38254e-5, but standardized coefficient positive against preregistered negative, 2021 paired mean negative and corrected block lower -4.4953e-6. Two fits, one bootstrap, zero accounts. Close without sign/lag/revision/year rescue; first daily receipt remains unqualified.",
+    "TSMC_quarterly_guidance_three_anchor_source_preflight": "research/stage1_tsmc_quarterly_guidance_source_preflight_20261023/summary.json",
+    "TSMC_quarterly_guidance_direct_source_status": "2011_2018_2022_three_exact_issuer_GETs_all_HTTP403_raw_bytes_NAS_restored_no_original_guidance_or_first_public_no_market_reads_fits_accounts"
   },
   "contract": {
     "path": "docs/three_asset_research_contract.md",

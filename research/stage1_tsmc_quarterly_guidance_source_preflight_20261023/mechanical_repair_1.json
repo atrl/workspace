@@ -1,0 +1,11 @@
+{
+  "schema_version": 1,
+  "failure": "Unfrozen assertion assumed identical 403 bodies; exact receipts show varying body hashes.",
+  "before_cell_sha256": "d1c29ddbc5d6a856e74c3398fc54df5cc233f96b67b41adc551fbda55b2b89f2",
+  "after_cell_sha256": "b2366527d0d50ffb3b5004102946f0501241d94f3c480b648e8427d6a363b471",
+  "GETs_consumed": 3,
+  "new_GETs_for_repair": 0,
+  "model_fits": 0,
+  "native_accounts": 0,
+  "only_change": "Remove equality assertion and retain per-anchor body hashes; source URLs and all fetched bytes unchanged."
+}

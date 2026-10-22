@@ -1,0 +1,70 @@
+{
+  "schema_version": 1,
+  "plan_sha256": "69890787b3e9bd9ab296683d39e3d4fb0b23f83fd514acbf95a73fd6463aa7d2",
+  "GETs_attempted": 3,
+  "captures": [
+    {
+      "index": 1,
+      "url": "https://pr.tsmc.com/english/news/1665",
+      "request_started_utc": "2026-10-22T21:02:01.062096+00:00",
+      "response_finished_utc": "2026-10-22T21:02:01.827873+00:00",
+      "curl_exit": 0,
+      "http_status": "403",
+      "effective_url": "https://pr.tsmc.com/english/news/1665",
+      "stderr": "",
+      "body": {
+        "path": "data/snapshots/stage1_tsmc_quarterly_guidance_source_preflight_20261023/anchor_1.html",
+        "bytes": 5386,
+        "sha256": "cc53f96657f108901ce93a3ed2103134e30b7bcadf7f2675d86ccac6a834b147"
+      },
+      "headers": {
+        "path": "data/snapshots/stage1_tsmc_quarterly_guidance_source_preflight_20261023/anchor_1.headers",
+        "bytes": 2209,
+        "sha256": "d8fe6b7e32321c4242f85572b21061d5ff95b22418c04f498d0fae0d596f3f23"
+      }
+    },
+    {
+      "index": 2,
+      "url": "https://pr.tsmc.com/english/news/1976",
+      "request_started_utc": "2026-10-22T21:02:01.829186+00:00",
+      "response_finished_utc": "2026-10-22T21:02:02.458785+00:00",
+      "curl_exit": 0,
+      "http_status": "403",
+      "effective_url": "https://pr.tsmc.com/english/news/1976",
+      "stderr": "",
+      "body": {
+        "path": "data/snapshots/stage1_tsmc_quarterly_guidance_source_preflight_20261023/anchor_2.html",
+        "bytes": 5386,
+        "sha256": "82c6613c19060a5742227bdfa3c578886aa30ed6387bf199206436c9aa330136"
+      },
+      "headers": {
+        "path": "data/snapshots/stage1_tsmc_quarterly_guidance_source_preflight_20261023/anchor_2.headers",
+        "bytes": 2208,
+        "sha256": "cc8676d1bfd3a3c6175af838de40e1c7151a5b5515702b1af3a07a0b4a57735c"
+      }
+    },
+    {
+      "index": 3,
+      "url": "https://pr.tsmc.com/english/news/2948",
+      "request_started_utc": "2026-10-22T21:02:02.459574+00:00",
+      "response_finished_utc": "2026-10-22T21:02:03.089535+00:00",
+      "curl_exit": 0,
+      "http_status": "403",
+      "effective_url": "https://pr.tsmc.com/english/news/2948",
+      "stderr": "",
+      "body": {
+        "path": "data/snapshots/stage1_tsmc_quarterly_guidance_source_preflight_20261023/anchor_3.html",
+        "bytes": 5386,
+        "sha256": "49346bafede95074bb130b74deed3ef5552ce7a4b8b7f3a8e52932da7b119408"
+      },
+      "headers": {
+        "path": "data/snapshots/stage1_tsmc_quarterly_guidance_source_preflight_20261023/anchor_3.headers",
+        "bytes": 2208,
+        "sha256": "2a700e5c25be1e9e368baedf0fc03600bcd600da9b8b0a62f9343fd3430e9222"
+      }
+    }
+  ],
+  "market_outcome_reads": 0,
+  "model_fits": 0,
+  "native_accounts": 0
+}

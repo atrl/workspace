@@ -1,0 +1,17 @@
+{
+  "schema_version": 1,
+  "frozen": true,
+  "experiment": "stage1_tsmc_quarterly_guidance_source_preflight_20261023",
+  "purpose": "Source-only access and semantic preflight for TSMC issuer quarterly forward revenue guidance as a possible new decision-time Stage1 SOXL-relative selection input.",
+  "exact_urls": [
+    "https://pr.tsmc.com/english/news/1665",
+    "https://pr.tsmc.com/english/news/1976",
+    "https://pr.tsmc.com/english/news/2948"
+  ],
+  "expected_issue_dates": ["2011-04-28", "2018-10-18", "2022-07-14"],
+  "request_budget": {"GETs": 3, "per_url_GETs": 1, "max_response_bytes": 200000, "timeout_seconds": 15, "redirects_max": 2},
+  "required_checks": ["HTTP status and effective URL", "exact response bytes and SHA256", "issuer and issued date in response", "forward quarter, numeric revenue low/high and currency", "original filing or revision history availability"],
+  "stop": "Do not infer original 2011-2022 publication bytes or intraday first availability from currently served HTML. A three-anchor access pass only authorizes a separately frozen full historical source/vintage audit, not a factor vector, fit or account.",
+  "budget": {"market_outcome_reads": 0, "Qlib_DatasetH_builds": 0, "model_fits": 0, "native_accounts": 0, "broker_calls": 0},
+  "existing_route_boundary": "Different issuer source and forward guidance field from closed SIA sales, TSMC monthly YoY acceleration, and NVDA/AMD/INTC consensus guidance screens. No reuse of their failed signs, windows or fitted models."
+}
