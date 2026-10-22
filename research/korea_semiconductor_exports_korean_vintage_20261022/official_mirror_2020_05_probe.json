@@ -1,0 +1,41 @@
+{
+  "schema_version": 1,
+  "status": "official_same_day_mirror_found_first_public_bytes_unqualified",
+  "scope": "2020-05_source_only_no_factor_or_market_read",
+  "official_policy_briefing": {
+    "url": "https://www.korea.kr/briefing/policyBriefingView.do?newsId=156393273",
+    "visible_date": "2020-06-01",
+    "attachment_filename": "(최종) (보도자료 3보) 200601_수출입과 20년 5월 수출입 동향(11시 엠바고).hwp",
+    "attachment_download_url": "https://www.korea.kr/common/download.do?fileId=191286266",
+    "local_raw_path": "data/snapshots/korea_semiconductor_exports_korean_vintage_20261022/official_mirror/2020-05_korea_policy_briefing.hwp",
+    "local_raw_sha256": "57dda6296692e37b433a8e364ae32d4bed5a7115f37deccec8df113c3b71698e",
+    "local_raw_bytes": 958464,
+    "content_interpreted": false,
+    "archive_status": "local_ignored_snapshot_not_yet_offhost_archived"
+  },
+  "corroboration": {
+    "same_day_yonhap_url": "https://www.yna.co.kr/view/AKR20200601051700003",
+    "visible_publication_time_KST": "2020-06-01 10:17",
+    "semiconductor_yoy_percent": 7.1,
+    "amount_precision": "Yonhap article did not state exact semiconductor amount",
+    "syndicated_table_url": "https://go.seoul.co.kr/news/prnewsView.php?id=185409&page=5305&section=b_sec_1",
+    "syndicated_table_amount_100m_USD": 80.7,
+    "syndicated_table_yoy_percent": 7.1,
+    "syndicated_publication_timestamp_verified": false
+  },
+  "current_original_source_conflict": "Current MOTIR PDF p6 has 80.1 vs p10 table and p11 80.7. Separate current syndicated table supports 80.7 and same-day reporting supports +7.1%; the official portal attachment existence supports a release date, not its unparsed amount or immutable first-public bytes.",
+  "archive_snapshot_probe": {
+    "korea_policy_briefing_wayback_CDX_exact_URL_capture_count": 0,
+    "MOTIE_article_wayback_CDX_exact_URL_capture_count": 0,
+    "MOTIR_article_wayback_CDX_exact_URL_capture_count": 0,
+    "scope_limit": "Exact-URL CDX queries only; zero captures is not proof no other archived copies exist."
+  },
+  "HWP_decode_attempt": "LibreOffice treated HWP binary as text and generated unusable pages; pyhwp install attempt was stopped after no progress. Do not use converted content.",
+  "historical_first_public_vintage_qualified": false,
+  "2020_05_numeric_factor_value_qualified": false,
+  "all_93_month_source_series_qualified": false,
+  "market_outcome_reads": 0,
+  "model_fits": 0,
+  "accounts": 0,
+  "next_action": "A source-grounded original HWP decoder or a dated immutable independent mirror is required for 2020-05; do not repeat the failed converter or promote from current pages. Continue independent scheduled Cboe/IBKR source checks."
+}

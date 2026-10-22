@@ -32,7 +32,8 @@
     "source_failure_attribution": "research/path_area_action_bridge_20261018/P3/failure_attribution.json",
     "execution_authorized": false,
     "result": "research/korea_semiconductor_exports_korean_vintage_20261022/numeric_pair_repair_review.json",
-    "parallel_source_gap": "research/korea_semiconductor_exports_korean_full_source_20261022/source_qualification_result.json"
+    "parallel_source_gap": "research/korea_semiconductor_exports_korean_full_source_20261022/source_qualification_result.json",
+    "official_same_day_mirror_probe": "research/korea_semiconductor_exports_korean_vintage_20261022/official_mirror_2020_05_probe.json"
   },
   "parallel_engineering": {
     "runtime": "implemented_and_reviewed",
