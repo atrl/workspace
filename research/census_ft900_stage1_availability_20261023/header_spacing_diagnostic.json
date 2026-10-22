@@ -1,0 +1,20 @@
+{
+  "status": "all_44_headers_parse_with_optional_comma_space",
+  "source_PDF_opens": 44,
+  "old_grammar_matches": 43,
+  "optional_space_matches": 44,
+  "old_grammar_exceptions": [
+    {
+      "month": "2024-08",
+      "source_pdf_sha256": "58bf02029f3712b863459ba297b28b22eed93ddc75e98eb3c96d5f1949cf716e",
+      "old_grammar": false,
+      "optional_space_grammar": true,
+      "header": "FOR RELEASE AT 8:30 AM EDT, TUESDAY, OCTOBER 8,2024"
+    }
+  ],
+  "new_grammar_exceptions": [],
+  "new_HTTP_GETs": 0,
+  "market_outcome_reads": 0,
+  "model_fits": 0,
+  "native_accounts": 0
+}
