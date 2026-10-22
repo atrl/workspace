@@ -1,0 +1,74 @@
+{
+  "schema_version": 1,
+  "frozen": true,
+  "phase": "five_exact_2015_SOXX_series_report_transition_source_reads",
+  "source_series_calendar_sha256": "84de74dd586d975e02fd5852acfb4d024408b0272c063e92fa3965b0d3df545b",
+  "source_series_id": "S000004354",
+  "reports": [
+    {
+      "report_date": "2015-01-31",
+      "form": "N-CSRS",
+      "accession": "0001193125-15-122693",
+      "accepted_at_utc": "2015-04-08T23:50:12.000Z",
+      "primary_document": "d875397dncsrs.htm",
+      "url": "https://www.sec.gov/Archives/edgar/data/1100663/000119312515122693/d875397dncsrs.htm"
+    },
+    {
+      "report_date": "2015-04-30",
+      "form": "N-Q",
+      "accession": "0001193125-15-238848",
+      "accepted_at_utc": "2015-06-29T22:56:42.000Z",
+      "primary_document": "d944131dnq.htm",
+      "url": "https://www.sec.gov/Archives/edgar/data/1100663/000119312515238848/d944131dnq.htm"
+    },
+    {
+      "report_date": "2015-07-31",
+      "form": "N-CSR",
+      "accession": "0001193125-15-339410",
+      "accepted_at_utc": "2015-10-08T00:30:16.000Z",
+      "primary_document": "d98289dncsr.htm",
+      "url": "https://www.sec.gov/Archives/edgar/data/1100663/000119312515339410/d98289dncsr.htm"
+    },
+    {
+      "report_date": "2015-09-30",
+      "form": "N-CSRS",
+      "accession": "0001193125-15-396474",
+      "accepted_at_utc": "2015-12-08T01:56:36.000Z",
+      "primary_document": "d93555dncsrs.htm",
+      "url": "https://www.sec.gov/Archives/edgar/data/1100663/000119312515396474/d93555dncsrs.htm"
+    },
+    {
+      "report_date": "2015-12-31",
+      "form": "N-Q",
+      "accession": "0001193125-16-480933",
+      "accepted_at_utc": "2016-02-26T23:14:01.000Z",
+      "primary_document": "d146052dnq.htm",
+      "url": "https://www.sec.gov/Archives/edgar/data/1100663/000119312516480933/d146052dnq.htm"
+    }
+  ],
+  "identity_title": "PHLX SEMICONDUCTOR ETF",
+  "request": {
+    "method": "GET",
+    "user_agent": "SOXL research codex@openai.com",
+    "max_GETs": 5,
+    "max_response_bytes_each": 45000000,
+    "connect_timeout_seconds": 10,
+    "total_timeout_seconds_each": 120,
+    "minimum_seconds_between_requests": 1
+  },
+  "identity_gate": "Each original SOXX series body must show exact report date, PHLX Semiconductor ETF title and Security/Shares/Value Schedule of Investments (TOC anchor permitted for N-CSR/N-CSRS). No generic semiconductor company text.",
+  "preservation": "Exact original body, headers, UTC times, SHA-256, NAS remote archive hash and scoped raw-member restore.",
+  "budget": {
+    "filing_body_GETs": 5,
+    "market_outcome_reads": 0,
+    "model_fits": 0,
+    "native_accounts": 0
+  },
+  "stop": "Any HTTP/URL/body/size/NAS failure stops before next GET. Any identity or printed value closure failure stops numeric source qualification for the fixed five-report set. No replacement accession or new calendar normalization.",
+  "scientific_boundary": "Five source vintages in 2015 transition may form a lagged disclosed-equity coordinate, but 2016-2022 and held availability, revisions, incremental information and fee-net Stage1 accounts remain separate.",
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": []
+  }
+}
