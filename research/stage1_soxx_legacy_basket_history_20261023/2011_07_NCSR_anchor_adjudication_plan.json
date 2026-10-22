@@ -1,0 +1,27 @@
+{
+  "schema_version": 1,
+  "frozen": true,
+  "phase": "offline_July_2011_NCSR_TOC_anchor_source_identity_adjudication",
+  "prior_identity_result_sha256": "2f1df59fb31c3132b053fdef82ce62475a9d73a38749c8dfc7f0017a487c9a9f",
+  "raw_path": "data/snapshots/stage1_soxx_legacy_basket_history_20261023/2011_semiannual_bodies/0001193125-11-266548_d216041dncsr.htm",
+  "raw_sha256": "2b5580f41067b2f7a2cf003517a9f7f7220836f22feb1fbdf8be3bea0eda54e5",
+  "source_NAS_archive_sha256": "89052e9471992b27fb14abf007a2a4fbed6b03631b3e125c5269c33b74f17dc2",
+  "toc_link_text": "iShares PHLX SOX Semiconductor Sector Index Fund",
+  "toc_anchor": "toc216041_8",
+  "next_anchor": "toc216041_9",
+  "bounded_anchor_byte_range": [
+    1006064,
+    1061628
+  ],
+  "expected_report_date": "July 31, 2011",
+  "fixed_method": "Verify the exact TOC href targets toc216041_8, slice only that anchor section up to toc216041_9, strip HTML tags and entities, then require Schedule of Investments, normalized PHLX SOX SEMICONDUCTOR SECTOR INDEX FUND title, report date, Security/Shares/Value header and common-stock row evidence in that bounded section. Record original section SHA and offsets; no securities/weights extraction.",
+  "budget": {
+    "new_HTTP_GETs": 0,
+    "scoped_raw_section_reads": 1,
+    "market_outcome_reads": 0,
+    "model_fits": 0,
+    "native_accounts": 0
+  },
+  "stop": "If TOC link, anchor order, title/date/table or raw hash fails, keep July unqualified. Do not reinterpret performance pages as holdings or reopen the prior fixed byte-title check.",
+  "boundary": "One July 2011 reported basket identity adds no full historical continuity or predictive result."
+}
