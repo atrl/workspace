@@ -1,0 +1,16 @@
+{
+  "experiment": "stage1_nvda_guidance_receiver_20261022",
+  "decision": "input_preflight_passed_design_only_no_fit",
+  "objective_achieved": false,
+  "source_preflight": "source_preflight_result.json",
+  "implementation_preflight": "design_brief.json#implementation_preflight",
+  "new_fits": 0,
+  "new_native_accounts": 0,
+  "qualified_forward_days": 0,
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [],
+    "source_recorder_authority": true
+  }
+}

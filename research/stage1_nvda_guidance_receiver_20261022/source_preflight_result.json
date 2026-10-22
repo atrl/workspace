@@ -1,0 +1,35 @@
+{
+  "status": "conditional_input_coverage_verified_not_PIT",
+  "plan_sha256": "7012c9a1e2671feb29f19fa3ebdefd1c5bc99ee5fdfeb2adcbe58c91afa02b40",
+  "source_recorder_ids": {
+    "training_timing": "68e31a0a0fad44e7ba1d1f7d856c7a0d",
+    "evaluation_calendar": "6e227278b7a64eafbcf34b965e16d2b9",
+    "guidance_pairs": "9fb35ff59c1b43b7ba3906a46d7002c0"
+  },
+  "training_calendar": {
+    "rows": 3020,
+    "seen": 2929,
+    "comparable": 2865,
+    "known_preannounced": 185,
+    "finite_numeric": 2865
+  },
+  "evaluation_calendar": {
+    "rows": 944,
+    "seen": 944,
+    "comparable": 944,
+    "known_preannounced": 0,
+    "finite_numeric": 944
+  },
+  "train_first_decision": "2011-01-04 09:29:00-05:00",
+  "train_last_decision": "2023-01-03 09:29:00-05:00",
+  "evaluation_first_decision": "2023-01-04 09:29:00-05:00",
+  "evaluation_last_decision": "2026-10-08 09:29:00-04:00",
+  "source_realized_report_events": 62,
+  "historical_first_public_timestamp_verified": false,
+  "all_updates_coverage_verified": false,
+  "original_html_bytes_verified": false,
+  "new_model_fits": 0,
+  "new_native_accounts": 0,
+  "market_outcome_reads": 0,
+  "interpretation": "Coverage and delayed alignment permit only a historical development design. Exact source/publication and future economic gates remain open."
+}
