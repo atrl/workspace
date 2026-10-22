@@ -1,0 +1,126 @@
+{
+  "schema_version": 1,
+  "status": "frozen_source_only_coordinate_layout_probe",
+  "source_index_sha256": "1650c6fa081423346fc6d7f233b6af0ca8ff45d98914240d6eef473ec3e80a0c",
+  "sample_versions": [
+    {
+      "month": "2019-02",
+      "version_index": 1,
+      "path": "data/snapshots/korea_semiconductor_exports_korean_vintage_20261022/article_pdf/2019-02_1.pdf",
+      "sha256": "940936daabf9a0671dc2896564ef55f392890bf38c45dd7e5b52b53a95c8a24b",
+      "bytes": 1870669,
+      "Korean_registration_date": "2019-03-01"
+    },
+    {
+      "month": "2019-04",
+      "version_index": 1,
+      "path": "data/snapshots/korea_semiconductor_exports_korean_vintage_20261022/article_pdf/2019-04_1.pdf",
+      "sha256": "0df485444073241079eeb0b761dc8fe69dfe30b341b73b813d0bd9e6ed5712dd",
+      "bytes": 1785436,
+      "Korean_registration_date": "2019-05-01"
+    },
+    {
+      "month": "2020-05",
+      "version_index": 1,
+      "path": "data/snapshots/korea_semiconductor_exports_korean_vintage_20261022/article_pdf/2020-05_1.pdf",
+      "sha256": "0dc84e2a434d72d75f7682a65d64d5afb045156609a73d835305ecdde915e4b6",
+      "bytes": 2526184,
+      "Korean_registration_date": "2020-06-01"
+    },
+    {
+      "month": "2020-06",
+      "version_index": 1,
+      "path": "data/snapshots/korea_semiconductor_exports_korean_vintage_20261022/article_pdf/2020-06_1.pdf",
+      "sha256": "3f52df6a5e01c4227f3e061fa87f64ea70aaa38e8ef29ed11b293a85422edd36",
+      "bytes": 1505621,
+      "Korean_registration_date": "2020-07-01"
+    },
+    {
+      "month": "2020-06",
+      "version_index": 2,
+      "path": "data/snapshots/korea_semiconductor_exports_korean_vintage_20261022/article_pdf/2020-06_2.pdf",
+      "sha256": "68f66c5e86ce48b63c5c5b2dbd6d54dd1594021761428211db8ddf5106e2bfc4",
+      "bytes": 2089911,
+      "Korean_registration_date": "2020-07-01"
+    },
+    {
+      "month": "2020-07",
+      "version_index": 1,
+      "path": "data/snapshots/korea_semiconductor_exports_korean_vintage_20261022/article_pdf/2020-07_1.pdf",
+      "sha256": "636c1256755df0deba77e9b5ced36c01d24884365f5c56f7d5435aabd5d6606e",
+      "bytes": 1507530,
+      "Korean_registration_date": "2020-08-01"
+    },
+    {
+      "month": "2020-10",
+      "version_index": 1,
+      "path": "data/snapshots/korea_semiconductor_exports_korean_vintage_20261022/article_pdf/2020-10_1.pdf",
+      "sha256": "9fe56f0ee51e92a7c5e32e4553cf1fccd22e40715e53d879810a4d05b02a6f4b",
+      "bytes": 1447167,
+      "Korean_registration_date": "2020-11-01"
+    },
+    {
+      "month": "2020-10",
+      "version_index": 2,
+      "path": "data/snapshots/korea_semiconductor_exports_korean_vintage_20261022/article_pdf/2020-10_2.pdf",
+      "sha256": "ef118bf35b4226842cc94e0e9caa1eb0624edbbc734f18a3f9df5acd544bd231",
+      "bytes": 2249045,
+      "Korean_registration_date": "2020-11-01"
+    },
+    {
+      "month": "2023-05",
+      "version_index": 1,
+      "path": "data/snapshots/korea_semiconductor_exports_korean_vintage_20261022/article_pdf/2023-05_1.pdf",
+      "sha256": "5aea7be6f12ed902d8ad203a288f165b2b73c66fb659b139a0886f37e678074d",
+      "bytes": 1537483,
+      "Korean_registration_date": "2023-06-01"
+    },
+    {
+      "month": "2023-05",
+      "version_index": 2,
+      "path": "data/snapshots/korea_semiconductor_exports_korean_vintage_20261022/article_pdf/2023-05_2.pdf",
+      "sha256": "f1fa3a0896206d9a20f4dc48c80d889f05530dafc95a3e68cc21a630b96c81eb",
+      "bytes": 1624660,
+      "Korean_registration_date": "2023-06-01"
+    },
+    {
+      "month": "2025-05",
+      "version_index": 1,
+      "path": "data/snapshots/korea_semiconductor_exports_source_20261022/korean_original/2025-05.pdf",
+      "sha256": "cf109a28bae2f5f22295149715f5e4c28910262e8e583181387409e2567782fb",
+      "bytes": 2502494,
+      "Korean_registration_date": "2025-06-01"
+    },
+    {
+      "month": "2026-05",
+      "version_index": 1,
+      "path": "data/snapshots/korea_semiconductor_exports_source_20261022/korean_original/2026-05.pdf",
+      "sha256": "e1c89aeda48ef27f1533c4f2683829b102d3ab3ef301e6a423994915b1cf9d76",
+      "bytes": 1826145,
+      "Korean_registration_date": "2026-06-01"
+    }
+  ],
+  "method": "Use each exact hash-pinned original Korean PDF text layer via PyMuPDF word/block coordinates. Locate the semiconductor header or narrative anchor, inspect adjacent row/column rectangles with page number and coordinates. Preserve candidate snippets and ambiguity; no OCR, English substitution or automatic selection in this probe.",
+  "control_expectations_from_prior_source_audit": {
+    "2019-02": "67.7 Korean 100m USD, -24.8%",
+    "2020-05": "current PDF table/p11 80.7,+7.1%; p6 80.1 conflict must remain visible",
+    "2025-05": "137.9,+21.2%",
+    "2026-05": "371.6,+169.4%"
+  },
+  "dual_version_months": [
+    "2020-06",
+    "2020-10",
+    "2023-05"
+  ],
+  "limits": {
+    "PDF_versions": 12,
+    "pages": "all text-layer pages of each version, no OCR",
+    "nearby_candidates_per_anchor": 4,
+    "market_outcome_reads": 0,
+    "model_fits": 0,
+    "accounts": 0
+  },
+  "decision_rule": "This probe only determines whether coordinate layout creates a reproducible, unambiguous source route on controls and both PDF versions. Do not select 93 monthly factor values or read SOXX outcomes here. If controls/dual versions remain ambiguous, close this fixed layout route rather than tuning thresholds.",
+  "historical_first_public_vintage_qualified": false,
+  "next_action": "Run one bounded word-coordinate audit; retain exact page/box evidence for conflicts. Only if this structurally distinct method works, freeze a separate complete-source extraction protocol before full 93-month qualification."
+}
