@@ -1,0 +1,41 @@
+{
+  "status": "original_pre_Stage1_SOXX_schedule_identity_confirmed_source_only",
+  "plan_sha256": "b4635bab1df38664386efa418e92ae5c826fc7708c6decc9199d99169903344e",
+  "body_raw_sha256": "379d1cea42677a897dd8d678cda3159b0969439d818bffada553cc50b9c0efdd",
+  "body_bytes": 12384654,
+  "fund_title": "PHLX SOX Semiconductor Sector Index Fund",
+  "report_date": "October 31, 2010",
+  "source_accession": "0001193125-10-291216",
+  "source_accepted_at_utc": "2010-12-30T22:51:52.000Z",
+  "title_byte_offsets": [
+    10948364,
+    10985992
+  ],
+  "bounded_first_section_byte_range": [
+    10948364,
+    10985992
+  ],
+  "bounded_first_section_sha256": "7ba62f0fcd665b0114441bb5749f3c722091a3f6b2b4a0b35e870526056ec8a2",
+  "checks": {
+    "exact_title_occurrences": 2,
+    "expected_date_near_title": true,
+    "schedule_header_security_shares_value": true,
+    "total_common_stocks_before_next_title": true,
+    "distinct_security_names_present": {
+      "SanDisk Corp.": true,
+      "Altera Corp.": true,
+      "Intel Corp.": true,
+      "NVIDIA Corp.": true
+    }
+  },
+  "source_NAS_archive_sha256": "03227399b81f5a0ae4d9b45d771e6f0e2ee5bac65deb2a1e313f93c6835e30fb",
+  "source_NAS_scoped_restore_verified": true,
+  "section_contains_security_quantities_but_not_extracted": true,
+  "historical_full_training_basket_qualified": false,
+  "daily_member_prices_qualified": false,
+  "new_GETs": 0,
+  "market_outcome_reads": 0,
+  "model_fits": 0,
+  "native_accounts": 0,
+  "interpretation": "The exact SEC N-Q body contains a dated original SOXX investment schedule accepted before the first Stage1 signal. One schedule does not establish continuous 2011-2022 baskets or point-in-time constituent prices."
+}

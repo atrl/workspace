@@ -1,0 +1,29 @@
+{
+  "status": "exact_SEC_filing_body_bytes_received_identity_pending",
+  "plan_sha256": "2f12b8e5d9f525f41385ecc55cfbf299b8f2b54bd4ba861fb78f831da5c85217",
+  "url": "https://www.sec.gov/Archives/edgar/data/1100663/000119312510291216/dnq.htm",
+  "request_started_at_utc": "2026-10-22T17:56:54.383084+00:00",
+  "response_finished_at_utc": "2026-10-22T17:56:56.260236+00:00",
+  "http_status": 200,
+  "final_url": "https://www.sec.gov/Archives/edgar/data/1100663/000119312510291216/dnq.htm",
+  "curl_exit_code": 0,
+  "curl_stderr": "",
+  "raw_sha256": "379d1cea42677a897dd8d678cda3159b0969439d818bffada553cc50b9c0efdd",
+  "raw_bytes": 12384654,
+  "headers_sha256": "f4a9a8aed4d00c135e3a3bac303e1b38121ce489291a881c0be7842b17df2ed5",
+  "headers_bytes": 1932,
+  "GETs": 1,
+  "market_outcome_reads": 0,
+  "model_fits": 0,
+  "native_accounts": 0,
+  "nas_evidence": {
+    "sha256": "03227399b81f5a0ae4d9b45d771e6f0e2ee5bac65deb2a1e313f93c6835e30fb",
+    "size_bytes": 457304,
+    "media_type": "application/gzip",
+    "storage_uri": "sha256/03/22/03227399b81f5a0ae4d9b45d771e6f0e2ee5bac65deb2a1e313f93c6835e30fb",
+    "uploaded_by": "soxl-minute-research",
+    "created_at": "2026-10-23 01:56:58.157201+08",
+    "duplicate": false
+  },
+  "nas_scoped_restore_verified": true
+}

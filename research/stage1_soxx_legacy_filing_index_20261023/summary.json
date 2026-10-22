@@ -1,9 +1,9 @@
 {
   "experiment": "stage1_soxx_legacy_filing_index_20261023",
-  "decision": "pre_2011_Stage1_trust_NQ_candidate_identified_SOXX_schedule_unverified",
+  "decision": "original_pre_Stage1_SOXX_schedule_specimen_qualified_full_history_and_prices_pending",
   "objective_achieved": false,
   "plan": "plan.json",
-  "http_GETs": 2,
+  "http_GETs": 3,
   "model_fits": 0,
   "native_accounts": 0,
   "artifact_policy": {
@@ -32,5 +32,17 @@
   "pre_signal_candidate_accepted_utc": "2010-12-30T22:51:52.000Z",
   "pre_signal_candidate_report_date": "2010-10-31",
   "SOXX_schedule_qualified": false,
-  "historical_member_prices_qualified": false
+  "historical_member_prices_qualified": false,
+  "filing_2010_12_30_plan": "filing_2010_12_30_plan.json",
+  "filing_2010_12_30_transport": "filing_2010_12_30_transport_result.json",
+  "filing_2010_12_30_identity_plan": "filing_2010_12_30_identity_plan.json",
+  "filing_2010_12_30_identity_result": "filing_2010_12_30_identity_result.json",
+  "original_pre_signal_SOXX_schedule_confirmed": true,
+  "original_schedule_report_date": "2010-10-31",
+  "original_schedule_accepted_at_utc": "2010-12-30T22:51:52.000Z",
+  "original_body_sha256": "379d1cea42677a897dd8d678cda3159b0969439d818bffada553cc50b9c0efdd",
+  "original_body_NAS_sha256": "03227399b81f5a0ae4d9b45d771e6f0e2ee5bac65deb2a1e313f93c6835e30fb",
+  "original_body_NAS_scoped_restore_verified": true,
+  "full_2011_2022_basket_qualified": false,
+  "daily_member_prices_qualified": false
 }
