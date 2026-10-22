@@ -1,0 +1,40 @@
+{
+  "status": "2025_12_23_current_weekly_version_updated_after_planned_availability",
+  "plan_sha256": "a4a9f95fe97d0a69b5c66e9a340e963b96621b34b6921a341f8af1ed6744dfc4",
+  "GETs_consumed": 3,
+  "checks": [
+    {
+      "report_date": "2025-12-02",
+      "scheduled_publish_date": "2025-12-17",
+      "weekly_page_updated_date": "2025-12-17",
+      "planned_next_day_available": "2025-12-18",
+      "updated_after_planned_available": false,
+      "weekly_body_sha256": "36a3a2fe2a9ae54a2a75c33e4cb6f0f8d6459053506edda6fea5f89b017bd964",
+      "first_public_time_proved": false
+    },
+    {
+      "report_date": "2025-12-23",
+      "scheduled_publish_date": "2025-12-29",
+      "weekly_page_updated_date": "2025-12-31",
+      "planned_next_day_available": "2025-12-30",
+      "updated_after_planned_available": true,
+      "weekly_body_sha256": "4561adb75cc0be50de3ac7e42893697da45c60e98b7ffab3384b4b449f591dde",
+      "first_public_time_proved": false
+    }
+  ],
+  "scientific_interpretation": "Updated is not first-public proof, but the currently served 2025-12-23 weekly report version is marked December 31 after a December 29 planned release and December 30 proposed Stage1 availability. Current annual values at December 30 are therefore unqualified without a first-release snapshot; mark unknown or use a later conservative date after independently verifying the version.",
+  "NAS_evidence": {
+    "sha256": "659a15228216d97e2438735137943d7ca35f4e53720e0617c248e96fda258188",
+    "size_bytes": 60602,
+    "media_type": "application/gzip",
+    "storage_uri": "sha256/65/9a/659a15228216d97e2438735137943d7ca35f4e53720e0617c248e96fda258188",
+    "uploaded_by": "soxl-minute-research",
+    "created_at": "2026-10-23 05:19:29.423416+08",
+    "duplicate": false,
+    "nas_path": "/volume1/docker/yanxuan/registry/research-artifacts/65/9a/659a15228216d97e2438735137943d7ca35f4e53720e0617c248e96fda258188"
+  },
+  "NAS_remote_and_scoped_restore_verified": true,
+  "market_outcome_reads": 0,
+  "model_fits": 0,
+  "native_accounts": 0
+}

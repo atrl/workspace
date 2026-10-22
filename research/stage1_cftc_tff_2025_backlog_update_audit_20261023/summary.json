@@ -1,0 +1,20 @@
+{
+  "experiment": "stage1_cftc_tff_2025_backlog_update_audit_20261023",
+  "decision": "needs_timing_repair_2025_12_23_backlog_current_version_after_planned_availability",
+  "objective_achieved": false,
+  "plan_sha256": "a4a9f95fe97d0a69b5c66e9a340e963b96621b34b6921a341f8af1ed6744dfc4",
+  "result": "result.json",
+  "existing_map_impact": "map_impact.json",
+  "existing_map_qualification": "needs_timing_repair_before_any_information_fit",
+  "GETs_consumed": 3,
+  "NAS_archive_sha256": "659a15228216d97e2438735137943d7ca35f4e53720e0617c248e96fda258188",
+  "NAS_scoped_restore_verified": true,
+  "market_outcome_reads": 0,
+  "model_fits": 0,
+  "native_accounts": 0,
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": []
+  }
+}

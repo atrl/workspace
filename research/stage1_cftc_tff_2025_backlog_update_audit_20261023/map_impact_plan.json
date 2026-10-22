@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "frozen": true,
+  "phase": "read_only_existing_CFTC_14d_Qlib_map_impact_on_Dec30",
+  "source_result_sha256": "86be93ef59b278e76d150b6653bdd9030ec39d270682b3d418d8f272a9163b2e",
+  "map_summary": "research/stage1_cftc_nq_tff_14d_positioning_map_20261023/summary.json",
+  "map_summary_sha256": "ca26e5eb406bb599f2830c750b4abd7dc9bec3c26c513b224e96e4ad06f55524",
+  "map_recorder_id": "cdd3e57a851a48d8bc563bac302084f5",
+  "map_experiment_id": "108116900852740075",
+  "map_artifact": "analysis/mapped_signals",
+  "map_artifact_sha256": "d83e600f32e751fddeac500e961973b2749c352b69d06558925738cf161e8455",
+  "exact_signal_dates": ["2025-12-29", "2025-12-30", "2025-12-31", "2026-01-02"],
+  "question": "Did the existing source-only 14-day map expose the current 2025-12-23 annual value to a Dec 30 Stage1 decision before the current weekly page's Dec 31 update marker?",
+  "budget": {"native_Qlib_Recorder_object_loads": 1, "new_market_requests": 0, "new_model_fits": 0, "new_native_accounts": 0, "new_writable_Recorders": 0},
+  "decision": "If a Dec 30 signal uses report date 2025-12-23 with source_known true, mark the existing map as needs_timing_repair for model input. Preserve its frozen Recorder and plan; do not rewrite or fit from it until a new fixed source mapping excludes this row or proves its first-public value."
+}

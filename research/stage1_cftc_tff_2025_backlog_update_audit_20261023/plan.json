@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "frozen": true,
+  "experiment": "stage1_cftc_tff_2025_backlog_update_audit_20261023",
+  "phase": "official_2025_backlog_schedule_versus_weekly_page_update_marker_source_only",
+  "question": "Does the currently served CFTC TFF Futures Only weekly page carry an Updated date later than the Dec 9 special announcement's scheduled publication date for selected 2025 backlog reports, so current annual values cannot safely be used immediately after that scheduled date?",
+  "exact_urls": [
+    "https://www.cftc.gov/MarketReports/CommitmentsofTraders/HistoricalSpecialAnnouncements/index.htm",
+    "https://www.cftc.gov/sites/default/files/files/dea/cotarchives/2025/futures/financial_lf120225.htm",
+    "https://www.cftc.gov/sites/default/files/files/dea/cotarchives/2025/futures/financial_lf122325.htm"
+  ],
+  "cases": [
+    {"report_date": "2025-12-02", "scheduled_publish_date": "2025-12-17", "weekly_url_index": 1},
+    {"report_date": "2025-12-23", "scheduled_publish_date": "2025-12-29", "weekly_url_index": 2}
+  ],
+  "request_budget": {"GETs": 3, "per_URL_GETs": 1, "max_response_bytes_each": 1000000, "timeout_seconds_each": 30, "retries": 0},
+  "required_checks": ["HTTP200 and exact response hashes", "Dec 9 CFTC schedule row for both report dates", "weekly TFF page positions-as-of date", "exact weekly Updated date footer", "whether Updated exceeds scheduled publication and planned next-day availability"],
+  "interpretation": "Updated is a last-update marker, not proof of first publication. If it exceeds scheduled plus one day, current annual/weekly values are not certified to have been the same at the proposed decision time; require a first-release snapshot or delay/unknown assignment before a Stage1 feature.",
+  "budget": {"market_outcome_reads": 0, "Qlib_calls": 0, "model_fits": 0, "native_accounts": 0},
+  "stop": "Do not alter the concurrently frozen 14d source map or fit a factor. Save exact source bytes and a concrete timing-review dependency for that map if a counterexample appears."
+}

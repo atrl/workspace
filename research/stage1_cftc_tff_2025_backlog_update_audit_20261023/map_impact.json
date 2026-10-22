@@ -1,0 +1,39 @@
+{
+  "status": "existing_CFTC_14d_map_uses_current_Dec23_row_on_Dec30_before_Dec31_update",
+  "plan_sha256": "d5e86f93cdc03c3e16b72080dae187cc1b9c761fbd91c099c2f9e5b4ac0c2d94",
+  "source_result_sha256": "86be93ef59b278e76d150b6653bdd9030ec39d270682b3d418d8f272a9163b2e",
+  "map_summary_sha256": "ca26e5eb406bb599f2830c750b4abd7dc9bec3c26c513b224e96e4ad06f55524",
+  "map_recorder_id": "cdd3e57a851a48d8bc563bac302084f5",
+  "mapped_rows": [
+    {
+      "signal_date": "2025-12-29",
+      "source_report_date": "2025-12-16",
+      "source_available_at_utc": "2025-12-24 05:00:00+00:00",
+      "source_known": true
+    },
+    {
+      "signal_date": "2025-12-30",
+      "source_report_date": "2025-12-23",
+      "source_available_at_utc": "2025-12-30 05:00:00+00:00",
+      "source_known": true
+    },
+    {
+      "signal_date": "2025-12-31",
+      "source_report_date": "2025-12-23",
+      "source_available_at_utc": "2025-12-30 05:00:00+00:00",
+      "source_known": true
+    },
+    {
+      "signal_date": "2026-01-02",
+      "source_report_date": "2025-12-23",
+      "source_available_at_utc": "2025-12-30 05:00:00+00:00",
+      "source_known": true
+    }
+  ],
+  "qualification": "needs_timing_repair_before_model_input",
+  "not_first_public_proof": true,
+  "new_market_requests": 0,
+  "new_model_fits": 0,
+  "new_native_accounts": 0,
+  "new_writable_Recorders": 0
+}

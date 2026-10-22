@@ -1,0 +1,13 @@
+{
+  "status": "needs_timing_repair_before_any_information_fit",
+  "review_scope": "Read-only source-timing review of the frozen CFTC 14-day Qlib mapped Recorder; no model or account execution",
+  "existing_map_summary_sha256": "ca26e5eb406bb599f2830c750b4abd7dc9bec3c26c513b224e96e4ad06f55524",
+  "official_source_update_audit": "research/stage1_cftc_tff_2025_backlog_update_audit_20261023/result.json",
+  "official_source_update_audit_sha256": "86be93ef59b278e76d150b6653bdd9030ec39d270682b3d418d8f272a9163b2e",
+  "native_map_impact_readback": "research/stage1_cftc_tff_2025_backlog_update_audit_20261023/map_impact.json",
+  "native_map_impact_sha256": "163d771a191ee26909f818dc37df107ae35450497ede0e6e9d20ce8ea228022b",
+  "finding": "The official Dec 9 schedule lists the 2025-12-23 report for Dec 29, and the current weekly TFF page says Updated Dec 31. The saved 14-day Qlib map assigns the current 2025-12-23 annual row to the Dec 30 Stage1 signal as source_known=true. The exact current-version value at Dec 30 is therefore unqualified; Updated does not prove first publication, but it also cannot certify the Dec 30 value.",
+  "required_action": "Preserve the frozen map as executed. Before any model fit, freeze a timing-only repair that marks the affected report and dependent delta4 rows unknown unless an exact first-release vintage proves the Dec 30 value; re-map under a new Recorder and verify all affected dates. Do not treat this review as a sign, lookback or target change.",
+  "model_fits": 0,
+  "native_accounts": 0
+}

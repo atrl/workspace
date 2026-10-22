@@ -1,0 +1,69 @@
+{
+  "plan_sha256": "a4a9f95fe97d0a69b5c66e9a340e963b96621b34b6921a341f8af1ed6744dfc4",
+  "GETs_attempted": 3,
+  "captures": [
+    {
+      "index": 0,
+      "url": "https://www.cftc.gov/MarketReports/CommitmentsofTraders/HistoricalSpecialAnnouncements/index.htm",
+      "started_utc": "2026-10-22T21:18:50.161916+00:00",
+      "finished_utc": "2026-10-22T21:18:51.326856+00:00",
+      "curl_exit": 0,
+      "http_status": "200",
+      "effective_url": "https://www.cftc.gov/MarketReports/CommitmentsofTraders/HistoricalSpecialAnnouncements/index.htm",
+      "stderr": "",
+      "body": {
+        "path": "data/snapshots/stage1_cftc_tff_2025_backlog_update_audit_20261023/page_0.html",
+        "bytes": 124933,
+        "sha256": "0aa602e766421896ee745bb7c7c0f08976c3a88a50b5fdd782b47ae39257b791"
+      },
+      "headers": {
+        "path": "data/snapshots/stage1_cftc_tff_2025_backlog_update_audit_20261023/page_0.headers",
+        "bytes": 1050,
+        "sha256": "a6bc25614481a7208234f9aa8616ffddaf64d7198914cc7630cfe7c9b3a5b9ed"
+      }
+    },
+    {
+      "index": 1,
+      "url": "https://www.cftc.gov/sites/default/files/files/dea/cotarchives/2025/futures/financial_lf120225.htm",
+      "started_utc": "2026-10-22T21:18:51.327802+00:00",
+      "finished_utc": "2026-10-22T21:18:52.702766+00:00",
+      "curl_exit": 0,
+      "http_status": "200",
+      "effective_url": "https://www.cftc.gov/sites/default/files/files/dea/cotarchives/2025/futures/financial_lf120225.htm",
+      "stderr": "",
+      "body": {
+        "path": "data/snapshots/stage1_cftc_tff_2025_backlog_update_audit_20261023/page_1.html",
+        "bytes": 178116,
+        "sha256": "36a3a2fe2a9ae54a2a75c33e4cb6f0f8d6459053506edda6fea5f89b017bd964"
+      },
+      "headers": {
+        "path": "data/snapshots/stage1_cftc_tff_2025_backlog_update_audit_20261023/page_1.headers",
+        "bytes": 736,
+        "sha256": "da43e63671833b34ee618b6b907c1efe217c7a9334fe2e32d4909a5f578250b6"
+      }
+    },
+    {
+      "index": 2,
+      "url": "https://www.cftc.gov/sites/default/files/files/dea/cotarchives/2025/futures/financial_lf122325.htm",
+      "started_utc": "2026-10-22T21:18:52.703574+00:00",
+      "finished_utc": "2026-10-22T21:18:53.883004+00:00",
+      "curl_exit": 0,
+      "http_status": "200",
+      "effective_url": "https://www.cftc.gov/sites/default/files/files/dea/cotarchives/2025/futures/financial_lf122325.htm",
+      "stderr": "",
+      "body": {
+        "path": "data/snapshots/stage1_cftc_tff_2025_backlog_update_audit_20261023/page_2.html",
+        "bytes": 173656,
+        "sha256": "4561adb75cc0be50de3ac7e42893697da45c60e98b7ffab3384b4b449f591dde"
+      },
+      "headers": {
+        "path": "data/snapshots/stage1_cftc_tff_2025_backlog_update_audit_20261023/page_2.headers",
+        "bytes": 749,
+        "sha256": "afc31cf8b46cb47f6e52b10300557bc22008c4a2144045b3500e9bd0dccb00af"
+      }
+    }
+  ],
+  "market_outcome_reads": 0,
+  "model_fits": 0,
+  "native_accounts": 0
+}
