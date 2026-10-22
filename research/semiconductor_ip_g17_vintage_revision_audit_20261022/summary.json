@@ -1,0 +1,55 @@
+{
+  "experiment": "semiconductor_ip_g17_vintage_revision_audit_20261022",
+  "decision": "source_revision_evidence_requires_same_vintage_only_no_fit",
+  "objective_achieved": false,
+  "plan_sha256": "ba50778b573558fe942c88cf7543cbb526745ca8f0549dab66c9afdce249b144",
+  "source_recorder_id": "06714d1db51e487aa095d918a7eaca69",
+  "events": 192,
+  "same_vintage_mom_max_abs_error_pct": 0.0,
+  "adjacent_same_month_comparisons": 191,
+  "same_base_comparisons": 189,
+  "same_base_nonzero_revisions": 188,
+  "same_base_median_abs_revision_pct": 1.3504388926401045,
+  "same_base_max_abs_revision_pct": 63.13945339873863,
+  "same_base_abs_revision_ge_5pct": 11,
+  "base_switches": [
+    {
+      "earlier_release": "2015-07-15",
+      "later_release": "2015-08-14",
+      "same_observation_month": "2015-06",
+      "earlier_level": 304.9,
+      "later_level": 103.9,
+      "earlier_base_year": 2007,
+      "later_base_year": 2012,
+      "same_base_year": false,
+      "later_over_earlier_level": 0.3407674647425386,
+      "absolute_revision_pct_same_base": null
+    },
+    {
+      "earlier_release": "2021-05-14",
+      "later_release": "2021-06-15",
+      "same_observation_month": "2021-04",
+      "earlier_level": 193.4,
+      "later_level": 121.2,
+      "earlier_base_year": 2012,
+      "later_base_year": 2017,
+      "same_base_year": false,
+      "later_over_earlier_level": 0.6266804550155118,
+      "absolute_revision_pct_same_base": null
+    }
+  ],
+  "historical_first_receipt_qualified": false,
+  "definition_continuity_qualified": false,
+  "market_outcome_reads": 0,
+  "new_model_fits": 0,
+  "new_native_accounts": 0,
+  "source_nas_archive_sha256": "e943d7a5d73413553cd99cbb32a0681c20789f38246e1c84c0e7c37ef1790a38",
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [],
+    "source_recorder_authority": true
+  },
+  "next_action": "Use only the exact same-vintage monthly change after conservative next-Qlib-session availability in a separately frozen Stage1 information screen if the source alignment passes. Carry explicit annual-revision and first-receipt limits; never splice absolute levels across base years or use a current revised FRED series to backfill early signals.",
+  "independent_review": "independent_review.json"
+}

@@ -1,0 +1,51 @@
+{
+  "status": "same_vintage_arithmetic_verified_adjacent_release_revisions_and_base_switches_measured",
+  "plan_sha256": "b7c10d1eedf08c5c7985fdf61332d32d83d05706466b115e12e8d77705a2c885",
+  "source_recorder_id": "06714d1db51e487aa095d918a7eaca69",
+  "source_events": 192,
+  "same_vintage_mom_max_abs_recompute_error_pct": 0.0,
+  "base_year_event_counts": {
+    "2007": 59,
+    "2012": 70,
+    "2017": 63
+  },
+  "adjacent_release_pairs": 191,
+  "same_observation_month_comparisons": 191,
+  "unmatched_pairs": [],
+  "same_base_comparisons": 189,
+  "same_base_nonzero_revision_count": 188,
+  "same_base_median_abs_revision_pct": 1.3504388926401045,
+  "same_base_max_abs_revision_pct": 63.13945339873863,
+  "base_switches": [
+    {
+      "earlier_release": "2015-07-15",
+      "later_release": "2015-08-14",
+      "same_observation_month": "2015-06",
+      "earlier_level": 304.9,
+      "later_level": 103.9,
+      "earlier_base_year": 2007,
+      "later_base_year": 2012,
+      "same_base_year": false,
+      "later_over_earlier_level": 0.3407674647425386,
+      "absolute_revision_pct_same_base": null
+    },
+    {
+      "earlier_release": "2021-05-14",
+      "later_release": "2021-06-15",
+      "same_observation_month": "2021-04",
+      "earlier_level": 193.4,
+      "later_level": 121.2,
+      "earlier_base_year": 2012,
+      "later_base_year": 2017,
+      "same_base_year": false,
+      "later_over_earlier_level": 0.6266804550155118,
+      "absolute_revision_pct_same_base": null
+    }
+  ],
+  "historical_first_receipt_qualified": false,
+  "definition_continuity_qualified": false,
+  "market_outcome_reads": 0,
+  "new_model_fits": 0,
+  "new_native_accounts": 0,
+  "limitation": "Within-release percentage change removes the index unit but not possible methodology or industry-composition revisions; adjacent-vintage comparisons are descriptive source checks, not predictive evidence."
+}

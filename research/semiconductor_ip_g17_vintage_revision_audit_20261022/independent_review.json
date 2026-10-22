@@ -1,0 +1,24 @@
+{
+  "verdict": "CONFIRM_SOURCE_ONLY_NUMERIC_AUDIT",
+  "reviewer": "independent_scoped_stage1_nvda_design_review",
+  "plan_sha256": "ba50778b573558fe942c88cf7543cbb526745ca8f0549dab66c9afdce249b144",
+  "revision_audit_sha256": "f7f27e03138c6c4a917b0d1c6667bba758aca712ae922ff39ed56bbd1d69eadc",
+  "source_recorder_id": "06714d1db51e487aa095d918a7eaca69",
+  "source_events": 192,
+  "same_vintage_mom_max_abs_error_pct": 0.0,
+  "adjacent_pairs": 191,
+  "same_base_pairs": 189,
+  "same_base_nonzero_revisions": 188,
+  "same_base_median_abs_revision_pct": 1.3504388926401045,
+  "same_base_max_abs_revision_pct": 63.13945339873863,
+  "extreme_pair": "2013-03-15 to 2013-04-16 on 2013-02 observation; all six months shifted in new release, same NAICS3344/Table1/base2007",
+  "base_switch_ratios": [
+    0.3407674647425386,
+    0.6266804550155118
+  ],
+  "primary_revision_reference": "https://www.federalreserve.gov/Releases/g17/articles/rev2013/industrial13.htm",
+  "causal_attribution_of_extreme": false,
+  "predictive_or_account_claim": false,
+  "new_fits_in_review": 0,
+  "new_accounts_in_review": 0
+}

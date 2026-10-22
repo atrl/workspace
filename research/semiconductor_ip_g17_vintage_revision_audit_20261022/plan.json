@@ -1,0 +1,32 @@
+{
+  "schema_version": 1,
+  "experiment": "semiconductor_ip_g17_vintage_revision_audit_20261022",
+  "phase": "read_only_same_observation_adjacent_vintage_and_base_transition_audit",
+  "execution_authorized": true,
+  "parent_source": {
+    "card": "research/semiconductor_ip_numeric_vintage_20261022",
+    "recorder_id": "06714d1db51e487aa095d918a7eaca69",
+    "experiment_id": "320763930503576264",
+    "summary_sha256": "9e04da06eac902517371d19568efaa66baf031a93e09188d746d429c8e2ece22",
+    "manifest_sha256": "440da4bf340dfb9c9ec0d7f0ffb687622936631c7c6adf7dcb12996fb91a1fb7",
+    "event_artifact": "sources/vintage_events",
+    "event_artifact_sha256": "83ea084c7692f2f00f19665675a525b413be1e05bafeffee7774d924f644205a",
+    "nas_archive_sha256": "e943d7a5d73413553cd99cbb32a0681c20789f38246e1c84c0e7c37ef1790a38"
+  },
+  "method": [
+    "Recompute all 192 published latest-versus-prior month percentage changes within the same release and compare stored values",
+    "For each pair of consecutive releases, identify the prior release latest observation month in the next release as published; compare exact two published levels only when both refer to that month",
+    "Separate same-base revisions from base-year switches; report every switch without treating absolute level ratios as a tradable signal",
+    "Do not use latest FRED backfill, model labels, SOXX returns, Stage1 accounts or feature selection"
+  ],
+  "expected_events": 192,
+  "budget": {
+    "source_recorder_artifact_loads_max": 2,
+    "model_fits": 0,
+    "native_accounts": 0,
+    "market_outcome_reads": 0,
+    "new_writable_Qlib_Recorders": 0,
+    "new_market_requests": 0
+  },
+  "decision_boundary": "Numerical internal consistency and observed revisions only. Even perfect arithmetic does not certify economic definition continuity, historical first receipt, or predictive information."
+}

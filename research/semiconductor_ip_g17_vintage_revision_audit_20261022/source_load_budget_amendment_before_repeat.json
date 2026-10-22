@@ -1,0 +1,8 @@
+{
+  "old_plan_sha256": "b7c10d1eedf08c5c7985fdf61332d32d83d05706466b115e12e8d77705a2c885",
+  "new_plan_sha256": "ba50778b573558fe942c88cf7543cbb526745ca8f0549dab66c9afdce249b144",
+  "reason": "One additional read-only source Recorder load to identify which same-base adjacent release produced the observed 63% revision and report top ten pairs; no feature, outcome, fit, account or market request change.",
+  "source_recorder_loads_consumed_before_amendment": 1,
+  "new_model_fits": 0,
+  "new_native_accounts": 0
+}
