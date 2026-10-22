@@ -1,0 +1,7 @@
+experiment: soxx_option_vendor_sample_preflight_20261023
+phase: source_schema_only
+plan: plan.json
+notebook: soxx_option_vendor_sample_preflight_20261023.ipynb
+repair_notebook: nas_path_repair.ipynb
+nested_schema_notebook: nested_sample_inspection.ipynb
+result: sample_result.json

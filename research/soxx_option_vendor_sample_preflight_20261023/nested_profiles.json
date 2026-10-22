@@ -1,0 +1,60 @@
+{
+  "status": "five_nested_Option_Quotes_sample_CSV_schemas_inspected_no_SOXX_coverage_claim",
+  "source_ZIP": "option_quotes.zip",
+  "nested_CSVs": [
+    {
+      "outer_member": "OptionQuotes_Sample/UnderlyingOptionsIntervals_3600sec_2023-09-21.zip",
+      "inner_member": "UnderlyingOptionsIntervals_3600sec_2023-09-21/UnderlyingOptionsIntervals_3600sec_2023-09-21.csv",
+      "inner_bytes": 1981015,
+      "csv_header": "underlying_symbol,quote_datetime,root,expiration,strike,option_type,open,high,low,close,trade_volume,bid_size,bid,ask_size,ask,underlying_bid,underlying_ask",
+      "first_two_rows": [
+        "AAPL,9/21/2023 10:30,AAPL,9/22/2023,50,C,125.65,125.65,125.35,125.35,2,3,125.25,3,125.4,175.39,175.41",
+        "AAPL,9/21/2023 11:30,AAPL,9/22/2023,50,C,0,0,0,0,0,3,124.8,2,124.9,174.92,174.93"
+      ]
+    },
+    {
+      "outer_member": "OptionQuotes_Sample/UnderlyingOptionsIntervals_3600sec_calcs_2023-09-21.zip",
+      "inner_member": "UnderlyingOptionsIntervals_3600sec_calcs_2023-09-21/UnderlyingOptionsIntervals_3600sec_calcs_2023-09-21.csv",
+      "inner_bytes": 3112721,
+      "csv_header": "underlying_symbol,quote_datetime,root,expiration,strike,option_type,open,high,low,close,trade_volume,bid_size,bid,ask_size,ask,underlying_bid,underlying_ask,implied_underlying_price,active_underlying_price,implied_volatility,delta,gamma,theta,vega,rho",
+      "first_two_rows": [
+        "AAPL,9/21/2023 10:30,AAPL,9/22/2023,50,C,125.65,125.65,125.35,125.35,2,3,125.25,3,125.4,175.39,175.41,0,175.4,7.3092,0.9992,0,0,0.0003,0.0059",
+        "AAPL,9/21/2023 11:30,AAPL,9/22/2023,50,C,0,0,0,0,0,3,124.8,2,124.9,174.92,174.93,0,174.925,0,0,0,0,0,0"
+      ]
+    },
+    {
+      "outer_member": "OptionQuotes_Sample/UnderlyingOptionsIntervals_3600sec_calcs_oi_2023-09-21.zip",
+      "inner_member": "UnderlyingOptionsIntervals_3600sec_calcs_oi_2023-09-21/UnderlyingOptionsIntervals_3600sec_calcs_oi_2023-09-21.csv",
+      "inner_bytes": 3627506,
+      "csv_header": "underlying_symbol,quote_datetime,root,expiration,strike,option_type,open,high,low,close,trade_volume,bid_size,bid,ask_size,ask,underlying_bid,underlying_ask,implied_underlying_price,active_underlying_price,implied_volatility,delta,gamma,theta,vega,rho,open_interest",
+      "first_two_rows": [
+        "AAPL,9/21/2023 10:30,AAPL,9/22/2023,50,C,125.65,125.65,125.35,125.35,2,3,125.25,3,125.4,175.39,175.41,0,175.4,7.3092,0.9992,0,0,0.0003,0.0059,40",
+        "AAPL,9/21/2023 11:30,AAPL,9/22/2023,50,C,0,0,0,0,0,3,124.8,2,124.9,174.92,174.93,0,174.925,0,0,0,0,0,0,40"
+      ]
+    },
+    {
+      "outer_member": "OptionQuotes_Sample/UnderlyingOptionsIntervals_3600sec_oi_2023-09-21.zip",
+      "inner_member": "UnderlyingOptionsIntervals_3600sec_oi_2023-09-21/UnderlyingOptionsIntervals_3600sec_oi_2023-09-21.csv",
+      "inner_bytes": 2326706,
+      "csv_header": "underlying_symbol,quote_datetime,root,expiration,strike,option_type,open,high,low,close,trade_volume,bid_size,bid,ask_size,ask,underlying_bid,underlying_ask,open_interest",
+      "first_two_rows": [
+        "AAPL,9/21/2023 10:30,AAPL,9/22/2023,50,C,125.65,125.65,125.35,125.35,2,3,125.25,3,125.4,175.39,175.41,40",
+        "AAPL,9/21/2023 11:30,AAPL,9/22/2023,50,C,0,0,0,0,0,3,124.8,2,124.9,174.92,174.93,40"
+      ]
+    },
+    {
+      "outer_member": "OptionQuotes_Sample/UnderlyingOptionsIntervals_60sec_calcs_oi_2022-02-02_0939.zip",
+      "inner_member": "UnderlyingOptionsIntervals_60sec_calcs_oi_2022-02-02_0939.csv",
+      "inner_bytes": 4091071,
+      "csv_header": "underlying_symbol,quote_datetime,root,expiration,strike,option_type,open,high,low,close,trade_volume,bid_size,bid,ask_size,ask,underlying_bid,underlying_ask,implied_underlying_price,active_underlying_price,implied_volatility,delta,gamma,theta,vega,rho,open_interest",
+      "first_two_rows": [
+        "^SPX,2022-02-02 09:39:00,SPX,2022-02-18,200.000,C,0.0000,0.0000,0.0000,0.0000,0,15,4367.1000,15,4373.4000,4574.0698,4579.9399,4570.9500,4576.7998,0.0000,1.0000,0.0000,-0.0220,0.0016,8.7534,470",
+        "^SPX,2022-02-02 09:39:00,SPX,2022-02-18,200.000,P,0.0000,0.0000,0.0000,0.0000,0,0,0.0000,1221,0.0500,4574.0698,4579.9399,4570.9500,4576.7998,4.1200,-0.0000,0.0000,-0.0130,0.0010,-0.0061,324"
+      ]
+    }
+  ],
+  "new_external_GETs": 0,
+  "SOXX_market_outcome_reads": 0,
+  "model_fits": 0,
+  "native_accounts": 0
+}

@@ -1,0 +1,85 @@
+[
+  {
+    "product": "Option Quotes",
+    "member_count": 6,
+    "sample_entries": [
+      {
+        "name": "OptionQuotes_Sample/Option_Quotes_Sample_Description.txt",
+        "bytes": 891,
+        "first_lines": [
+          "The Option Quote Intervals dataset offers customizable formats depending on customer selections, such as including Open Interest, Calcs, or a combination of the two.",
+          "",
+          "- UnderlyingOptionsIntervals_3600sec_2023-09-21.zip: 60-minute interval, no Open Interest & no Calcs "
+        ]
+      },
+      {
+        "name": "OptionQuotes_Sample/UnderlyingOptionsIntervals_3600sec_2023-09-21.zip",
+        "bytes": 243727
+      },
+      {
+        "name": "OptionQuotes_Sample/UnderlyingOptionsIntervals_3600sec_calcs_2023-09-21.zip",
+        "bytes": 610670
+      },
+      {
+        "name": "OptionQuotes_Sample/UnderlyingOptionsIntervals_3600sec_calcs_oi_2023-09-21.zip",
+        "bytes": 726453
+      },
+      {
+        "name": "OptionQuotes_Sample/UnderlyingOptionsIntervals_3600sec_oi_2023-09-21.zip",
+        "bytes": 367227
+      },
+      {
+        "name": "OptionQuotes_Sample/UnderlyingOptionsIntervals_60sec_calcs_oi_2022-02-02_0939.zip",
+        "bytes": 678734
+      }
+    ],
+    "all_entry_names": [
+      "OptionQuotes_Sample/Option_Quotes_Sample_Description.txt",
+      "OptionQuotes_Sample/UnderlyingOptionsIntervals_3600sec_2023-09-21.zip",
+      "OptionQuotes_Sample/UnderlyingOptionsIntervals_3600sec_calcs_2023-09-21.zip",
+      "OptionQuotes_Sample/UnderlyingOptionsIntervals_3600sec_calcs_oi_2023-09-21.zip",
+      "OptionQuotes_Sample/UnderlyingOptionsIntervals_3600sec_oi_2023-09-21.zip",
+      "OptionQuotes_Sample/UnderlyingOptionsIntervals_60sec_calcs_oi_2022-02-02_0939.zip"
+    ],
+    "ZIP_uncompressed_bytes": 2627702
+  },
+  {
+    "product": "Option EOD Summary",
+    "member_count": 3,
+    "sample_entries": [
+      {
+        "name": "UnderlyingOptionsEODCalcs_2023-08-25_no_cgi_subscription.csv",
+        "bytes": 7216008,
+        "first_lines": [
+          "underlying_symbol,quote_date,root,expiration,strike,option_type,open,high,low,close,trade_volume,bid_size_1545,bid_1545,ask_size_1545,ask_1545,underlying_bid_1545,underlying_ask_1545,implied_underlying_price_1545,active_underlying_price_1545,implied_volatility_1545,delta_1545,gamma_1545,theta_1545,vega_1545,rho_1545,bid_size_eod,bid_eod,ask_size_eod,ask_eod,underlying_bid_eod,underlying_ask_eod,vwap,open_interest,delivery_code",
+          "SPY,2023-08-25,SPY,2023-08-25,275.000,C,163.6800,163.6800,163.1700,163.1700,9,10,165.7000,10,165.8500,440.7800,440.8000,0.0000,440.7900,0.0000,0.0000,0.0000,0.0000,0.0000,0.0000,1,164.6600,37,165.2300,440.0400,440.0700,163.5100,143,",
+          "SPY,2023-08-25,SPY,2023-08-25,275.000,P,0.0000,0.0000,0.0000,0.0000,0,0,0.0000,6847,0.0100,440.7800,440.8000,0.0000,440.7900,0.0000,0.0000,0.0000,0.0000,0.0000,0.0000,0,0.0000,307,0.0100,440.0400,440.0700,0.0000,3414,"
+        ]
+      },
+      {
+        "name": "UnderlyingOptionsEODCalcs_2023-08-25_cgi_or_historical.csv",
+        "bytes": 7506671,
+        "first_lines": [
+          "underlying_symbol,quote_date,root,expiration,strike,option_type,open,high,low,close,trade_volume,bid_size_1545,bid_1545,ask_size_1545,ask_1545,underlying_bid_1545,underlying_ask_1545,implied_underlying_price_1545,active_underlying_price_1545,implied_volatility_1545,delta_1545,gamma_1545,theta_1545,vega_1545,rho_1545,bid_size_eod,bid_eod,ask_size_eod,ask_eod,underlying_bid_eod,underlying_ask_eod,vwap,open_interest,delivery_code",
+          "SPY,2023-08-25,SPY,2023-08-25,275.000,C,163.6800,163.6800,163.1700,163.1700,9,10,165.7000,10,165.8500,440.7800,440.8000,0.0000,440.7900,0.0000,0.0000,0.0000,0.0000,0.0000,0.0000,1,164.6600,37,165.2300,439.9400,439.9500,163.5100,143,",
+          "SPY,2023-08-25,SPY,2023-08-25,275.000,P,0.0000,0.0000,0.0000,0.0000,0,0,0.0000,6847,0.0100,440.7800,440.8000,0.0000,440.7900,0.0000,0.0000,0.0000,0.0000,0.0000,0.0000,0,0.0000,307,0.0100,439.9400,439.9500,0.0000,3414,"
+        ]
+      },
+      {
+        "name": "OptionEOD_Sample_ReadMe.txt",
+        "bytes": 1051,
+        "first_lines": [
+          "Sample files are for demonstration purposes only and may contain only a subset of actual data. ",
+          "Similarly, different versions of the product file may contain different representative records.",
+          ""
+        ]
+      }
+    ],
+    "all_entry_names": [
+      "UnderlyingOptionsEODCalcs_2023-08-25_no_cgi_subscription.csv",
+      "UnderlyingOptionsEODCalcs_2023-08-25_cgi_or_historical.csv",
+      "OptionEOD_Sample_ReadMe.txt"
+    ],
+    "ZIP_uncompressed_bytes": 14723730
+  }
+]

@@ -1,0 +1,27 @@
+{
+  "plan_sha256": "d674a7eaa433f2a2184797c704bd6a0edbd5cc1f627ed60ecda8b9e7c5565fb2",
+  "files": [
+    {
+      "name": "option_eod.headers",
+      "sha256": "ec62a033b8e408bc994bb55a485c9d680eeb9ec09f6ea9e26cf1ac2b9fd8b0a5",
+      "bytes": 1125
+    },
+    {
+      "name": "option_eod.zip",
+      "sha256": "981be1aafe6970e798d5be42f049e6c5b6e507f01cb1509ab513e9bc2e08da24",
+      "bytes": 2952557
+    },
+    {
+      "name": "option_quotes.headers",
+      "sha256": "2e738d3d32feb66b4779401917cca85b6a0f8ccf896decefba17934aae3f1cd6",
+      "bytes": 1091
+    },
+    {
+      "name": "option_quotes.zip",
+      "sha256": "7645a6cc94f1a984e98264a4b494f748e373c30ecde85de25ceadb83a5c56782",
+      "bytes": 2628937
+    }
+  ],
+  "receipts_sha256": "ef68341bd348f034d2bd322b55df50ed02e1aa0333c96355a8d6f54290b30849",
+  "profiles_sha256": "57171deb62d3b8279c3a046e5c3939922bd7ccd1aac8ab6884b5f1c37a6b666f"
+}

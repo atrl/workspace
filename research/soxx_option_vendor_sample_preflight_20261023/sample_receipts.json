@@ -1,0 +1,28 @@
+[
+  {
+    "product": "Option Quotes",
+    "requested_url": "https://datashop.cboe.com/download/sample/215",
+    "requested_at_utc": "2026-10-22T22:44:06.789324+00:00",
+    "received_at_utc": "2026-10-22T22:44:09.083759+00:00",
+    "curl_exit_code": 0,
+    "http_status": "200",
+    "final_url": "https://datashop.cboe.com/download/sample/215",
+    "raw_zip_sha256": "7645a6cc94f1a984e98264a4b494f748e373c30ecde85de25ceadb83a5c56782",
+    "raw_zip_bytes": 2628937,
+    "headers_sha256": "2e738d3d32feb66b4779401917cca85b6a0f8ccf896decefba17934aae3f1cd6",
+    "stderr": ""
+  },
+  {
+    "product": "Option EOD Summary",
+    "requested_url": "https://datashop.cboe.com/download/sample/217",
+    "requested_at_utc": "2026-10-22T22:44:09.089877+00:00",
+    "received_at_utc": "2026-10-22T22:44:12.633054+00:00",
+    "curl_exit_code": 0,
+    "http_status": "200",
+    "final_url": "https://datashop.cboe.com/download/sample/217",
+    "raw_zip_sha256": "981be1aafe6970e798d5be42f049e6c5b6e507f01cb1509ab513e9bc2e08da24",
+    "raw_zip_bytes": 2952557,
+    "headers_sha256": "ec62a033b8e408bc994bb55a485c9d680eeb9ec09f6ea9e26cf1ac2b9fd8b0a5",
+    "stderr": ""
+  }
+]

@@ -1,0 +1,31 @@
+{
+  "schema_version": 1,
+  "frozen": true,
+  "phase": "Cboe_two_public_option_quote_sample_schema_and_SOXX_coverage_preflight",
+  "reason": "A SOXX-specific 25-Delta put-minus-call implied-volatility coordinate is a distinct prospective downside-pricing mechanism for the frozen Stage1 cash/risk receiver. Existing IBKR near-ATM realtime fields do not provide 2011-2022 historical chains or a qualified 25-Delta feature.",
+  "exact_GETs": [
+    {
+      "product": "Option Quotes",
+      "url": "https://datashop.cboe.com/download/sample/215",
+      "product_page": "https://datashop.cboe.com/option-quote-intervals"
+    },
+    {
+      "product": "Option EOD Summary",
+      "url": "https://datashop.cboe.com/download/sample/217",
+      "product_page": "https://datashop.cboe.com/option-eod-summary"
+    }
+  ],
+  "source_constraints": "Both official product pages currently state historical availability from January 2012; neither page proves SOXX-specific coverage, 2011 coverage, a 09:29 receipt, or a finished 25-Delta constant-tenor signal. Intraday Option Quotes are delayed 15 minutes, daily EOD delivered overnight/early next morning. Preserve page URLs and observed sample bytes without inferring unavailable history.",
+  "checks": "Capture response headers, GET/receive times, HTTP status, exact ZIP bytes/SHA-256, ZIP entry names, CSV headers and at most two non-sensitive example rows per entry. Do not extract into Git, fit, read market outcomes, buy, subscribe, or message a vendor. Archive both raw ZIPs plus headers/manifest to Yanxuan NAS with remote SHA and scoped restore.",
+  "budget": {
+    "GETs_max": 2,
+    "per_URL_retries": 0,
+    "max_response_bytes_each": 10000000,
+    "SOXX_market_outcome_reads": 0,
+    "Qlib_calls": 0,
+    "model_fits": 0,
+    "native_accounts": 0,
+    "purchases": 0
+  },
+  "stop": "Any non-200 response, oversize ZIP, invalid archive or source identity ambiguity stops and preserves received bytes. A generic sample is only a schema check, not proof of SOXX historical coverage or a promotion-ready source."
+}

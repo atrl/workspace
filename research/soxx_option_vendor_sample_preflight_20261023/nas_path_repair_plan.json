@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "frozen": true,
+  "phase": "mechanical_NAS_archive_path_repair_without_new_vendor_GET",
+  "original_plan_sha256": "d674a7eaa433f2a2184797c704bd6a0edbd5cc1f627ed60ecda8b9e7c5565fb2",
+  "sample_receipts_sha256": "ef68341bd348f034d2bd322b55df50ed02e1aa0333c96355a8d6f54290b30849",
+  "sample_profiles_sha256": "57171deb62d3b8279c3a046e5c3939922bd7ccd1aac8ab6884b5f1c37a6b666f",
+  "sample_manifest_sha256": "760c1d9ca1c93dac281fb1f4c9f803c19d8240ef134345e8d379f34ecd528187",
+  "failure": "Both frozen public GETs succeeded and the first NAS upload returned a matching SHA/size receipt, but notebook then requested artifact['nas_path']; this registry receipt only returns storage identity, so scoped restore did not run and no final result was written.",
+  "repair": "Without repeating either vendor GET, rearchive the four exact saved raw files plus immutable manifest, upload once if necessary, derive the remote path from repository NAS settings artifact_root and the returned SHA as archive_nas_recorder does, then verify a scoped byte-for-byte readback. Keep first notebook as failed evidence.",
+  "budget": {
+    "additional_vendor_GETs": 0,
+    "NAS_archive_PUTs_max": 1,
+    "scoped_NAS_restore_reads_max": 1,
+    "SOXX_market_outcome_reads": 0,
+    "model_fits": 0,
+    "native_accounts": 0,
+    "purchases": 0
+  },
+  "stop": "Any raw hash mismatch, NAS receipt mismatch, restore mismatch or unexpected ZIP layout stops. Do not buy data or claim SOXX option historical coverage from generic samples."
+}

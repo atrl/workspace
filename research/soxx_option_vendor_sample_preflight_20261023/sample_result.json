@@ -1,0 +1,21 @@
+{
+  "status": "two_public_Cboe_ZIP_samples_archived_schema_only",
+  "plan_sha256": "d674a7eaa433f2a2184797c704bd6a0edbd5cc1f627ed60ecda8b9e7c5565fb2",
+  "repair_plan_sha256": "e421c3a1af89239132302b25642931886306796bf854e13ee7c9a091c0347234",
+  "GET_attempts": 2,
+  "receipts_file": "sample_receipts.json",
+  "profiles_file": "sample_profiles.json",
+  "manifest_file": "sample_manifest.json",
+  "raw_NAS_archive_sha256": "ba88ddde28a5878107c6ef48d9a76f0149270b369ed80ba09e9ce4466424cf8f",
+  "raw_NAS_archive_bytes": 5584901,
+  "NAS_remote_and_scoped_restore_verified": true,
+  "official_product_history_start": "2012-01",
+  "SOXX_specific_historical_coverage_proven": false,
+  "2011_Stage1_training_coverage_proven": false,
+  "25_Delta_constant_tenor_feature_qualified": false,
+  "SOXX_market_outcome_reads": 0,
+  "model_fits": 0,
+  "native_accounts": 0,
+  "purchases": 0,
+  "nested_profiles_file": "nested_profiles.json"
+}

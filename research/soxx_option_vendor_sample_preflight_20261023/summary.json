@@ -1,0 +1,25 @@
+{
+  "experiment": "soxx_option_vendor_sample_preflight_20261023",
+  "decision": "needs_SOXX_specific_historical_quote_sample_and_2011_gap_resolution",
+  "objective_achieved": false,
+  "plan": "plan.json",
+  "result": "sample_result.json",
+  "receipts": "sample_receipts.json",
+  "manifest": "sample_manifest.json",
+  "nested_schema": "nested_profiles.json",
+  "GET_attempts": 2,
+  "raw_NAS_archive_sha256": "ba88ddde28a5878107c6ef48d9a76f0149270b369ed80ba09e9ce4466424cf8f",
+  "NAS_remote_and_scoped_restore_verified": true,
+  "SOXX_specific_historical_coverage_proven": false,
+  "2011_Stage1_training_coverage_proven": false,
+  "25_Delta_constant_tenor_feature_qualified": false,
+  "SOXX_market_outcome_reads": 0,
+  "model_fits": 0,
+  "native_accounts": 0,
+  "purchases": 0,
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": []
+  }
+}
