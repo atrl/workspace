@@ -1,0 +1,7 @@
+# 原始G.17工业生产来源对齐Stage1信号日
+
+使用原生Qlib日历一次与已封存来源Recorder，把192个原始发布版本保守延迟到下一真实交易日09:31才可用；只在该交易日收盘或以后作为Stage1信号日来源。2011–2022训练3020日、2023–2026已复用诊断944日，均映射到当时最后一份发布版本，缺失0；最久来源年龄78日，逐年年龄见`yearly_availability.csv`。2007/2012/2017基年转换保留，未将绝对指数跨基年拼接。完整映射、版本哈希、DatasetH及所有日期在Qlib Recorder `9582d430c4b048b7b6623a99161ed71b`，NAS SHA `e52d5332dbcfea3d91b512c7eb75c8cb157b8c1d3de3a1166e0e158d36499232`。
+
+本卡0市场结果、0拟合、0账户。发布日09:15为原文声明，采用下个真实交易日仅是保守可用代理，历史首次接收及跨基年统计语义仍未认证。决定：`source_calendar_alignment_complete_information_and_PIT_unqualified`。下一步冻结原Stage1 39项基线的匹配信息门，保持全部日历行和同源发布年龄；任何信息通过仍须完整0bp账户、2/5bp与独立前向。
+
+一次目标Qlib读回核对映射和DatasetH各3964行，NAS远端归档SHA一致，见`readback_verification.json`。2025年来源年龄最高78天已显式记录；这不是预测信号质量的证明。

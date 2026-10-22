@@ -1,0 +1,16 @@
+{
+  "status": "passed_targeted_native_Qlib_and_NAS_hash_readback",
+  "recorder_id": "9582d430c4b048b7b6623a99161ed71b",
+  "manifest_verified_objects": [
+    "analysis/mapped_signals",
+    "analysis/prepared_feature",
+    "analysis/availability_audit"
+  ],
+  "mapped_signal_rows": 3964,
+  "DatasetH_prepared_feature_rows": 3964,
+  "saved_audit_rows_equal_root_audit": true,
+  "NAS_archive_sha256": "e52d5332dbcfea3d91b512c7eb75c8cb157b8c1d3de3a1166e0e158d36499232",
+  "NAS_remote_archive_sha256_matched": true,
+  "new_model_fits_or_accounts_for_readback": 0,
+  "limitation": "Targeted local Recorder readback and remote archive hash do not certify historical first receipt or full cold restoration of every object."
+}

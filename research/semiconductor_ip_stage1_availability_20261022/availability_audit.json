@@ -1,0 +1,38 @@
+{
+  "status": "source_events_aligned_to_full_Stage1_signal_calendar_no_information_test",
+  "plan_sha256": "e674594b08c36afadb4a4ff4378ee4d65eb19c5d9d56cd30b7161ec1f5f12be3",
+  "source_recorder_id": "06714d1db51e487aa095d918a7eaca69",
+  "native_Qlib_calendar_rows": 4049,
+  "train_signal_rows": 3020,
+  "held_signal_rows": 944,
+  "mapped_source_rows": 3964,
+  "missing_train_rows": 0,
+  "missing_held_rows": 0,
+  "first_train_source_release": "2010-12-15",
+  "last_held_source_release": "2026-09-18",
+  "minimum_release_age_days": 1,
+  "maximum_release_age_days": 78,
+  "base_year_transitions": [
+    {
+      "release_date": "2010-09-15",
+      "index_base_year": 2007
+    },
+    {
+      "release_date": "2015-08-14",
+      "index_base_year": 2012
+    },
+    {
+      "release_date": "2021-06-15",
+      "index_base_year": 2017
+    }
+  ],
+  "historical_first_receipt_qualified": false,
+  "same_day_release_use": 0,
+  "market_outcome_reads": 0,
+  "model_fits": 0,
+  "native_accounts": 0,
+  "Stage1_information_gate_tested": false,
+  "SOXX_goal_achieved": false,
+  "recorder_id": "9582d430c4b048b7b6623a99161ed71b",
+  "experiment_id": "395930469902258646"
+}
