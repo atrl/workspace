@@ -1,0 +1,24 @@
+{
+  "schema_version": 1,
+  "frozen": true,
+  "phase": "one_layout_only_TOTAL_COMMON_STOCKS_adjacent_row_repair",
+  "parent_numeric_plan_sha256": "32803977708fd6e9aeca921ff973b7a25889b2cb152f33ef566b4a8d5616ea5b",
+  "failed_numeric_result_sha256": "9388688b10307dc70d71540309062836ca895e2b0ba0f7c3857881403f929915",
+  "source_raw_sha256": "379d1cea42677a897dd8d678cda3159b0969439d818bffada553cc50b9c0efdd",
+  "scoped_layout_byte_range": [
+    10983000,
+    10986700
+  ],
+  "scoped_layout_sha256": "472a4b126666d1772a0eafdf7e7de33366218c33f880cc15888eb58a5239fb21",
+  "observed_layout": "TOTAL COMMON STOCKS appears in a label-only row immediately followed by (Cost: $209,857,629) and disclosed value 176,823,015 in the next row.",
+  "fixed_repair": "Accept exactly one ambiguous row only if its first text starts (Cost: $, its sole numeric token equals the sum of the 30 already parsed positive fair values, and the frozen scoped source bytes show the TOTAL COMMON STOCKS label immediately before that row. Reuse the original 30 parsed securities, shares, values and weights without reparsing full HTML.",
+  "budget": {
+    "new_full_source_passes": 0,
+    "scoped_layout_reads": 1,
+    "HTTP_GETs": 0,
+    "market_outcome_reads": 0,
+    "model_fits": 0,
+    "native_accounts": 0
+  },
+  "stop": "Any different row, amount, order or source hash remains unqualified; do not change security membership or values."
+}
