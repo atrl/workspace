@@ -1,0 +1,32 @@
+{
+  "schema_version": 1,
+  "frozen": true,
+  "phase": "declared_history_range_boundary_mechanical_repair",
+  "original_plan_sha256": "4ebac70bf0afedca7db1c23a419aa6077fa638148a12fd1891f2caf409f5e931",
+  "failed_result_sha256": "96e8b30fc33b34e1a01baf064ed4d97b47f01d0cb3d3da9331716190064c50f7",
+  "saved_NVDA_raw_sha256": "4a3b5cc6b698ff2e49cd4ef95539964b0690bccc5882ac3db8ffd2c4b7fce99c",
+  "remaining_exact_request": {
+    "issuer": "AMD",
+    "CIK": "0000002488",
+    "url": "https://data.sec.gov/submissions/CIK0000002488-submissions-001.json",
+    "expected_catalog_count": 2001,
+    "catalog_from": "2003-08-26",
+    "catalog_to": "2017-12-16"
+  },
+  "repair": "A catalog range is an inclusive declared coverage boundary, not necessarily an observed first/last filing date. Require actual min>=catalogFrom and actual max<=catalogTo, exact filingCount, equal parallel arrays, unique/nonoverlapping accessions, and 2011-2026 each-year 8-K coverage after joining current main. Preserve measured edge deltas. Reuse saved NVDA bytes; one remaining AMD GET only.",
+  "request": {
+    "GETs_max": 1,
+    "retries": 0,
+    "connect_timeout_seconds": 10,
+    "total_timeout_seconds_each": 60,
+    "max_response_bytes_each": 8000000,
+    "user_agent": "SOXL Qlib research source audit research@atrl.me"
+  },
+  "backup": "NAS both older raw JSON/header and repair receipts, remote digest/scoped restore.",
+  "budget": {
+    "market_outcome_reads": 0,
+    "Qlib_calls": 0,
+    "model_fits": 0,
+    "native_accounts": 0
+  }
+}

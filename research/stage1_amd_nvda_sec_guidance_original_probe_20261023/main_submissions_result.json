@@ -1,0 +1,52 @@
+{
+  "status": "two_issuer_SEC_main_submissions_catalogs_passed_history_pending",
+  "failure": null,
+  "plan_sha256": "7e0efe941bfec5fbb727d1e07e1baf5ea293ac58705a7f6aac2a61b5a5fab98f",
+  "GET_attempts": 2,
+  "checks": [
+    {
+      "issuer": "NVDA",
+      "CIK": "0001045810",
+      "raw_sha256": "682c49d59116ae49b317eb4adddf3ef9142dfd97f59c5d8e5a5acad7f9058ab4",
+      "recent_rows": 1000,
+      "recent_first_filing": "2026-10-13",
+      "recent_last_filing": "2020-09-17",
+      "older_catalog": [
+        {
+          "name": "CIK0001045810-submissions-001.json",
+          "filingCount": 1489,
+          "filingFrom": "1998-03-06",
+          "filingTo": "2020-09-15"
+        }
+      ]
+    },
+    {
+      "issuer": "AMD",
+      "CIK": "0000002488",
+      "raw_sha256": "ab1f62c1fc1c04ff4022ac902f0184e2bc8d6f5c23d18f9538ab6cf39bc64420",
+      "recent_rows": 1000,
+      "recent_first_filing": "2026-10-19",
+      "recent_last_filing": "2017-12-18",
+      "older_catalog": [
+        {
+          "name": "CIK0000002488-submissions-001.json",
+          "filingCount": 2001,
+          "filingFrom": "2003-08-26",
+          "filingTo": "2017-12-16"
+        },
+        {
+          "name": "CIK0000002488-submissions-002.json",
+          "filingCount": 326,
+          "filingFrom": "1994-01-27",
+          "filingTo": "2003-08-24"
+        }
+      ]
+    }
+  ],
+  "NAS_archive_sha256": "4506b7bd2a6e53625b2fd3193efc9aef9e20af55696ad7e80b0a061ecfb0f8ee",
+  "NAS_remote_and_scoped_restore_verified": true,
+  "full_2011_2026_history_qualified": false,
+  "market_outcome_reads": 0,
+  "model_fits": 0,
+  "native_accounts": 0
+}

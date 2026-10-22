@@ -1,0 +1,26 @@
+{
+  "plan_sha256": "1f6f7b49c256296a747c6b5fe292f27f9198fdd6674246a3b43067c466373446",
+  "files": [
+    {
+      "name": "amd_older_submissions.headers",
+      "sha256": "0c712c9bb88abdd31a4d19d1882936638b5b5ac8ee9b9cad0f08ba517e84e641",
+      "bytes": 408
+    },
+    {
+      "name": "amd_older_submissions.json",
+      "sha256": "8d784eaa4df0f1af2b3a2cc2964ad59d2702fb7f2c066737b6c322cbc3725530",
+      "bytes": 315948
+    },
+    {
+      "name": "nvda_older_submissions.headers",
+      "sha256": "0c3a01f72f1596ef5e8dff4372fea55579465923fc57d036719004afd516e805",
+      "bytes": 408
+    },
+    {
+      "name": "nvda_older_submissions.json",
+      "sha256": "4a3b5cc6b698ff2e49cd4ef95539964b0690bccc5882ac3db8ffd2c4b7fce99c",
+      "bytes": 239281
+    }
+  ],
+  "receipt_sha256": "f1e7e324a45e9d9bc02c6bf6a6ad3ff2bc719e312d7dc58b9ed0bd19d26bf744"
+}

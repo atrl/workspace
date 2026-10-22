@@ -1,0 +1,36 @@
+{
+  "schema_version": 1,
+  "frozen": true,
+  "phase": "two_issuer_SEC_submissions_main_catalog_source_only",
+  "parent_anchor_result_sha256": "8a318bbcf94995f9834d8d44736fe21b08344cf4fcd2b5302bf52c037bcfa642",
+  "exact_requests": [
+    {
+      "issuer": "NVDA",
+      "CIK": "0001045810",
+      "url": "https://data.sec.gov/submissions/CIK0001045810.json"
+    },
+    {
+      "issuer": "AMD",
+      "CIK": "0000002488",
+      "url": "https://data.sec.gov/submissions/CIK0000002488.json"
+    }
+  ],
+  "request": {
+    "GETs_max": 2,
+    "retries": 0,
+    "connect_timeout_seconds": 10,
+    "total_timeout_seconds_each": 60,
+    "max_response_bytes_each": 8000000,
+    "seconds_between_requests": 1,
+    "user_agent": "SOXL Qlib research source audit research@atrl.me"
+  },
+  "identity_gate": "HTTP200 JSON exact CIK, equal-length accessionNumber/filingDate/form/acceptanceDateTime/primaryDocument arrays, unique accessions, official listed older files recorded without guessing URLs. Stop on first failure.",
+  "backup": "Raw exact JSON and HTTP headers to NAS, remote digest and scoped restore.",
+  "budget": {
+    "market_outcome_reads": 0,
+    "Qlib_calls": 0,
+    "model_fits": 0,
+    "native_accounts": 0
+  },
+  "scientific_boundary": "Metadata catalogs do not identify original earnings exhibits, normalize guidance, or establish first-public availability. Historical older files require a separately frozen declared-file intake."
+}

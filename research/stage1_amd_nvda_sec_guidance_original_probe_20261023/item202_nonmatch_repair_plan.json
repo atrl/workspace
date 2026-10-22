@@ -1,0 +1,83 @@
+{
+  "schema_version": 1,
+  "frozen": true,
+  "phase": "eleven_saved_SEC_item202_nonmatch_semantic_classification_repair_only",
+  "parent_inventory_result_sha256": "f6fe5cbae488dfed86e47df8e90edbc964282e560affab8a6d19ed9388ffcfd6",
+  "parent_NAS_archive_sha256": "8273fd8c00608f5b2f1faf81368b9f3c238919f297b5d868c8af319b115d9cee",
+  "exact_nonmatches": [
+    {
+      "issuer": "AMD",
+      "filed": "2011-01-21",
+      "accession": "0001193125-11-011350",
+      "raw_sha256": "9cf756c92cf2a5915106fb080451e7eea31ed3dace354279c000b62c19c0e106"
+    },
+    {
+      "issuer": "AMD",
+      "filed": "2012-10-11",
+      "accession": "0001193125-12-421061",
+      "raw_sha256": "a75d29c60f8a16da7ebd8575c49ecabeeb1d582c5d109235e1f9509aa8ed3413"
+    },
+    {
+      "issuer": "AMD",
+      "filed": "2018-02-27",
+      "accession": "0000002488-18-000043",
+      "raw_sha256": "d4b66f68a2fc934f5f045fa5259b7011a4e6284b541db6416a43d12e07e2142d"
+    },
+    {
+      "issuer": "AMD",
+      "filed": "2020-07-28",
+      "accession": "0000002488-20-000101",
+      "raw_sha256": "5070b9719cf68d4289b088c5f6ca65aa8d6be52257be0d6c0d6983b4e00dc74b"
+    },
+    {
+      "issuer": "AMD",
+      "filed": "2021-01-26",
+      "accession": "0000002488-21-000009",
+      "raw_sha256": "ed2df5622e46228886ec03d7e1abbc2c05b5e446772b126cbaf9088da50c614f"
+    },
+    {
+      "issuer": "AMD",
+      "filed": "2025-05-06",
+      "accession": "0000002488-25-000045",
+      "raw_sha256": "900c568fbe1fa3f3cfde97e0491a3546515ac144b721b24e2da6f1c1c94acc19"
+    },
+    {
+      "issuer": "NVDA",
+      "filed": "2014-02-12",
+      "accession": "0001045810-14-000004",
+      "raw_sha256": "5f1dba2a28424d7205bd82f9373f4fc2d56aef2bde62af2c9c611a5aae8d10a8"
+    },
+    {
+      "issuer": "NVDA",
+      "filed": "2014-05-06",
+      "accession": "0001045810-14-000071",
+      "raw_sha256": "10c6eee9d83fc6217baa0af2a07a9bcb940ef9d000cab12b451c576aeb8b357f"
+    },
+    {
+      "issuer": "NVDA",
+      "filed": "2019-01-28",
+      "accession": "0001045810-19-000004",
+      "raw_sha256": "5705fdc27d07bd8f6414b6705b4876a2cdf5ad3dde909db7334e41c4323b9512"
+    },
+    {
+      "issuer": "NVDA",
+      "filed": "2019-11-14",
+      "accession": "0001045810-19-000168",
+      "raw_sha256": "ff6cb34ea2482abd70fc1154f899d79c9053f5124a753b1ae9cfee572b0fa150"
+    },
+    {
+      "issuer": "NVDA",
+      "filed": "2023-05-24",
+      "accession": "0001045810-23-000087",
+      "raw_sha256": "baaab4a4b0fa410d950e489741308ef48247fc47695dc8bfc0e83dd2e51caa73"
+    }
+  ],
+  "method": "Read only each saved full original SEC submission from NAS-backed local raw bytes, exact-hash check. Extract 8-K and EX-99.1 text, inspect issuer quarterly-results heading, current reported revenue and next-quarter revenue outlook. Distinguish genuine non-earnings/special release, earnings with no numeric forward guidance, and parser false negative due wording/layout. Preserve exact evidence excerpts and reason; no market labels or follow-on document requests.",
+  "budget": {
+    "external_GETs": 0,
+    "Qlib_calls": 0,
+    "model_fits": 0,
+    "native_accounts": 0
+  },
+  "stop": "Any hash/CIK/accession mismatch stops. No sign, threshold, forecast estimate, fitted model or account. Missing outlook remains unknown, never filled from later commentary."
+}

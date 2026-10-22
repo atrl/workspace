@@ -1,0 +1,1287 @@
+{
+  "status": "AMD_NVDA_original_quarter_event_slots_126_identity_complete_one_qualitative_numeric_gap",
+  "plan_sha256": "8495559dd6d027399afe06564cc25251125e6c589185f48578d1e358042370aa",
+  "parent_inventory_result_sha256": "f6fe5cbae488dfed86e47df8e90edbc964282e560affab8a6d19ed9388ffcfd6",
+  "parent_NAS_archive_sha256": "8273fd8c00608f5b2f1faf81368b9f3c238919f297b5d868c8af319b115d9cee",
+  "selected_events": [
+    {
+      "issuer": "AMD",
+      "announcement_year": 2011,
+      "slot": "Q1",
+      "filing_date": "2011-04-21",
+      "accession": "0001193125-11-105247",
+      "raw_sha256": "13f509b791dcb0a059da4f12a610a6ab60526d579c00069bd10a1710ecd599a3",
+      "revenue_outlook": "numeric",
+      "source": "initial_item202"
+    },
+    {
+      "issuer": "AMD",
+      "announcement_year": 2011,
+      "slot": "Q2",
+      "filing_date": "2011-07-21",
+      "accession": "0001193125-11-193677",
+      "raw_sha256": "0d3bf940391c0bc3c79b2cbae3af05cedb0fcf004265582c03e007c7dfb0f947",
+      "revenue_outlook": "numeric",
+      "source": "initial_item202"
+    },
+    {
+      "issuer": "AMD",
+      "announcement_year": 2011,
+      "slot": "Q3",
+      "filing_date": "2011-10-27",
+      "accession": "0001193125-11-284179",
+      "raw_sha256": "cbe5cf474fce3bdada8b7093db3fce34e287788cff486de721e3d1655a0fedb9",
+      "revenue_outlook": "numeric",
+      "source": "initial_item202"
+    },
+    {
+      "issuer": "AMD",
+      "announcement_year": 2011,
+      "slot": "Q4_prev",
+      "filing_date": "2011-01-21",
+      "accession": "0001193125-11-011350",
+      "raw_sha256": "9cf756c92cf2a5915106fb080451e7eea31ed3dace354279c000b62c19c0e106",
+      "revenue_outlook": "qualitative_unknown",
+      "source": "saved_nonmatch_repair"
+    },
+    {
+      "issuer": "AMD",
+      "announcement_year": 2012,
+      "slot": "Q1",
+      "filing_date": "2012-04-19",
+      "accession": "0001193125-12-170747",
+      "raw_sha256": "eb51b6a98e249a6b6e4b0206353e348f57858b7b80f8817efa63f2930879d3cd",
+      "revenue_outlook": "numeric",
+      "source": "initial_item202"
+    },
+    {
+      "issuer": "AMD",
+      "announcement_year": 2012,
+      "slot": "Q2",
+      "filing_date": "2012-07-19",
+      "accession": "0001193125-12-307538",
+      "raw_sha256": "16e2f54641f104e3656e8dd61cd5f342ef816231c65cf2c65a5fc2fed5a7e4e3",
+      "revenue_outlook": "numeric",
+      "source": "initial_item202"
+    },
+    {
+      "issuer": "AMD",
+      "announcement_year": 2012,
+      "slot": "Q3",
+      "filing_date": "2012-10-18",
+      "accession": "0001193125-12-427251",
+      "raw_sha256": "f9df8c31c91b7edb4485cd47b93a21b747aea9a1413129824b71cf0d75495e2f",
+      "revenue_outlook": "numeric",
+      "source": "initial_item202"
+    },
+    {
+      "issuer": "AMD",
+      "announcement_year": 2012,
+      "slot": "Q4_prev",
+      "filing_date": "2012-01-24",
+      "accession": "0001193125-12-021861",
+      "raw_sha256": "ed2de347e95fb86685b72da9abcf3db05c788ea43ffaf4e46df9fa935211e0bd",
+      "revenue_outlook": "numeric",
+      "source": "initial_item202"
+    },
+    {
+      "issuer": "AMD",
+      "announcement_year": 2013,
+      "slot": "Q1",
+      "filing_date": "2013-04-18",
+      "accession": "0001193125-13-160817",
+      "raw_sha256": "cd3278958a144b099bc19b25baaa8733fbb4502f8bafac7ae208fa865df0d21d",
+      "revenue_outlook": "numeric",
+      "source": "initial_item202"
+    },
+    {
+      "issuer": "AMD",
+      "announcement_year": 2013,
+      "slot": "Q2",
+      "filing_date": "2013-07-18",
+      "accession": "0001193125-13-294361",
+      "raw_sha256": "919ba4ab75cd984712d84a342e4001d420fc2ea8943c9de65eea276a99909974",
+      "revenue_outlook": "numeric",
+      "source": "initial_item202"
+    },
+    {
+      "issuer": "AMD",
+      "announcement_year": 2013,
+      "slot": "Q3",
+      "filing_date": "2013-10-17",
+      "accession": "0001193125-13-402500",
+      "raw_sha256": "7f32745806ff154f4dc99e1bee3d0b16e7a1844b40d87360d68d2ff0dcfaa721",
+      "revenue_outlook": "numeric",
+      "source": "initial_item202"
+    },
+    {
+      "issuer": "AMD",
+      "announcement_year": 2013,
+      "slot": "Q4_prev",
+      "filing_date": "2013-01-22",
+      "accession": "0001193125-13-019330",
+      "raw_sha256": "ab8c2f93f5c80dc0c3639ddff79f73dc843cf44324163f491f4f515bfd8965d3",
+      "revenue_outlook": "numeric",
+      "source": "initial_item202"
+    },
+    {
+      "issuer": "AMD",
+      "announcement_year": 2014,
+      "slot": "Q1",
+      "filing_date": "2014-04-17",
+      "accession": "0001193125-14-147719",
+      "raw_sha256": "4e3d446805ace53cc5ec9d407bc92805eb8004cba4ad887aaf93caa12c1119b5",
+      "revenue_outlook": "numeric",
+      "source": "initial_item202"
+    },
+    {
+      "issuer": "AMD",
+      "announcement_year": 2014,
+      "slot": "Q2",
+      "filing_date": "2014-07-17",
+      "accession": "0001193125-14-271677",
+      "raw_sha256": "2d4128c67578ec4dddfdf547099e5fdb5ebdd1b4e968615e805657dc67c16b27",
+      "revenue_outlook": "numeric",
+      "source": "initial_item202"
+    },
+    {
+      "issuer": "AMD",
+      "announcement_year": 2014,
+      "slot": "Q3",
+      "filing_date": "2014-10-16",
+      "accession": "0001193125-14-373863",
+      "raw_sha256": "6f989324174005b3d5278bbee0b4b8b38d1ef3add9ab9d0056ed623a09258857",
+      "revenue_outlook": "numeric",
+      "source": "initial_item202"
+    },
+    {
+      "issuer": "AMD",
+      "announcement_year": 2014,
+      "slot": "Q4_prev",
+      "filing_date": "2014-01-21",
+      "accession": "0001193125-14-016032",
+      "raw_sha256": "90f021347f111b02fb1e671a7cbb738106aa61be3c9450ad3bb8d18f625998b5",
+      "revenue_outlook": "numeric",
+      "source": "initial_item202"
+    },
+    {
+      "issuer": "AMD",
+      "announcement_year": 2015,
+      "slot": "Q1",
+      "filing_date": "2015-04-16",
+      "accession": "0001193125-15-133355",
+      "raw_sha256": "1045d951b2e654daf8740a73c1f70b34c6b33b9f3c6c70c03d5b94292b4f144c",
+      "revenue_outlook": "numeric",
+      "source": "initial_item202"
+    },
+    {
+      "issuer": "AMD",
+      "announcement_year": 2015,
+      "slot": "Q2",
+      "filing_date": "2015-07-16",
+      "accession": "0000002488-15-000040",
+      "raw_sha256": "536bbe05857c24ffcbd8ff1a32abfe2bde68bd1a2423ca0d46dd8c221536524e",
+      "revenue_outlook": "numeric",
+      "source": "initial_item202"
+    },
+    {
+      "issuer": "AMD",
+      "announcement_year": 2015,
+      "slot": "Q3",
+      "filing_date": "2015-10-15",
+      "accession": "0000002488-15-000062",
+      "raw_sha256": "10439bb6709a94741e4f25c3c8529bdcc2dc940d6989a194ad90f3a9569d2c5c",
+      "revenue_outlook": "numeric",
+      "source": "initial_item202"
+    },
+    {
+      "issuer": "AMD",
+      "announcement_year": 2015,
+      "slot": "Q4_prev",
+      "filing_date": "2015-01-20",
+      "accession": "0001193125-15-014914",
+      "raw_sha256": "998e59f668a1fdcd4b8e3a9c6380ee3df4a2633e4ad43cdd47263bfbe1cdeaeb",
+      "revenue_outlook": "numeric",
+      "source": "initial_item202"
+    },
+    {
+      "issuer": "AMD",
+      "announcement_year": 2016,
+      "slot": "Q1",
+      "filing_date": "2016-04-21",
+      "accession": "0000002488-16-000118",
+      "raw_sha256": "641ef70ccaa2ee74494d2b9705cea04dd1a4156af86d8105db101b2233022a2b",
+      "revenue_outlook": "numeric",
+      "source": "initial_item202"
+    },
+    {
+      "issuer": "AMD",
+      "announcement_year": 2016,
+      "slot": "Q2",
+      "filing_date": "2016-07-21",
+      "accession": "0000002488-16-000210",
+      "raw_sha256": "0b7cc6cd38c30bb9c27bada04e118e26e393af0f3fd6013175a6da85ebe7ecf2",
+      "revenue_outlook": "numeric",
+      "source": "initial_item202"
+    },
+    {
+      "issuer": "AMD",
+      "announcement_year": 2016,
+      "slot": "Q3",
+      "filing_date": "2016-10-20",
+      "accession": "0000002488-16-000258",
+      "raw_sha256": "19e8441abe7934141a85cb3bbd5c5e721681c7915f231ab5626fd173b8130762",
+      "revenue_outlook": "numeric",
+      "source": "initial_item202"
+    },
+    {
+      "issuer": "AMD",
+      "announcement_year": 2016,
+      "slot": "Q4_prev",
+      "filing_date": "2016-01-19",
+      "accession": "0000002488-16-000102",
+      "raw_sha256": "65d98bf90eea773dccae806458bc8fed2fb6755098a7ecd5a136521092e415a9",
+      "revenue_outlook": "numeric",
+      "source": "initial_item202"
+    },
+    {
+      "issuer": "AMD",
+      "announcement_year": 2017,
+      "slot": "Q1",
+      "filing_date": "2017-05-01",
+      "accession": "0000002488-17-000096",
+      "raw_sha256": "aea319c82df0d1b653ba97446f4663cb410c541bc6aafd7d9310d1e28be140f4",
+      "revenue_outlook": "numeric",
+      "source": "initial_item202"
+    },
+    {
+      "issuer": "AMD",
+      "announcement_year": 2017,
+      "slot": "Q2",
+      "filing_date": "2017-07-25",
+      "accession": "0000002488-17-000150",
+      "raw_sha256": "ac1899c7ca7af6c723fae709d4fa2b6e379be577a4f9fed8eb80e6ef15be4585",
+      "revenue_outlook": "numeric",
+      "source": "initial_item202"
+    },
+    {
+      "issuer": "AMD",
+      "announcement_year": 2017,
+      "slot": "Q3",
+      "filing_date": "2017-10-24",
+      "accession": "0000002488-17-000213",
+      "raw_sha256": "89937c70cfe4f9bf58a97c166ac86862b321edecf5d7ec971fbde98158d03773",
+      "revenue_outlook": "numeric",
+      "source": "initial_item202"
+    },
+    {
+      "issuer": "AMD",
+      "announcement_year": 2017,
+      "slot": "Q4_prev",
+      "filing_date": "2017-01-31",
+      "accession": "0000002488-17-000017",
+      "raw_sha256": "bb1cc89f7c7bde1a5102c3b4406a251e450d89c2ab6ada457fd7cf241a4b8c4e",
+      "revenue_outlook": "numeric",
+      "source": "initial_item202"
+    },
+    {
+      "issuer": "AMD",
+      "announcement_year": 2018,
+      "slot": "Q1",
+      "filing_date": "2018-04-25",
+      "accession": "0000002488-18-000058",
+      "raw_sha256": "309d44fc3ca4f129762e406bdcecb6a6c9efb5aafef6a557da6eee9e61f7e6d6",
+      "revenue_outlook": "numeric",
+      "source": "initial_item202"
+    },
+    {
+      "issuer": "AMD",
+      "announcement_year": 2018,
+      "slot": "Q2",
+      "filing_date": "2018-07-25",
+      "accession": "0000002488-18-000124",
+      "raw_sha256": "15b27af616dd00ce0869ff602ee140421a28e4a8ac2084df9bf12e48b71b6316",
+      "revenue_outlook": "numeric",
+      "source": "initial_item202"
+    },
+    {
+      "issuer": "AMD",
+      "announcement_year": 2018,
+      "slot": "Q3",
+      "filing_date": "2018-10-24",
+      "accession": "0000002488-18-000186",
+      "raw_sha256": "ba89636f9311f9eca6d40562a151d836b234380630656a48e9f3880baf163fd5",
+      "revenue_outlook": "numeric",
+      "source": "initial_item202"
+    },
+    {
+      "issuer": "AMD",
+      "announcement_year": 2018,
+      "slot": "Q4_prev",
+      "filing_date": "2018-01-30",
+      "accession": "0000002488-18-000014",
+      "raw_sha256": "9e1d9a46ec0245e6b3e50c48521e69094cd8b35d03b2cc7ec045ac2b559f5273",
+      "revenue_outlook": "numeric",
+      "source": "initial_item202"
+    },
+    {
+      "issuer": "AMD",
+      "announcement_year": 2019,
+      "slot": "Q1",
+      "filing_date": "2019-04-30",
+      "accession": "0000002488-19-000043",
+      "raw_sha256": "9364b0c2fc73e5e7766b313df8c9f33ca4ceeff2c4bc2dd90800c5087e1a4bec",
+      "revenue_outlook": "numeric",
+      "source": "initial_item202"
+    },
+    {
+      "issuer": "AMD",
+      "announcement_year": 2019,
+      "slot": "Q2",
+      "filing_date": "2019-07-30",
+      "accession": "0000002488-19-000102",
+      "raw_sha256": "6c26e587a2f541af3c47e1d779c2b71d9cbcf2b384f7ffdd1cd30ae85807e12a",
+      "revenue_outlook": "numeric",
+      "source": "initial_item202"
+    },
+    {
+      "issuer": "AMD",
+      "announcement_year": 2019,
+      "slot": "Q3",
+      "filing_date": "2019-10-29",
+      "accession": "0000002488-19-000157",
+      "raw_sha256": "9111b62ef175cfb1143f0299144c1cebc439acdb1a90dda949a161779a6d22ce",
+      "revenue_outlook": "numeric",
+      "source": "initial_item202"
+    },
+    {
+      "issuer": "AMD",
+      "announcement_year": 2019,
+      "slot": "Q4_prev",
+      "filing_date": "2019-01-29",
+      "accession": "0000002488-19-000004",
+      "raw_sha256": "ff4a29761ff9553150f88f0d0846b4734a4a508c346f93995e8f06aa2bb1acb1",
+      "revenue_outlook": "numeric",
+      "source": "initial_item202"
+    },
+    {
+      "issuer": "AMD",
+      "announcement_year": 2020,
+      "slot": "Q1",
+      "filing_date": "2020-04-28",
+      "accession": "0000002488-20-000048",
+      "raw_sha256": "f0f61199cdec3f22293bcef1ebc7777e6c9458d347b6e0c2e173ffc24c3f108b",
+      "revenue_outlook": "numeric",
+      "source": "initial_item202"
+    },
+    {
+      "issuer": "AMD",
+      "announcement_year": 2020,
+      "slot": "Q2",
+      "filing_date": "2020-07-28",
+      "accession": "0000002488-20-000101",
+      "raw_sha256": "5070b9719cf68d4289b088c5f6ca65aa8d6be52257be0d6c0d6983b4e00dc74b",
+      "revenue_outlook": "numeric",
+      "source": "saved_nonmatch_repair"
+    },
+    {
+      "issuer": "AMD",
+      "announcement_year": 2020,
+      "slot": "Q3",
+      "filing_date": "2020-10-27",
+      "accession": "0000002488-20-000161",
+      "raw_sha256": "d93cf604283675d5bd989329eec1542e6cdafc14c8d8f8a08834453b8e5522d1",
+      "revenue_outlook": "numeric",
+      "source": "initial_item202"
+    },
+    {
+      "issuer": "AMD",
+      "announcement_year": 2020,
+      "slot": "Q4_prev",
+      "filing_date": "2020-01-28",
+      "accession": "0000002488-20-000006",
+      "raw_sha256": "06b29564bdef53ae0d0041da00bf698befef67b1a5172489f1f8165c2f26f7f3",
+      "revenue_outlook": "numeric",
+      "source": "initial_item202"
+    },
+    {
+      "issuer": "AMD",
+      "announcement_year": 2021,
+      "slot": "Q1",
+      "filing_date": "2021-04-27",
+      "accession": "0000002488-21-000054",
+      "raw_sha256": "6798a36435b061c987b7722618a2d612b40757d8d55d88a1adbf9b668498c064",
+      "revenue_outlook": "numeric",
+      "source": "initial_item202"
+    },
+    {
+      "issuer": "AMD",
+      "announcement_year": 2021,
+      "slot": "Q2",
+      "filing_date": "2021-07-27",
+      "accession": "0000002488-21-000114",
+      "raw_sha256": "8fe2a780402eae3f8661600643b26e75044c9e46d575d8f9c33ef479e23229d7",
+      "revenue_outlook": "numeric",
+      "source": "initial_item202"
+    },
+    {
+      "issuer": "AMD",
+      "announcement_year": 2021,
+      "slot": "Q3",
+      "filing_date": "2021-10-26",
+      "accession": "0000002488-21-000176",
+      "raw_sha256": "92613c389bf58a73412f84a7dfae888ea24032a2b18b8ff20f48800f49ab3a02",
+      "revenue_outlook": "numeric",
+      "source": "initial_item202"
+    },
+    {
+      "issuer": "AMD",
+      "announcement_year": 2021,
+      "slot": "Q4_prev",
+      "filing_date": "2021-01-26",
+      "accession": "0000002488-21-000009",
+      "raw_sha256": "ed2df5622e46228886ec03d7e1abbc2c05b5e446772b126cbaf9088da50c614f",
+      "revenue_outlook": "numeric",
+      "source": "saved_nonmatch_repair"
+    },
+    {
+      "issuer": "AMD",
+      "announcement_year": 2022,
+      "slot": "Q1",
+      "filing_date": "2022-05-03",
+      "accession": "0000002488-22-000074",
+      "raw_sha256": "59da12ed853d8a8760aea8229ee38f6b389dd717bc6d593efddf8d4a90784507",
+      "revenue_outlook": "numeric",
+      "source": "initial_item202"
+    },
+    {
+      "issuer": "AMD",
+      "announcement_year": 2022,
+      "slot": "Q2",
+      "filing_date": "2022-08-02",
+      "accession": "0000002488-22-000120",
+      "raw_sha256": "3798c88f3fa46227f6172bf3a2a6d930734f3f85cb49cfcd315f98cc977506c7",
+      "revenue_outlook": "numeric",
+      "source": "initial_item202"
+    },
+    {
+      "issuer": "AMD",
+      "announcement_year": 2022,
+      "slot": "Q3",
+      "filing_date": "2022-11-01",
+      "accession": "0000002488-22-000168",
+      "raw_sha256": "45021eaafa0565009eb84cd35e4f35ee50edb61f491c2829c5da8412c8b2f9bb",
+      "revenue_outlook": "numeric",
+      "source": "initial_item202"
+    },
+    {
+      "issuer": "AMD",
+      "announcement_year": 2022,
+      "slot": "Q4_prev",
+      "filing_date": "2022-02-01",
+      "accession": "0000002488-22-000014",
+      "raw_sha256": "10fadbd68621414dcf618b8fd48eb2e8163bf1d35695dbf206104892cfd91f64",
+      "revenue_outlook": "numeric",
+      "source": "initial_item202"
+    },
+    {
+      "issuer": "AMD",
+      "announcement_year": 2023,
+      "slot": "Q1",
+      "filing_date": "2023-05-02",
+      "accession": "0000002488-23-000074",
+      "raw_sha256": "197e1ad105b4ecaea421f48dde5afa2592d9556fb1c50b5dda94331daf81eaa6",
+      "revenue_outlook": "numeric",
+      "source": "initial_item202"
+    },
+    {
+      "issuer": "AMD",
+      "announcement_year": 2023,
+      "slot": "Q2",
+      "filing_date": "2023-08-01",
+      "accession": "0000002488-23-000135",
+      "raw_sha256": "e3d28230b51b548ce261358f8a2c3b15867f327424d9e79fbd31e9b871a95df7",
+      "revenue_outlook": "numeric",
+      "source": "initial_item202"
+    },
+    {
+      "issuer": "AMD",
+      "announcement_year": 2023,
+      "slot": "Q3",
+      "filing_date": "2023-10-31",
+      "accession": "0000002488-23-000192",
+      "raw_sha256": "87234659ca28910423aeeb4e7386739a3dfb914c290a4ae2c7ceca767f757a91",
+      "revenue_outlook": "numeric",
+      "source": "initial_item202"
+    },
+    {
+      "issuer": "AMD",
+      "announcement_year": 2023,
+      "slot": "Q4_prev",
+      "filing_date": "2023-01-31",
+      "accession": "0000002488-23-000007",
+      "raw_sha256": "22a7ae984b3f7fe72e68252fbb85bdc9651bc7115ca990caf31996f1f7af4c19",
+      "revenue_outlook": "numeric",
+      "source": "initial_item202"
+    },
+    {
+      "issuer": "AMD",
+      "announcement_year": 2024,
+      "slot": "Q1",
+      "filing_date": "2024-04-30",
+      "accession": "0000002488-24-000054",
+      "raw_sha256": "155d656ec7ce386a41ebf808398d3652c76827e3491d8518aabbb9b893910075",
+      "revenue_outlook": "numeric",
+      "source": "initial_item202"
+    },
+    {
+      "issuer": "AMD",
+      "announcement_year": 2024,
+      "slot": "Q2",
+      "filing_date": "2024-07-30",
+      "accession": "0000002488-24-000121",
+      "raw_sha256": "d3d4374fde151d24c21d03574c7f60a8d391b6b1a0ba16b0add4b6e6a688d4a0",
+      "revenue_outlook": "numeric",
+      "source": "initial_item202"
+    },
+    {
+      "issuer": "AMD",
+      "announcement_year": 2024,
+      "slot": "Q3",
+      "filing_date": "2024-10-29",
+      "accession": "0000002488-24-000161",
+      "raw_sha256": "a49269d220fa2531a7343ae81e7f903db29fb0ca55fabcdf8f1b6ece64aa706e",
+      "revenue_outlook": "numeric",
+      "source": "initial_item202"
+    },
+    {
+      "issuer": "AMD",
+      "announcement_year": 2024,
+      "slot": "Q4_prev",
+      "filing_date": "2024-01-30",
+      "accession": "0000002488-24-000009",
+      "raw_sha256": "386f8440ff48eb6052a23d6650f70cbbea45615f6fdd6c1e21d844477c588864",
+      "revenue_outlook": "numeric",
+      "source": "initial_item202"
+    },
+    {
+      "issuer": "AMD",
+      "announcement_year": 2025,
+      "slot": "Q1",
+      "filing_date": "2025-05-06",
+      "accession": "0000002488-25-000045",
+      "raw_sha256": "900c568fbe1fa3f3cfde97e0491a3546515ac144b721b24e2da6f1c1c94acc19",
+      "revenue_outlook": "numeric",
+      "source": "saved_nonmatch_repair"
+    },
+    {
+      "issuer": "AMD",
+      "announcement_year": 2025,
+      "slot": "Q2",
+      "filing_date": "2025-08-05",
+      "accession": "0000002488-25-000106",
+      "raw_sha256": "29e3e86e22a7685676c3933e377545c196031e6c6a3c8afaf08f60a96a3905de",
+      "revenue_outlook": "numeric",
+      "source": "initial_item202"
+    },
+    {
+      "issuer": "AMD",
+      "announcement_year": 2025,
+      "slot": "Q3",
+      "filing_date": "2025-11-04",
+      "accession": "0000002488-25-000163",
+      "raw_sha256": "e5e30ae3ecc7d5ad1488d87e682287023f7f4ab1c0fcdae69539fe723b12f47f",
+      "revenue_outlook": "numeric",
+      "source": "initial_item202"
+    },
+    {
+      "issuer": "AMD",
+      "announcement_year": 2025,
+      "slot": "Q4_prev",
+      "filing_date": "2025-02-04",
+      "accession": "0000002488-25-000009",
+      "raw_sha256": "d8e05dd05febfbe14b6ca018b5284cef7b64130c4548ff81c1fadfde0df35e73",
+      "revenue_outlook": "numeric",
+      "source": "initial_item202"
+    },
+    {
+      "issuer": "AMD",
+      "announcement_year": 2026,
+      "slot": "Q1",
+      "filing_date": "2026-05-05",
+      "accession": "0000002488-26-000072",
+      "raw_sha256": "38bf60ac129ef54f579750b010bfa7b21c1dab9d83087f797ec6d85caf2cddce",
+      "revenue_outlook": "numeric",
+      "source": "initial_item202"
+    },
+    {
+      "issuer": "AMD",
+      "announcement_year": 2026,
+      "slot": "Q2",
+      "filing_date": "2026-08-04",
+      "accession": "0000002488-26-000121",
+      "raw_sha256": "070fd75ccc1939950ee9f6d5fc32c99b07befbd142676ed4f6408481d2cda438",
+      "revenue_outlook": "numeric",
+      "source": "initial_item202"
+    },
+    {
+      "issuer": "AMD",
+      "announcement_year": 2026,
+      "slot": "Q4_prev",
+      "filing_date": "2026-02-03",
+      "accession": "0000002488-26-000014",
+      "raw_sha256": "9c0955a97c97994b814d8cefd6f0453bcb0eb0132deb8fc553ba7d47bfe70108",
+      "revenue_outlook": "numeric",
+      "source": "initial_item202"
+    },
+    {
+      "issuer": "NVDA",
+      "announcement_year": 2011,
+      "slot": "Q1",
+      "filing_date": "2011-05-12",
+      "accession": "0001045810-11-000022",
+      "raw_sha256": "26daf234d503b75ecad16333e56649371f1eff42503861516ecfa75d56cc31fe",
+      "revenue_outlook": "numeric",
+      "source": "initial_item202"
+    },
+    {
+      "issuer": "NVDA",
+      "announcement_year": 2011,
+      "slot": "Q2",
+      "filing_date": "2011-08-11",
+      "accession": "0001045810-11-000039",
+      "raw_sha256": "6ecfe5027c0cd88b4914387163f55b9b8720a3d5a6416f3ad846d2ebedbb64ae",
+      "revenue_outlook": "numeric",
+      "source": "initial_item202"
+    },
+    {
+      "issuer": "NVDA",
+      "announcement_year": 2011,
+      "slot": "Q3",
+      "filing_date": "2011-11-10",
+      "accession": "0001045810-11-000052",
+      "raw_sha256": "ee3791d4235d381c48a8ce2b8fd740a6f81b7f7c63489b578c16292337242753",
+      "revenue_outlook": "numeric",
+      "source": "initial_item202"
+    },
+    {
+      "issuer": "NVDA",
+      "announcement_year": 2011,
+      "slot": "Q4",
+      "filing_date": "2011-02-16",
+      "accession": "0001045810-11-000006",
+      "raw_sha256": "427d288ca4cd2511c2129b61cb86198b1731b09de0021eebccf3061f71307c40",
+      "revenue_outlook": "numeric",
+      "source": "initial_item202"
+    },
+    {
+      "issuer": "NVDA",
+      "announcement_year": 2012,
+      "slot": "Q1",
+      "filing_date": "2012-05-11",
+      "accession": "0001045810-12-000024",
+      "raw_sha256": "3cd1022af286cadce3bd2731da732a9655b245684b7c3557124017b78d18a885",
+      "revenue_outlook": "numeric",
+      "source": "initial_item202"
+    },
+    {
+      "issuer": "NVDA",
+      "announcement_year": 2012,
+      "slot": "Q2",
+      "filing_date": "2012-08-09",
+      "accession": "0001045810-12-000032",
+      "raw_sha256": "0cb86fb6eb1cb103803f88d29bea3fc42173f654d21faa41c69b03cff4686298",
+      "revenue_outlook": "numeric",
+      "source": "initial_item202"
+    },
+    {
+      "issuer": "NVDA",
+      "announcement_year": 2012,
+      "slot": "Q3",
+      "filing_date": "2012-11-08",
+      "accession": "0001045810-12-000055",
+      "raw_sha256": "59751470de1c22de333fd9bc266f917180f1beb6c732dbec18dcfa994e3ead9e",
+      "revenue_outlook": "numeric",
+      "source": "initial_item202"
+    },
+    {
+      "issuer": "NVDA",
+      "announcement_year": 2012,
+      "slot": "Q4",
+      "filing_date": "2012-02-15",
+      "accession": "0001045810-12-000008",
+      "raw_sha256": "2b432effd30c0091c68d0998ffa59525cee5edbfe8c2cc04224087ce6a2dcc67",
+      "revenue_outlook": "numeric",
+      "source": "initial_item202"
+    },
+    {
+      "issuer": "NVDA",
+      "announcement_year": 2013,
+      "slot": "Q1",
+      "filing_date": "2013-05-09",
+      "accession": "0001045810-13-000029",
+      "raw_sha256": "17be0c888ee655bc176e1581ace6af71b9d69f2bdf74741c5bcda214aa98058d",
+      "revenue_outlook": "numeric",
+      "source": "initial_item202"
+    },
+    {
+      "issuer": "NVDA",
+      "announcement_year": 2013,
+      "slot": "Q2",
+      "filing_date": "2013-08-08",
+      "accession": "0001045810-13-000069",
+      "raw_sha256": "112b1f7b628f9474f08674a718b972f6621ad70a2326e571696e51201d23200a",
+      "revenue_outlook": "numeric",
+      "source": "initial_item202"
+    },
+    {
+      "issuer": "NVDA",
+      "announcement_year": 2013,
+      "slot": "Q3",
+      "filing_date": "2013-11-07",
+      "accession": "0001045810-13-000104",
+      "raw_sha256": "a9154e461321247e16049857ac52e5c3587b78bcd5523f8b48dc3f4f1243b2e1",
+      "revenue_outlook": "numeric",
+      "source": "initial_item202"
+    },
+    {
+      "issuer": "NVDA",
+      "announcement_year": 2013,
+      "slot": "Q4",
+      "filing_date": "2013-02-13",
+      "accession": "0001045810-13-000003",
+      "raw_sha256": "b5b9d2c17d67207864075fe41bfebfce6f6899a9728ba91ce26922d501605151",
+      "revenue_outlook": "numeric",
+      "source": "initial_item202"
+    },
+    {
+      "issuer": "NVDA",
+      "announcement_year": 2014,
+      "slot": "Q1",
+      "filing_date": "2014-05-08",
+      "accession": "0001045810-14-000076",
+      "raw_sha256": "0e08f8fad3877da7540cc38b6c7b18fce2e94d81f46d75b0a74d6d2b84af4370",
+      "revenue_outlook": "numeric",
+      "source": "initial_item202"
+    },
+    {
+      "issuer": "NVDA",
+      "announcement_year": 2014,
+      "slot": "Q2",
+      "filing_date": "2014-08-07",
+      "accession": "0001045810-14-000149",
+      "raw_sha256": "7eb7d2395034051c91ffee22ac8843c7fb08af862f874ff33e0ee5db1ef6c89a",
+      "revenue_outlook": "numeric",
+      "source": "initial_item202"
+    },
+    {
+      "issuer": "NVDA",
+      "announcement_year": 2014,
+      "slot": "Q3",
+      "filing_date": "2014-11-06",
+      "accession": "0001045810-14-000182",
+      "raw_sha256": "97705766ab492634687e4ea86db60bee48bfbea1a787009744d08272e5921bfd",
+      "revenue_outlook": "numeric",
+      "source": "initial_item202"
+    },
+    {
+      "issuer": "NVDA",
+      "announcement_year": 2014,
+      "slot": "Q4",
+      "filing_date": "2014-02-12",
+      "accession": "0001045810-14-000004",
+      "raw_sha256": "5f1dba2a28424d7205bd82f9373f4fc2d56aef2bde62af2c9c611a5aae8d10a8",
+      "revenue_outlook": "numeric",
+      "source": "saved_nonmatch_repair"
+    },
+    {
+      "issuer": "NVDA",
+      "announcement_year": 2015,
+      "slot": "Q1",
+      "filing_date": "2015-05-07",
+      "accession": "0001045810-15-000087",
+      "raw_sha256": "85c7c37bfef66fd2c5d5b721c58ea045cadfd687d2e3fe5541fc5c4521987b5e",
+      "revenue_outlook": "numeric",
+      "source": "initial_item202"
+    },
+    {
+      "issuer": "NVDA",
+      "announcement_year": 2015,
+      "slot": "Q2",
+      "filing_date": "2015-08-06",
+      "accession": "0001045810-15-000131",
+      "raw_sha256": "c52c85974a8d9ca1748e7d39c30ab76a933faf84cde4898190198cdfdc70785d",
+      "revenue_outlook": "numeric",
+      "source": "initial_item202"
+    },
+    {
+      "issuer": "NVDA",
+      "announcement_year": 2015,
+      "slot": "Q3",
+      "filing_date": "2015-11-05",
+      "accession": "0001045810-15-000165",
+      "raw_sha256": "759ba92029198a597a6e8fd03b87c8aa0e5b97a942c4db4034d60ef28453fc4f",
+      "revenue_outlook": "numeric",
+      "source": "initial_item202"
+    },
+    {
+      "issuer": "NVDA",
+      "announcement_year": 2015,
+      "slot": "Q4",
+      "filing_date": "2015-02-11",
+      "accession": "0001045810-15-000013",
+      "raw_sha256": "53f275c3739286857a0809d4a1cf592754c27e2ba3d25221bb3aea4650e0f3db",
+      "revenue_outlook": "numeric",
+      "source": "initial_item202"
+    },
+    {
+      "issuer": "NVDA",
+      "announcement_year": 2016,
+      "slot": "Q1",
+      "filing_date": "2016-05-12",
+      "accession": "0001045810-16-000243",
+      "raw_sha256": "a6c4bb3474fa830441cfcbbb12180e33a521d7ffb46d4098108f4e154865228c",
+      "revenue_outlook": "numeric",
+      "source": "initial_item202"
+    },
+    {
+      "issuer": "NVDA",
+      "announcement_year": 2016,
+      "slot": "Q2",
+      "filing_date": "2016-08-11",
+      "accession": "0001045810-16-000292",
+      "raw_sha256": "f6b9767d602e3df07cc2fab25485939ca7cf46f227a8ae536174d9f99ed40e4c",
+      "revenue_outlook": "numeric",
+      "source": "initial_item202"
+    },
+    {
+      "issuer": "NVDA",
+      "announcement_year": 2016,
+      "slot": "Q3",
+      "filing_date": "2016-11-10",
+      "accession": "0001045810-16-000343",
+      "raw_sha256": "9ce56e1de34ef209b2f19b9b2ef9228831b917c8694fbcb3bb0827508e2f073d",
+      "revenue_outlook": "numeric",
+      "source": "initial_item202"
+    },
+    {
+      "issuer": "NVDA",
+      "announcement_year": 2016,
+      "slot": "Q4",
+      "filing_date": "2016-02-17",
+      "accession": "0001045810-16-000189",
+      "raw_sha256": "c83725ff901f27f8fbf2aa8f96013cbb2578d86d52cd7bcaa0284663e9856ef6",
+      "revenue_outlook": "numeric",
+      "source": "initial_item202"
+    },
+    {
+      "issuer": "NVDA",
+      "announcement_year": 2017,
+      "slot": "Q1",
+      "filing_date": "2017-05-09",
+      "accession": "0001045810-17-000068",
+      "raw_sha256": "0845fe5d921a5716459dbb0e988e89ec4f852b06e89171040e48321e8c502534",
+      "revenue_outlook": "numeric",
+      "source": "initial_item202"
+    },
+    {
+      "issuer": "NVDA",
+      "announcement_year": 2017,
+      "slot": "Q2",
+      "filing_date": "2017-08-10",
+      "accession": "0001045810-17-000117",
+      "raw_sha256": "f490e750625f8e1f3dfecddcf60a433d348b47a0276413077a5825eb0429528b",
+      "revenue_outlook": "numeric",
+      "source": "initial_item202"
+    },
+    {
+      "issuer": "NVDA",
+      "announcement_year": 2017,
+      "slot": "Q3",
+      "filing_date": "2017-11-09",
+      "accession": "0001045810-17-000164",
+      "raw_sha256": "3cfeaa5a31735510812c695bf2263078b9d95355d8fe90df5d4ca1ca34da7e24",
+      "revenue_outlook": "numeric",
+      "source": "initial_item202"
+    },
+    {
+      "issuer": "NVDA",
+      "announcement_year": 2017,
+      "slot": "Q4",
+      "filing_date": "2017-02-09",
+      "accession": "0001045810-17-000016",
+      "raw_sha256": "d88aebe5f3da9c505bcbab77c8e7c574932959987188925bf7cc5616a0b16854",
+      "revenue_outlook": "numeric",
+      "source": "initial_item202"
+    },
+    {
+      "issuer": "NVDA",
+      "announcement_year": 2018,
+      "slot": "Q1",
+      "filing_date": "2018-05-10",
+      "accession": "0001045810-18-000052",
+      "raw_sha256": "394d2fd068997136873a95a3e1953bd3b36162c4e1211e60ad9f2acf66ae9342",
+      "revenue_outlook": "numeric",
+      "source": "initial_item202"
+    },
+    {
+      "issuer": "NVDA",
+      "announcement_year": 2018,
+      "slot": "Q2",
+      "filing_date": "2018-08-16",
+      "accession": "0001045810-18-000113",
+      "raw_sha256": "5ef8b94d03063b6d2665297f258c443a4a886928a7d702eedcd66112325ad713",
+      "revenue_outlook": "numeric",
+      "source": "initial_item202"
+    },
+    {
+      "issuer": "NVDA",
+      "announcement_year": 2018,
+      "slot": "Q3",
+      "filing_date": "2018-11-15",
+      "accession": "0001045810-18-000148",
+      "raw_sha256": "7b0d3a06d7a01f289f59a03948d8c35342b8577be2f7e0f7f6abea8db23bc9ae",
+      "revenue_outlook": "numeric",
+      "source": "initial_item202"
+    },
+    {
+      "issuer": "NVDA",
+      "announcement_year": 2018,
+      "slot": "Q4",
+      "filing_date": "2018-02-08",
+      "accession": "0001045810-18-000004",
+      "raw_sha256": "0ea6a2c18eb4f89e12d89c8c44ebfe280f111bd4d9480084ce7eeca940f798ed",
+      "revenue_outlook": "numeric",
+      "source": "initial_item202"
+    },
+    {
+      "issuer": "NVDA",
+      "announcement_year": 2019,
+      "slot": "Q1",
+      "filing_date": "2019-05-16",
+      "accession": "0001045810-19-000077",
+      "raw_sha256": "0f3a22de04cb838f70b02ccb7969316e4634f0c47b4caafb0fde76e4d87438af",
+      "revenue_outlook": "numeric",
+      "source": "initial_item202"
+    },
+    {
+      "issuer": "NVDA",
+      "announcement_year": 2019,
+      "slot": "Q2",
+      "filing_date": "2019-08-15",
+      "accession": "0001045810-19-000140",
+      "raw_sha256": "162bac29f7248fd02a24b7ebbea2954f30e6d02e41857c74df31ef2641c3e815",
+      "revenue_outlook": "numeric",
+      "source": "initial_item202"
+    },
+    {
+      "issuer": "NVDA",
+      "announcement_year": 2019,
+      "slot": "Q3",
+      "filing_date": "2019-11-14",
+      "accession": "0001045810-19-000168",
+      "raw_sha256": "ff6cb34ea2482abd70fc1154f899d79c9053f5124a753b1ae9cfee572b0fa150",
+      "revenue_outlook": "numeric",
+      "source": "saved_nonmatch_repair"
+    },
+    {
+      "issuer": "NVDA",
+      "announcement_year": 2019,
+      "slot": "Q4",
+      "filing_date": "2019-02-14",
+      "accession": "0001045810-19-000007",
+      "raw_sha256": "5a2cf926d20733b7c78d69b86eb4b24cc8ceadad2dbcd7fe55257931452004b5",
+      "revenue_outlook": "numeric",
+      "source": "initial_item202"
+    },
+    {
+      "issuer": "NVDA",
+      "announcement_year": 2020,
+      "slot": "Q1",
+      "filing_date": "2020-05-21",
+      "accession": "0001045810-20-000063",
+      "raw_sha256": "2485107bde56ace7a00f9a27df0bd926c53551ef15dc6ad392ac8eae1c709db1",
+      "revenue_outlook": "numeric",
+      "source": "initial_item202"
+    },
+    {
+      "issuer": "NVDA",
+      "announcement_year": 2020,
+      "slot": "Q2",
+      "filing_date": "2020-08-19",
+      "accession": "0001045810-20-000145",
+      "raw_sha256": "42985ad180589d8cc0c2648e4ec75aab27fe9125fcb7aa6a249dc6fc9329190f",
+      "revenue_outlook": "numeric",
+      "source": "initial_item202"
+    },
+    {
+      "issuer": "NVDA",
+      "announcement_year": 2020,
+      "slot": "Q3",
+      "filing_date": "2020-11-18",
+      "accession": "0001045810-20-000187",
+      "raw_sha256": "24d4b05f92a8bf152495cfd359ac6e4de235d0320090ab658bb5ae958db76721",
+      "revenue_outlook": "numeric",
+      "source": "initial_item202"
+    },
+    {
+      "issuer": "NVDA",
+      "announcement_year": 2020,
+      "slot": "Q4",
+      "filing_date": "2020-02-13",
+      "accession": "0001045810-20-000007",
+      "raw_sha256": "6e9d5310620dad8e230194aaa1c50da0f6936499a543a8ffe77525776883e96e",
+      "revenue_outlook": "numeric",
+      "source": "initial_item202"
+    },
+    {
+      "issuer": "NVDA",
+      "announcement_year": 2021,
+      "slot": "Q1",
+      "filing_date": "2021-05-26",
+      "accession": "0001045810-21-000063",
+      "raw_sha256": "c8134497d791c2059fbee573190d7d46c8e11e3dd674e1c1829b7a8451bb89d2",
+      "revenue_outlook": "numeric",
+      "source": "initial_item202"
+    },
+    {
+      "issuer": "NVDA",
+      "announcement_year": 2021,
+      "slot": "Q2",
+      "filing_date": "2021-08-18",
+      "accession": "0001045810-21-000128",
+      "raw_sha256": "1b336053658044874eee217b92609c3723660fb3738297e6f2ac6082e3525825",
+      "revenue_outlook": "numeric",
+      "source": "initial_item202"
+    },
+    {
+      "issuer": "NVDA",
+      "announcement_year": 2021,
+      "slot": "Q3",
+      "filing_date": "2021-11-17",
+      "accession": "0001045810-21-000160",
+      "raw_sha256": "f5534cc9365ad368c3e5a6317aca963513295bfb2dd32a13a61d7dc364892bcd",
+      "revenue_outlook": "numeric",
+      "source": "initial_item202"
+    },
+    {
+      "issuer": "NVDA",
+      "announcement_year": 2021,
+      "slot": "Q4",
+      "filing_date": "2021-02-24",
+      "accession": "0001045810-21-000007",
+      "raw_sha256": "5f12358c95fb100d02b98e354fd9aa8a59c9d8bba18098b3c357b0c407631f21",
+      "revenue_outlook": "numeric",
+      "source": "initial_item202"
+    },
+    {
+      "issuer": "NVDA",
+      "announcement_year": 2022,
+      "slot": "Q1",
+      "filing_date": "2022-05-25",
+      "accession": "0001045810-22-000073",
+      "raw_sha256": "d87a1bdcde7c4457e9a790892163583dcc3b0c42d409e333a5328cb7d037cd14",
+      "revenue_outlook": "numeric",
+      "source": "initial_item202"
+    },
+    {
+      "issuer": "NVDA",
+      "announcement_year": 2022,
+      "slot": "Q2",
+      "filing_date": "2022-08-24",
+      "accession": "0001045810-22-000136",
+      "raw_sha256": "c5ec9fb7cbb94779a06c2db281aeb86d2143307286a630eb17cb571fd5e8997d",
+      "revenue_outlook": "numeric",
+      "source": "initial_item202"
+    },
+    {
+      "issuer": "NVDA",
+      "announcement_year": 2022,
+      "slot": "Q3",
+      "filing_date": "2022-11-16",
+      "accession": "0001045810-22-000163",
+      "raw_sha256": "a0bcc22aba1a5b94d5e4f0f61002652c279a44c181bed29ada9dd7f16248e4c9",
+      "revenue_outlook": "numeric",
+      "source": "initial_item202"
+    },
+    {
+      "issuer": "NVDA",
+      "announcement_year": 2022,
+      "slot": "Q4",
+      "filing_date": "2022-02-16",
+      "accession": "0001045810-22-000008",
+      "raw_sha256": "85f64fedaa69d62ea69852b742bf782ba1e38c739a2325c9515cc0ae7112cd99",
+      "revenue_outlook": "numeric",
+      "source": "initial_item202"
+    },
+    {
+      "issuer": "NVDA",
+      "announcement_year": 2023,
+      "slot": "Q1",
+      "filing_date": "2023-05-24",
+      "accession": "0001045810-23-000087",
+      "raw_sha256": "baaab4a4b0fa410d950e489741308ef48247fc47695dc8bfc0e83dd2e51caa73",
+      "revenue_outlook": "numeric",
+      "source": "saved_nonmatch_repair"
+    },
+    {
+      "issuer": "NVDA",
+      "announcement_year": 2023,
+      "slot": "Q2",
+      "filing_date": "2023-08-23",
+      "accession": "0001045810-23-000171",
+      "raw_sha256": "642a2186a05f55f24274b1dd3fa55357144f39aa4e2ed9a56313a989b9fb3600",
+      "revenue_outlook": "numeric",
+      "source": "initial_item202"
+    },
+    {
+      "issuer": "NVDA",
+      "announcement_year": 2023,
+      "slot": "Q3",
+      "filing_date": "2023-11-21",
+      "accession": "0001045810-23-000225",
+      "raw_sha256": "92a9f3be04673327c498852e034661f04ad1a71b8e5cb11fe831318ff50614bc",
+      "revenue_outlook": "numeric",
+      "source": "initial_item202"
+    },
+    {
+      "issuer": "NVDA",
+      "announcement_year": 2023,
+      "slot": "Q4",
+      "filing_date": "2023-02-22",
+      "accession": "0001045810-23-000014",
+      "raw_sha256": "b1ddb3d069985959359d9e6667c753c55408e67d9a06f162b9cb14c84797b66f",
+      "revenue_outlook": "numeric",
+      "source": "initial_item202"
+    },
+    {
+      "issuer": "NVDA",
+      "announcement_year": 2024,
+      "slot": "Q1",
+      "filing_date": "2024-05-22",
+      "accession": "0001045810-24-000113",
+      "raw_sha256": "573766d04062164181061703da05e0c4e5984fedf190c68222f23f6487a44a8d",
+      "revenue_outlook": "numeric",
+      "source": "initial_item202"
+    },
+    {
+      "issuer": "NVDA",
+      "announcement_year": 2024,
+      "slot": "Q2",
+      "filing_date": "2024-08-28",
+      "accession": "0001045810-24-000262",
+      "raw_sha256": "db42b5781e17180f62c26797d07dd312a8d9ee0ed8c957ca678deb0b4b9d87a1",
+      "revenue_outlook": "numeric",
+      "source": "initial_item202"
+    },
+    {
+      "issuer": "NVDA",
+      "announcement_year": 2024,
+      "slot": "Q3",
+      "filing_date": "2024-11-20",
+      "accession": "0001045810-24-000315",
+      "raw_sha256": "32e80963e83fe05898417fb24fddb25cea395169f195acd1f4bc9a0558a48512",
+      "revenue_outlook": "numeric",
+      "source": "initial_item202"
+    },
+    {
+      "issuer": "NVDA",
+      "announcement_year": 2024,
+      "slot": "Q4",
+      "filing_date": "2024-02-21",
+      "accession": "0001045810-24-000028",
+      "raw_sha256": "bd7489e4555257381e7aca79208b4762c10fdec9e11f4f6efa33de6517608521",
+      "revenue_outlook": "numeric",
+      "source": "initial_item202"
+    },
+    {
+      "issuer": "NVDA",
+      "announcement_year": 2025,
+      "slot": "Q1",
+      "filing_date": "2025-05-28",
+      "accession": "0001045810-25-000115",
+      "raw_sha256": "27a3a52f8ac697ad75eb82f3fb316c05e13016dc0fb414c1338bf507ac385bf3",
+      "revenue_outlook": "numeric",
+      "source": "initial_item202"
+    },
+    {
+      "issuer": "NVDA",
+      "announcement_year": 2025,
+      "slot": "Q2",
+      "filing_date": "2025-08-27",
+      "accession": "0001045810-25-000207",
+      "raw_sha256": "207760012941bc73a5c6a89046469101daca999ad14f5ab46884552d7377393f",
+      "revenue_outlook": "numeric",
+      "source": "initial_item202"
+    },
+    {
+      "issuer": "NVDA",
+      "announcement_year": 2025,
+      "slot": "Q3",
+      "filing_date": "2025-11-19",
+      "accession": "0001045810-25-000228",
+      "raw_sha256": "b8e1d654127a068de194f4b0fc586348511a97dc6144056cfdbee752cda8f7f2",
+      "revenue_outlook": "numeric",
+      "source": "initial_item202"
+    },
+    {
+      "issuer": "NVDA",
+      "announcement_year": 2025,
+      "slot": "Q4",
+      "filing_date": "2025-02-26",
+      "accession": "0001045810-25-000021",
+      "raw_sha256": "384d66a7f208ba5ea86f45a313fe648f40d20d71b11bb98237dca851d600e120",
+      "revenue_outlook": "numeric",
+      "source": "initial_item202"
+    },
+    {
+      "issuer": "NVDA",
+      "announcement_year": 2026,
+      "slot": "Q1",
+      "filing_date": "2026-05-20",
+      "accession": "0001045810-26-000051",
+      "raw_sha256": "79a44c42cee4fab279c8fd5ef56248584b1f52d6c7ac0093117c388fa0d808a6",
+      "revenue_outlook": "numeric",
+      "source": "initial_item202"
+    },
+    {
+      "issuer": "NVDA",
+      "announcement_year": 2026,
+      "slot": "Q2",
+      "filing_date": "2026-08-26",
+      "accession": "0001045810-26-000073",
+      "raw_sha256": "f35fe9182df24b3bc69a716b564d22558410d0f1b34594429846670c1dcff5fc",
+      "revenue_outlook": "numeric",
+      "source": "initial_item202"
+    },
+    {
+      "issuer": "NVDA",
+      "announcement_year": 2026,
+      "slot": "Q4",
+      "filing_date": "2026-02-25",
+      "accession": "0001045810-26-000019",
+      "raw_sha256": "db8bce6920aefef77847471f407a19732d00fef379f0735b02a8a9744eda8027",
+      "revenue_outlook": "numeric",
+      "source": "initial_item202"
+    }
+  ],
+  "selected_slots_each_issuer": 63,
+  "numeric_forward_guidance_each_issuer": {
+    "AMD": 62,
+    "NVDA": 63
+  },
+  "qualitative_early_AMD_accession": "0001193125-11-011350",
+  "excluded_preliminary_accessions": [
+    "0000002488-15-000035",
+    "0000002488-22-000163",
+    "0001045810-22-000133"
+  ],
+  "NVDA_2014_earlier_earnings_without_outlook_accession": "0001045810-14-000071",
+  "earlier_NVDA_release_not_backfilled": true,
+  "new_GETs": 0,
+  "market_outcome_reads": 0,
+  "model_fits": 0,
+  "native_accounts": 0,
+  "numeric_harmonization_qualified": false,
+  "first_public_issuer_clock_qualified": false
+}

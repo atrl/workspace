@@ -166,12 +166,15 @@
     },
     {
       "card": "research/stage1_amd_nvda_sec_guidance_original_probe_20261023",
-      "phase": "four_original_SEC_AMD_NVDA_early_and_recent_anchors_full_history_pending",
+      "phase": "original_SEC_AMD_NVDA_126_quarter_event_slots_identity_complete_numeric_semantics_pending",
       "role": "distinct_multi_issuer_forward_guidance_diffusion_source",
       "full_economic_experiment": false,
-      "status": "source_only_no_fit_or_account",
+      "status": "source_identity_only_no_fit_or_account",
       "execution_authorized": false,
-      "result": "research/stage1_amd_nvda_sec_guidance_original_probe_20261023/summary.json"
+      "result": "research/stage1_amd_nvda_sec_guidance_original_probe_20261023/summary.json",
+      "original_inventory_result": "research/stage1_amd_nvda_sec_guidance_original_probe_20261023/item202_inventory_result.json",
+      "quarter_event_result": "research/stage1_amd_nvda_sec_guidance_original_probe_20261023/quarter_event_adjudication_result.json",
+      "independent_source_review": "research/stage1_amd_nvda_sec_guidance_original_probe_20261023/independent_source_review.json"
     }
   ],
   "framework": [

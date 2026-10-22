@@ -1,27 +1,48 @@
 {
   "experiment": "stage1_amd_nvda_sec_guidance_original_probe_20261023",
-  "decision": "four_original_SEC_AMD_NVDA_guidance_anchors_passed_full_history_semantics_pending",
+  "decision": "AMD_NVDA_original_SEC_forward_guidance_126_quarter_event_identities_complete_numeric_harmonization_pending",
   "objective_achieved": false,
-  "plan_sha256": "d50c0ed051408983f0c374f588446ddebe24657bc7ab0730fe9cdc34e8f2f656",
-  "result": "result.json",
-  "anchors": 4,
-  "issuers": [
-    "AMD",
-    "NVDA"
-  ],
-  "early_revenue_guidance_form": "sequential_percentage_range",
-  "recent_revenue_guidance_form": "absolute_dollar_amount_plus_or_minus",
-  "NAS_archive_sha256": "5b30803141ac0368d71b6fa9b045360f9f04ac3c1ab7ef6d7305bd04cfe3781a",
-  "NAS_scoped_restore_verified": true,
-  "first_public_clock_qualified": false,
+  "stages": {
+    "four_anchor": "result.json",
+    "SEC_current_catalogs": "main_submissions_result.json",
+    "SEC_older_failed_strict_edge": "older_submissions_result.json",
+    "SEC_older_catalog_range_repair": "older_repair_result.json",
+    "Item202_full_original_inventory": "item202_inventory_result.json",
+    "eleven_nonmatch_semantics": "item202_nonmatch_repair_result.json",
+    "quarter_event_identity": "quarter_event_adjudication_result.json"
+  },
+  "source_identity": {
+    "issuers": [
+      "AMD",
+      "NVDA"
+    ],
+    "candidate_Item202_original_submissions": 133,
+    "quarter_event_slots_each": 63,
+    "AMD_numeric_forward": 62,
+    "AMD_qualitative_forward_unknown": 1,
+    "NVDA_numeric_forward": 63,
+    "initial_false_positive_preliminary_excluded": 3,
+    "NVDA_2014_later_outlook_not_backdated": true
+  },
+  "NAS": {
+    "four_anchors": "5b30803141ac0368d71b6fa9b045360f9f04ac3c1ab7ef6d7305bd04cfe3781a",
+    "current_catalogs": "4506b7bd2a6e53625b2fd3193efc9aef9e20af55696ad7e80b0a061ecfb0f8ee",
+    "older_partial_strict_failure": "ee70cb8ae038c4e75bfdd9c42e15af9b381b3f361ff5e20fe9818d1ed8e0221e",
+    "older_repair": "62676e05e11c72041033a4d1ad8af3da78248028a303c2b6d7ca8a1d1ecf8998",
+    "all_Item202_full_originals": "8273fd8c00608f5b2f1faf81368b9f3c238919f297b5d868c8af319b115d9cee",
+    "all_remote_and_scoped_restore_verified": true
+  },
+  "first_public_issuer_clock_qualified": false,
   "numeric_harmonization_qualified": false,
+  "Qlib_feature_mapped": false,
   "market_outcome_reads": 0,
   "model_fits": 0,
   "native_accounts": 0,
-  "next_action": "Freeze issuer-specific SEC 8-K accession index and original quarterly earnings exhibit inventory, then normalize only explicitly reported next-quarter revenue guidance to a comparable sequential-growth coordinate without outcome reads. Check original filing acceptance and NAS identity before any Stage1 information screen.",
+  "next_action": "Freeze issuer-specific numeric next-quarter revenue-growth semantics across percent and absolute outlook formats; keep AMD early qualitative event unknown and NVDA May2014 later guidance at its own filing date. After original filing availability, missingness and Stage1 39 redundancy checks, permit at most one fixed multi-issuer diffusion information screen. No 0bp account until source and information gates pass.",
   "artifact_policy": {
     "policy": "slim_card_recorder_first",
     "workflow_config": "workflow.yaml",
     "recorder_only_artifacts": []
-  }
+  },
+  "independent_source_review": "independent_source_review.json"
 }

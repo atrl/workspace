@@ -1,0 +1,15 @@
+[
+  {
+    "issuer": "NVDA",
+    "url": "https://data.sec.gov/submissions/CIK0001045810-submissions-001.json",
+    "requested_at_utc": "2026-10-22T21:57:48.853444+00:00",
+    "received_at_utc": "2026-10-22T21:57:50.249381+00:00",
+    "curl_exit_code": 0,
+    "http_status": 200,
+    "final_url": "https://data.sec.gov/submissions/CIK0001045810-submissions-001.json",
+    "stderr": "",
+    "raw_sha256": "4a3b5cc6b698ff2e49cd4ef95539964b0690bccc5882ac3db8ffd2c4b7fce99c",
+    "raw_bytes": 239281,
+    "headers_sha256": "0c3a01f72f1596ef5e8dff4372fea55579465923fc57d036719004afd516e805"
+  }
+]

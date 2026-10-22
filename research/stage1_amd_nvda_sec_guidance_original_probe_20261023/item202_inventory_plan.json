@@ -1,0 +1,37 @@
+{
+  "schema_version": 1,
+  "frozen": true,
+  "phase": "official_SEC_AMD_NVDA_item_2_02_2011_2026_full_original_quarterly_outlook_inventory",
+  "parent_results_sha256": {
+    "four_anchor": "8a318bbcf94995f9834d8d44736fe21b08344cf4fcd2b5302bf52c037bcfa642",
+    "main_submissions": "d40f55eb1a3a96fd9ad58b9f053ab15dec90df02ecf9ce0d2f575a1422356a38",
+    "older_repair": "5f09ccb56ec9ea496a7c4c76d829e87a962f2ccc4ca2991caffcdd1f00f687f9"
+  },
+  "raw_index_sha256": {
+    "nvda_main_submissions.json": "682c49d59116ae49b317eb4adddf3ef9142dfd97f59c5d8e5a5acad7f9058ab4",
+    "nvda_older_submissions.json": "4a3b5cc6b698ff2e49cd4ef95539964b0690bccc5882ac3db8ffd2c4b7fce99c",
+    "amd_main_submissions.json": "ab1f62c1fc1c04ff4022ac902f0184e2bc8d6f5c23d18f9538ab6cf39bc64420",
+    "amd_older_submissions.json": "8d784eaa4df0f1af2b3a2cc2964ad59d2702fb7f2c066737b6c322cbc3725530"
+  },
+  "universe": "Issuer CIK 0001045810 NVIDIA and 0000002488 AMD; Form 8-K with items metadata containing 2.02; filing date 2011-01-01 through 2026-10-23 inclusive; all accessions from official current+history JSON, independent of market outcomes. Expected 66 NVDA plus67 AMD unique accessions.",
+  "exact_request_template": "https://www.sec.gov/Archives/edgar/data/{cik_integer}/{accession_no_hyphen}/{accession}.txt",
+  "request": {
+    "GETs_max": 133,
+    "per_accession_GETs_max": 1,
+    "retries": 0,
+    "connect_timeout_seconds": 10,
+    "total_timeout_seconds_each": 60,
+    "max_response_bytes_each": 8000000,
+    "seconds_between_requests": 1,
+    "user_agent": "SOXL Qlib research source audit research@atrl.me"
+  },
+  "identity_gate": "Each HTTP200 full SEC-DOCUMENT must match accession, issuer CIK and original acceptance header. Parse only 8-K and EX-99.1 HTML text; classify explicit issuer quarter results plus next-quarter revenue outlook, preserve nonmatches and duplicate quarter filings. Do not choose a first version before seeing all same-quarter source identities. Stop and preserve partial raw on any transport/header failure.",
+  "backup": "Archive all raw submissions and response headers, capture clocks/SHA256, manifest, NAS remote digest and scoped member restore. Keep raw local outside Git.",
+  "budget": {
+    "market_outcome_reads": 0,
+    "Qlib_calls": 0,
+    "model_fits": 0,
+    "native_accounts": 0
+  },
+  "scientific_boundary": "This is source identity and coverage only. Fiscal/calendar quarter, percentage-versus-amount normalization, acquisitions, first-public timing, 39-control redundancy, information gate and funded 0bp account are separate frozen phases."
+}

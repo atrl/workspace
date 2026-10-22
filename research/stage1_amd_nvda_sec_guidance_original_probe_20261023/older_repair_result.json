@@ -1,0 +1,42 @@
+{
+  "status": "AMD_NVDA_SEC_8K_metadata_2011_2026_coverage_passed_catalog_edge_repair",
+  "failure": null,
+  "plan_sha256": "1f6f7b49c256296a747c6b5fe292f27f9198fdd6674246a3b43067c466373446",
+  "cumulative_GET_attempts": 2,
+  "repair_GET_attempts": 1,
+  "checks": [
+    {
+      "issuer": "NVDA",
+      "raw_sha256": "4a3b5cc6b698ff2e49cd4ef95539964b0690bccc5882ac3db8ffd2c4b7fce99c",
+      "older_rows": 1489,
+      "catalog_from": "1998-03-06",
+      "catalog_to": "2020-09-15",
+      "actual_first": "1998-03-06",
+      "actual_last": "2020-09-14",
+      "start_edge_gap_days": 0,
+      "end_edge_gap_days": 1,
+      "combined_2011_2026_8K_count": 152,
+      "8K_years": 16
+    },
+    {
+      "issuer": "AMD",
+      "raw_sha256": "8d784eaa4df0f1af2b3a2cc2964ad59d2702fb7f2c066737b6c322cbc3725530",
+      "older_rows": 2001,
+      "catalog_from": "2003-08-26",
+      "catalog_to": "2017-12-16",
+      "actual_first": "2003-08-26",
+      "actual_last": "2017-12-14",
+      "start_edge_gap_days": 0,
+      "end_edge_gap_days": 2,
+      "combined_2011_2026_8K_count": 213,
+      "8K_years": 16
+    }
+  ],
+  "initial_partial_NAS_archive_sha256": "ee70cb8ae038c4e75bfdd9c42e15af9b381b3f361ff5e20fe9818d1ed8e0221e",
+  "repair_NAS_archive_sha256": "62676e05e11c72041033a4d1ad8af3da78248028a303c2b6d7ca8a1d1ecf8998",
+  "NAS_remote_and_scoped_restore_verified": true,
+  "original_quarterly_guidance_coverage_qualified": false,
+  "market_outcome_reads": 0,
+  "model_fits": 0,
+  "native_accounts": 0
+}

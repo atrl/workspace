@@ -1,0 +1,28 @@
+[
+  {
+    "issuer": "NVDA",
+    "raw_sha256": "4a3b5cc6b698ff2e49cd4ef95539964b0690bccc5882ac3db8ffd2c4b7fce99c",
+    "older_rows": 1489,
+    "catalog_from": "1998-03-06",
+    "catalog_to": "2020-09-15",
+    "actual_first": "1998-03-06",
+    "actual_last": "2020-09-14",
+    "start_edge_gap_days": 0,
+    "end_edge_gap_days": 1,
+    "combined_2011_2026_8K_count": 152,
+    "8K_years": 16
+  },
+  {
+    "issuer": "AMD",
+    "raw_sha256": "8d784eaa4df0f1af2b3a2cc2964ad59d2702fb7f2c066737b6c322cbc3725530",
+    "older_rows": 2001,
+    "catalog_from": "2003-08-26",
+    "catalog_to": "2017-12-16",
+    "actual_first": "2003-08-26",
+    "actual_last": "2017-12-14",
+    "start_edge_gap_days": 0,
+    "end_edge_gap_days": 2,
+    "combined_2011_2026_8K_count": 213,
+    "8K_years": 16
+  }
+]

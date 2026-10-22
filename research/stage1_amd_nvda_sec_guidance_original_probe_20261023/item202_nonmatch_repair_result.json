@@ -1,0 +1,197 @@
+{
+  "status": "eleven_original_Item202_nonmatches_source_semantics_adjudicated_no_outcomes",
+  "plan_sha256": "1beb075c2398110e16a6abbfe059ff1fb7292ecc068f9b04f901d9a96a283273",
+  "parent_inventory_result_sha256": "f6fe5cbae488dfed86e47df8e90edbc964282e560affab8a6d19ed9388ffcfd6",
+  "rows": [
+    {
+      "issuer": "AMD",
+      "filed": "2011-01-21",
+      "accession": "0001193125-11-011350",
+      "raw_sha256": "9cf756c92cf2a5915106fb080451e7eea31ed3dace354279c000b62c19c0e106",
+      "classification": "earnings_qualitative_next_quarter_outlook",
+      "reason": "AMD revenue outlook says flat to slightly down sequentially; no numeric point/range",
+      "evidence": [
+        {
+          "type": "8-K",
+          "filename": "d8k.htm",
+          "excerpt": "ded December 26, 2009, consisted of Foundry segment and Intersegment Eliminations consisting of net revenue, cost of sales, and profits on inventory between AMD Product Company and the Foundry segment. The Company has also provided certain balance sheet line items that exclude the Foundry segment. The Company is providing these non-GAAP financial measures because the Company be"
+        },
+        {
+          "type": "EX-99.1",
+          "filename": "dex991.htm",
+          "excerpt": "ruth.cotter@amd.com AMD Reports Fourth Quarter and Annual Results Fourth Quarter 2010 Results \u2022 AMD revenue $1.65 billion, 2 percent sequential increase and flat year-over-year \u2022 Net income $375 million, EPS $0.50, operating income $413 million \u2022 Non-GAAP (1,2) net income $106 million, EPS $0.14, operating income $141 million \u2022 Gross margin 45 percent 2010 Annual Results \u2022 AMD "
+        }
+      ]
+    },
+    {
+      "issuer": "AMD",
+      "filed": "2012-10-11",
+      "accession": "0001193125-12-421061",
+      "raw_sha256": "a75d29c60f8a16da7ebd8575c49ecabeeb1d582c5d109235e1f9509aa8ed3413",
+      "classification": "preliminary_current_quarter_update",
+      "reason": "AMD preliminary third-quarter results, not completed-quarter release plus following-quarter outlook",
+      "evidence": [
+        {
+          "type": "EX-99.1",
+          "filename": "d422859dex991.htm",
+          "excerpt": "5 drew.prairie@amd.com Investor Contact: Ruth Cotter 408-749-3887 ruth.cotter@amd.com AMD Announces Preliminary Third Quarter Results \u2014 Revenue Expected to Decrease Approximately 10 Percent Sequentially; Gross Margin Expected to Be Approximately 31 Percent \u2014 SUNNYVALE, Calif. \u2013 Oct 11, 2012 \u2013 AMD (NYSE:AMD) today announced that revenue for the third quarter ended September 29, "
+        }
+      ]
+    },
+    {
+      "issuer": "AMD",
+      "filed": "2018-02-27",
+      "accession": "0000002488-18-000043",
+      "raw_sha256": "d4b66f68a2fc934f5f045fa5259b7011a4e6284b541db6416a43d12e07e2142d",
+      "classification": "unrelated_accounting_standard_adoption",
+      "reason": "AMD ASC 606 adoption exhibit, not quarterly earnings/outlook",
+      "evidence": [
+        {
+          "type": "8-K",
+          "filename": "a6form8-kasc606disclosurev.htm",
+          "excerpt": "andard for revenue recognition, ASU No. 2014-09, Revenue from Contracts with Customers: Topic 606 (\u201cASC 606\u201d). Item 7.01 Regulation FD Disclosure. The Company adopted ASC 606 in the first quarter of 2018. The Company is furnishing Exhibit 99.1 as supplemental information regarding ASC 606. To supplement the Company\u2019s financial results presented on a U.S. Generally Accepted Acco"
+        },
+        {
+          "type": "EX-99.1",
+          "filename": "asc606overview.htm",
+          "excerpt": "Exhibit AMD Adoption of ASC 606 Revenue Recognition Accounting Standard February 27, 2018 Reconciliation for all non-GAAP financial measures discussed in this document to the most directly comparable GAAP financial measures is included below . New Revenue Recognition Accounting Standard AMD adopted the "
+        }
+      ]
+    },
+    {
+      "issuer": "AMD",
+      "filed": "2020-07-28",
+      "accession": "0000002488-20-000101",
+      "raw_sha256": "5070b9719cf68d4289b088c5f6ca65aa8d6be52257be0d6c0d6983b4e00dc74b",
+      "classification": "numeric_forward_parser_false_negative",
+      "reason": "AMD formal Current Outlook has approximately $2.55 billion plus/minus $100 million for next quarter",
+      "evidence": [
+        {
+          "type": "EX-99.1",
+          "filename": "q22020991.htm",
+          "excerpt": "actors and the factors set forth under \u201cCautionary Statement\u201d below. For the third quarter of 2020, AMD expects revenue to be approximately $2.55 billion, plus or minus $100 million, an increase of approximately 42 percent year-over-year and 32 percent sequentially. The year-over-year and sequential increases are expected to be primarily driven by Ryzen and EPYC processor sales"
+        }
+      ]
+    },
+    {
+      "issuer": "AMD",
+      "filed": "2021-01-26",
+      "accession": "0000002488-21-000009",
+      "raw_sha256": "ed2df5622e46228886ec03d7e1abbc2c05b5e446772b126cbaf9088da50c614f",
+      "classification": "numeric_forward_parser_false_negative",
+      "reason": "AMD formal Current Outlook has approximately $3.2 billion plus/minus $100 million for next quarter",
+      "evidence": [
+        {
+          "type": "EX-99.1",
+          "filename": "q420991.htm",
+          "excerpt": "itions and the factors set forth under \u201cCautionary Statement\u201d below. For the first quarter of 2021, AMD expects revenue to be approximately $3.2 billion, plus or minus $100 million, an increase of approximately 79 percent year-over-year and down 1 percent sequentially. The year-over-year increase is expected to be driven by growth in all businesses. AMD expects non-GAAP gross m"
+        }
+      ]
+    },
+    {
+      "issuer": "AMD",
+      "filed": "2025-05-06",
+      "accession": "0000002488-25-000045",
+      "raw_sha256": "900c568fbe1fa3f3cfde97e0491a3546515ac144b721b24e2da6f1c1c94acc19",
+      "classification": "numeric_forward_parser_false_negative",
+      "reason": "AMD formal Current Outlook has approximately $7.4 billion plus/minus $300 million for next quarter",
+      "evidence": [
+        {
+          "type": "EX-99.1",
+          "filename": "q12025991.htm",
+          "excerpt": "tions and the factors set forth under \u201cCautionary Statement\u201d below. For the second quarter of 2025, AMD expects revenue to be approximately $7.4 billion, plus or minus $300 million. Non-GAAP gross margin is estimated to be 43% inclusive of approximately $800 million in charges for inventory and related reserves due to the new export controls as previously disclosed in AMD\u2019s Cur"
+        }
+      ]
+    },
+    {
+      "issuer": "NVDA",
+      "filed": "2014-02-12",
+      "accession": "0001045810-14-000004",
+      "raw_sha256": "5f1dba2a28424d7205bd82f9373f4fc2d56aef2bde62af2c9c611a5aae8d10a8",
+      "classification": "numeric_forward_parser_false_negative",
+      "reason": "NVIDIA formal next-quarter outlook has approximately $1.05 billion plus/minus two percent",
+      "evidence": [
+        {
+          "type": "EX-99.1",
+          "filename": "q414pr.htm",
+          "excerpt": "tics applications with GPUs. NVIDIA\u2019s outlook for the first quarter of fiscal 2015 is as follows: \u2022 Revenue is expected to be $1.05 billion, plus or minus two percent. \u2022 GAAP and non-GAAP gross margins are expected to be approximately 54.2 percent and 54.5 percent, respectively. \u2022 GAAP operating expenses are expected to be approximately $454 million; non-GAAP operating expenses"
+        }
+      ]
+    },
+    {
+      "issuer": "NVDA",
+      "filed": "2014-05-06",
+      "accession": "0001045810-14-000071",
+      "raw_sha256": "10c6eee9d83fc6217baa0af2a07a9bcb940ef9d000cab12b451c576aeb8b357f",
+      "classification": "earnings_no_same_release_numeric_outlook",
+      "reason": "NVIDIA first-quarter earnings release says additional financial outlook will follow May 8; no same-release numeric next-quarter revenue",
+      "evidence": [
+        {
+          "type": "EX-99.1",
+          "filename": "q115pressrelease.htm",
+          "excerpt": " NVIDIA will provide its full results for the first quarter, along with additional commentary and a financial outlook, on Thursday, May 8, 2014, as initially scheduled. Non-GAAP Measures To supplement NVIDIA\u2019s Condensed Consolidated Statements of Operations and Condensed Consolidated Balance Sheets presented in accordance with GAAP, the company uses non-GAAP measures of certain"
+        }
+      ]
+    },
+    {
+      "issuer": "NVDA",
+      "filed": "2019-01-28",
+      "accession": "0001045810-19-000004",
+      "raw_sha256": "5705fdc27d07bd8f6414b6705b4876a2cdf5ad3dde909db7334e41c4323b9512",
+      "classification": "preliminary_current_quarter_update",
+      "reason": "NVIDIA updates current Q4 fiscal 2019 guidance before final quarterly results",
+      "evidence": [
+        {
+          "type": "EX-99.1",
+          "filename": "pressrelease.htm",
+          "excerpt": "ial results on Feb. 14 earnings call SANTA CLARA, Calif.-Jan. 28, 2019- NVIDIA (NASDAQ: NVDA) today updated its financial guidance for the fourth quarter of fiscal year 2019, reflecting weaker than forecasted sales of its Gaming and Datacenter platforms. In Gaming, NVIDIA\u2019s previous fourth-quarter guidance had embedded a sequential decline due to excess mid-range channel invent"
+        }
+      ]
+    },
+    {
+      "issuer": "NVDA",
+      "filed": "2019-11-14",
+      "accession": "0001045810-19-000168",
+      "raw_sha256": "ff6cb34ea2482abd70fc1154f899d79c9053f5124a753b1ae9cfee572b0fa150",
+      "classification": "numeric_forward_unusual_SEC_exhibit_type",
+      "reason": "NVIDIA next-quarter earnings press release embedded as SEC EX-95.1 q3fy20pr.htm, rather than EX-99.1",
+      "evidence": [
+        {
+          "type": "EX-95.1",
+          "filename": "q3fy20pr.htm",
+          "excerpt": "020 does not include any contribution from the pending acquisition of Mellanox and is as follows: \u2022 Revenue is expected to be $2.95 billion, plus or minus 2 percent. Strong sequential growth is expected in Data Center, offset by a seasonal decline in GeForce\u00ae notebook GPUs and SoC modules for gaming platforms. \u2022 GAAP and non-GAAP gross margins are expected to be 64.1 percent an"
+        }
+      ]
+    },
+    {
+      "issuer": "NVDA",
+      "filed": "2023-05-24",
+      "accession": "0001045810-23-000087",
+      "raw_sha256": "baaab4a4b0fa410d950e489741308ef48247fc47695dc8bfc0e83dd2e51caa73",
+      "classification": "numeric_forward_parser_false_negative",
+      "reason": "NVIDIA next-quarter outlook has $11.00 billion plus/minus 2 percent",
+      "evidence": [
+        {
+          "type": "EX-99.1",
+          "filename": "q1fy24pr.htm",
+          "excerpt": ".36 Up 24% Down 20% Outlook NVIDIA\u2019s outlook for the second quarter of fiscal 2024 is as follows: \u2022 Revenue is expected to be $11.00 billion, plus or minus 2%. \u2022 GAAP and non-GAAP gross margins are expected to be 68.6% and 70.0%, respectively, plus or minus 50 basis points. \u2022 GAAP and non-GAAP operating expenses are expected to be approximately $2.71 billion and $1.90 billion, "
+        }
+      ]
+    }
+  ],
+  "category_counts": {
+    "earnings_no_same_release_numeric_outlook": 1,
+    "earnings_qualitative_next_quarter_outlook": 1,
+    "numeric_forward_parser_false_negative": 5,
+    "numeric_forward_unusual_SEC_exhibit_type": 1,
+    "preliminary_current_quarter_update": 2,
+    "unrelated_accounting_standard_adoption": 1
+  },
+  "numeric_forward_recovered": 6,
+  "genuine_no_numeric_next_quarter_outlook": 2,
+  "nonquarter_or_unrelated": 3,
+  "new_GETs": 0,
+  "market_outcome_reads": 0,
+  "model_fits": 0,
+  "native_accounts": 0
+}

@@ -1,0 +1,13 @@
+{
+  "status": "bounded_AMD_NVDA_SEC_history_partial_or_failed",
+  "failure": "nvda_schema_AssertionError_",
+  "plan_sha256": "4ebac70bf0afedca7db1c23a419aa6077fa638148a12fd1891f2caf409f5e931",
+  "GET_attempts": 1,
+  "checks": [],
+  "NAS_archive_sha256": "ee70cb8ae038c4e75bfdd9c42e15af9b381b3f361ff5e20fe9818d1ed8e0221e",
+  "NAS_remote_and_scoped_restore_verified": true,
+  "original_quarterly_guidance_coverage_qualified": false,
+  "market_outcome_reads": 0,
+  "model_fits": 0,
+  "native_accounts": 0
+}

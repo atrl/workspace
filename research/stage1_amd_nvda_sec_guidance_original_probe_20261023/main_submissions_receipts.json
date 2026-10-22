@@ -1,0 +1,28 @@
+[
+  {
+    "issuer": "NVDA",
+    "url": "https://data.sec.gov/submissions/CIK0001045810.json",
+    "requested_at_utc": "2026-10-22T21:57:00.262061+00:00",
+    "received_at_utc": "2026-10-22T21:57:01.329386+00:00",
+    "curl_exit_code": 0,
+    "http_status": 200,
+    "final_url": "https://data.sec.gov/submissions/CIK0001045810.json",
+    "stderr": "",
+    "raw_sha256": "682c49d59116ae49b317eb4adddf3ef9142dfd97f59c5d8e5a5acad7f9058ab4",
+    "raw_bytes": 159761,
+    "headers_sha256": "a8b8f9bb7490a0d94d04b23355749cf0ef71c8a1d7dfe9ba71b5914fd82ddd72"
+  },
+  {
+    "issuer": "AMD",
+    "url": "https://data.sec.gov/submissions/CIK0000002488.json",
+    "requested_at_utc": "2026-10-22T21:57:02.339867+00:00",
+    "received_at_utc": "2026-10-22T21:57:03.446548+00:00",
+    "curl_exit_code": 0,
+    "http_status": 200,
+    "final_url": "https://data.sec.gov/submissions/CIK0000002488.json",
+    "stderr": "",
+    "raw_sha256": "ab1f62c1fc1c04ff4022ac902f0184e2bc8d6f5c23d18f9538ab6cf39bc64420",
+    "raw_bytes": 162189,
+    "headers_sha256": "de4fc3fc79cf52cb768d9e08aa17b3c21b9f06f2a9819fbad85bd587c65b5dd4"
+  }
+]

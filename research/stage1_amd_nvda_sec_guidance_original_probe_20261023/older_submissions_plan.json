@@ -1,0 +1,45 @@
+{
+  "schema_version": 1,
+  "frozen": true,
+  "phase": "declared_SEC_submissions_history_2011_2026_AMD_NVDA",
+  "parent_main_result_sha256": "d40f55eb1a3a96fd9ad58b9f053ab15dec90df02ecf9ce0d2f575a1422356a38",
+  "exact_requests": [
+    {
+      "issuer": "NVDA",
+      "CIK": "0001045810",
+      "name": "CIK0001045810-submissions-001.json",
+      "url": "https://data.sec.gov/submissions/CIK0001045810-submissions-001.json",
+      "expected_catalog_count": 1489,
+      "expected_filing_from": "1998-03-06",
+      "expected_filing_to": "2020-09-15"
+    },
+    {
+      "issuer": "AMD",
+      "CIK": "0000002488",
+      "name": "CIK0000002488-submissions-001.json",
+      "url": "https://data.sec.gov/submissions/CIK0000002488-submissions-001.json",
+      "expected_catalog_count": 2001,
+      "expected_filing_from": "2003-08-26",
+      "expected_filing_to": "2017-12-16"
+    }
+  ],
+  "excluded_declared_older_file": "CIK0000002488-submissions-002.json ends 2003-08-24 and is outside Stage1 2011-2026 scope",
+  "request": {
+    "GETs_max": 2,
+    "retries": 0,
+    "connect_timeout_seconds": 10,
+    "total_timeout_seconds_each": 60,
+    "max_response_bytes_each": 8000000,
+    "seconds_between_requests": 1,
+    "user_agent": "SOXL Qlib research source audit research@atrl.me"
+  },
+  "identity_gate": "Official history JSON exact catalog name/count/date ranges; parallel arrays equal length, unique accession; combine with current main arrays without overlapping accessions; each issuer must contain 2011-2026 quarterly earnings-month 8-K metadata candidates. Stop at first failure.",
+  "backup": "Raw JSON/headers NAS remote digest and scoped restore.",
+  "budget": {
+    "market_outcome_reads": 0,
+    "Qlib_calls": 0,
+    "model_fits": 0,
+    "native_accounts": 0
+  },
+  "scientific_boundary": "Metadata only; no 8-K exhibit identity, numeric forecast harmonization, first-public clock, info test or account."
+}

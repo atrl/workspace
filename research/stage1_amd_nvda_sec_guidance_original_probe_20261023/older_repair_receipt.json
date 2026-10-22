@@ -1,0 +1,13 @@
+{
+  "issuer": "AMD",
+  "url": "https://data.sec.gov/submissions/CIK0000002488-submissions-001.json",
+  "requested_at_utc": "2026-10-22T21:58:45.057669+00:00",
+  "received_at_utc": "2026-10-22T21:58:46.412821+00:00",
+  "curl_exit_code": 0,
+  "http_status": 200,
+  "final_url": "https://data.sec.gov/submissions/CIK0000002488-submissions-001.json",
+  "stderr": "",
+  "raw_sha256": "8d784eaa4df0f1af2b3a2cc2964ad59d2702fb7f2c066737b6c322cbc3725530",
+  "raw_bytes": 315948,
+  "headers_sha256": "0c712c9bb88abdd31a4d19d1882936638b5b5ac8ee9b9cad0f08ba517e84e641"
+}

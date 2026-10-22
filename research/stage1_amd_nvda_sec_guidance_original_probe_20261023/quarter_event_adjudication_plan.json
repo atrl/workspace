@@ -1,0 +1,26 @@
+{
+  "schema_version": 1,
+  "frozen": true,
+  "phase": "source_only_AMD_NVDA_quarter_slot_identity_after_133_Item202_originals",
+  "parent_inventory_result_sha256": "f6fe5cbae488dfed86e47df8e90edbc964282e560affab8a6d19ed9388ffcfd6",
+  "parent_nonmatch_repair_result_sha256": "715dce85bc0c441101c92717ea6aa5b5076314e5d17609e3ef83d32bde97838b",
+  "parent_NAS_archive_sha256": "8273fd8c00608f5b2f1faf81368b9f3c238919f297b5d868c8af319b115d9cee",
+  "exact_initial_false_positive_preliminary_accessions": [
+    "0000002488-15-000035",
+    "0000002488-22-000163",
+    "0001045810-22-000133"
+  ],
+  "AMD_qualitative_no_numeric_outlook_accession": "0001193125-11-011350",
+  "NVDA_prior_earnings_no_same_release_numeric_outlook_accession": "0001045810-14-000071",
+  "slot_calendar_rule": "AMD: Jan/Feb Q4 previous calendar year, Apr/May Q1, Jul/Aug Q2, Oct/Nov Q3; NVDA: Feb Q4, May Q1, Aug Q2, Nov Q3. Within issuer+filing year+slot preserve the earliest numeric original outlook; qualitative AMD2011 Jan remains unknown rather than filled; NVDA May2014 no-outlook press release remains separate earlier event and numeric outlook first usable at May8 filing.",
+  "acceptance_timing": "Use original filing-header date only as prospective next Qlib signal lower bound; never backdate later outlook to earlier earnings release or treat API Z as true UTC.",
+  "required_checks": "From 133 source 8-K Item2.02 candidates and 11 nonmatch adjudications, 125 numeric original outlook filings after 3 preliminary exclusions and 1 qualitative AMD filing; 63 issuer-year-quarter slots per issuer through 2026-Aug, no duplicated selected slot, all selected raw hashes/NAS receipt known.",
+  "budget": {
+    "external_GETs": 0,
+    "Qlib_calls": 0,
+    "market_outcome_reads": 0,
+    "model_fits": 0,
+    "native_accounts": 0
+  },
+  "stop": "Any selected slot ambiguity or unsupported missingness stops before numeric harmonization; no outcome read, no market-based selection."
+}
