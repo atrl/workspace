@@ -1,7 +1,9 @@
 experiment: stage1_daily_volume_participation_information_20261022
 notebook: stage1_daily_volume_participation_information_20261022.ipynb
-phase: frozen_information_screen_prefit
+phase: completed_not_promoted_fixed_information_gate
 frozen_plan: plan.json
-source_provider: /Users/rziiiii/dev/workspace/data/qlib/stage1_daily_volume_participation_source_20261022
+provider_uri: /Users/rziiiii/dev/workspace/data/qlib/stage1_daily_volume_participation_source_20261022
 recorder_uri: /Users/rziiiii/dev/workspace/research/stage1_daily_volume_participation_information_20261022/qlib_recorder
+recorder_id: de022bf1c02f4684944bb6cc75394e9a
+result: result_review.json
 artifact_policy: slim_card_recorder_first

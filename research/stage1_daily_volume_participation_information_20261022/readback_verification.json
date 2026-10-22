@@ -1,0 +1,12 @@
+{
+  "status": "native_qlib_negative_information_result_verified",
+  "recorder_id": "de022bf1c02f4684944bb6cc75394e9a",
+  "recorder_status": "FINISHED",
+  "artifact_files": 15,
+  "held_rows": 940,
+  "bootstrap_replicates": 10000,
+  "paired_mse_improvement": -7.737227129110072e-07,
+  "bootstrap_lower": -1.1494766230139097e-05,
+  "information_gate_pass": false,
+  "new_native_accounts": 0
+}

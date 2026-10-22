@@ -1,0 +1,18 @@
+{
+  "status": "uploaded_native_Qlib_information_recorder",
+  "archive_sha256": "beb8e1c74fa540764d27134a2c717db5c78c96c6ddfac40c3bf017b1be8e09b3",
+  "archive_bytes": 219473,
+  "recorder_id": "de022bf1c02f4684944bb6cc75394e9a",
+  "experiment_id": "665088054600939148",
+  "verification_manifest_sha256": "5cdd838b6b9769b44a2552b176cc6bd538644c58b7bcd1dd5205e824b0e9c3f1",
+  "nas_artifact": {
+    "sha256": "beb8e1c74fa540764d27134a2c717db5c78c96c6ddfac40c3bf017b1be8e09b3",
+    "size_bytes": 219473,
+    "media_type": "application/gzip",
+    "storage_uri": "sha256/be/b8/beb8e1c74fa540764d27134a2c717db5c78c96c6ddfac40c3bf017b1be8e09b3",
+    "uploaded_by": "soxl-minute-research",
+    "created_at": "2026-10-22 21:59:43.331116+08",
+    "duplicate": false
+  },
+  "remote_hash_verified": true
+}

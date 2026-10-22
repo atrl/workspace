@@ -1,0 +1,32 @@
+{
+  "status": "not_promoted_fixed_daily_volume_information_failed",
+  "plan_sha256": "06701056bbefed66c2bb74981e6e7d513251df95c7840502df3f822e02500f8c",
+  "training_mature_rows": 3014,
+  "held_mature_rows": 940,
+  "baseline_held_mse": 0.002526266936598172,
+  "candidate_held_mse": 0.002527040659311083,
+  "held_paired_mse_improvement": -7.737227129110072e-07,
+  "held_half_paired_improvements": [
+    3.1102466988239078e-06,
+    -5.2252127692829865e-06
+  ],
+  "candidate_standardized_coordinate_coefficient": 0.0008837264726611078,
+  "bootstrap_lower": -1.1494766230139097e-05,
+  "bootstrap_upper": 1.122333721791286e-05,
+  "bootstrap": {
+    "paired_mean_loss_improvement": -7.737227129110072e-07,
+    "lower_bound": -1.1494766230139097e-05,
+    "upper_bound": 1.122333721791286e-05,
+    "valid_replicates": 10000,
+    "invalid_replicates": 0,
+    "calendar_rows": 940,
+    "scored_rows": 940
+  },
+  "information_gate_pass": false,
+  "new_model_fits": 2,
+  "new_bootstraps": 1,
+  "new_native_accounts": 0,
+  "historical_independence": false,
+  "historical_first_receipt_certified": false,
+  "recorder_id": "de022bf1c02f4684944bb6cc75394e9a"
+}
