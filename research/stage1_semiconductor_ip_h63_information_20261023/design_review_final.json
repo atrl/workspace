@@ -1,0 +1,29 @@
+{
+  "verdict": "HOLD_DUPLICATE",
+  "scope": "Exact frozen Fed semiconductor IP same-vintage MoM H63 information version before any fit or account",
+  "plan_sha256": "8049bf5ae2fd36cd9df3c2ea18db2de7af3c3074c4e0cc4f1a569f997673ea93",
+  "preflight_sha256": "4f20f5c7a0c563fc3af66191ac8930a5288d082f3e7df566324e8e04ad4c0e84",
+  "preflight_cell_source_sha256": "bc5324f314b9e5b9009c4723f292f0adbc07eab5ff971523bc3020477ef0c95e",
+  "fit_cell_source_sha256": "86e9bd6bb85e09795eaab23976a24b8ec10098306b81ba7c9b12f4fd5af6b0a2",
+  "prior_closed_route": {
+    "card": "research/stage1_semiconductor_ip_information_20261022",
+    "plan_sha256": "10771d60278a769cea85791487cc980b9a5636eecfd2ae4f9bdf226f7d9e98e5",
+    "summary_sha256": "dab4e5aef57f9b0b766c3af1005036d15b56e9a7876fdcdb9ac41bc8c119881b",
+    "decision": "not_promoted_fixed_Stage1_IP_information_failed",
+    "model_fits": 2,
+    "candidate": "The same `ip_mom_pct_same_vintage` from source Recorder 9582d430c4b048b7b6623a99161ed71b on original Stage1 39 inputs, with shared release-age and index-base controls, positive-sign Ridge information gate and reused 2023-2026 history.",
+    "failed_result": "Candidate coefficient -0.00359828, paired MSE improvement -0.0001121125, both halves negative and block lower bound -0.0002327818; the fixed source/receiver/label route was closed."
+  },
+  "blocking_reason": "The new card reuses the same physical-production source coordinate, original Stage1 receiver, sign hypothesis and reused held history. It changes the prediction label from H5 to H63 and the bootstrap block from 63 to 126 sessions, while removing the prior shared source-age and base-year controls. This is a horizon/control re-screen of the failed fixed mechanism on the same market history, contrary to the closed-route no-window-rescue boundary.",
+  "mechanical_status": "The original H63 fit cell had undefined prepared-frame names and H5 row-count assertions. mechanical_fit_frame_repair_plan.json records a bounded pre-fit fix; the current fit-cell SHA above reflects it. Mechanical executability does not resolve the duplicate scientific route.",
+  "preflight_observations": {
+    "source_calendar_rows_train_held": [3020, 944],
+    "mature_H63_rows_train_held": [2956, 882],
+    "unknown_candidate_rows_train_held": [0, 0],
+    "max_abs_training_pairwise_pearson": 0.3038443091334817,
+    "historical_first_receipt_qualified": false
+  },
+  "minimum_action": "Close this H63 version before fit and retain the no-fit receipt and mechanical repair record. A future screen requires a materially different falsifiable mechanism or genuinely new independent evidence; do not rescue the same MoM coordinate by horizon, sign, source-age, or control changes on reused history.",
+  "new_model_fits": 0,
+  "new_native_accounts": 0
+}

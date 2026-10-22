@@ -1,0 +1,64 @@
+{
+  "experiment": "stage1_intraday_signed_volume_action_source_20261023",
+  "decision": "conditional_source_gate_passed_first_receipt_unqualified_no_fit",
+  "objective_achieved": false,
+  "plan_sha256": "442628abc3346de83dbab6e972cc22157924b8e8cd2fccc1b8d320b1d44d96ac",
+  "source_provider_manifest_sha256": "e2d97bd4dc00cdb231f7aa926799efcbc6f0d613ca197fbe04e86db1f074bf4e",
+  "source_NAS_archive_sha256": "ee328cab292f178bf3582ef574fb411561c93b82545cd3bb90842ecd9a9a24f1",
+  "source_rows": 779280,
+  "source_calendar_days": 2006,
+  "training_calendar_days": 1061,
+  "training_known_days": 1060,
+  "held_calendar_days": 944,
+  "held_known_days": 944,
+  "known_fractions": {
+    "training": 0.9990574929311969,
+    "held": 1.0
+  },
+  "source_gate_passed": true,
+  "unknown_training_dates": [
+    "2020-03-16"
+  ],
+  "unknown_held_dates": [],
+  "status_counts": {
+    "known": 2005,
+    "invalid_first_hour_bar": 1
+  },
+  "first_receipt_and_finality_qualified": false,
+  "new_market_requests": 0,
+  "market_outcome_label_reads": 0,
+  "model_fits": 0,
+  "native_accounts": 0,
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "inputs/*",
+      "analysis/daily",
+      "analysis/source_first_hour"
+    ]
+  },
+  "recorder_id": "723f406c9a234790b6a96939754edd44",
+  "experiment_id": "396607154083198663",
+  "recorder_uri": "/Users/rziiiii/dev/workspace/research/stage1_intraday_signed_volume_action_source_20261023/qlib_recorder",
+  "nas_evidence": {
+    "sha256": "d30fd02d711780dd117366be348f6464e4f3f2404145949537ef2569b046e81d",
+    "size_bytes": 7212539,
+    "media_type": "application/gzip",
+    "storage_uri": "sha256/d3/0f/d30fd02d711780dd117366be348f6464e4f3f2404145949537ef2569b046e81d",
+    "uploaded_by": "soxl-minute-research",
+    "created_at": "2026-10-23 04:13:22.008893+08",
+    "duplicate": false,
+    "nas_path": "/volume1/docker/yanxuan/registry/research-artifacts/d3/0f/d30fd02d711780dd117366be348f6464e4f3f2404145949537ef2569b046e81d",
+    "recorder_id": "723f406c9a234790b6a96939754edd44",
+    "experiment_id": "396607154083198663",
+    "archive_root": "qlib_recorder"
+  },
+  "nas_readback": {
+    "sha256": "d30fd02d711780dd117366be348f6464e4f3f2404145949537ef2569b046e81d",
+    "bytes": 7212539,
+    "verified": true
+  },
+  "verification_manifest": "verification_manifest.json",
+  "nas_scoped_restore": "nas_scoped_restore.json"
+}

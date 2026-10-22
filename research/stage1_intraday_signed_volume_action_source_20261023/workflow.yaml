@@ -1,0 +1,4 @@
+experiment: stage1_intraday_signed_volume_action_source_20261023
+notebook: stage1_intraday_signed_volume_action_source_20261023.ipynb
+phase: Qlib_source_only_first_hour_signed_volume_for_Stage1_recovery
+artifact_policy: slim_card_recorder_first

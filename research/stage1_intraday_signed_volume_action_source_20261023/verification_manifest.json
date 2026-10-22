@@ -1,0 +1,47 @@
+{
+  "recorder_id": "723f406c9a234790b6a96939754edd44",
+  "experiment_id": "396607154083198663",
+  "entries": [
+    {
+      "path": "qlib_recorder/396607154083198663/723f406c9a234790b6a96939754edd44/artifacts/analysis/daily",
+      "sha256": "53856d8e44d9054fa85f53ea071f5036fb278cd89de62f9b2b272742377d9c05",
+      "bytes": 101756
+    },
+    {
+      "path": "qlib_recorder/396607154083198663/723f406c9a234790b6a96939754edd44/artifacts/analysis/source_first_hour",
+      "sha256": "b98ac612bc4fa3b5a9e269adfe53e2220fae3f40fe35384d487e0ae5519eccbd",
+      "bytes": 23381339
+    },
+    {
+      "path": "qlib_recorder/396607154083198663/723f406c9a234790b6a96939754edd44/artifacts/code_cached.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "qlib_recorder/396607154083198663/723f406c9a234790b6a96939754edd44/artifacts/code_diff.txt",
+      "sha256": "ab41b91a9a74ad1f9bea8ee9a3ae29251f000ec97ff64c059d9cf87bf9ff883a",
+      "bytes": 432769
+    },
+    {
+      "path": "qlib_recorder/396607154083198663/723f406c9a234790b6a96939754edd44/artifacts/code_status.txt",
+      "sha256": "aab21ace36d07386acab3027a9618b09c391464a2398614ae01692d25ca589cb",
+      "bytes": 62650
+    },
+    {
+      "path": "qlib_recorder/396607154083198663/723f406c9a234790b6a96939754edd44/artifacts/inputs/plan",
+      "sha256": "65c9d736929dc84bb7719d35108d01a44f87b074a4136eaef69fd8ec1bc337f3",
+      "bytes": 3604
+    },
+    {
+      "path": "qlib_recorder/396607154083198663/723f406c9a234790b6a96939754edd44/artifacts/inputs/provider_manifest",
+      "sha256": "319738b3432ad995052aaa72f50f824c5a0402486d4fbe028be83eb07b39d9bd",
+      "bytes": 813
+    },
+    {
+      "path": "qlib_recorder/396607154083198663/723f406c9a234790b6a96939754edd44/artifacts/inputs/source_NAS_readback",
+      "sha256": "bc5a5f746e3f71d877d5fb3094673ca62df05a3e7b88c1af89bf3bf3401a3f67",
+      "bytes": 387
+    }
+  ],
+  "NAS_archive_sha256": "d30fd02d711780dd117366be348f6464e4f3f2404145949537ef2569b046e81d"
+}

@@ -1,0 +1,112 @@
+{
+  "schema_version": 1,
+  "frozen": true,
+  "experiment": "stage1_semiconductor_ip_h63_information_20261023",
+  "phase": "original_Stage1_39_plus_one_Fed_semiconductor_IP_same_vintage_MoM_H63_information",
+  "execution_authorized_by_active_Goal": true,
+  "parent": {
+    "source_card": "research/minute_information_pit_allocator_20261012",
+    "recorder_id": "68e31a0a0fad44e7ba1d1f7d856c7a0d",
+    "experiment_id": "905520356740140469",
+    "feature_artifact_sha256": "482d6a908ae95230143dc08014732c3247d22ccb1560f8509f6ac564a4d647ec",
+    "frame_artifact_sha256": "674443e012ef98d21438891666e32e9fca8dcde6eb60fb3141f89ed6e0ca330c",
+    "timing_artifact_sha256": "66e3292d7f47ac6981f2e488ed198d1109f340f2c3a4bf2a5f538fa41465764e",
+    "base_model_artifact_sha256": "5945030ca770bb7ca63c6b03d53e6cf7265f239312cac1308debfde93afddcac",
+    "nas_archive_sha256": "ee328cab292f178bf3582ef574fb411561c93b82545cd3bb90842ecd9a9a24f1",
+    "nas_readback": "research/minute_information_pit_allocator_20261012/nas_readback.json",
+    "feature_order": "exact original Stage1 39 base_features, seed71"
+  },
+  "source": {
+    "summary": "research/semiconductor_ip_stage1_availability_20261022/summary.json",
+    "summary_sha256": "3c43f8ce9cf416aed1253c1c822f0cbde20f7bade9aac5f36b01f332f0f8d5d3",
+    "recorder_id": "9582d430c4b048b7b6623a99161ed71b",
+    "feature_artifact": "analysis/mapped_signals",
+    "mapped_artifact_sha256": "b81c36d3510b5345b703b3657af92a0acbe38f506918f0c4c965ffb4a98be1df",
+    "train_calendar_rows": 3020,
+    "held_calendar_rows": 944,
+    "historical_first_receipt_qualified": false,
+    "timing": "Fed G17 original release states 09:15 New York; source map defers first use to following actual Qlib trading session close, before subsequent Stage1 preopen decision. The source map preserves original release, observation month and base year; historical first receipt on the individual host is not certified. Conditional development-only information result, never independent validation or account promotion."
+  },
+  "single_mechanism": {
+    "feature": "ip_mom_pct_same_vintage",
+    "formula": "Last released same-vintage percentage month-over-month change of US semiconductor industrial production NAICS 3344, carried without age cutoff from the latest source event conservatively available by each Stage1 signal date. Do not compare absolute levels across index base-year transitions.",
+    "hypothesis": "A positive change in actual US semiconductor production reflects the physical demand/supply cycle and adds positive next-63-funded-open SOXX return information beyond the original Stage1 price, VIX and breadth inputs. The longer horizon matches monthly release cadence. A positive standardized added coefficient is required.",
+    "baseline": "Original 39 Stage1 primary features only.",
+    "candidate": "Identical rows, H63 label, median imputer, scaler and Ridge plus exactly one fixed same-vintage IP MoM coordinate.",
+    "regime_motivation": "Cash opportunity losses in persistent recoveries versus useful cash protection require a physical-cycle state. This is distinct from XSD market leadership, HYG-LQD credit appetite and disclosed concentration. No outcome-chosen threshold or release-age rescue."
+  },
+  "label": {
+    "primary": "63 consecutive original Stage1 SOXX funded open-to-open returns from signal s: sum j=0..62 log1p(soxx_forward_open_return(s+j)).",
+    "maturity": "Original Stage1 timing.return_available_at of final interval; training rows mature before 2023-01-01 New York, reused held rows before 2026-10-10 New York.",
+    "role": "Matched incremental H63 information only, not fee-net strategy return."
+  },
+  "cohorts": {
+    "train_signal": [
+      "2011-01-03",
+      "2022-12-30"
+    ],
+    "held_reused_diagnostic": [
+      "2023-01-03",
+      "2026-10-07"
+    ],
+    "held_halves": [
+      [
+        "2023-01-03",
+        "2024-12-31"
+      ],
+      [
+        "2025-01-02",
+        "2026-10-07"
+      ]
+    ],
+    "expected_train_calendar_rows": 3020,
+    "expected_held_calendar_rows": 944,
+    "minimum_mature_train_rows": 2900,
+    "minimum_mature_held_rows": 850,
+    "exact_mature_counts_derived_by_frozen_Qlib_timing": true,
+    "full_calendar_no_survivor_compaction": true,
+    "historical_independence": false
+  },
+  "model": {
+    "baseline": "SimpleImputer(median) then StandardScaler then Ridge(alpha=1.0) on original 39 features",
+    "candidate": "Identical pipeline plus one fixed credit coordinate",
+    "new_fits": 2,
+    "runtime": "qlib_venv Python 3.12.12, scikit-learn 1.9.1",
+    "no_hyperparameter_seed_window_or_output_selection": true
+  },
+  "information_gate": {
+    "paired_metric": "On identical held signal rows, baseline squared error minus candidate squared error for 63-open SOXX log return.",
+    "added_coefficient_positive": true,
+    "full_held_mean_positive": true,
+    "both_held_halves_mean_positive": true,
+    "paired_stationary_bootstrap": {
+      "mean_block_sessions": 126,
+      "draws": 10000,
+      "seed": 20261023,
+      "one_sided_alpha": 0.0008333333333333334,
+      "family_denominator": 30,
+      "lower_positive": true
+    },
+    "no_gate_rescue": true
+  },
+  "budget": {
+    "new_external_requests": 0,
+    "source_Recorder_object_loads_per_phase_max": 5,
+    "DatasetH_builds_per_phase_max": 1,
+    "model_fit_attempts_max": 2,
+    "bootstrap_attempts_max": 1,
+    "new_writable_Qlib_Recorders_max": 1,
+    "native_accounts": 0
+  },
+  "barrier": "First preflight pinned Fed source map, 39 original features, full calendar, training-only redundancy, and H63 label maturity without a fit. If obvious duplicate (max absolute training Pearson >=0.95) or source/maturity gate fails, close before fit. Then independent exact-plan/preflight/code review before two fixed Ridge fits and one 126-mean-block bootstrap. Failed information closes this fixed version. Any information pass remains conditional until historical first receipt/source qualification, then a separately frozen full Stage1-derived 0bp Tiered-fee native account; 2/5bp and independent forward evidence remain separate.",
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "inputs/*",
+      "models/*",
+      "predictions/*",
+      "analysis/*"
+    ]
+  }
+}

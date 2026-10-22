@@ -1,0 +1,31 @@
+{
+  "schema_version": 1,
+  "frozen": true,
+  "status": "mechanical_pre_fit_H63_frame_binding_repair",
+  "preflight_result_sha256_unchanged": "4f20f5c7a0c563fc3af66191ac8930a5288d082f3e7df566324e8e04ad4c0e84",
+  "fit_cell_sha256_before": "c642c01e8a20c5a3c511f1fc409b89bd3aa03de2473e502100030cc59e6ee547",
+  "fit_cell_sha256_after": "86e9bd6bb85e09795eaab23976a24b8ec10098306b81ba7c9b12f4fd5af6b0a2",
+  "finding": "Initial fit code inherited H5 variable names train_prepared/held_prepared and literal 3014/940 assertions. It would fail after run_state creation but before either model fit.",
+  "exact_changes": [
+    {
+      "before": "tr=train_prepared.loc[train_prepared[('meta','train_eligible')].astype(bool)];he=held_prepared.loc[held_prepared[('meta','held_eligible')].astype(bool)]",
+      "after": "tr=tr.loc[tr[('meta','train_eligible')].astype(bool)];he=he.loc[he[('meta','held_eligible')].astype(bool)]"
+    },
+    {
+      "before": "==report['training_mature_rows']==3014",
+      "after": "==report['training_mature_rows']==2956"
+    },
+    {
+      "before": "==report['held_mature_rows']==940",
+      "after": "==report['held_mature_rows']==882"
+    },
+    {
+      "before": "and len(daily)==940",
+      "after": "and len(daily)==882"
+    }
+  ],
+  "unchanged": "Source, feature, H63 label, cohorts, estimator, bootstrap, gate, fit/account budgets and frozen plan.",
+  "actual_model_fit_attempts": 0,
+  "actual_writable_Recorders": 0,
+  "actual_native_accounts": 0
+}

@@ -1,0 +1,69 @@
+{
+  "status": "Stage1_Fed_semiconductor_IP_H63_DatasetH_preflight_passed_conditional_source_no_fit",
+  "plan_sha256": "8049bf5ae2fd36cd9df3c2ea18db2de7af3c3074c4e0cc4f1a569f997673ea93",
+  "parent_recorder_id": "68e31a0a0fad44e7ba1d1f7d856c7a0d",
+  "source_recorder_id": "9582d430c4b048b7b6623a99161ed71b",
+  "original_primary_features": 39,
+  "candidate_coordinates": 1,
+  "training_mature_rows": 2956,
+  "held_mature_rows": 882,
+  "train_segment_rows": 3020,
+  "held_segment_rows": 944,
+  "candidate_train_unknown_rows": 0,
+  "candidate_held_unknown_rows": 0,
+  "source_age_min_max_days": [
+    1,
+    78
+  ],
+  "max_abs_training_pairwise_pearson": 0.3038443091334817,
+  "top_training_correlations": [
+    {
+      "feature": "rv60",
+      "pearson": -0.3038443091334817
+    },
+    {
+      "feature": "rv20",
+      "pearson": -0.1901842033952823
+    },
+    {
+      "feature": "soxx_vol20",
+      "pearson": -0.18855090431309987
+    },
+    {
+      "feature": "dist_high_252",
+      "pearson": 0.17028933242998387
+    },
+    {
+      "feature": "range_pos_252",
+      "pearson": 0.1443065017125953
+    },
+    {
+      "feature": "rv20_expansion",
+      "pearson": -0.14249965602893627
+    },
+    {
+      "feature": "cross_vol_breadth_high",
+      "pearson": -0.13599496953756374
+    },
+    {
+      "feature": "levered_decay_20",
+      "pearson": 0.1319508079766384
+    },
+    {
+      "feature": "vix_z_60",
+      "pearson": 0.12915831606183947
+    },
+    {
+      "feature": "vix",
+      "pearson": -0.11703271607122363
+    }
+  ],
+  "duplicate_pairwise_ge_095": false,
+  "source_Recorder_object_loads": 5,
+  "DatasetH_builds": 1,
+  "new_model_fits": 0,
+  "new_native_accounts": 0,
+  "held_scores_computed": false,
+  "historical_independence": false,
+  "historical_first_receipt_qualified": false
+}

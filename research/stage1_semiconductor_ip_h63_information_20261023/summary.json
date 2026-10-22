@@ -1,0 +1,21 @@
+{
+  "experiment": "stage1_semiconductor_ip_h63_information_20261023",
+  "decision": "HOLD_DUPLICATE_CLOSE_BEFORE_FIT",
+  "objective_achieved": false,
+  "duplicate_closeout": "duplicate_closeout.json",
+  "prior_closed_card": "research/stage1_semiconductor_ip_information_20261022",
+  "new_model_fits": 0,
+  "new_native_accounts": 0,
+  "preflight_mature_rows_train_held": [
+    2956,
+    882
+  ],
+  "information_gate_run": false,
+  "recorder_id": null,
+  "historical_independence": false,
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": []
+  }
+}

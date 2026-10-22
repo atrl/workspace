@@ -1,0 +1,29 @@
+{
+  "schema_version": 1,
+  "decision": "HOLD_DUPLICATE_CLOSE_BEFORE_FIT",
+  "scope": "H63 same-vintage Fed semiconductor IP MoM information proposal",
+  "prior_closed_card": "research/stage1_semiconductor_ip_information_20261022",
+  "prior_summary_sha256": "dab4e5aef57f9b0b766c3af1005036d15b56e9a7876fdcdb9ac41bc8c119881b",
+  "prior_conclusion_sha256": "ae37a45e0a12b6de5e7cb053d728e1dab8b09f2f6b5cd486b9545870b7080ea5",
+  "prior_fixed_result": "not_promoted_fixed_Stage1_IP_information_failed",
+  "duplicate_reason": "Same ip_mom_pct_same_vintage physical-production coordinate and original Stage1 39-feature H5 Ridge receiver were already fit on reused 2023-2026 history with release-age/base-year controls. Changing only target horizon to H63 and removing those controls is a horizon/control rescue, not a distinct mechanism.",
+  "prior_result": {
+    "coefficient": -0.00359828,
+    "paired_mse_improvement": -0.0001121125,
+    "both_halves_negative": true,
+    "bootstrap_lower": -0.0002327818,
+    "model_fits": 2,
+    "native_accounts": 0
+  },
+  "new_version": {
+    "preflight_status": "Stage1_Fed_semiconductor_IP_H63_DatasetH_preflight_passed_conditional_source_no_fit",
+    "mature_train_rows": 2956,
+    "mature_held_rows": 882,
+    "new_model_fits": 0,
+    "new_native_accounts": 0,
+    "new_writable_Recorders": 0
+  },
+  "mechanical_fit_repair": "mechanical_fit_frame_repair_plan.json",
+  "no_H63_model_or_account_authorized": true,
+  "reopen_condition": "A materially different physical-production information mechanism and qualified new independent evidence, not sign/horizon/controls tuning on this reused history."
+}
