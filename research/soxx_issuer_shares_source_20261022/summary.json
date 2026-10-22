@@ -1,0 +1,32 @@
+{
+  "experiment": "soxx_issuer_shares_source_20261022",
+  "status": "source_only_full_retrospective_coverage_historical_first_public_unqualified",
+  "plan_sha256": "fc67868c6fff7b904c150bd86243abb129abf7070b3eb06aaab27800d2fbd5d9",
+  "original_source_url": "https://www.blackrock.com/varnish-api/blk-one01-product-data/product-data/api/v1/get-fund-document?appType=PRODUCT_PAGE&appSubType=ISHARES&targetSite=us-ishares&locale=en_US&portfolioId=239705&component=fundDownload&userType=individual",
+  "historical_rows": 8937,
+  "qlib_training_sessions": 3020,
+  "training_missing_shares": 0,
+  "funded_signal_sessions": 944,
+  "funded_missing_shares": 0,
+  "provisional_lagged_feature_missing_train": 0,
+  "historical_page_samples_exact_3x_split_matches": 3,
+  "historical_page_samples_total": 4,
+  "largest_original_39_training_abs_spearman": 0.12974865049462278,
+  "original_39_training_correlations": "redundancy_audit.json",
+  "historical_first_public_clock_qualified": false,
+  "historical_revision_vintages_qualified": false,
+  "new_model_fits": 0,
+  "new_native_accounts": 0,
+  "evaluation_outcome_values_loaded": 0,
+  "nas_raw_archive_sha256": "983e211fc34fc8bae16f9342941a53de31c639c6feccadce93399d1a96f72628",
+  "nas_vintage_archive_sha256": "062ce54864a40f6f7130067a6e1ee152dff5cd721d553d3189a6d0373daec183",
+  "nas_scoped_restoration_verified": true,
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [],
+    "new_writable_qlib_recorder": false
+  },
+  "decision": "candidate_source_only_needs_historical_first_public_and_revision_evidence_before_Stage1_receiver",
+  "next_action": "Obtain dated issuer publication evidence or sufficiently complete historical vintages for shares outstanding. Then freeze a separate matched 39-versus-40 Stage1 information experiment; do not fit or run an account from this source-only card."
+}

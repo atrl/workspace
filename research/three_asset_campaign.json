@@ -34,13 +34,13 @@
   },
   "current_task": {
     "card": "research/three_asset_campaign.json",
-    "phase": "Stage1_rolling126_0bp_failed_new_decision_time_feature_source_qualification",
+    "phase": "Stage1_source_qualification_multiple_routes_pending",
     "implementation_executor": null,
     "independent_reviewer": null,
     "execution_authorized": false,
     "parent": "Frozen Stage1 f696f656 allocator plus b472a458 action/recovery chain under the same Qlib source, decision clocks, and full funded account contract; use its 0bp native account as the attribution baseline.",
     "first_screen": "0bp means zero added slippage with frozen IBKR Tiered fees still charged. A Stage1-derived candidate must first clear the SOXX 0bp wealth, <=30% available-mark drawdown, CVaR5, complete-year, rolling-126 and preregistered uncertainty screens on one full native account. Compare the matched frozen Stage1 account for module attribution.",
-    "next_action": "The fixed Stage1 rolling126 objective failed SOXX 0bp wealth, annual, rolling and bootstrap gates; close that version. Compare all 16 quarters and native target-to-account projection: 2026Q3 target 22% SOXL ended 2% SOXL with risk state >=2 on 73.4% of sessions, whereas 2024Q3 defense helped. One original 2011-10-31 SOXX holdings schedule has now been verified as a possible reported-basket source; qualify original 2010-2022 report inventory, filing clocks and historical security prices before any Stage1 breadth feature fit. The known 2011 report cannot be backfilled before its public availability. Preserve the original 39 inputs and closed breadth/signed variance/volume conclusions; do not tune the closed loss, risk cap, quarter switch or use reused history as independent forward evidence.",
+    "next_action": "The fixed Stage1 rolling126 objective failed SOXX 0bp wealth, annual, rolling and bootstrap gates; close that version. Compare all 16 quarters and native target-to-account projection: 2026Q3 target 22% SOXL ended 2% SOXL with risk state >=2 on 73.4% of sessions, whereas 2024Q3 defense helped. One original 2011-10-31 SOXX holdings schedule has now been verified as a possible reported-basket source; qualify original 2010-2022 report inventory, filing clocks and historical security prices before any Stage1 breadth feature fit. The known 2011 report cannot be backfilled before its public availability. Preserve the original 39 inputs and closed breadth/signed variance/volume conclusions; do not tune the closed loss, risk cap, quarter switch or use reused history as independent forward evidence. Official iShares SOXX Data Download has issuer shares on all 3020 Stage1 training sessions and 944 funded signal dates; three archived issuer-page values match after the 2024 three-for-one unit adjustment. Historical daily first-public and revision timing remains unqualified, so no fit or 0bp account from this source.",
     "baseline_evidence": "research/stage1_domain_heads_20261018/conclusion.md",
     "layer_diagnosis": "research/stage1_uniform_layer_attribution_20261010/conclusion.md",
     "cross_account_attribution": "research/three_asset_failure_attribution_20261015/conclusion.md",
@@ -79,7 +79,11 @@
     "issuer_premium_source_status": "current_issuer_HTML_452_days_2025_2026_history_missing_no_fit",
     "stage1_rolling126_result": "research/stage1_rolling126_shortfall_objective_20261022/independent_result_review.json",
     "stage1_rolling126_regime_attribution": "research/stage1_rolling126_shortfall_objective_20261022/regime_attribution.json",
-    "stage1_rolling126_nas_archive_sha256": "5656ef66324d852e65efe570a84b5f782ea58c262eead7fd1d514712aab5d5f2"
+    "stage1_rolling126_nas_archive_sha256": "5656ef66324d852e65efe570a84b5f782ea58c262eead7fd1d514712aab5d5f2",
+    "issuer_shares_source_result": "research/soxx_issuer_shares_source_20261022/summary.json",
+    "issuer_shares_source_status": "full_retrospective_numeric_coverage_qualified_PIT_and_revisions_unqualified_no_fit",
+    "issuer_shares_raw_nas_archive_sha256": "983e211fc34fc8bae16f9342941a53de31c639c6feccadce93399d1a96f72628",
+    "issuer_shares_vintage_nas_archive_sha256": "062ce54864a40f6f7130067a6e1ee152dff5cd721d553d3189a6d0373daec183"
   },
   "parallel_source_task": {
     "card": "research/korea_semiconductor_exports_korean_vintage_20261022",
@@ -144,7 +148,7 @@
     ]
   },
   "active_index": "research/active_research_index.json",
-  "updated_at_utc": "2026-10-22T14:43:55.273730+00:00",
+  "updated_at_utc": "2026-10-22T15:00:11.276740+00:00",
   "execution_totals": {
     "new_model_fits": 56,
     "new_native_accounts": 47,

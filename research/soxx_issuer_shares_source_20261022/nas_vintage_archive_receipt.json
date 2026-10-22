@@ -1,0 +1,35 @@
+{
+  "status": "four_original_issuer_page_captures_archived_and_scoped_restored",
+  "archive_sha256": "062ce54864a40f6f7130067a6e1ee152dff5cd721d553d3189a6d0373daec183",
+  "archive_bytes": 716664,
+  "source_objects": {
+    "data/raw/external/soxx_issuer_shares_20261022/vintages/2016-01-28.html": {
+      "sha256": "a06fa1ff68510b5e769f9a899c18a3737069a4dc6c63eda0788fb1c296d4f61b",
+      "bytes": 541125
+    },
+    "data/raw/external/soxx_issuer_shares_20261022/vintages/2018-01-02.html": {
+      "sha256": "dbce5589ce408b878adc55ce094d98ec4a473efe94d8c02ecb05379a75c5fef4",
+      "bytes": 1168954
+    },
+    "data/raw/external/soxx_issuer_shares_20261022/vintages/2022-01-11.html": {
+      "sha256": "79779795e5677b56406601f4b1e26877d6ed940a80ffe670917f7cb7b39f1c62",
+      "bytes": 1048576
+    },
+    "data/raw/external/soxx_issuer_shares_20261022/vintages/2024-01-04.html": {
+      "sha256": "567b35c3276ca3ba5be0986048552ae7d5bd3189972f5f8f47871fed328e0545",
+      "bytes": 1635578
+    }
+  },
+  "nas_artifact": {
+    "sha256": "062ce54864a40f6f7130067a6e1ee152dff5cd721d553d3189a6d0373daec183",
+    "size_bytes": 716664,
+    "media_type": "application/gzip",
+    "storage_uri": "sha256/06/2c/062ce54864a40f6f7130067a6e1ee152dff5cd721d553d3189a6d0373daec183",
+    "uploaded_by": "soxl-minute-research",
+    "created_at": "2026-10-22 22:55:27.764609+08",
+    "duplicate": false
+  },
+  "remote_path": "/volume1/docker/yanxuan/registry/research-artifacts/06/2c/062ce54864a40f6f7130067a6e1ee152dff5cd721d553d3189a6d0373daec183",
+  "remote_sha256_readback": "062ce54864a40f6f7130067a6e1ee152dff5cd721d553d3189a6d0373daec183",
+  "scoped_restoration_verified": true
+}

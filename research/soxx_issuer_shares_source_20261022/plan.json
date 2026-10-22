@@ -1,0 +1,50 @@
+{
+  "schema_version": 1,
+  "experiment": "soxx_issuer_shares_source_20261022",
+  "phase": "issuer_history_source_only_before_any_feature_fit",
+  "execution_authorized": true,
+  "parent": "Frozen complete Stage1 39 primary and 16 common inputs, same 944-session native account; SOXX is the final benchmark",
+  "single_source": "Issuer SOXX Data Download fund.xls, Historical worksheet, NAV per Share and Shares Outstanding. The current workbook is one retrospective 2026-10-22 vintage, not historical first-public receipts.",
+  "public_url": "https://www.blackrock.com/varnish-api/blk-one01-product-data/product-data/api/v1/get-fund-document?appType=PRODUCT_PAGE&appSubType=ISHARES&targetSite=us-ishares&locale=en_US&portfolioId=239705&component=fundDownload&userType=individual",
+  "issuer_page": "https://www.ishares.com/us/products/239705/fund",
+  "response_date_header_utc": "2026-10-22 14:46:39 GMT",
+  "raw_path": "data/raw/external/soxx_issuer_shares_20261022/original_fund_download.xls",
+  "raw_sha256": "74265a678335a4fb5aac42cb854a60ecd3afc57b8d5ffd1005ed5ccadd5e07b7",
+  "parser": "src/data/soxx_issuer_fund_download.py",
+  "parser_sha256": "512a67d771445d939a563b36dc3674ecee48c1a857fae41bc2300769a4559a9f",
+  "qlib_daily_provider": "data/qlib/minute_information_pit_allocator_20261012/daily_prices",
+  "qlib_daily_manifest_sha256": "d80a08d479b73098053006909b5e6227b03a56ab705681742d7261088e0a7e6c",
+  "source_only_candidate_question": "SOXX primary-market creation/redemption pressure might distinguish broad persistent weakness from a recoverable price decline beyond the original Stage1 price/breadth/volatility inputs and the closed secondary-market signed-volume route.",
+  "illustrative_predecision_formula": "At Stage1 signal session t, x_t=log(shares_outstanding_asof(t-2)/shares_outstanding_asof(t-7)); use only exact Qlib trading-session observations, no calendar-day forward fill. Two-session lag is conservative for a prospective design but does not certify historical first publication. No feature values enter a fit or account in this source-only task.",
+  "novelty_boundary": "Primary-market issuer outstanding shares differ from secondary-market signed volume participation; original Stage1 39 features have no issuer share-count channel. Confirm correlations before an information experiment.",
+  "source_gates": [
+    "Exact unmodified workbook SHA/size and issuer URL/response time",
+    "Parse Historical worksheet without changing raw bytes and check schema, duplicate dates, positive NAV/shares",
+    "Intersect exact native Qlib 2011-2022 training sessions and 2023-2026 funded signal sessions; preserve weekends but never treat them as trading sessions",
+    "Identify restatement/split treatment and historical first-public timing; one current workbook does not certify either",
+    "Archive original bytes to Yanxuan NAS and verify remote SHA plus scoped restoration"
+  ],
+  "stop": "Do not fit, read 2023+ outcomes, or run an account until source first-availability and revision/vintage semantics are qualified and a separate matched Stage1 information plan is frozen. Do not infer alpha from coverage.",
+  "budget": {
+    "new_market_requests_max": 1,
+    "new_model_fits": 0,
+    "new_native_accounts": 0,
+    "new_bootstrap_runs": 0,
+    "new_writable_qlib_recorders": 0
+  },
+  "funded_date_source": {
+    "card": "research/stage1_rolling126_shortfall_objective_20261022",
+    "recorder_id": "49470beec9154d6c925d21049ea6e8e7",
+    "experiment_id": "200324883907882846",
+    "artifact": "targets/B_rolling126",
+    "use": "index_only; no weights, account returns or benchmark outcomes"
+  },
+  "training_redundancy_source": {
+    "card": "research/minute_information_pit_allocator_20261012",
+    "recorder_id": "68e31a0a0fad44e7ba1d1f7d856c7a0d",
+    "experiment_id": "905520356740140469",
+    "artifact": "inputs/features",
+    "artifact_sha256": "482d6a908ae95230143dc08014732c3247d22ccb1560f8509f6ac564a4d647ec",
+    "scope": "original first 39 Stage1 features, 2011-2022 train only; no labels, predictions or evaluation outcomes"
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "status": "exact_issuer_fund_download_archived_and_scoped_restored",
+  "source_sha256": "74265a678335a4fb5aac42cb854a60ecd3afc57b8d5ffd1005ed5ccadd5e07b7",
+  "source_bytes": 3347697,
+  "archive_sha256": "983e211fc34fc8bae16f9342941a53de31c639c6feccadce93399d1a96f72628",
+  "archive_bytes": 80904,
+  "nas_artifact": {
+    "sha256": "983e211fc34fc8bae16f9342941a53de31c639c6feccadce93399d1a96f72628",
+    "size_bytes": 80904,
+    "media_type": "application/gzip",
+    "storage_uri": "sha256/98/3e/983e211fc34fc8bae16f9342941a53de31c639c6feccadce93399d1a96f72628",
+    "uploaded_by": "soxl-minute-research",
+    "created_at": "2026-10-22 22:52:42.414258+08",
+    "duplicate": false
+  },
+  "remote_path": "/volume1/docker/yanxuan/registry/research-artifacts/98/3e/983e211fc34fc8bae16f9342941a53de31c639c6feccadce93399d1a96f72628",
+  "remote_sha256_readback": "983e211fc34fc8bae16f9342941a53de31c639c6feccadce93399d1a96f72628",
+  "download_archive_sha256_verified": true,
+  "restored_original_bytes_equal": true,
+  "archive_members": [
+    "data/raw/external/soxx_issuer_shares_20261022/original_fund_download.xls"
+  ]
+}

@@ -1,0 +1,44 @@
+{
+  "status": "complete_retrospective_issuer_history_first_public_vintage_unqualified_no_fit",
+  "plan_sha256": "fc67868c6fff7b904c150bd86243abb129abf7070b3eb06aaab27800d2fbd5d9",
+  "raw_sha256": "74265a678335a4fb5aac42cb854a60ecd3afc57b8d5ffd1005ed5ccadd5e07b7",
+  "raw_bytes": 3347697,
+  "source_response_date_header_utc": "2026-10-22 14:46:39 GMT",
+  "parser_audit": {
+    "schema": [
+      "As Of",
+      "NAV per Share",
+      "Ex-Dividends",
+      "Shares Outstanding"
+    ],
+    "daily_calendar_rows": 8937,
+    "historical_missing_nav_rows": 0,
+    "historical_missing_shares_rows": 2,
+    "invalid_xml_ampersands_escaped_in_memory": 6,
+    "raw_source_modified": false
+  },
+  "history_first": "2001-07-10",
+  "history_last": "2026-10-21",
+  "weekend_rows": 2365,
+  "missing_shares_calendar_dates": [
+    "2024-03-29",
+    "2024-03-31"
+  ],
+  "qlib_train_sessions": 3020,
+  "issuer_train_missing_sessions": 0,
+  "provisional_lagged_feature_train_missing": 0,
+  "funded_signal_sessions": 944,
+  "issuer_funded_missing_sessions": 0,
+  "provisional_lagged_feature_funded_missing": 0,
+  "split_2024_03_07_share_ratio": 0.979002624671916,
+  "split_2024_03_07_nav_ratio": 1.034667385437047,
+  "historical_first_public_clock_qualified": false,
+  "historical_revision_vintages_qualified": false,
+  "shares_are_primary_market_issuer_measure_not_secondary_volume": true,
+  "evaluation_outcome_values_loaded": 0,
+  "new_model_fits": 0,
+  "new_native_accounts": 0,
+  "next_action": "Obtain dated original vintages or issuer publication evidence for shares outstanding; only then freeze a matched original Stage1 information experiment. Do not use two-session lag as proof of historical point-in-time availability.",
+  "nas_archive_sha256": "983e211fc34fc8bae16f9342941a53de31c639c6feccadce93399d1a96f72628",
+  "nas_scoped_restoration_verified": true
+}

@@ -1,0 +1,9 @@
+{
+  "status": "source_parser_rejected_two_missing_shares_rows_before_calendar_audit",
+  "old_parser_sha256": "131dbfaf7bf9b79ecac7a1582731e15532cc920409b5d30422849d2b84c65d64",
+  "repair": "Treat only literal issuer -- numeric cells as missing; preserve dates and do not fill any Qlib trading session.",
+  "new_parser_sha256": "512a67d771445d939a563b36dc3674ecee48c1a857fae41bc2300769a4559a9f",
+  "new_model_fits": 0,
+  "new_native_accounts": 0,
+  "evaluation_outcome_values_loaded": 0
+}

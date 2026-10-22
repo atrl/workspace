@@ -1,0 +1,58 @@
+{
+  "status": "three_original_page_values_match_known_2024_split_units_fourth_not_extractable",
+  "source_archive_sha256": "062ce54864a40f6f7130067a6e1ee152dff5cd721d553d3189a6d0373daec183",
+  "observations": [
+    {
+      "capture_label": "2016-01-28",
+      "archive_timestamp_utc": "20160128030203",
+      "original_url": "https://web.archive.org/web/20160128030203id_/https://www.ishares.com/us/products/239705/ishares-phlx-semiconductor-etf",
+      "raw_sha256": "a06fa1ff68510b5e769f9a899c18a3737069a4dc6c63eda0788fb1c296d4f61b",
+      "raw_bytes": 541125,
+      "status": "issuer_page_share_value_extracted",
+      "issuer_as_of": "2016-01-27",
+      "archived_page_shares": 3900000,
+      "current_workbook_split_adjusted_shares": 11700000,
+      "workbook_to_page_ratio": 3.0
+    },
+    {
+      "capture_label": "2018-01-02",
+      "archive_timestamp_utc": "20180102014316",
+      "original_url": "https://web.archive.org/web/20180102014316id_/https://www.ishares.com/us/products/239705/ishares-phlx-semiconductor-etf",
+      "raw_sha256": "dbce5589ce408b878adc55ce094d98ec4a473efe94d8c02ecb05379a75c5fef4",
+      "raw_bytes": 1168954,
+      "status": "issuer_page_share_value_extracted",
+      "issuer_as_of": "2017-12-29",
+      "archived_page_shares": 8500000,
+      "current_workbook_split_adjusted_shares": 25500000,
+      "workbook_to_page_ratio": 3.0
+    },
+    {
+      "capture_label": "2022-01-11",
+      "archive_timestamp_utc": "20220111201004",
+      "original_url": "https://web.archive.org/web/20220111201004id_/https://www.ishares.com/us/products/239705/ishares-phlx-semiconductor-etf",
+      "raw_sha256": "79779795e5677b56406601f4b1e26877d6ed940a80ffe670917f7cb7b39f1c62",
+      "raw_bytes": 1048576,
+      "status": "shares_field_not_extractable_from_capture"
+    },
+    {
+      "capture_label": "2024-01-04",
+      "archive_timestamp_utc": "20240104160834",
+      "original_url": "https://web.archive.org/web/20240104160834id_/https://www.ishares.com/us/products/239705/ishares-phlx-semiconductor-etf",
+      "raw_sha256": "567b35c3276ca3ba5be0986048552ae7d5bd3189972f5f8f47871fed328e0545",
+      "raw_bytes": 1635578,
+      "status": "issuer_page_share_value_extracted",
+      "issuer_as_of": "2024-01-03",
+      "archived_page_shares": 17900000,
+      "current_workbook_split_adjusted_shares": 53700000,
+      "workbook_to_page_ratio": 3.0
+    }
+  ],
+  "match_count_exact_3x": 3,
+  "known_2024_split_primary_source": "https://www.ishares.com/us/literature/tax-information/form-8937-ishares-semiconductor-etf-3-6-2024.pdf",
+  "limitation": "Sparse archive captures show selected historical issuer shares and current workbook restatement. They do not prove full 2011-2022 daily first-public timing, complete revision history or live receipt before every Stage1 decision.",
+  "first_public_clock_qualified": false,
+  "revision_vintages_qualified": false,
+  "new_model_fits": 0,
+  "new_native_accounts": 0,
+  "evaluation_outcome_values_loaded": 0
+}

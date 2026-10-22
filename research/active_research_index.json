@@ -6,6 +6,20 @@
   "Stage1_legacy_holdings_source_probe": "research/stage1_legacy_holdings_source_probe_20261022/source_preflight_result.json",
   "active": [
     {
+      "card": "research/soxx_issuer_shares_source_20261022",
+      "phase": "complete_retrospective_2011_2022_coverage_historical_first_public_and_revision_vintage_pending",
+      "role": "SOXX_issuer_primary_market_share_creation_source_qualification_for_Stage1",
+      "full_economic_experiment": false,
+      "status": "source_only_no_fit_or_account",
+      "execution_authorized": false,
+      "result": "research/soxx_issuer_shares_source_20261022/summary.json",
+      "source_audit": "research/soxx_issuer_shares_source_20261022/source_audit.json",
+      "vintage_audit": "research/soxx_issuer_shares_source_20261022/vintage_audit.json",
+      "training_redundancy": "research/soxx_issuer_shares_source_20261022/redundancy_audit.json",
+      "raw_source_archive": "research/soxx_issuer_shares_source_20261022/nas_source_archive_receipt.json",
+      "vintage_archive": "research/soxx_issuer_shares_source_20261022/nas_vintage_archive_receipt.json"
+    },
+    {
       "card": "research/ibkr_soxx_option_skew_forward_source_20261022",
       "phase": "regular_hours_entitlement_observed_history_and_25Delta_unqualified",
       "role": "fixed_25delta_SOXX_option_skew_forward_source_qualification",

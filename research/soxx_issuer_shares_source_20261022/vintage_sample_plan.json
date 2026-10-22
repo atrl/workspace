@@ -1,0 +1,39 @@
+{
+  "status": "frozen_four_original_issuer_page_archive_samples_source_only",
+  "selection": "Observed 2016 page plus first exact-url 200 snapshot in 2018, 2022 and 2024 from Wayback CDX; 2011 exact-url query returned no capture.",
+  "issuer_original_url": "https://www.ishares.com/us/products/239705/ishares-phlx-semiconductor-etf",
+  "samples": [
+    {
+      "label": "2016-01-28",
+      "wayback_timestamp": "20160128030203",
+      "replay_url": "https://web.archive.org/web/20160128030203id_/https://www.ishares.com/us/products/239705/ishares-phlx-semiconductor-etf"
+    },
+    {
+      "label": "2018-01-02",
+      "wayback_timestamp": "20180102014316",
+      "replay_url": "https://web.archive.org/web/20180102014316id_/https://www.ishares.com/us/products/239705/ishares-phlx-semiconductor-etf"
+    },
+    {
+      "label": "2022-01-11",
+      "wayback_timestamp": "20220111201004",
+      "replay_url": "https://web.archive.org/web/20220111201004id_/https://www.ishares.com/us/products/239705/ishares-phlx-semiconductor-etf"
+    },
+    {
+      "label": "2024-01-04",
+      "wayback_timestamp": "20240104160834",
+      "replay_url": "https://web.archive.org/web/20240104160834id_/https://www.ishares.com/us/products/239705/ishares-phlx-semiconductor-etf"
+    }
+  ],
+  "checks": [
+    "Extract issuer page as-of date and Shares Outstanding without external script data",
+    "Match issuer as-of share count to 2026 workbook after known 2024 three-for-one split unit adjustment where applicable",
+    "Record capture time after as-of date; this does not certify daily first-public time or all revisions"
+  ],
+  "budget": {
+    "archive_page_downloads_max": 4,
+    "model_fits": 0,
+    "market_outcome_reads": 0,
+    "native_accounts": 0
+  },
+  "historical_first_public_clock_certified_by_samples": false
+}
