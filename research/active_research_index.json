@@ -136,7 +136,7 @@
     "options_required": false,
     "paid_acquisition": false,
     "cboe_total_options_activity_card": "research/cboe_total_options_activity_source_20261022",
-    "TSMC_monthly_release_source_gap": "research/tsmc_monthly_revenue_release_source_20261022/source_probe_result.json",
+    "TSMC_monthly_release_source_gap": "research/tsmc_monthly_revenue_release_source_20261022/alternate_issuer_press_review.json",
     "Korean_semiconductor_exports_full_archive": "research/korea_semiconductor_exports_full_source_20261022/source_qualification_result.json",
     "Korean_semiconductor_exports_current_vintage_gap": "research/korea_semiconductor_exports_korean_full_source_20261022/source_qualification_result.json",
     "US_semiconductor_PPI_date_vintages": "research/semiconductor_ppi_alfred_source_20261022/source_quality.json"
@@ -157,7 +157,8 @@
     "closed_PPI_information_result": "research/semiconductor_ppi_leverage_information_20261022/result_review.json",
     "follow_on_Cboe_source_plan": "research/cboe_total_options_activity_source_20261022/multiday_forward_plan.json",
     "contingent_Cboe_economic_design": "research/cboe_variance_conditional_composition_20261022/design_brief.json",
-    "prospective_Korean_original_release_plan": "research/korea_semiconductor_exports_korean_vintage_20261022/forward_oct_2026_publication_plan.json"
+    "prospective_Korean_original_release_plan": "research/korea_semiconductor_exports_korean_vintage_20261022/forward_oct_2026_publication_plan.json",
+    "parallel_TSMC_issuer_source_probe": "research/tsmc_monthly_revenue_release_source_20261022/alternate_issuer_press_review.json"
   },
   "closed_source_probes": [
     {

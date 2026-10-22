@@ -1,0 +1,48 @@
+{
+  "schema_version": 1,
+  "status": "six_original_issuer_source_files_archived_remote_SHA256_verified",
+  "plan_sha256": "6d1b9df82d95abd6659201abc900746314c1026e045c7ddd26eb94d2ecbb168b",
+  "initial_result_sha256": "835da48753f446f5aced0239edff498cda390b582bcb42f749957c8bfbdae82b",
+  "repair_result_sha256": "a3a82d79868dbfafe85beb2e7b3e3a158e260276efd831250d6710cc40f07f79",
+  "files": [
+    {
+      "relative_path": "data/snapshots/tsmc_monthly_revenue_release_source_20261022/alternate_issuer_press/2019-09/issuer.html",
+      "sha256": "bc4d4f3a249f7c83d23786fe22755cc5a65589084a6e5baf5122c5ee0505c7a0",
+      "bytes": 177216
+    },
+    {
+      "relative_path": "data/snapshots/tsmc_monthly_revenue_release_source_20261022/alternate_issuer_press/2019-09/issuer.pdf",
+      "sha256": "5a1198521380e137a7fa0eacff10369a4c71718f22f0dac9f5333b7d1e11b483",
+      "bytes": 227764
+    },
+    {
+      "relative_path": "data/snapshots/tsmc_monthly_revenue_release_source_20261022/alternate_issuer_press/2020-05/issuer.html",
+      "sha256": "df5a5f4bcf1ca39623153794005fe160323045c6fd0b38073f11ee46a82c6de6",
+      "bytes": 177325
+    },
+    {
+      "relative_path": "data/snapshots/tsmc_monthly_revenue_release_source_20261022/alternate_issuer_press/2020-05/issuer.pdf",
+      "sha256": "21fdc31117ee772bb129aa5315b418628c25a4827f15ab40bd3b122664b936d9",
+      "bytes": 222549
+    },
+    {
+      "relative_path": "data/snapshots/tsmc_monthly_revenue_release_source_20261022/alternate_issuer_press/2026-09/issuer.html",
+      "sha256": "f93debe8053322c94b6c655b7d8e7b296d25373351ddc837adac9a61fad1af06",
+      "bytes": 177711
+    },
+    {
+      "relative_path": "data/snapshots/tsmc_monthly_revenue_release_source_20261022/alternate_issuer_press/2026-09/issuer.pdf",
+      "sha256": "28eae50c96c165c20f20e7daed486a3a8a90b51ee235db93c29e7508eb93703e",
+      "bytes": 128759
+    }
+  ],
+  "archive_sha256": "4f9385fae03346eb0c69f958cb3d9841081e23a418bfec208a32acde07f23b02",
+  "archive_bytes": 592680,
+  "NAS_storage_uri": "sha256/4f/93/4f9385fae03346eb0c69f958cb3d9841081e23a418bfec208a32acde07f23b02",
+  "NAS_path": "/volume1/docker/yanxuan/registry/research-artifacts/4f/93/4f9385fae03346eb0c69f958cb3d9841081e23a418bfec208a32acde07f23b02",
+  "remote_SHA256_verified": true,
+  "historical_first_public_bytes_qualified": false,
+  "market_outcome_reads": 0,
+  "model_fits": 0,
+  "accounts": 0
+}

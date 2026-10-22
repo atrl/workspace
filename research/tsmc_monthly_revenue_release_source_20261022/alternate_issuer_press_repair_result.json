@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "status": "ok",
+  "source_month": "2026-09",
+  "source_HTML_sha256": "f93debe8053322c94b6c655b7d8e7b296d25373351ddc837adac9a61fad1af06",
+  "source_addendum_sha256": "872946a00e40357ee201d7790ea9c18d1a4c616673bf3cd040e1b72fa4db96e1",
+  "pdf_url": "https://pr.tsmc.com/system/files/newspdf/attachment/d3441876215790dc60f360229f7fa2416c82f4ea/September%202026%20%28E%29_final_wmn.pdf",
+  "requested_at_utc": "2026-10-22T08:29:41.368796+00:00",
+  "additional_HTTP_GET_attempts": 1,
+  "market_outcome_reads": 0,
+  "model_fits": 0,
+  "accounts": 0,
+  "historical_first_public_bytes_qualified": false,
+  "http_status": 200,
+  "content_type": "application/pdf",
+  "response_date": "Thu, 22 Oct 2026 08:29:41 GMT",
+  "last_modified": "Thu, 08 Oct 2026 01:31:34 GMT",
+  "final_url": "https://pr.tsmc.com/system/files/newspdf/attachment/d3441876215790dc60f360229f7fa2416c82f4ea/September%202026%20%28E%29_final_wmn.pdf",
+  "pdf_relative_path": "data/snapshots/tsmc_monthly_revenue_release_source_20261022/alternate_issuer_press/2026-09/issuer.pdf",
+  "pdf_sha256": "28eae50c96c165c20f20e7daed486a3a8a90b51ee235db93c29e7508eb93703e",
+  "pdf_bytes": 128759
+}

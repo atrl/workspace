@@ -1,0 +1,30 @@
+{
+  "schema_version": 1,
+  "status": "official_alternate_issuer_press_archive_accessible_historical_first_public_unqualified",
+  "prior_403_source_probe_sha256": "4396839979291d92cbce16cf574993c0f54799bad866e345b7730df39e0b7014",
+  "alternate_plan_sha256": "6d1b9df82d95abd6659201abc900746314c1026e045c7ddd26eb94d2ecbb168b",
+  "initial_sample_result_sha256": "835da48753f446f5aced0239edff498cda390b582bcb42f749957c8bfbdae82b",
+  "selector_repair_addendum_sha256": "872946a00e40357ee201d7790ea9c18d1a4c616673bf3cd040e1b72fa4db96e1",
+  "selector_repair_result_sha256": "a3a82d79868dbfafe85beb2e7b3e3a158e260276efd831250d6710cc40f07f79",
+  "NAS_binding_sha256": "d248cd4e742f774e8d3c88786d3ec7b62c4e1a4fc79e21aa6c2a7e73eca5e8cc",
+  "official_issuer_host": "https://pr.tsmc.com",
+  "exact_months_with_HTML_and_PDF_bytes": [
+    "2019-09",
+    "2020-05",
+    "2026-09"
+  ],
+  "sample_HTTP_GET_attempts": 6,
+  "sample_source_files": 6,
+  "sample_exact_bytes_archived_on_NAS": true,
+  "old_PDF_Last_Modified_observation": "2019 and 2020 issuer PDF responses both reported Last-Modified 2022-11-28, consistent with later host migration; this cannot certify the bytes originally available in 2019/2020.",
+  "recent_PDF_Last_Modified_observation": "Thu, 08 Oct 2026 01:31:34 GMT",
+  "TWSE_current_company_page_limit": "Current TWSE 2330 company PDF shows monthly revenue history and announcement timestamp but is generated at current access time; do not use its historical rows as immutable release vintages.",
+  "issuer_release_issued_on_dates_are_not_intraday_first_receipt": true,
+  "historical_first_public_bytes_qualified": false,
+  "historical_PIT_factor_qualified": false,
+  "market_outcome_reads": 0,
+  "model_fits": 0,
+  "accounts": 0,
+  "decision": "The new official issuer press host removes the earlier HTTP403 access blocker for current archived release pages/PDFs. It does not repair historical first-public byte/timing proof. Do not calculate a TSM factor from mutable current history. A separate bounded EDGAR accession/original-file or prospective exact-byte capture path is required before any Qlib information screen.",
+  "next_action": "Keep original archived sample bytes/hash evidence; qualify an immutable SEC filing/vintage transport or capture the next issuer release prospectively before a TSM monthly signal. Continue frozen Cboe/IBKR source checks."
+}
