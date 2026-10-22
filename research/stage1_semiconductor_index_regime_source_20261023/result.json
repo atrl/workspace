@@ -1,0 +1,53 @@
+{
+  "status": "official_2021_SOXX_SOXL_common_index_transition_source_passed_conservative_boundary",
+  "plan_sha256": "8bc71c0d99bbd4f82edb6be0a4fbda5c0e8a2575cac7800e94340d40b95d3968",
+  "GETs_consumed": 3,
+  "checks": [
+    {
+      "role": "SOXX_official_SEC_prospectus_supplement",
+      "body_sha256": "2cfcb342c21cd452425a02df2bc188574ae006519f39c9d08feba0ddf896fe79",
+      "response_bytes": 17067,
+      "required_terms_present": true
+    },
+    {
+      "role": "SOXL_official_SEC_prospectus_supplement",
+      "body_sha256": "4692767eaa5208041410b84ca528126ceb13c65c3fee46dca96a01c48d529d1c",
+      "response_bytes": 37260,
+      "required_terms_present": true
+    },
+    {
+      "role": "SOXL_official_SEC_listing_report",
+      "body_sha256": "7c39b88e86ad017ef232c4e1feedc47d39775ced0c1746d5620e44c4499511a8",
+      "response_bytes": 183403,
+      "required_terms_present": true
+    }
+  ],
+  "source_interpretation": {
+    "SOXX": "2021 SEC supplement prospectively says on or around June 21 PHLX-to-ICE change",
+    "SOXL": "2021 SEC supplement prospectively says on or about August 25 PHLX-to-ICE change",
+    "SOXL_Aug27_listing": "SEC listing report dated August 27 names ICE Semiconductor Index",
+    "conservative_regime_dates": {
+      "both_prior_PHLX_through": "2021-06-18",
+      "transition_unknown_inclusive": [
+        "2021-06-21",
+        "2021-08-27"
+      ],
+      "both_ICE_not_before": "2021-08-30"
+    },
+    "exact_SOXX_effective_date_certified_by_these_three_bytes": false
+  },
+  "NAS_evidence": {
+    "sha256": "a3f14d3f7d89bbef40cb01aa8b381afaae5f0e4e86e473f48a624d05b14fbdb4",
+    "size_bytes": 193391,
+    "media_type": "application/gzip",
+    "storage_uri": "sha256/a3/f1/a3f14d3f7d89bbef40cb01aa8b381afaae5f0e4e86e473f48a624d05b14fbdb4",
+    "uploaded_by": "soxl-minute-research",
+    "created_at": "2026-10-23 05:53:57.602768+08",
+    "duplicate": false,
+    "nas_path": "/volume1/docker/yanxuan/registry/research-artifacts/a3/f1/a3f14d3f7d89bbef40cb01aa8b381afaae5f0e4e86e473f48a624d05b14fbdb4"
+  },
+  "NAS_remote_and_scoped_restore_verified": true,
+  "market_outcome_reads": 0,
+  "model_fits": 0,
+  "native_accounts": 0
+}

@@ -1,0 +1,18 @@
+{
+  "experiment": "stage1_semiconductor_index_regime_source_20261023",
+  "decision": "conditional_official_2021_index_transition_boundary_source_passed_no_outcomes",
+  "objective_achieved": false,
+  "plan_sha256": "8bc71c0d99bbd4f82edb6be0a4fbda5c0e8a2575cac7800e94340d40b95d3968",
+  "result": "result.json",
+  "GETs_consumed": 3,
+  "NAS_archive_sha256": "a3f14d3f7d89bbef40cb01aa8b381afaae5f0e4e86e473f48a624d05b14fbdb4",
+  "NAS_scoped_restore_verified": true,
+  "market_outcome_reads": 0,
+  "model_fits": 0,
+  "native_accounts": 0,
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": []
+  }
+}

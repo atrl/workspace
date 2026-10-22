@@ -1,0 +1,69 @@
+{
+  "plan_sha256": "8bc71c0d99bbd4f82edb6be0a4fbda5c0e8a2575cac7800e94340d40b95d3968",
+  "GETs_attempted": 3,
+  "captures": [
+    {
+      "role": "SOXX_official_SEC_prospectus_supplement",
+      "requested_url": "https://www.sec.gov/Archives/edgar/data/1100663/000119312521126827/d82642d497.htm",
+      "requested_at_utc": "2026-10-22T21:52:58.086973+00:00",
+      "responded_at_utc": "2026-10-22T21:52:58.907298+00:00",
+      "curl_exit": 0,
+      "http_status": "200",
+      "effective_url": "https://www.sec.gov/Archives/edgar/data/1100663/000119312521126827/d82642d497.htm",
+      "stderr": "",
+      "body": {
+        "path": "data/snapshots/stage1_semiconductor_index_regime_source_20261023/source_1.html",
+        "bytes": 17067,
+        "sha256": "2cfcb342c21cd452425a02df2bc188574ae006519f39c9d08feba0ddf896fe79"
+      },
+      "headers": {
+        "path": "data/snapshots/stage1_semiconductor_index_regime_source_20261023/source_1.headers",
+        "bytes": 1825,
+        "sha256": "8c6408edff830bf1ebecddcbe4a936306f12db7c3e4f52ba25f4e06b110a2a61"
+      }
+    },
+    {
+      "role": "SOXL_official_SEC_prospectus_supplement",
+      "requested_url": "https://www.sec.gov/Archives/edgar/data/1424958/000119312521195149/d177232d497.htm",
+      "requested_at_utc": "2026-10-22T21:52:58.908248+00:00",
+      "responded_at_utc": "2026-10-22T21:52:59.743767+00:00",
+      "curl_exit": 0,
+      "http_status": "200",
+      "effective_url": "https://www.sec.gov/Archives/edgar/data/1424958/000119312521195149/d177232d497.htm",
+      "stderr": "",
+      "body": {
+        "path": "data/snapshots/stage1_semiconductor_index_regime_source_20261023/source_2.html",
+        "bytes": 37260,
+        "sha256": "4692767eaa5208041410b84ca528126ceb13c65c3fee46dca96a01c48d529d1c"
+      },
+      "headers": {
+        "path": "data/snapshots/stage1_semiconductor_index_regime_source_20261023/source_2.headers",
+        "bytes": 1805,
+        "sha256": "016293d57e138141ec26c36cf83eaf67c659083cd897351704485cb351316291"
+      }
+    },
+    {
+      "role": "SOXL_official_SEC_listing_report",
+      "requested_url": "https://www.sec.gov/Archives/edgar/vprr/2100/21009136.pdf",
+      "requested_at_utc": "2026-10-22T21:52:59.744283+00:00",
+      "responded_at_utc": "2026-10-22T21:53:01.115150+00:00",
+      "curl_exit": 0,
+      "http_status": "200",
+      "effective_url": "https://www.sec.gov/Archives/edgar/vprr/2100/21009136.pdf",
+      "stderr": "",
+      "body": {
+        "path": "data/snapshots/stage1_semiconductor_index_regime_source_20261023/source_3.pdf",
+        "bytes": 183403,
+        "sha256": "7c39b88e86ad017ef232c4e1feedc47d39775ced0c1746d5620e44c4499511a8"
+      },
+      "headers": {
+        "path": "data/snapshots/stage1_semiconductor_index_regime_source_20261023/source_3.headers",
+        "bytes": 889,
+        "sha256": "485c97e718090826aecc13693a4117a62c946f4acb5ff1e388c46cb131afc10e"
+      }
+    }
+  ],
+  "market_outcome_reads": 0,
+  "model_fits": 0,
+  "native_accounts": 0
+}

@@ -1,0 +1,18 @@
+{
+  "schema_version": 1,
+  "frozen": true,
+  "experiment": "stage1_semiconductor_index_regime_source_20261023",
+  "phase": "official_SOXX_SOXL_2021_underlying_index_change_identity_only",
+  "question": "Did SOXX and SOXL each change from the PHLX Semiconductor Sector Index to the ICE Semiconductor Index in 2021, creating an exogenous training-domain boundary for the frozen Stage1 price/model history?",
+  "exact_requests": [
+    {"role": "SOXX_official_SEC_prospectus_supplement", "url": "https://www.sec.gov/Archives/edgar/data/1100663/000119312521126827/d82642d497.htm", "required": ["SOXX", "ICE Semiconductor Index", "June 21, 2021"]},
+    {"role": "SOXL_official_SEC_prospectus_supplement", "url": "https://www.sec.gov/Archives/edgar/data/1424958/000119312521195149/d177232d497.htm", "required": ["SOXL", "ICE Semiconductor Index", "August 25, 2021"]},
+    {"role": "SOXL_official_SEC_listing_report", "url": "https://www.sec.gov/Archives/edgar/vprr/2100/21009136.pdf", "required": ["ICE Semiconductor Index", "SOXL", "August 27, 2021"]}
+  ],
+  "request_budget": {"GETs": 3, "per_URL_GETs": 1, "max_HTML_bytes_each": 1000000, "max_PDF_bytes": 3000000, "timeout_seconds_each": 30, "retries": 0},
+  "conservative_regime_dates": {"both_prior_PHLX_through": "2021-06-18", "transition_unknown_inclusive": ["2021-06-21", "2021-08-27"], "both_ICE_not_before": "2021-08-30"},
+  "decision_boundary": "These are source-only structural dates. A common-index post period must not be confused with 2021's two-month transition, and a historical market difference is not causal proof that the index change made Stage1 fail. Do not choose a trading threshold or retrain from this source phase.",
+  "budget": {"market_outcome_reads": 0, "Qlib_calls": 0, "model_fits": 0, "native_accounts": 0},
+  "backup": "Preserve exact official responses and headers, URL, UTC receipt and SHA-256 locally and on Yanxuan NAS with remote digest and scoped restore. Do not commit response headers that carry temporary cookies.",
+  "stop": "Any wrong issuer/index/date identity or non-PDF listing response stops the source gate; retain exact failure. A pass only permits a separately frozen Qlib pre/post input/label/account failure attribution and, if justified, one new Stage1-derived 0bp mechanism."
+}
