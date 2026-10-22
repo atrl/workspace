@@ -40,7 +40,7 @@
     "execution_authorized": false,
     "parent": "Frozen Stage1 f696f656 allocator plus b472a458 action/recovery chain under the same Qlib source, decision clocks, and full funded account contract; use its 0bp native account as the attribution baseline.",
     "first_screen": "0bp means zero added slippage with frozen IBKR Tiered fees still charged. A Stage1-derived candidate must first clear the SOXX 0bp wealth, <=30% available-mark drawdown, CVaR5, complete-year, rolling-126 and preregistered uncertainty screens on one full native account. Compare the matched frozen Stage1 account for module attribution.",
-    "next_action": "Fixed original-Stage1 0bp composition produced net SOXX wealth ratio 1.077455, but available-mark drawdown 30.8558%, 458/819 positive 126-session windows and a negative SOXX block lower bound; close it. Read-only attribution locates the 2026-06-22 to 2026-07-29 drawdown and weaker 2026Q3 path without identifying a causal threshold. The fixed issuer-share conditional information screen also failed. Seek one substantively new, source-qualified decision-time signal to distinguish persistent weakness from recovery, using the original Stage1 39-input chain and all historical intervals; no sign/lag/window/transform/risk-cap rescue. Require a matching information gate before another 0bp native account, then separate 2/5bp and independent-forward v2 gates.",
+    "next_action": "Fixed original-Stage1 0bp composition produced net SOXX wealth ratio 1.077455, but available-mark drawdown 30.8558%, 458/819 positive 126-session windows and a negative SOXX block lower bound; close it. Read-only attribution locates the 2026-06-22 to 2026-07-29 drawdown and weaker 2026Q3 path without identifying a causal threshold. The fixed issuer-share conditional information screen also failed. Seek one substantively new, source-qualified decision-time signal to distinguish persistent weakness from recovery, using the original Stage1 39-input chain and all historical intervals; no sign/lag/window/transform/risk-cap rescue. Require a matching information gate before another 0bp native account, then separate 2/5bp and independent-forward v2 gates. Separate Federal Reserve G.17 production source audit found original Table1 NAICS3344 row in 190/192 dated supplements, with two missing row layouts (2012-03-16 and 2016-03-16). Source-only ALFRED forms start in 2015; a separate main-release probe confirms its older 334412-9 row is the wrong bridge. Before any Stage1 production feature fit, qualify same-vintage numeric extraction, missing layouts, base-year/definition changes and next-session availability. Do not splice Table2 capacity or later revisions.",
     "baseline_evidence": "research/stage1_domain_heads_20261018/conclusion.md",
     "layer_diagnosis": "research/stage1_uniform_layer_attribution_20261010/conclusion.md",
     "cross_account_attribution": "research/three_asset_failure_attribution_20261015/conclusion.md",
@@ -93,7 +93,10 @@
     "issuer_shares_information_status": "closed_fixed_negative_coefficient_and_nonpositive_corrected_lower_zero_accounts",
     "stage1_beta_composition_0bp_result": "research/stage1_beta_composition_0bp_20261022/summary.json",
     "stage1_beta_composition_failure_attribution": "research/stage1_beta_composition_attribution_20261022/failure_attribution.json",
-    "stage1_beta_composition_status": "closed_not_promoted_0bp_drawdown_rolling_bootstrap_failed"
+    "stage1_beta_composition_status": "closed_not_promoted_0bp_drawdown_rolling_bootstrap_failed",
+    "semiconductor_ip_original_Table1_row_audit": "research/semiconductor_ip_original_g17_bridge_20261022/source_row_audit.json",
+    "semiconductor_ip_ALFRED_preflight": "research/semiconductor_ip_alfred_preflight_20261022/source_preflight_result.json",
+    "semiconductor_ip_main_release_negative_bridge": "research/semiconductor_ip_fed_original_bridge_probe_20261022/source_probe_result.json"
   },
   "parallel_source_task": {
     "card": "research/korea_semiconductor_exports_korean_vintage_20261022",
@@ -158,7 +161,7 @@
     ]
   },
   "active_index": "research/active_research_index.json",
-  "updated_at_utc": "2026-10-22T15:22:26+00:00",
+  "updated_at_utc": "2026-10-22T15:31:16.015294+00:00",
   "execution_totals": {
     "new_model_fits": 58,
     "new_native_accounts": 48,

@@ -1,0 +1,27 @@
+{
+  "schema_version": 1,
+  "experiment": "semiconductor_ip_g17_layout_exception_20261022",
+  "frozen": true,
+  "phase": "two_original_release_layout_exceptions_only",
+  "source_card": "research/fed_semiconductor_capacity_source_20261013",
+  "source_recorder_id": "5fc5ec0a971848db94a9c0c4954b1f80",
+  "source_summary_sha256": "76776fc1b0f5f5c994701e18583abc1128570f0e9b59cef1abef18194e2cfc22",
+  "source_verification_manifest_sha256": "c56d8ad9ba387607a0fc7f25d9ac4dab7022ed6c46bbf0b71bc119b6fa022f20",
+  "source_raw_artifact": "sources/raw_supplements",
+  "source_raw_artifact_sha256": "d2b8467087dfbb45008b1fc88bbfda85f87f24eb3f0f83526a3c82222a215d55",
+  "prior_audit_result_sha256": "b45ff78d2128ae0d4edd5a8ce1f7c1631280ca27d4834ffeb075733380aa1c9a",
+  "target_files": [
+    "20120316_sup.txt",
+    "20160316_sup.txt"
+  ],
+  "question": "Do the two apparent Table1 NAICS3344 absences reflect a different original G17 table layout/label in annual revision months, or actual omission? Use exact archived text only.",
+  "budget": {
+    "verified_Qlib_source_artifact_loads": 1,
+    "new_http_requests": 0,
+    "market_outcome_reads": 0,
+    "numeric_factor_values": 0,
+    "model_fits": 0,
+    "native_accounts": 0
+  },
+  "stop": "Record original label/section and whether an exact unambiguous NAICS3344 IP row is recoverable. No fuzzy numeric matching, no period exclusion or factor fit."
+}
