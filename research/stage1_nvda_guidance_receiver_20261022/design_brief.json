@@ -1,0 +1,49 @@
+{
+  "schema_version": 1,
+  "status": "design_only_stage1_receiver_candidate",
+  "execution_authorized": false,
+  "objective": "Test whether the already source-audited NVDA original same-quarter revenue-guidance realization state adds 0bp SOXX-relative economic information when received by the original Stage1 allocation network, with the frozen Stage1 action, risk and recovery chain unchanged.",
+  "why_this_mechanism": "The old Stage1 0bp native account has relative SOXX wealth 0.6860 and 31.14% positive 126-session windows. A previously fixed small tangent allocation-head version using this numeric state exceeded SOXX in terminal wealth but missed rolling and bootstrap gates. This design changes the receiving architecture, not the numeric formula, timing or historical evaluation window. It is selected after seeing reused historical results and can only produce development evidence.",
+  "parent_and_controls": {
+    "Stage1_baseline": "research/stage1_domain_heads_20261018/summary.json; frozen f696f656 allocator plus b472a458 action/recovery, 944 same-source funded intervals and original raw-share price plane",
+    "matching_B": "Original shared-head MinutePitAllocator with source-availability/comparable flags but numeric realization fixed to zero; same seeds, scaler, objective, data, optimizer and source calendar as C",
+    "candidate_C": "The same original shared-head architecture plus one train-only-standardized realization numeric input to the primary allocation receiver; no addition to common auxiliary encoder or action classifier",
+    "SOXX": "research/frozen_policy_raw_cashbook_20261015/summary.json native/raw_SOXX_0",
+    "strong_reference": "Existing 9097 and the old tangent realization candidate are diagnostic references under identical price/account identities, not alternative final benchmarks"
+  },
+  "source": {
+    "card": "research/nvda_own_guidance_realization_source_20261015",
+    "recorder_id": "9fb35ff59c1b43b7ba3906a46d7002c0",
+    "archive_sha256": "a77a7be5d5aa1ff7580fb297e19d873f38a04166c76fa12ba974327cf38ab414",
+    "known_training_events_pre2023": 47,
+    "comparable_events_pre2023": 46,
+    "historical_first_public_timestamp_verified": false,
+    "all_update_coverage_verified": false,
+    "original_html_bytes_verified": false,
+    "timing": "Use only report state established by the source's delayed 09:31 availability assumption before each Stage1 decision; unknown and noncomparable states remain explicit. No current-document value may be backfilled into an earlier signal date."
+  },
+  "nas_live_check": "On 2026-10-22, read-only SHA-256 at the NAS artifact paths matched both the source archive a77a7be5d5aa1ff7580fb297e19d873f38a04166c76fa12ba974327cf38ab414 and the prior tangent experiment archive e5843be4a5dbd36c1f92c45755b63f1d1e8f8e7b4a6203112b539170e5d13471. This verifies those two stored blobs, not the complete workspace or historical first-public timing.",
+  "pre_execution_freeze_needed": [
+    "Pin exact source Recorder artifact and raw-price/control hashes, implementation source, train-only scaler, feature order, eligible/missing rows, label maturation and all three initialization identities.",
+    "Freeze B/C 3 seeds 71/172/273, 300 epochs, original 3014 strictly mature primary and 20741 auxiliary observations, original Stage1 loss/optimizer/smoothing/risk/action, and maximum six fits.",
+    "Seal all six models and predictions before reading 2023+ account outcomes. Then run both B and C as independent 0bp Tiered native accounts once, with own cash, receivables, holdings, risk state and fees. Do not cancel either account after classification or training scores.",
+    "Evaluate full 944 intervals, both complete years, all quarters and 819 contiguous 126-session windows. Source timing, raw-share/price-plane identity and full-minute risk gaps remain explicit."
+  ],
+  "0bp_hard_screen": {
+    "SOXX_net_relative_wealth": ">1 under same raw-share dividend/cash and Tiered accounting",
+    "available_mark_max_drawdown": "<=30%, with full-minute qualification reported separately",
+    "CVaR5": "no worse than SOXX",
+    "complete_year_positive_fraction": ">=70% across at least two complete years",
+    "rolling_126_positive_fraction": ">=70% across every contiguous window",
+    "SOXX_paired_stationary_bootstrap": "positive lower bound; mean block63, 10000 draws, seed20261014, alpha .025/16 for one additional economic candidate",
+    "module_increment": "Report C versus matched B and frozen Stage1 under the same account/source identities; no comparator substitution after outcomes"
+  },
+  "budget": {
+    "new_model_fits_max": 6,
+    "new_0bp_native_accounts_max": 2,
+    "new_2bp_5bp_accounts_before_0bp_pass": 0,
+    "new_external_fetches": 0,
+    "new_writable_Recorders_after_freeze": 1
+  },
+  "stop_and_forward": "A fixed 0bp failure closes this receiver version without sign, window, seed, feature-scaling, loss or risk-threshold rescue. A 0bp historical pass only permits separately frozen 2/5bp accounts and source-qualified independent forward observation; the previously viewed 2023-2026 history cannot certify stable success."
+}
