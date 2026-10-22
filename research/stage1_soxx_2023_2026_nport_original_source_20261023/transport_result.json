@@ -1,0 +1,14 @@
+{
+  "status": "fifteen_held_index_and_XML_pairs_archived_parse_pending",
+  "error": null,
+  "GET_attempts": 30,
+  "index_GETs": 15,
+  "primary_XML_GETs": 15,
+  "HTTP200_files": 30,
+  "nas_archive_sha256": "650e7aae26f43392f7fe0c44f52ac963ad92b6a3170b1f1c7c084134cca5b455",
+  "nas_archive_bytes": 173712,
+  "nas_remote_and_scoped_restore_verified": true,
+  "market_outcome_reads": 0,
+  "model_fits": 0,
+  "native_accounts": 0
+}

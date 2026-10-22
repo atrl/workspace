@@ -1,0 +1,151 @@
+{
+  "schema_version": 1,
+  "frozen": true,
+  "question": "Can the fourteen 2023-2026 original SOXX NPORT-P reports and one 2025-Sep later amendment be re-identified from exact SEC filing indexes and raw primary XML, with conservative publication clocks and no retroactive report replacement?",
+  "parent_manifest": "data/qlib/soxx_pit_leveraged_training_v1/sec_nport_holdings_manifest.json",
+  "parent_manifest_sha256": "abf33aa625ae587fa99a61d6b75bf25e47e1deb57f70f360f0ba670d84643811",
+  "exact_filings": [
+    {
+      "accession": "0001752724-23-039255",
+      "form": "NPORT-P",
+      "report_period": "2022-12-31",
+      "filed_from_legacy_manifest": "2023-02-24",
+      "index_url": "https://www.sec.gov/Archives/edgar/data/1100663/000175272423039255/0001752724-23-039255-index.htm",
+      "primary_xml_url": "https://www.sec.gov/Archives/edgar/data/1100663/000175272423039255/primary_doc.xml"
+    },
+    {
+      "accession": "0001752724-23-123226",
+      "form": "NPORT-P",
+      "report_period": "2023-03-31",
+      "filed_from_legacy_manifest": "2023-05-26",
+      "index_url": "https://www.sec.gov/Archives/edgar/data/1100663/000175272423123226/0001752724-23-123226-index.htm",
+      "primary_xml_url": "https://www.sec.gov/Archives/edgar/data/1100663/000175272423123226/primary_doc.xml"
+    },
+    {
+      "accession": "0001752724-23-191474",
+      "form": "NPORT-P",
+      "report_period": "2023-06-30",
+      "filed_from_legacy_manifest": "2023-08-25",
+      "index_url": "https://www.sec.gov/Archives/edgar/data/1100663/000175272423191474/0001752724-23-191474-index.htm",
+      "primary_xml_url": "https://www.sec.gov/Archives/edgar/data/1100663/000175272423191474/primary_doc.xml"
+    },
+    {
+      "accession": "0001752724-23-264274",
+      "form": "NPORT-P",
+      "report_period": "2023-09-30",
+      "filed_from_legacy_manifest": "2023-11-22",
+      "index_url": "https://www.sec.gov/Archives/edgar/data/1100663/000175272423264274/0001752724-23-264274-index.htm",
+      "primary_xml_url": "https://www.sec.gov/Archives/edgar/data/1100663/000175272423264274/primary_doc.xml"
+    },
+    {
+      "accession": "0001752724-24-043112",
+      "form": "NPORT-P",
+      "report_period": "2023-12-31",
+      "filed_from_legacy_manifest": "2024-02-27",
+      "index_url": "https://www.sec.gov/Archives/edgar/data/1100663/000175272424043112/0001752724-24-043112-index.htm",
+      "primary_xml_url": "https://www.sec.gov/Archives/edgar/data/1100663/000175272424043112/primary_doc.xml"
+    },
+    {
+      "accession": "0001752724-24-123330",
+      "form": "NPORT-P",
+      "report_period": "2024-03-31",
+      "filed_from_legacy_manifest": "2024-05-28",
+      "index_url": "https://www.sec.gov/Archives/edgar/data/1100663/000175272424123330/0001752724-24-123330-index.htm",
+      "primary_xml_url": "https://www.sec.gov/Archives/edgar/data/1100663/000175272424123330/primary_doc.xml"
+    },
+    {
+      "accession": "0001752724-24-194376",
+      "form": "NPORT-P",
+      "report_period": "2024-06-30",
+      "filed_from_legacy_manifest": "2024-08-27",
+      "index_url": "https://www.sec.gov/Archives/edgar/data/1100663/000175272424194376/0001752724-24-194376-index.htm",
+      "primary_xml_url": "https://www.sec.gov/Archives/edgar/data/1100663/000175272424194376/primary_doc.xml"
+    },
+    {
+      "accession": "0001752724-24-269906",
+      "form": "NPORT-P",
+      "report_period": "2024-09-30",
+      "filed_from_legacy_manifest": "2024-11-26",
+      "index_url": "https://www.sec.gov/Archives/edgar/data/1100663/000175272424269906/0001752724-24-269906-index.htm",
+      "primary_xml_url": "https://www.sec.gov/Archives/edgar/data/1100663/000175272424269906/primary_doc.xml"
+    },
+    {
+      "accession": "0001752724-25-043848",
+      "form": "NPORT-P",
+      "report_period": "2024-12-31",
+      "filed_from_legacy_manifest": "2025-02-27",
+      "index_url": "https://www.sec.gov/Archives/edgar/data/1100663/000175272425043848/0001752724-25-043848-index.htm",
+      "primary_xml_url": "https://www.sec.gov/Archives/edgar/data/1100663/000175272425043848/primary_doc.xml"
+    },
+    {
+      "accession": "0001752724-25-119804",
+      "form": "NPORT-P",
+      "report_period": "2025-03-31",
+      "filed_from_legacy_manifest": "2025-05-27",
+      "index_url": "https://www.sec.gov/Archives/edgar/data/1100663/000175272425119804/0001752724-25-119804-index.htm",
+      "primary_xml_url": "https://www.sec.gov/Archives/edgar/data/1100663/000175272425119804/primary_doc.xml"
+    },
+    {
+      "accession": "0001752724-25-210398",
+      "form": "NPORT-P",
+      "report_period": "2025-06-30",
+      "filed_from_legacy_manifest": "2025-08-28",
+      "index_url": "https://www.sec.gov/Archives/edgar/data/1100663/000175272425210398/0001752724-25-210398-index.htm",
+      "primary_xml_url": "https://www.sec.gov/Archives/edgar/data/1100663/000175272425210398/primary_doc.xml"
+    },
+    {
+      "accession": "0002071691-25-007653",
+      "form": "NPORT-P",
+      "report_period": "2025-09-30",
+      "filed_from_legacy_manifest": "2025-11-26",
+      "index_url": "https://www.sec.gov/Archives/edgar/data/1100663/000207169125007653/0002071691-25-007653-index.htm",
+      "primary_xml_url": "https://www.sec.gov/Archives/edgar/data/1100663/000207169125007653/primary_doc.xml"
+    },
+    {
+      "accession": "0002071691-26-004253",
+      "form": "NPORT-P",
+      "report_period": "2025-12-31",
+      "filed_from_legacy_manifest": "2026-02-25",
+      "index_url": "https://www.sec.gov/Archives/edgar/data/1100663/000207169126004253/0002071691-26-004253-index.htm",
+      "primary_xml_url": "https://www.sec.gov/Archives/edgar/data/1100663/000207169126004253/primary_doc.xml"
+    },
+    {
+      "accession": "0002071691-26-012504",
+      "form": "NPORT-P",
+      "report_period": "2026-03-31",
+      "filed_from_legacy_manifest": "2026-05-28",
+      "index_url": "https://www.sec.gov/Archives/edgar/data/1100663/000207169126012504/0002071691-26-012504-index.htm",
+      "primary_xml_url": "https://www.sec.gov/Archives/edgar/data/1100663/000207169126012504/primary_doc.xml"
+    },
+    {
+      "accession": "0002071691-26-015796",
+      "form": "NPORT-P/A",
+      "report_period": "2025-09-30",
+      "filed_from_legacy_manifest": "2026-07-13",
+      "index_url": "https://www.sec.gov/Archives/edgar/data/1100663/000207169126015796/0002071691-26-015796-index.htm",
+      "primary_xml_url": "https://www.sec.gov/Archives/edgar/data/1100663/000207169126015796/primary_doc.xml"
+    }
+  ],
+  "request": {
+    "user_agent": "SOXL research codex@openai.com",
+    "method": "GET",
+    "max_GETs": 30,
+    "index_max_bytes_each": 3000000,
+    "XML_max_bytes_each": 3000000,
+    "connect_timeout_seconds": 10,
+    "total_timeout_seconds_each": 45,
+    "minimum_seconds_between_requests": 1,
+    "retries": 0
+  },
+  "identity_gate": "For each index verify exact accession, form, filed date, period, series S000004354/class C000012084/SOXX row and exact primary XML link. For raw XML verify CIK 0001100663, series/class, repPdDate, 30 common-equity invstOrSec rows. Preserve original bytes, headers, SHA and UTC clocks. No numeric concentration calculation in this source card.",
+  "amendment_boundary": "2025-09-30 NPORT-P/A filed 2026-07-13 cannot retroactively replace the original 2025-09-30 report, nor override the more recent 2026-03-31 report after its 2026-05-28 filing. Distinguish filing clock from report period.",
+  "backup": "Archive all exact received index/XML and header bytes to Yanxuan NAS, verify remote SHA-256 and scoped raw-member restore. Preserve partial bytes if capture fails.",
+  "budgets": {
+    "index_GETs": 15,
+    "primary_XML_GETs": 15,
+    "market_outcome_reads": 0,
+    "model_fits": 0,
+    "native_accounts": 0
+  },
+  "stop": "Stop further GETs on HTTP, size or NAS failure; preserve partial receipts. Any accession/date/series/class/XML identity mismatch stops source qualification without substituting another filing. No returns, fit or account."
+}

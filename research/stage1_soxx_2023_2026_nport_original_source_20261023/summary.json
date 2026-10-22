@@ -1,0 +1,22 @@
+{
+  "experiment": "stage1_soxx_2023_2026_nport_original_source_20261023",
+  "decision": "fifteen_held_NPORT_original_index_XML_identities_qualified_values_and_amendment_pending",
+  "objective_achieved": false,
+  "plan": "plan.json",
+  "transport": "transport_result.json",
+  "identity": "identity_result.json",
+  "index_GETs": 15,
+  "primary_XML_GETs": 15,
+  "base_report_identities": 14,
+  "later_amendment_identities": 1,
+  "market_outcome_reads": 0,
+  "model_fits": 0,
+  "native_accounts": 0,
+  "source_NAS_archive_sha256": "650e7aae26f43392f7fe0c44f52ac963ad92b6a3170b1f1c7c084134cca5b455",
+  "source_NAS_scoped_restore_verified": true,
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": []
+  }
+}
