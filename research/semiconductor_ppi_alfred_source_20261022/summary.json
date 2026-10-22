@@ -1,0 +1,39 @@
+{
+  "experiment": "semiconductor_ppi_alfred_source_20261022",
+  "status": "source_date_vintage_qualified_for_bounded_diagnostic_information_only",
+  "decision": "source_date_vintage_qualified_for_bounded_diagnostic_information_only",
+  "source_quality": "source_quality.json",
+  "recorder_id": "77aa6351b89b44a392a28b6ad53ef93d",
+  "experiment_id": "447482222244831975",
+  "recorder_uri": "/Users/rziiiii/dev/workspace/research/semiconductor_ppi_alfred_source_20261022/qlib_recorder",
+  "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/semiconductor_ppi_alfred_source_20261022/qlib_recorder/447482222244831975/77aa6351b89b44a392a28b6ad53ef93d",
+  "model_fits": 0,
+  "accounts": 0,
+  "qualified_forward_days": 0,
+  "objective_achieved": false,
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "sources/vintage_panel",
+      "sources/vintage_panel.zip",
+      "sources/download_receipt",
+      "analysis/release_availability",
+      "analysis/source_quality"
+    ]
+  },
+  "nas_evidence": {
+    "sha256": "082d95ae3195725f0f60ae9b56cd9aa935ca0fdc2524b2b579e7562ab48329ae",
+    "size_bytes": 71795,
+    "media_type": "application/gzip",
+    "storage_uri": "sha256/08/2d/082d95ae3195725f0f60ae9b56cd9aa935ca0fdc2524b2b579e7562ab48329ae",
+    "uploaded_by": "soxl-minute-research",
+    "created_at": "2026-10-22 15:05:56.031797+08",
+    "duplicate": false,
+    "nas_path": "/volume1/docker/yanxuan/registry/research-artifacts/08/2d/082d95ae3195725f0f60ae9b56cd9aa935ca0fdc2524b2b579e7562ab48329ae",
+    "recorder_id": "77aa6351b89b44a392a28b6ad53ef93d",
+    "experiment_id": "447482222244831975",
+    "archive_root": "qlib_recorder"
+  },
+  "nas_readback": "nas_readback.json"
+}

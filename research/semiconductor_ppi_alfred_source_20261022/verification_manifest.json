@@ -1,0 +1,45 @@
+{
+  "recorder_id": "77aa6351b89b44a392a28b6ad53ef93d",
+  "entries": [
+    {
+      "path": "qlib_recorder/447482222244831975/77aa6351b89b44a392a28b6ad53ef93d/artifacts/analysis/release_availability",
+      "sha256": "b45c766d53432bd8fefa83fcd7e5fe9fa311aa006cbcfe5395ad8bfa62777300",
+      "bytes": 7311
+    },
+    {
+      "path": "qlib_recorder/447482222244831975/77aa6351b89b44a392a28b6ad53ef93d/artifacts/analysis/source_quality",
+      "sha256": "3e078c740695e6842dd6fe3a76daa532df8a8b42bcea99bc857435c059c9f693",
+      "bytes": 1452
+    },
+    {
+      "path": "qlib_recorder/447482222244831975/77aa6351b89b44a392a28b6ad53ef93d/artifacts/code_cached.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "qlib_recorder/447482222244831975/77aa6351b89b44a392a28b6ad53ef93d/artifacts/code_diff.txt",
+      "sha256": "ab41b91a9a74ad1f9bea8ee9a3ae29251f000ec97ff64c059d9cf87bf9ff883a",
+      "bytes": 432769
+    },
+    {
+      "path": "qlib_recorder/447482222244831975/77aa6351b89b44a392a28b6ad53ef93d/artifacts/code_status.txt",
+      "sha256": "f202195e4b9b78c1a93f145fb05e522251e56bc1c1a6731f24aaf3dba8a23407",
+      "bytes": 60955
+    },
+    {
+      "path": "qlib_recorder/447482222244831975/77aa6351b89b44a392a28b6ad53ef93d/artifacts/sources/download_receipt",
+      "sha256": "2d4123dd1c9c2310e21dd87bb5396800b2c3d4e9bda25b50031e808e6545b9a2",
+      "bytes": 738
+    },
+    {
+      "path": "qlib_recorder/447482222244831975/77aa6351b89b44a392a28b6ad53ef93d/artifacts/sources/vintage_panel",
+      "sha256": "653d480de24d4b1085d53ffcfc06e49dd76a56ea60953ec186b2b71ee990c54c",
+      "bytes": 82734
+    },
+    {
+      "path": "qlib_recorder/447482222244831975/77aa6351b89b44a392a28b6ad53ef93d/artifacts/sources/vintage_panel.zip",
+      "sha256": "4dd76bf0c53e27ceaa913afa02dd252a129e18767ddf89c9c05989fb99cb48ce",
+      "bytes": 3152
+    }
+  ]
+}

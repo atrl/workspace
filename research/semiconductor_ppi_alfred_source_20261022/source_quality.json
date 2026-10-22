@@ -1,0 +1,40 @@
+{
+  "schema_version": 1,
+  "status": "source_date_vintage_qualified_for_bounded_diagnostic_information_only",
+  "source_plan_sha256": "c3980b6f9d28317359f3f030b2d45933a9a81e181056876b22dc16ec9cfd3424",
+  "source_quality_plan_sha256": "d9af54a992b1238d14517182a623eaf37f9ad576c05a09d623e4b1c0ac01b29d",
+  "raw_zip_sha256": "4dd76bf0c53e27ceaa913afa02dd252a129e18767ddf89c9c05989fb99cb48ce",
+  "csv_sha256": "1e501929b545125d9fcc2c8bf72fbc38d020cd70f3216dd7bc46d08e1d0aabc1",
+  "vintage_dates": 93,
+  "observation_months": 105,
+  "latest_months_unique": 93,
+  "missing_as_latest_observation_month": [
+    "2025-10"
+  ],
+  "positive_latest_values": 93,
+  "same_vintage_mom_values": 93,
+  "same_vintage_yoy_values": 92,
+  "observation_months_revised_in_later_vintages": 77,
+  "shutdown_2025_10_first_appears_with_2025_11_at_2026_01_14": true,
+  "BLS_cancellation_source": "https://www.bls.gov/bls/news-release/ppi.htm",
+  "calendar_sessions": 1962,
+  "first_calendar_session": "2019-01-02",
+  "last_calendar_session": "2026-10-21",
+  "all_vintages_mapped_to_next_session": 93,
+  "historical_intraday_first_receipt_qualified": false,
+  "historical_market_independence": false,
+  "factor_information_test_run": false,
+  "market_outcome_reads": 0,
+  "model_fits": 0,
+  "accounts": 0,
+  "limitations": [
+    "BLS PPI indexes can be revised for four months.",
+    "ALFRED vintage date is not exact intraday first-receipt proof.",
+    "US quality-adjusted industry prices are not global chip sales or SOXX earnings.",
+    "BLS 2024 hedonic method change must be considered before a fixed information screen."
+  ],
+  "recorder_id": "77aa6351b89b44a392a28b6ad53ef93d",
+  "experiment_id": "447482222244831975",
+  "recorder_uri": "/Users/rziiiii/dev/workspace/research/semiconductor_ppi_alfred_source_20261022/qlib_recorder",
+  "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/semiconductor_ppi_alfred_source_20261022/qlib_recorder/447482222244831975/77aa6351b89b44a392a28b6ad53ef93d"
+}

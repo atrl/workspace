@@ -1,0 +1,19 @@
+{
+  "schema_version": "nas_research_source_v1",
+  "authority": "yanxuan_nas",
+  "source_id": "d9af54a992b1238d14517182a623eaf37f9ad576c05a09d623e4b1c0ac01b29d",
+  "raw_authority": "Qlib Recorder sources/vintage_panel.zip exact ALFRED archive; local raw cache rebuildable",
+  "evidence": {
+    "sha256": "082d95ae3195725f0f60ae9b56cd9aa935ca0fdc2524b2b579e7562ab48329ae",
+    "size_bytes": 71795,
+    "media_type": "application/gzip",
+    "storage_uri": "sha256/08/2d/082d95ae3195725f0f60ae9b56cd9aa935ca0fdc2524b2b579e7562ab48329ae",
+    "uploaded_by": "soxl-minute-research",
+    "created_at": "2026-10-22 15:05:56.031797+08",
+    "duplicate": false,
+    "nas_path": "/volume1/docker/yanxuan/registry/research-artifacts/08/2d/082d95ae3195725f0f60ae9b56cd9aa935ca0fdc2524b2b579e7562ab48329ae",
+    "recorder_id": "77aa6351b89b44a392a28b6ad53ef93d",
+    "experiment_id": "447482222244831975",
+    "archive_root": "qlib_recorder"
+  }
+}

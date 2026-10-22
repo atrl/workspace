@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "status": "targeted_Qlib_Recorder_readback_passed",
+  "recorder_id": "77aa6351b89b44a392a28b6ad53ef93d",
+  "verification_manifest_sha256": "f34640d4ac75ba6ebc3609d674137a85c18289978bcf90ed6867adedd7222154",
+  "loaded_artifact_sha256": {
+    "analysis/release_availability": "b45c766d53432bd8fefa83fcd7e5fe9fa311aa006cbcfe5395ad8bfa62777300",
+    "analysis/source_quality": "3e078c740695e6842dd6fe3a76daa532df8a8b42bcea99bc857435c059c9f693"
+  },
+  "release_rows": 93,
+  "same_vintage_yoy_values": 92,
+  "hashes_checked_before_unpickling": true,
+  "remote_archive_sha256": "082d95ae3195725f0f60ae9b56cd9aa935ca0fdc2524b2b579e7562ab48329ae",
+  "remote_SHA256_verified": true
+}

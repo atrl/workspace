@@ -31,6 +31,15 @@
       "execution_authorized": false,
       "result": "research/korea_semiconductor_exports_korean_vintage_20261022/numeric_pair_repair_review.json",
       "official_same_day_mirror_probe": "research/korea_semiconductor_exports_korean_vintage_20261022/official_mirror_2020_05_probe.json"
+    },
+    {
+      "card": "research/semiconductor_ppi_alfred_source_20261022",
+      "phase": "same_vintage_source_qualified_bounded_information_design_pending",
+      "role": "distinct_US_semiconductor_producer_price_information_source",
+      "full_economic_experiment": false,
+      "status": "93_ALFRED_vintages_92_same_vintage_yoy_2025_10_shutdown_gap_preserved",
+      "execution_authorized": false,
+      "result": "research/semiconductor_ppi_alfred_source_20261022/source_quality.json"
     }
   ],
   "framework": [
@@ -136,7 +145,8 @@
     "constraint": "At/after 2026-10-22 12:45 UTC run one remaining Cboe preopen vintage; at 13:35-19:55 UTC run only three frozen read-only IBKR snapshots. No source is a qualified factor or economic strategy.",
     "execution_authorized": false,
     "parallel_source_gap": "Korean source-only automatic pairing verified 27/93 current-document month pairs; 66 months including all three dual-version months remain unresolved. Four known controls pass, so unresolved means extractor/source semantics need original-document review, not factor failure. Historical first-public vintage is unqualified. No SOXX outcome or Korea fit may be read.",
-    "parallel_source_progress": "research/korea_semiconductor_exports_korean_vintage_20261022/numeric_pair_repair_review.json"
+    "parallel_source_progress": "research/korea_semiconductor_exports_korean_vintage_20261022/numeric_pair_repair_review.json",
+    "parallel_qualified_PPI_source": "research/semiconductor_ppi_alfred_source_20261022/source_quality.json"
   },
   "closed_source_probes": [
     {
