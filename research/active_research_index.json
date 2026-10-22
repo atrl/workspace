@@ -34,7 +34,9 @@
       "fixed_delta25_source_status": "single_day_bracketed_not_PIT",
       "vendor_sample_audit": "research/ibkr_soxx_25delta_source_preflight_20261022/orats_public_sample_audit.json",
       "vendor_sample_status": "one_day_SOXX_25delta_brackets_historical_coverage_unqualified",
-      "historical_data_acceptance_brief": "research/ibkr_soxx_25delta_source_preflight_20261022/historical_data_acceptance_brief.json"
+      "historical_data_acceptance_brief": "research/ibkr_soxx_25delta_source_preflight_20261022/historical_data_acceptance_brief.json",
+      "Cboe_public_vendor_sample_preflight": "research/soxx_option_vendor_sample_preflight_20261023/summary.json",
+      "Cboe_public_vendor_sample_status": "generic_schema_only_SOXX_and_2011_history_unproven"
     },
     {
       "card": "research/cboe_total_options_activity_source_20261022",
@@ -498,6 +500,12 @@
       "card": "research/stage1_cboe_vix_term_source_v2_20261023",
       "status": "source_map_verified_candidate_closed_before_fit_duplicate_term_horizon_and_prelaunch_backfill",
       "result": "research/stage1_cboe_vix_term_source_v2_20261023/summary.json",
+      "default_search": false
+    },
+    {
+      "card": "research/soxx_option_vendor_sample_preflight_20261023",
+      "status": "generic_Cboe_option_quote_sample_schema_only_SOXX_and_2011_history_unproven",
+      "result": "research/soxx_option_vendor_sample_preflight_20261023/summary.json",
       "default_search": false
     }
   ],

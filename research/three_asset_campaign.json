@@ -100,7 +100,9 @@
     "Stage1_Cboe_VIX_term_source_map": "research/stage1_cboe_vix_term_source_v2_20261023/summary.json",
     "Stage1_Cboe_VIX_term_no_fit_interpretation": "Official Cboe VIX and VIX3M raw CSVs mapped to all3966 original Stage1 Qlib signal dates after one preserved calendar-left-boundary repair; NAS source/Recorder cold restoration and independent native readback passed. Yet 691 train signals use definite pre-Oct2013 retrospective VIX3M backfill and 23 launch-month signals lack exact publication day. Prior Cboe VIX9D/VIX3M H5 term-structure screen already failed; changing the short tenor to VIX on reused history is primarily horizon retuning. Close this candidate before any outcome read or fit, zero accounts.",
     "Stage1_original_0bp_signal_cap_loss_chain": "research/stage1_original_0bp_signal_loss_chain_v2_20261023/summary.json",
-    "Stage1_original_0bp_signal_cap_loss_interpretation": "Exact frozen A_0 0bp Tiered account and physical components align over all944 days, 16 quarters and819 rolling126 windows with native Qlib/NAS readback, zero fits/accounts. Full wealth ratio0.6860; raw allocation mean beta1.024 vs own-state cap0.826, binding30.5%. Worst126 Aug2023-Jan2024 loses cash -0.12724 and SOXL selection -0.12138 together with raw beta1.108/cap0.729/binding61.1%; best126 Oct2024-Apr2025 gains cash +0.24360 despite selection -0.07889. 2026Q3 selection -0.14390 dominates cash -0.02527 with raw beta1.044/cap0.384/binding90.6%; 2024Q3 cash +0.06444 and binding28.1%. These are descriptive associations, not profitable risk-cap counterfactuals or a quarter switch."
+    "Stage1_original_0bp_signal_cap_loss_interpretation": "Exact frozen A_0 0bp Tiered account and physical components align over all944 days, 16 quarters and819 rolling126 windows with native Qlib/NAS readback, zero fits/accounts. Full wealth ratio0.6860; raw allocation mean beta1.024 vs own-state cap0.826, binding30.5%. Worst126 Aug2023-Jan2024 loses cash -0.12724 and SOXL selection -0.12138 together with raw beta1.108/cap0.729/binding61.1%; best126 Oct2024-Apr2025 gains cash +0.24360 despite selection -0.07889. 2026Q3 selection -0.14390 dominates cash -0.02527 with raw beta1.044/cap0.384/binding90.6%; 2024Q3 cash +0.06444 and binding28.1%. These are descriptive associations, not profitable risk-cap counterfactuals or a quarter switch.",
+    "SOXX_option_vendor_public_sample_preflight": "research/soxx_option_vendor_sample_preflight_20261023/summary.json",
+    "SOXX_option_vendor_public_sample_interpretation": "Two free official Cboe quote/EOD sample ZIPs prove example quote-time, bid/ask and optional IV/Delta schema, with raw bytes NAS restored. Examples are AAPL, SPX and SPY, not SOXX. Both product pages state history begins January 2012, leaving 2011 Stage1 training coverage and SOXX-specific chain/receipt timing unproven. Zero SOXX outcomes, fits, accounts or purchases; no 25-Delta feature qualification."
   },
   "contract": {
     "path": "docs/three_asset_research_contract.md",
@@ -380,7 +382,7 @@
     ]
   },
   "active_index": "research/active_research_index.json",
-  "updated_at_utc": "2026-10-22T22:47:31.486053+00:00",
+  "updated_at_utc": "2026-10-22T22:49:14Z",
   "execution_totals": {
     "new_model_fits": 85,
     "new_native_accounts": 50,
