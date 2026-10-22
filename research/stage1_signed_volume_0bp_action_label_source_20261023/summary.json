@@ -1,0 +1,126 @@
+{
+  "experiment": "stage1_signed_volume_0bp_action_label_source_20261023",
+  "decision": "0bp_Tiered_same_state_recovery_label_source_ready_no_fit",
+  "objective_achieved": false,
+  "plan_sha256": "4d7758b38566c35b47b046bd57f631a0301736042ab2110f2249d7cd51ec9209",
+  "training_reference_sessions": 1061,
+  "native_audit": {
+    "status": "passed",
+    "sessions": 1061,
+    "orders": 1247,
+    "errors": {
+      "return_error": 2.220446049250313e-16,
+      "relative_cash_error": 3.6212131538092216e-16,
+      "relative_quantity_value_error": 0.0,
+      "maximum_weight_error": 2.498001805406602e-16
+    },
+    "provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/full_path_tiered_allocation_20261013",
+    "tariff_role": "2026-10-13 current IBKR Pro Tiered price projection across reused history, not historical realized bills",
+    "slippage_bps": 0,
+    "maximum_monthly_fee_counted_raw_shares": 5596.0,
+    "commission_uses_raw_whole_share_orders": true,
+    "actual_broker_fill_or_corporate_action_parity": false,
+    "native_api": [
+      "qlib.backtest.backtest",
+      "SimulatorExecutor",
+      "Exchange",
+      "Position"
+    ]
+  },
+  "label_calendar_rows": 1061,
+  "eligible_rows": 439,
+  "mature_eligible_rows": 438,
+  "annual_label_support": [
+    {
+      "year": 2018,
+      "calendar_rows": 53,
+      "eligible_rows": 9,
+      "mature_eligible_rows": 9,
+      "positive_net_advantage_rows": 4,
+      "negative_net_advantage_rows": 5,
+      "zero_net_advantage_rows": 0
+    },
+    {
+      "year": 2019,
+      "calendar_rows": 252,
+      "eligible_rows": 19,
+      "mature_eligible_rows": 19,
+      "positive_net_advantage_rows": 10,
+      "negative_net_advantage_rows": 9,
+      "zero_net_advantage_rows": 0
+    },
+    {
+      "year": 2020,
+      "calendar_rows": 253,
+      "eligible_rows": 145,
+      "mature_eligible_rows": 145,
+      "positive_net_advantage_rows": 89,
+      "negative_net_advantage_rows": 56,
+      "zero_net_advantage_rows": 0
+    },
+    {
+      "year": 2021,
+      "calendar_rows": 252,
+      "eligible_rows": 27,
+      "mature_eligible_rows": 27,
+      "positive_net_advantage_rows": 14,
+      "negative_net_advantage_rows": 13,
+      "zero_net_advantage_rows": 0
+    },
+    {
+      "year": 2022,
+      "calendar_rows": 251,
+      "eligible_rows": 239,
+      "mature_eligible_rows": 238,
+      "positive_net_advantage_rows": 108,
+      "negative_net_advantage_rows": 130,
+      "zero_net_advantage_rows": 0
+    }
+  ],
+  "label_last_unknown": "2022-12-30",
+  "new_market_requests": 0,
+  "new_model_fits": 0,
+  "new_native_accounts": 1,
+  "new_label_passes": 1,
+  "new_bootstraps": 0,
+  "historical_independence": false,
+  "held_2023_2026_outcomes_read": false,
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "inputs/*",
+      "paths/*",
+      "native/*",
+      "analysis/labels"
+    ]
+  },
+  "limitations": [
+    "2018-2022 OOF training-reference architecture is not the frozen 2023+ f696 held account; final economic test must use complete Stage1 own-state chain.",
+    "Native training reference validates raw integer shares, cash and Tiered fees but does not certify actual broker fills or corporate-action parity.",
+    "One-next-session common reset advantage is a local action label, not full policy wealth or independent validation."
+  ],
+  "recorder_id": "3663a1e073f042e383dbcf54969a9bc2",
+  "experiment_id": "194705746221035167",
+  "recorder_uri": "/Users/rziiiii/dev/workspace/research/stage1_signed_volume_0bp_action_label_source_20261023/qlib_recorder",
+  "nas_evidence": {
+    "sha256": "73e1f3d1bdb567a9906e34a5216052ab9ab22e36ff9f06d5aac8a7d083b425eb",
+    "size_bytes": 1811349,
+    "media_type": "application/gzip",
+    "storage_uri": "sha256/73/e1/73e1f3d1bdb567a9906e34a5216052ab9ab22e36ff9f06d5aac8a7d083b425eb",
+    "uploaded_by": "soxl-minute-research",
+    "created_at": "2026-10-23 04:20:42.70416+08",
+    "duplicate": false,
+    "nas_path": "/volume1/docker/yanxuan/registry/research-artifacts/73/e1/73e1f3d1bdb567a9906e34a5216052ab9ab22e36ff9f06d5aac8a7d083b425eb",
+    "recorder_id": "3663a1e073f042e383dbcf54969a9bc2",
+    "experiment_id": "194705746221035167",
+    "archive_root": "qlib_recorder"
+  },
+  "nas_readback": {
+    "sha256": "73e1f3d1bdb567a9906e34a5216052ab9ab22e36ff9f06d5aac8a7d083b425eb",
+    "bytes": 1811349,
+    "verified": true
+  },
+  "verification_manifest": "verification_manifest.json",
+  "nas_scoped_restore": "nas_scoped_restore.json"
+}

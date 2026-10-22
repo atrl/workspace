@@ -1,0 +1,43 @@
+{
+  "schema_version": 1,
+  "experiment": "stage1_signed_volume_0bp_action_label_source_20261023",
+  "frozen": true,
+  "execution_authorized": true,
+  "phase": "one_0bp_Stage1_OOF_training_reference_and_beta06_net_recovery_label_source",
+  "purpose": "Build the actual 0bp-added-slippage, Tiered-fee, own-state local recovery-versus-HOLD training label for the already qualified 10:31 signed-volume action feature. Do not relabel the existing 2bp source or fit a model in this card.",
+  "parent_boundary": "Use the saved 2018-2022 full-history recovery card's 1061 OOF original-39-input allocation targets as the training reference. This is a training scaffold, not the frozen 2023+ f696 Stage1 held account. The future information screen must use the exact original Stage1 recovery receiver and the final economic account must use the complete frozen Stage1 parent.",
+  "source": {
+    "training_card": "research/full_history_recovery_20261015",
+    "training_plan_sha256": "053147267377f575b4508806dfe925cfaf804ba0d3f816994eb2ed4b7a64a668",
+    "training_recorder_id": "e1d83118ffe845b8b2da2c682028a3f0",
+    "training_manifest_sha256": "412393afa574fa825f674b8680b20b1b46a9ee5f6d77fc7b81d3bc6fe2a556b9",
+    "training_frame_artifact_sha256": "fc81f9342955aa17dc584a6587f325af39fc3731490f32a486e8fb121a095d6d",
+    "training_selection_artifact_sha256": "ee811aab1d0ba67dfc89577503efab4dbb4e06598c73e94f8a673e736ec4c116",
+    "training_2bp_reference_artifact_sha256": "0a39a2e63abba4d0f4505eae8b573212eb42178b1b1e0c4242dae69989a73704",
+    "training_NAS_archive_sha256": "dd018f6a7b3e3fe73ba383da506fb23a9c73931801c92cb49fa796a5919b571f",
+    "action_card": "research/stage1_minute_information_comparison_20261012",
+    "action_recorder_id": "9d671fcfb1aa467bb8a9fd83971fb015",
+    "action_manifest_sha256": "ace09b2e8647d72dcc78dce8b0b958fe4ec4fdfe2672efcb84a0c791bc368193",
+    "action_plan_artifact_sha256": "b3fddcc9f1ad9735ab4ef260bfec7792aca572adbde2ad6a78511d8c5d8fb103",
+    "action_NAS_archive_sha256": "2540d2ed5459785dcf04016b20342fc73fade653e2600025f5b9aaf889d7e250",
+    "provider_uri": "data/qlib/full_path_tiered_allocation_20261013",
+    "provider_manifest_sha256": "3a3d6f4e248d6016ea25a140587abb65fba0d8a346e45da402414095df772223",
+    "signed_volume_source_summary": "research/stage1_intraday_signed_volume_action_source_20261023/summary.json",
+    "signed_volume_source_summary_sha256": "fbf48d6ea48a8cf4f83e317e655587b3a0b72647dc198633ae5ae49d77cc6171"
+  },
+  "code_sha256": {
+    "src/backtest/full_path_tiered.py": "28fa550d277fde9562e2858880fa9219dda2daa698657e05de1243f51bddae70",
+    "src/backtest/stage1_ibkr.py": "28565c7897974aceb03ceaf21b1a29e97470f4afcb2a9c7b1bdb770494905529",
+    "src/analysis/recovery_training_labels.py": "c487e91e221a8ffc2f65ce21d98ac4a9ff4f84934cc067d65eb9095ac45dcc0e",
+    "src/analysis/tiered_action_labels.py": "209c916c4d8937ced5824d86fde15f5381508fa3b085a41d37d03bc8a116fb0f",
+    "src/workflow/stage1_open_action_value.py": "6459fb44b1019bd8c4555ebd6b2ba6e9dbe8241844875b23a439837040734671",
+    "src/workflow/intraday_recovery_direct_allocation.py": "48b4a62a1c8139ecaa5d224023693bd4b1589851feab4b3a114d7188428cb013",
+    "src/backtest/ibkr_tiered.py": "4e47234c1aef8c9ea4fd26389cdbaa23d3affd75bd7c105bf3192939f3781c35",
+    "src/backtest/qlib_continuous_position.py": "f06bb596b6d3d3f875e9b6c59490080684d13fbe9f6763bd039d1b2afa4c5721"
+  },
+  "account": {"sessions": 1061, "start_trade": "2018-10-15", "last_trade": "2022-12-30", "initial_cash_usd": 100000, "added_slippage_bps": 0, "fees": "frozen IBKR Pro Tiered", "open_controller": "deterministic always-open risk-projected Stage1 OOF target", "recovery_controller": "none on the training reference path", "native_freq": "1min"},
+  "local_label": "At eligible 10:31 state, use actual beta cap min(raw_beta,0.6), original alpha floor, enter optional recovery at 10:32 versus HOLD from identical post-open raw quantities/cash; both branches pay Tiered fees and reset to the same next-session 09:47 reference target, with independent monthly fee counters. Label available only after next 09:49. Last unsupported reset stays unknown.",
+  "cost_scope": "This is 0bp added slippage with Tiered fees still charged, not gross 0-fee return. The saved 2bp training_reference is a date/target comparison only; its state and net_advantage may not substitute for this new 0bp reference.",
+  "budget": {"new_market_requests": 0, "new_model_fits": 0, "new_training_native_accounts": 1, "new_label_passes": 1, "new_bootstraps": 0, "new_Qlib_recorders": 1},
+  "stop": "One reference replay/native account and one label pass only. If model/source identity, 1061-date calendar, native raw quantities/cash/NAV, reference reset or label maturity fail, record exact failure and stop without relabeling 2bp evidence. No feature fit or held strategy account here."
+}

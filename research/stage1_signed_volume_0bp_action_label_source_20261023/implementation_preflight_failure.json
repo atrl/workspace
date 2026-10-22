@@ -1,0 +1,11 @@
+{
+  "status": "implementation_preflight_failed_before_native_account",
+  "error_type": "KeyError",
+  "missing_key": "tariff",
+  "reason": "Action-plan artifact holds action/recovery specs, while the frozen full-history training plan owns the IBKR tariff. The extra assertion targeted the wrong object.",
+  "repair": "Remove only the incorrect assertion; still use and pin the unchanged full-history training plan tariff for both 0bp replay and native validation.",
+  "native_account_attempts": 0,
+  "label_pass_attempts": 0,
+  "model_fits": 0,
+  "market_requests": 0
+}
