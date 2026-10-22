@@ -1,0 +1,26 @@
+{
+  "schema_version": 1,
+  "frozen": true,
+  "phase": "offline_exact_SOXX_schedule_identity_only",
+  "parent_plan_sha256": "2f12b8e5d9f525f41385ecc55cfbf299b8f2b54bd4ba861fb78f831da5c85217",
+  "transport_receipt_sha256": "e096a43026ce27f11cf01740faad3a47fc5c74fb4e7d2f28b2d7b12a234f8934",
+  "raw_path": "data/snapshots/stage1_soxx_legacy_filing_index_20261023/2010_12_30_dnq.htm",
+  "raw_sha256": "379d1cea42677a897dd8d678cda3159b0969439d818bffada553cc50b9c0efdd",
+  "raw_bytes": 12384654,
+  "expected_fund_title": "PHLX SOX Semiconductor Sector Index Fund",
+  "expected_report_date": "October 31, 2010",
+  "identity_requirements": [
+    "At least one exact fund title followed nearby by the expected report date",
+    "Security/Shares/Value investment-schedule table header in the same bounded fund section",
+    "At least three distinct security names in the same section and a total common stocks line before a different fund title"
+  ],
+  "method": "Read exact local SEC HTML bytes once, locate all exact title offsets, use the bounded section through its total common stocks line, strip markup only for identity checks, record offsets and SHA of original section bytes. Do not parse quantities or weights.",
+  "budget": {
+    "new_HTTP_GETs": 0,
+    "market_outcome_reads": 0,
+    "model_fits": 0,
+    "native_accounts": 0
+  },
+  "stop": "If title/date/table/section/total or raw/NAS identity fails, report it; do not substitute another fund or fetch additional filings under this plan.",
+  "boundary": "A single 2010-10-31 SOXX reported basket before the first Stage1 signal does not qualify full historical membership or daily constituent prices."
+}
