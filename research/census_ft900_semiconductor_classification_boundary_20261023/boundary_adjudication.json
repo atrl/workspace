@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "status": "two_original_FT900_semiconductor_definition_transition_months_preserved_unknown",
+  "visual_pages_reviewed": [
+    {"reference_month": "2011-12", "source_pdf_sha256": "ca8d4508c09b28bc3b13fb879a792d7ef868efcb9d0350535bf02dfcb20408dc", "physical_pages": [4, 13], "finding": "The December 2011 release announces changed consumer-goods descriptions for January 2012; Exhibit 7 Semiconductors current/prior are 3438/3503 USD million."},
+    {"reference_month": "2012-01", "source_pdf_sha256": "827efe67a3bb680d144ca185845c6d888260f5c85782aa22c842e44c0df7403f", "physical_pages": [3, 12], "finding": "The January 2012 release carries the changed descriptions and Exhibit 7 Semiconductors current/prior 3678/3438 USD million."},
+    {"reference_month": "2012-02", "source_pdf_sha256": "a29c96d09feccf0be3ee399b6d4251d9c9b511fcbde73380c5017e7f74f38184", "physical_pages": [3, 13], "finding": "The February release explicitly says end-use reclassification was effective with January 2012 statistics and moves smart cards and flash memory cards into semiconductors and related devices. Exhibit 7 current/prior are 3621/3678 USD million; Jan prior equals the preceding Jan report current, but that numeric equality does not remove the December-to-January definition break."},
+    {"reference_month": "2017-01", "source_pdf_sha256": "b873765a2109cfc721165c66426a7e2c0e752cf197922f2e38cbbbebee495fd9", "physical_pages": [3, 12], "finding": "The January 2017 release says several end-use commodity classifications changed effective with January 2017 and will be incorporated into 2014-2016 statistics with the June 2, 2017 release. It does not identify the Semiconductors row as unaffected. Exhibit 7 current/prior are 3829/3865 USD million; the prior equals the preceding December release current, which is not same-basis proof."}
+  ],
+  "conservative_unknown_monthly_growth_reference_months": ["2012-01", "2017-01"],
+  "same_release_pair_other_months_source_semantics": "All 188 PDFs have one numeric Semiconductors current/prior pair, but the five-page notice scan cannot prove no other unannounced detailed code changes. Same-release pairs avoid cross-release revised-prior mixing; they do not qualify exact first-public bytes or historical availability.",
+  "cross_release_prior_mismatches_of_187_adjacent_months": 101,
+  "maximum_abs_cross_release_prior_mismatch_million_usd": 140,
+  "historical_first_public_bytes_qualified": false,
+  "model_input_qualified": false,
+  "new_external_requests": 0,
+  "market_outcome_reads": 0,
+  "model_fits": 0,
+  "native_accounts": 0
+}

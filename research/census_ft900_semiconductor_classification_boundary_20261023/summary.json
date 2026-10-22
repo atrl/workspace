@@ -1,0 +1,27 @@
+{
+  "experiment": "census_ft900_semiconductor_classification_boundary_20261023",
+  "decision": "source_semantics_two_transition_months_unknown_historical_first_public_pending",
+  "objective_achieved": false,
+  "plan": "plan.json",
+  "result": "result.json",
+  "boundary_adjudication": "boundary_adjudication.json",
+  "original_PDF_months_hash_and_size_verified": 188,
+  "same_release_numeric_Semiconductors_pairs": 188,
+  "classification_notice_release_months": ["2012-02", "2017-01"],
+  "conservative_unknown_growth_reference_months": ["2012-01", "2017-01"],
+  "cross_release_prior_mismatch_months": 101,
+  "max_abs_cross_release_prior_mismatch_million_usd": 140,
+  "historical_first_public_bytes_qualified": false,
+  "model_input_qualified": false,
+  "related_closed_fixed_information": "research/stage1_ft900_export_unknown_information_20261023/summary.json",
+  "related_fixed_information_reopened": false,
+  "new_external_requests": 0,
+  "market_outcome_reads": 0,
+  "model_fits": 0,
+  "native_accounts": 0,
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": []
+  }
+}

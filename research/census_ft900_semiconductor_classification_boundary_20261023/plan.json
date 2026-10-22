@@ -1,0 +1,29 @@
+{
+  "schema_version": 1,
+  "frozen": true,
+  "experiment": "census_ft900_semiconductor_classification_boundary_20261023",
+  "phase": "all_188_original_PDF_semiconductor_row_definition_and_2012_transition_source_only",
+  "question": "Can the same-release current/prior Exhibit 7 Semiconductors pair avoid cross-vintage revisions, and where does the officially announced January 2012 end-use reclassification break comparability? This is a source-semantics audit before any Stage1 factor fit.",
+  "source": {
+    "card": "research/census_ft900_semiconductor_export_source_20261023",
+    "source_summary_sha256": "70c82957ed7221e6cebff2514d8cb29f5be46601a201c45c689f1e65f4e31bd9",
+    "training_row_audit_sha256": "a1f894d0cb7ea73b2f4030cdd11d45b10d7a143215b2573f83e880d96bfbb12a",
+    "held_row_audit_sha256": "8b15c91fede00ecf1bf7febbf5af3c92c9390ffc0da64dc52c29202bd2d19f3a",
+    "training_raw_root": "data/snapshots/census_ft900_training_20261023",
+    "held_raw_root": "data/snapshots/census_ft900_held_20261023",
+    "expected_training_months": 144,
+    "expected_held_months": 44
+  },
+  "method": "Verify every original PDF's SHA-256 and size against its saved row audit. For all 188 source months, inspect the first five physical PDF pages for exact case-insensitive phrases 'Changes to End-Use Commodity Classification', 'semiconductor media', 'reassigned', and 'Harmonized System'; retain page, source hash and bounded context. Compare each same-release prior-month Semiconductors value with the preceding report's current-month value only as a revision diagnostic, never as a factor. Visually inspect 2011-12, 2012-01 and 2012-02 Exhibit 7 and notice pages separately. No market labels or model outcomes.",
+  "preidentified_boundary": "The 2012-02 release notice says end-use commodity reclassification is effective with January 2012 statistics and moves smart cards and flash memory cards into semiconductors and related devices. Until a same-basis original bridge is shown, the 2012-01 month-over-month Semiconductors growth across December 2011 is unknown. Later same-release current/prior pairs require separate audit for additional notices and revisions.",
+  "limits": "Current downloads of historical PDF URLs do not by themselves certify their bytes were the first public versions. A same-release monthly pair reduces cross-release revision mixing but does not prove timing, economic predictiveness, or full account value.",
+  "budget": {
+    "local_original_PDF_reads": 188,
+    "new_external_requests": 0,
+    "Qlib_calls": 0,
+    "market_outcome_reads": 0,
+    "model_fits": 0,
+    "native_accounts": 0
+  },
+  "stop": "Any source SHA/size mismatch, duplicate month, missing row, or unresolved new classification notice stops factor qualification. Preserve all months and unknown transitions; do not fit or tune from SOXX returns."
+}
