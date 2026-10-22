@@ -125,6 +125,16 @@
       "NAS_archive_sha256": "e23617260a78790f41840f086d67f1e9ddd790ff42b295de29dd8f29376f978c",
       "annual_intake_result": "research/stage1_cftc_nq_tff_source_probe_20261023/annual_intake_result.json",
       "annual_NAS_archive_sha256": "8fb79e0754542869d4edf6be530bfbeab8ce1951e213abc789966fe7c88cd298"
+    },
+    {
+      "card": "research/stage1_cftc_nq_tff_14d_positioning_map_20261023",
+      "phase": "conservative_Qlib_calendar_map_complete_first_public_pending",
+      "role": "Stage1_CFTC_NQ_lev_money_net_OI_delta4_source_coordinate",
+      "full_economic_experiment": false,
+      "status": "development_only_source_map_no_fit_or_account",
+      "execution_authorized": false,
+      "result": "research/stage1_cftc_nq_tff_14d_positioning_map_20261023/summary.json",
+      "source_audit": "research/stage1_cftc_nq_tff_14d_positioning_map_20261023/source_audit.json"
     }
   ],
   "framework": [
@@ -359,7 +369,8 @@
     "missed_forward_pilot_audit": "research/diagnostic_forward_io_v2_20261016/missed_pilot_audit_20261022.json",
     "forward_IO_status": "Oct19 diagnostic pilot missed and Oct22 paired paper scheduler blocked by frozen release source hash mismatch. No new qualified forward day; old claim/release cannot be silently resumed or rehashed.",
     "paper_release_hash_block": "production/stage1_regime_paper_20261001/runtime_code_identity_block_20261022.json",
-    "Stage1_CFTC_TFF_source_identity": "research/stage1_cftc_nq_tff_source_probe_20261023/summary.json"
+    "Stage1_CFTC_TFF_source_identity": "research/stage1_cftc_nq_tff_source_probe_20261023/summary.json",
+    "Stage1_CFTC_NQ_positioning_map": "research/stage1_cftc_nq_tff_14d_positioning_map_20261023/summary.json"
   },
   "closed_source_probes": [
     {

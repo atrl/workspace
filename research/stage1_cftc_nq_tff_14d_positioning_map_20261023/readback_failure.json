@@ -1,0 +1,13 @@
+{
+  "status": "initial_source_map_computed_recorder_dataset_readback_failed",
+  "exception": "DataHandlerLP loaded from metadata/dataset lacks _infer because dump_all config was omitted before serialization",
+  "original_plan_sha256": "eeee19efe080d3330b386e40d6acad7960501295dcb2575819783c88059abd96",
+  "recorder_id": "cdd3e57a851a48d8bc563bac302084f5",
+  "experiment_id": "108116900852740075",
+  "mapped_artifact_sha256": "d83e600f32e751fddeac500e961973b2749c352b69d06558925738cf161e8455",
+  "source_audit_sha256": "fc4382c6c51b6f8e9cfe9e79a0425997c8345714ddae0b63992baeba9e825284",
+  "old_dataset_artifact_sha256": "8cede14ca8ca120c5563b8e8d79d89ecee77bb3a74fea79f84324b2d43a59949",
+  "model_fits": 0,
+  "native_accounts": 0,
+  "market_outcome_reads": 0
+}
