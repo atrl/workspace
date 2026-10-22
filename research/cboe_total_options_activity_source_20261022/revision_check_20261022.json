@@ -1,0 +1,27 @@
+{
+  "status": "one_day_two_vintage_bytes_stable",
+  "plan_sha256": "760ec13f63a4f285840d004d715e54728c1b3baf749154f62fde61b103af7666",
+  "first_receipt_sha256": "38e8205bb9182e23dc3edc28e095f632c5a4040643eee2bb0b3a238e53b06b72",
+  "second_receipt_sha256": "45b733a63ce65583e805c1e7cc50cccc107653eb43a9af0315ef44d632851dfc",
+  "observations": [
+    {
+      "symbol": "SOXX",
+      "first_observed_at_utc": "2026-10-22T04:00:20.512182+00:00",
+      "second_observed_at_utc": "2026-10-22T04:38:39.229294+00:00",
+      "elapsed_minutes": 38.31195186666666,
+      "exact_response_sha256_unchanged": true,
+      "first_sha256": "f5cdc7a57e7cd953778e038ef9d283bf2985d078b58afec2f6afa4ce606d7f7f",
+      "second_sha256": "f5cdc7a57e7cd953778e038ef9d283bf2985d078b58afec2f6afa4ce606d7f7f"
+    },
+    {
+      "symbol": "SOXL",
+      "first_observed_at_utc": "2026-10-22T04:00:22.044897+00:00",
+      "second_observed_at_utc": "2026-10-22T04:38:42.959724+00:00",
+      "elapsed_minutes": 38.34858045,
+      "exact_response_sha256_unchanged": true,
+      "first_sha256": "cdb002e13efdd9a0f2660f0428faf0ec878157ae521d0de1957fc9284267ff08",
+      "second_sha256": "cdb002e13efdd9a0f2660f0428faf0ec878157ae521d0de1957fc9284267ff08"
+    }
+  ],
+  "limits": "Two identical responses roughly 38 minutes apart on one date do not establish longer revision stability, origin release time or historical PIT; no market outcomes read."
+}

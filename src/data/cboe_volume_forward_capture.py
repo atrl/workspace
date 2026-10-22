@@ -50,6 +50,16 @@ def capture(root: str | Path) -> dict:
     previous = sorted(receipts_dir.glob("*.json")) if receipts_dir.exists() else []
     if len(previous) >= plan["max_followup_observations"]:
         raise ValueError("forward observation budget exhausted")
+    if len(previous) == 2:
+        addendum = json.loads((card / "forward_transport_addendum.json").read_text())
+        if not addendum["frozen"] or _sha(plan_path) != addendum["original_forward_plan_sha256"]:
+            raise ValueError("third observation protocol changed")
+        for path in previous:
+            relative = str(path.relative_to(card))
+            if _sha(path) != addendum["prior_receipts_sha256"][relative]:
+                raise ValueError("prior observation receipt changed")
+        if now < dt.datetime.fromisoformat(addendum["third_observation_not_before_utc"]):
+            raise ValueError("third observation before frozen preopen check")
     observation_id = now.strftime("%Y%m%dT%H%M%S%fZ")
     raw_dir = root / "data/snapshots/cboe_total_options_activity_source_20261022/forward_observations" / observation_id
     if raw_dir.exists() or (receipts_dir / (observation_id + ".json")).exists():
@@ -73,7 +83,12 @@ def capture(root: str | Path) -> dict:
                 body = response.read(plan["max_response_bytes"] + 1)
                 record.update(http_status=response.status,
                               content_type=response.headers.get("Content-Type"),
-                              content_disposition=response.headers.get("Content-Disposition"))
+                              content_disposition=response.headers.get("Content-Disposition"),
+                              response_date=response.headers.get("Date"),
+                              response_age=response.headers.get("Age"),
+                              cache_status=response.headers.get("CF-Cache-Status"),
+                              cache_control=response.headers.get("Cache-Control"),
+                              last_modified=response.headers.get("Last-Modified"))
             if len(body) > plan["max_response_bytes"]:
                 raise ValueError("response exceeds frozen budget")
             raw_path = raw_dir / (symbol.lower() + ".csv")

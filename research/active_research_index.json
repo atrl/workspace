@@ -109,9 +109,10 @@
   "next_information_need": {
     "status": "distinct_mechanism_design_pending_source_timing",
     "topic": "Cboe SOXX total option activity surprise as incremental variance information, distinct from failed OCC put share",
-    "evidence": "research/cboe_total_activity_variance_information_20261022/design_brief.json",
-    "constraint": "First-public/revision timing remains unqualified; freeze one normalized feature and fixed information gate before Qlib outcome read, then no account without positive information and full source qualification.",
-    "execution_authorized": false
+    "evidence": "research/cboe_total_options_activity_source_20261022/revision_check_20261022.json",
+    "constraint": "One target day has two exactly identical responses 38.3 minutes apart; origin first-public and cross-day revision stability remain unqualified. Third observation is frozen for 08:45 New York, then new completed days must be observed before an information screen.",
+    "execution_authorized": false,
+    "next_frozen_observation_not_before_utc": "2026-10-22T12:45:00+00:00"
   },
   "closed_source_probes": [
     {

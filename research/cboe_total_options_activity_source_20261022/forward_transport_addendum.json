@@ -1,0 +1,25 @@
+{
+  "schema_version": 1,
+  "frozen": true,
+  "phase": "third_same_date_preopen_vintage_transport_audit",
+  "original_forward_plan_sha256": "760ec13f63a4f285840d004d715e54728c1b3baf749154f62fde61b103af7666",
+  "prior_receipts_sha256": {
+    "forward_observations/20261022T040020511695Z.json": "38e8205bb9182e23dc3edc28e095f632c5a4040643eee2bb0b3a238e53b06b72",
+    "forward_observations/20261022T043839228878Z.json": "45b733a63ce65583e805c1e7cc50cccc107653eb43a9af0315ef44d632851dfc"
+  },
+  "current_capture_module_sha256": "ce9a6a290e1edfee2f7d427df570dd61a03334ca712add0e7c3b2e09ba0fd2e2",
+  "third_observation_not_before_utc": "2026-10-22T12:45:00+00:00",
+  "target_trade_date": "2026-10-21",
+  "same_URL_and_budget_required": true,
+  "additional_response_headers": [
+    "Date",
+    "Age",
+    "CF-Cache-Status",
+    "Cache-Control",
+    "Last-Modified"
+  ],
+  "scope": "Engineering-only receipt enrichment and preopen timing gate; preserve first two raw responses and no new source/date/signal decision.",
+  "models": 0,
+  "accounts": 0,
+  "market_outcome_reads": 0
+}

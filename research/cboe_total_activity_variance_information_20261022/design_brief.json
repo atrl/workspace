@@ -7,7 +7,8 @@
     "card": "research/cboe_total_options_activity_source_20261022",
     "summary_sha256": "66b44dbda9bb8c75d958e8fb7e0111c427b17c3aede2886f59a7a8b6b25e3f63",
     "coverage_audit_sha256": "56f828e63e0d8e87664d5fdd7824fd0401f33f59e7a9e8c31e0e18038b71c8e5",
-    "publication_window_sha256": "c6c1835bffd9550defe89649d00071595e2b4db0b9a1155f8279f45006af79a9"
+    "publication_window_sha256": "c6c1835bffd9550defe89649d00071595e2b4db0b9a1155f8279f45006af79a9",
+    "same_day_revision_check_sha256": "db0fbafb14954504b387d5b850b9ac88c81971350d21fed49504b6989a618387"
   },
   "negative_prior_information": {
     "card": "research/occ_put_share_tail_information_20261022",
@@ -23,5 +24,6 @@
   "model_fits": 0,
   "accounts": 0,
   "qualified_forward_days": 0,
-  "promotion_boundary": "All v2 SOXX fee-net, risk, annual, rolling, bootstrap and independent forward gates still required."
+  "promotion_boundary": "All v2 SOXX fee-net, risk, annual, rolling, bootstrap and independent forward gates still required.",
+  "next_due_source_observation": "2026-10-22T12:45:00+00:00 after the US preopen observation gate; third exact Oct21 report vintage, not a new factor fit"
 }

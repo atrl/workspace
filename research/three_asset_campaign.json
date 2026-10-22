@@ -12,7 +12,7 @@
   "goal_controller": {
     "thread_id": "01a16141-bbb9-7660-a992-86f5741aa7b7",
     "observed_status": "active",
-    "observed_at_utc": "2026-10-22T04:36:36.982591+00:00",
+    "observed_at_utc": "2026-10-22T04:41:16.025026+00:00",
     "objective_v2_applied": true,
     "previous_thread_id": "01a14cc9-e797-7b31-90f6-d95a821e4deb",
     "previous_thread_last_observed_status": "blocked",
@@ -23,15 +23,15 @@
     "phase": "distinct_total_option_activity_information_design_only_after_OCC_negative",
     "implementation_executor": null,
     "independent_reviewer": null,
-    "next_action": "Qualify additional Cboe publication/revision vintages, then freeze and execute at most one total-option-activity surprise information screen conditional on SOXX price/variance. Do not invert or retune the failed OCC put-share route. No new account unless a source-qualified incremental signal survives fixed gates.",
+    "next_action": "At or after 2026-10-22 12:45 UTC run the one remaining frozen Cboe Oct21 preopen vintage with cache headers; then collect additional completed-day publication/revision vintages. Freeze one total-options-activity variance information screen only after timing gate. Do not reopen failed OCC put share.",
     "last_scientific_observation": "OCC all-exchange put share fixed H5 downside information screen failed: 2025 train243/32 events, 2026 reused diagnostic196/45 events, put-share coefficient -0.22219, held paired Brier improvement -0.00109567, stationary lower -0.00356787, both halves negative. No accounts or SOXX excess. Cboe total option activity is a distinct intensity mechanism, not yet tested.",
-    "last_operational_observation": "OCC daily source acquired 493 Qlib sessions x2 symbols: 980 new HTTP plus6 reused; 3944 same-venue-day comparisons against Cboe had zero mismatch. Source Recorder 7c73158061a9478dbc659de98bd3c866 readback and NAS archival passed. Fixed information notebook had2 fits/1 bootstrap, Recorder ba7c9b2a77dd4b7ea6e68291b68e0392 readback and NAS archival passed. TSM original release and SEC local HTTP returned403; browser extension unavailable, source probe closed needs_source_access.",
+    "last_operational_observation": "OCC daily source acquired 493 Qlib sessions x2 symbols: 980 new HTTP plus6 reused; 3944 same-venue-day comparisons against Cboe had zero mismatch. Source Recorder 7c73158061a9478dbc659de98bd3c866 readback and NAS archival passed. Fixed information notebook had2 fits/1 bootstrap, Recorder ba7c9b2a77dd4b7ea6e68291b68e0392 readback and NAS archival passed. TSM original release and SEC local HTTP returned403; browser extension unavailable, source probe closed needs_source_access. Second Cboe Oct21 vintage at 2026-10-22 04:38 UTC matched first vintage bytes exactly for both symbols after 38.3 minutes; third preopen capture gated until 12:45 UTC, focused gate check and parser test passed.",
     "design_brief": "research/cboe_total_activity_variance_information_20261022/design_brief.json",
     "closed_information_card": "research/inventory_sales_soxx_h63_information_20261022",
     "closed_information_result": "research/inventory_sales_soxx_h63_information_20261022/result_review.json",
     "source_failure_attribution": "research/path_area_action_bridge_20261018/P3/failure_attribution.json",
     "execution_authorized": false,
-    "result": "research/occ_put_share_tail_information_20261022/result_review.json"
+    "result": "research/cboe_total_options_activity_source_20261022/revision_check_20261022.json"
   },
   "parallel_engineering": {
     "runtime": "implemented_and_reviewed",
@@ -57,7 +57,7 @@
     ]
   },
   "active_index": "research/active_research_index.json",
-  "updated_at_utc": "2026-10-22T04:36:36.982591+00:00",
+  "updated_at_utc": "2026-10-22T04:41:16.025026+00:00",
   "execution_totals": {
     "new_model_fits": 43,
     "new_native_accounts": 44,

@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "frozen": true,
+  "phase": "third_observation_implementation_preflight",
+  "addendum_sha256": "2ae5bd2155bd2cf74798bcf2e99d4f233a4068478a9382dacc5638803229a69c",
+  "module_path": "src/data/cboe_volume_forward_capture.py",
+  "module_sha256": "ddf9d62fa2889cbe1b9e1be41ce355d524bb656a17b151eb8f6f4d7bfcb6d0f4",
+  "focused_verification": "Preopen invocation rejected with no new receipt; tests/test_cboe_volume_forward_capture.py passed 1/1",
+  "next_execution_not_before_utc": "2026-10-22T12:45:00+00:00",
+  "remaining_observations_under_original_plan": 1,
+  "new_HTTP_gets_now": 0,
+  "model_fits": 0,
+  "accounts": 0
+}
