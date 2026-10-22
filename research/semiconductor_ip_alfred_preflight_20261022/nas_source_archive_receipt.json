@@ -1,0 +1,27 @@
+{
+  "status": "two_ALFRED_original_form_HTML_bytes_archived_and_scoped_restored",
+  "archive_sha256": "7130f1aa8b3547a4c92ca77f381d8a5fecfda1c99831395c152f4570d74d0d59",
+  "archive_bytes": 16734,
+  "source_objects": {
+    "data/raw/external/semiconductor_ip_alfred_preflight_20261022/IPG3344S_form.html": {
+      "sha256": "f8e66db823c627809f153e4876a52c1486b1afceae424802583e503f0556255f",
+      "bytes": 44002
+    },
+    "data/raw/external/semiconductor_ip_alfred_preflight_20261022/IPG33441A1S_form.html": {
+      "sha256": "762fe09d2d7645355c75cb3c7f5918f64fe35df9530dc32650371ec63b73c631",
+      "bytes": 32585
+    }
+  },
+  "nas_artifact": {
+    "sha256": "7130f1aa8b3547a4c92ca77f381d8a5fecfda1c99831395c152f4570d74d0d59",
+    "size_bytes": 16734,
+    "media_type": "application/gzip",
+    "storage_uri": "sha256/71/30/7130f1aa8b3547a4c92ca77f381d8a5fecfda1c99831395c152f4570d74d0d59",
+    "uploaded_by": "soxl-minute-research",
+    "created_at": "2026-10-22 23:24:39.449099+08",
+    "duplicate": false
+  },
+  "remote_path": "/volume1/docker/yanxuan/registry/research-artifacts/71/30/7130f1aa8b3547a4c92ca77f381d8a5fecfda1c99831395c152f4570d74d0d59",
+  "remote_sha256_readback": "7130f1aa8b3547a4c92ca77f381d8a5fecfda1c99831395c152f4570d74d0d59",
+  "scoped_restoration_verified": true
+}

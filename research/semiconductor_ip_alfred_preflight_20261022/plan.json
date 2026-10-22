@@ -1,0 +1,36 @@
+{
+  "schema_version": 1,
+  "experiment": "semiconductor_ip_alfred_preflight_20261022",
+  "phase": "source_only_two_ALFRED_form_GETs_no_numeric_vintage_download",
+  "execution_authorized": true,
+  "hypothesis": "US semiconductor/electronic-component industrial production measures physical activity, distinct from the closed semiconductor PPI producer-price route and from ETF price/breadth inputs. This task only checks whether original vintage coverage could support the frozen Stage1 2011-2022 training horizon.",
+  "candidate_main": {
+    "series_id": "IPG3344S",
+    "authority": "Federal Reserve Board G.17 distributed through FRED/ALFRED",
+    "fred_url": "https://fred.stlouisfed.org/series/IPG3344S",
+    "alfred_form_url": "https://alfred.stlouisfed.org/series/downloaddata?seid=IPG3344S",
+    "raw_form": "data/raw/external/semiconductor_ip_alfred_preflight_20261022/IPG3344S_form.html",
+    "raw_form_sha256": "f8e66db823c627809f153e4876a52c1486b1afceae424802583e503f0556255f",
+    "raw_form_bytes": 44002
+  },
+  "historical_discontinued_comparator": {
+    "series_id": "IPG33441A1S",
+    "authority": "Federal Reserve Board G.17 discontinued Semiconductors and related equipment series; different definition, not an automatic backfill",
+    "fred_url": "https://fred.stlouisfed.org/series/IPG33441A1S",
+    "alfred_form_url": "https://alfred.stlouisfed.org/series/downloaddata?seid=IPG33441A1S",
+    "raw_form": "data/raw/external/semiconductor_ip_alfred_preflight_20261022/IPG33441A1S_form.html",
+    "raw_form_sha256": "762fe09d2d7645355c75cb3c7f5918f64fe35df9530dc32650371ec63b73c631",
+    "raw_form_bytes": 32585
+  },
+  "preplan_read_only_observation": "Both public ALFRED download form GETs returned HTTP 200 and exposed first available selectable vintage date 2015-02-18. This plan was written after those two read-only GETs; it freezes parse/readback and forbids numeric POST after the observed 2011-2014 vintage gap.",
+  "source_gate": "For a single consistent series, original dated monthly versions must cover the 2011-2022 Stage1 training horizon and publication timing before a feature fit. Do not splice a discontinued different-definition series or backfill 2011-2014 from later revisions.",
+  "budget": {
+    "public_form_GETs_consumed": 2,
+    "archive_POSTs_authorized": 0,
+    "market_outcome_reads": 0,
+    "model_fits": 0,
+    "native_accounts": 0,
+    "Qlib_dataset_builds": 0
+  },
+  "stop": "If both form vintage menus start after 2011, close this source-only route needs_pre2015_original_vintages_or_Fed_release_reconstruction; preserve source evidence and continue other mechanisms."
+}
