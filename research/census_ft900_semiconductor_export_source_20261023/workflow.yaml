@@ -25,6 +25,7 @@ outputs:
   - held_readback.json
   - held_request_ledger.jsonl
   - held_year_archives.jsonl
+  - held_row_identity_audit.json
 market_outcome_reads: 0
 model_fits: 0
 native_accounts: 0

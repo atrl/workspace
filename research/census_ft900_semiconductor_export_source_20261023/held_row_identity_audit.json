@@ -1,0 +1,1336 @@
+{
+  "status": "all_44_held_rows_and_report_identities_verified",
+  "months": 44,
+  "unique_numeric_Exhibit7_rows": 44,
+  "matching_report_months": 44,
+  "first_page_0830_headers": 44,
+  "year_end_titles": 0,
+  "exceptions": [],
+  "historical_first_public_bytes_qualified": false,
+  "Qlib_factor_rows": 0,
+  "market_outcome_reads": 0,
+  "model_fits": 0,
+  "native_accounts": 0,
+  "rows": [
+    {
+      "reference_month": "2023-01",
+      "source_pdf_sha256": "b0ed1dc00a00d81de20fc44bec49ef2e9dd274ae8c4ff3b7eaca3deb3dfed1ed",
+      "source_bytes": 1613195,
+      "source_url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_2301.pdf",
+      "printed_report_title_month": "JANUARY 2023",
+      "year_end_title": false,
+      "month_identity_matches": true,
+      "first_page_0830_release_indicated": true,
+      "row_candidate_count": 1,
+      "row_candidates": [
+        {
+          "page": 29,
+          "tokens_after_label": [
+            "5,095",
+            "5,204",
+            "-110",
+            "5,095",
+            "5,752",
+            "-658"
+          ]
+        }
+      ],
+      "status": "unique_numeric_Exhibit7_row",
+      "page": 29,
+      "current_month_million_usd": 5095,
+      "prior_month_same_release_million_usd": 5204,
+      "printed_change_million_usd": -110,
+      "printed_change_minus_rounded_arithmetic": -1
+    },
+    {
+      "reference_month": "2023-02",
+      "source_pdf_sha256": "15f9b7f6120dd32d5ee8c986f2848e9263366c945e30f604e103e6b43bc36f16",
+      "source_bytes": 1489534,
+      "source_url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_2302.pdf",
+      "printed_report_title_month": "FEBRUARY 2023",
+      "year_end_title": false,
+      "month_identity_matches": true,
+      "first_page_0830_release_indicated": true,
+      "row_candidate_count": 1,
+      "row_candidates": [
+        {
+          "page": 28,
+          "tokens_after_label": [
+            "4,789",
+            "5,095",
+            "-306",
+            "9,884",
+            "11,361",
+            "-1,477"
+          ]
+        }
+      ],
+      "status": "unique_numeric_Exhibit7_row",
+      "page": 28,
+      "current_month_million_usd": 4789,
+      "prior_month_same_release_million_usd": 5095,
+      "printed_change_million_usd": -306,
+      "printed_change_minus_rounded_arithmetic": 0
+    },
+    {
+      "reference_month": "2023-03",
+      "source_pdf_sha256": "108dcef382f6cc7365eec4c1bd9c1b86ca60e7b9e44560fd19d64c4651f48bdb",
+      "source_bytes": 1624081,
+      "source_url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_2303.pdf",
+      "printed_report_title_month": "MARCH 2023",
+      "year_end_title": false,
+      "month_identity_matches": true,
+      "first_page_0830_release_indicated": true,
+      "row_candidate_count": 1,
+      "row_candidates": [
+        {
+          "page": 28,
+          "tokens_after_label": [
+            "4,800",
+            "4,788",
+            "12",
+            "14,684",
+            "17,083",
+            "-2,400"
+          ]
+        }
+      ],
+      "status": "unique_numeric_Exhibit7_row",
+      "page": 28,
+      "current_month_million_usd": 4800,
+      "prior_month_same_release_million_usd": 4788,
+      "printed_change_million_usd": 12,
+      "printed_change_minus_rounded_arithmetic": 0
+    },
+    {
+      "reference_month": "2023-04",
+      "source_pdf_sha256": "0f162d952cb9022ec182506e4984a6aa847208334848d14a65ff29d11ee222e8",
+      "source_bytes": 1630152,
+      "source_url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_2304.pdf",
+      "printed_report_title_month": "APRIL 2023",
+      "year_end_title": false,
+      "month_identity_matches": true,
+      "first_page_0830_release_indicated": true,
+      "row_candidate_count": 1,
+      "row_candidates": [
+        {
+          "page": 29,
+          "tokens_after_label": [
+            "4,363",
+            "4,781",
+            "-419",
+            "19,050",
+            "22,580",
+            "-3,530"
+          ]
+        }
+      ],
+      "status": "unique_numeric_Exhibit7_row",
+      "page": 29,
+      "current_month_million_usd": 4363,
+      "prior_month_same_release_million_usd": 4781,
+      "printed_change_million_usd": -419,
+      "printed_change_minus_rounded_arithmetic": -1
+    },
+    {
+      "reference_month": "2023-05",
+      "source_pdf_sha256": "489677b94095a2c06aae9ee1a36a4c739132c0cc0a6b231b1f3d1af4f0f3bb05",
+      "source_bytes": 1644829,
+      "source_url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_2305.pdf",
+      "printed_report_title_month": "MAY 2023",
+      "year_end_title": false,
+      "month_identity_matches": true,
+      "first_page_0830_release_indicated": true,
+      "row_candidate_count": 1,
+      "row_candidates": [
+        {
+          "page": 27,
+          "tokens_after_label": [
+            "4,619",
+            "4,362",
+            "257",
+            "23,667",
+            "28,095",
+            "-4,427"
+          ]
+        }
+      ],
+      "status": "unique_numeric_Exhibit7_row",
+      "page": 27,
+      "current_month_million_usd": 4619,
+      "prior_month_same_release_million_usd": 4362,
+      "printed_change_million_usd": 257,
+      "printed_change_minus_rounded_arithmetic": 0
+    },
+    {
+      "reference_month": "2023-06",
+      "source_pdf_sha256": "f34a1ef5819ef25bb969f4c79b23f50c41f015c9bf9ddbd681067ffaeddf4409",
+      "source_bytes": 1637680,
+      "source_url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_2306.pdf",
+      "printed_report_title_month": "JUNE 2023",
+      "year_end_title": false,
+      "month_identity_matches": true,
+      "first_page_0830_release_indicated": true,
+      "row_candidate_count": 1,
+      "row_candidates": [
+        {
+          "page": 27,
+          "tokens_after_label": [
+            "4,693",
+            "4,618",
+            "75",
+            "28,361",
+            "33,640",
+            "-5,279"
+          ]
+        }
+      ],
+      "status": "unique_numeric_Exhibit7_row",
+      "page": 27,
+      "current_month_million_usd": 4693,
+      "prior_month_same_release_million_usd": 4618,
+      "printed_change_million_usd": 75,
+      "printed_change_minus_rounded_arithmetic": 0
+    },
+    {
+      "reference_month": "2023-07",
+      "source_pdf_sha256": "ec6eacdc6ca3d8dca77c82e21aa0df923713e78e7934186a38c2616fc6ba26c0",
+      "source_bytes": 1637782,
+      "source_url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_2307.pdf",
+      "printed_report_title_month": "JULY 2023",
+      "year_end_title": false,
+      "month_identity_matches": true,
+      "first_page_0830_release_indicated": true,
+      "row_candidate_count": 1,
+      "row_candidates": [
+        {
+          "page": 28,
+          "tokens_after_label": [
+            "4,492",
+            "4,693",
+            "-201",
+            "32,853",
+            "39,220",
+            "-6,367"
+          ]
+        }
+      ],
+      "status": "unique_numeric_Exhibit7_row",
+      "page": 28,
+      "current_month_million_usd": 4492,
+      "prior_month_same_release_million_usd": 4693,
+      "printed_change_million_usd": -201,
+      "printed_change_minus_rounded_arithmetic": 0
+    },
+    {
+      "reference_month": "2023-08",
+      "source_pdf_sha256": "0061c3e3a07621fd03d4332f1ab0753db919053f5a0f127609aa34f687d61b73",
+      "source_bytes": 1667205,
+      "source_url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_2308.pdf",
+      "printed_report_title_month": "AUGUST 2023",
+      "year_end_title": false,
+      "month_identity_matches": true,
+      "first_page_0830_release_indicated": true,
+      "row_candidate_count": 1,
+      "row_candidates": [
+        {
+          "page": 27,
+          "tokens_after_label": [
+            "4,765",
+            "4,494",
+            "271",
+            "37,619",
+            "44,512",
+            "-6,893"
+          ]
+        }
+      ],
+      "status": "unique_numeric_Exhibit7_row",
+      "page": 27,
+      "current_month_million_usd": 4765,
+      "prior_month_same_release_million_usd": 4494,
+      "printed_change_million_usd": 271,
+      "printed_change_minus_rounded_arithmetic": 0
+    },
+    {
+      "reference_month": "2023-09",
+      "source_pdf_sha256": "87862f56606fea183455dc438a51617b138f13522753794243ac71af51d3eb8a",
+      "source_bytes": 1674450,
+      "source_url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_2309.pdf",
+      "printed_report_title_month": "SEPTEMBER 2023",
+      "year_end_title": false,
+      "month_identity_matches": true,
+      "first_page_0830_release_indicated": true,
+      "row_candidate_count": 1,
+      "row_candidates": [
+        {
+          "page": 27,
+          "tokens_after_label": [
+            "5,144",
+            "4,764",
+            "380",
+            "42,762",
+            "50,123",
+            "-7,361"
+          ]
+        }
+      ],
+      "status": "unique_numeric_Exhibit7_row",
+      "page": 27,
+      "current_month_million_usd": 5144,
+      "prior_month_same_release_million_usd": 4764,
+      "printed_change_million_usd": 380,
+      "printed_change_minus_rounded_arithmetic": 0
+    },
+    {
+      "reference_month": "2023-10",
+      "source_pdf_sha256": "4e6ffc8734437299534cb798e4fdb90c890b1fd9f84dc8c3f8859cb0e1e1f84d",
+      "source_bytes": 1659228,
+      "source_url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_2310.pdf",
+      "printed_report_title_month": "OCTOBER 2023",
+      "year_end_title": false,
+      "month_identity_matches": true,
+      "first_page_0830_release_indicated": true,
+      "row_candidate_count": 1,
+      "row_candidates": [
+        {
+          "page": 28,
+          "tokens_after_label": [
+            "5,005",
+            "5,144",
+            "-139",
+            "47,767",
+            "55,694",
+            "-7,926"
+          ]
+        }
+      ],
+      "status": "unique_numeric_Exhibit7_row",
+      "page": 28,
+      "current_month_million_usd": 5005,
+      "prior_month_same_release_million_usd": 5144,
+      "printed_change_million_usd": -139,
+      "printed_change_minus_rounded_arithmetic": 0
+    },
+    {
+      "reference_month": "2023-11",
+      "source_pdf_sha256": "7f4050337266e02e65a5408d56d5f6cb0a2b69c8ed18e40d9105c9fda3313c01",
+      "source_bytes": 1659205,
+      "source_url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_2311.pdf",
+      "printed_report_title_month": "NOVEMBER 2023",
+      "year_end_title": false,
+      "month_identity_matches": true,
+      "first_page_0830_release_indicated": true,
+      "row_candidate_count": 1,
+      "row_candidates": [
+        {
+          "page": 27,
+          "tokens_after_label": [
+            "4,640",
+            "5,006",
+            "-366",
+            "52,407",
+            "61,238",
+            "-8,831"
+          ]
+        }
+      ],
+      "status": "unique_numeric_Exhibit7_row",
+      "page": 27,
+      "current_month_million_usd": 4640,
+      "prior_month_same_release_million_usd": 5006,
+      "printed_change_million_usd": -366,
+      "printed_change_minus_rounded_arithmetic": 0
+    },
+    {
+      "reference_month": "2023-12",
+      "source_pdf_sha256": "e864c183d01aeaac893afe6a8a7a04f885b17b1b8e279dfcf027d72a96463809",
+      "source_bytes": 1720314,
+      "source_url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_2312.pdf",
+      "printed_report_title_month": "DECEMBER 2023",
+      "year_end_title": false,
+      "month_identity_matches": true,
+      "first_page_0830_release_indicated": true,
+      "row_candidate_count": 1,
+      "row_candidates": [
+        {
+          "page": 30,
+          "tokens_after_label": [
+            "4,729",
+            "4,633",
+            "96",
+            "57,058",
+            "66,458",
+            "-9,400"
+          ]
+        }
+      ],
+      "status": "unique_numeric_Exhibit7_row",
+      "page": 30,
+      "current_month_million_usd": 4729,
+      "prior_month_same_release_million_usd": 4633,
+      "printed_change_million_usd": 96,
+      "printed_change_minus_rounded_arithmetic": 0
+    },
+    {
+      "reference_month": "2024-01",
+      "source_pdf_sha256": "b73e35775a81e23c86be135dfd5bd3b77d345ca7688e5d8089ed5d3f2ae3020f",
+      "source_bytes": 1608416,
+      "source_url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_2401.pdf",
+      "printed_report_title_month": "JANUARY 2024",
+      "year_end_title": false,
+      "month_identity_matches": true,
+      "first_page_0830_release_indicated": true,
+      "row_candidate_count": 1,
+      "row_candidates": [
+        {
+          "page": 29,
+          "tokens_after_label": [
+            "4,850",
+            "4,732",
+            "119",
+            "4,850",
+            "5,091",
+            "-241"
+          ]
+        }
+      ],
+      "status": "unique_numeric_Exhibit7_row",
+      "page": 29,
+      "current_month_million_usd": 4850,
+      "prior_month_same_release_million_usd": 4732,
+      "printed_change_million_usd": 119,
+      "printed_change_minus_rounded_arithmetic": 1
+    },
+    {
+      "reference_month": "2024-02",
+      "source_pdf_sha256": "122322afd147682963d6c043ba3044e4ba3978f7dcde1fde1522b6cfd7721fbf",
+      "source_bytes": 1643063,
+      "source_url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_2402.pdf",
+      "printed_report_title_month": "FEBRUARY 2024",
+      "year_end_title": false,
+      "month_identity_matches": true,
+      "first_page_0830_release_indicated": true,
+      "row_candidate_count": 1,
+      "row_candidates": [
+        {
+          "page": 28,
+          "tokens_after_label": [
+            "4,669",
+            "4,848",
+            "-178",
+            "9,517",
+            "9,892",
+            "-375"
+          ]
+        }
+      ],
+      "status": "unique_numeric_Exhibit7_row",
+      "page": 28,
+      "current_month_million_usd": 4669,
+      "prior_month_same_release_million_usd": 4848,
+      "printed_change_million_usd": -178,
+      "printed_change_minus_rounded_arithmetic": 1
+    },
+    {
+      "reference_month": "2024-03",
+      "source_pdf_sha256": "4d328aa65c437ea869268e7dcdc853bb4aa10c762017bcd3efcbf9f656cd8cf2",
+      "source_bytes": 1620765,
+      "source_url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_2403.pdf",
+      "printed_report_title_month": "MARCH 2024",
+      "year_end_title": false,
+      "month_identity_matches": true,
+      "first_page_0830_release_indicated": true,
+      "row_candidate_count": 1,
+      "row_candidates": [
+        {
+          "page": 28,
+          "tokens_after_label": [
+            "4,446",
+            "4,669",
+            "-223",
+            "13,963",
+            "14,666",
+            "-703"
+          ]
+        }
+      ],
+      "status": "unique_numeric_Exhibit7_row",
+      "page": 28,
+      "current_month_million_usd": 4446,
+      "prior_month_same_release_million_usd": 4669,
+      "printed_change_million_usd": -223,
+      "printed_change_minus_rounded_arithmetic": 0
+    },
+    {
+      "reference_month": "2024-04",
+      "source_pdf_sha256": "2c32ded10378cb84b3ee63387eefbf3f896fcd33341f59297f773dc8274b1fb7",
+      "source_bytes": 1628822,
+      "source_url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_2404.pdf",
+      "printed_report_title_month": "APRIL 2024",
+      "year_end_title": false,
+      "month_identity_matches": true,
+      "first_page_0830_release_indicated": true,
+      "row_candidate_count": 1,
+      "row_candidates": [
+        {
+          "page": 29,
+          "tokens_after_label": [
+            "4,856",
+            "4,492",
+            "364",
+            "18,876",
+            "19,099",
+            "-224"
+          ]
+        }
+      ],
+      "status": "unique_numeric_Exhibit7_row",
+      "page": 29,
+      "current_month_million_usd": 4856,
+      "prior_month_same_release_million_usd": 4492,
+      "printed_change_million_usd": 364,
+      "printed_change_minus_rounded_arithmetic": 0
+    },
+    {
+      "reference_month": "2024-05",
+      "source_pdf_sha256": "0c6277e29b851fa8844cf40fcb050a9ad666eae14a367703f9e9b583febf9c98",
+      "source_bytes": 1682120,
+      "source_url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_2405.pdf",
+      "printed_report_title_month": "MAY 2024",
+      "year_end_title": false,
+      "month_identity_matches": true,
+      "first_page_0830_release_indicated": true,
+      "row_candidate_count": 1,
+      "row_candidates": [
+        {
+          "page": 27,
+          "tokens_after_label": [
+            "5,018",
+            "4,856",
+            "162",
+            "23,893",
+            "23,765",
+            "128"
+          ]
+        }
+      ],
+      "status": "unique_numeric_Exhibit7_row",
+      "page": 27,
+      "current_month_million_usd": 5018,
+      "prior_month_same_release_million_usd": 4856,
+      "printed_change_million_usd": 162,
+      "printed_change_minus_rounded_arithmetic": 0
+    },
+    {
+      "reference_month": "2024-06",
+      "source_pdf_sha256": "efb3874667cb72a3f0a21a5d9e047109814739a28579510768a30ebc2a652a0c",
+      "source_bytes": 1606280,
+      "source_url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_2406.pdf",
+      "printed_report_title_month": "JUNE 2024",
+      "year_end_title": false,
+      "month_identity_matches": true,
+      "first_page_0830_release_indicated": true,
+      "row_candidate_count": 1,
+      "row_candidates": [
+        {
+          "page": 27,
+          "tokens_after_label": [
+            "5,354",
+            "5,018",
+            "336",
+            "29,247",
+            "28,453",
+            "794"
+          ]
+        }
+      ],
+      "status": "unique_numeric_Exhibit7_row",
+      "page": 27,
+      "current_month_million_usd": 5354,
+      "prior_month_same_release_million_usd": 5018,
+      "printed_change_million_usd": 336,
+      "printed_change_minus_rounded_arithmetic": 0
+    },
+    {
+      "reference_month": "2024-07",
+      "source_pdf_sha256": "0d40b96b10a84005f447b50c71e67c771c0a66360abea311940d389d7efb8831",
+      "source_bytes": 1734061,
+      "source_url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_2407.pdf",
+      "printed_report_title_month": "JULY 2024",
+      "year_end_title": false,
+      "month_identity_matches": true,
+      "first_page_0830_release_indicated": true,
+      "row_candidate_count": 1,
+      "row_candidates": [
+        {
+          "page": 27,
+          "tokens_after_label": [
+            "7,029",
+            "5,354",
+            "1,676",
+            "36,277",
+            "32,976",
+            "3,301"
+          ]
+        }
+      ],
+      "status": "unique_numeric_Exhibit7_row",
+      "page": 27,
+      "current_month_million_usd": 7029,
+      "prior_month_same_release_million_usd": 5354,
+      "printed_change_million_usd": 1676,
+      "printed_change_minus_rounded_arithmetic": 1
+    },
+    {
+      "reference_month": "2024-08",
+      "source_pdf_sha256": "58bf02029f3712b863459ba297b28b22eed93ddc75e98eb3c96d5f1949cf716e",
+      "source_bytes": 1638442,
+      "source_url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_2408.pdf",
+      "printed_report_title_month": "AUGUST 2024",
+      "year_end_title": false,
+      "month_identity_matches": true,
+      "first_page_0830_release_indicated": true,
+      "row_candidate_count": 1,
+      "row_candidates": [
+        {
+          "page": 27,
+          "tokens_after_label": [
+            "6,270",
+            "7,029",
+            "-759",
+            "42,547",
+            "37,706",
+            "4,841"
+          ]
+        }
+      ],
+      "status": "unique_numeric_Exhibit7_row",
+      "page": 27,
+      "current_month_million_usd": 6270,
+      "prior_month_same_release_million_usd": 7029,
+      "printed_change_million_usd": -759,
+      "printed_change_minus_rounded_arithmetic": 0
+    },
+    {
+      "reference_month": "2024-09",
+      "source_pdf_sha256": "4f178d89ed1d617baa03610e7ed89a9531bb0d8d35303c8eac77184f88fa2333",
+      "source_bytes": 1650313,
+      "source_url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_2409.pdf",
+      "printed_report_title_month": "SEPTEMBER 2024",
+      "year_end_title": false,
+      "month_identity_matches": true,
+      "first_page_0830_release_indicated": true,
+      "row_candidate_count": 1,
+      "row_candidates": [
+        {
+          "page": 27,
+          "tokens_after_label": [
+            "5,652",
+            "6,270",
+            "-619",
+            "48,198",
+            "42,781",
+            "5,418"
+          ]
+        }
+      ],
+      "status": "unique_numeric_Exhibit7_row",
+      "page": 27,
+      "current_month_million_usd": 5652,
+      "prior_month_same_release_million_usd": 6270,
+      "printed_change_million_usd": -619,
+      "printed_change_minus_rounded_arithmetic": -1
+    },
+    {
+      "reference_month": "2024-10",
+      "source_pdf_sha256": "5fa3ff169d7c24c38ead2a9472ef04bd6b6745f83cacb1c7eae68f66b80030c6",
+      "source_bytes": 1600500,
+      "source_url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_2410.pdf",
+      "printed_report_title_month": "OCTOBER 2024",
+      "year_end_title": false,
+      "month_identity_matches": true,
+      "first_page_0830_release_indicated": true,
+      "row_candidate_count": 1,
+      "row_candidates": [
+        {
+          "page": 29,
+          "tokens_after_label": [
+            "5,592",
+            "5,652",
+            "-60",
+            "53,791",
+            "47,669",
+            "6,121"
+          ]
+        }
+      ],
+      "status": "unique_numeric_Exhibit7_row",
+      "page": 29,
+      "current_month_million_usd": 5592,
+      "prior_month_same_release_million_usd": 5652,
+      "printed_change_million_usd": -60,
+      "printed_change_minus_rounded_arithmetic": 0
+    },
+    {
+      "reference_month": "2024-11",
+      "source_pdf_sha256": "61f07216c0edab67b880e6a60a4c50cfb98ddc898bfe89c7e43c31324f6b0d8c",
+      "source_bytes": 1667547,
+      "source_url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_2411.pdf",
+      "printed_report_title_month": "NOVEMBER 2024",
+      "year_end_title": false,
+      "month_identity_matches": true,
+      "first_page_0830_release_indicated": true,
+      "row_candidate_count": 1,
+      "row_candidates": [
+        {
+          "page": 29,
+          "tokens_after_label": [
+            "5,524",
+            "5,591",
+            "-67",
+            "59,315",
+            "52,295",
+            "7,019"
+          ]
+        }
+      ],
+      "status": "unique_numeric_Exhibit7_row",
+      "page": 29,
+      "current_month_million_usd": 5524,
+      "prior_month_same_release_million_usd": 5591,
+      "printed_change_million_usd": -67,
+      "printed_change_minus_rounded_arithmetic": 0
+    },
+    {
+      "reference_month": "2024-12",
+      "source_pdf_sha256": "abbad725471e0e43b772fea178e9662086cc5a1ab456edc72596823008415153",
+      "source_bytes": 1618330,
+      "source_url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_2412.pdf",
+      "printed_report_title_month": "DECEMBER 2024",
+      "year_end_title": false,
+      "month_identity_matches": true,
+      "first_page_0830_release_indicated": true,
+      "row_candidate_count": 1,
+      "row_candidates": [
+        {
+          "page": 31,
+          "tokens_after_label": [
+            "5,507",
+            "5,548",
+            "-41",
+            "65,083",
+            "57,009",
+            "8,073"
+          ]
+        }
+      ],
+      "status": "unique_numeric_Exhibit7_row",
+      "page": 31,
+      "current_month_million_usd": 5507,
+      "prior_month_same_release_million_usd": 5548,
+      "printed_change_million_usd": -41,
+      "printed_change_minus_rounded_arithmetic": 0
+    },
+    {
+      "reference_month": "2025-01",
+      "source_pdf_sha256": "3be58da6c455c11b85d91fbe592f5ab43c6bea40d9ac9706405a4e2cd613520d",
+      "source_bytes": 1480553,
+      "source_url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_2501.pdf",
+      "printed_report_title_month": "JANUARY 2025",
+      "year_end_title": false,
+      "month_identity_matches": true,
+      "first_page_0830_release_indicated": true,
+      "row_candidate_count": 1,
+      "row_candidates": [
+        {
+          "page": 30,
+          "tokens_after_label": [
+            "6,210",
+            "5,507",
+            "703",
+            "6,210",
+            "4,872",
+            "1,339"
+          ]
+        }
+      ],
+      "status": "unique_numeric_Exhibit7_row",
+      "page": 30,
+      "current_month_million_usd": 6210,
+      "prior_month_same_release_million_usd": 5507,
+      "printed_change_million_usd": 703,
+      "printed_change_minus_rounded_arithmetic": 0
+    },
+    {
+      "reference_month": "2025-02",
+      "source_pdf_sha256": "a0e156cde2b38981dbeb8ab4e4ebce5e97fddbc49c7b3a2b23dd563e2f822614",
+      "source_bytes": 1615213,
+      "source_url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_2502.pdf",
+      "printed_report_title_month": "FEBRUARY 2025",
+      "year_end_title": false,
+      "month_identity_matches": true,
+      "first_page_0830_release_indicated": true,
+      "row_candidate_count": 1,
+      "row_candidates": [
+        {
+          "page": 29,
+          "tokens_after_label": [
+            "5,953",
+            "6,210",
+            "-257",
+            "12,164",
+            "9,575",
+            "2,588"
+          ]
+        }
+      ],
+      "status": "unique_numeric_Exhibit7_row",
+      "page": 29,
+      "current_month_million_usd": 5953,
+      "prior_month_same_release_million_usd": 6210,
+      "printed_change_million_usd": -257,
+      "printed_change_minus_rounded_arithmetic": 0
+    },
+    {
+      "reference_month": "2025-03",
+      "source_pdf_sha256": "08663f5c57b8860d910518a469e9de30cb8591bf859fa674c84c1f40e5449ddc",
+      "source_bytes": 1662961,
+      "source_url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_2503.pdf",
+      "printed_report_title_month": "MARCH 2025",
+      "year_end_title": false,
+      "month_identity_matches": true,
+      "first_page_0830_release_indicated": true,
+      "row_candidate_count": 1,
+      "row_candidates": [
+        {
+          "page": 29,
+          "tokens_after_label": [
+            "5,624",
+            "5,954",
+            "-330",
+            "17,789",
+            "14,091",
+            "3,698"
+          ]
+        }
+      ],
+      "status": "unique_numeric_Exhibit7_row",
+      "page": 29,
+      "current_month_million_usd": 5624,
+      "prior_month_same_release_million_usd": 5954,
+      "printed_change_million_usd": -330,
+      "printed_change_minus_rounded_arithmetic": 0
+    },
+    {
+      "reference_month": "2025-04",
+      "source_pdf_sha256": "d9f2491b0c97796ef3f21cbfa8c7826c8da05856484bef14f5b0e304c267e62d",
+      "source_bytes": 1634595,
+      "source_url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_2504.pdf",
+      "printed_report_title_month": "APRIL 2025",
+      "year_end_title": false,
+      "month_identity_matches": true,
+      "first_page_0830_release_indicated": true,
+      "row_candidate_count": 1,
+      "row_candidates": [
+        {
+          "page": 30,
+          "tokens_after_label": [
+            "5,998",
+            "5,688",
+            "310",
+            "23,884",
+            "19,059",
+            "4,825"
+          ]
+        }
+      ],
+      "status": "unique_numeric_Exhibit7_row",
+      "page": 30,
+      "current_month_million_usd": 5998,
+      "prior_month_same_release_million_usd": 5688,
+      "printed_change_million_usd": 310,
+      "printed_change_minus_rounded_arithmetic": 0
+    },
+    {
+      "reference_month": "2025-05",
+      "source_pdf_sha256": "9500d2a4a701c4bae9a54bf5e32c75a2af5705dc42371e91bd8ae195b205d0d1",
+      "source_bytes": 1394742,
+      "source_url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_2505.pdf",
+      "printed_report_title_month": "MAY 2025",
+      "year_end_title": false,
+      "month_identity_matches": true,
+      "first_page_0830_release_indicated": true,
+      "row_candidate_count": 1,
+      "row_candidates": [
+        {
+          "page": 28,
+          "tokens_after_label": [
+            "5,368",
+            "5,979",
+            "-612",
+            "29,233",
+            "24,089",
+            "5,144"
+          ]
+        }
+      ],
+      "status": "unique_numeric_Exhibit7_row",
+      "page": 28,
+      "current_month_million_usd": 5368,
+      "prior_month_same_release_million_usd": 5979,
+      "printed_change_million_usd": -612,
+      "printed_change_minus_rounded_arithmetic": -1
+    },
+    {
+      "reference_month": "2025-06",
+      "source_pdf_sha256": "2378f026a035b17e9a9cb951b1c50ba6f7bda302f65ce7ec8d7664b786e3d4c9",
+      "source_bytes": 1778314,
+      "source_url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_2506.pdf",
+      "printed_report_title_month": "JUNE 2025",
+      "year_end_title": false,
+      "month_identity_matches": true,
+      "first_page_0830_release_indicated": true,
+      "row_candidate_count": 1,
+      "row_candidates": [
+        {
+          "page": 27,
+          "tokens_after_label": [
+            "5,683",
+            "5,368",
+            "316",
+            "34,916",
+            "29,428",
+            "5,488"
+          ]
+        }
+      ],
+      "status": "unique_numeric_Exhibit7_row",
+      "page": 27,
+      "current_month_million_usd": 5683,
+      "prior_month_same_release_million_usd": 5368,
+      "printed_change_million_usd": 316,
+      "printed_change_minus_rounded_arithmetic": 1
+    },
+    {
+      "reference_month": "2025-07",
+      "source_pdf_sha256": "3d9137ef1da6af476d4731c183ecbc2905d2524ac3b7b2bb12150271ea03b960",
+      "source_bytes": 1618317,
+      "source_url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_2507.pdf",
+      "printed_report_title_month": "JULY 2025",
+      "year_end_title": false,
+      "month_identity_matches": true,
+      "first_page_0830_release_indicated": true,
+      "row_candidate_count": 1,
+      "row_candidates": [
+        {
+          "page": 28,
+          "tokens_after_label": [
+            "5,179",
+            "5,684",
+            "-505",
+            "40,095",
+            "36,383",
+            "3,712"
+          ]
+        }
+      ],
+      "status": "unique_numeric_Exhibit7_row",
+      "page": 28,
+      "current_month_million_usd": 5179,
+      "prior_month_same_release_million_usd": 5684,
+      "printed_change_million_usd": -505,
+      "printed_change_minus_rounded_arithmetic": 0
+    },
+    {
+      "reference_month": "2025-08",
+      "source_pdf_sha256": "af9ba074ec6cafc1509ce6dfe81c71425c513b57b1d5bed94fcb5e02c0fa5c06",
+      "source_bytes": 1887867,
+      "source_url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_2508.pdf",
+      "printed_report_title_month": "AUGUST 2025",
+      "year_end_title": false,
+      "month_identity_matches": true,
+      "first_page_0830_release_indicated": true,
+      "row_candidate_count": 1,
+      "row_candidates": [
+        {
+          "page": 27,
+          "tokens_after_label": [
+            "5,611",
+            "5,180",
+            "431",
+            "45,708",
+            "42,666",
+            "3,042"
+          ]
+        }
+      ],
+      "status": "unique_numeric_Exhibit7_row",
+      "page": 27,
+      "current_month_million_usd": 5611,
+      "prior_month_same_release_million_usd": 5180,
+      "printed_change_million_usd": 431,
+      "printed_change_minus_rounded_arithmetic": 0
+    },
+    {
+      "reference_month": "2025-09",
+      "source_pdf_sha256": "b50505bc3dbde10749332349b99004cc6868dcf17bb05bbd8d34e763456f0ed7",
+      "source_bytes": 1892246,
+      "source_url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_2509.pdf",
+      "printed_report_title_month": "SEPTEMBER 2025",
+      "year_end_title": false,
+      "month_identity_matches": true,
+      "first_page_0830_release_indicated": true,
+      "row_candidate_count": 1,
+      "row_candidates": [
+        {
+          "page": 27,
+          "tokens_after_label": [
+            "5,240",
+            "5,611",
+            "-371",
+            "50,948",
+            "48,391",
+            "2,557"
+          ]
+        }
+      ],
+      "status": "unique_numeric_Exhibit7_row",
+      "page": 27,
+      "current_month_million_usd": 5240,
+      "prior_month_same_release_million_usd": 5611,
+      "printed_change_million_usd": -371,
+      "printed_change_minus_rounded_arithmetic": 0
+    },
+    {
+      "reference_month": "2025-10",
+      "source_pdf_sha256": "a2ea49cd85701e785c5fdf9cc1bf57d7bba90710a15ba43d47d3360bdc9b9553",
+      "source_bytes": 1658092,
+      "source_url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_2510.pdf",
+      "printed_report_title_month": "OCTOBER 2025",
+      "year_end_title": false,
+      "month_identity_matches": true,
+      "first_page_0830_release_indicated": true,
+      "row_candidate_count": 1,
+      "row_candidates": [
+        {
+          "page": 28,
+          "tokens_after_label": [
+            "5,230",
+            "5,244",
+            "-14",
+            "56,181",
+            "53,923",
+            "2,258"
+          ]
+        }
+      ],
+      "status": "unique_numeric_Exhibit7_row",
+      "page": 28,
+      "current_month_million_usd": 5230,
+      "prior_month_same_release_million_usd": 5244,
+      "printed_change_million_usd": -14,
+      "printed_change_minus_rounded_arithmetic": 0
+    },
+    {
+      "reference_month": "2025-11",
+      "source_pdf_sha256": "423688a0e11f2652938b9715f0b9aa18e70bce203a1ed61a6e2852363bda1d1b",
+      "source_bytes": 1912604,
+      "source_url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_2511.pdf",
+      "printed_report_title_month": "NOVEMBER 2025",
+      "year_end_title": false,
+      "month_identity_matches": true,
+      "first_page_0830_release_indicated": true,
+      "row_candidate_count": 1,
+      "row_candidates": [
+        {
+          "page": 27,
+          "tokens_after_label": [
+            "5,482",
+            "5,228",
+            "254",
+            "61,661",
+            "59,461",
+            "2,200"
+          ]
+        }
+      ],
+      "status": "unique_numeric_Exhibit7_row",
+      "page": 27,
+      "current_month_million_usd": 5482,
+      "prior_month_same_release_million_usd": 5228,
+      "printed_change_million_usd": 254,
+      "printed_change_minus_rounded_arithmetic": 0
+    },
+    {
+      "reference_month": "2025-12",
+      "source_pdf_sha256": "66694c4b3b8c09e0fc432bb567c3ace6ec7c6366079992a57626d5274410eaae",
+      "source_bytes": 2174321,
+      "source_url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_2512.pdf",
+      "printed_report_title_month": "DECEMBER 2025",
+      "year_end_title": false,
+      "month_identity_matches": true,
+      "first_page_0830_release_indicated": true,
+      "row_candidate_count": 1,
+      "row_candidates": [
+        {
+          "page": 31,
+          "tokens_after_label": [
+            "6,382",
+            "5,469",
+            "913",
+            "67,924",
+            "64,948",
+            "2,976"
+          ]
+        }
+      ],
+      "status": "unique_numeric_Exhibit7_row",
+      "page": 31,
+      "current_month_million_usd": 6382,
+      "prior_month_same_release_million_usd": 5469,
+      "printed_change_million_usd": 913,
+      "printed_change_minus_rounded_arithmetic": 0
+    },
+    {
+      "reference_month": "2026-01",
+      "source_pdf_sha256": "3c18b43ee3e6e91a9a90dc159ef44f33972745ea38b892ebbc77823b1bf418d9",
+      "source_bytes": 1719702,
+      "source_url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_2601.pdf",
+      "printed_report_title_month": "JANUARY 2026",
+      "year_end_title": false,
+      "month_identity_matches": true,
+      "first_page_0830_release_indicated": true,
+      "row_candidate_count": 1,
+      "row_candidates": [
+        {
+          "page": 30,
+          "tokens_after_label": [
+            "6,735",
+            "6,382",
+            "353",
+            "6,735",
+            "6,178",
+            "557"
+          ]
+        }
+      ],
+      "status": "unique_numeric_Exhibit7_row",
+      "page": 30,
+      "current_month_million_usd": 6735,
+      "prior_month_same_release_million_usd": 6382,
+      "printed_change_million_usd": 353,
+      "printed_change_minus_rounded_arithmetic": 0
+    },
+    {
+      "reference_month": "2026-02",
+      "source_pdf_sha256": "96c04f834b91c12887264c81590e5bc614f4d6f6b6b2d3bcd9345365de79a2d0",
+      "source_bytes": 1741412,
+      "source_url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_2602.pdf",
+      "printed_report_title_month": "FEBRUARY 2026",
+      "year_end_title": false,
+      "month_identity_matches": true,
+      "first_page_0830_release_indicated": true,
+      "row_candidate_count": 1,
+      "row_candidates": [
+        {
+          "page": 29,
+          "tokens_after_label": [
+            "8,303",
+            "6,735",
+            "1,568",
+            "15,038",
+            "12,177",
+            "2,861"
+          ]
+        }
+      ],
+      "status": "unique_numeric_Exhibit7_row",
+      "page": 29,
+      "current_month_million_usd": 8303,
+      "prior_month_same_release_million_usd": 6735,
+      "printed_change_million_usd": 1568,
+      "printed_change_minus_rounded_arithmetic": 0
+    },
+    {
+      "reference_month": "2026-03",
+      "source_pdf_sha256": "9f71de167044d2d4c5d3d81271a5311173be1e67c9eda4c52779b2bf8de22b72",
+      "source_bytes": 1745935,
+      "source_url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_2603.pdf",
+      "printed_report_title_month": "MARCH 2026",
+      "year_end_title": false,
+      "month_identity_matches": true,
+      "first_page_0830_release_indicated": true,
+      "row_candidate_count": 1,
+      "row_candidates": [
+        {
+          "page": 28,
+          "tokens_after_label": [
+            "7,450",
+            "8,308",
+            "-858",
+            "22,493",
+            "17,854",
+            "4,640"
+          ]
+        }
+      ],
+      "status": "unique_numeric_Exhibit7_row",
+      "page": 28,
+      "current_month_million_usd": 7450,
+      "prior_month_same_release_million_usd": 8308,
+      "printed_change_million_usd": -858,
+      "printed_change_minus_rounded_arithmetic": 0
+    },
+    {
+      "reference_month": "2026-04",
+      "source_pdf_sha256": "11947b2eed8dc87414cfc2ec89b73d7f01282a1d10c70452684b9736ee284b87",
+      "source_bytes": 1754536,
+      "source_url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_2604.pdf",
+      "printed_report_title_month": "APRIL 2026",
+      "year_end_title": false,
+      "month_identity_matches": true,
+      "first_page_0830_release_indicated": true,
+      "row_candidate_count": 1,
+      "row_candidates": [
+        {
+          "page": 29,
+          "tokens_after_label": [
+            "6,946",
+            "7,329",
+            "-383",
+            "28,831",
+            "23,242",
+            "5,589"
+          ]
+        }
+      ],
+      "status": "unique_numeric_Exhibit7_row",
+      "page": 29,
+      "current_month_million_usd": 6946,
+      "prior_month_same_release_million_usd": 7329,
+      "printed_change_million_usd": -383,
+      "printed_change_minus_rounded_arithmetic": 0
+    },
+    {
+      "reference_month": "2026-05",
+      "source_pdf_sha256": "9ab9737e0c84a679dec653de9ca1223de3004e0d0d074ef3a2dec33cb63c70ec",
+      "source_bytes": 1798284,
+      "source_url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_2605.pdf",
+      "printed_report_title_month": "MAY 2026",
+      "year_end_title": false,
+      "month_identity_matches": true,
+      "first_page_0830_release_indicated": true,
+      "row_candidate_count": 1,
+      "row_candidates": [
+        {
+          "page": 27,
+          "tokens_after_label": [
+            "6,709",
+            "6,946",
+            "-237",
+            "35,540",
+            "28,619",
+            "6,921"
+          ]
+        }
+      ],
+      "status": "unique_numeric_Exhibit7_row",
+      "page": 27,
+      "current_month_million_usd": 6709,
+      "prior_month_same_release_million_usd": 6946,
+      "printed_change_million_usd": -237,
+      "printed_change_minus_rounded_arithmetic": 0
+    },
+    {
+      "reference_month": "2026-06",
+      "source_pdf_sha256": "a67052e2f6f97dcd8a4fb46530464dc093eea26251b9ca153f658a09957e7eef",
+      "source_bytes": 1817223,
+      "source_url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_2606.pdf",
+      "printed_report_title_month": "JUNE 2026",
+      "year_end_title": false,
+      "month_identity_matches": true,
+      "first_page_0830_release_indicated": true,
+      "row_candidate_count": 1,
+      "row_candidates": [
+        {
+          "page": 27,
+          "tokens_after_label": [
+            "6,649",
+            "6,709",
+            "-60",
+            "42,188",
+            "34,153",
+            "8,035"
+          ]
+        }
+      ],
+      "status": "unique_numeric_Exhibit7_row",
+      "page": 27,
+      "current_month_million_usd": 6649,
+      "prior_month_same_release_million_usd": 6709,
+      "printed_change_million_usd": -60,
+      "printed_change_minus_rounded_arithmetic": 0
+    },
+    {
+      "reference_month": "2026-07",
+      "source_pdf_sha256": "c122b8ccee947c58859597a7549bb5dcb6691add3e405180ab915d43f6c43aa0",
+      "source_bytes": 1826911,
+      "source_url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_2607.pdf",
+      "printed_report_title_month": "JULY 2026",
+      "year_end_title": false,
+      "month_identity_matches": true,
+      "first_page_0830_release_indicated": true,
+      "row_candidate_count": 1,
+      "row_candidates": [
+        {
+          "page": 28,
+          "tokens_after_label": [
+            "6,831",
+            "6,649",
+            "182",
+            "49,020",
+            "39,475",
+            "9,544"
+          ]
+        }
+      ],
+      "status": "unique_numeric_Exhibit7_row",
+      "page": 28,
+      "current_month_million_usd": 6831,
+      "prior_month_same_release_million_usd": 6649,
+      "printed_change_million_usd": 182,
+      "printed_change_minus_rounded_arithmetic": 0
+    },
+    {
+      "reference_month": "2026-08",
+      "source_pdf_sha256": "77f2632c996c1545827eac6be06fc0f0f730876f8711afb4a1f001f9c1ea2826",
+      "source_bytes": 1824760,
+      "source_url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_2608.pdf",
+      "printed_report_title_month": "AUGUST 2026",
+      "year_end_title": false,
+      "month_identity_matches": true,
+      "first_page_0830_release_indicated": true,
+      "row_candidate_count": 1,
+      "row_candidates": [
+        {
+          "page": 27,
+          "tokens_after_label": [
+            "7,797",
+            "6,831",
+            "965",
+            "56,816",
+            "45,187",
+            "11,629"
+          ]
+        }
+      ],
+      "status": "unique_numeric_Exhibit7_row",
+      "page": 27,
+      "current_month_million_usd": 7797,
+      "prior_month_same_release_million_usd": 6831,
+      "printed_change_million_usd": 965,
+      "printed_change_minus_rounded_arithmetic": -1
+    }
+  ]
+}
