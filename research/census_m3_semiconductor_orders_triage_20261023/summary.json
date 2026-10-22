@@ -1,0 +1,33 @@
+{
+  "schema_version": 1,
+  "status": "closed_source_semantics_for_semiconductor_orders_hypothesis",
+  "role": "Primary-source feasibility triage for a distinct Stage1 demand-backlog signal; no data intake or factor construction",
+  "proposed_field": "Census M3 electronic-components new orders or unfilled orders as a semiconductor order/backlog proxy",
+  "official_evidence": [
+    {
+      "url": "https://www.census.gov/manufacturing/m3/historical_data/pressreleases/prel/2011/mar11prel.pdf",
+      "report": "March 2011 full report",
+      "finding": "Table 2 says semiconductor new orders are unavailable and excluded; Table 3 says semiconductor unfilled orders are unavailable and excluded; shipments/inventories are included only in larger aggregates."
+    },
+    {
+      "url": "https://www.census.gov/manufacturing/m3/historical_data/pressreleases/prel/2018/apr18prel.pdf",
+      "report": "April 2018 full report",
+      "finding": "The same Table 2 and Table 3 semiconductor exclusion footnotes remain."
+    },
+    {
+      "url": "https://www.census.gov/manufacturing/m3/historical_data/pressreleases/prel/2026/jan26prel.pdf",
+      "report": "January 2026 full report",
+      "finding": "The same new-order and unfilled-order semiconductor exclusion footnotes remain."
+    },
+    {
+      "url": "https://www.census.gov/manufacturing/m3/historical/timeseries.html",
+      "report": "Historical time-series description",
+      "finding": "Since April 2010 semiconductor estimates are not separately available and only some measures are included in larger aggregates."
+    }
+  ],
+  "source_scope": "Official Census webpages and text-extracted official PDF pages inspected; no exact PDF-byte intake, NAS receipt, or historical vintage qualification claimed.",
+  "decision": "Do not label M3 electronic-components orders/backlog as semiconductor orders/backlog or fit it into Stage1 under that hypothesis. A broader non-semiconductor electronic-components hypothesis would require a separate frozen design.",
+  "model_fits": 0,
+  "native_accounts": 0,
+  "SOXX_goal_achieved": false
+}

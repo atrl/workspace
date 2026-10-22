@@ -272,6 +272,12 @@
   },
   "closed_source_probes": [
     {
+      "card": "research/census_m3_semiconductor_orders_triage_20261023",
+      "status": "semiconductor_new_and_unfilled_orders_excluded_from_M3",
+      "result": "research/census_m3_semiconductor_orders_triage_20261023/summary.json",
+      "default_search": false
+    },
+    {
       "card": "research/cboe_soxx_soxl_options_volume_source_20261022",
       "status": "not_qualified_for_call_put_composition",
       "result": "research/cboe_soxx_soxl_options_volume_source_20261022/source_schema_audit.json",
