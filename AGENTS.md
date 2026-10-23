@@ -38,6 +38,11 @@ cards keep their original gates. The active campaign entry is
   Judge any accepted feature on the complete native account and all regimes,
   including intervals outside the motivating failure. A failed fixed version
   stays closed. The detailed loop is `docs/research_failure_to_feature_sop.md`.
+- For the frozen f696 allocation source, `timing.decision_at` is the next US
+  session at 09:29 ET. The b472 opening action decision is later, at 09:46 ET.
+  A same-day 09:45 completed minute bar cannot enter the unchanged f696
+  allocator. To use it, freeze an explicit later-clock allocator or a b472
+  action receiver with its own economic label and controls before fitting.
 - For the active Stage1-versus-SOXX Goal, do not initiate or use news reports,
   press releases, article text, or scraped news-derived series as candidate
   features. Prefer the frozen Qlib/NAS market data and existing decision-state

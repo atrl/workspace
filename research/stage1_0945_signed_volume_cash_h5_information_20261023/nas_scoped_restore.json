@@ -1,0 +1,16 @@
+{
+  "status": "verified",
+  "recorder_id": "9623e3d4cc194fc3b0cecf81fd04d568",
+  "model_fits": 2,
+  "native_accounts": 0,
+  "held_scored_rows": 940,
+  "held_calendar_rows": 944,
+  "NAS_archive_sha256": "59700540653371729398dce9332344ac99d57d751e07f6b38fed27f242a960c1",
+  "scoped_members": [
+    "analysis/metrics",
+    "analysis/gates",
+    "predictions/held_scored",
+    "analysis/full_held_calendar"
+  ],
+  "all_member_sha256_parity": true
+}

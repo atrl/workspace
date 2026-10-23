@@ -1,0 +1,8 @@
+experiment: stage1_0945_signed_volume_cash_h5_information_20261023
+plan: plan.json
+provider_uri: data/qlib/minute_information_pit_allocator_20261012/core_1min
+source: research/stage1_0945_signed_volume_cash_source_20261023
+receiver: matched_Ridge_H5_cash_minus_SOXX
+native_accounts: 0
+validity: invalid_for_frozen_Stage1_allocator_0929_clock
+timing_audit: timing_invalidation.json

@@ -1,0 +1,80 @@
+{
+  "experiment": "stage1_0945_signed_volume_cash_h5_information_20261023",
+  "decision": "invalid_for_frozen_Stage1_allocator_0929_clock",
+  "promotion": "not_promoted_information_only",
+  "objective_achieved": false,
+  "plan_sha256": "599216aab57688bbe4a3210641d295abc2fe20136cd73f223571a5d596abf24e",
+  "source_provider_uri": "data/qlib/minute_information_pit_allocator_20261012/core_1min",
+  "feature_source_recorder_id": "d6b2e08632e64135b26949265aa69b25",
+  "parent_recorder_id": "68e31a0a0fad44e7ba1d1f7d856c7a0d",
+  "recorder_id": "9623e3d4cc194fc3b0cecf81fd04d568",
+  "experiment_id": "940189410162166449",
+  "metrics": {
+    "coefficient_standardized": 0.0013358318912802271,
+    "all_held_MSE_baseline": 0.0025855424055373747,
+    "all_held_MSE_candidate": 0.002580917881017408,
+    "all_held_MSE_train_mean": 0.0023437265602819063,
+    "all_held_improvement_vs_baseline": 4.624524519966467e-06,
+    "all_held_improvement_vs_train_mean": -0.00023719132073550197,
+    "first_half_improvement": -2.026166558767099e-06,
+    "second_half_improvement": 1.1275215598700032e-05,
+    "2024_improvement": 3.4013521118010376e-06,
+    "2025_improvement": -1.6247456482101293e-06
+  },
+  "bootstrap": {
+    "paired_mean_loss_improvement": 4.624524519966467e-06,
+    "lower_bound": -6.423766329385399e-06,
+    "upper_bound": 2.0749806564261984e-05,
+    "valid_replicates": 2000,
+    "invalid_replicates": 0,
+    "calendar_rows": 944,
+    "scored_rows": 940
+  },
+  "gates": {
+    "negative_coefficient": false,
+    "beats_baseline": true,
+    "beats_train_mean": false,
+    "both_halves": false,
+    "both_complete_years": false,
+    "positive_block_lower": false
+  },
+  "model_fits": 2,
+  "native_accounts": 0,
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "inputs/*",
+      "models/*",
+      "predictions/*",
+      "analysis/*"
+    ]
+  },
+  "limitations": [
+    "The trade-day 09:45 source bar is 16 minutes after the frozen f696 allocator 09:29 decision. Fitted H5 metrics are an inadmissible wrong-clock attempt, not evidence for or against the feature in a valid Stage1 receiver.",
+    "2023-2026 reuse is development feedback, not independent forward evidence.",
+    "H5 labels omit funded Tiered fees and account feedback.",
+    "Historical 09:45 bar finality and first receipt remain unqualified; no SOXL relative receiver is tested here."
+  ],
+  "NAS_evidence": {
+    "sha256": "59700540653371729398dce9332344ac99d57d751e07f6b38fed27f242a960c1",
+    "size_bytes": 135996,
+    "media_type": "application/gzip",
+    "storage_uri": "sha256/59/70/59700540653371729398dce9332344ac99d57d751e07f6b38fed27f242a960c1",
+    "uploaded_by": "soxl-minute-research",
+    "created_at": "2026-10-23 21:26:59.477004+08",
+    "duplicate": false,
+    "nas_path": "/volume1/docker/yanxuan/registry/research-artifacts/59/70/59700540653371729398dce9332344ac99d57d751e07f6b38fed27f242a960c1",
+    "recorder_id": "9623e3d4cc194fc3b0cecf81fd04d568",
+    "experiment_id": "940189410162166449",
+    "archive_root": "qlib_recorder"
+  },
+  "NAS_readback": {
+    "verified": true,
+    "sha256": "59700540653371729398dce9332344ac99d57d751e07f6b38fed27f242a960c1"
+  },
+  "NAS_scoped_restore": "nas_scoped_restore.json",
+  "numeric_attempt_decision": "not_promoted_fixed_0945_signed_volume_cash_H5_information_failed",
+  "timing_invalidation": "timing_invalidation.json",
+  "information_gate_admissible": false
+}

@@ -1,0 +1,27 @@
+{
+  "status": "invalid_for_frozen_Stage1_allocator_clock",
+  "plan_sha256": "599216aab57688bbe4a3210641d295abc2fe20136cd73f223571a5d596abf24e",
+  "parent_recorder_id": "68e31a0a0fad44e7ba1d1f7d856c7a0d",
+  "source_recorder_id": "d6b2e08632e64135b26949265aa69b25",
+  "checked_known_source_days": 2007,
+  "f696_allocator_decision_local_times": [
+    "09:29"
+  ],
+  "source_last_bar_local_times": [
+    "09:45"
+  ],
+  "source_last_bar_minutes_after_allocator_decision_min": 16.0,
+  "source_last_bar_minutes_after_allocator_decision_max": 16.0,
+  "source_late_days": 2007,
+  "source_on_time_days": 0,
+  "receiver_error": "The fitted cash H5 receiver used a 09:45 trade-day feature for the frozen upstream f696 allocator, whose saved decision_at is 09:29 on that trade day. Numerical fit is inadmissible as Stage1 allocation information; it is not a negative alpha finding. A 09:46 action-layer task would need its own action-value label and frozen plan.",
+  "new_fits": 0,
+  "new_accounts": 0,
+  "new_market_requests": 0,
+  "parent_timing_artifact_sha256": "66e3292d7f47ac6981f2e488ed198d1109f340f2c3a4bf2a5f538fa41465764e",
+  "feature_daily_source_artifact_sha256": "25d225f86ba37c5dc196c4bcbecee599aae28f62c3d7ce5287e134260faff16f",
+  "attempt_train_mature": 1057,
+  "attempt_train_feature_known": 1056,
+  "attempt_held_mature": 940,
+  "attempt_held_feature_known": 940
+}
