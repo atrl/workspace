@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "status": "historical_first_public_bytes_unqualified",
+  "evidence_source": "data/snapshots/stage1_treasury_real_yield_source_20261023/par-real-yield-curve-rates-2003-2023.csv.headers",
+  "header_sha256": "9cb833e51f95f7e1c93cdfccfba932aeec18552311eb261982a6916fa115a207",
+  "exact_last_modified_header": "Wed, 14 Jan 2026 23:01:12 GMT",
+  "response_date_header": "Fri, 23 Oct 2026 01:56:23 GMT",
+  "interpretation": "The currently served merged archive bytes are not contemporaneous first-release bytes for 2018-2022. The header alone does not establish whether any individual historical 10-year real-yield value changed. A two-Qlib-session lag is conservative with respect to daily close but cannot certify the vintage of today's retrospective values.",
+  "information_fit_authorized_by_this_gate": false,
+  "economic_account_authorized_by_this_gate": false,
+  "next_evidence": "An independently archived original daily publication or versioned source showing values and first availability for the historical Stage1 sessions, then a frozen Qlib redundancy/information screen.",
+  "new_market_requests": 0,
+  "SOXX_outcome_reads": 0,
+  "new_model_fits": 0,
+  "new_native_accounts": 0
+}
