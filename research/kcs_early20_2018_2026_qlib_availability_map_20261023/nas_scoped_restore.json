@@ -1,0 +1,26 @@
+{
+  "status": "NAS_Recorder_cold_readback_selected_KCS_Qlib_map_artifacts_exact",
+  "archive_sha256": "617822f6dead0ae64ccb3091d84800508daf481576b365fe5382fbf10db60d8a",
+  "archive_bytes": 131116,
+  "checked": {
+    "analysis/source_events": {
+      "sha256": "3491c798ca70b084e0d524e53979d3faa49a106c4fc14a1750db466e9e81fc21",
+      "bytes": 20283
+    },
+    "analysis/mapped_calendar": {
+      "sha256": "42206f76c9acf12c3e60ce46a5e3d1cc8cee425bb60990d9006e9815d2ca72ac",
+      "bytes": 147227
+    },
+    "analysis/result": {
+      "sha256": "410eb29645645be6d35743cf91f6d883567a0176ee8a8a3f2ab96812b6000812",
+      "bytes": 623
+    }
+  },
+  "native_Recorder_status": "FINISHED",
+  "event_rows": 105,
+  "full_calendar_rows": 3966,
+  "train_known": 1245,
+  "held_known": 944,
+  "new_fits": 0,
+  "new_accounts": 0
+}

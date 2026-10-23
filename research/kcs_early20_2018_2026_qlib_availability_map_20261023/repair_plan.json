@@ -1,0 +1,15 @@
+{
+  "status": "approved_mechanical_schema_alias_only",
+  "prior_failure_sha256": "799bb57ea44bff6bfed84ab27d649f5a881a0f48e82c565e71485dba68ad0950",
+  "only_code_change": "Rename training HWP_sha256 to source_sha256; add literal source_format=hwp to training rows before the original four-column concat. Do not change numeric values, portal dates, source hashes, calendar search side, cohort gates, model/account budgets or any source file.",
+  "cumulative_budget_after_one_repair": {
+    "source_Recorder_object_loads_max": 4,
+    "D_calendar_calls_max": 2,
+    "DatasetH_builds_max": 1,
+    "new_Qlib_Recorders_max": 1,
+    "SOXX_outcome_reads": 0,
+    "model_fits": 0,
+    "native_accounts": 0
+  },
+  "no_second_repair_without_new_audit": true
+}

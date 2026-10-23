@@ -1,0 +1,21 @@
+{
+  "status": "conditional_current_original_KCS_early20_source_Qlib_calendar_complete_held_PIT_vintage_pending",
+  "plan_sha256": "673f07ff5922a727e3381b15d8f81454f1093d29cf8f37441e5b68680a186c8b",
+  "source_events": 105,
+  "train_events": 60,
+  "held_events": 45,
+  "full_Qlib_sessions": 3966,
+  "train_2018_2022_sessions": 1259,
+  "train_known": 1245,
+  "train_unknown": 14,
+  "held_sessions": 944,
+  "held_known": 944,
+  "first_eligible_trade": "2018-01-23",
+  "last_eligible_trade": "2026-09-22",
+  "same_day_portal_to_trade_used": 0,
+  "source_historical_first_public_byte_vintage_qualified": false,
+  "working_day_adjusted": false,
+  "SOXX_outcome_reads": 0,
+  "model_fits": 0,
+  "native_accounts": 0
+}

@@ -1,0 +1,33 @@
+{
+  "experiment": "kcs_early20_2018_2026_qlib_availability_map_20261023",
+  "frozen": true,
+  "phase": "conservative_official_portal_date_to_Stage1_Qlib_decision_calendar_source_map",
+  "parent": "frozen_complete_Stage1_f696_plus_b472_0bp_IBKR_Tiered",
+  "question": "Can all 105 existing original HWP/HWPX reported semiconductor export YoY values be mapped without future leakage to the first native US Qlib trading session strictly after each official Korean portal page date, while preserving the 2011-2018 initial unknown interval and the unqualified historical byte-vintage flag?",
+  "prior_preview_disclosure": "A source-only read of 105 saved official HTML pages found exactly one YYYY.MM.DD date in the fixed .article_head .variety .info span and one unique next US session per month; 2018-2022 train-calendar 1259/1245 known and 2023-2026 held-calendar944/944 known. No SOXX outcome was read. These counts are pre-execution support, not independent prediction evidence.",
+  "sources": {
+    "training_numeric_card": "research/kcs_early20_2018_2022_semiconductor_yoy_source_20261023",
+    "training_numeric_summary_sha256": "2e5f6afb75ea9edd6a2e3f4d7bf4ddd7894de842bd1f4d07e01c85953b2d9529",
+    "training_numeric_experiment_id": "129326686292267810",
+    "training_numeric_recorder_id": "e700f88dcb824ab88c4d1d0e13fc3fa0",
+    "training_numeric_artifact_sha256": "cd72d0507a5ce9c036db67b8ca720f05f602faa3dcb44e93747fc2a3e0910392",
+    "held_numeric_card": "research/kcs_early20_2023_2026_semiconductor_yoy_source_v2_20261023",
+    "held_numeric_summary_sha256": "df62efefccc9ae7e34c9978dd35afc99dc188e95eea6fead4ab49a3a7c3c0d0b",
+    "held_numeric_experiment_id": "154092877606764020",
+    "held_numeric_recorder_id": "7b60cdf8611d4df69354779db6765573",
+    "held_numeric_artifact_sha256": "43194d70d52f9e67135c519bf65f1e76ea5491bcbbc7e1f66d19681821352df2",
+    "training_original_card": "research/kcs_early20_2018_2022_original_capture_20261023",
+    "training_original_summary_sha256": "bb9ce4641cc2f4b7a2523f2213443b14c7e7d38d9c047c4013d4c16ae92b6298",
+    "held_original_card": "research/kcs_early20_2023_2026_held_original_capture_20261023",
+    "held_original_summary_sha256": "8f46a275636301e32ef70651e2969445c83a8059d39d3827676c2d398fab887c",
+    "August_repair_card": "research/kcs_early20_2025_aug_transport_repair_20261023",
+    "August_repair_summary_sha256": "fb8b078c65ef51313ed0bcff3f48b16446adaa5e91ff7e0c03abc404710f5755",
+    "Qlib_provider_uri": "data/qlib/minute_information_pit_allocator_20261012/daily_prices",
+    "Qlib_provider_manifest_sha256": "d80a08d479b73098053006909b5e6227b03a56ab705681742d7261088e0a7e6c"
+  },
+  "fixed_clock": "For each current official source page, parse only .article_head .variety .info span as YYYY.MM.DD Korean portal registered date and require same year/month as the economic period. Feature availability for the Stage1 09:46 decision is the first D.calendar US session STRICTLY AFTER that registered calendar date, never same-day. Carry the most recently eligible reported raw YoY to following Qlib trade dates until the next eligible release. Portal date is a conservative assumed availability bound, not independent exact first-public byte proof.",
+  "cohorts": {"events": 105, "training_months_2018_2022": 60, "held_months_2023_2026Sep": 45, "full_Stage1_Qlib_calendar": 3966, "2018_2022_sessions": 1259, "2018_2022_known": 1245, "initial_unknown": 14, "held_2023_2026Oct07_sessions": 944, "held_known": 944},
+  "artifacts": "Build a complete-calendar Qlib DatasetH using static source events aligned to native D.calendar; save all105 event dates, eligibility, source SHA, full daily carried values, unknown and age masks, and source-vintage=false metadata in a new Qlib Recorder/NAS. No market label or account output.",
+  "budget": {"external_GETs": 0, "Qlib_D_calendar_calls": 1, "source_Recorder_object_loads": 2, "DatasetH_builds": 1, "new_Qlib_Recorders": 1, "SOXX_outcome_reads": 0, "model_fits": 0, "native_accounts": 0},
+  "stop": "Any source hash, 105 unique month/date, registered date selector, next-session timing, 1245/944 support or NAS readback mismatch stops. Do not backfill 2011-2018, normalize working-day exposure, claim first-public PIT, fit an information model or execute a funded Stage1 account in this source map version."
+}

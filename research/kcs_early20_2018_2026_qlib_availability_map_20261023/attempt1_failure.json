@@ -1,0 +1,14 @@
+{
+  "status": "pre_DatasetH_source_schema_alias_mismatch",
+  "plan_sha256": "673f07ff5922a727e3381b15d8f81454f1093d29cf8f37441e5b68680a186c8b",
+  "error_type": "KeyError",
+  "error_text": "['source_sha256', 'source_format'] not in index",
+  "cause": "2018-2022 training monthly table uses HWP_sha256 and has no source_format column; 2023-2026 held table uses source_sha256 and source_format. Both value columns and 105 month identities are unchanged.",
+  "actual_source_Recorder_object_loads": 2,
+  "actual_D_calendar_calls": 1,
+  "actual_DatasetH_builds": 0,
+  "actual_new_Qlib_Recorders": 0,
+  "SOXX_outcome_reads": 0,
+  "model_fits": 0,
+  "native_accounts": 0
+}
