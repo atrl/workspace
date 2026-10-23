@@ -9,3 +9,7 @@
 ## 2026-10-23 只读新鲜度复核
 
 NAS 最新已验证 `us_semis_intraday` 快照及本地 Qlib 15分钟 provider 均已前进至 **10月22日**。原生 Qlib 对当日 SOXL/SOXX 首小时读回8条，完整标志8/8、每条15/15分钟。原有两份密封代码 SHA 仍不匹配，未来不完整bar的语义仍需审核；本次没有启动纸面策略、重封release、取得合格前向日或SOXX超额。详细身份与哈希见 `source_freshness_followup_20261023.json`。
+
+## 两处密封代码差异的语义复核
+
+`stage1_open_action_value.py` 新增可选 `state_transition=None`；纸面调用不传该参数，继续使用原状态转移。`intraday_recovery_direct_allocation.py` 对声明 `$is_complete` 的 provider 增加首四根15分钟bar完整性过滤；在已观察的10月22日SOXL/SOXX八根首小时bar上是空操作，但对未来部分bar是实际语义变化。现有合成部分bar合同已直接执行通过；本机 Python 缺pytest，故没有声称pytest runner通过。两份源码仍与密封release哈希不符。这里只完成owner只读语义复核，未完成独立审核、重封、运行或取得合格前向日。详细证据见 `release_reseal_semantics_review_20261023.json`。
