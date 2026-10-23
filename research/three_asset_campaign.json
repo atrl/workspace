@@ -266,7 +266,9 @@
     "Stage1_training_cost0_0bp_account_result": "research/stage1_training_cost_0bp_ablation_20261023/summary.json",
     "Stage1_training_cost0_0bp_interpretation": "Frozen complete Stage1-derived three-seed training-only 10bp->0bp cost-proxy ablation kept .006 turnover regularizer and the original action/risk/recovery chain. One own-state 0bp added-slippage raw-share Tiered Qlib account was run against exact original A_0, matched B_0 and SOXX: candidate/SOXX wealth0.529056, A_0 ratio0.771211, B_0 ratio0.668426, sampled MaxDD27.338%, CVaR5 -4.045% vs SOXX -4.905%, complete positive years1/2, rolling126 positives173/819 vs574, SOXX daily block lower -0.001431425. Candidate raw cash43.00% vs matched B38.31%, funded cash51.24% vs B46.24%, so cost-proxy removal increased cash and failed its mechanism. Three fits/one account, same Recorder after mechanical numeric-readback repair, NAS scoped restore verified. Close fixed version; no cost grid or 2/5bp after failed0bp. History reused and independent forward absent.",
     "Stage1_product_tracking_closed_information": "research/stage1_product_tracking_h5_information_20261023/summary.json",
-    "Stage1_soxx_autocorr_cash_closed_information": "research/stage1_soxx_autocorr_cash_h5_information_20261023/summary.json"
+    "Stage1_soxx_autocorr_cash_closed_information": "research/stage1_soxx_autocorr_cash_h5_information_20261023/summary.json",
+    "Stage1_training_cost0_regime_attribution": "research/stage1_training_cost0_regime_attribution_20261023/result.json",
+    "Stage1_training_cost0_regime_interpretation": "Read-only exact 944-session raw-corporate Stage1 0bp account alignment shows candidate-minus-matched-B cash mean +4.69 percentage points in raw network outputs, +4.66 after smoothing, +5.02 in controlled targets and +5.00 in funded holdings. Candidate/B wealth0.668426 and candidate/SOXX0.529056. In 2025 candidate/B wealth0.8393 and +5.32pp funded cash; 2024Q3 candidate/B about1.000 despite +5.21pp cash. Only106/819 rolling126 windows beat B, 173/819 beat SOXX. Candidate total fees are lower than B; extra fees do not explain its shortfall. Own-state path differences are descriptive, not local cash causality. All years/quarters/windows in native Recorder and NAS scoped restore. Close cost-proxy route and do not select quarter switch or cost-grid rescue."
   },
   "contract": {
     "path": "docs/three_asset_research_contract.md",
@@ -512,7 +514,9 @@
     "Stage1_common_return_dedup_0bp_independent_review": "research/stage1_common_return_dedup_0bp_20261023/independent_result_review.json",
     "Stage1_common_return_dedup_review_interpretation": "Independent native Qlib/NAS readback confirms C common-return-dedup own-state 0bp Tiered account is fixed not_promoted: SOXX wealth0.961473, sampled DD28.81pct and CVaR pass, complete years1/2, rolling126369/819 versus574, corrected block lower negative. Matched B/C wealth ratio1.377 is attribution only; C is not a new parent. One sidecar adds post-save FINISHED status after native result; all economic fields match. No 2/5bp or qualified forward success.",
     "Stage1_training_cost0_0bp_result": "research/stage1_training_cost_0bp_ablation_20261023/summary.json",
-    "Stage1_training_cost0_0bp_status": "not_promoted_fixed_Stage1_training_cost0_0bp_failed; exact Stage1 A_0 and SOXX raw-corporate controls, 3 fits/1 new 0bp Tiered account; no 2/5bp or independent forward"
+    "Stage1_training_cost0_0bp_status": "not_promoted_fixed_Stage1_training_cost0_0bp_failed; exact Stage1 A_0 and SOXX raw-corporate controls, 3 fits/1 new 0bp Tiered account; no 2/5bp or independent forward",
+    "Stage1_training_cost0_regime_attribution": "research/stage1_training_cost0_regime_attribution_20261023/result.json",
+    "Stage1_cost_route_next_boundary": "No-news constraint persists. Fixed turnover regularizer removal and 10bp training-cost-proxy removal both worsened cash; 15pct cash floor bound zero original A_0 EXECUTE days. Do not tune costs or floor on reused history. A next bounded mechanism must address raw model risky-dollar intent and distinguish 2024 cash protection from 2025 cash drag before any new complete Stage1-parent 0bp Tiered account; SOXX remains final gate."
   },
   "parallel_source_task": {
     "card": "research/korea_semiconductor_exports_korean_vintage_20261022",
@@ -577,7 +581,7 @@
     ]
   },
   "active_index": "research/active_research_index.json",
-  "updated_at_utc": "2026-10-23T13:08:59Z",
+  "updated_at_utc": "2026-10-23T13:17:07Z",
   "execution_totals": {
     "new_model_fits": 85,
     "new_native_accounts": 51,
