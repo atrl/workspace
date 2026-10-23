@@ -1,0 +1,100 @@
+{
+  "schema_version": 1,
+  "frozen": true,
+  "experiment": "stage1_nvda_datacenter_q4_table_lineage_repair_20261023",
+  "phase": "source_only_Q4_quarter_table_adjudication_and_32_row_hash_lineage_repair",
+  "question": "Can the 10 annual-report duplicate rows be adjudicated by original quarterly Q4 FY table header, while sealing row/table hashes for all 32 previously accepted numeric events without changing them?",
+  "sources": {
+    "parent_v1_card": "research/stage1_nvda_datacenter_original_numeric_20261023",
+    "parent_v1_plan_sha256": "1b88d7eaa02913e96c75afc80f5e2fa69f1242603032c3fea0c27e4fba766d6b",
+    "parent_v1_result_sha256": "c070a6376cc4acf23b6c22f7e6a59040978e0da90451964862ee83f21d3f20bb",
+    "parent_v1_summary_sha256": "063a2d74a082dcf3b5ca69b49a57c0ea37cefb015a89668101a22b2f14d29d38",
+    "parent_v1_recorder_id": "79535324617845bc9c5f75bb60c297b6",
+    "parent_v1_experiment_id": "941088655612347364",
+    "parent_v1_NAS_sha256": "674874c024ad7ece4c22a5d7b5700de0ed480bbda6e2c0ffefa39c9e723d28d5",
+    "original_SEC_raw_root": "data/snapshots/stage1_amd_nvda_sec_guidance_original_probe_20261023",
+    "original_raw_template": "item202_{accession}.txt",
+    "Qlib_provider": "data/qlib/minute_information_pit_allocator_20261012/daily_prices",
+    "Qlib_config_sha256": "951024d796cc625b695938e64589cd23808c5b048ac816c11f001fb0719742a2"
+  },
+  "exact_10_ambiguous_Q4": [
+    {
+      "accession": "0001045810-17-000016",
+      "raw_sha256": "d88aebe5f3da9c505bcbab77c8e7c574932959987188925bf7cc5616a0b16854",
+      "filing_date": "2017-02-09"
+    },
+    {
+      "accession": "0001045810-18-000004",
+      "raw_sha256": "0ea6a2c18eb4f89e12d89c8c44ebfe280f111bd4d9480084ce7eeca940f798ed",
+      "filing_date": "2018-02-08"
+    },
+    {
+      "accession": "0001045810-19-000007",
+      "raw_sha256": "5a2cf926d20733b7c78d69b86eb4b24cc8ceadad2dbcd7fe55257931452004b5",
+      "filing_date": "2019-02-14"
+    },
+    {
+      "accession": "0001045810-20-000007",
+      "raw_sha256": "6e9d5310620dad8e230194aaa1c50da0f6936499a543a8ffe77525776883e96e",
+      "filing_date": "2020-02-13"
+    },
+    {
+      "accession": "0001045810-21-000007",
+      "raw_sha256": "5f12358c95fb100d02b98e354fd9aa8a59c9d8bba18098b3c357b0c407631f21",
+      "filing_date": "2021-02-24"
+    },
+    {
+      "accession": "0001045810-22-000008",
+      "raw_sha256": "85f64fedaa69d62ea69852b742bf782ba1e38c739a2325c9515cc0ae7112cd99",
+      "filing_date": "2022-02-16"
+    },
+    {
+      "accession": "0001045810-23-000014",
+      "raw_sha256": "b1ddb3d069985959359d9e6667c753c55408e67d9a06f162b9cb14c84797b66f",
+      "filing_date": "2023-02-22"
+    },
+    {
+      "accession": "0001045810-24-000028",
+      "raw_sha256": "bd7489e4555257381e7aca79208b4762c10fdec9e11f4f6efa33de6517608521",
+      "filing_date": "2024-02-21"
+    },
+    {
+      "accession": "0001045810-25-000021",
+      "raw_sha256": "384d66a7f208ba5ea86f45a313fe648f40d20d71b11bb98237dca851d600e120",
+      "filing_date": "2025-02-26"
+    },
+    {
+      "accession": "0001045810-26-000019",
+      "raw_sha256": "db8bce6920aefef77847471f407a19732d00fef379f0735b02a8a9744eda8027",
+      "filing_date": "2026-02-25"
+    }
+  ],
+  "fixed_table_rule": {
+    "document": "Original EX-99.2 DOCUMENT/TEXT only; original raw SHA must match v1.",
+    "quarterly_table": "Among Revenue by Market Platform tables with exact Datacenter/Data Center row, choose the unique table whose text before that row includes both Q4 FY current and Q3 FY prior-quarter headers. Exclude annual FY-only table even if its row has the same name.",
+    "units": "Require $ in millions; parse first three numeric cells current/prior-quarter/prior-year and compare the final printed YoY within1.5 percentage points.",
+    "row_hash": "SHA-256 of UTF-8 canonical JSON of exact parsed row cells, ensure_ascii=false and compact separators.",
+    "table_hash": "SHA-256 of UTF-8 BeautifulSoup canonical HTML serialization of the selected enclosing table; raw original source SHA also retained.",
+    "v1_invariant": "For 32 previously accepted events, reparse same unique table and require exact original row cells, current/prior-quarter/prior-year/YoY/filing/effective date unchanged, then add only row/table hashes.",
+    "unknown": "Keep the 21 v1 no-row events unknown without opening their originals or carrying older values past them."
+  },
+  "budget": {
+    "new_HTTP_GETs": 0,
+    "raw_original_reads_max": 42,
+    "parent_v1_Recorder_loads_max": 0,
+    "new_Qlib_Recorders": 1,
+    "DatasetH_builds": 1,
+    "market_outcome_reads": 0,
+    "model_fits": 0,
+    "native_accounts": 0
+  },
+  "stop": "Stop or retain each unresolved Q4 as unknown if exact Q4/Q3 unique table or YoY/unit check fails; never use SOXX outcomes or annual table as quarterly value. Any v1 accepted-value mismatch stops whole repair. Source remains first-public/definition unqualified until separate review.",
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "inputs/*",
+      "analysis/*"
+    ]
+  }
+}

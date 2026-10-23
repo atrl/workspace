@@ -1,0 +1,19 @@
+{
+  "verdict": "CONFIRM_SOURCE_REPAIR_CONDITIONAL_INFORMATION_ONLY",
+  "review_scope": "read_only_42_original_SEC_tables_Q4_header_lineage_Qlib_calendar_NAS",
+  "confirmed": [
+    "Frozen plan and pinned v1 plan, result, summary and Qlib config hashes match.",
+    "Exactly 42 permitted original files were read; each raw SHA, canonical row JSON hash and enclosing parsed-table hash matches the saved result.",
+    "All original 32 accepted row strings, current/prior-quarter/prior-year values, same-release YoY, filing and effective dates are unchanged; all 21 no-row events remain unchanged.",
+    "Each of ten Q4 repairs uniquely selects an EX-99.2 Revenue by Market Platform USD-million quarterly table with Q4 current, Q3 prior quarter and Q4 prior year, excluding the separate annual FY table.",
+    "All 42 same-release YoY calculations match original table cells; printed YoY checks differ by at most 0.5 percentage points.",
+    "Native Recorder is FINISHED with 63 events, 3966 Qlib rows, DatasetH 3020 training and 946 held rows, known 1671 and 946; every acceptance maps to the next actual Qlib session.",
+    "Run state shows 42 of 42 source reads and zero outcomes, fits or accounts; NAS archive digest and report/event/frame/dataset readback match."
+  ],
+  "limits": [
+    "Same-release revenue growth does not prove constant Data Center platform scope across Mellanox and later taxonomy changes.",
+    "SEC-next-session is conservative source timing, not original first issuer-public proof.",
+    "The 946 held daily carries are not 946 independent quarterly events."
+  ],
+  "next_action": "Only a separately frozen conditional retrospective information screen may use this source; no PIT or economic-account promotion."
+}

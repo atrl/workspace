@@ -1,0 +1,16 @@
+{
+  "recorder_status": "FINISHED",
+  "recorder_id": "fc47f165d79b4caaaf5e6759f4dd86b7",
+  "event_rows": 63,
+  "numeric_events": 42,
+  "row_and_table_hashes": 42,
+  "Qlib_rows": 3966,
+  "DatasetH_train": 3020,
+  "DatasetH_held": 946,
+  "train_known": 1671,
+  "held_known": 946,
+  "report_equals_result_except_events": true,
+  "NAS_remote_hash_and_scoped_restore_verified": true,
+  "new_model_fits": 0,
+  "new_native_accounts": 0
+}

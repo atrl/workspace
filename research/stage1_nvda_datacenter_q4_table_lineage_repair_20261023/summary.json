@@ -1,0 +1,42 @@
+{
+  "experiment": "stage1_nvda_datacenter_q4_table_lineage_repair_20261023",
+  "decision": "NVDA_original_Data_Center_Q4_quarter_table_and_hash_lineage_repaired_source_only",
+  "objective_achieved": false,
+  "plan_sha256": "592ae864b55314d0a003c686656a9ef8ef6afe451038b6b52555864fb5af7cda",
+  "recorder_id": "fc47f165d79b4caaaf5e6759f4dd86b7",
+  "experiment_id": "837375431291646527",
+  "recorder_uri": "/Users/rziiiii/dev/workspace/research/stage1_nvda_datacenter_q4_table_lineage_repair_20261023/qlib_recorder",
+  "result": "result.json",
+  "model_fits": 0,
+  "native_accounts": 0,
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "inputs/*",
+      "analysis/*"
+    ]
+  },
+  "limitations": [
+    "Quarterly Q4 table selection and canonical table hashes repair only source lineage, not original issuer first-public timing.",
+    "2016-2020 and later platform definition changes need separate semantics review before a predictive factor.",
+    "No market outcome, information fit, fee-net account or independent forward evidence."
+  ],
+  "nas_evidence": {
+    "sha256": "113ba8b01ae3e33dc4aeb45ca42055f0692915e060d4028d7c6786ddbf53888f",
+    "size_bytes": 144919,
+    "media_type": "application/gzip",
+    "storage_uri": "sha256/11/3b/113ba8b01ae3e33dc4aeb45ca42055f0692915e060d4028d7c6786ddbf53888f",
+    "uploaded_by": "soxl-minute-research",
+    "created_at": "2026-10-23 08:19:03.947866+08",
+    "duplicate": false,
+    "nas_path": "/volume1/docker/yanxuan/registry/research-artifacts/11/3b/113ba8b01ae3e33dc4aeb45ca42055f0692915e060d4028d7c6786ddbf53888f",
+    "recorder_id": "fc47f165d79b4caaaf5e6759f4dd86b7",
+    "experiment_id": "837375431291646527",
+    "archive_root": "qlib_recorder"
+  },
+  "nas_readback": {
+    "verified": true,
+    "sha256": "113ba8b01ae3e33dc4aeb45ca42055f0692915e060d4028d7c6786ddbf53888f"
+  }
+}
