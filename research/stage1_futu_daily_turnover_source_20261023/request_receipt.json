@@ -1,0 +1,82 @@
+{
+  "status": "captured",
+  "SDK_version": "10.02.6218",
+  "request": {
+    "api": "futu.OpenQuoteContext.request_history_kline",
+    "code": "US.SOXX",
+    "start": "2010-03-11",
+    "end": "2026-10-09",
+    "ktype": "KLType.K_DAY",
+    "autype": "AuType.NONE",
+    "fields": "default KL_FIELD.ALL",
+    "max_count": 1000,
+    "maximum_pages": 5,
+    "new_market_requests_max": 5,
+    "purpose": "read_only_data_intake_no_broker_commands"
+  },
+  "started_at_utc": "2026-10-23T13:50:54.438403+00:00",
+  "pages": [
+    {
+      "page": 1,
+      "rows": 1000,
+      "serialized_csv_sha256": "9bf8f43b85540e76e0d7fedb52ec123bdc15e9a05c7114fdb151a43d0910759f",
+      "bytes": 120919,
+      "continuation": true,
+      "page_req_key_sha256": null
+    },
+    {
+      "page": 2,
+      "rows": 1000,
+      "serialized_csv_sha256": "5f058f33545610c3f44e5cbc6bb70edceff1d8370f9913b1e85c0913c3a1db64",
+      "bytes": 128678,
+      "continuation": true,
+      "page_req_key_sha256": "91eb9c68a65fb432a387bc2b2711b3f17694bf81c86c806618317ab8fc2c999a"
+    },
+    {
+      "page": 3,
+      "rows": 1000,
+      "serialized_csv_sha256": "cde9496ba473b3c855168b517d8b9f18cbd7b5b6696f1f4112c380d7f6fbe843",
+      "bytes": 134741,
+      "continuation": true,
+      "page_req_key_sha256": "a3a0dc02ebc14fd884470ae1de4c7e62bb3acb6e89c677a1ac9552c8cc88aede"
+    },
+    {
+      "page": 4,
+      "rows": 1000,
+      "serialized_csv_sha256": "511121dba5f6544b4a06959cdf2e9cf3d63b4120c04baf50c2fcf887882221fc",
+      "bytes": 135039,
+      "continuation": true,
+      "page_req_key_sha256": "154760e3d29cb10352fe9a8620f321deb23055d1bb75502618bd25298142d5e7"
+    },
+    {
+      "page": 5,
+      "rows": 172,
+      "serialized_csv_sha256": "f3171f4fa27c0e33f49fee7d545e45891ee69add944a7c196c2fcd8ffda1b121",
+      "bytes": 23506,
+      "continuation": false,
+      "page_req_key_sha256": "9dfec70a99f38ea3e754a9509ef0dd381ad1ffa9fc4f9763fc360582124776ac"
+    }
+  ],
+  "rows": 4172,
+  "first_date": "2010-03-11",
+  "last_date": "2026-10-09",
+  "columns": [
+    "code",
+    "name",
+    "time_key",
+    "open",
+    "close",
+    "high",
+    "low",
+    "pe_ratio",
+    "turnover_rate",
+    "volume",
+    "turnover",
+    "change_rate",
+    "last_close"
+  ],
+  "data_file": "data/raw/external/stage1_futu_turnover_20261023/SOXX_NONE_day.csv",
+  "data_sha256": "2b74835daa405b8fb1580259f30feb10629abb3045ca6f8db4e91396f3056c79",
+  "data_bytes": 542479,
+  "finished_at_utc": "2026-10-23T13:50:55.293655+00:00"
+}

@@ -1,0 +1,4 @@
+experiment: stage1_futu_daily_turnover_source_20261023
+plan: plan.json
+provider_uri: data/qlib/stage1_futu_turnover_20261023
+phase: source_only_no_factor_fit

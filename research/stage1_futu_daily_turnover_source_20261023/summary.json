@@ -1,0 +1,43 @@
+{
+  "experiment": "stage1_futu_daily_turnover_source_20261023",
+  "decision": "conditional_source_coverage_pass_first_public_vintage_unknown",
+  "objective_achieved": false,
+  "plan_sha256": "619fe9b93ea6c4e224424e8a31d3308521dea5e68f5bb9e9ebb07c0404d48411",
+  "result": "result.json",
+  "recorder_id": "ff416be4fcf447409a45349287d1e4ca",
+  "experiment_id": "338911085945044624",
+  "NAS_evidence": {
+    "sha256": "3ac89dbb4bc8c8d170462036af8b32eb8dd7f34a518b462497c332ccd653d721",
+    "size_bytes": 178351,
+    "media_type": "application/gzip",
+    "storage_uri": "sha256/3a/c8/3ac89dbb4bc8c8d170462036af8b32eb8dd7f34a518b462497c332ccd653d721",
+    "uploaded_by": "soxl-minute-research",
+    "created_at": "2026-10-23 21:53:13.274249+08",
+    "duplicate": false,
+    "nas_path": "/volume1/docker/yanxuan/registry/research-artifacts/3a/c8/3ac89dbb4bc8c8d170462036af8b32eb8dd7f34a518b462497c332ccd653d721",
+    "recorder_id": "ff416be4fcf447409a45349287d1e4ca",
+    "experiment_id": "338911085945044624",
+    "archive_root": "qlib_recorder"
+  },
+  "NAS_readback": {
+    "verified": true,
+    "sha256": "3ac89dbb4bc8c8d170462036af8b32eb8dd7f34a518b462497c332ccd653d721"
+  },
+  "new_model_fits": 0,
+  "new_native_accounts": 0,
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "inputs/*",
+      "analysis/native_turnover_rate",
+      "analysis/Stage1_calendar_coverage"
+    ]
+  },
+  "limitations": [
+    "Futu current-history turnover_rate is not proven to be the value first public on each historical day.",
+    "Field is vendor-reported ETF turnover, not broker order flow or a predictive signal.",
+    "Reused 2023-2026 history is development feedback, not independent forward."
+  ],
+  "NAS_scoped_restore": "nas_scoped_restore.json"
+}

@@ -1,0 +1,14 @@
+{
+  "status": "verified",
+  "recorder_id": "ff416be4fcf447409a45349287d1e4ca",
+  "Qlib_rows": 3966,
+  "Stage1_calendar_rows": 3966,
+  "NAS_archive_sha256": "3ac89dbb4bc8c8d170462036af8b32eb8dd7f34a518b462497c332ccd653d721",
+  "scoped_members": [
+    "analysis/result",
+    "analysis/native_turnover_rate",
+    "analysis/Stage1_calendar_coverage"
+  ],
+  "all_member_sha256_parity": true,
+  "source_first_public_qualified": false
+}
