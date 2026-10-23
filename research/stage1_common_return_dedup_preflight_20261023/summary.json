@@ -1,0 +1,37 @@
+{
+  "experiment": "stage1_common_return_dedup_preflight_20261023",
+  "decision": "source_and_Qlib_DatasetH_common_return_alias_mask_feasible_no_fit",
+  "objective_achieved": false,
+  "plan_sha256": "79ef8d0288186be05743e356865f370815cb6aef4945e0d196d4b1c4595cfed0",
+  "source_recorder_id": "68e31a0a0fad44e7ba1d1f7d856c7a0d",
+  "source_NAS_sha256": "ee328cab292f178bf3582ef574fb411561c93b82545cd3bb90842ecd9a9a24f1",
+  "source_rows": 3966,
+  "original_primary_features": 39,
+  "common_features": 16,
+  "alias_max_raw_differences": {
+    "mom5": 5.960464477539063e-08,
+    "mom20": 5.960464477539063e-08,
+    "mom60": 5.960464477539063e-08
+  },
+  "train_mature_rows": 3014,
+  "auxiliary_rows": 20741,
+  "prediction_rows": 946,
+  "training_only_common_medians": {
+    "mom5": 0.006551146507263184,
+    "mom20": 0.019736766815185547,
+    "mom60": 0.05451840162277222
+  },
+  "mask_contract_passed": true,
+  "model_fits": 0,
+  "native_accounts": 0,
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": []
+  },
+  "limitations": [
+    "This validates only source inputs and Qlib dataset parity; it does not test predictive information or account value.",
+    "A later matched baseline fit and account must reproduce the frozen source before dedup attribution.",
+    "Reused history cannot become independent forward validation."
+  ]
+}

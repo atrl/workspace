@@ -1,0 +1,26 @@
+{
+  "experiment": "stage1_common_return_dedup_preflight_20261023",
+  "phase": "source_only_original_Stage1_common_momentum_alias_mask_feasibility",
+  "parent": "frozen_complete_Stage1_f696_plus_b472_0bp_IBKR_Tiered",
+  "question": "Can exactly three common-encoder inputs mom5/mom20/mom60, already shown numerically equivalent to primary soxx_ret5/20/60, be neutralized at each fit's training median without changing the original Stage1 main inputs, label maturity, sample rows, model dimensions or auxiliary sample eligibility?",
+  "sources": {
+    "source_plan": "research/stage1_domain_heads_20261018/plan.json",
+    "source_plan_sha256": "96dc55af2318e26162e7ff8f74c4fdf24bcd15c4d9a3c4e1e2ca18357e3e17c7",
+    "source_summary_sha256": "3b51938ca56ddf45029ff5e4a01a6bbc2f1d1407458efcad7d7c68b0ef5a1d37",
+    "alias_evidence": "research/frozen_cash_input_explanation_20261014/feature_aliases.csv",
+    "training_recorder_id": "68e31a0a0fad44e7ba1d1f7d856c7a0d",
+    "training_NAS_sha256": "ee328cab292f178bf3582ef574fb411561c93b82545cd3bb90842ecd9a9a24f1",
+    "workflow_code_sha256": "5b4305c0c1311a52e0a7de87257bd2de03b5be34084ee7709859a9defe88b04a",
+    "dataset_code_sha256": "7d8131a084b173e7903dbdf246001c6b73d29d83433177564e2cce04a0c62a13",
+    "model_code_sha256": "d06962ac2739633c0af34e3843365f1ad4c0a9bbc9dff0ba38e1636db6a175c8"
+  },
+  "fixed_preflight": [
+    "Use verified native Qlib Recorder objects and rebuild the original primary/auxiliary DatasetH exactly as in the existing Stage1 domain-head workflow. No provider regeneration.",
+    "On the 3,014 original mature pre-2023 training rows compute medians for common mom5/mom20/mom60 only. Set these three common columns to their respective medians in all primary train/predict rows and all eligible auxiliary rows, retaining the 16-column schema. No held or future value enters medians.",
+    "Require all main39 inputs, labels, maturity metadata, auxiliary eligibility/count, date order and nonmasked common values to be identical before/after masking. Report train/held duplicate-pair maximum absolute raw differences and the three medians. Do not inspect evaluation outcome magnitudes.",
+    "Keep Stage1 frozen f696/b472 A0 as the parent and comparison. A later separate plan may fit one matched original-55 control and one masked-common treatment using identical seed/spec, then execute own 0bp Tiered accounts. This preflight performs neither."
+  ],
+  "budget": {"source_Recorder_objects_max": 10, "DatasetH_builds_max": 4, "model_fits": 0, "native_accounts": 0, "market_requests": 0},
+  "stop": "Stop if alias values, source hashes, eligible rows, labels/metadata, auxiliary membership or nonmasked inputs differ. Do not tune which common fields, median definition, model seed or risk thresholds from held outcomes.",
+  "artifact_policy": {"policy": "slim_card_recorder_first", "workflow_config": "workflow.yaml", "recorder_only_artifacts": []}
+}

@@ -594,5 +594,6 @@
   "latest_read_only_Stage1_0bp_HOLD_cash_bound": "research/stage1_original_0bp_hold_cash_bound_20261023/summary.json",
   "latest_source_gate_Stage1_TIP_IEF_issuer_vintages": "research/stage1_tip_ief_issuer_market_proxy_source_20261023/summary.json",
   "latest_source_map_Stage1_TIP_IEF_market_spread": "research/stage1_tip_ief_market_spread_qlib_map_20261023/summary.json",
-  "latest_closed_information_Stage1_TIP_IEF_cash_H5": "research/stage1_tip_ief_cash_h5_information_20261023/summary.json"
+  "latest_closed_information_Stage1_TIP_IEF_cash_H5": "research/stage1_tip_ief_cash_h5_information_20261023/summary.json",
+  "latest_source_contract_Stage1_duplicate_common_returns": "research/stage1_common_return_dedup_preflight_20261023/summary.json"
 }
