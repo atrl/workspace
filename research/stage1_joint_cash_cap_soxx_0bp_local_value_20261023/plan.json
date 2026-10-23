@@ -1,0 +1,26 @@
+{
+  "schema_version": 1,
+  "experiment": "stage1_joint_cash_cap_soxx_0bp_local_value_20261023",
+  "frozen": true,
+  "phase": "one_training_only_joint_cash_and_cap_same_state_label_pass",
+  "hypothesis": "Stage1 cash opportunity loss occurs on both cap-binding and nonbinding days. A single bounded SOXX cash-deployment action, using remaining cap on nonbinding days and at most 0.10 extra beta on binding days, may have conditionally predictable fee-net local value. This is different from the closed cap-only action-value receiver and the old 12-slot 10/25bp cash-recycle overlay.",
+  "parent_boundary": "Use the saved original-architecture 2018-2022 0bp Tiered OOF reference as a training scaffold only. Any later 2023+ economic account must begin from frozen complete f696 allocator plus b472 action/risk/recovery Stage1, own funded 0bp Tiered state, SOXX hard gate, then separate 2/5bp and forward evidence.",
+  "sources": {
+    "training_reference_card": "research/stage1_signed_volume_0bp_action_label_source_20261023",
+    "training_reference_summary_sha256": "ce6652a6323ec9bd11a8ce8de89239cba167a53bedb50e471080006a1a89f476",
+    "training_reference_recorder_id": "3663a1e073f042e383dbcf54969a9bc2",
+    "training_reference_experiment_id": "194705746221035167",
+    "fee_plan": "research/full_history_recovery_20261015/plan.json",
+    "fee_plan_sha256": "053147267377f575b4508806dfe925cfaf804ba0d3f816994eb2ed4b7a64a668",
+    "cash_layer_diagnosis_summary_sha256": "bf5c73168a57c1fc6a3899e62bbd54e8d9ecad0c7d0229bf10e5e1bf90846090",
+    "closed_old_cash_overlay_summary_sha256": "14476bd224bbfd03b01c027f2293e316568b2cd4303d8c59e5a907be36758587",
+    "fee_module_sha256": "4e47234c1aef8c9ea4fd26389cdbaa23d3affd75bd7c105bf3192939f3781c35",
+    "future_0946_peer_breadth_source_summary_sha256": "8021f11bf536663af0e89cba75a29dc838ff074b8e5c8d172165a46fcf07ab99"
+  },
+  "intervention": "Only when the original open controller EXECUTE is true, start with its saved projected [SOXL,SOXX,CASH] target. raw_beta=3*source SOXL+source SOXX; base_beta=3*projected SOXL+projected SOXX. On binding raw_beta>own_state_cap, beta ceiling=cap+0.10; otherwise ceiling=cap. delta=min(0.10,max(0,projected CASH-0.15),max(0,beta ceiling-base_beta)). Candidate target=[projected SOXL,projected SOXX+delta,projected CASH-delta]. No SOXL change, no leverage/shorting, no outcome-selected threshold. A zero delta or last unsupported reset stays label-unknown.",
+  "paired_label": "At saved 09:46 state clone original cash, adjusted quantities and Tiered monthly share counters. Control executes original projected target; candidate executes the fixed bounded SOXX target. Both pay frozen IBKR Pro Tiered fees at 0bp added slippage on original 09:47 adjusted/raw marks with whole raw shares. At next Qlib session 09:47 both separately rebalance to the identical saved next original target with independent fee counters. Label=(candidate NAV-control NAV)/prebranch NAV, mature only next session 09:49. Restore the original control ledger for the following day, never propagate candidate risk/positions. This is a local target, not full strategy wealth.",
+  "validation": "Require exact source summary hashes, NAS readback, native Qlib 1061-day calendar, predecision feature/target clocks, original projected-target and raw cash/share ledger parity, legal funded candidate target/order, equal branch starting state and counters, finite next-reset NAV. Keep all 1061 rows with unknown ineligible/end labels and annual cap-binding/nonbinding support. No 2023+ outcome read or candidate account.",
+  "future_information_boundary": "The 09:46 AMD/NVDA/SMH positive-share coordinate has full 2018-2022 source coverage and low original39 correlation, but its fixed SOXL-relative H5 information version failed and historical first-receipt finality is unqualified. A later matched joint-value receiver must be separately frozen and pass its own information gate before any 0bp account; do not rescue the H5 fixed version or claim source PIT.",
+  "budget": {"new_market_requests": 0, "new_model_fits": 0, "new_native_accounts": 0, "label_passes": 1, "new_Qlib_recorders": 1, "new_bootstraps": 0, "NAS_recorder_archives": 1},
+  "stop": "Any source identity, target/ledger parity, funding, missing next reset or NAS archive/readback failure stops this version with concrete evidence. Do not change delta size, cash floor, cap rule, year, sign, fee or label horizon after outcomes."
+}

@@ -403,7 +403,11 @@
     "KCS_early20_source_baseline": "research/kcs_early20_official_mirror_pdf_20261023/summary.json",
     "KCS_early20_2025_source_comparison": "research/kcs_early20_2025_oct_comparability_20261023/summary.json",
     "KCS_early20_HWPX_vintage_probe": "research/kcs_early20_hwpx_vintage_probe_20261023/summary.json",
-    "Stage1_paper_forward_readiness_audit": "research/stage1_paper_forward_readiness_audit_20261023/summary.json"
+    "Stage1_paper_forward_readiness_audit": "research/stage1_paper_forward_readiness_audit_20261023/summary.json",
+    "latest_joint_cash_cap_training_label": "research/stage1_joint_cash_cap_soxx_0bp_local_value_20261023/summary.json",
+    "latest_joint_cash_cap_decision": "Closed at 2018-2022 0bp Tiered local-label/support stage: 688 mature labels, 2022 mean negative, only 2 nonbinding 2022 labels; no information fit or held account. Next mechanism must remain complete Stage1-derived and first screen at 0bp.",
+    "option_vendor_contact_authorized": false,
+    "option_vendor_contact_decision": "User declined contacting vendors for SOXX historical option samples or quotes; no inquiry, purchase or subscription."
   },
   "parallel_source_task": {
     "card": "research/korea_semiconductor_exports_korean_vintage_20261022",
@@ -468,7 +472,7 @@
     ]
   },
   "active_index": "research/active_research_index.json",
-  "updated_at_utc": "2026-10-23T01:10:46Z",
+  "updated_at_utc": "2026-10-23T01:32:37Z",
   "execution_totals": {
     "new_model_fits": 85,
     "new_native_accounts": 51,

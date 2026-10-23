@@ -1,0 +1,91 @@
+{
+  "decision": "joint_cash_cap_training_local_value_only_no_fit_or_account",
+  "sessions": 1061,
+  "eligible": 689,
+  "mature": 688,
+  "whole_share_changed_mature": 669,
+  "mean_local_advantage": 8.434237351493289e-05,
+  "median_local_advantage": 3.2004558759215424e-05,
+  "positive": 358,
+  "negative": 311,
+  "annual": [
+    {
+      "year": 2018,
+      "sessions": 53,
+      "eligible": 19,
+      "mature": 19,
+      "binding_mature": 18,
+      "nonbinding_mature": 1,
+      "positive": 11,
+      "negative": 8,
+      "mean": 8.497426904421524e-05
+    },
+    {
+      "year": 2019,
+      "sessions": 252,
+      "eligible": 138,
+      "mature": 138,
+      "binding_mature": 39,
+      "nonbinding_mature": 99,
+      "positive": 68,
+      "negative": 55,
+      "mean": 4.16109415670285e-05
+    },
+    {
+      "year": 2020,
+      "sessions": 253,
+      "eligible": 202,
+      "mature": 202,
+      "binding_mature": 182,
+      "nonbinding_mature": 20,
+      "positive": 123,
+      "negative": 79,
+      "mean": 0.0002442638818866019
+    },
+    {
+      "year": 2021,
+      "sessions": 252,
+      "eligible": 82,
+      "mature": 82,
+      "binding_mature": 56,
+      "nonbinding_mature": 26,
+      "positive": 43,
+      "negative": 35,
+      "mean": 0.0003800175029934767
+    },
+    {
+      "year": 2022,
+      "sessions": 251,
+      "eligible": 248,
+      "mature": 247,
+      "binding_mature": 245,
+      "nonbinding_mature": 2,
+      "positive": 113,
+      "negative": 134,
+      "mean": -0.0001207773581229752
+    }
+  ],
+  "by_layer": {
+    "binding": {
+      "mature": 540,
+      "mean": 9.534886586010744e-05,
+      "positive": 284,
+      "negative": 256
+    },
+    "nonbinding": {
+      "mature": 148,
+      "mean": 4.4183550093350076e-05,
+      "positive": 74,
+      "negative": 55
+    }
+  },
+  "max_control_cash_share_ledger_error_usd": 0.0,
+  "max_branch_control_identity_error_usd": 0.0,
+  "last_label_unknown": "2022-12-30",
+  "new_market_requests": 0,
+  "new_model_fits": 0,
+  "new_native_accounts": 0,
+  "label_passes": 1,
+  "historical_independence": false,
+  "interpretation": "2018-2022 original-architecture OOF local 0bp Tiered target only. A one-step common reset does not imply a full Stage1 own-state policy, 2023+ SOXX account or independent forward evidence."
+}

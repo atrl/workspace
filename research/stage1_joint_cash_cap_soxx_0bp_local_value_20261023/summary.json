@@ -1,0 +1,40 @@
+{
+  "experiment": "stage1_joint_cash_cap_soxx_0bp_local_value_20261023",
+  "decision": "joint_cash_cap_training_local_value_only_no_fit_or_account",
+  "objective_achieved": false,
+  "plan_sha256": "a913555441174acad0179731aecd8b00201b11567c4ccd4c40bfd9d7ed14fead",
+  "result": "result.json",
+  "recorder_id": "dd91c4770a354dfe8dc275774e249020",
+  "experiment_id": "576312232090536744",
+  "recorder_uri": "/Users/rziiiii/dev/workspace/research/stage1_joint_cash_cap_soxx_0bp_local_value_20261023/qlib_recorder",
+  "source_recorder_id": "3663a1e073f042e383dbcf54969a9bc2",
+  "new_model_fits": 0,
+  "new_native_accounts": 0,
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "analysis/labels",
+      "analysis/annual",
+      "analysis/result"
+    ]
+  },
+  "nas_evidence": {
+    "sha256": "a823704afb3ab532d5d954ba126aac5d6528c85bacbd2c79ee4f6a9aae4d15c4",
+    "size_bytes": 87747,
+    "media_type": "application/gzip",
+    "storage_uri": "sha256/a8/23/a823704afb3ab532d5d954ba126aac5d6528c85bacbd2c79ee4f6a9aae4d15c4",
+    "uploaded_by": "soxl-minute-research",
+    "created_at": "2026-10-23 09:27:50.634331+08",
+    "duplicate": false,
+    "nas_path": "/volume1/docker/yanxuan/registry/research-artifacts/a8/23/a823704afb3ab532d5d954ba126aac5d6528c85bacbd2c79ee4f6a9aae4d15c4",
+    "recorder_id": "dd91c4770a354dfe8dc275774e249020",
+    "experiment_id": "576312232090536744",
+    "archive_root": "qlib_recorder"
+  },
+  "nas_readback": {
+    "verified": true,
+    "sha256": "a823704afb3ab532d5d954ba126aac5d6528c85bacbd2c79ee4f6a9aae4d15c4",
+    "scoped_restored_labels_sha256": "f5f9709885b2c7de346caf8efe4b3bb37ab90dd24a807c5c86d7bc59d7eee8c2"
+  }
+}
