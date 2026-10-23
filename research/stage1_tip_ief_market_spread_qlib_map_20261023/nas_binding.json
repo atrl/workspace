@@ -1,0 +1,20 @@
+{
+  "schema_version": "nas_recorder_archive_binding_v1",
+  "authority": "yanxuan_nas",
+  "source_id": "stage1_tip_ief_market_spread_qlib_map_20261023",
+  "as_of": "2026-10-23",
+  "source_plan": "plan.json",
+  "evidence": {
+    "sha256": "4268f95f108039eae1570cceeba7456be0e0439dd6c7d03acc3d716b1bfdcf13",
+    "size_bytes": 187702,
+    "media_type": "application/gzip",
+    "storage_uri": "sha256/42/68/4268f95f108039eae1570cceeba7456be0e0439dd6c7d03acc3d716b1bfdcf13",
+    "uploaded_by": "soxl-minute-research",
+    "created_at": "2026-10-23 11:10:22.975074+08",
+    "duplicate": false,
+    "nas_path": "/volume1/docker/yanxuan/registry/research-artifacts/42/68/4268f95f108039eae1570cceeba7456be0e0439dd6c7d03acc3d716b1bfdcf13",
+    "recorder_id": "88e1e6c4213a4fb59b5a90985213c453",
+    "experiment_id": "283492540310725322",
+    "archive_root": "qlib_recorder"
+  }
+}

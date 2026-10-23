@@ -1,0 +1,6 @@
+experiment: stage1_tip_ief_market_spread_qlib_map_20261023
+mode: conditional_retrospective_issuer_NAV_Qlib_source_map
+parent: frozen_complete_Stage1_0bp_IBKR_Tiered
+calendar_provider: data/qlib/minute_information_pit_allocator_20261012/daily_prices
+model_fits: 0
+native_accounts: 0

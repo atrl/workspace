@@ -591,5 +591,7 @@
   "latest_closed_information_Stage1_0945_cross_ETF_dual_H5": "research/stage1_0945_cross_response_dual_h5_information_20261023/summary.json",
   "latest_closed_information_Stage1_0946_peer_breadth_cash_H5": "research/stage1_0946_peer_breadth_cash_h5_information_20261023/summary.json",
   "latest_read_only_Stage1_strong_reference_window_overlap": "research/stage1_strong_reference_window_overlap_20261023/summary.json",
-  "latest_read_only_Stage1_0bp_HOLD_cash_bound": "research/stage1_original_0bp_hold_cash_bound_20261023/summary.json"
+  "latest_read_only_Stage1_0bp_HOLD_cash_bound": "research/stage1_original_0bp_hold_cash_bound_20261023/summary.json",
+  "latest_source_gate_Stage1_TIP_IEF_issuer_vintages": "research/stage1_tip_ief_issuer_market_proxy_source_20261023/summary.json",
+  "latest_source_map_Stage1_TIP_IEF_market_spread": "research/stage1_tip_ief_market_spread_qlib_map_20261023/summary.json"
 }

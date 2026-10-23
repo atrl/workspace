@@ -1,0 +1,17 @@
+{
+  "status": "NAS_Recorder_cold_readback_selected_source_map_exact",
+  "archive_sha256": "4268f95f108039eae1570cceeba7456be0e0439dd6c7d03acc3d716b1bfdcf13",
+  "archive_bytes": 187702,
+  "checked": {
+    "analysis/source_map": {
+      "sha256": "8971f79f8769cd5f348c63e0aa6279bbadb3c9de91a17bf7df28490012e67bf4",
+      "bytes": 120735
+    },
+    "analysis/result": {
+      "sha256": "eda7c7be1cc8c324e9ee41f99a29875afbf0bcf556b207175184825e31daf9ad",
+      "bytes": 742
+    }
+  },
+  "model_fits": 0,
+  "native_accounts": 0
+}

@@ -1,0 +1,30 @@
+{
+  "experiment": "stage1_tip_ief_market_spread_qlib_map_20261023",
+  "phase": "conditional_retrospective_issuer_NAV_market_proxy_source_map_no_fit",
+  "parent": "frozen_complete_Stage1_0bp_IBKR_Tiered",
+  "hypothesis": "A recent relative total-return shock in inflation-protected TIP versus nominal Treasury IEF may contain market-priced rate/inflation information beyond Stage1's original 39 price, volatility and breadth inputs about whether cash protection is useful. This is a market proxy, not an official real-yield series.",
+  "sources": {
+    "issuer_source_card": "research/stage1_tip_ief_issuer_market_proxy_source_20261023",
+    "issuer_summary_sha256": "d36c053b3d55d877d8b6cab20317844342a38bc293a46d4341f5ae935c4cbbe7",
+    "TIP_raw_sha256": "c40a6ac9c3fc0e2e78c691db2e02c0c56d68b4b92427febacf7c235d91c8d02c",
+    "IEF_raw_sha256": "67435fc619ec02312e624e4e206dca07ff948c9b91db2cc4ad749b24835f3b93",
+    "current_source_NAS_sha256": "1e782cddbe5fe9e079e6b004fc58dd09800ff4de0674e638864a87b06ad51f9a",
+    "2015_vintage_NAS_sha256": "93cdfd11abba141ea5f7b1ab80a094b2e90332ac749298b5f386c351495baa4c",
+    "Qlib_daily_provider": "data/qlib/minute_information_pit_allocator_20261012/daily_prices",
+    "Qlib_daily_manifest_sha256": "d80a08d479b73098053006909b5e6227b03a56ab705681742d7261088e0a7e6c",
+    "original39_card": "research/minute_information_pit_allocator_20261012",
+    "original39_recorder_id": "68e31a0a0fad44e7ba1d1f7d856c7a0d",
+    "original39_experiment_id": "905520356740140469",
+    "original39_features_sha256": "482d6a908ae95230143dc08014732c3247d22ccb1560f8509f6ac564a4d647ec",
+    "original39_model_sha256": "5945030ca770bb7ca63c6b03d53e6cf7265f239312cac1308debfde93afddcac"
+  },
+  "frozen_coordinate": "On each issuer date s, one-session log NAV total return is log((NAV_s + Ex-Dividends_s)/NAV_previous_Qlib_session). For '--' Ex-Dividends assume zero only in this conditional retrospective source screen; preserve explicit numeric zero. On Stage1 signal session t, sum TIP minus IEF log returns for Qlib sessions t-6 through t-2 inclusive (five sessions). Require each source NAV and previous Qlib NAV present and positive; no forward fill. Two-session delay is an as-if availability assumption, not historical first-public proof.",
+  "fixed_checks": [
+    "Use native Qlib D.calendar for all source/decision session positions, build one DatasetH with the mapped coordinate, and save full candidate plus unknown mask to a native Recorder. Check 2011-2022 training, 2023-2026 reused held and two partial endpoint years without dropping missing dates.",
+    "On known 2011-2022 training dates only, report maximum absolute Spearman correlation with original Stage1 39 inputs. A correlation >=0.95 is an exact-redundancy stop; lower correlation is not predictive evidence.",
+    "Preserve source SHA/NAS lineage and historical revision/first-public limitations. Read no SOXX outcomes or labels, fit no model and run no account."
+  ],
+  "budget": {"issuer_raw_reads": 2, "Qlib_calendar_reads": 1, "original39_Recorder_object_loads": 2, "DatasetH_builds": 1, "new_Qlib_Recorders": 1, "SOXX_outcome_reads": 0, "model_fits": 0, "native_accounts": 0},
+  "stop": "Stop on raw hash, issuer schema/date, calendar alignment, nonfinite known values, source missingness or Qlib Recorder failure. This conditional current-vintage map cannot justify a Stage1 information fit or 0bp account until a separate frozen receiver gate and the PIT limitation are explicitly handled.",
+  "artifact_policy": {"policy": "slim_card_recorder_first", "workflow_config": "workflow.yaml", "recorder_only_artifacts": ["inputs/*", "analysis/*", "metadata/*"]}
+}
