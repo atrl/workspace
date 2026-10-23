@@ -1,0 +1,60 @@
+{
+  "experiment": "kcs_early20_2018_2022_portal_index_20261023",
+  "decision": "official_portal_early20_2018_2022_index_source_only_not_feature_qualified",
+  "objective_achieved": false,
+  "plan_sha256": "36e3dbc91bbc12aadaebc4bb245eb9e401cbe7302d0e650d458bf3e51c1c37d3",
+  "result": "result.json",
+  "source_archive": {
+    "sha256": "1efba6b1546eb987600f93fa94ba2bc0e6ad30f98bf19e11a30c690bf3814a51",
+    "size_bytes": 1288642,
+    "media_type": "application/gzip",
+    "storage_uri": "sha256/1e/fb/1efba6b1546eb987600f93fa94ba2bc0e6ad30f98bf19e11a30c690bf3814a51",
+    "uploaded_by": "soxl-minute-research",
+    "created_at": "2026-10-23 12:52:09.197176+08",
+    "duplicate": false,
+    "nas_path": "/volume1/docker/yanxuan/registry/research-artifacts/1e/fb/1efba6b1546eb987600f93fa94ba2bc0e6ad30f98bf19e11a30c690bf3814a51",
+    "request_count": 60,
+    "files": 121,
+    "request_manifest_sha256": "33c284016f6d5ccaf35ba3c2b357ded97c21de72fb7172c8728b8cf1d6041209"
+  },
+  "source_restore": "source_restore.json",
+  "recorder_id": "0cd12e0dfc0c4c1fa1329e71c2040525",
+  "experiment_id": "945446279852715369",
+  "recorder_uri": "/Users/rziiiii/dev/workspace/research/kcs_early20_2018_2022_portal_index_20261023/qlib_recorder",
+  "NAS_evidence": {
+    "sha256": "ad1b1ce2b0843ecb1dacbbd3c5243b3bc2cfe81fb6d28ade5c2fb1af9d67ace1",
+    "size_bytes": 96506,
+    "media_type": "application/gzip",
+    "storage_uri": "sha256/ad/1b/ad1b1ce2b0843ecb1dacbbd3c5243b3bc2cfe81fb6d28ade5c2fb1af9d67ace1",
+    "uploaded_by": "soxl-minute-research",
+    "created_at": "2026-10-23 12:52:11.605083+08",
+    "duplicate": false,
+    "nas_path": "/volume1/docker/yanxuan/registry/research-artifacts/ad/1b/ad1b1ce2b0843ecb1dacbbd3c5243b3bc2cfe81fb6d28ade5c2fb1af9d67ace1",
+    "recorder_id": "0cd12e0dfc0c4c1fa1329e71c2040525",
+    "experiment_id": "945446279852715369",
+    "archive_root": "qlib_recorder"
+  },
+  "NAS_readback": {
+    "sha256": "ad1b1ce2b0843ecb1dacbbd3c5243b3bc2cfe81fb6d28ade5c2fb1af9d67ace1",
+    "verified": true
+  },
+  "SOXX_outcome_reads": 0,
+  "model_fits": 0,
+  "native_accounts": 0,
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "inputs/*",
+      "analysis/monthly_index",
+      "analysis/query_receipts",
+      "analysis/result"
+    ]
+  },
+  "limitations": [
+    "A list-page match is not the original press-release attachment or first-public byte proof.",
+    "No semiconductor numeric rows, Qlib factor, SOXX outcome or strategy account were produced.",
+    "Unknown or ambiguous months stay missing for a later separately frozen source repair."
+  ],
+  "NAS_scoped_restore": "nas_scoped_restore.json"
+}

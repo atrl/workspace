@@ -1,0 +1,31 @@
+{
+  "experiment": "kcs_early20_2018_2022_portal_index_20261023",
+  "frozen": true,
+  "phase": "official_Korean_government_portal_early20_original_page_index_only",
+  "parent": "frozen_complete_Stage1_0bp_IBKR_Tiered",
+  "question": "Can the Korean government's Customs Service press-release list identify one dated original 1-20-day import/export release page in each month of 2018-2022, before attempting semiconductor numeric extraction or any Stage1 feature fit?",
+  "discovery_evidence": "Before this plan, exact official portal list queries found October anchors for 2018-2025 and a January 2018, February 2019 and December 2022 example. These are source discovery only, not 60-month coverage proof or first-public receipts.",
+  "query_contract": {
+    "base_url": "https://www.korea.kr/briefing/pressReleaseList.do",
+    "months": "every calendar month 2018-01 through 2022-12 inclusive, exactly 60",
+    "parameters": "startDate=YYYY-MM-20, endDate=YYYY-MM-27, srchWord=수출입, repCode=B00003, pageIndex=1 in this order via urllib.parse.urlencode",
+    "method": "GET",
+    "user_agent": "soxl-qlib-source-research",
+    "timeout_seconds_each": 15,
+    "max_response_bytes_each": 500000,
+    "retries": 0,
+    "rate_pause_seconds": 0.1,
+    "identity_rule": "Within each returned official HTML list, accept exactly one href containing pressReleaseView.do and newsId whose visible title/snippet contains the queried month, 1일, 20일, 수출입 현황 and 관세청; preserve 0/multiple as unknown and every candidate. Never substitute a newspaper result or infer a number from the list."
+  },
+  "source_artifacts": "Store exact response bodies, response headers, request URLs, start/end UTC, HTTP status, SHA256 and byte counts in data/snapshots/kcs_early20_2018_2022_portal_index_20261023; archive all original bytes to Yanxuan NAS with remote hash and scoped cold restore. Keep small monthly status and complete query receipts in a native Qlib Recorder.",
+  "budget": {
+    "official_GETs_max": 60,
+    "months": 60,
+    "NAS_source_archives_max": 1,
+    "new_Qlib_Recorders_max": 1,
+    "SOXX_outcome_reads": 0,
+    "model_fits": 0,
+    "native_accounts": 0
+  },
+  "stop": "Missing, ambiguous, oversized, non-200, non-HTML or timed-out months stay unknown. Do not search alternative wording/pages, fetch attachments, use current values as original vintages, build a factor, fit or run an account in this fixed index version. A separate bounded repair is needed for gaps, and full original attachments plus timing must be qualified before a Stage1 feature."
+}
