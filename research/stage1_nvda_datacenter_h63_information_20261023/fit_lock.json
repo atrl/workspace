@@ -1,0 +1,18 @@
+{
+  "plan_sha256": "45f0622f009a747dce623ab19a81846bcaf74ddd2c140d1be92e9e8ad4960ea4",
+  "train_rows": 57,
+  "train_label_sha256": "b1a8bdd52a3fe0d1df07d82a2f03049d006555cba257aaf96259540ee11da5d3",
+  "base_coefficients": [
+    -0.005086440825167149,
+    0.010219042673057276,
+    0.004738622780765524
+  ],
+  "candidate_coefficients": [
+    -0.004076227353644141,
+    0.012624730337181913,
+    0.003859090066693221,
+    0.00955577367640451
+  ],
+  "added_standardized_coefficient": 0.00955577367640451,
+  "fits": 2
+}

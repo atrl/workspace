@@ -1,0 +1,14 @@
+{
+  "verdict": "HOLD_DESIGN_PRE_FIT",
+  "plan_v1_sha256": "87a91ee99a1ea859b52935742e15dfc1eb0f3d7d58daed838b05d6c245d9e905",
+  "outcome_reads": 0,
+  "model_fits": 0,
+  "Qlib_Recorders": 0,
+  "required_freezes": [
+    "2023 complete monthly decision year must be in annual gate",
+    "exact held half split",
+    "quarterly source accession counts and carry/H63 overlap caveat",
+    "2026 decision cutoff or exclusion"
+  ],
+  "resolution": "Supersede before any numeric execution; preserve original plan bytes."
+}

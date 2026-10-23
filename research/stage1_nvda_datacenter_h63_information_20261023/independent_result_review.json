@@ -1,0 +1,29 @@
+{
+  "verdict": "CONFIRM_NOT_PROMOTED",
+  "reviewer": "stage1_nvda_design_review",
+  "scope": "frozen_information_screen_only",
+  "recorder_id": "fa66afadeffc4ac098b176c52ed10095",
+  "native_recorder_status": "FINISHED",
+  "model_fits": 2,
+  "native_accounts": 0,
+  "saved_prediction_rows": 36,
+  "saved_bootstrap_draws": 10000,
+  "recorder_sidecar_match": true,
+  "dataset_train_rows": 72,
+  "mature_train_labels": 57,
+  "held_rows": 36,
+  "held_labels_unknown_in_saved_dataset": true,
+  "gate_failures": [
+    "full_held_MSE_improvement",
+    "later_fixed_18_month_half",
+    "2024",
+    "2025",
+    "stationary_bootstrap_lower"
+  ],
+  "nas_remote_archive_sha256": "0605e33882e402c9f3a35ba2bd9ab31933eace4cf7331025649f5110a7feeafe",
+  "delivery_gap_resolved_after_review": [
+    "Chinese notebook conclusion synchronized",
+    "conclusion.md added",
+    "summary limitations added"
+  ]
+}

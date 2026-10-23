@@ -1,0 +1,44 @@
+{
+  "experiment": "stage1_nvda_datacenter_h63_information_20261023",
+  "decision": "not_promoted_information_gate_failed",
+  "objective_achieved": false,
+  "plan_sha256": "45f0622f009a747dce623ab19a81846bcaf74ddd2c140d1be92e9e8ad4960ea4",
+  "recorder_id": "fa66afadeffc4ac098b176c52ed10095",
+  "experiment_id": "669660884845739876",
+  "recorder_uri": "/Users/rziiiii/dev/workspace/research/stage1_nvda_datacenter_h63_information_20261023/qlib_recorder",
+  "result": "result.json",
+  "model_fits": 2,
+  "native_accounts": 0,
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "inputs/*",
+      "models/*",
+      "predictions/*",
+      "analysis/*"
+    ]
+  },
+  "nas_evidence": {
+    "sha256": "0605e33882e402c9f3a35ba2bd9ab31933eace4cf7331025649f5110a7feeafe",
+    "size_bytes": 149633,
+    "media_type": "application/gzip",
+    "storage_uri": "sha256/06/05/0605e33882e402c9f3a35ba2bd9ab31933eace4cf7331025649f5110a7feeafe",
+    "uploaded_by": "soxl-minute-research",
+    "created_at": "2026-10-23 08:34:36.889951+08",
+    "duplicate": false,
+    "nas_path": "/volume1/docker/yanxuan/registry/research-artifacts/06/05/0605e33882e402c9f3a35ba2bd9ab31933eace4cf7331025649f5110a7feeafe",
+    "recorder_id": "fa66afadeffc4ac098b176c52ed10095",
+    "experiment_id": "669660884845739876",
+    "archive_root": "qlib_recorder"
+  },
+  "nas_readback": {
+    "verified": true,
+    "sha256": "0605e33882e402c9f3a35ba2bd9ab31933eace4cf7331025649f5110a7feeafe"
+  },
+  "limitations": [
+    "Information screen only: no Stage1 receiver, Tiered-fee account, or SOXX outperformance claim.",
+    "Issuer first-public timing and NVIDIA platform definition continuity remain unqualified.",
+    "Held months carry quarterly filings and overlapping H63 labels; reused history is not independent forward validation."
+  ]
+}

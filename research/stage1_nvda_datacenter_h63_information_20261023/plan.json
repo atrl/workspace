@@ -1,0 +1,123 @@
+{
+  "schema_version": 1,
+  "frozen": true,
+  "experiment": "stage1_nvda_datacenter_h63_information_20261023",
+  "phase": "conditional_original_SEC_Data_Center_medium_horizon_SOXX_information_two_Ridge_fits",
+  "question": "Does originally filed NVIDIA Data Center same-release year-over-year revenue growth add stable information for next 63 SOXX open-to-open intervals beyond original Stage1-like SOXX trend, volatility and SEC source age, on matched monthly decision dates?",
+  "mechanism": "Persistent AI Data Center demand might reduce Stage1 medium-term cash opportunity during sector advances; positive source coefficient predeclared. It differs from closed total-company forward-guidance realization and inventory-sales mismatch.",
+  "sources": {
+    "numeric_source_card": "research/stage1_nvda_datacenter_q4_table_lineage_repair_20261023",
+    "numeric_summary_sha256": "3d0833971ed66e883ac226d6d42b65724fe222c8aa1bd329fdb018fd2d27a34b",
+    "numeric_result_sha256": "a7e6107d68ab0cabc0e852e6e48a593178adf04052ce0b774d1f7538edd142b6",
+    "numeric_recorder_id": "fc47f165d79b4caaaf5e6759f4dd86b7",
+    "numeric_experiment_id": "837375431291646527",
+    "numeric_frame_sha256": "9c44622d04024673ce487671d4866b78499c83c2ed2528898e0a45d16b94c7d5",
+    "numeric_NAS_sha256": "113ba8b01ae3e33dc4aeb45ca42055f0692915e060d4028d7c6786ddbf53888f",
+    "Mellanox_mask_card": "research/stage1_nvda_datacenter_mellanox_semantics_v2_20261023",
+    "Mellanox_result_sha256": "77028e0fc2364527118fa781a20997c31ee24c3379630c1ae90c0cd9d70bf126",
+    "Mellanox_NAS_sha256": "06b7486cf4a6297a8db0f67233627b5866b7359b75bd5a64db145c22d11e532e",
+    "Qlib_price_provider": "data/qlib/minute_information_pit_allocator_20261012/daily_prices",
+    "Qlib_config_sha256": "951024d796cc625b695938e64589cd23808c5b048ac816c11f001fb0719742a2",
+    "SOXX_open_sha256": "2e91a4e4f40c62b7ddeb200710c2c6f588b628a94f537cac10e90ac5f5d7d763"
+  },
+  "signal": "Original CFO Data Center current/prior-year same-release YoY from source Recorder, carried to each first native Qlib session of a calendar month. Four Mellanox-incomparable source accessions are unknown; no imputation, no score clipping or sign flip. Must preserve 21 early no-row unknown and source ages.",
+  "decision_clock": "Signal date after Qlib SOXX open at 09:46; original SEC source event only after strictly next native session after acceptance. Issuer first-public clock unqualified.",
+  "price_and_target": {
+    "price": "native Qlib D.features SOXX $open from pinned provider; price-only adjusted open not dividends or fee-net total return",
+    "target": "log(open[t+64]/open[t+1]) for 63 funded open-to-open intervals; target maturity t+64 opening, strictly before first held signal for any training row",
+    "controls": [
+      "log(open[t]/open[t-63])",
+      "sample std of 20 daily log open returns ending t",
+      "calendar-day age of latest original SEC Data Center event"
+    ],
+    "feature": "reported_Data_Center_same_release_YoY",
+    "horizon_sessions": 63
+  },
+  "cohorts": {
+    "monthly_decisions": "first real Qlib session of every calendar month",
+    "train_decision_bounds": [
+      "2017-01-01",
+      "2022-12-31"
+    ],
+    "train_label_maturity_before": "2023-01-03",
+    "held_decision_bounds": [
+      "2023-01-03",
+      "2025-12-31"
+    ],
+    "minimum_train_rows": 48,
+    "minimum_held_rows": 36,
+    "complete_years_primary": [
+      2023,
+      2024,
+      2025
+    ],
+    "reused_history": true,
+    "held_expected_monthly_decisions": 36,
+    "minimum_train_distinct_original_accessions": 16,
+    "minimum_held_distinct_original_accessions": 10,
+    "held_halves": [
+      {
+        "start": "2023-01-03",
+        "end": "2024-06-30",
+        "expected_months": 18
+      },
+      {
+        "start": "2024-07-01",
+        "end": "2025-12-31",
+        "expected_months": 18
+      }
+    ],
+    "2026_decision_months_excluded": true
+  },
+  "model": {
+    "baseline": "StandardScaler train-only then Ridge(alpha=10,fit_intercept=true) on three controls",
+    "candidate": "same scaler policy and Ridge(alpha=10) on controls plus one source feature",
+    "matched_rows": true,
+    "fit_budget": 2,
+    "hyperparameter_or_window_search": false
+  },
+  "gate": {
+    "added_standardized_coefficient_positive": true,
+    "held_mean_paired_MSE_baseline_minus_candidate_positive": true,
+    "stationary_bootstrap_lower_positive": true,
+    "bootstrap": {
+      "unit": "held monthly paired loss differences",
+      "mean_block_observations": 3,
+      "draws": 10000,
+      "seed": 20261023,
+      "one_sided_lower_quantile": 0.0016666666666666668
+    },
+    "interpretation": "Any pass only permits separate original39 Stage1 receiver and full own-state 0bp Tiered account after source timing/definition review; no project-wide independent validation.",
+    "each_complete_2023_2024_2025_positive": true,
+    "both_fixed_18_month_held_halves_positive": true
+  },
+  "budget": {
+    "external_HTTP": 0,
+    "source_Recorder_object_loads": 1,
+    "D_calendar_calls": 1,
+    "D_features_calls": 1,
+    "DatasetH_builds": 1,
+    "model_fit_attempts": 2,
+    "bootstrap_attempts": 1,
+    "new_Qlib_Recorders": 1,
+    "native_accounts": 0
+  },
+  "stop": "Stop before fits on source hash, Mellanox mask, price calendar, maturity, 48 train rows, exactly36 held rows, >=16 distinct train/10 distinct held source accessions, fixed-half 18/18 support or all-three-year support. On any gate failure close fixed source/value/horizon/receiver; no sign, issuer, fiscal quarter, training boundary, source lag or threshold rescue. No 2026 decision months in this card.",
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "inputs/*",
+      "models/*",
+      "predictions/*",
+      "analysis/*"
+    ]
+  },
+  "version": 2,
+  "supersedes": {
+    "path": "plan_v1_halt.json",
+    "sha256": "87a91ee99a1ea859b52935742e15dfc1eb0f3d7d58daed838b05d6c245d9e905",
+    "design_review": "design_review_v1.json"
+  },
+  "dependence_reporting": "For every train/held year and fixed held half report monthly decision rows, unique source accession count, source carry-day duration and overlapping H63 label count. The 3-month stationary bootstrap resamples monthly paired losses and approximates local H63 overlap; it does not turn repeated source states into independent filings or provide project-wide independent confirmation."
+}

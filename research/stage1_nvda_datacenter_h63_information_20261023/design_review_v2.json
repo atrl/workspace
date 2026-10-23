@@ -1,0 +1,20 @@
+{
+  "verdict": "APPROVE_EXECUTION",
+  "reviewer": "stage1_nvda_design_review",
+  "scope": "frozen_information_screen_only",
+  "plan_sha256": "45f0622f009a747dce623ab19a81846bcaf74ddd2c140d1be92e9e8ad4960ea4",
+  "notebook_code_cell_sha256": {
+    "1": "ad987409ea55bfe63ae0ff21e2ea3eea6aa8d948b830870580c08edf2128e821",
+    "3": "758a1dc5249e88d4f25f25bf54f33f54dd53b2e81fb5d73501c9ad10fd72625a"
+  },
+  "reviewed_boundaries": [
+    "single_attempt Qlib/Recorder read guard",
+    "exact pinned source and NAS hashes",
+    "mature training labels and held outcome isolation",
+    "fixed 36 held months, halves and annual gates",
+    "two matched Ridge fits, one bootstrap",
+    "NAS scoped restore and native readback"
+  ],
+  "executed_by_reviewer": false,
+  "native_accounts_authorized": 0
+}

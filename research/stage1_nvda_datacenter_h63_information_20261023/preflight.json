@@ -1,0 +1,231 @@
+{
+  "plan_sha256": "45f0622f009a747dce623ab19a81846bcaf74ddd2c140d1be92e9e8ad4960ea4",
+  "source_frame_sha256": "9c44622d04024673ce487671d4866b78499c83c2ed2528898e0a45d16b94c7d5",
+  "train": {
+    "monthly_rows": 57,
+    "unique_original_accessions": 20,
+    "source_carry_calendar_days_by_accession": {
+      "0001045810-16-000343": 38,
+      "0001045810-17-000016": 89,
+      "0001045810-17-000068": 93,
+      "0001045810-17-000117": 91,
+      "0001045810-17-000164": 91,
+      "0001045810-18-000004": 91,
+      "0001045810-18-000052": 98,
+      "0001045810-18-000113": 91,
+      "0001045810-18-000148": 91,
+      "0001045810-19-000007": 91,
+      "0001045810-19-000077": 91,
+      "0001045810-19-000140": 91,
+      "0001045810-19-000168": 91,
+      "0001045810-20-000007": 98,
+      "0001045810-20-000063": 90,
+      "0001045810-21-000128": 91,
+      "0001045810-21-000160": 91,
+      "0001045810-22-000008": 98,
+      "0001045810-22-000073": 91,
+      "0001045810-22-000136": 8
+    },
+    "source_age_min_days": 6.0,
+    "source_age_median_days": 47.0,
+    "source_age_max_days": 83.0,
+    "adjacent_H63_label_overlaps": 55
+  },
+  "held": {
+    "monthly_rows": 36,
+    "unique_original_accessions": 13,
+    "source_carry_calendar_days_by_accession": {
+      "0001045810-22-000163": 51,
+      "0001045810-23-000014": 91,
+      "0001045810-23-000087": 91,
+      "0001045810-23-000171": 90,
+      "0001045810-23-000225": 92,
+      "0001045810-24-000028": 91,
+      "0001045810-24-000113": 98,
+      "0001045810-24-000262": 84,
+      "0001045810-24-000315": 98,
+      "0001045810-25-000021": 91,
+      "0001045810-25-000115": 91,
+      "0001045810-25-000207": 84,
+      "0001045810-25-000228": 12
+    },
+    "source_age_min_days": 4.0,
+    "source_age_median_days": 39.0,
+    "source_age_max_days": 76.0,
+    "adjacent_H63_label_overlaps": 35
+  },
+  "halves": [
+    {
+      "monthly_rows": 18,
+      "unique_original_accessions": 7,
+      "source_carry_calendar_days_by_accession": {
+        "0001045810-22-000163": 51,
+        "0001045810-23-000014": 91,
+        "0001045810-23-000087": 91,
+        "0001045810-23-000171": 90,
+        "0001045810-23-000225": 92,
+        "0001045810-24-000028": 91,
+        "0001045810-24-000113": 12
+      },
+      "source_age_min_days": 6.0,
+      "source_age_median_days": 39.0,
+      "source_age_max_days": 76.0,
+      "adjacent_H63_label_overlaps": 17
+    },
+    {
+      "monthly_rows": 18,
+      "unique_original_accessions": 7,
+      "source_carry_calendar_days_by_accession": {
+        "0001045810-24-000113": 59,
+        "0001045810-24-000262": 84,
+        "0001045810-24-000315": 98,
+        "0001045810-25-000021": 91,
+        "0001045810-25-000115": 91,
+        "0001045810-25-000207": 84,
+        "0001045810-25-000228": 12
+      },
+      "source_age_min_days": 4.0,
+      "source_age_median_days": 33.5,
+      "source_age_max_days": 74.0,
+      "adjacent_H63_label_overlaps": 17
+    }
+  ],
+  "held_years": {
+    "2023": {
+      "monthly_rows": 12,
+      "unique_original_accessions": 5,
+      "source_carry_calendar_days_by_accession": {
+        "0001045810-22-000163": 51,
+        "0001045810-23-000014": 91,
+        "0001045810-23-000087": 91,
+        "0001045810-23-000171": 90,
+        "0001045810-23-000225": 10
+      },
+      "source_age_min_days": 6.0,
+      "source_age_median_days": 39.0,
+      "source_age_max_days": 76.0,
+      "adjacent_H63_label_overlaps": 11
+    },
+    "2024": {
+      "monthly_rows": 12,
+      "unique_original_accessions": 5,
+      "source_carry_calendar_days_by_accession": {
+        "0001045810-23-000225": 51,
+        "0001045810-24-000028": 91,
+        "0001045810-24-000113": 98,
+        "0001045810-24-000262": 84,
+        "0001045810-24-000315": 12
+      },
+      "source_age_min_days": 5.0,
+      "source_age_median_days": 39.0,
+      "source_age_max_days": 71.0,
+      "adjacent_H63_label_overlaps": 11
+    },
+    "2025": {
+      "monthly_rows": 12,
+      "unique_original_accessions": 5,
+      "source_carry_calendar_days_by_accession": {
+        "0001045810-24-000315": 56,
+        "0001045810-25-000021": 91,
+        "0001045810-25-000115": 91,
+        "0001045810-25-000207": 84,
+        "0001045810-25-000228": 12
+      },
+      "source_age_min_days": 4.0,
+      "source_age_median_days": 33.5,
+      "source_age_max_days": 74.0,
+      "adjacent_H63_label_overlaps": 11
+    }
+  },
+  "train_years": {
+    "2017": {
+      "monthly_rows": 12,
+      "unique_original_accessions": 5,
+      "source_carry_calendar_days_by_accession": {
+        "0001045810-16-000343": 38,
+        "0001045810-17-000016": 89,
+        "0001045810-17-000068": 93,
+        "0001045810-17-000117": 91,
+        "0001045810-17-000164": 22
+      },
+      "source_age_min_days": 19.0,
+      "source_age_median_days": 52.5,
+      "source_age_max_days": 83.0,
+      "adjacent_H63_label_overlaps": 11
+    },
+    "2018": {
+      "monthly_rows": 12,
+      "unique_original_accessions": 5,
+      "source_carry_calendar_days_by_accession": {
+        "0001045810-17-000164": 38,
+        "0001045810-18-000004": 91,
+        "0001045810-18-000052": 98,
+        "0001045810-18-000113": 91,
+        "0001045810-18-000148": 18
+      },
+      "source_age_min_days": 17.0,
+      "source_age_median_days": 52.0,
+      "source_age_max_days": 83.0,
+      "adjacent_H63_label_overlaps": 11
+    },
+    "2019": {
+      "monthly_rows": 12,
+      "unique_original_accessions": 5,
+      "source_carry_calendar_days_by_accession": {
+        "0001045810-18-000148": 44,
+        "0001045810-19-000007": 91,
+        "0001045810-19-000077": 91,
+        "0001045810-19-000140": 91,
+        "0001045810-19-000168": 18
+      },
+      "source_age_min_days": 14.0,
+      "source_age_median_days": 45.5,
+      "source_age_max_days": 77.0,
+      "adjacent_H63_label_overlaps": 11
+    },
+    "2020": {
+      "monthly_rows": 8,
+      "unique_original_accessions": 3,
+      "source_carry_calendar_days_by_accession": {
+        "0001045810-19-000168": 43,
+        "0001045810-20-000007": 98,
+        "0001045810-20-000063": 74
+      },
+      "source_age_min_days": 10.0,
+      "source_age_median_days": 47.5,
+      "source_age_max_days": 80.0,
+      "adjacent_H63_label_overlaps": 7
+    },
+    "2021": {
+      "monthly_rows": 4,
+      "unique_original_accessions": 2,
+      "source_carry_calendar_days_by_accession": {
+        "0001045810-21-000128": 78,
+        "0001045810-21-000160": 14
+      },
+      "source_age_min_days": 13.0,
+      "source_age_median_days": 28.0,
+      "source_age_max_days": 74.0,
+      "adjacent_H63_label_overlaps": 3
+    },
+    "2022": {
+      "monthly_rows": 9,
+      "unique_original_accessions": 4,
+      "source_carry_calendar_days_by_accession": {
+        "0001045810-21-000160": 45,
+        "0001045810-22-000008": 98,
+        "0001045810-22-000073": 91,
+        "0001045810-22-000136": 8
+      },
+      "source_age_min_days": 6.0,
+      "source_age_median_days": 43.0,
+      "source_age_max_days": 75.0,
+      "adjacent_H63_label_overlaps": 8
+    }
+  },
+  "train_monthly_decisions_all": 72,
+  "held_monthly_decisions_all": 36,
+  "2026_decisions": 0,
+  "outcome_values_read": 0,
+  "model_fits": 0
+}
