@@ -1,0 +1,19 @@
+{
+  "status": "verified",
+  "recorder_id": "28f3a0fe61ac49d09b79be3e2056c23a",
+  "rows": {
+    "daily": 944,
+    "periods": 21,
+    "rolling126": 819
+  },
+  "NAS_archive_sha256": "c4315a61ff744ee56afbd4e1b3733fb67a87ff26537ba93ce23284e08683622a",
+  "scoped_members": [
+    "analysis/result",
+    "analysis/daily",
+    "analysis/periods",
+    "analysis/rolling126"
+  ],
+  "all_member_sha256_parity": true,
+  "new_fits": 0,
+  "new_accounts": 0
+}

@@ -1,0 +1,13 @@
+{
+  "status": "readback_only_from_same_verified_Recorder",
+  "recorder_id": "28f3a0fe61ac49d09b79be3e2056c23a",
+  "candidate_vs_B_positive_126_windows": 106,
+  "candidate_vs_SOXX_positive_126_windows": 173,
+  "total_rolling126_windows": 819,
+  "candidate_minus_B_fee_usd_full": -170.41773022413895,
+  "candidate_minus_B_raw_cash_percentage_points": 4.689475957256533,
+  "candidate_minus_B_funded_cash_percentage_points": 5.003947332556747,
+  "2025_candidate_over_B": 0.8392857477798293,
+  "2024Q3_candidate_over_B": 0.9999850176559595,
+  "interpretation": "Raw cash shift persists through projection and funded holdings. Candidate has lower total fees but worse wealth. These are descriptive separate account paths; not a causal fee or cash ablation."
+}
