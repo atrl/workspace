@@ -1,0 +1,23 @@
+{
+  "status": "source_only_printed_ratio_precision_audit",
+  "printed_ratio_decimal_places": 2,
+  "train_mature_event_rows": 55,
+  "train_raw_binary_float_unique_deltas": 13,
+  "train_unique_deltas_at_printed_0p01_resolution": 10,
+  "held_mature_event_rows_after_late_vintage_mask": 41,
+  "held_raw_binary_float_unique_deltas": 5,
+  "held_unique_deltas_at_printed_0p01_resolution": 5,
+  "held_printed_delta_values": [
+    -0.02,
+    -0.01,
+    0.0,
+    0.01,
+    0.02
+  ],
+  "frozen_minimum_held_unique_values": 8,
+  "gate_still_fails_after_precision_correction": true,
+  "SOXX_outcome_values_read": 0,
+  "model_fits": 0,
+  "native_accounts": 0,
+  "interpretation": "Binary floating point made some mathematically identical two-decimal deltas distinct in training. At the report precision, training has10 rather than13 values. The held count remains5, so the fixed minimum8 source-support gate still fails. No information rank or fit was computed."
+}

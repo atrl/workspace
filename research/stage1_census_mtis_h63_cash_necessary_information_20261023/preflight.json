@@ -1,0 +1,24 @@
+{
+  "status": "source_event_and_H63_maturity_preflight_failed_held_numeric_variation",
+  "plan_sha256": "0f10bd32d08f608b490baeab7598fd60b1034f80c403a4bd55e8ed7e328a1cc2",
+  "all_source_events": 103,
+  "train_mature_event_rows": 55,
+  "held_mature_event_rows": 41,
+  "held_year_event_rows": {
+    "2023": 12,
+    "2024": 12,
+    "2025": 11,
+    "2026": 6
+  },
+  "train_unique_delta_values": 13,
+  "held_unique_delta_values": 5,
+  "minimum_held_unique_delta_values": 8,
+  "train_zero_delta_events": 27,
+  "held_zero_delta_events": 16,
+  "definitely_late_current_PDF_events_masked": 4,
+  "source_support_pass": false,
+  "SOXX_outcome_values_read": 0,
+  "DatasetH_builds": 0,
+  "model_fits": 0,
+  "native_accounts": 0
+}

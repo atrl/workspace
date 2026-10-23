@@ -1,0 +1,53 @@
+{
+  "experiment": "stage1_census_mtis_h63_cash_necessary_information_20261023",
+  "decision": "closed_fixed_MTiS_delta_H63_cash_preflight_low_held_variation",
+  "objective_achieved": false,
+  "plan_sha256": "0f10bd32d08f608b490baeab7598fd60b1034f80c403a4bd55e8ed7e328a1cc2",
+  "preflight": "preflight.json",
+  "result": "result.json",
+  "recorder_id": "1b29285e844c4af195d1319e4c9cceb8",
+  "experiment_id": "750803526457455101",
+  "recorder_uri": "/Users/rziiiii/dev/workspace/research/stage1_census_mtis_h63_cash_necessary_information_20261023/qlib_recorder",
+  "NAS_evidence": {
+    "sha256": "4d30ffa3c8c8c3a18e98bba8528b0a5a7875e40f8299484bd1e7e7af15a17597",
+    "size_bytes": 73790,
+    "media_type": "application/gzip",
+    "storage_uri": "sha256/4d/30/4d30ffa3c8c8c3a18e98bba8528b0a5a7875e40f8299484bd1e7e7af15a17597",
+    "uploaded_by": "soxl-minute-research",
+    "created_at": "2026-10-23 15:47:41.476544+08",
+    "duplicate": false,
+    "nas_path": "/volume1/docker/yanxuan/registry/research-artifacts/4d/30/4d30ffa3c8c8c3a18e98bba8528b0a5a7875e40f8299484bd1e7e7af15a17597",
+    "recorder_id": "1b29285e844c4af195d1319e4c9cceb8",
+    "experiment_id": "750803526457455101",
+    "archive_root": "qlib_recorder"
+  },
+  "NAS_readback": {
+    "status": "NAS_MTiS_H63_preflight_selected_event_source_cold_readback",
+    "verified": true,
+    "archive_sha256": "4d30ffa3c8c8c3a18e98bba8528b0a5a7875e40f8299484bd1e7e7af15a17597",
+    "selected_artifact_sha256": "1e95bdd6f5c29e38c38995f33a30aa4f8fbb8b3d9d1c590acb277dbaff8b6139",
+    "selected_artifact_bytes": 23622,
+    "native_recorder_status": "FINISHED",
+    "all_event_rows": 103,
+    "outcome_values_scored": 0
+  },
+  "source_support_pass": false,
+  "SOXX_outcome_values_read": 0,
+  "model_fits": 0,
+  "native_accounts": 0,
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "inputs/*",
+      "analysis/source_events",
+      "analysis/result"
+    ]
+  },
+  "limitations": [
+    "Only source identities, event timing and label maturity metadata were read; no H63 SOXX outcome values or rank were computed.",
+    "Current original PDF first-public bytes remain unqualified; held history is reused development data.",
+    "No Stage1 incremental receiver, full 0bp Tiered account or SOXX success."
+  ],
+  "precision_audit": "precision_audit.json"
+}
