@@ -1,0 +1,84 @@
+{
+  "experiment": "stage1_soxx_prior_session_tug_cash_h5_information_20261023",
+  "decision": "not_promoted_fixed_prior_session_tug_cash_H5_information_failed",
+  "promotion": "not_promoted_information_only",
+  "objective_achieved": false,
+  "plan_sha256": "984c299a7ad8e0cf7f244103db2d71e2def07679b0d5418029fbe12148a8ef08",
+  "source_recorder_id": "00c574847f684b1f9ab46f9101c5d02f",
+  "parent_recorder_id": "68e31a0a0fad44e7ba1d1f7d856c7a0d",
+  "recorder_id": "224b7477e44b4c6288850352b2bc3585",
+  "experiment_id": "920763742178595263",
+  "preflight": {
+    "status": "matched_Qlib_source_and_cash_label_maturity_passed",
+    "train_mature": 3014,
+    "held_mature": 940,
+    "source_Recorder_object_loads": 5,
+    "DatasetH_builds": 1
+  },
+  "metrics": {
+    "standardized_tug_coefficient": 0.0019268145298800587,
+    "MSE_original39": 0.002526266936598172,
+    "MSE_total_return_control": 0.002525319799808454,
+    "MSE_candidate": 0.002526529696595232,
+    "MSE_train_mean": 0.0023466841316487535,
+    "improvement_vs_control": -1.2098967867781878e-06,
+    "improvement_vs_original39": -2.6275999706041705e-07,
+    "improvement_vs_train_mean": -0.00017984556494647899,
+    "first_half_vs_control": -9.044931318578804e-06,
+    "second_half_vs_control": 6.625137745022433e-06,
+    "2024_vs_control": -2.450299575407731e-05,
+    "2025_vs_control": -8.97026754251796e-07
+  },
+  "bootstrap": {
+    "paired_mean_loss_improvement": -1.209896786778191e-06,
+    "lower_bound": -1.650797757359631e-05,
+    "upper_bound": 1.3912098889138799e-05,
+    "valid_replicates": 2000,
+    "invalid_replicates": 0,
+    "calendar_rows": 944,
+    "scored_rows": 940
+  },
+  "gates": {
+    "negative_coefficient": false,
+    "beats_total_return_control": false,
+    "beats_original39": false,
+    "beats_train_mean": false,
+    "both_halves": false,
+    "both_complete_years": false,
+    "positive_block_lower": false
+  },
+  "model_fits": 3,
+  "native_accounts": 0,
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "inputs/*",
+      "models/*",
+      "predictions/*",
+      "analysis/*"
+    ]
+  },
+  "limitations": [
+    "2023-2026 reuse is development feedback, not independent forward evidence.",
+    "H5 SOXX price labels omit funded Tiered fees and own-state feedback.",
+    "The full f696 0bp economic and risk gates are not tested by this information screen."
+  ],
+  "NAS_evidence": {
+    "sha256": "207ee6c43654b34517b9d75f86a45cf05a6545befadc4ee0d224e6f1dfb96f84",
+    "size_bytes": 153008,
+    "media_type": "application/gzip",
+    "storage_uri": "sha256/20/7e/207ee6c43654b34517b9d75f86a45cf05a6545befadc4ee0d224e6f1dfb96f84",
+    "uploaded_by": "soxl-minute-research",
+    "created_at": "2026-10-23 23:09:58.498189+08",
+    "duplicate": false,
+    "nas_path": "/volume1/docker/yanxuan/registry/research-artifacts/20/7e/207ee6c43654b34517b9d75f86a45cf05a6545befadc4ee0d224e6f1dfb96f84",
+    "recorder_id": "224b7477e44b4c6288850352b2bc3585",
+    "experiment_id": "920763742178595263",
+    "archive_root": "qlib_recorder"
+  },
+  "NAS_readback": {
+    "verified": true,
+    "sha256": "207ee6c43654b34517b9d75f86a45cf05a6545befadc4ee0d224e6f1dfb96f84"
+  }
+}

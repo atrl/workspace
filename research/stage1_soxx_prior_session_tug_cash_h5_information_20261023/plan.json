@@ -1,0 +1,53 @@
+{
+  "experiment": "stage1_soxx_prior_session_tug_cash_h5_information_20261023",
+  "frozen": true,
+  "phase": "necessary_cash_H5_information_before_any_f696_account",
+  "parent": "Frozen complete f696 A_0 allocation plus b472 action/risk/recovery, same 0bp Tiered own-state account as attribution baseline; SOXX final benchmark",
+  "hypothesis": "A strong previous completed SOXX regular-session recovery relative to its preceding overnight gap predicts lower next-five-session cash-minus-SOXX open-return advantage, conditional on the original39 inputs and the same day's total SOXX close return. Added standardized coefficient must be negative.",
+  "source": {
+    "feature_card": "research/stage1_soxx_prior_session_tug_source_20261023",
+    "feature_summary_sha256": "3c800acde6db75838ab6f0390b3fec5332eaea4dea3a8c7eb87d359f55ea7e5c",
+    "feature_result_sha256": "433957afb715caf72ef6ea7d1af38e587dfe534f9f105e4dc1eb89968bf124ab",
+    "feature_recorder_id": "00c574847f684b1f9ab46f9101c5d02f",
+    "feature_experiment_id": "609339033309443547",
+    "feature_NAS_sha256": "fe4744fde31e8bfd5baca0a9b119659ceb0719c01f2269ec4a71ac21187b8910",
+    "feature_module_sha256": "c0d4e33317c4aa78d94d3a447e6563e05e25a4341cbbfdd86c356d2c22c8b3ea",
+    "provider_uri": "data/qlib/minute_information_pit_allocator_20261012/daily_prices",
+    "provider_manifest_sha256": "d80a08d479b73098053006909b5e6227b03a56ab705681742d7261088e0a7e6c",
+    "parent_card": "research/minute_information_pit_allocator_20261012",
+    "parent_summary_sha256": "61c91f958323cf51b43f4b1554eeca5687011d30771e80bc7ff02d16b6d577ca",
+    "parent_verification_manifest_sha256": "ac90270cf66164e5fb9bca62b50ab86eeab7733bd0146799c45d97937f94e82a",
+    "parent_recorder_id": "68e31a0a0fad44e7ba1d1f7d856c7a0d",
+    "parent_experiment_id": "905520356740140469",
+    "parent_NAS_sha256": "ee328cab292f178bf3582ef574fb411561c93b82545cd3bb90842ecd9a9a24f1",
+    "bootstrap_module_sha256": "02705f897e668b710a38aae514df08b86e26c8cd8951405339960355a08a5ac4"
+  },
+  "receiver": {
+    "label": "negative sum of five next open-to-open SOXX log returns from saved Stage1 daily_frame, mature at fifth return_available_at",
+    "train_signals": ["2011-01-03", "2022-12-30"],
+    "train_label_available_before": "2023-01-01T00:00:00-05:00",
+    "reused_held_signals": ["2023-01-03", "2026-10-07"],
+    "held_label_available_before": "2026-10-10T00:00:00-04:00",
+    "common_rows": "Same fully mature and feature-known Qlib DatasetH rows for all three models, 3014 train and 940 held expected",
+    "training_mean_null": "mean of matched mature training cash-advantage labels",
+    "baseline_original39": "SimpleImputer median, StandardScaler, Ridge alpha=1 on saved original39 inputs",
+    "total_return_control": "same original39 plus SOXX previous completed-session total log return1",
+    "candidate": "same total-return control plus SOXX prior completed-session intraday-minus-overnight log return",
+    "max_model_fits": 3
+  },
+  "gate": {
+    "coefficient_negative": true,
+    "candidate_beats_total_return_control_original39_and_training_mean_on_full_held_MSE": true,
+    "candidate_vs_total_return_control_both_chronological_halves_positive": true,
+    "candidate_vs_total_return_control_complete_2024_and_2025_positive": true,
+    "candidate_vs_total_return_control_full_calendar_block_lower_positive": {
+      "calendar_rows": 944,
+      "mean_block": 63,
+      "resamples": 2000,
+      "seed": 20261023,
+      "one_sided_alpha": 0.025
+    }
+  },
+  "budget": {"new_market_requests": 0, "source_Recorder_object_loads_max": 5, "DatasetH_builds_max": 1, "new_model_fits_max": 3, "bootstrap_attempts_max": 1, "new_Recorders_max": 1, "new_native_accounts": 0},
+  "stop": "Any source/clock/hash, 3014/940 maturity, common-row, fitted model, bootstrap or gate failure closes fixed version. Do not reverse sign, change day/night formula, add windows, select years or replace Stage1 parent. A pass allows only a separately frozen full f696-derived 0bp Tiered own-state account, not promotion."
+}
