@@ -1,0 +1,4 @@
+experiment: stage1_soxx_prior_session_tug_source_20261023
+entrypoint: stage1_soxx_prior_session_tug_source_20261023.ipynb
+provider_uri: data/qlib/minute_information_pit_allocator_20261012/daily_prices
+phase: source_only_no_future_label

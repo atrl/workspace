@@ -1,0 +1,27 @@
+{
+  "status": "corrected_unsent_vendor_inquiry_clock",
+  "source_identity": "Frozen f696 allocation source timing.decision_at, as recorded in AGENTS.md and Stage1 source audit",
+  "f696_allocator_decision_at": "next US trade session 09:29 America/New_York",
+  "b472_open_action_decision_at": "same trade session 09:46 America/New_York",
+  "prior_vendor_drafts_and_path_decision_error": "They stated 09:46 as the allocation decision. That later clock cannot qualify an option feature entering unchanged f696 allocation.",
+  "corrected_unsent_drafts": [
+    "orats_inquiry_draft.md",
+    "cboe_inquiry_draft.md"
+  ],
+  "supersedes_clock_only_in": "source_path_decision_20261023.json",
+  "required_source_evidence": [
+    "SOXX-specific 2011 and 2012 historical option rows rather than a generic vendor start date",
+    "Original quote timestamp plus first delivered/received version before next 09:29 ET decision",
+    "Late-file and revision masks retained as unknown, not backfilled",
+    "25-delta call and put IV/Delta brackets around 30 calendar days on each scored date",
+    "Exact bytes, usage rights for internal NAS backup, and scoped restoration"
+  ],
+  "current_public_status": "ORATS public SOXX 2024-01-03 constructibility sample only; 2011 full source and first-public delivery remain unproven. Cboe current product page starts 2012 while FAQ gives generic 2010 start; 2011 SOXX-specific availability unresolved.",
+  "messages_sent": 0,
+  "purchases": 0,
+  "model_fits": 0,
+  "accounts": 0,
+  "forward_days": 0,
+  "vendor_contact_status": "user_declined_vendor_contact_20261023",
+  "next_contact_action": "none_without_new_direct_user_authorization"
+}

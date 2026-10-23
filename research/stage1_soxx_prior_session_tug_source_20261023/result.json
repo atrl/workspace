@@ -1,0 +1,30 @@
+{
+  "experiment": "stage1_soxx_prior_session_tug_source_20261023",
+  "decision": "source_novelty_pass_needs_separate_cash_H5_information",
+  "plan_sha256": "9fedcdd679ca2ad3c32db68aaed3200f44324281998ee5fe409061921ee5a707",
+  "provider_manifest_sha256": "d80a08d479b73098053006909b5e6227b03a56ab705681742d7261088e0a7e6c",
+  "parent_recorder_id": "68e31a0a0fad44e7ba1d1f7d856c7a0d",
+  "QLib_calendar_rows": 4172,
+  "train_rows": 3020,
+  "train_known": 3020,
+  "held_rows": 946,
+  "held_known": 946,
+  "train_max_abs_spearman_original39": 0.20530033357211022,
+  "train_abs_spearman_total_return1": 0.37671286079899136,
+  "feature_min": -0.11803628504276276,
+  "feature_median": -0.0008792614098638296,
+  "feature_max": 0.15439625084400177,
+  "gates": {
+    "train_support": true,
+    "held_support": true,
+    "positive_finite_open_close": true,
+    "novel_original39": true,
+    "novel_total_return1": true
+  },
+  "future_return_reads": 0,
+  "new_fits": 0,
+  "new_accounts": 0,
+  "new_market_requests": 0,
+  "recorder_id": "00c574847f684b1f9ab46f9101c5d02f",
+  "experiment_id": "609339033309443547"
+}

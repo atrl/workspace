@@ -1,0 +1,9 @@
+{
+  "status": "source_recorder_read_failure_before_new_recorder",
+  "runtime": "qlib_venv Qlib 0.9.7",
+  "error": "R.get_recorder with pinned historical experiment ID returned No valid experiment has been found under this MLflow file-store runtime",
+  "repair": "Read the same hash-pinned source Recorder with the existing system Qlib 0.9.8 runtime used by the original source card. Keep provider, source bytes, formula, thresholds and plan unchanged.",
+  "new_model_fits": 0,
+  "new_accounts": 0,
+  "new_Recorders": 0
+}

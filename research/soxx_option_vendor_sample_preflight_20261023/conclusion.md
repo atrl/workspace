@@ -13,3 +13,5 @@ Option Quotes 样本含五个内层 CSV 变体；带 Calcs 的表头有报价时
 **2026-10-23 来源更正：** [Cboe 官方 FAQ](https://datashop.cboe.com/faqs)把 Option Quotes 和 Option EOD Summary 的总体起点列为2010年1月，但两个现售[Option Quotes](https://datashop.cboe.com/option-quote-intervals)、[EOD Summary](https://datashop.cboe.com/option-eod-summary)产品页写2012年1月。不能据产品页断言Cboe无2011数据，也不能据FAQ断言2011 SOXX及IV/Delta可交付；具体冲突与询样问题见 `cboe_start_conflict_addendum.json`。旧卡对“2011缺口未证明可填”的决定不变。
 
 **现售界面核查：** Option Quotes 与 Option EOD Summary 的历史日期选择器均只列2012–2026年，购物车为0、未提交表单。这与两个产品页一致，但不能排除FAQ所称2010起的旧版/人工交付渠道。2011 SOXX 加Calcs的实际可交付性仍须供应商确认；见 `cboe_checkout_ui_preflight.json`。
+
+**配置时钟更正（2026-10-23）：** 两份未发送询样草稿及旧 `source_path_decision_20261023.json` 曾把配置决策误写为09:46 ET；冻结 f696 实际在次交易日 **09:29 ET** 决策。草稿已修正，旧来源路径记录按 [`allocation_clock_correction_20261023.json`](allocation_clock_correction_20261023.json) 的时钟覆盖。只有此前已首发并可取得的前一交易日期权版本才能进入不改时钟的分配器；迟交、修订或无源日期保持未知。0消息、0购买。

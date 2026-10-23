@@ -1,0 +1,35 @@
+{
+  "experiment": "stage1_soxx_prior_session_tug_source_20261023",
+  "frozen": true,
+  "phase": "read_only_prior_session_market_feature_source_and_novelty",
+  "parent": "Exact frozen f696 A_0 allocation and b472 action/risk/recovery; 0bp Tiered own-state Stage1 for attribution, SOXX final benchmark",
+  "failure_mechanism": "The exact f696 account loses in 564/819 overlapping 126-day windows, while each prior SOXX 5/20 trend-sign state contains both winning and losing windows. A completed prior-session overnight gap followed by regular-session recovery is a possible within-trend discriminator of rebound versus persistent selling. It is not a window switch.",
+  "distinctness": "Original39 has price momentum, volatility, panic_reversal_5 and trend features but no one-session SOXX close-to-open minus open-to-close decomposition. The closed opening_state/interaction used same-trade-day opening data after f696 09:29; day_night_supervision altered auxiliary targets rather than adding this prior-day input; signed_variance_information targeted next-day RV.",
+  "source": {
+    "provider_uri": "data/qlib/minute_information_pit_allocator_20261012/daily_prices",
+    "provider_manifest_sha256": "d80a08d479b73098053006909b5e6227b03a56ab705681742d7261088e0a7e6c",
+    "parent_card": "research/minute_information_pit_allocator_20261012",
+    "parent_summary_sha256": "61c91f958323cf51b43f4b1554eeca5687011d30771e80bc7ff02d16b6d577ca",
+    "parent_recorder_id": "68e31a0a0fad44e7ba1d1f7d856c7a0d",
+    "parent_experiment_id": "905520356740140469",
+    "parent_NAS_archive_sha256": "ee328cab292f178bf3582ef574fb411561c93b82545cd3bb90842ecd9a9a24f1"
+  },
+  "fixed_feature": {
+    "name": "SOXX_prior_session_intraday_minus_overnight_log_return",
+    "formula": "log(SOXX close_t/open_t) - log(open_t/close_{t-1}) on completed signal day t, using Qlib split-continuous daily open and close",
+    "decision_at": "following US trade session 09:29 America/New_York",
+    "no_same_day_0945_bar": true,
+    "no_missing_fill": true
+  },
+  "source_novelty_gates": {
+    "train_2011_2022_known_min": 3000,
+    "reused_held_2023_2026_known_min": 940,
+    "positive_finite_open_close": true,
+    "max_abs_training_Spearman_original39_below": 0.8,
+    "max_abs_training_Spearman_total_SOXX_return1_below": 0.8,
+    "split_continuity_source_manifest_pinned": true
+  },
+  "if_pass": "Freeze a separate original39 versus original39-plus-one H5 cash-advantage information test with expected negative added coefficient, exact common maturity/calendar, full/both-halves/complete-year and corrected block gates. Only a passing test can justify a full f696-derived own-state 0bp Tiered account.",
+  "budget": {"new_market_requests": 0, "future_return_reads": 0, "model_fits": 0, "new_accounts": 0, "bootstrap_attempts": 0, "new_Recorders_max": 1},
+  "stop": "Any source hash, Qlib calendar, positive price, decision clock or novelty failure closes this fixed feature before fit; do not tune sign, lag, window, threshold or endpoint years."
+}

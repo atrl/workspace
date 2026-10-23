@@ -9,7 +9,7 @@
   "nested_schema": "nested_profiles.json",
   "live_vendor_quote_observation": "live_vendor_quote_observation.json",
   "ORATS_inquiry_draft": "orats_inquiry_draft.md",
-  "vendor_contact_authorization": "pending_user_reply",
+  "vendor_contact_authorization": "user_declined_20261023",
   "GET_attempts": 2,
   "raw_NAS_archive_sha256": "ba88ddde28a5878107c6ef48d9a76f0149270b369ed80ba09e9ce4466424cf8f",
   "NAS_remote_and_scoped_restore_verified": true,
@@ -24,5 +24,7 @@
     "policy": "slim_card_recorder_first",
     "workflow_config": "workflow.yaml",
     "recorder_only_artifacts": []
-  }
+  },
+  "allocation_clock_correction": "allocation_clock_correction_20261023.json",
+  "frozen_f696_decision_at": "next US trade session 09:29 America/New_York"
 }

@@ -1,0 +1,44 @@
+{
+  "experiment": "stage1_soxx_prior_session_tug_source_20261023",
+  "decision": "source_novelty_pass_needs_separate_cash_H5_information",
+  "objective_achieved": false,
+  "plan_sha256": "9fedcdd679ca2ad3c32db68aaed3200f44324281998ee5fe409061921ee5a707",
+  "result": "result.json",
+  "recorder_id": "00c574847f684b1f9ab46f9101c5d02f",
+  "experiment_id": "609339033309443547",
+  "NAS_evidence": {
+    "sha256": "fe4744fde31e8bfd5baca0a9b119659ceb0719c01f2269ec4a71ac21187b8910",
+    "size_bytes": 299459,
+    "media_type": "application/gzip",
+    "storage_uri": "sha256/fe/47/fe4744fde31e8bfd5baca0a9b119659ceb0719c01f2269ec4a71ac21187b8910",
+    "uploaded_by": "soxl-minute-research",
+    "created_at": "2026-10-23 23:07:13.317878+08",
+    "duplicate": false,
+    "nas_path": "/volume1/docker/yanxuan/registry/research-artifacts/fe/47/fe4744fde31e8bfd5baca0a9b119659ceb0719c01f2269ec4a71ac21187b8910",
+    "recorder_id": "00c574847f684b1f9ab46f9101c5d02f",
+    "experiment_id": "609339033309443547",
+    "archive_root": "qlib_recorder"
+  },
+  "NAS_readback": {
+    "verified": true,
+    "sha256": "fe4744fde31e8bfd5baca0a9b119659ceb0719c01f2269ec4a71ac21187b8910"
+  },
+  "new_model_fits": 0,
+  "new_native_accounts": 0,
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "inputs/*",
+      "analysis/feature",
+      "analysis/overnight",
+      "analysis/intraday",
+      "analysis/total"
+    ]
+  },
+  "limitations": [
+    "Source is a completed prior-session price decomposition, not an independently profitable factor.",
+    "Adjusted Qlib daily prices remain tied to the pinned provider snapshot.",
+    "No future label, full Tiered account or independent forward evidence."
+  ]
+}

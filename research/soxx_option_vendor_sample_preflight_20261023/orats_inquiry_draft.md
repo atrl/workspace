@@ -14,7 +14,7 @@ For each available date, I need original option root and adjusted-contract ident
 Could you also clarify:
 
 1. Whether the $199/month Delayed Data API plan includes `datav2/hist/strikes` for SOXX back to 2011, the applicable historical request limit, and any SOXX-specific exclusions.
-2. The first delivery time and revision policy for each historical near-EOD file or API record. The frozen Stage1 research decision is 09:46 New York time, so the prior session's data must have been available before then.
+2. The first delivery time and revision policy for each historical near-EOD file or API record. The frozen f696 Stage1 allocation decision is 09:29 New York time on the following trading day, so the prior session's exact version must have been available before 09:29. Please identify late or revised files separately; a trade-date stamp alone is insufficient.
 3. How SOXX splits, symbol/root changes, and adjusted option contracts are represented across 2011–2026.
 4. Whether the license permits an internal, access-controlled NAS backup of the exact data received for reproducible research, with no redistribution.
 5. Whether a free SOXX-specific sample is available before subscribing, and the complete price and cancellation terms for one month of historical API access. Please distinguish the $199/month historical Data API from the $599 one-time near-EOD archive and the $99/month forward-only FTP feed.
