@@ -1,5 +1,7 @@
 # 原 Stage1 尾部概率条件组成：0bp 完整账户
 
+**父本身份纠正（2026-10-23）：** 本卡关联的组成/风险账户使用原始现金账本中的 **27baa** 配置提议，而不是冻结 f696 A_0 的 `frozen_current` 五输出；944/944日不一致。原账户数值、费用和失败门原样保留，但不得再称为原 f696 Stage1 的增量优化。见 [原生父本审计](../stage1_f696_parent_identity_audit_20261023/conclusion.md) 及 `parent_identity_scope_correction.json`。
+
 固定 Stage1 f696+b472 分配、动作、风险、恢复链；只在实际 EXECUTE 目标上以已知尾部概率执行无阈值组成变换。0 新拟合、1 本独立0bp原生Qlib账户，仍扣 IBKR Tiered 费用。SOXX 相对财富 0.517768，可用点最大回撤 31.0986%，126 日正超额窗口 25.52%，配对区块下界 -0.001846112。两个完整年度中 0/2 跑赢。
 
 决定 `not_promoted_fixed_Stage1_tail_probability_composition_0bp`。全部 944 日、16 季度及 819 个连续 126 日窗口保存在 Recorder，现金/股数/应收分红与 Tiered 费用经原生读回；采样风险点不等于全分钟认证，复用历史不等于独立前向。固定版本失败即关闭，不改尾部概率符号、阈值或组成公式。即使历史 0bp 通过，仍需独立复核、2/5bp 与合格前向证据。Recorder `ceecebbd02484ced984aafceb916bb63`，NAS SHA-256 `17ccdcb61824286195ffacb5896aa2d96372ddd14703ed9f2c6f4baf7120188d`。

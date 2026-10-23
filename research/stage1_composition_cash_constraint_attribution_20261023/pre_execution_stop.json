@@ -1,0 +1,8 @@
+{
+  "status": "stopped_before_execution_wrong_parent_identity",
+  "plan_sha256": "18c2d30a65b6ab583951c5ad5d105dcce370a5029b7d35c752e210e78804266e",
+  "audit_result_sha256": "87be4ba26efd62e5a43cc4bd0240b85d3c85db8e97b2b675dc6173cf0c04f195",
+  "reason": "Frozen plan would classify constraints for 27baa-proposal composition while describing f696-derived Stage1. No source Recorder reads, fit or account occurred for this plan; do not execute it or repair it by window/threshold tuning. A corrected f696-parent experiment needs a new plan and explicit frozen_current parity.",
+  "new_fits": 0,
+  "new_accounts": 0
+}

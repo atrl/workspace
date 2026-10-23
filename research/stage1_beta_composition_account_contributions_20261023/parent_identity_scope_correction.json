@@ -1,0 +1,12 @@
+{
+  "status": "scope_corrected_parent_identity_not_f696",
+  "card": "research/stage1_beta_composition_account_contributions_20261023",
+  "audit": "research/stage1_f696_parent_identity_audit_20261023/result.json",
+  "audit_result_sha256": "87be4ba26efd62e5a43cc4bd0240b85d3c85db8e97b2b675dc6173cf0c04f195",
+  "original_summary_sha256": "97df2fcd2820067fa7a3b95b0b373806581754e0bfded2bf6195f90d3f6e1612",
+  "impact": "physical component arithmetic remains valid for 27baa-proposal composition path, but cannot be attributed to f696 allocation",
+  "numeric_account_and_recorder_artifacts_preserved": true,
+  "f696_Stage1_incremental_claim_valid": false,
+  "new_fits": 0,
+  "new_accounts": 0
+}

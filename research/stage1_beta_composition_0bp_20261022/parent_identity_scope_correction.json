@@ -1,0 +1,12 @@
+{
+  "status": "scope_corrected_parent_identity_not_f696",
+  "card": "research/stage1_beta_composition_0bp_20261022",
+  "audit": "research/stage1_f696_parent_identity_audit_20261023/result.json",
+  "audit_result_sha256": "87be4ba26efd62e5a43cc4bd0240b85d3c85db8e97b2b675dc6173cf0c04f195",
+  "original_summary_sha256": "262f9a5bfe855ae94310d802505e2dcdc71de441c6b6e1bf025a7f3b4b36dc35",
+  "impact": "direct 0bp composition path used raw 27baa allocation proposals; not a fixed f696 A_0 transform",
+  "numeric_account_and_recorder_artifacts_preserved": true,
+  "f696_Stage1_incremental_claim_valid": false,
+  "new_fits": 0,
+  "new_accounts": 0
+}

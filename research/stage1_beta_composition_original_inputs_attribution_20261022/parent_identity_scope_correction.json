@@ -1,0 +1,12 @@
+{
+  "status": "scope_corrected_parent_identity_not_f696",
+  "card": "research/stage1_beta_composition_original_inputs_attribution_20261022",
+  "audit": "research/stage1_f696_parent_identity_audit_20261023/result.json",
+  "audit_result_sha256": "87be4ba26efd62e5a43cc4bd0240b85d3c85db8e97b2b675dc6173cf0c04f195",
+  "original_summary_sha256": "f4b9b30b9125aef395544a79b777f93cd495512f9e9c676e1b19ff114df1c70b",
+  "impact": "f696 original39 inputs were paired to a 27baa-proposal account; input-to-account interpretation is invalid",
+  "numeric_account_and_recorder_artifacts_preserved": true,
+  "f696_Stage1_incremental_claim_valid": false,
+  "new_fits": 0,
+  "new_accounts": 0
+}

@@ -1,0 +1,12 @@
+{
+  "status": "scope_corrected_parent_identity_not_f696",
+  "card": "research/stage1_composition_strong_window_overlap_20261023",
+  "audit": "research/stage1_f696_parent_identity_audit_20261023/result.json",
+  "audit_result_sha256": "87be4ba26efd62e5a43cc4bd0240b85d3c85db8e97b2b675dc6173cf0c04f195",
+  "original_summary_sha256": "97fe8c1f31975eb775a3cce26f37d4f0666476e99d4cf87fd968eec7c027d1f4",
+  "impact": "window overlap counts remain numeric for 27baa-proposal composition versus strong reference, not f696-derived composition",
+  "numeric_account_and_recorder_artifacts_preserved": true,
+  "f696_Stage1_incremental_claim_valid": false,
+  "new_fits": 0,
+  "new_accounts": 0
+}
