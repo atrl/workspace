@@ -1,0 +1,39 @@
+{
+  "status": "two_2023_public_numeric_witnesses_source_only",
+  "plan_sha256": "d6feeef4b2c2e919e80e9f18bbc2b99bb8dcda6b7514f2afe431a37363493baa",
+  "cases": [
+    {
+      "month": "2023-07",
+      "official_reported_YoY_pct": -35.4,
+      "official_HWP_sha256": "20d8263e57c746080461d051d716a7f96bdd8bc7cf9ab5c5a63a7884813d6ac1",
+      "witness_url": "https://mobile.newsis.com/view/NISX20230721_0002385237",
+      "witness_body_sha256": "7495af7eb79df2a734b4c0df55ad0cbaa08a0ee037f15c257099fd5fc1fbab72",
+      "witness_HTTP_status": 200,
+      "first_US_Qlib_session_strictly_after_article_date": "2023-07-24",
+      "publisher_initial_display_time": "2023/07/21 09:12:43",
+      "publisher_last_edit_display_time": "2023/07/21 09:22:05",
+      "matched_percent": -35.4,
+      "status": "dated_current_publisher_page_supports_then_public_numeric_value"
+    },
+    {
+      "month": "2023-08",
+      "official_reported_YoY_pct": -24.7,
+      "official_HWP_sha256": "12e78981581455b4664b99ce9aa83d155db655d49c251e1413d435ea4a47e8ee",
+      "witness_url": "https://member.newspim.com/news/view/20230821000145",
+      "witness_body_sha256": "af1834b2d0b399aafb7c5257add1bf5514a7f653a9d60f959c856c5f4f519539",
+      "witness_HTTP_status": 200,
+      "first_US_Qlib_session_strictly_after_article_date": "2023-08-22",
+      "publisher_initial_display_time": "2023년08월21일 09:35",
+      "publisher_last_edit_display_time": "2023년08월21일 10:09",
+      "matched_percent": -24.7,
+      "status": "dated_current_publisher_page_supports_then_public_numeric_value"
+    }
+  ],
+  "GETs_started": 2,
+  "qualified_current_value_witnesses": 2,
+  "official_first_public_bytes_qualified": false,
+  "all_105_months_qualified": false,
+  "SOXX_outcome_reads": 0,
+  "model_fits": 0,
+  "native_accounts": 0
+}

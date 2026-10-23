@@ -1,0 +1,37 @@
+{
+  "experiment": "kcs_early20_2023_jul_aug_public_value_witness_20261023",
+  "frozen": true,
+  "phase": "two_month_historical_public_numeric_witness_source_only",
+  "parent": "frozen_complete_Stage1_f696_plus_b472_0bp_IBKR_Tiered",
+  "question": "Do two independently published, dated 2023 news reports carry the same semiconductor export YoY values as the current official Korean Customs Jul/Aug first-20-day originals before the first conservative US Qlib decision session after their Korean article dates?",
+  "prior_public_probe": "Before freeze, web reads showed Newsis Jul21 article self-labels initial 09:12:43 and revised 09:22:05 KST, containing a 35.4 percent decline; Newspim Aug21 article self-labels initial 09:35 and revised 10:09 KST, containing a 24.7 percent decline. These current HTML pages are not independently archived historical bytes; the probe read no SOXX outcomes.",
+  "fixed_cases": [
+    {
+      "month": "2023-07",
+      "official_newsId": "156581711",
+      "official_HWP_sha256": "20d8263e57c746080461d051d716a7f96bdd8bc7cf9ab5c5a63a7884813d6ac1",
+      "expected_reported_export_YoY_pct": -35.4,
+      "witness_url": "https://mobile.newsis.com/view/NISX20230721_0002385237",
+      "witness_publication_date_KST": "2023-07-21"
+    },
+    {
+      "month": "2023-08",
+      "official_newsId": "156586081",
+      "official_HWP_sha256": "12e78981581455b4664b99ce9aa83d155db655d49c251e1413d435ea4a47e8ee",
+      "expected_reported_export_YoY_pct": -24.7,
+      "witness_url": "https://member.newspim.com/news/view/20230821000145",
+      "witness_publication_date_KST": "2023-08-21"
+    }
+  ],
+  "source_numeric_summary_sha256": "df62efefccc9ae7e34c9978dd35afc99dc188e95eea6fead4ab49a3a7c3c0d0b",
+  "method": "GET each exact news URL once with fixed user agent, max 500000 bytes and 20-second timeout. Save original response bytes, safe headers, UTC receipt and SHA. Parse only self-declared initial/revised article time and text within the historical article body; require a unique semiconductor decline value equal to the frozen official original. Use native Qlib D.calendar once to find first US trade session strictly after each Korean article calendar date. Preserve NAS exact source archive and one source-only Qlib Recorder. Do not search alternate URLs or retry.",
+  "budget": {
+    "external_GETs_max": 2,
+    "Qlib_D_calendar_calls_max": 1,
+    "new_Qlib_Recorders_max": 1,
+    "SOXX_outcome_reads": 0,
+    "model_fits": 0,
+    "native_accounts": 0
+  },
+  "stop": "A missing body, unparseable timestamp, ambiguous semiconductor percent, source hash mismatch or post-decision timestamp leaves the case unknown. These witnesses support numerical publicity only for two 2023 months, not first-public official attachment bytes, all 105 months, factor information or SOXX strategy success."
+}
