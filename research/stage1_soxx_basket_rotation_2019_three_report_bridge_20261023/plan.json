@@ -1,0 +1,42 @@
+{
+  "schema_version": 1,
+  "frozen": true,
+  "experiment": "stage1_soxx_basket_rotation_2019_three_report_bridge_20261023",
+  "phase": "source_only_2019Mar_Jun_Sep_original_SOXX_three_report_identity_bridge",
+  "question": "Does the newly qualified public2019Jun Part F basket connect the last legacy Mar2019 and first public NPORT Sep2019 SOXX baskets without reporting-period backfill or alias invention?",
+  "sources": {
+    "legacy_Mar2019": "research/stage1_soxx_2019_transition_concentration_20261023/repair_result.json",
+    "legacy_sha256": "e263c8d7fc3c2a9331a204dbceac553a5fba2f654fc599fffeb09b13f9d10262",
+    "public_Jun2019": "research/stage1_soxx_2019_june_original_part_f_source_20261023/result.json",
+    "public_Jun_sha256": "cb3941fa4bcfed87cd5227fba8965aec6b996b7b718aaf60cb9a0296552c5e8e",
+    "public_Jun_NAS_sha256": "0531795250d4def59d7263f861ca083725642b0b057b41cdb40f3cc1e696af72",
+    "modern_card": "research/stage1_soxx_2019_2022_nport_equity_concentration_20261023",
+    "modern_summary_sha256": "533a680456b0e7b33b36f27a75498a6aed6a5e1b3cf2ded79821e978830819e0",
+    "modern_member_rows_sha256": "ab8e0aac17715b82eaa6ccda5c167380ec127981b91910644b48dd69c0b98b2b"
+  },
+  "periods": [
+    "2019-03-31",
+    "2019-06-30",
+    "2019-09-30"
+  ],
+  "method": [
+    "Apply frozen terminal-footnote and punctuation-only normalization, preserving Class A/B.",
+    "Compare original March and June 30-row equity names; compare original June names with September NPORT names/CUSIPs. Report exact overlaps, unmatched names, placeholder CUSIPs and source accepted/effective dates.",
+    "No fuzzy aliases or price/weight turnover calculation. The candidate factor remains unqualified until all unresolved names/identifiers across full2011-2026 history are audited."
+  ],
+  "budget": {
+    "legacy_result_loads": 1,
+    "June_result_loads": 1,
+    "modern_Recorder_object_loads": 1,
+    "external_HTTP_GETs": 0,
+    "market_outcome_reads": 0,
+    "model_fits": 0,
+    "native_accounts": 0
+  },
+  "stop": "Stop on source hash/period/row count/collision mismatch. A three-report identity bridge is source evidence only, never sufficient to fit or run 0bp account.",
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": []
+  }
+}

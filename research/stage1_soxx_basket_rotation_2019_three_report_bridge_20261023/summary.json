@@ -1,0 +1,22 @@
+{
+  "experiment": "stage1_soxx_basket_rotation_2019_three_report_bridge_20261023",
+  "decision": "2019_three_public_SOXX_baskets_source_identity_bridge_partial",
+  "objective_achieved": false,
+  "plan_sha256": "ca0daa77e3451f6b36e6ec37602eb18e05ce1232b631fa001ec357c8f2e5d3d3",
+  "result": "result.json",
+  "source_Recorder_id": "7f2b90c01f3c4820a6173a113018adf3",
+  "source_NAS_sha256": "720ed1ed5437451dd39a2b3ce324c4f503062177339bde861561a8050feb2393",
+  "market_outcome_reads": 0,
+  "model_fits": 0,
+  "native_accounts": 0,
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": []
+  },
+  "limitations": [
+    "Exact names and CUSIPs support only a partial legal-identity bridge; unmatched and placeholder rows remain unknown.",
+    "A reported basket change is not fund executed turnover or a predictive SOXX factor.",
+    "No Stage1 0bp account or independent forward evidence."
+  ]
+}
