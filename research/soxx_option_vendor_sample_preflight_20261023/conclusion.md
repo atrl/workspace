@@ -11,3 +11,5 @@ Option Quotes 样本含五个内层 CSV 变体；带 Calcs 的表头有报价时
 已准备 [ORATS 询样草稿](orats_inquiry_draft.md)，六个抽样日期均在冻结 Stage1 Qlib 交易日历内。发送给供应商需要用户明确授权；截至本卡更新，询样仍未发送。
 
 **2026-10-23 来源更正：** [Cboe 官方 FAQ](https://datashop.cboe.com/faqs)把 Option Quotes 和 Option EOD Summary 的总体起点列为2010年1月，但两个现售[Option Quotes](https://datashop.cboe.com/option-quote-intervals)、[EOD Summary](https://datashop.cboe.com/option-eod-summary)产品页写2012年1月。不能据产品页断言Cboe无2011数据，也不能据FAQ断言2011 SOXX及IV/Delta可交付；具体冲突与询样问题见 `cboe_start_conflict_addendum.json`。旧卡对“2011缺口未证明可填”的决定不变。
+
+**现售界面核查：** Option Quotes 与 Option EOD Summary 的历史日期选择器均只列2012–2026年，购物车为0、未提交表单。这与两个产品页一致，但不能排除FAQ所称2010起的旧版/人工交付渠道。2011 SOXX 加Calcs的实际可交付性仍须供应商确认；见 `cboe_checkout_ui_preflight.json`。

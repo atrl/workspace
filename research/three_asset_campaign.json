@@ -178,7 +178,9 @@
     "SOXX_ORATS_public_2024_strike_chain_interpretation": "One free official ORATS 2024-01-03 ZIP has1124 actual SOXX strike rows,1050 valid call and957 valid put bid/ask/IV/Delta rows, and valid 25delta strike brackets at16/44 calendar-day expiries around30. Raw66.8MB ZIP NAS remote/scoped restored. The CSV has trade date but no historical quote/delivery timestamp. This proves one-day SOXX schema only, not 2011-2022 coverage/PIT or predictive value. No model/account/purchase; updated no-purchase inquiry awaits explicit send authorization.",
     "SOXX_ORATS_public_25delta_30d_formula": "research/stage1_orats_soxx_25delta_constructibility_20261023/summary.json",
     "SOXX_ORATS_public_25delta_30d_formula_interpretation": "From one authentic NAS-backed ORATS SOXX 2024-01-03 chain, valid +0.25 call and -0.25 put delta brackets at16/44 calendar-day expiries yield deterministic linearly interpolated30d mid-IV skew +0.028287 decimal (2.829 vol percentage points). Zero market outcome reads/fits/accounts. This is one-day source/feature constructibility only; 2011-2022 SOXX chain, historical first delivery and revisions still unqualified. No data purchase or vendor email without explicit authorization.",
-    "SOXX_Cboe_2011_start_conflict": "research/soxx_option_vendor_sample_preflight_20261023/cboe_start_conflict_addendum.json"
+    "SOXX_Cboe_2011_start_conflict": "research/soxx_option_vendor_sample_preflight_20261023/cboe_start_conflict_addendum.json",
+    "SOXX_Cboe_current_checkout_date_gate": "research/soxx_option_vendor_sample_preflight_20261023/cboe_checkout_ui_preflight.json",
+    "SOXX_Cboe_2011_start_interpretation": "Both current self-service Option Quotes and Option EOD Summary historical date pickers expose only2012-2026 and cart stayed zero, consistent with current product pages; generic official FAQ says Jan2010. This does not certify or disprove a legacy/manual2011 SOXX plus Calcs feed. No source purchase/contact/outcome/fit/account."
   },
   "contract": {
     "path": "docs/three_asset_research_contract.md",

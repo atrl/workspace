@@ -564,5 +564,6 @@
   "latest_source_gate_SOXX_ORATS_public_specific_sample": "research/stage1_orats_public_soxx_sample_20261023/summary.json",
   "latest_option_vendor_source_path_decision": "research/soxx_option_vendor_sample_preflight_20261023/source_path_decision_20261023.json",
   "latest_source_formula_SOXX_ORATS_public_25delta_30d": "research/stage1_orats_soxx_25delta_constructibility_20261023/summary.json",
-  "latest_source_limit_SOXX_Cboe_2011_start_conflict": "research/soxx_option_vendor_sample_preflight_20261023/cboe_start_conflict_addendum.json"
+  "latest_source_limit_SOXX_Cboe_2011_start_conflict": "research/soxx_option_vendor_sample_preflight_20261023/cboe_start_conflict_addendum.json",
+  "latest_source_limit_SOXX_Cboe_current_checkout_2012": "research/soxx_option_vendor_sample_preflight_20261023/cboe_checkout_ui_preflight.json"
 }

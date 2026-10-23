@@ -1,0 +1,62 @@
+{
+  "schema_version": 1,
+  "status": "current_DataShop_checkout_date_picker_min_2012_for_both_products",
+  "observed_at_utc": "2026-10-23T01:27:01.044685+00:00",
+  "browser_surface": "Cboe DataShop Chrome UI read-only accessibility state",
+  "products": [
+    {
+      "name": "Option Quotes",
+      "url": "https://datashop.cboe.com/option-quote-intervals",
+      "historical_selected": true,
+      "date_picker_year_options": [
+        2012,
+        2013,
+        2014,
+        2015,
+        2016,
+        2017,
+        2018,
+        2019,
+        2020,
+        2021,
+        2022,
+        2023,
+        2024,
+        2025,
+        2026
+      ],
+      "2011_selectable": false
+    },
+    {
+      "name": "Option EOD Summary",
+      "url": "https://datashop.cboe.com/option-eod-summary",
+      "historical_selected": true,
+      "date_picker_year_options": [
+        2012,
+        2013,
+        2014,
+        2015,
+        2016,
+        2017,
+        2018,
+        2019,
+        2020,
+        2021,
+        2022,
+        2023,
+        2024,
+        2025,
+        2026
+      ],
+      "2011_selectable": false
+    }
+  ],
+  "shopping_cart_count": 0,
+  "submitted_form": false,
+  "created_order": false,
+  "contacted_vendor": false,
+  "interpretation": "Current self-service checkout excludes 2011 for both products, consistent with product pages. Generic FAQ says Jan2010, so a manual/legacy SOXX 2011 source remains unresolved rather than disproved. No SOXX data or IV/Delta was acquired.",
+  "market_outcome_reads": 0,
+  "model_fits": 0,
+  "native_accounts": 0
+}

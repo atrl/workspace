@@ -20,23 +20,25 @@
     },
     {
       "source": "Cboe Option Quote Intervals with Calcs",
-      "status": "official_product_page_2012_vs_FAQ_2010_conflict_SOXX_2011_unresolved",
+      "status": "self_service_picker_starts_2012_FAQ_says_2010_legacy_2011_SOXX_unverified",
       "evidence": "research/soxx_option_vendor_sample_preflight_20261023/summary.json",
       "official_reference": "https://datashop.cboe.com/option-quote-intervals",
       "2011_training_path": null,
       "official_FAQ_reference": "https://datashop.cboe.com/faqs",
       "start_conflict_addendum": "research/soxx_option_vendor_sample_preflight_20261023/cboe_start_conflict_addendum.json",
-      "unsent_inquiry_draft": "research/soxx_option_vendor_sample_preflight_20261023/cboe_inquiry_draft.md"
+      "unsent_inquiry_draft": "research/soxx_option_vendor_sample_preflight_20261023/cboe_inquiry_draft.md",
+      "current_checkout_UI_preflight": "research/soxx_option_vendor_sample_preflight_20261023/cboe_checkout_ui_preflight.json"
     },
     {
       "source": "Cboe Option EOD Summary with Calcs",
-      "status": "official_product_page_2012_vs_FAQ_2010_conflict_SOXX_2011_unresolved",
+      "status": "self_service_picker_starts_2012_FAQ_says_2010_legacy_2011_SOXX_unverified",
       "official_reference": "https://datashop.cboe.com/option-eod-summary",
       "official_FAQ_reference": "https://datashop.cboe.com/faqs",
       "start_conflict_addendum": "research/soxx_option_vendor_sample_preflight_20261023/cboe_start_conflict_addendum.json",
       "2011_training_path": null,
       "SOXX_2011_IV_Delta_qualified": false,
-      "unsent_inquiry_draft": "research/soxx_option_vendor_sample_preflight_20261023/cboe_inquiry_draft.md"
+      "unsent_inquiry_draft": "research/soxx_option_vendor_sample_preflight_20261023/cboe_inquiry_draft.md",
+      "current_checkout_UI_preflight": "research/soxx_option_vendor_sample_preflight_20261023/cboe_checkout_ui_preflight.json"
     },
     {
       "source": "Nasdaq Data Link ORATS OSMV",

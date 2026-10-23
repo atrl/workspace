@@ -22,7 +22,7 @@
     "Option_EOD_Summary_start": "January 2010",
     "delivery": "Typical next-day SFTP upload 00:05-03:00 Eastern, with possible delays past market open per FAQ"
   },
-  "interpretation": "The generic FAQ and current product pages conflict. Neither page proves that an entitled SOXX-specific 2011 quote and Greeks file can be delivered, or explains whether pre-2012 legacy files use the same schema/calcs. Do not label this vendor excluded or source qualified.",
+  "interpretation": "Both current self-service product date pickers start at 2012, matching current product pages. The generic FAQ states Jan2010 for both names, so a legacy/manual 2011 SOXX source remains unverified. Do not claim no 2011 history anywhere or qualified 2011 IV/Delta.",
   "needed_vendor_response": [
     "Whether SOXX 2011-01-04 and stress 2011 sessions are in Option Quotes or EOD Summary and which product/legacy route supplies them.",
     "Whether 2011 bid/ask, expiration, strike, root and optional IV/Delta are available with original quote and delivery times.",
@@ -33,5 +33,7 @@
   "SOXX_market_outcome_reads": 0,
   "model_fits": 0,
   "native_accounts": 0,
-  "unsent_inquiry_draft": "research/soxx_option_vendor_sample_preflight_20261023/cboe_inquiry_draft.md"
+  "unsent_inquiry_draft": "research/soxx_option_vendor_sample_preflight_20261023/cboe_inquiry_draft.md",
+  "current_checkout_UI_preflight": "research/soxx_option_vendor_sample_preflight_20261023/cboe_checkout_ui_preflight.json",
+  "current_self_service_2011_selectable": false
 }
