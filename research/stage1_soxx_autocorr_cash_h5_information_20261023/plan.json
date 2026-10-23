@@ -1,0 +1,54 @@
+{
+  "experiment": "stage1_soxx_autocorr_cash_h5_information_20261023",
+  "frozen": true,
+  "phase": "necessary_cash_information_before_account",
+  "parent": "complete frozen Stage1 f696 allocator plus b472 action/risk/recovery chain; 0bp IBKR Tiered own-state A_0 is attribution baseline; SOXX is final hard gate",
+  "motivation": "Original Stage1 2025 complete year cash opportunity -0.1580060123 log versus 2024Q3 cash protection +0.0644435377. The 2023-08-01..2024-01-31 worst126 also had -0.1272377893 cash and -0.1213808682 SOXL selection; all intervals remain in evaluation. Reused 2024Q3 and 2025 descriptive signal means motivated the fixed hypothesis, not an independent holdout.",
+  "hypothesis": "Higher recent SOXX daily-return serial persistence predicts lower next-five-session cash-minus-SOXX open-return log advantage after the frozen 39 daily Stage1 inputs. Added standardized coefficient must be negative.",
+  "feature": "At signal-session close t, Pearson correlation of the most recent ten completed SOXX close-to-close Qlib returns with their one-session lag, using pandas rolling(10,min_periods=10).corr(return.shift(1)); available only at next-session Stage1 09:29 ET. One window/sign/receiver; no threshold, clipping or interaction.",
+  "source": {
+    "provider_uri": "data/qlib/minute_information_pit_allocator_20261012/daily_prices",
+    "provider_manifest_sha256": "d80a08d479b73098053006909b5e6227b03a56ab705681742d7261088e0a7e6c",
+    "parent_card": "research/minute_information_pit_allocator_20261012",
+    "parent_summary_sha256": "61c91f958323cf51b43f4b1554eeca5687011d30771e80bc7ff02d16b6d577ca",
+    "parent_verification_manifest_sha256": "ac90270cf66164e5fb9bca62b50ab86eeab7733bd0146799c45d97937f94e82a",
+    "parent_recorder_id": "68e31a0a0fad44e7ba1d1f7d856c7a0d",
+    "parent_NAS_archive_sha256": "ee328cab292f178bf3582ef574fb411561c93b82545cd3bb90842ecd9a9a24f1",
+    "original_account_recorder_id": "6e227278b7a64eafbcf34b965e16d2b9",
+    "bootstrap_module_sha256": "02705f897e668b710a38aae514df08b86e26c8cd8951405339960355a08a5ac4"
+  },
+  "cohorts": {
+    "train_signal": ["2011-01-03", "2022-12-30"],
+    "train_label_available_before": "2023-01-01T00:00:00-05:00",
+    "reused_held_signal": ["2023-01-03", "2026-10-07"],
+    "reused_held_label_available_before": "2026-10-10T00:00:00-04:00",
+    "expected_train_mature": 3014,
+    "expected_held_mature": 940
+  },
+  "receiver": {
+    "label": "negative of five next-session SOXX open-to-open log returns from saved native Stage1 daily_frame, with saved timing maturity mask",
+    "baseline": "original Stage1 39 daily features, SimpleImputer median, StandardScaler, Ridge alpha=1",
+    "candidate": "same baseline plus one soxx_return_autocorr10 coordinate, same rows and pipeline",
+    "null": "training mean of matched mature cash-minus-SOXX label",
+    "fit_count_max": 2
+  },
+  "gate": {
+    "coefficient": "negative standardized candidate coordinate",
+    "all_held": "paired candidate-minus-baseline MSE improvement >0 and candidate-minus-train-mean improvement >0",
+    "stability": "candidate-minus-baseline paired MSE improvement >0 in both fixed chronological halves and each complete 2024 and 2025 calendar year",
+    "uncertainty": "full 944-session held calendar stationary-block bootstrap mean block 63, 2000 resamples, seed 20261023, one-sided alpha 0.025; paired candidate-minus-baseline lower bound >0",
+    "decision": "all gates required before any own-state 0bp account; failed fixed version closes without sign/window/cohort tuning"
+  },
+  "budget": {
+    "market_requests": 0,
+    "parent_Recorder_object_loads_max": 3,
+    "Qlib_D_feature_calls_max": 1,
+    "Qlib_D_calendar_calls_max": 1,
+    "DatasetH_builds_max": 1,
+    "model_fits_max": 2,
+    "bootstrap_attempts_max": 1,
+    "new_Recorders_max": 1,
+    "native_accounts": 0
+  },
+  "limitations": "Price H5 information labels are not a funded fee-adjusted account. Reused 2023-2026 history is development feedback and cannot qualify independent forward evidence. Previously failed signed trend-persistence interaction is not part of this version."
+}
