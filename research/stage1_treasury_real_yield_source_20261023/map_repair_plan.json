@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "frozen": true,
+  "phase": "one_mechanical_Qlib_calendar_prefix_repair_no_refetch",
+  "parent_plan_sha256": "699e500d1912ac9b4aed23a79eeb20e171e94c603b0092cd67296adb175fd906",
+  "parent_recorder_id": "4d4fefd49efa4a67a3da0db8d8d378b6",
+  "source_NAS_id": "e4c4b5a864d30dc8c1509aa533f95aece0ed1f327a969ad072c94d68bf3603a3",
+  "bug": "The first map constructs D.calendar starting at 2018-10-15, then requires two prior Qlib sessions inside that truncated calendar. The official source contains earlier dates, so the first two Stage1 train sessions were falsely marked unknown.",
+  "repair": "Construct native Qlib D.calendar from 2018-10-01 through 2026-10-07, find the latest Treasury source date no later than the second preceding Qlib session, then select exact Stage1 train 2018-10-15..2022-12-30 and held 2023-01-03..2026-10-07. Keep source values, two-session lag, URLs, raw bytes and first-public uncertainty unchanged.",
+  "checks": "Require exact prior source body SHA-256 and verified NAS binding, 1061 train and 944 held Stage1 calendar sessions, zero duplicate source dates, no model/account/market outcome reads. Save corrected Qlib source map in one new Recorder and archive/read back its exact bytes. Preserve original Recorder and result as superseded mapping evidence.",
+  "budget": {"new_external_GETs": 0, "new_model_fits": 0, "new_native_accounts": 0, "new_Qlib_recorders_max": 1, "new_NAS_recorder_archives_max": 1, "SOXX_outcome_reads": 0},
+  "stop": "Any source/NAS/hash/calendar/readback mismatch stops the repair; do not broaden the feature or fit a model."
+}

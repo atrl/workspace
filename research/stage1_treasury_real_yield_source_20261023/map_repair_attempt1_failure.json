@@ -1,0 +1,17 @@
+{
+  "schema_version": 1,
+  "status": "stopped_before_recorder",
+  "plan": "map_repair_plan.json",
+  "failure": "The parent Qlib provider's D.calendar begins on 2018-10-12 even when requested from 2018-10-01. The 2018-10-15 Stage1 session therefore has only one earlier session in that provider; the first repair plan's 1061/1061 two-session-availability assertion is impossible under the frozen provider.",
+  "measured_parent_calendar_start": "2018-10-12",
+  "earliest_train_session": "2018-10-15",
+  "conservative_2018_10_15_status": "unknown",
+  "expected_repairable_training_days": 1060,
+  "training_days": 1061,
+  "held_days": 944,
+  "new_external_GETs": 0,
+  "new_Qlib_recorders": 0,
+  "new_model_fits": 0,
+  "new_native_accounts": 0,
+  "SOXX_outcome_reads": 0
+}

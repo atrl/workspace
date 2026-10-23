@@ -1,0 +1,37 @@
+{
+  "experiment": "stage1_treasury_real_yield_source_20261023",
+  "decision": "corrected_Stage1_10y_real_yield_source_map_one_prefix_unknown_PIT_unqualified",
+  "objective_achieved": false,
+  "plan_sha256": "699e500d1912ac9b4aed23a79eeb20e171e94c603b0092cd67296adb175fd906",
+  "source_result": "result.json",
+  "corrected_source_map": "map_repair_v2_result.json",
+  "failed_prefix_repair": "map_repair_attempt1_failure.json",
+  "source_rows": 5956,
+  "training_sessions": 1061,
+  "training_known": 1060,
+  "held_sessions": 944,
+  "held_known": 944,
+  "historical_first_public_and_revision_qualified": false,
+  "source_snapshot_id": "e4c4b5a864d30dc8c1509aa533f95aece0ed1f327a969ad072c94d68bf3603a3",
+  "source_snapshot_verified": true,
+  "source_snapshot_objects": 10,
+  "recorder_id": "3139aaaaad954c37a938b9f23677e41a",
+  "experiment_id": "813340755898088674",
+  "recorder_uri": "/Users/rziiiii/dev/workspace/research/stage1_treasury_real_yield_source_20261023/qlib_recorder",
+  "recorder_NAS_sha256": "cb3fbbd6ee5f04273d6164efb0f8970a9a6687bfd8a64827740fe78e0bb0bf94",
+  "NAS_readback_verified": true,
+  "new_external_GETs": 4,
+  "SOXX_outcome_reads": 0,
+  "new_model_fits": 0,
+  "new_native_accounts": 0,
+  "qualified_forward_days": 0,
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "inputs/repair_plan",
+      "analysis/source_map",
+      "analysis/coverage"
+    ]
+  }
+}

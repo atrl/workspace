@@ -1,0 +1,14 @@
+{
+  "schema_version": 2,
+  "frozen": true,
+  "phase": "one_boundary_corrected_Qlib_calendar_map_no_refetch",
+  "parent_plan_sha256": "699e500d1912ac9b4aed23a79eeb20e171e94c603b0092cd67296adb175fd906",
+  "parent_recorder_id": "4d4fefd49efa4a67a3da0db8d8d378b6",
+  "failed_repair": "map_repair_attempt1_failure.json",
+  "source_NAS_id": "e4c4b5a864d30dc8c1509aa533f95aece0ed1f327a969ad072c94d68bf3603a3",
+  "correction": "Use the frozen full_path_tiered_allocation_20261013 provider's actual D.calendar beginning 2018-10-12. The 2018-10-15 training date remains unknown under a two-Qlib-session lag; every later original Stage1 training date can use a value dated no later than the second preceding provider session. Select held sessions only through 2026-10-07 to match 944 Stage1 reuse dates. Do not import a second provider calendar or relax the lag to manufacture complete coverage.",
+  "required_counts": {"training_sessions": 1061, "training_known": 1060, "training_unknown_dates": ["2018-10-15"], "held_sessions": 944, "held_known": 944},
+  "preservation": "Retain source capture and first Recorder; publish a distinct repaired Qlib Recorder and NAS archive. No raw source edit or new GET.",
+  "budget": {"new_external_GETs": 0, "new_Qlib_recorders_max": 1, "new_NAS_recorder_archives_max": 1, "new_model_fits": 0, "new_native_accounts": 0, "SOXX_outcome_reads": 0},
+  "stop": "Stop on any raw SHA/NAS, date-count or scoped Recorder restore mismatch. Retrospective CSV values do not prove historical first-public or revision identity."
+}

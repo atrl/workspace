@@ -1,0 +1,26 @@
+{
+  "schema_version": 1,
+  "experiment": "stage1_treasury_real_yield_source_20261023",
+  "frozen": true,
+  "phase": "official_10y_real_yield_source_only",
+  "hypothesis": "Changes in the Treasury 10-year real discount rate may distinguish semiconductor cash-deployment opportunity from valuation stress beyond Stage1's price, VIX and breadth inputs. This is a source preflight, not a feature or strategy decision.",
+  "parent_boundary": "Any later economic candidate must start from complete frozen f696 Stage1 allocation and b472 action/risk/recovery chain, first screen at 0bp added slippage with IBKR Tiered fees and its own full funded account against SOXX.",
+  "novelty_boundary": "The original39 input list has no Treasury yield level or shock. A nominal Treasury curve-slope ALFRED preflight failed transport, while credit-spread, VIX, ETF breadth and price-momentum fixed versions are different closed mechanisms. No change to those fixed versions.",
+  "official_context": [
+    "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/daily-treasury-rate-archives",
+    "https://home.treasury.gov/policy-issues/financing-the-government/interest-rate-statistics/interest-rates-frequently-asked-questions"
+  ],
+  "exact_requests": [
+    {"name": "par-real-yield-curve-rates-2003-2023.csv", "url": "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/daily-treasury-rate-archives/par-real-yield-curve-rates-2003-2023.csv"},
+    {"name": "real-yield-2024.csv", "url": "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/daily-treasury-rates.csv/2024/all?_format=csv&field_tdr_date_value=2024&page=&type=daily_treasury_real_yield_curve"},
+    {"name": "real-yield-2025.csv", "url": "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/daily-treasury-rates.csv/2025/all?_format=csv&field_tdr_date_value=2025&page=&type=daily_treasury_real_yield_curve"},
+    {"name": "real-yield-2026.csv", "url": "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/daily-treasury-rates.csv/2026/all?_format=csv&field_tdr_date_value=2026&page=&type=daily_treasury_real_yield_curve"}
+  ],
+  "request_policy": {"method": "GET", "max_GETs": 4, "retries": 0, "timeout_seconds_each": 40, "max_response_bytes_each": 2000000, "user_agent": "soxl-qlib-source-research"},
+  "source_gate": "Each exact URL must return HTTP200, CSV with date and 10-year real yield, finite values, unique dates, correct year range and no conflicting overlap. Retain exact bodies, headers, request/receipt UTC times and SHA-256. Stop at first failure and archive received bytes; do not substitute another endpoint.",
+  "timing_gate": "The rates are derived from indicative closing bids. No same-date SOXX open use. A later candidate may inspect a value only after two Qlib sessions, and must separately prove historical first-public/revision identity; today's archived CSV alone is not PIT certification.",
+  "source_only_analysis": "After source identity and NAS readback, use native Qlib D.calendar to count source dates and a two-session delayed availability map over the original Stage1 training and reused held calendars. Do not read SOXX outcomes, fit a model, run a native account, select sign/threshold/lookback, or claim independent forward days.",
+  "NAS_backup": "Publish exact received CSV bytes, response-header receipts and source manifest as an immutable Yanxuan NAS snapshot; verify remote SHA-256, size and scoped restore before using the local CSV.",
+  "budget": {"external_GETs_max": 4, "SOXX_outcome_reads": 0, "new_model_fits": 0, "new_native_accounts": 0, "new_Qlib_recorders_max": 1, "NAS_snapshots_max": 1, "NAS_recorder_archives_max": 1},
+  "stop": "If transport, identity, coverage, Qlib alignment or NAS check fails, record concrete dependency and stop. Source coverage is not a predictive information gate; no economic 0bp account until source/vintage and separately frozen information gates pass."
+}

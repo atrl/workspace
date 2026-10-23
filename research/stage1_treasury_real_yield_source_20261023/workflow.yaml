@@ -1,0 +1,10 @@
+experiment: stage1_treasury_real_yield_source_20261023
+phase: official_source_only
+provider_uri: data/qlib/full_path_tiered_allocation_20261013
+calendar_api: qlib.data.D.calendar
+recorder_api: qlib.workflow.R
+source_plan: plan.json
+source_receipt: source_receipt.json
+source_map_repair: map_repair_plan_v2.json
+result: map_repair_v2_result.json
+economic_account: none
