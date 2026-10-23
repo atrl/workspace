@@ -1,0 +1,30 @@
+{
+  "experiment": "stage1_futu_delisted_price_probe_20261023",
+  "frozen": true,
+  "phase": "read_only_old_SOXX_member_security_price_transport_probe",
+  "parent": "Frozen complete f696 Stage1 allocation and b472 action/risk/recovery; SOXX final benchmark",
+  "mechanism_dependency": "Original SOXX disclosed-basket downside concentration could distinguish broad sector falls from loss concentrated in a few weights, but the existing Qlib inventories lack separate prices for old SNDK/ALTR/BRCM in 2011 and XLNX/MXIM among later N-PORT members. Do not renormalize or substitute acquirers.",
+  "source_refs": [
+    "research/stage1_disclosed_loss_concentration_preflight_20261023/conclusion.md",
+    "research/stage1_soxx_nport_member_price_preflight_20261023/conclusion.md",
+    "research/stage1_delisted_constituent_price_access_20261023/acceptance_brief.json"
+  ],
+  "request": {
+    "api": "futu.OpenQuoteContext.request_history_kline",
+    "host": "127.0.0.1",
+    "port": 11111,
+    "ktype": "KLType.K_DAY",
+    "autype": "AuType.NONE",
+    "max_count": 1000,
+    "page_req_key": null,
+    "fixed_probes": [
+      {"code": "US.SNDK", "start": "2011-06-01", "end": "2011-06-07", "role": "2011 disclosed SanDisk original equity"},
+      {"code": "US.XLNX", "start": "2020-06-01", "end": "2020-06-05", "role": "2019-2022 N-PORT Xilinx original equity"},
+      {"code": "US.MXIM", "start": "2020-06-01", "end": "2020-06-05", "role": "2019-2021 N-PORT Maxim original equity"}
+    ]
+  },
+  "capture": "Serialize each response DataFrame or error string with exact request/SDK/version/time/sha256; archive all received bytes and the receipt to Yanxuan NAS with remote hash and scoped restoration. Do not save credentials.",
+  "acceptance_boundary": "A positive ticker-date response is only transport evidence. Require original security identity/CUSIP, all required historical dates, splits/dividends, delisting/merger treatment, first availability, and full Qlib basket join before a feature, fit or account.",
+  "budget": {"Futu_requests_max": 3, "pagination_requests": 0, "future_SOXX_outcome_reads": 0, "model_fits": 0, "native_accounts": 0, "orders": 0, "purchases": 0},
+  "stop": "If OpenD unavailable or no listed symbol returns dated rows, mark this exact Futu delisted-symbol transport unavailable; do not retry aliases or buy data in this version. Positive rows do not authorize factor construction until the full acceptance boundary passes."
+}

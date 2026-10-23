@@ -1,0 +1,61 @@
+{
+  "experiment": "stage1_futu_delisted_price_probe_20261023",
+  "decision": "futu_exact_old_symbol_transport_unavailable_no_price_factor",
+  "plan_sha256": "4090a568e34ccaa9437c2e1c1683eb80783c4c145c239541f9884f52e8e1f5e2",
+  "request_receipt": "data/raw/external/stage1_futu_delisted_price_probe_20261023/request_receipt.json",
+  "fixed_requests": 3,
+  "positive_symbols": [],
+  "probes": [
+    {
+      "ordinal": 1,
+      "code": "US.SNDK",
+      "start": "2011-06-01",
+      "end": "2011-06-07",
+      "role": "2011 disclosed SanDisk original equity",
+      "ret_code": 0,
+      "rows": 0,
+      "first_date": null,
+      "last_date": null,
+      "continuation": false,
+      "response_file": "data/raw/external/stage1_futu_delisted_price_probe_20261023/SNDK_response.csv",
+      "response_sha256": "8360f969464168ee921267dee2cadd21bf4995f83e5730c3011f1560f781e2c9",
+      "response_bytes": 101
+    },
+    {
+      "ordinal": 2,
+      "code": "US.XLNX",
+      "start": "2020-06-01",
+      "end": "2020-06-05",
+      "role": "2019-2022 N-PORT Xilinx original equity",
+      "ret_code": -1,
+      "rows": 0,
+      "first_date": null,
+      "last_date": null,
+      "continuation": false,
+      "response_file": "data/raw/external/stage1_futu_delisted_price_probe_20261023/XLNX_response.txt",
+      "response_sha256": "a176e3321a3c99ab85cd0413a036154e19d19e663948d2ae0d0f87bea98a3bb8",
+      "response_bytes": 17
+    },
+    {
+      "ordinal": 3,
+      "code": "US.MXIM",
+      "start": "2020-06-01",
+      "end": "2020-06-05",
+      "role": "2019-2021 N-PORT Maxim original equity",
+      "ret_code": -1,
+      "rows": 0,
+      "first_date": null,
+      "last_date": null,
+      "continuation": false,
+      "response_file": "data/raw/external/stage1_futu_delisted_price_probe_20261023/MXIM_response.txt",
+      "response_sha256": "c42aee810b688bb2fb83cfeb5d8945519b4c0a612a0f2e3301e90334fbcda255",
+      "response_bytes": 17
+    }
+  ],
+  "raw_NAS_archive_sha256": "de70275cb72617cf220e6bc85b37914fad5df27dadbb72a3df4838548588862b",
+  "NAS_scoped_restored": true,
+  "future_SOXX_outcome_reads": 0,
+  "model_fits": 0,
+  "native_accounts": 0,
+  "purchases": 0
+}

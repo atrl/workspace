@@ -1,0 +1,22 @@
+{
+  "experiment": "stage1_futu_delisted_price_probe_20261023",
+  "decision": "futu_exact_old_symbol_transport_unavailable_no_price_factor",
+  "objective_achieved": false,
+  "plan_sha256": "4090a568e34ccaa9437c2e1c1683eb80783c4c145c239541f9884f52e8e1f5e2",
+  "result": "result.json",
+  "new_model_fits": 0,
+  "new_native_accounts": 0,
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": []
+  },
+  "limitations": [
+    "A ticker response cannot establish original CUSIP identity or full 2011-2022 basket coverage.",
+    "No Qlib factor, future label, model or account was constructed."
+  ],
+  "raw_NAS_archive_sha256": "de70275cb72617cf220e6bc85b37914fad5df27dadbb72a3df4838548588862b",
+  "NAS_scoped_restore_verified": true,
+  "fixed_requests": 3,
+  "positive_symbols": []
+}

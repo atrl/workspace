@@ -1,0 +1,29 @@
+{
+  "status": "verified",
+  "NAS_archive_sha256": "de70275cb72617cf220e6bc85b37914fad5df27dadbb72a3df4838548588862b",
+  "NAS_archive_bytes": 1156,
+  "NAS_path": "/volume1/docker/yanxuan/registry/research-artifacts/de/70/de70275cb72617cf220e6bc85b37914fad5df27dadbb72a3df4838548588862b",
+  "source_files": [
+    {
+      "path": "data/raw/external/stage1_futu_delisted_price_probe_20261023/SNDK_response.csv",
+      "sha256": "8360f969464168ee921267dee2cadd21bf4995f83e5730c3011f1560f781e2c9",
+      "bytes": 101
+    },
+    {
+      "path": "data/raw/external/stage1_futu_delisted_price_probe_20261023/XLNX_response.txt",
+      "sha256": "a176e3321a3c99ab85cd0413a036154e19d19e663948d2ae0d0f87bea98a3bb8",
+      "bytes": 17
+    },
+    {
+      "path": "data/raw/external/stage1_futu_delisted_price_probe_20261023/MXIM_response.txt",
+      "sha256": "c42aee810b688bb2fb83cfeb5d8945519b4c0a612a0f2e3301e90334fbcda255",
+      "bytes": 17
+    },
+    {
+      "path": "data/raw/external/stage1_futu_delisted_price_probe_20261023/request_receipt.json",
+      "sha256": "f3d505bd9be1d75d13e3dee5ec7dfc3b3ab63f2691ae81fbfff4ee023fc3a449",
+      "bytes": 2023
+    }
+  ],
+  "scoped_restore_all_member_SHA256_parity": true
+}
