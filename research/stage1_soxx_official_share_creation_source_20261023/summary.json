@@ -1,0 +1,22 @@
+{
+  "experiment": "stage1_soxx_official_share_creation_source_20261023",
+  "decision": "historical_share_series_observed_PIT_and_split_semantics_unqualified",
+  "objective_achieved": false,
+  "plan_sha256": "da941c18a7b655d5ea37e30a23c23913c0f16b209ab3d5ca06effaaa89d4ae46",
+  "result": "result.json",
+  "source_raw_NAS_sha256": "a75d8e98023daa4e3fb5d78dd1f7a9c1e9c67194b5fb6215aa5be2bc14620a2c",
+  "source_NAS_scoped_restore_verified": true,
+  "model_fits": 0,
+  "native_accounts": 0,
+  "SOXX_market_outcome_reads": 0,
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": []
+  },
+  "limitations": [
+    "Current workbook is a retrospective revision, not a historical first-publication archive.",
+    "Share count split-adjustment semantics must be checked before creation flow calculation.",
+    "Numeric coverage is source evidence only, not a Stage1 factor or SOXX performance result."
+  ]
+}

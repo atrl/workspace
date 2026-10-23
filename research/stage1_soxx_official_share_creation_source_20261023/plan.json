@@ -1,0 +1,44 @@
+{
+  "schema_version": 1,
+  "frozen": true,
+  "experiment": "stage1_soxx_official_share_creation_source_20261023",
+  "phase": "original_issuer_current_workbook_shares_outstanding_source_only",
+  "question": "Can the already NAS backed official SOXX Historical Shares Outstanding column support a distinct primary-market creation/redemption state, with complete native Stage1 calendar coverage and a defensible first-publication clock?",
+  "mechanism": "ETF share creations/redemptions may contain sector investor demand or crowding not represented by price return/volatility or reported constituent concentration. This is a source hypothesis only.",
+  "parent": "frozen_complete_Stage1_0bp_SOXX_hard_gate",
+  "sources": {
+    "original_workbook": "data/snapshots/stage1_soxx_official_premium_discount_source_20261023/fund_download.bin",
+    "workbook_sha256": "74265a678335a4fb5aac42cb854a60ecd3afc57b8d5ffd1005ed5ccadd5e07b7",
+    "NAS_receipt": "research/stage1_soxx_official_premium_discount_source_20261023/nas_source_archive.json",
+    "NAS_archive_sha256": "a75d8e98023daa4e3fb5d78dd1f7a9c1e9c67194b5fb6215aa5be2bc14620a2c",
+    "source_audit": "research/stage1_soxx_official_premium_discount_source_20261023/source_audit.json",
+    "Qlib_provider": "data/qlib/minute_information_pit_allocator_20261012/daily_prices",
+    "decision_calendar_start": "2011-01-03",
+    "decision_calendar_end": "2026-10-09",
+    "Qlib_config_sha256": "951024d796cc625b695938e64589cd23808c5b048ac816c11f001fb0719742a2",
+    "source_audit_sha256": "0c01ffc207cfea1a76433e7903ca46ef31c12dc6abd7861c3fda78c1703ea903"
+  },
+  "fixed_checks": [
+    "Preserve raw bytes; repair only six malformed literal ampersands in transient XML parse.",
+    "Assert exactly Historical header As Of,NAV per Share,Ex-Dividends,Shares Outstanding and 8937 unique dates.",
+    "Parse issuer share count as published; report missing, nonpositive, fractional, duplicate, weekend and Qlib-session coverage for 2011-2022 training and 2023-2026 reused held.",
+    "Report per-year first/last shares, nonzero share-change sessions, top absolute day ratios and possible split discontinuities as source diagnostics, not predictive results.",
+    "Do not infer historical first-public time, past workbook vintage, split-adjustment policy, or a 09:46 tradable signal from the current download."
+  ],
+  "budget": {
+    "external_HTTP_GETs": 0,
+    "original_workbook_raw_reads": 1,
+    "Qlib_D_calendar_calls": 1,
+    "SOXX_market_outcome_reads": 0,
+    "model_fits": 0,
+    "native_accounts": 0,
+    "new_Qlib_Recorders": 0,
+    "NAS_scoped_restore_downloads": 1
+  },
+  "stop": "If historical shares are missing or inconsistent, close current workbook source. If numeric coverage is complete but first-public and split semantics remain unqualified, retain source-only result and do not map a PIT factor or fit.",
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": []
+  }
+}

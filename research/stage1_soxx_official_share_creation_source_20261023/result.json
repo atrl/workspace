@@ -1,0 +1,149 @@
+{
+  "decision": "historical_share_series_observed_PIT_and_split_semantics_unqualified",
+  "plan_sha256": "da941c18a7b655d5ea37e30a23c23913c0f16b209ab3d5ca06effaaa89d4ae46",
+  "source_sha256": "74265a678335a4fb5aac42cb854a60ecd3afc57b8d5ffd1005ed5ccadd5e07b7",
+  "NAS_restored_sha256": "a75d8e98023daa4e3fb5d78dd1f7a9c1e9c67194b5fb6215aa5be2bc14620a2c",
+  "raw_workbook_reads": 1,
+  "Qlib_calendar_calls": 1,
+  "workbook_rows": 8937,
+  "workbook_first": "2001-07-10",
+  "workbook_last": "2026-10-21",
+  "nonfinite_workbook_rows": 2,
+  "nonpositive_workbook_rows": 0,
+  "fractional_positive_workbook_rows": 0,
+  "Qlib_sessions": 3966,
+  "train_2011_2022_sessions": 3020,
+  "held_2023_2026_sessions": 946,
+  "valid_Qlib_sessions": 3966,
+  "train_valid_sessions": 3020,
+  "held_valid_sessions": 946,
+  "years": {
+    "2011": {
+      "qlib_sessions": 252,
+      "valid_share_rows": 252,
+      "first_shares": 12450000.0,
+      "last_shares": 11100000.0,
+      "changed_sessions": 119
+    },
+    "2012": {
+      "qlib_sessions": 250,
+      "valid_share_rows": 250,
+      "first_shares": 10800000.0,
+      "last_shares": 12450000.0,
+      "changed_sessions": 141
+    },
+    "2013": {
+      "qlib_sessions": 252,
+      "valid_share_rows": 252,
+      "first_shares": 12600000.0,
+      "last_shares": 10500000.0,
+      "changed_sessions": 107
+    },
+    "2014": {
+      "qlib_sessions": 252,
+      "valid_share_rows": 252,
+      "first_shares": 10350000.0,
+      "last_shares": 20400000.0,
+      "changed_sessions": 144
+    },
+    "2015": {
+      "qlib_sessions": 252,
+      "valid_share_rows": 252,
+      "first_shares": 20250000.0,
+      "last_shares": 13350000.0,
+      "changed_sessions": 157
+    },
+    "2016": {
+      "qlib_sessions": 252,
+      "valid_share_rows": 252,
+      "first_shares": 13200000.0,
+      "last_shares": 17850000.0,
+      "changed_sessions": 183
+    },
+    "2017": {
+      "qlib_sessions": 251,
+      "valid_share_rows": 251,
+      "first_shares": 16950000.0,
+      "last_shares": 25500000.0,
+      "changed_sessions": 166
+    },
+    "2018": {
+      "qlib_sessions": 251,
+      "valid_share_rows": 251,
+      "first_shares": 25950000.0,
+      "last_shares": 20100000.0,
+      "changed_sessions": 188
+    },
+    "2019": {
+      "qlib_sessions": 252,
+      "valid_share_rows": 252,
+      "first_shares": 20550000.0,
+      "last_shares": 28050000.0,
+      "changed_sessions": 180
+    },
+    "2020": {
+      "qlib_sessions": 253,
+      "valid_share_rows": 253,
+      "first_shares": 28050000.0,
+      "last_shares": 38400000.0,
+      "changed_sessions": 183
+    },
+    "2021": {
+      "qlib_sessions": 252,
+      "valid_share_rows": 252,
+      "first_shares": 38400000.0,
+      "last_shares": 55050000.0,
+      "changed_sessions": 188
+    },
+    "2022": {
+      "qlib_sessions": 251,
+      "valid_share_rows": 251,
+      "first_shares": 55350000.0,
+      "last_shares": 50250000.0,
+      "changed_sessions": 214
+    },
+    "2023": {
+      "qlib_sessions": 250,
+      "valid_share_rows": 250,
+      "first_shares": 50400000.0,
+      "last_shares": 53550000.0,
+      "changed_sessions": 207
+    },
+    "2024": {
+      "qlib_sessions": 252,
+      "valid_share_rows": 252,
+      "first_shares": 53250000.0,
+      "last_shares": 64050000.0,
+      "changed_sessions": 237
+    },
+    "2025": {
+      "qlib_sessions": 250,
+      "valid_share_rows": 250,
+      "first_shares": 64150000.0,
+      "last_shares": 58200000.0,
+      "changed_sessions": 236
+    },
+    "2026": {
+      "qlib_sessions": 194,
+      "valid_share_rows": 194,
+      "first_shares": 58150000.0,
+      "last_shares": 82000000.0,
+      "changed_sessions": 187
+    }
+  },
+  "large_adjacent_QLib_share_ratios": [],
+  "weekend_workbook_rows": 2365,
+  "first_publication_time_qualified": false,
+  "historical_vintage_qualified": false,
+  "split_adjustment_policy_qualified": false,
+  "tradable_share_creation_feature_qualified": false,
+  "SOXX_market_outcome_reads": 0,
+  "model_fits": 0,
+  "native_accounts": 0,
+  "official_split_reference": {
+    "url": "https://www.ishares.com/us/literature/prospectus/p-ishares-phlx-semiconductor-etf-3-31.pdf",
+    "statement": "Prospectus financial-highlights footnote reports a three-for-one SOXX stock split effective after March 6, 2024 close.",
+    "relationship_to_current_workbook": "No adjacent Qlib share-count ratio exceeds 2x or falls below 0.5x across 2011-2026; this is consistent with retrospective normalization, an inference rather than first-public vintage proof."
+  },
+  "next_source_gate": "Need original-date first-public share counts or issuer historical release policy and explicit split factor chronology before any lagged creation-flow Qlib factor or fit."
+}
