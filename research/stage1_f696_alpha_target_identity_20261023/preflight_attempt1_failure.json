@@ -1,0 +1,8 @@
+{
+  "status": "stopped_before_new_recorder_or_statistics",
+  "error": "Saved original reference label is float32; independently rebuilt float64 H5 reference differs on 3958/3960 finite rows under an inappropriate 1e-12 byte-level tolerance. Maximum absolute difference is 2.45056582e-8.",
+  "source_identity_or_clock_error": false,
+  "new_fits": 0,
+  "new_accounts": 0,
+  "new_Recorders": 0
+}

@@ -1,0 +1,6 @@
+{
+  "frozen": true,
+  "scope": "Compare the float64 independent formula against the saved float32 label at absolute tolerance 3e-8, with zero relative tolerance. Preserve all source bytes, labels, cohort dates, classification boundary at zero, AUC definitions, model and account budgets.",
+  "reason": "Observed maximum float32 serialization discrepancy 2.45056582e-8 before any result statistic or new Recorder.",
+  "no_label_or_policy_selection": true
+}

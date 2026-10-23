@@ -1,0 +1,38 @@
+{
+  "experiment": "stage1_f696_alpha_target_identity_20261023",
+  "frozen": true,
+  "phase": "read_only_original_alpha_target_vs_pure_SOXL_relative_identity",
+  "question": "How often does the frozen Stage1 alpha classifier's actual 27% SOXL/63% SOXX/10% cash reference label disagree with the pure SOXL-minus-SOXX H5 relative-selection label on the exact original training and held calendars, and how does the saved f696 alpha score rank each?",
+  "parent": "Frozen complete f696 A_0 allocation plus b472 action/risk/recovery; no model or account intervention",
+  "source": {
+    "parent_card": "research/minute_information_pit_allocator_20261012",
+    "parent_summary_sha256": "61c91f958323cf51b43f4b1554eeca5687011d30771e80bc7ff02d16b6d577ca",
+    "parent_recorder_id": "68e31a0a0fad44e7ba1d1f7d856c7a0d",
+    "parent_experiment_id": "905520356740140469",
+    "parent_NAS_sha256": "ee328cab292f178bf3582ef574fb411561c93b82545cd3bb90842ecd9a9a24f1",
+    "f696_card": "research/stage1_domain_heads_20261018",
+    "f696_summary_sha256": "3b51938ca56ddf45029ff5e4a01a6bbc2f1d1407458efcad7d7c68b0ef5a1d37",
+    "f696_recorder_id": "6e227278b7a64eafbcf34b965e16d2b9",
+    "f696_experiment_id": "283510277269468590",
+    "f696_frame_sha256": "e83a57eb764dc59ee8d9fad7b1a48eb6b295c6183d6c4cab2062b3aa6c66e07c",
+    "label_definition_module_sha256": "a08f72231b47838dc4165b61d7cedeeed1321256c16618dc518d9d0805669302",
+    "provider_uri": "data/qlib/minute_information_pit_allocator_20261012/daily_prices",
+    "provider_manifest_sha256": "d80a08d479b73098053006909b5e6227b03a56ab705681742d7261088e0a7e6c"
+  },
+  "fixed_definitions": {
+    "reference_alpha": "saved relative_alpha_5d = sum five log(1+0.27*r_SOXL+0.63*r_SOXX) - sum five log(1+r_SOXX); positive class if >0",
+    "pure_relative": "sum five log(1+r_SOXL) - sum five log(1+r_SOXX); positive class if >0",
+    "maturity": "fifth saved return_available_at strictly before cohort cutoff, no unknown terminal labels filled",
+    "train_signals": ["2011-01-03", "2022-12-30"],
+    "train_label_available_before": "2023-01-01T00:00:00-05:00",
+    "reused_held_signals": ["2023-01-03", "2026-10-07"],
+    "held_label_available_before": "2026-10-10T00:00:00-04:00",
+    "expected_train_mature": 3014,
+    "expected_held_mature": 940,
+    "f696_alpha_score": "saved exact f696 inputs/frame alpha_probability aligned by signal_date on all944 held calendar rows",
+    "report": "confusion counts, mismatch proportions, full/complete-year/partial-endpoint AUC for each label; no threshold or year selection"
+  },
+  "decision_boundary": "A descriptive label mismatch does not establish predictive information or justify relabeling the frozen model. The already closed original39 pure-relative Ridge receiver and full account gates remain binding; no fit, retrain, 0bp account or promotion follows from this audit alone.",
+  "budget": {"new_market_requests": 0, "new_model_fits": 0, "new_accounts": 0, "new_bootstraps": 0, "new_Recorders_max": 1},
+  "stop": "Stop on pinned source/hash, Qlib DatasetH calendar, exact 3014/940 maturity, reference label formula or 944 f696 score alignment failure. Do not use a 27baa frame or outcome-group threshold as a trading rule."
+}
