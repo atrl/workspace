@@ -1,0 +1,20 @@
+{
+  "experiment": "stage1_soxx_reported_basket_rotation_footnote_repair_20261023",
+  "decision": "legacy_footnote_syntax_repair_improves_names_but_security_identity_still_unqualified",
+  "objective_achieved": false,
+  "plan_sha256": "cea2c9c65c6d296064383e4251b2cb53ee3f70eef94539da031aa45f7c346357",
+  "result": "result.json",
+  "market_outcome_reads": 0,
+  "model_fits": 0,
+  "native_accounts": 0,
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": []
+  },
+  "limitations": [
+    "Terminal footnotes and punctuation are source syntax, but repaired name equality is still not stable legal-security identity.",
+    "Remaining unmatched names require original CUSIP/issuer transition review before a turnover factor.",
+    "No 2019-2026 extension, predictive test or Stage1 account."
+  ]
+}

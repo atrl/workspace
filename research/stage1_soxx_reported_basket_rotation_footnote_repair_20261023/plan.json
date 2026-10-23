@@ -1,0 +1,56 @@
+{
+  "schema_version": 1,
+  "frozen": true,
+  "experiment": "stage1_soxx_reported_basket_rotation_footnote_repair_20261023",
+  "phase": "source_only_2011_2018_original_basket_footnote_syntax_repair_before_turnover",
+  "parent_v1": {
+    "card": "research/stage1_soxx_reported_basket_rotation_identity_preflight_20261023",
+    "plan_sha256": "858b9328a09c46e98a7e2caa33fd85dd737588a3f3b15dbaadbbb0ab6b2474fe",
+    "result_sha256": "1af166dd19e360fd00261a113a1f2d55bc780b51c6b037e9bce4e2b19b479d89"
+  },
+  "sources": [
+    {
+      "path": "research/stage1_soxx_2011_reported_concentration_source_20261023/source_result.json",
+      "sha256": "8e693798943fcb2c6ff244ea177036f37d3d00f0ddf57476c5eb113234f150a5"
+    },
+    {
+      "path": "research/stage1_soxx_legacy_reported_concentration_source_20261023/numeric_2012_result.json",
+      "sha256": "00f4367f755741bbeb4f96e2680f4141ca838e984ec6f02f517ccc9b03085cad"
+    },
+    {
+      "path": "research/stage1_soxx_2013_2014_reported_concentration_source_20261023/numeric_2013_2014_result.json",
+      "sha256": "0892d88e09cb9cd0cb297d1a9debff442cb4834f4a562cf7228475161f70c0fe"
+    },
+    {
+      "path": "research/stage1_soxx_2015_transition_concentration_source_20261023/numeric_2015_transition_result.json",
+      "sha256": "a91964dd0eaa500476606a54137a7e06f8c87e52e45851e72a5e0012ab44a079"
+    },
+    {
+      "path": "research/stage1_soxx_2016_reported_concentration_source_20261023/numeric_2016_first_version_result.json",
+      "sha256": "c5d63cd18677a633ec2b79b76b224f4745b935fe3947675fb2a9f0c91066f69a"
+    },
+    {
+      "path": "research/stage1_soxx_2017_2018_original_concentration_source_20261023/numeric_2018_Jun_dollar_cell_repair_result.json",
+      "sha256": "6bd98e059b3dd09c2c3fda208d0e6d210932ed585d90c9a8a0ebc57754c0e26d"
+    }
+  ],
+  "normalization_policy": [
+    "Operate on original-case security_original; repeatedly remove only terminal parenthesized single-letter source footnotes such as (a)(b), and terminal lowercase a or a,b/c token sequences after whitespace. Preserve uppercase Class A/B share classes.",
+    "Apply Unicode NFKC; collapse whitespace; convert dots and commas in remaining issuer text to spaces; casefold. Do not transform corp/inc/ltd terms, ADR, NYS, ticker, issuer or share class into another value.",
+    "For every report assert all30 normalized strings remain unique; if collision, stop with exact names.",
+    "Compare all same30 adjacent reports; report pre-repair v1 exact overlap and post-repair overlap with unmatched strings, no market outcome."
+  ],
+  "budget": {
+    "original_source_result_loads": 6,
+    "external_HTTP_GETs": 0,
+    "market_outcome_reads": 0,
+    "model_fits": 0,
+    "native_accounts": 0
+  },
+  "stop": "Do not calculate a weighted turnover factor or fit. Remaining unmatched names require original security/CUSIP evidence, not fuzzy matching or manual outcome-informed aliases.",
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": []
+  }
+}

@@ -1,0 +1,458 @@
+{
+  "decision": "legacy_footnote_syntax_repair_improves_names_but_security_identity_still_unqualified",
+  "plan_sha256": "cea2c9c65c6d296064383e4251b2cb53ee3f70eef94539da031aa45f7c346357",
+  "parent_v1_result_sha256": "1af166dd19e360fd00261a113a1f2d55bc780b51c6b037e9bce4e2b19b479d89",
+  "reports": 31,
+  "adjacent_transitions": 30,
+  "normalization_counts": {
+    "parenthesized_terminal_footnotes_removed": 96,
+    "bare_lowercase_terminal_footnotes_removed": 322
+  },
+  "v1_exact_overlap_min": 9,
+  "v1_exact_overlap_median": 23.0,
+  "repaired_overlap_min": 19,
+  "repaired_overlap_median": 29.0,
+  "repaired_overlap_max": 30,
+  "repaired_transitions_below_25": 1,
+  "repaired_total_prior_only_name_slots": 45,
+  "transitions_improved": 29,
+  "transitions_worsened": 0,
+  "within_report_collisions": 0,
+  "transition_details": [
+    {
+      "prior_period": "2011-01-31",
+      "next_period": "2011-04-30",
+      "prior_accession": "0001193125-11-093502",
+      "next_accession": "0001193125-11-176858",
+      "v1_exact_overlap": 11,
+      "footnote_and_punctuation_overlap": 29,
+      "prior_only_names": [
+        "atheros communications inc"
+      ],
+      "next_only_names": [
+        "nxp semiconductors nv"
+      ]
+    },
+    {
+      "prior_period": "2011-04-30",
+      "next_period": "2011-07-31",
+      "prior_accession": "0001193125-11-176858",
+      "next_accession": "0001193125-11-266548",
+      "v1_exact_overlap": 11,
+      "footnote_and_punctuation_overlap": 29,
+      "prior_only_names": [
+        "national semiconductor corp"
+      ],
+      "next_only_names": [
+        "varian semiconductor equipment associates inc"
+      ]
+    },
+    {
+      "prior_period": "2011-07-31",
+      "next_period": "2011-10-31",
+      "prior_accession": "0001193125-11-266548",
+      "next_accession": "0001193125-11-355398",
+      "v1_exact_overlap": 9,
+      "footnote_and_punctuation_overlap": 29,
+      "prior_only_names": [
+        "varian semiconductor equipment associates inc"
+      ],
+      "next_only_names": [
+        "interdigital inc"
+      ]
+    },
+    {
+      "prior_period": "2011-10-31",
+      "next_period": "2012-01-31",
+      "prior_accession": "0001193125-11-355398",
+      "next_accession": "0001193125-12-151845",
+      "v1_exact_overlap": 11,
+      "footnote_and_punctuation_overlap": 29,
+      "prior_only_names": [
+        "netlogic microsystems inc"
+      ],
+      "next_only_names": [
+        "spreadtrum communications inc sp adr"
+      ]
+    },
+    {
+      "prior_period": "2012-01-31",
+      "next_period": "2012-04-30",
+      "prior_accession": "0001193125-12-151845",
+      "next_accession": "0001193125-12-289215",
+      "v1_exact_overlap": 12,
+      "footnote_and_punctuation_overlap": 30,
+      "prior_only_names": [],
+      "next_only_names": []
+    },
+    {
+      "prior_period": "2012-04-30",
+      "next_period": "2012-07-31",
+      "prior_accession": "0001193125-12-289215",
+      "next_accession": "0001193125-12-418172",
+      "v1_exact_overlap": 11,
+      "footnote_and_punctuation_overlap": 29,
+      "prior_only_names": [
+        "novellus systems inc"
+      ],
+      "next_only_names": [
+        "mellanox technologies ltd"
+      ]
+    },
+    {
+      "prior_period": "2012-07-31",
+      "next_period": "2012-10-31",
+      "prior_accession": "0001193125-12-418172",
+      "next_accession": "0001193125-12-517738",
+      "v1_exact_overlap": 29,
+      "footnote_and_punctuation_overlap": 30,
+      "prior_only_names": [],
+      "next_only_names": []
+    },
+    {
+      "prior_period": "2012-10-31",
+      "next_period": "2013-01-31",
+      "prior_accession": "0001193125-12-517738",
+      "next_accession": "0001193125-13-148033",
+      "v1_exact_overlap": 25,
+      "footnote_and_punctuation_overlap": 30,
+      "prior_only_names": [],
+      "next_only_names": []
+    },
+    {
+      "prior_period": "2013-01-31",
+      "next_period": "2013-04-30",
+      "prior_accession": "0001193125-13-148033",
+      "next_accession": "0001193125-13-274594",
+      "v1_exact_overlap": 27,
+      "footnote_and_punctuation_overlap": 30,
+      "prior_only_names": [],
+      "next_only_names": []
+    },
+    {
+      "prior_period": "2013-04-30",
+      "next_period": "2013-07-31",
+      "prior_accession": "0001193125-13-274594",
+      "next_accession": "0001193125-13-392676",
+      "v1_exact_overlap": 26,
+      "footnote_and_punctuation_overlap": 29,
+      "prior_only_names": [
+        "memc electronic materials inc"
+      ],
+      "next_only_names": [
+        "sunedison inc"
+      ]
+    },
+    {
+      "prior_period": "2013-07-31",
+      "next_period": "2013-10-31",
+      "prior_accession": "0001193125-13-392676",
+      "next_accession": "0001193125-13-486444",
+      "v1_exact_overlap": 17,
+      "footnote_and_punctuation_overlap": 19,
+      "prior_only_names": [
+        "cirrus logic inc",
+        "hittite microwave corp",
+        "interdigital inc",
+        "mellanox technologies ltd",
+        "mks instruments inc",
+        "power integrations inc",
+        "rubicon technology inc",
+        "spreadtrum communications inc sp adr",
+        "stmicroelectronics nv nys",
+        "sunedison inc",
+        "veeco instruments inc"
+      ],
+      "next_only_names": [
+        "analog devices inc",
+        "arm holdings plc",
+        "asml holding nv nys",
+        "atmel corp",
+        "freescale semiconductor ltd",
+        "lsi corp",
+        "maxim integrated products inc",
+        "microchip technology inc",
+        "on semiconductor corp",
+        "qualcomm inc",
+        "skyworks solutions inc"
+      ]
+    },
+    {
+      "prior_period": "2013-10-31",
+      "next_period": "2014-01-31",
+      "prior_accession": "0001193125-13-486444",
+      "next_accession": "0001193125-14-127770",
+      "v1_exact_overlap": 28,
+      "footnote_and_punctuation_overlap": 30,
+      "prior_only_names": [],
+      "next_only_names": []
+    },
+    {
+      "prior_period": "2014-01-31",
+      "next_period": "2014-04-30",
+      "prior_accession": "0001193125-14-127770",
+      "next_accession": "0001193125-14-251746",
+      "v1_exact_overlap": 25,
+      "footnote_and_punctuation_overlap": 29,
+      "prior_only_names": [
+        "lsi corp"
+      ],
+      "next_only_names": [
+        "sunedison inc"
+      ]
+    },
+    {
+      "prior_period": "2014-04-30",
+      "next_period": "2014-07-31",
+      "prior_accession": "0001193125-14-251746",
+      "next_accession": "0001193125-14-366601",
+      "v1_exact_overlap": 26,
+      "footnote_and_punctuation_overlap": 30,
+      "prior_only_names": [],
+      "next_only_names": []
+    },
+    {
+      "prior_period": "2014-07-31",
+      "next_period": "2014-10-31",
+      "prior_accession": "0001193125-14-366601",
+      "next_accession": "0001193125-14-455465",
+      "v1_exact_overlap": 26,
+      "footnote_and_punctuation_overlap": 29,
+      "prior_only_names": [
+        "advanced micro devices inc"
+      ],
+      "next_only_names": [
+        "rf micro devices inc"
+      ]
+    },
+    {
+      "prior_period": "2014-10-31",
+      "next_period": "2015-01-31",
+      "prior_accession": "0001193125-14-455465",
+      "next_accession": "0001193125-15-122693",
+      "v1_exact_overlap": 20,
+      "footnote_and_punctuation_overlap": 29,
+      "prior_only_names": [
+        "rf micro devices inc"
+      ],
+      "next_only_names": [
+        "cavium inc"
+      ]
+    },
+    {
+      "prior_period": "2015-01-31",
+      "next_period": "2015-04-30",
+      "prior_accession": "0001193125-15-122693",
+      "next_accession": "0001193125-15-238848",
+      "v1_exact_overlap": 25,
+      "footnote_and_punctuation_overlap": 28,
+      "prior_only_names": [
+        "arm holdings plc",
+        "taiwan semiconductor manufacturing co ltd sp adr"
+      ],
+      "next_only_names": [
+        "arm holdings plc adr",
+        "taiwan semiconductor manufacturing co ltd adr"
+      ]
+    },
+    {
+      "prior_period": "2015-04-30",
+      "next_period": "2015-07-31",
+      "prior_accession": "0001193125-15-238848",
+      "next_accession": "0001193125-15-339410",
+      "v1_exact_overlap": 29,
+      "footnote_and_punctuation_overlap": 29,
+      "prior_only_names": [
+        "freescale semiconductor ltd"
+      ],
+      "next_only_names": [
+        "qorvo inc"
+      ]
+    },
+    {
+      "prior_period": "2015-07-31",
+      "next_period": "2015-09-30",
+      "prior_accession": "0001193125-15-339410",
+      "next_accession": "0001193125-15-396474",
+      "v1_exact_overlap": 18,
+      "footnote_and_punctuation_overlap": 27,
+      "prior_only_names": [
+        "altera corp",
+        "broadcom corp class a",
+        "cree inc"
+      ],
+      "next_only_names": [
+        "cypress semiconductor corp",
+        "infinera corp",
+        "microsemi corp"
+      ]
+    },
+    {
+      "prior_period": "2015-09-30",
+      "next_period": "2015-12-31",
+      "prior_accession": "0001193125-15-396474",
+      "next_accession": "0001193125-16-480933",
+      "v1_exact_overlap": 20,
+      "footnote_and_punctuation_overlap": 30,
+      "prior_only_names": [],
+      "next_only_names": []
+    },
+    {
+      "prior_period": "2015-12-31",
+      "next_period": "2016-03-31",
+      "prior_accession": "0001193125-16-480933",
+      "next_accession": "0001193125-16-613829",
+      "v1_exact_overlap": 18,
+      "footnote_and_punctuation_overlap": 27,
+      "prior_only_names": [
+        "avago technologies ltd",
+        "kla-tencor corp",
+        "sandisk corp"
+      ],
+      "next_only_names": [
+        "broadcom ltd",
+        "integrated device technology inc",
+        "monolithic power systems inc"
+      ]
+    },
+    {
+      "prior_period": "2016-03-31",
+      "next_period": "2016-06-30",
+      "prior_accession": "0001193125-16-613829",
+      "next_accession": "0001193125-16-695276",
+      "v1_exact_overlap": 23,
+      "footnote_and_punctuation_overlap": 28,
+      "prior_only_names": [
+        "atmel corp",
+        "sunedison inc"
+      ],
+      "next_only_names": [
+        "interdigital inc /pa",
+        "silicon laboratories inc"
+      ]
+    },
+    {
+      "prior_period": "2016-06-30",
+      "next_period": "2016-09-30",
+      "prior_accession": "0001193125-16-695276",
+      "next_accession": "0001193125-16-788378",
+      "v1_exact_overlap": 16,
+      "footnote_and_punctuation_overlap": 25,
+      "prior_only_names": [
+        "arm holdings plc adr",
+        "infinera corp",
+        "interdigital inc /pa",
+        "linear technology corp",
+        "silicon laboratories inc"
+      ],
+      "next_only_names": [
+        "advanced micro devices inc",
+        "cirrus logic inc",
+        "cree inc",
+        "mks instruments inc",
+        "silicon motion technology corp adr"
+      ]
+    },
+    {
+      "prior_period": "2016-09-30",
+      "next_period": "2016-12-31",
+      "prior_accession": "0001193125-16-788378",
+      "next_accession": "0001193125-17-065125",
+      "v1_exact_overlap": 20,
+      "footnote_and_punctuation_overlap": 30,
+      "prior_only_names": [],
+      "next_only_names": []
+    },
+    {
+      "prior_period": "2016-12-31",
+      "next_period": "2017-03-31",
+      "prior_accession": "0001193125-17-065125",
+      "next_accession": "0001193125-17-194722",
+      "v1_exact_overlap": 23,
+      "footnote_and_punctuation_overlap": 29,
+      "prior_only_names": [
+        "nxp semiconductors nv"
+      ],
+      "next_only_names": [
+        "interdigital inc /pa"
+      ]
+    },
+    {
+      "prior_period": "2017-03-31",
+      "next_period": "2017-06-30",
+      "prior_accession": "0001193125-17-194722",
+      "next_accession": "0001193125-17-271743",
+      "v1_exact_overlap": 28,
+      "footnote_and_punctuation_overlap": 30,
+      "prior_only_names": [],
+      "next_only_names": []
+    },
+    {
+      "prior_period": "2017-06-30",
+      "next_period": "2017-09-30",
+      "prior_accession": "0001193125-17-271743",
+      "next_accession": "0001193125-17-359934",
+      "v1_exact_overlap": 25,
+      "footnote_and_punctuation_overlap": 27,
+      "prior_only_names": [
+        "cree inc",
+        "interdigital inc /pa",
+        "silicon motion technology corp adr"
+      ],
+      "next_only_names": [
+        "entegris inc",
+        "kla-tencor corp",
+        "silicon laboratories inc"
+      ]
+    },
+    {
+      "prior_period": "2017-09-30",
+      "next_period": "2017-12-31",
+      "prior_accession": "0001193125-17-359934",
+      "next_accession": "0001193125-18-063612",
+      "v1_exact_overlap": 25,
+      "footnote_and_punctuation_overlap": 30,
+      "prior_only_names": [],
+      "next_only_names": []
+    },
+    {
+      "prior_period": "2017-12-31",
+      "next_period": "2018-03-31",
+      "prior_accession": "0001193125-18-063612",
+      "next_accession": "0001193125-18-186572",
+      "v1_exact_overlap": 24,
+      "footnote_and_punctuation_overlap": 27,
+      "prior_only_names": [
+        "asml holding nv nys",
+        "cavium inc",
+        "taiwan semiconductor manufacturing co ltd adr"
+      ],
+      "next_only_names": [
+        "asml holding nv nys nvs",
+        "mellanox technologies ltd",
+        "taiwan semiconductor manufacturing co ltd adr nvs"
+      ]
+    },
+    {
+      "prior_period": "2018-03-31",
+      "next_period": "2018-06-30",
+      "prior_accession": "0001193125-18-186572",
+      "next_accession": "0001193125-18-261300",
+      "v1_exact_overlap": 15,
+      "footnote_and_punctuation_overlap": 28,
+      "prior_only_names": [
+        "broadcom ltd",
+        "microsemi corp"
+      ],
+      "next_only_names": [
+        "broadcom inc",
+        "smart global holdings inc"
+      ]
+    }
+  ],
+  "CUSIP_or_legal_issuer_bridge_qualified": false,
+  "weighted_turnover_feature_qualified": false,
+  "market_outcome_reads": 0,
+  "model_fits": 0,
+  "native_accounts": 0
+}
