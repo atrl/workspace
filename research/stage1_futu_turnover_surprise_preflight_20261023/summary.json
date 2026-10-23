@@ -1,0 +1,44 @@
+{
+  "experiment": "stage1_futu_turnover_surprise_preflight_20261023",
+  "decision": "closed_before_fit_fixed_turnover_surprise_mechanism_or_novelty_failed",
+  "objective_achieved": false,
+  "plan_sha256": "87b42ab4217d0490f2feda908d94a4bf6da29203c2161cc598c9475c079926d8",
+  "result": "result.json",
+  "recorder_id": "01e593e243ac45cfb1410fb865623d93",
+  "experiment_id": "742128259253785221",
+  "new_fits": 0,
+  "new_native_accounts": 0,
+  "NAS_evidence": {
+    "sha256": "5fc5f612259cb950aab8ed5414649ea11b221568ef62e18ed68d0fceefe6c141",
+    "size_bytes": 139742,
+    "media_type": "application/gzip",
+    "storage_uri": "sha256/5f/c5/5fc5f612259cb950aab8ed5414649ea11b221568ef62e18ed68d0fceefe6c141",
+    "uploaded_by": "soxl-minute-research",
+    "created_at": "2026-10-23 22:02:25.350042+08",
+    "duplicate": false,
+    "nas_path": "/volume1/docker/yanxuan/registry/research-artifacts/5f/c5/5fc5f612259cb950aab8ed5414649ea11b221568ef62e18ed68d0fceefe6c141",
+    "recorder_id": "01e593e243ac45cfb1410fb865623d93",
+    "experiment_id": "742128259253785221",
+    "archive_root": "qlib_recorder"
+  },
+  "NAS_readback": {
+    "verified": true,
+    "sha256": "5fc5f612259cb950aab8ed5414649ea11b221568ef62e18ed68d0fceefe6c141"
+  },
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "inputs/*",
+      "analysis/coordinate",
+      "analysis/annual",
+      "analysis/quarterly"
+    ]
+  },
+  "limitations": [
+    "Historical Futu turnover-rate first-public/revision vintages remain unqualified.",
+    "Named regime contrasts use previously reused market history; no switch is selected.",
+    "No future return, 0bp account, 2/5bp or independent forward evidence."
+  ],
+  "NAS_scoped_restore": "nas_scoped_restore.json"
+}

@@ -1,0 +1,4 @@
+experiment: stage1_futu_turnover_surprise_preflight_20261023
+plan: plan.json
+source: research/stage1_futu_daily_turnover_source_20261023
+phase: feature_source_only_no_fit

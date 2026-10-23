@@ -1,0 +1,17 @@
+{
+  "status": "verified",
+  "recorder_id": "01e593e243ac45cfb1410fb865623d93",
+  "Qlib_source_rows": 3966,
+  "annual_rows": 16,
+  "quarterly_rows": 64,
+  "NAS_archive_sha256": "5fc5f612259cb950aab8ed5414649ea11b221568ef62e18ed68d0fceefe6c141",
+  "scoped_members": [
+    "analysis/result",
+    "analysis/coordinate",
+    "analysis/annual",
+    "analysis/quarterly"
+  ],
+  "all_member_sha256_parity": true,
+  "model_fits": 0,
+  "native_accounts": 0
+}

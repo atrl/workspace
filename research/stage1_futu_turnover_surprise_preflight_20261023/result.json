@@ -1,0 +1,33 @@
+{
+  "experiment": "stage1_futu_turnover_surprise_preflight_20261023",
+  "decision": "closed_before_fit_fixed_turnover_surprise_mechanism_or_novelty_failed",
+  "plan_sha256": "87b42ab4217d0490f2feda908d94a4bf6da29203c2161cc598c9475c079926d8",
+  "turnover_source_recorder_id": "ff416be4fcf447409a45349287d1e4ca",
+  "parent_recorder_id": "68e31a0a0fad44e7ba1d1f7d856c7a0d",
+  "calendar_rows": 3966,
+  "train_rows": 3020,
+  "train_known": 3020,
+  "held_rows": 944,
+  "held_known": 944,
+  "train_max_abs_spearman_original39": 0.22577803938555888,
+  "train_abs_spearman_return1": 0.08277556663792088,
+  "protective_2024Q3_mean": 0.021254496105105592,
+  "cash_loss_2025_mean": 0.07050272928607014,
+  "gates": {
+    "train_support": true,
+    "held_support": true,
+    "not_redundant_to_original39": true,
+    "not_redundant_to_return1": true,
+    "protective_interval_higher_shock": false
+  },
+  "Qlib_D_calendar_calls": 1,
+  "Qlib_D_feature_calls": 2,
+  "parent_Recorder_object_loads": 1,
+  "future_return_reads": 0,
+  "model_fits": 0,
+  "native_accounts": 0,
+  "new_market_requests": 0,
+  "historical_first_public_qualified": false,
+  "recorder_id": "01e593e243ac45cfb1410fb865623d93",
+  "experiment_id": "742128259253785221"
+}
