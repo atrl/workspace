@@ -1,0 +1,47 @@
+{
+  "schema_version": 1,
+  "frozen_before_first_fit": true,
+  "kind": "mechanical_single_fresh_kernel_rehydration",
+  "original_plan_sha256": "a9de76b15621f8d370f5c2863f2906a510a3dab8f5cace5f16ac9f41d8bdfc69",
+  "preflight_receipt_sha256": "fb26f91a5ea4a65cfdfd9c95cd15265d6e6e28eb99eeec42e657173444e19ed9",
+  "runtime_repair_plan": "preflight_runtime_repair_plan.json",
+  "consumed_before_addendum": {
+    "parent_Recorder_object_loads": 4,
+    "source_Recorder_object_loads": 1,
+    "DatasetH_builds": 1,
+    "model_fit_attempts": 0,
+    "bootstrap_attempts": 0,
+    "writable_Recorders": 0,
+    "native_accounts": 0
+  },
+  "reason": "The no-fit Qlib preflight succeeded in the repository Python3.12 Jupyter kernel; that kernel ended, so source objects and DatasetH must be reconstructed once in a fresh kernel before fitting. The system Python3.14 crash was separately recorded and produced no valid preflight.",
+  "additional_budget": {
+    "parent_Recorder_object_loads": 4,
+    "source_Recorder_object_loads": 1,
+    "DatasetH_builds": 1,
+    "model_fit_attempts": 2,
+    "bootstrap_attempts": 2,
+    "writable_Recorders": 1,
+    "native_accounts": 0
+  },
+  "cumulative_max": {
+    "parent_Recorder_object_loads": 8,
+    "source_Recorder_object_loads": 2,
+    "DatasetH_builds": 2,
+    "model_fit_attempts": 2,
+    "bootstrap_attempts": 2,
+    "writable_Recorders": 1,
+    "native_accounts": 0
+  },
+  "bootstrap_module_sha256": "02705f897e668b710a38aae514df08b86e26c8cd8951405339960355a08a5ac4",
+  "unchanged": [
+    "source identities",
+    "single peer feature and negative expected sign",
+    "cash-minus-SOXX H5 label and maturity",
+    "original39 and training-mean controls",
+    "Ridge alpha1 and two fits",
+    "full/halves/2024/2025 and two corrected-lower gates",
+    "zero accounts"
+  ],
+  "stop": "No further rehydration, fit, bootstrap or account after this one execution; any failure closes this fixed version."
+}

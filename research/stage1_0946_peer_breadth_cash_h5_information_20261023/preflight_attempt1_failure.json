@@ -1,0 +1,11 @@
+{
+  "schema_version": 1,
+  "status": "preflight_kernel_crashed_before_DatasetH_or_fit",
+  "environment": "system Python 3.14.3 Jupyter kernel",
+  "observed_crash_report": "/Users/rziiiii/Library/Logs/DiagnosticReports/Python-2026-10-23-103927.ips",
+  "signal": "SIGABRT",
+  "triggered_stack": ["__kmp_abort_process", "__kmp_fatal", "__kmp_register_library_startup", "omp_set_num_threads", "initModule"],
+  "interpretation": "OpenMP runtime initialization failure while importing/loading the frozen Qlib model stack. No preflight sidecar, DatasetH object, model fit, bootstrap or account was produced; not a scientific feature result.",
+  "new_model_fits": 0,
+  "new_native_accounts": 0
+}

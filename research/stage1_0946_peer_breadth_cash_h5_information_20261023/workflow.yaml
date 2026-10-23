@@ -1,0 +1,8 @@
+experiment: stage1_0946_peer_breadth_cash_h5_information_20261023
+provider_uri: data/qlib/minute_information_pit_allocator_20261012/daily_prices
+qlib_dataset: DatasetH
+qlib_recorder: R
+plan: plan.json
+preflight: preflight_result.json
+result: summary.json
+economic_account: none

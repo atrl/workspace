@@ -1,0 +1,22 @@
+{
+  "status": "conditional_0946_peer_cash_H5_source_maturity_novelty_preflight_passed_no_fit",
+  "plan_sha256": "a9de76b15621f8d370f5c2863f2906a510a3dab8f5cace5f16ac9f41d8bdfc69",
+  "source_recorder_id": "e7312100d7274be7aca700754c900f0a",
+  "parent_recorder_id": "68e31a0a0fad44e7ba1d1f7d856c7a0d",
+  "source_calendar_rows": 2006,
+  "original_primary_features": 39,
+  "candidate_coordinates": 1,
+  "training_mature_rows": 1055,
+  "held_mature_rows": 940,
+  "train_segment_rows": 1061,
+  "held_segment_rows": 944,
+  "max_abs_training_pairwise_Pearson": 0.08098169856588952,
+  "candidate_train_unknown_rows": 0,
+  "candidate_held_unknown_rows": 0,
+  "parent_Recorder_object_loads": 4,
+  "source_Recorder_object_loads": 1,
+  "DatasetH_builds": 1,
+  "model_fits": 0,
+  "native_accounts": 0,
+  "historical_first_receipt_qualified": false
+}

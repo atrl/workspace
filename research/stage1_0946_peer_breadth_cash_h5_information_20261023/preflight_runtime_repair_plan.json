@@ -1,0 +1,11 @@
+{
+  "schema_version": 1,
+  "frozen": true,
+  "scope": "One mechanical runtime retry of the identical no-fit preflight in repository qlib_venv Python 3.12 after system Python 3.14 OpenMP SIGABRT.",
+  "original_plan": "plan.json",
+  "failed_attempt": "preflight_attempt1_failure.json",
+  "kernel": "qlib_venv/bin/python -m ipykernel with temporary task-local kernel specification",
+  "unchanged": ["parent and source Recorder IDs and SHA-256", "one peer coordinate", "cash-minus-SOXX H5 label", "train/held dates", "novelty and information gates", "budgets for fits/bootstrap/account"],
+  "budget": {"preflight_retry_max": 1, "new_model_fits": 0, "new_native_accounts": 0, "new_external_requests": 0},
+  "stop": "If the repository Qlib environment fails, record the concrete error and stop before fitting. Do not set KMP_DUPLICATE_LIB_OK or weaken the scientific gate."
+}

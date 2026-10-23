@@ -1,0 +1,131 @@
+{
+  "experiment": "stage1_0946_peer_breadth_cash_h5_information_20261023",
+  "decision": "not_promoted_fixed_0946_peer_breadth_cash_H5_information_failed",
+  "objective_achieved": false,
+  "plan_sha256": "a9de76b15621f8d370f5c2863f2906a510a3dab8f5cace5f16ac9f41d8bdfc69",
+  "preflight": "preflight_result.json",
+  "information_gate_pass": false,
+  "training_mature_rows": 1055,
+  "held_mature_rows": 940,
+  "metrics": {
+    "candidate_MSE": 0.0025892306160339115,
+    "candidate_standardized_coefficient": -0.000261095054673082,
+    "train_label_mean": -0.003536702141880777,
+    "comparisons": {
+      "original39": {
+        "control_MSE": 0.0025894631350398306,
+        "full_mean_improvement": 2.3251900591877916e-07,
+        "halves": [
+          2.6234096547186364e-08,
+          4.689460025044859e-07
+        ],
+        "annual": [
+          {
+            "year": 2023,
+            "rows": 250,
+            "mean_improvement": 5.911363668962498e-07
+          },
+          {
+            "year": 2024,
+            "rows": 252,
+            "mean_improvement": -5.341848224499002e-07
+          },
+          {
+            "year": 2025,
+            "rows": 250,
+            "mean_improvement": 4.784946742732035e-09
+          },
+          {
+            "year": 2026,
+            "rows": 188,
+            "mean_improvement": 1.086181448996179e-06
+          }
+        ],
+        "bootstrap_lower": -2.1082716085890565e-06,
+        "bootstrap_upper": 2.808928955455493e-06
+      },
+      "training_mean": {
+        "control_MSE": 0.0023434789844841448,
+        "full_mean_improvement": -0.00024575163154976637,
+        "halves": [
+          -0.00025712387995195223,
+          -0.00023271768475091397
+        ],
+        "annual": [
+          {
+            "year": 2023,
+            "rows": 250,
+            "mean_improvement": -0.0003781735792500133
+          },
+          {
+            "year": 2024,
+            "rows": 252,
+            "mean_improvement": -0.00013703489255308221
+          },
+          {
+            "year": 2025,
+            "rows": 250,
+            "mean_improvement": -0.00020397520181072605
+          },
+          {
+            "year": 2026,
+            "rows": 188,
+            "mean_improvement": -0.0002709390716394617
+          }
+        ],
+        "bootstrap_lower": -0.0005052525651534267,
+        "bootstrap_upper": 1.8561212433620042e-05
+      }
+    }
+  },
+  "gates": {
+    "original39": {
+      "full_positive": true,
+      "both_halves_positive": true,
+      "both_complete_2024_2025_positive": false,
+      "corrected_lower_positive": false
+    },
+    "training_mean": {
+      "full_positive": false,
+      "both_halves_positive": false,
+      "both_complete_2024_2025_positive": false,
+      "corrected_lower_positive": false
+    },
+    "coefficient_negative": true
+  },
+  "new_model_fits": 2,
+  "new_bootstraps": 2,
+  "new_native_accounts": 0,
+  "historical_first_receipt_qualified": false,
+  "reused_history_is_independent": false,
+  "recorder_id": "4c278f5781444a79b560d1ecfe22234e",
+  "experiment_id": "467919540902648079",
+  "recorder_uri": "/Users/rziiiii/dev/workspace/research/stage1_0946_peer_breadth_cash_h5_information_20261023/qlib_recorder",
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "inputs/*",
+      "models/*",
+      "predictions/*",
+      "analysis/*"
+    ]
+  },
+  "nas_evidence": {
+    "sha256": "023fea659d9afcf56780870c24dba74607789ca08d6365bece19d30fa842b224",
+    "size_bytes": 2169251,
+    "media_type": "application/gzip",
+    "storage_uri": "sha256/02/3f/023fea659d9afcf56780870c24dba74607789ca08d6365bece19d30fa842b224",
+    "uploaded_by": "soxl-minute-research",
+    "created_at": "2026-10-23 10:46:13.765256+08",
+    "duplicate": false,
+    "nas_path": "/volume1/docker/yanxuan/registry/research-artifacts/02/3f/023fea659d9afcf56780870c24dba74607789ca08d6365bece19d30fa842b224",
+    "recorder_id": "4c278f5781444a79b560d1ecfe22234e",
+    "experiment_id": "467919540902648079",
+    "archive_root": "qlib_recorder"
+  },
+  "nas_scoped_restore_verified": true,
+  "runtime_repair": "preflight_runtime_repair_plan.json",
+  "runtime_crash_evidence": "preflight_attempt1_failure.json",
+  "pre_fit_rehydration_addendum": "pre_fit_rehydration_addendum.json"
+}
