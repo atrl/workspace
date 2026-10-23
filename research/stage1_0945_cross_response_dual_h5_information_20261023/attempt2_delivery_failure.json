@@ -1,0 +1,12 @@
+{
+  "status": "native_Recorder_FINISHED_summary_serialization_failed",
+  "plan_sha256": "7a6053f8e9e02b5e022a4eb5e73eac7ef86f5a5bd024fde96a2826a34d041abc",
+  "successful_run_fit_attempts": 4,
+  "successful_run_fits_completed": 4,
+  "successful_run_bootstrap_attempts": 2,
+  "recorder_id": "e2ce1ee6eda54c9a9a7d10a350356827",
+  "experiment_id": "535871699980763215",
+  "failure": "After R.start exited with metrics/gates/predictions saved, json.dumps(summary) raised TypeError on a NumPy bool value in the gates. No summary or NAS archive was written.",
+  "native_accounts": 0,
+  "repair": "Load the finished Recorder's saved preflight, metrics, gates and joint decision once; convert NumPy scalars to Python scalars for sidecars, then NAS archive and verify the existing Recorder. Do not refit, rerun bootstrap, recreate Recorder or change gates."
+}

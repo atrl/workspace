@@ -1,0 +1,15 @@
+{
+  "status": "failed_after_two_cash_target_fits_before_prediction_or_bootstrap",
+  "plan_sha256": "7a6053f8e9e02b5e022a4eb5e73eac7ef86f5a5bd024fde96a2826a34d041abc",
+  "preflight_passed": true,
+  "train_mature_source_known": 1054,
+  "held_mature_source_known": 940,
+  "fit_attempts": 2,
+  "fits_completed": 2,
+  "failure": "Candidate 40-feature SimpleImputer.predict was incorrectly given the 39-feature held matrix; sklearn raised ValueError before metrics, bootstrap, Recorder or account.",
+  "metrics_produced": false,
+  "bootstrap_attempts": 0,
+  "new_Recorders": 0,
+  "native_accounts": 0,
+  "repair": "Change only candidate.predict(xhe) to candidate.predict(xhe_new), rerun the same frozen cohorts/formula/model/gates once, and disclose two extra physical fits."
+}

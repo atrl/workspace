@@ -1,0 +1,12 @@
+{
+  "status": "matched_original39_plus_one_source_known_H5_preflight_passed",
+  "plan_sha256": "7a6053f8e9e02b5e022a4eb5e73eac7ef86f5a5bd024fde96a2826a34d041abc",
+  "train_mature_source_known": 1054,
+  "held_mature_source_known": 940,
+  "full_held_calendar": 944,
+  "excluded_source_unknown_training_date": "2020-03-16",
+  "source_Recorder_object_loads": 1,
+  "Qlib_intraday_feature_reads": 1,
+  "model_fits": 0,
+  "native_accounts": 0
+}

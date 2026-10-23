@@ -1,0 +1,9 @@
+{
+  "phase": "read_only_saved_Qlib_Recorder_summary_and_NAS_delivery",
+  "source_recorder_id": "e2ce1ee6eda54c9a9a7d10a350356827",
+  "source_experiment_id": "535871699980763215",
+  "fixed_readback": ["inputs/preflight", "analysis/metrics", "analysis/gates", "analysis/joint_information_pass"],
+  "serialization_repair": "Convert NumPy bool/number scalar types to equivalent Python scalar types for JSON only. Preserve all numeric metric values and gate decisions.",
+  "budget": {"Qlib_Recorder_object_loads": 4, "model_fits": 0, "bootstrap_runs": 0, "new_Recorders": 0, "native_accounts": 0},
+  "stop": "Stop if saved Recorder is not FINISHED or exact frozen hashes, saved metrics and gates cannot be read. Do not rerun scientific work for a prose/JSON delivery failure."
+}

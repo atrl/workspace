@@ -1,0 +1,7 @@
+experiment: stage1_0945_cross_response_dual_h5_information_20261023
+mode: Qlib_DatasetH_original39_matched_dual_H5_information
+parent: frozen_complete_Stage1_0bp_IBKR_Tiered
+provider: data/qlib/soxl_intraday_15min
+slippage_bps_for_future_account: 0
+model_fit_attempts_max: 4
+native_accounts: 0

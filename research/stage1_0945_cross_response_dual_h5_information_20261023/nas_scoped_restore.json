@@ -1,0 +1,28 @@
+{
+  "status": "NAS_archive_cold_readback_selected_Qlib_artifacts_exact",
+  "archive_sha256": "0d346a01a4c576e28748d3f3006085be35ae2a70b088d222d97a715e97228d9d",
+  "archive_bytes": 976863,
+  "recorder_id": "e2ce1ee6eda54c9a9a7d10a350356827",
+  "checked": {
+    "analysis/metrics": {
+      "sha256": "e0fed54a5f0eced597e5dcbe8db4b268e5d418b41853c670778f7b2eece8d05a",
+      "bytes": 819
+    },
+    "analysis/gates": {
+      "sha256": "2d3bf386536c3a5242aeda510ef8e6b2adc7d355a30cda4d28b9d312d16942e5",
+      "bytes": 306
+    },
+    "analysis/joint_information_pass": {
+      "sha256": "24a5341c9a6e30357187cbeaebee0a02714ee3b3d6cead951a613e96ffb746dc",
+      "bytes": 4
+    },
+    "inputs/preflight": {
+      "sha256": "31121123ce0e673128b9305a756f69eb767299dbc6bb964818d66feb46395748",
+      "bytes": 407
+    }
+  },
+  "new_fits": 0,
+  "new_bootstraps": 0,
+  "new_accounts": 0,
+  "preflight_failure": "First readback invocation attempted ssh from minimal card binding instead of workspace NAS settings; no remote read occurred."
+}

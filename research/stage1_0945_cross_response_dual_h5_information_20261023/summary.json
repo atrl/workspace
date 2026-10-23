@@ -1,0 +1,168 @@
+{
+  "experiment": "stage1_0945_cross_response_dual_h5_information_20261023",
+  "decision": "not_promoted_fixed_0945_cross_response_dual_H5_information_failed",
+  "objective_achieved": false,
+  "plan_sha256": "7a6053f8e9e02b5e022a4eb5e73eac7ef86f5a5bd024fde96a2826a34d041abc",
+  "preflight": {
+    "status": "matched_original39_plus_one_source_known_H5_preflight_passed",
+    "plan_sha256": "7a6053f8e9e02b5e022a4eb5e73eac7ef86f5a5bd024fde96a2826a34d041abc",
+    "train_mature_source_known": 1054,
+    "held_mature_source_known": 940,
+    "full_held_calendar": 944,
+    "excluded_source_unknown_training_date": "2020-03-16",
+    "source_Recorder_object_loads": 1,
+    "Qlib_intraday_feature_reads": 1,
+    "model_fits": 0,
+    "native_accounts": 0
+  },
+  "metrics": {
+    "cash_advantage_H5": {
+      "baseline_held_mse": 0.002592284393962149,
+      "candidate_held_mse": 0.0025888801447779427,
+      "paired_mean_improvement": 3.4042491842060785e-06,
+      "added_standardized_coefficient": -0.0010292131825625332,
+      "halves": [
+        {
+          "start": "2023-01-03",
+          "end": "2024-12-31",
+          "rows": 502,
+          "mean_improvement": 4.881184720724359e-06
+        },
+        {
+          "start": "2025-01-02",
+          "end": "2026-10-07",
+          "rows": 438,
+          "mean_improvement": 1.7115057154111552e-06
+        }
+      ],
+      "complete_years": [
+        {
+          "year": 2024,
+          "rows": 252,
+          "mean_improvement": 6.999317549776576e-06
+        },
+        {
+          "year": 2025,
+          "rows": 250,
+          "mean_improvement": 3.9159030626056425e-06
+        }
+      ],
+      "bootstrap": {
+        "paired_mean_loss_improvement": 3.4042491842060785e-06,
+        "lower_bound": -5.693691570770583e-06,
+        "upper_bound": 1.277038784224936e-05,
+        "valid_replicates": 10000,
+        "invalid_replicates": 0,
+        "calendar_rows": 944,
+        "scored_rows": 940
+      }
+    },
+    "SOXL_relative_H5": {
+      "baseline_held_mse": 0.011522504905938506,
+      "candidate_held_mse": 0.011506739208628956,
+      "paired_mean_improvement": 1.5765697309548345e-05,
+      "added_standardized_coefficient": 0.001933258985426233,
+      "halves": [
+        {
+          "start": "2023-01-03",
+          "end": "2024-12-31",
+          "rows": 502,
+          "mean_improvement": 1.865930522392718e-05
+        },
+        {
+          "start": "2025-01-02",
+          "end": "2026-10-07",
+          "rows": 438,
+          "mean_improvement": 1.2449279106310496e-05
+        }
+      ],
+      "complete_years": [
+        {
+          "year": 2024,
+          "rows": 252,
+          "mean_improvement": 2.431303597174238e-05
+        },
+        {
+          "year": 2025,
+          "rows": 250,
+          "mean_improvement": 1.905593580027323e-05
+        }
+      ],
+      "bootstrap": {
+        "paired_mean_loss_improvement": 1.5765697309548345e-05,
+        "lower_bound": -2.9465569061798477e-05,
+        "upper_bound": 5.9701119478471025e-05,
+        "valid_replicates": 10000,
+        "invalid_replicates": 0,
+        "calendar_rows": 944,
+        "scored_rows": 940
+      }
+    }
+  },
+  "gates": {
+    "cash_advantage_H5": {
+      "coefficient_negative": true,
+      "full_held_positive": true,
+      "both_halves_positive": true,
+      "both_complete_years_positive": true,
+      "corrected_lower_positive": false
+    },
+    "SOXL_relative_H5": {
+      "coefficient_negative": false,
+      "full_held_positive": true,
+      "both_halves_positive": true,
+      "both_complete_years_positive": true,
+      "corrected_lower_positive": false
+    }
+  },
+  "joint_information_pass": false,
+  "new_model_fits": 6,
+  "successful_run_model_fits": 4,
+  "failed_attempt_model_fits": 2,
+  "new_bootstraps": 2,
+  "new_native_accounts": 0,
+  "held_history_reused": true,
+  "historical_first_receipt_qualified": false,
+  "independent_forward_qualified_days": 0,
+  "recorder_id": "e2ce1ee6eda54c9a9a7d10a350356827",
+  "experiment_id": "535871699980763215",
+  "recorder_uri": "/Users/rziiiii/dev/workspace/research/stage1_0945_cross_response_dual_h5_information_20261023/qlib_recorder",
+  "delivery_repair": "attempt2_delivery_repair_plan.json",
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "inputs/*",
+      "models/*",
+      "predictions/*",
+      "analysis/*"
+    ]
+  },
+  "limitations": [
+    "Information MSE is not a fee-net own-state account.",
+    "Historical first receipt and published-affine source vintage remain unqualified.",
+    "Reused 2023-2026 market history is development only, not independent validation."
+  ],
+  "nas_evidence": {
+    "sha256": "0d346a01a4c576e28748d3f3006085be35ae2a70b088d222d97a715e97228d9d",
+    "size_bytes": 976863,
+    "media_type": "application/gzip",
+    "storage_uri": "sha256/0d/34/0d346a01a4c576e28748d3f3006085be35ae2a70b088d222d97a715e97228d9d",
+    "uploaded_by": "soxl-minute-research",
+    "created_at": "2026-10-23 10:47:58.775549+08",
+    "duplicate": false,
+    "nas_path": "/volume1/docker/yanxuan/registry/research-artifacts/0d/34/0d346a01a4c576e28748d3f3006085be35ae2a70b088d222d97a715e97228d9d",
+    "recorder_id": "e2ce1ee6eda54c9a9a7d10a350356827",
+    "experiment_id": "535871699980763215",
+    "archive_root": "qlib_recorder"
+  },
+  "nas_readback": {
+    "sha256": "0d346a01a4c576e28748d3f3006085be35ae2a70b088d222d97a715e97228d9d",
+    "verified": true
+  },
+  "attempt1_failure": "attempt1_failure.json",
+  "attempt2_delivery_failure": "attempt2_delivery_failure.json",
+  "nas_scoped_restore": "nas_scoped_restore.json",
+  "actual_total_fit_attempts": 6,
+  "successful_run_fit_attempts": 4
+}

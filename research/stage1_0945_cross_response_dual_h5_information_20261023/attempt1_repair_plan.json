@@ -1,0 +1,6 @@
+{
+  "cause": "A 40-column candidate model was passed the 39-column control held matrix on the first run.",
+  "fixed_change": "Use xhe_new for candidate prediction. Keep xhe for the 39-column baseline. No data, target, fit, gate, cost or seed change.",
+  "physical_budget_addendum": {"model_fit_attempts": 2, "Qlib_intraday_feature_reads": 1, "source_Recorder_object_loads": 1},
+  "stop": "If a second mechanical issue arises, preserve its failure state and do not choose or change an economic parameter to obtain passage."
+}

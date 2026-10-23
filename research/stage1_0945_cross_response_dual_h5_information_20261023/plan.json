@@ -1,0 +1,41 @@
+{
+  "experiment": "stage1_0945_cross_response_dual_h5_information_20261023",
+  "frozen": true,
+  "execution_authorized_by_active_Goal": true,
+  "phase": "conditional_retrospective_original39_plus_one_cross_ETF_response_two_necessary_receiver_information_screen",
+  "parent": "frozen_complete_Stage1_f696_plus_b472_0bp_IBKR_Tiered",
+  "hypothesis": "A larger positive 09:45 SOXL-minus-3xSOXX first-bar response reflects temporary relative overpricing and broad risk appetite; it should predict worse next-H5 SOXL-minus-SOXX selection and worse cash advantage. Both added standardized Ridge coefficients are expected negative. This is a necessary information screen, not a strategy.",
+  "sources": {
+    "coordinate_card": "research/stage1_0945_soxl_soxx_cross_response_source_20261023",
+    "coordinate_summary_sha256": "69f18ee8ebef81d9012d3608fbb887d33c371ff699ee4b418156d75df8be1794",
+    "coordinate_result_sha256": "a05f88bf35ae951c95aa1ffd786d6680a3061b9b1399edbb02d934bbc8681ddd",
+    "intraday_provider": "data/qlib/soxl_intraday_15min",
+    "intraday_manifest_sha256": "d373f95cb349532338e88160cbf9a1d56b75a68fdff3cea119ec96454bdc7c34",
+    "original39_dataset_card": "research/stage1_dual_task_39_information_20261023",
+    "original39_summary_sha256": "e3a22a8f050b90d6f0a7ea96df0b4499bc387376f0c26abf2bb8ee2b501ad136",
+    "original39_dataset_sha256": "3bc64249f92a922d9edace380e7eecfdeeb52e3a9e611e004bb8e74982aa9b12",
+    "original39_recorder_id": "a4bbc11f5c764ac38ff2f682eadd0e1d",
+    "original39_experiment_id": "666721299406485975",
+    "bootstrap_module_sha256": "02705f897e668b710a38aae514df08b86e26c8cd8951405339960355a08a5ac4"
+  },
+  "coordinate": "(SOXL 09:45 close/open -1) - 3*(SOXX 09:45 close/open -1), only when both 09:45 bars are complete, positive, finite and have 15/15 constituent minutes. 2020-03-16 remains unknown.",
+  "targets": ["saved original39 DatasetH cash_advantage_H5", "saved original39 DatasetH SOXL_relative_H5"],
+  "cohorts": {
+    "train_signal": ["2018-10-15", "2022-12-30"],
+    "held_reused": ["2023-01-03", "2026-10-07"],
+    "held_halves": [["2023-01-03", "2024-12-31"], ["2025-01-02", "2026-10-07"]],
+    "complete_held_years": [2024, 2025],
+    "same_train_rows_both_models": true,
+    "same_held_rows_both_models": true,
+    "full_held_calendar_retained": true,
+    "history_reused_not_independent": true
+  },
+  "model": "For each target fit exactly one SimpleImputer(median)->StandardScaler->Ridge(alpha=1) matched original39 control and one same39-plus-coordinate candidate on identical mature known-source training dates; no tuning or candidate selection.",
+  "information_gate": {
+    "both_receivers_required": true,
+    "per_receiver": ["added standardized coefficient <0", "full held paired MSE improvement >0", "both fixed halves >0", "complete 2024 and 2025 >0", "full-calendar stationary-bootstrap corrected lower bound >0"],
+    "bootstrap": {"mean_block_sessions": 63, "draws_each": 10000, "seed": 20261023, "one_sided_alpha_each": 0.00078125, "family_denominator": 32}
+  },
+  "budget": {"new_market_requests": 0, "Qlib_intraday_feature_reads": 1, "source_Recorder_object_loads": 1, "DatasetH_builds": 0, "model_fit_attempts_max": 4, "bootstrap_attempts_max": 2, "new_writable_Qlib_Recorders_max": 1, "native_accounts": 0},
+  "stop": "Stop before fitting on source/dataset hash, 2020-03-16 unknown, label maturity, complete held940 support, or matched-cohort failure. A failed fixed information gate closes this coordinate/receiver version without sign, multiple, bar, horizon, year, model or threshold rescue. Even a pass is conditional retrospective feedback; historical first receipt and derived-bin provenance require qualification before a full Stage1-parent 0bp Tiered account, then 2/5bp and independent forward evidence."
+}
