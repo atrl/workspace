@@ -1,0 +1,15 @@
+{
+  "status": "blocked_prefit_source_parser_preview_expectation_invalid",
+  "plan_sha256": "762b06e801ec48baebb5bfe3e286ca911fafc51556b242567f43d9c7c95377f6",
+  "failed_period": "2023-07",
+  "failed_assertion": "The frozen plan expected zero HWP preview export semiconductor tokens for 2023-Jul/Aug/Sep. Its broader frozen token grammar permits an arrow after percent; under that grammar all three previews contain a single matching export token.",
+  "actual_HWP_source_reads": 7,
+  "actual_HWPX_reads": 0,
+  "actual_PDF_reads": 0,
+  "actual_HWP_preview_agree_before_failure": 6,
+  "new_Qlib_Recorders": 0,
+  "SOXX_outcome_reads": 0,
+  "model_fits": 0,
+  "native_accounts": 0,
+  "repair_boundary": "New fixed version may only change the three-month preview expectation to one agreeing preview token and support count to30. Preserve all source hashes, parser, sign, dates, budgets, sources and stop conditions. Do not rerun this version."
+}
