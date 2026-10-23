@@ -1,0 +1,20 @@
+{
+  "experiment": "stage1_soxx_reported_basket_rotation_identity_preflight_20261023",
+  "decision": "legacy_reported_basket_turnover_identity_unqualified_source_only",
+  "objective_achieved": false,
+  "plan_sha256": "858b9328a09c46e98a7e2caa33fd85dd737588a3f3b15dbaadbbb0ab6b2474fe",
+  "result": "result.json",
+  "market_outcome_reads": 0,
+  "model_fits": 0,
+  "native_accounts": 0,
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": []
+  },
+  "limitations": [
+    "Normalized exact issuer names are not stable security identifiers; unmatched names may be aliases or corporate events.",
+    "No full2011-2026 PIT turnover vector, market result or Stage1 account.",
+    "Source filing result values are backed by their upstream original-source/NAS cards; this card adds no new raw filing bytes."
+  ]
+}

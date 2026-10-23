@@ -1,0 +1,53 @@
+{
+  "schema_version": 1,
+  "frozen": true,
+  "experiment": "stage1_soxx_reported_basket_rotation_identity_preflight_20261023",
+  "phase": "source_only_2011_2018_original_SOXX_basket_security_identity_preflight",
+  "question": "Do the 31 original SOXX 2011-2018 30-equity filings carry stable enough security identity to build a later point-in-time basket rotation field distinct from closed static concentration?",
+  "sources": [
+    {
+      "path": "research/stage1_soxx_2011_reported_concentration_source_20261023/source_result.json",
+      "sha256": "8e693798943fcb2c6ff244ea177036f37d3d00f0ddf57476c5eb113234f150a5"
+    },
+    {
+      "path": "research/stage1_soxx_legacy_reported_concentration_source_20261023/numeric_2012_result.json",
+      "sha256": "00f4367f755741bbeb4f96e2680f4141ca838e984ec6f02f517ccc9b03085cad"
+    },
+    {
+      "path": "research/stage1_soxx_2013_2014_reported_concentration_source_20261023/numeric_2013_2014_result.json",
+      "sha256": "0892d88e09cb9cd0cb297d1a9debff442cb4834f4a562cf7228475161f70c0fe"
+    },
+    {
+      "path": "research/stage1_soxx_2015_transition_concentration_source_20261023/numeric_2015_transition_result.json",
+      "sha256": "a91964dd0eaa500476606a54137a7e06f8c87e52e45851e72a5e0012ab44a079"
+    },
+    {
+      "path": "research/stage1_soxx_2016_reported_concentration_source_20261023/numeric_2016_first_version_result.json",
+      "sha256": "c5d63cd18677a633ec2b79b76b224f4745b935fe3947675fb2a9f0c91066f69a"
+    },
+    {
+      "path": "research/stage1_soxx_2017_2018_original_concentration_source_20261023/numeric_2018_Jun_dollar_cell_repair_result.json",
+      "sha256": "6bd98e059b3dd09c2c3fda208d0e6d210932ed585d90c9a8a0ebc57754c0e26d"
+    }
+  ],
+  "fixed_method": [
+    "Read only the already NAS-backed original-filing result rows; never refetch SEC, market prices, labels or accounts.",
+    "Require each source report has 30 positive equity rows with original security name, original shares and original fair value; preserve filing acceptance and report-period identity.",
+    "Normalize Unicode and whitespace only for exact-name comparison; no alias, ticker or CUSIP inference and no weight renormalization.",
+    "For each adjacent report chronologically, report exact stable-name overlap, names only in prior/next, and whether within-report normalized names collide.",
+    "An unmatched name is identity-unknown, not confirmed exit/entry. No turnover factor until manually qualified original issuer/CUSIP bridge and full 2011-2026 disclosure timing."
+  ],
+  "budget": {
+    "original_source_result_loads": 6,
+    "external_HTTP_GETs": 0,
+    "market_outcome_reads": 0,
+    "model_fits": 0,
+    "native_accounts": 0
+  },
+  "stop": "Stop if source hashes, report counts, row closures or within-report identity fail. If exact names are unstable, preserve gap and do not calculate turnover, tune names or fit on reused history.",
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": []
+  }
+}

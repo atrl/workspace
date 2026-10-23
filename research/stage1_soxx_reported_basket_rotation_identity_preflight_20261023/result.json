@@ -1,0 +1,998 @@
+{
+  "decision": "legacy_reported_basket_turnover_identity_unqualified_source_only",
+  "plan_sha256": "858b9328a09c46e98a7e2caa33fd85dd737588a3f3b15dbaadbbb0ab6b2474fe",
+  "source_groups": [
+    {
+      "path": "research/stage1_soxx_2011_reported_concentration_source_20261023/source_result.json",
+      "reports": 4,
+      "sha256": "8e693798943fcb2c6ff244ea177036f37d3d00f0ddf57476c5eb113234f150a5"
+    },
+    {
+      "path": "research/stage1_soxx_legacy_reported_concentration_source_20261023/numeric_2012_result.json",
+      "reports": 4,
+      "sha256": "00f4367f755741bbeb4f96e2680f4141ca838e984ec6f02f517ccc9b03085cad"
+    },
+    {
+      "path": "research/stage1_soxx_2013_2014_reported_concentration_source_20261023/numeric_2013_2014_result.json",
+      "reports": 8,
+      "sha256": "0892d88e09cb9cd0cb297d1a9debff442cb4834f4a562cf7228475161f70c0fe"
+    },
+    {
+      "path": "research/stage1_soxx_2015_transition_concentration_source_20261023/numeric_2015_transition_result.json",
+      "reports": 5,
+      "sha256": "a91964dd0eaa500476606a54137a7e06f8c87e52e45851e72a5e0012ab44a079"
+    },
+    {
+      "path": "research/stage1_soxx_2016_reported_concentration_source_20261023/numeric_2016_first_version_result.json",
+      "reports": 4,
+      "sha256": "c5d63cd18677a633ec2b79b76b224f4745b935fe3947675fb2a9f0c91066f69a"
+    },
+    {
+      "path": "research/stage1_soxx_2017_2018_original_concentration_source_20261023/numeric_2018_Jun_dollar_cell_repair_result.json",
+      "reports": 6,
+      "sha256": "6bd98e059b3dd09c2c3fda208d0e6d210932ed585d90c9a8a0ebc57754c0e26d"
+    }
+  ],
+  "original_reports": 31,
+  "first_report_period": "2011-01-31",
+  "last_report_period": "2018-06-30",
+  "all_report_rows": 930,
+  "reports_with_name_collision": 0,
+  "adjacent_transitions": 30,
+  "exact_name_overlap_min": 9,
+  "exact_name_overlap_median": 23.0,
+  "exact_name_overlap_max": 29,
+  "transitions_overlap_below_25": 17,
+  "total_prior_only_name_slots": 277,
+  "transition_details": [
+    {
+      "prior_period": "2011-01-31",
+      "next_period": "2011-04-30",
+      "prior_accession": "0001193125-11-093502",
+      "next_accession": "0001193125-11-176858",
+      "exact_normalized_name_overlap": 11,
+      "prior_only_names": [
+        "advanced micro devices inc. a",
+        "atheros communications inc. a",
+        "broadcom corp. class a",
+        "cirrus logic inc. a",
+        "cree inc. a,b",
+        "hittite microwave corp. a",
+        "lam research corp. a",
+        "marvell technology group ltd. a",
+        "memc electronic materials inc. a",
+        "micron technology inc. a",
+        "mks instruments inc. a",
+        "netlogic microsystems inc. a",
+        "novellus systems inc. a",
+        "nvidia corp. a",
+        "rubicon technology inc. a,b",
+        "sandisk corp. a",
+        "stmicroelectronics nv nys",
+        "teradyne inc. a",
+        "veeco instruments inc. a,b"
+      ],
+      "next_only_names": [
+        "advanced micro devices inc.(a)(b)",
+        "broadcom corp. class a(a)",
+        "cirrus logic inc.(a)",
+        "cree inc.(a)(b)",
+        "hittite microwave corp.(a)(b)",
+        "lam research corp.(a)(b)",
+        "marvell technology group ltd.(a)",
+        "memc electronic materials inc.(a)",
+        "micron technology inc.(a)",
+        "mks instruments inc.",
+        "netlogic microsystems inc.(a)",
+        "novellus systems inc.(a)",
+        "nvidia corp.(a)",
+        "nxp semiconductors nv(a)",
+        "rubicon technology inc.(a)(b)",
+        "sandisk corp.(a)",
+        "stmicroelectronics nv nys(b)",
+        "teradyne inc.(a)",
+        "veeco instruments inc.(a)(b)"
+      ],
+      "prior_identity_collision": 0,
+      "next_identity_collision": 0
+    },
+    {
+      "prior_period": "2011-04-30",
+      "next_period": "2011-07-31",
+      "prior_accession": "0001193125-11-176858",
+      "next_accession": "0001193125-11-266548",
+      "exact_normalized_name_overlap": 11,
+      "prior_only_names": [
+        "advanced micro devices inc.(a)(b)",
+        "broadcom corp. class a(a)",
+        "cirrus logic inc.(a)",
+        "cree inc.(a)(b)",
+        "hittite microwave corp.(a)(b)",
+        "lam research corp.(a)(b)",
+        "marvell technology group ltd.(a)",
+        "memc electronic materials inc.(a)",
+        "micron technology inc.(a)",
+        "national semiconductor corp.",
+        "netlogic microsystems inc.(a)",
+        "novellus systems inc.(a)",
+        "nvidia corp.(a)",
+        "nxp semiconductors nv(a)",
+        "rubicon technology inc.(a)(b)",
+        "sandisk corp.(a)",
+        "stmicroelectronics nv nys(b)",
+        "teradyne inc.(a)",
+        "veeco instruments inc.(a)(b)"
+      ],
+      "next_only_names": [
+        "advanced micro devices inc. a,b",
+        "broadcom corp. class a a",
+        "cirrus logic inc. a,b",
+        "cree inc. a,b",
+        "hittite microwave corp. a,b",
+        "lam research corp. a",
+        "marvell technology group ltd. a",
+        "memc electronic materials inc. a",
+        "micron technology inc. a",
+        "netlogic microsystems inc. a",
+        "novellus systems inc. a,b",
+        "nvidia corp. a",
+        "nxp semiconductors nv a",
+        "rubicon technology inc. a,b",
+        "sandisk corp. a",
+        "stmicroelectronics nv nys b",
+        "teradyne inc. a,b",
+        "varian semiconductor equipment associates inc. a",
+        "veeco instruments inc. a,b"
+      ],
+      "prior_identity_collision": 0,
+      "next_identity_collision": 0
+    },
+    {
+      "prior_period": "2011-07-31",
+      "next_period": "2011-10-31",
+      "prior_accession": "0001193125-11-266548",
+      "next_accession": "0001193125-11-355398",
+      "exact_normalized_name_overlap": 9,
+      "prior_only_names": [
+        "advanced micro devices inc. a,b",
+        "broadcom corp. class a a",
+        "cirrus logic inc. a,b",
+        "cree inc. a,b",
+        "hittite microwave corp. a,b",
+        "lam research corp. a",
+        "marvell technology group ltd. a",
+        "memc electronic materials inc. a",
+        "micron technology inc. a",
+        "netlogic microsystems inc. a",
+        "novellus systems inc. a,b",
+        "nvidia corp. a",
+        "nxp semiconductors nv a",
+        "power integrations inc.",
+        "rubicon technology inc. a,b",
+        "sandisk corp. a",
+        "stmicroelectronics nv nys b",
+        "taiwan semiconductor manufacturing co. ltd. sp adr",
+        "teradyne inc. a,b",
+        "varian semiconductor equipment associates inc. a",
+        "veeco instruments inc. a,b"
+      ],
+      "next_only_names": [
+        "advanced micro devices inc.(a)(b)",
+        "broadcom corp. class a(a)",
+        "cirrus logic inc.(a)(b)",
+        "cree inc.(a)(b)",
+        "hittite microwave corp.(a)(b)",
+        "interdigital inc.",
+        "lam research corp.(a)",
+        "marvell technology group ltd.(a)",
+        "memc electronic materials inc.(a)",
+        "micron technology inc.(a)",
+        "netlogic microsystems inc.(a)",
+        "novellus systems inc.(a)(b)",
+        "nvidia corp.(a)",
+        "nxp semiconductors nv(a)",
+        "power integrations inc.(b)",
+        "rubicon technology inc.(a)(b)",
+        "sandisk corp.(a)",
+        "stmicroelectronics nv nys",
+        "taiwan semiconductor manufacturing co. ltd. sp adr(b)",
+        "teradyne inc.(a)(b)",
+        "veeco instruments inc.(a)(b)"
+      ],
+      "prior_identity_collision": 0,
+      "next_identity_collision": 0
+    },
+    {
+      "prior_period": "2011-10-31",
+      "next_period": "2012-01-31",
+      "prior_accession": "0001193125-11-355398",
+      "next_accession": "0001193125-12-151845",
+      "exact_normalized_name_overlap": 11,
+      "prior_only_names": [
+        "advanced micro devices inc.(a)(b)",
+        "broadcom corp. class a(a)",
+        "cirrus logic inc.(a)(b)",
+        "cree inc.(a)(b)",
+        "hittite microwave corp.(a)(b)",
+        "lam research corp.(a)",
+        "marvell technology group ltd.(a)",
+        "memc electronic materials inc.(a)",
+        "micron technology inc.(a)",
+        "netlogic microsystems inc.(a)",
+        "novellus systems inc.(a)(b)",
+        "nvidia corp.(a)",
+        "nxp semiconductors nv(a)",
+        "power integrations inc.(b)",
+        "rubicon technology inc.(a)(b)",
+        "sandisk corp.(a)",
+        "taiwan semiconductor manufacturing co. ltd. sp adr(b)",
+        "teradyne inc.(a)(b)",
+        "veeco instruments inc.(a)(b)"
+      ],
+      "next_only_names": [
+        "advanced micro devices inc. a,b",
+        "broadcom corp. class a a",
+        "cirrus logic inc. a,b",
+        "cree inc. a",
+        "hittite microwave corp. a,b",
+        "lam research corp. a,b",
+        "marvell technology group ltd. a",
+        "memc electronic materials inc. a",
+        "micron technology inc. a",
+        "novellus systems inc. a",
+        "nvidia corp. a",
+        "nxp semiconductors nv a,b",
+        "power integrations inc.",
+        "rubicon technology inc. a,b",
+        "sandisk corp. a",
+        "spreadtrum communications inc. sp adr b",
+        "taiwan semiconductor manufacturing co. ltd. sp adr b",
+        "teradyne inc. a,b",
+        "veeco instruments inc. a,b"
+      ],
+      "prior_identity_collision": 0,
+      "next_identity_collision": 0
+    },
+    {
+      "prior_period": "2012-01-31",
+      "next_period": "2012-04-30",
+      "prior_accession": "0001193125-12-151845",
+      "next_accession": "0001193125-12-289215",
+      "exact_normalized_name_overlap": 12,
+      "prior_only_names": [
+        "advanced micro devices inc. a,b",
+        "broadcom corp. class a a",
+        "cirrus logic inc. a,b",
+        "cree inc. a",
+        "hittite microwave corp. a,b",
+        "lam research corp. a,b",
+        "marvell technology group ltd. a",
+        "memc electronic materials inc. a",
+        "micron technology inc. a",
+        "novellus systems inc. a",
+        "nvidia corp. a",
+        "nxp semiconductors nv a,b",
+        "rubicon technology inc. a,b",
+        "sandisk corp. a",
+        "spreadtrum communications inc. sp adr b",
+        "taiwan semiconductor manufacturing co. ltd. sp adr b",
+        "teradyne inc. a,b",
+        "veeco instruments inc. a,b"
+      ],
+      "next_only_names": [
+        "advanced micro devices inc.(a)",
+        "broadcom corp. class a(a)",
+        "cirrus logic inc.(a)(b)",
+        "cree inc.(a)(b)",
+        "hittite microwave corp.(a)(b)",
+        "lam research corp.(a)(b)",
+        "marvell technology group ltd.(a)",
+        "memc electronic materials inc.(a)",
+        "micron technology inc.(a)",
+        "novellus systems inc.(a)",
+        "nvidia corp.(a)",
+        "nxp semiconductors nv(a)",
+        "rubicon technology inc.(a)(b)",
+        "sandisk corp.(a)",
+        "spreadtrum communications inc. sp adr(b)",
+        "taiwan semiconductor manufacturing co. ltd. sp adr(b)",
+        "teradyne inc.(a)(b)",
+        "veeco instruments inc.(a)(b)"
+      ],
+      "prior_identity_collision": 0,
+      "next_identity_collision": 0
+    },
+    {
+      "prior_period": "2012-04-30",
+      "next_period": "2012-07-31",
+      "prior_accession": "0001193125-12-289215",
+      "next_accession": "0001193125-12-418172",
+      "exact_normalized_name_overlap": 11,
+      "prior_only_names": [
+        "advanced micro devices inc.(a)",
+        "broadcom corp. class a(a)",
+        "cirrus logic inc.(a)(b)",
+        "cree inc.(a)(b)",
+        "hittite microwave corp.(a)(b)",
+        "interdigital inc.",
+        "lam research corp.(a)(b)",
+        "marvell technology group ltd.(a)",
+        "memc electronic materials inc.(a)",
+        "micron technology inc.(a)",
+        "novellus systems inc.(a)",
+        "nvidia corp.(a)",
+        "nxp semiconductors nv(a)",
+        "rubicon technology inc.(a)(b)",
+        "sandisk corp.(a)",
+        "spreadtrum communications inc. sp adr(b)",
+        "taiwan semiconductor manufacturing co. ltd. sp adr(b)",
+        "teradyne inc.(a)(b)",
+        "veeco instruments inc.(a)(b)"
+      ],
+      "next_only_names": [
+        "advanced micro devices inc. a,b",
+        "broadcom corp. class a a",
+        "cirrus logic inc. a,b",
+        "cree inc. a,b",
+        "hittite microwave corp. a,b",
+        "interdigital inc. b",
+        "lam research corp. a",
+        "marvell technology group ltd.",
+        "mellanox technologies ltd. a,b",
+        "memc electronic materials inc. a,b",
+        "micron technology inc. a",
+        "nvidia corp. a",
+        "nxp semiconductors nv a",
+        "rubicon technology inc. a,b",
+        "sandisk corp. a",
+        "spreadtrum communications inc. sp adr b",
+        "taiwan semiconductor manufacturing co. ltd. sp adr",
+        "teradyne inc. a,b",
+        "veeco instruments inc. a,b"
+      ],
+      "prior_identity_collision": 0,
+      "next_identity_collision": 0
+    },
+    {
+      "prior_period": "2012-07-31",
+      "next_period": "2012-10-31",
+      "prior_accession": "0001193125-12-418172",
+      "next_accession": "0001193125-12-517738",
+      "exact_normalized_name_overlap": 29,
+      "prior_only_names": [
+        "spreadtrum communications inc. sp adr b"
+      ],
+      "next_only_names": [
+        "spreadtrum communications inc. sp adr"
+      ],
+      "prior_identity_collision": 0,
+      "next_identity_collision": 0
+    },
+    {
+      "prior_period": "2012-10-31",
+      "next_period": "2013-01-31",
+      "prior_accession": "0001193125-12-517738",
+      "next_accession": "0001193125-13-148033",
+      "exact_normalized_name_overlap": 25,
+      "prior_only_names": [
+        "broadcom corp. class a a",
+        "cree inc. a,b",
+        "interdigital inc. b",
+        "memc electronic materials inc. a,b",
+        "nvidia corp. a"
+      ],
+      "next_only_names": [
+        "broadcom corp. class a",
+        "cree inc. a",
+        "interdigital inc.",
+        "memc electronic materials inc. a",
+        "nvidia corp."
+      ],
+      "prior_identity_collision": 0,
+      "next_identity_collision": 0
+    },
+    {
+      "prior_period": "2013-01-31",
+      "next_period": "2013-04-30",
+      "prior_accession": "0001193125-13-148033",
+      "next_accession": "0001193125-13-274594",
+      "exact_normalized_name_overlap": 27,
+      "prior_only_names": [
+        "cirrus logic inc. a,b",
+        "hittite microwave corp. a,b",
+        "memc electronic materials inc. a"
+      ],
+      "next_only_names": [
+        "cirrus logic inc. a",
+        "hittite microwave corp. a",
+        "memc electronic materials inc. a,b"
+      ],
+      "prior_identity_collision": 0,
+      "next_identity_collision": 0
+    },
+    {
+      "prior_period": "2013-04-30",
+      "next_period": "2013-07-31",
+      "prior_accession": "0001193125-13-274594",
+      "next_accession": "0001193125-13-392676",
+      "exact_normalized_name_overlap": 26,
+      "prior_only_names": [
+        "cirrus logic inc. a",
+        "hittite microwave corp. a",
+        "mellanox technologies ltd. a,b",
+        "memc electronic materials inc. a,b"
+      ],
+      "next_only_names": [
+        "cirrus logic inc. a,b",
+        "hittite microwave corp. a,b",
+        "mellanox technologies ltd. a",
+        "sunedison inc. a,b"
+      ],
+      "prior_identity_collision": 0,
+      "next_identity_collision": 0
+    },
+    {
+      "prior_period": "2013-07-31",
+      "next_period": "2013-10-31",
+      "prior_accession": "0001193125-13-392676",
+      "next_accession": "0001193125-13-486444",
+      "exact_normalized_name_overlap": 17,
+      "prior_only_names": [
+        "cirrus logic inc. a,b",
+        "cree inc. a",
+        "hittite microwave corp. a,b",
+        "interdigital inc.",
+        "mellanox technologies ltd. a",
+        "mks instruments inc.",
+        "power integrations inc.",
+        "rubicon technology inc. a,b",
+        "sandisk corp. a",
+        "spreadtrum communications inc. sp adr",
+        "stmicroelectronics nv nys",
+        "sunedison inc. a,b",
+        "veeco instruments inc. a,b"
+      ],
+      "next_only_names": [
+        "analog devices inc.",
+        "arm holdings plc",
+        "asml holding nv nys",
+        "atmel corp. a",
+        "cree inc. a,b",
+        "freescale semiconductor ltd. a,b",
+        "lsi corp.",
+        "maxim integrated products inc.",
+        "microchip technology inc.",
+        "on semiconductor corp. a",
+        "qualcomm inc.",
+        "sandisk corp.",
+        "skyworks solutions inc. a"
+      ],
+      "prior_identity_collision": 0,
+      "next_identity_collision": 0
+    },
+    {
+      "prior_period": "2013-10-31",
+      "next_period": "2014-01-31",
+      "prior_accession": "0001193125-13-486444",
+      "next_accession": "0001193125-14-127770",
+      "exact_normalized_name_overlap": 28,
+      "prior_only_names": [
+        "nxp semiconductors nv a",
+        "skyworks solutions inc. a"
+      ],
+      "next_only_names": [
+        "nxp semiconductors nv a,b",
+        "skyworks solutions inc. a,b"
+      ],
+      "prior_identity_collision": 0,
+      "next_identity_collision": 0
+    },
+    {
+      "prior_period": "2014-01-31",
+      "next_period": "2014-04-30",
+      "prior_accession": "0001193125-14-127770",
+      "next_accession": "0001193125-14-251746",
+      "exact_normalized_name_overlap": 25,
+      "prior_only_names": [
+        "lsi corp.",
+        "nxp semiconductors nv a,b",
+        "on semiconductor corp. a",
+        "skyworks solutions inc. a,b",
+        "teradyne inc. a,b"
+      ],
+      "next_only_names": [
+        "nxp semiconductors nv a",
+        "on semiconductor corp. a,b",
+        "skyworks solutions inc. a",
+        "sunedison inc. a,b",
+        "teradyne inc. a"
+      ],
+      "prior_identity_collision": 0,
+      "next_identity_collision": 0
+    },
+    {
+      "prior_period": "2014-04-30",
+      "next_period": "2014-07-31",
+      "prior_accession": "0001193125-14-251746",
+      "next_accession": "0001193125-14-366601",
+      "exact_normalized_name_overlap": 26,
+      "prior_only_names": [
+        "lam research corp. a",
+        "on semiconductor corp. a,b",
+        "skyworks solutions inc. a",
+        "teradyne inc. a"
+      ],
+      "next_only_names": [
+        "lam research corp.",
+        "on semiconductor corp. a",
+        "skyworks solutions inc.",
+        "teradyne inc."
+      ],
+      "prior_identity_collision": 0,
+      "next_identity_collision": 0
+    },
+    {
+      "prior_period": "2014-07-31",
+      "next_period": "2014-10-31",
+      "prior_accession": "0001193125-14-366601",
+      "next_accession": "0001193125-14-455465",
+      "exact_normalized_name_overlap": 26,
+      "prior_only_names": [
+        "advanced micro devices inc. a,b",
+        "atmel corp. a",
+        "micron technology inc. a",
+        "nxp semiconductors nv a"
+      ],
+      "next_only_names": [
+        "atmel corp. a,b",
+        "micron technology inc. a,b",
+        "nxp semiconductors nv a,b",
+        "rf micro devices inc. a,b"
+      ],
+      "prior_identity_collision": 0,
+      "next_identity_collision": 0
+    },
+    {
+      "prior_period": "2014-10-31",
+      "next_period": "2015-01-31",
+      "prior_accession": "0001193125-14-455465",
+      "next_accession": "0001193125-15-122693",
+      "exact_normalized_name_overlap": 20,
+      "prior_only_names": [
+        "asml holding nv nys",
+        "atmel corp. a,b",
+        "cree inc. a,b",
+        "freescale semiconductor ltd. a,b",
+        "microchip technology inc.",
+        "micron technology inc. a,b",
+        "nxp semiconductors nv a,b",
+        "on semiconductor corp. a",
+        "rf micro devices inc. a,b",
+        "sunedison inc. a,b"
+      ],
+      "next_only_names": [
+        "asml holding nv nys a",
+        "atmel corp. b",
+        "cavium inc. b,c",
+        "cree inc. b,c",
+        "freescale semiconductor ltd. b,c",
+        "microchip technology inc. c",
+        "micron technology inc. b",
+        "nxp semiconductors nv b",
+        "on semiconductor corp. b",
+        "sunedison inc. b,c"
+      ],
+      "prior_identity_collision": 0,
+      "next_identity_collision": 0
+    },
+    {
+      "prior_period": "2015-01-31",
+      "next_period": "2015-04-30",
+      "prior_accession": "0001193125-15-122693",
+      "next_accession": "0001193125-15-238848",
+      "exact_normalized_name_overlap": 25,
+      "prior_only_names": [
+        "arm holdings plc",
+        "atmel corp. b",
+        "freescale semiconductor ltd. b,c",
+        "microchip technology inc. c",
+        "taiwan semiconductor manufacturing co. ltd. sp adr"
+      ],
+      "next_only_names": [
+        "arm holdings plc adr",
+        "atmel corp.",
+        "freescale semiconductor ltd. b",
+        "microchip technology inc.",
+        "taiwan semiconductor manufacturing co. ltd. adr"
+      ],
+      "prior_identity_collision": 0,
+      "next_identity_collision": 0
+    },
+    {
+      "prior_period": "2015-04-30",
+      "next_period": "2015-07-31",
+      "prior_accession": "0001193125-15-238848",
+      "next_accession": "0001193125-15-339410",
+      "exact_normalized_name_overlap": 29,
+      "prior_only_names": [
+        "freescale semiconductor ltd. b"
+      ],
+      "next_only_names": [
+        "qorvo inc. b"
+      ],
+      "prior_identity_collision": 0,
+      "next_identity_collision": 0
+    },
+    {
+      "prior_period": "2015-07-31",
+      "next_period": "2015-09-30",
+      "prior_accession": "0001193125-15-339410",
+      "next_accession": "0001193125-15-396474",
+      "exact_normalized_name_overlap": 18,
+      "prior_only_names": [
+        "altera corp.",
+        "asml holding nv nys a",
+        "avago technologies ltd.",
+        "broadcom corp. class a",
+        "cavium inc. b,c",
+        "cree inc. b,c",
+        "microchip technology inc.",
+        "micron technology inc. b",
+        "nxp semiconductors nv b",
+        "on semiconductor corp. b",
+        "qorvo inc. b",
+        "sunedison inc. b,c"
+      ],
+      "next_only_names": [
+        "asml holding nv nys b",
+        "avago technologies ltd. c",
+        "cavium inc. a,c",
+        "cypress semiconductor corp.",
+        "infinera corp. a",
+        "microchip technology inc. c",
+        "micron technology inc. a",
+        "microsemi corp. a",
+        "nxp semiconductors nv a,c",
+        "on semiconductor corp. a",
+        "qorvo inc. a,c",
+        "sunedison inc. a,c"
+      ],
+      "prior_identity_collision": 0,
+      "next_identity_collision": 0
+    },
+    {
+      "prior_period": "2015-09-30",
+      "next_period": "2015-12-31",
+      "prior_accession": "0001193125-15-396474",
+      "next_accession": "0001193125-16-480933",
+      "exact_normalized_name_overlap": 20,
+      "prior_only_names": [
+        "asml holding nv nys b",
+        "avago technologies ltd. c",
+        "cavium inc. a,c",
+        "cypress semiconductor corp.",
+        "infinera corp. a",
+        "microchip technology inc. c",
+        "microsemi corp. a",
+        "nxp semiconductors nv a,c",
+        "qorvo inc. a,c",
+        "sunedison inc. a,c"
+      ],
+      "next_only_names": [
+        "asml holding nv nys b,c",
+        "avago technologies ltd. b",
+        "cavium inc. a,b",
+        "cypress semiconductor corp. b",
+        "infinera corp. a,b",
+        "microchip technology inc. b",
+        "microsemi corp. a,b",
+        "nxp semiconductors nv a,b",
+        "qorvo inc. a",
+        "sunedison inc. a,b"
+      ],
+      "prior_identity_collision": 0,
+      "next_identity_collision": 0
+    },
+    {
+      "prior_period": "2015-12-31",
+      "next_period": "2016-03-31",
+      "prior_accession": "0001193125-16-480933",
+      "next_accession": "0001193125-16-613829",
+      "exact_normalized_name_overlap": 18,
+      "prior_only_names": [
+        "avago technologies ltd. b",
+        "cavium inc. a,b",
+        "cypress semiconductor corp. b",
+        "infinera corp. a,b",
+        "kla-tencor corp.",
+        "microchip technology inc. b",
+        "microsemi corp. a,b",
+        "nxp semiconductors nv a,b",
+        "qorvo inc. a",
+        "sandisk corp.",
+        "sunedison inc. a,b",
+        "taiwan semiconductor manufacturing co. ltd. adr"
+      ],
+      "next_only_names": [
+        "broadcom ltd.",
+        "cavium inc. a,c",
+        "cypress semiconductor corp. c",
+        "infinera corp. a",
+        "integrated device technology inc. a",
+        "microchip technology inc.",
+        "microsemi corp. a",
+        "monolithic power systems inc.",
+        "nxp semiconductors nv a,c",
+        "qorvo inc. a,c",
+        "sunedison inc. a,c",
+        "taiwan semiconductor manufacturing co. ltd. adr c"
+      ],
+      "prior_identity_collision": 0,
+      "next_identity_collision": 0
+    },
+    {
+      "prior_period": "2016-03-31",
+      "next_period": "2016-06-30",
+      "prior_accession": "0001193125-16-613829",
+      "next_accession": "0001193125-16-695276",
+      "exact_normalized_name_overlap": 23,
+      "prior_only_names": [
+        "arm holdings plc adr",
+        "atmel corp.",
+        "cavium inc. a,c",
+        "nxp semiconductors nv a,c",
+        "qorvo inc. a,c",
+        "sunedison inc. a,c",
+        "taiwan semiconductor manufacturing co. ltd. adr c"
+      ],
+      "next_only_names": [
+        "arm holdings plc adr c",
+        "cavium inc. a",
+        "interdigital inc./pa",
+        "nxp semiconductors nv a",
+        "qorvo inc. a",
+        "silicon laboratories inc. a",
+        "taiwan semiconductor manufacturing co. ltd. adr"
+      ],
+      "prior_identity_collision": 0,
+      "next_identity_collision": 0
+    },
+    {
+      "prior_period": "2016-06-30",
+      "next_period": "2016-09-30",
+      "prior_accession": "0001193125-16-695276",
+      "next_accession": "0001193125-16-788378",
+      "exact_normalized_name_overlap": 16,
+      "prior_only_names": [
+        "arm holdings plc adr c",
+        "asml holding nv nys b,c",
+        "cavium inc. a",
+        "cypress semiconductor corp. c",
+        "infinera corp. a",
+        "integrated device technology inc. a",
+        "interdigital inc./pa",
+        "linear technology corp.",
+        "micron technology inc. a",
+        "microsemi corp. a",
+        "nxp semiconductors nv a",
+        "on semiconductor corp. a",
+        "qorvo inc. a",
+        "silicon laboratories inc. a"
+      ],
+      "next_only_names": [
+        "advanced micro devices inc. c",
+        "asml holding nv nys a,b",
+        "cavium inc. c",
+        "cirrus logic inc. c",
+        "cree inc. c",
+        "cypress semiconductor corp.",
+        "integrated device technology inc. c",
+        "micron technology inc. c",
+        "microsemi corp. c",
+        "mks instruments inc.",
+        "nxp semiconductors nv b,c",
+        "on semiconductor corp. c",
+        "qorvo inc. c",
+        "silicon motion technology corp. adr"
+      ],
+      "prior_identity_collision": 0,
+      "next_identity_collision": 0
+    },
+    {
+      "prior_period": "2016-09-30",
+      "next_period": "2016-12-31",
+      "prior_accession": "0001193125-16-788378",
+      "next_accession": "0001193125-17-065125",
+      "exact_normalized_name_overlap": 20,
+      "prior_only_names": [
+        "advanced micro devices inc. c",
+        "asml holding nv nys a,b",
+        "cavium inc. c",
+        "cree inc. c",
+        "micron technology inc. c",
+        "microsemi corp. c",
+        "nxp semiconductors nv b,c",
+        "on semiconductor corp. c",
+        "qorvo inc. c",
+        "taiwan semiconductor manufacturing co. ltd. adr"
+      ],
+      "next_only_names": [
+        "advanced micro devices inc. b,c",
+        "asml holding nv nys a",
+        "cavium inc. b,c",
+        "cree inc. b,c",
+        "micron technology inc. b,c",
+        "microsemi corp. b,c",
+        "nxp semiconductors nv c",
+        "on semiconductor corp. b,c",
+        "qorvo inc. b,c",
+        "taiwan semiconductor manufacturing co. ltd. adr b"
+      ],
+      "prior_identity_collision": 0,
+      "next_identity_collision": 0
+    },
+    {
+      "prior_period": "2016-12-31",
+      "next_period": "2017-03-31",
+      "prior_accession": "0001193125-17-065125",
+      "next_accession": "0001193125-17-194722",
+      "exact_normalized_name_overlap": 23,
+      "prior_only_names": [
+        "asml holding nv nys a",
+        "integrated device technology inc. c",
+        "micron technology inc. b,c",
+        "microsemi corp. b,c",
+        "nxp semiconductors nv c",
+        "on semiconductor corp. b,c",
+        "taiwan semiconductor manufacturing co. ltd. adr b"
+      ],
+      "next_only_names": [
+        "asml holding nv nys a,b",
+        "integrated device technology inc. b,c",
+        "interdigital inc./pa",
+        "micron technology inc. c",
+        "microsemi corp. c",
+        "on semiconductor corp. c",
+        "taiwan semiconductor manufacturing co. ltd. adr"
+      ],
+      "prior_identity_collision": 0,
+      "next_identity_collision": 0
+    },
+    {
+      "prior_period": "2017-03-31",
+      "next_period": "2017-06-30",
+      "prior_accession": "0001193125-17-194722",
+      "next_accession": "0001193125-17-271743",
+      "exact_normalized_name_overlap": 28,
+      "prior_only_names": [
+        "cirrus logic inc. c",
+        "on semiconductor corp. c"
+      ],
+      "next_only_names": [
+        "cirrus logic inc. b,c",
+        "on semiconductor corp. b,c"
+      ],
+      "prior_identity_collision": 0,
+      "next_identity_collision": 0
+    },
+    {
+      "prior_period": "2017-06-30",
+      "next_period": "2017-09-30",
+      "prior_accession": "0001193125-17-271743",
+      "next_accession": "0001193125-17-359934",
+      "exact_normalized_name_overlap": 25,
+      "prior_only_names": [
+        "cirrus logic inc. b,c",
+        "cree inc. b,c",
+        "interdigital inc./pa",
+        "microsemi corp. c",
+        "silicon motion technology corp. adr"
+      ],
+      "next_only_names": [
+        "cirrus logic inc. c",
+        "entegris inc. c",
+        "kla-tencor corp.",
+        "microsemi corp. b,c",
+        "silicon laboratories inc. c"
+      ],
+      "prior_identity_collision": 0,
+      "next_identity_collision": 0
+    },
+    {
+      "prior_period": "2017-09-30",
+      "next_period": "2017-12-31",
+      "prior_accession": "0001193125-17-359934",
+      "next_accession": "0001193125-18-063612",
+      "exact_normalized_name_overlap": 25,
+      "prior_only_names": [
+        "cavium inc. b,c",
+        "cirrus logic inc. c",
+        "entegris inc. c",
+        "microsemi corp. b,c",
+        "on semiconductor corp. b,c"
+      ],
+      "next_only_names": [
+        "cavium inc. c",
+        "cirrus logic inc. b,c",
+        "entegris inc.",
+        "microsemi corp. c",
+        "on semiconductor corp. c"
+      ],
+      "prior_identity_collision": 0,
+      "next_identity_collision": 0
+    },
+    {
+      "prior_period": "2017-12-31",
+      "next_period": "2018-03-31",
+      "prior_accession": "0001193125-18-063612",
+      "next_accession": "0001193125-18-186572",
+      "exact_normalized_name_overlap": 24,
+      "prior_only_names": [
+        "asml holding nv nys a,b",
+        "cavium inc. c",
+        "integrated device technology inc. b,c",
+        "microchip technology inc.",
+        "nvidia corp.",
+        "taiwan semiconductor manufacturing co. ltd. adr"
+      ],
+      "next_only_names": [
+        "asml holding nv nys nvs a",
+        "integrated device technology inc. c",
+        "mellanox technologies ltd. c",
+        "microchip technology inc. b",
+        "nvidia corp. b",
+        "taiwan semiconductor manufacturing co. ltd. adr nvs"
+      ],
+      "prior_identity_collision": 0,
+      "next_identity_collision": 0
+    },
+    {
+      "prior_period": "2018-03-31",
+      "next_period": "2018-06-30",
+      "prior_accession": "0001193125-18-186572",
+      "next_accession": "0001193125-18-261300",
+      "exact_normalized_name_overlap": 15,
+      "prior_only_names": [
+        "advanced micro devices inc. b,c",
+        "asml holding nv nys nvs a",
+        "broadcom ltd.",
+        "cirrus logic inc. b,c",
+        "entegris inc.",
+        "integrated device technology inc. c",
+        "mellanox technologies ltd. c",
+        "microchip technology inc. b",
+        "micron technology inc. c",
+        "microsemi corp. c",
+        "nvidia corp. b",
+        "on semiconductor corp. c",
+        "qorvo inc. b,c",
+        "silicon laboratories inc. c",
+        "taiwan semiconductor manufacturing co. ltd. adr nvs"
+      ],
+      "next_only_names": [
+        "advanced micro devices inc. (b)(c)",
+        "asml holding nv, nys, nvs (a)(b)",
+        "broadcom inc.",
+        "cirrus logic inc. (c)",
+        "entegris inc. (b)",
+        "integrated device technology inc. (b)(c)",
+        "mellanox technologies ltd. (c)",
+        "microchip technology inc. (b)",
+        "micron technology inc. (b)(c)",
+        "nvidia corp. (b)",
+        "on semiconductor corp. (b)(c)",
+        "qorvo inc. (b)(c)",
+        "silicon laboratories inc. (c)",
+        "smart global holdings inc. (b)(c)",
+        "taiwan semiconductor manufacturing co. ltd., adr, nvs"
+      ],
+      "prior_identity_collision": 0,
+      "next_identity_collision": 0
+    }
+  ],
+  "CUSIP_or_issuer_stable_identity_in_these_result_rows": false,
+  "turnover_factor_qualified": false,
+  "market_outcome_reads": 0,
+  "model_fits": 0,
+  "native_accounts": 0
+}
