@@ -25,9 +25,13 @@
     "null": "same training cohort mature cash-minus-SOXX label mean"
   },
   "cohorts": {
+    "train_signal_start": "2018-10-11",
+    "train_signal_end": "2022-12-30",
     "train_trade_start": "2018-10-12",
     "train_trade_end": "2022-12-30",
     "train_label_available_before": "2023-01-01T00:00:00-05:00",
+    "held_signal_start": "2023-01-03",
+    "held_signal_end": "2026-10-07",
     "held_trade_start": "2023-01-03",
     "held_trade_end": "2026-10-09",
     "held_label_available_before": "2026-10-10T00:00:00-04:00",
