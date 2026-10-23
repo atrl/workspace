@@ -1,0 +1,6 @@
+experiment: stage1_cboe_term_cap_local_value_information_20261023
+mode: conditional_original_Stage1_Cboe_term_0bp_cap_local_value_information
+parent: frozen_complete_Stage1_0bp_IBKR_Tiered
+model_fit_attempts_max: 2
+bootstrap_attempts_max: 2
+native_accounts: 0

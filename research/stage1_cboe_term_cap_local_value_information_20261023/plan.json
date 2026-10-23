@@ -1,0 +1,33 @@
+{
+  "experiment": "stage1_cboe_term_cap_local_value_information_20261023",
+  "frozen": true,
+  "execution_authorized_by_active_Goal": true,
+  "phase": "conditional_retrospective_Cboe_short_term_implied_risk_increment_to_original_Stage1_0bp_cap_release_local_value",
+  "parent": "frozen_complete_Stage1_f696_plus_b472_0bp_IBKR_Tiered",
+  "hypothesis": "When prior-session VIX9D exceeds VIX3M, near-term S&P 500 implied risk is elevated; releasing the original Stage1 own-state beta cap by a bounded 0.10 into SOXX should have lower one-session fee-net physical value. The added standardized coefficient on log(VIX9D/VIX3M) is expected negative.",
+  "distinctness": "The prior Cboe VIX9D/VIX3M H5 market-forecast route stays closed. This tests only the same-start original Stage1 0bp Tiered physical cap-release local-value receiver, a different intervention/task. It uses source dates after the 2014 conservative launch boundary and never picks a short tenor or window after seeing evaluation years.",
+  "sources": {
+    "source_card": "research/stage1_cboe_vix9d_vix3m_cap_source_20261023",
+    "source_summary_sha256": "8f93c263104a97e163c6fbe59d71762679caecf6bfa7d6ac26528075421bd2ba",
+    "source_recorder_id": "a0812de7e96b4e668a70e8d017bc60b7",
+    "source_experiment_id": "124106294750800159",
+    "source_map_artifact_sha256": "e20772279b91894b63941a127264190124d06fb3ae3f8b06358a5b5741c142b5",
+    "label_card": "research/stage1_cap_release_0bp_local_value_20261023",
+    "label_summary_sha256": "4ef952c9fb764aeb7164ae38bac99b59df6f77879784b38649b5d630391e0c96",
+    "label_recorder_id": "ab150237a3c14f8c83e9772248323e66",
+    "label_experiment_id": "697175102772931174",
+    "label_artifact_sha256": "5e490b13dbf47c3761599c5ddf69e620dc967cc759d0f2b842474209df8edce2",
+    "bootstrap_module_sha256": "02705f897e668b710a38aae514df08b86e26c8cd8951405339960355a08a5ac4"
+  },
+  "receiver": {
+    "baseline": ["alpha_probability", "tail_probability", "raw_beta_minus_cap", "risk_state"],
+    "candidate_extra": "log_VIX9D_over_VIX3M_prev",
+    "label": "Saved eligible original Stage1 0bp IBKR Tiered same-state cap+0.10 SOXX local_fee_net_advantage versus original projected target with common next09:47 reset; no closed-loop wealth interpretation.",
+    "source_timing": "Only the prior actual Qlib session Cboe close is used at 09:46; index prelaunch rows are absent. Historical first-public/revision vintages remain unqualified."
+  },
+  "cohorts": {"train_mature_binding": 239, "evaluation_mature_binding": 301, "evaluation_2021": 56, "evaluation_2022": 245, "evaluation_full_calendar": 503, "train_cutoff": "2021-01-01T00:00:00 America/New_York", "evaluation_end": "2022-12-30", "historical_independence": false},
+  "model": "Exactly one SimpleImputer(median)->StandardScaler->Ridge(alpha=1) baseline four input fit and one matched five input candidate fit on identical pre-2021 mature binding labels. Freeze training-label mean as a no-fit second control; no term ratio, coefficient sign, alpha, date or threshold search.",
+  "information_gate": {"added_standardized_coefficient_negative": true, "candidate_vs_both_baseline_and_train_mean": ["full evaluation paired MSE improvement positive", "2021 and 2022 paired improvement positive", "2021 and 2022 candidate prediction-to-local-value Spearman positive", "full 503-session calendar corrected stationary-bootstrap lower bound positive"], "bootstrap": {"mean_block_sessions": 63, "draws_each": 10000, "seed": 20261023, "one_sided_alpha_each": 0.00078125, "family_denominator": 32}},
+  "budget": {"external_GETs": 0, "source_Recorder_object_loads": 2, "DatasetH_builds": 1, "model_fit_attempts_max": 2, "bootstrap_attempts_max": 2, "new_Qlib_Recorders_max": 1, "native_accounts": 0},
+  "stop": "Stop before fits on pinned source hashes, launch/clock, full 1061-day calendar or 239/301/56/245 support mismatch. A failed fixed information version closes without sign, window, term, alpha, year or risk-rule rescue. A pass remains conditional on historical Cboe first-public/revision qualification and a separately frozen original Stage1 own-state 0bp account, then 2/5bp and independent forward evidence."
+}
