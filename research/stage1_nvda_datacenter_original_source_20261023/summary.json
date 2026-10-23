@@ -1,0 +1,25 @@
+{
+  "experiment": "stage1_nvda_datacenter_original_source_20261023",
+  "decision": "original_SEC_NVDA_Data_Center_text_coverage_only_numeric_semantics_unqualified",
+  "objective_achieved": false,
+  "plan_sha256": "416d50b7aa7de5265c06beede3e504e1183cddf897dac968156e9638b2b30609",
+  "result": "result.json",
+  "source_archive": "nas_source_archive.json",
+  "raw_parent_archive_sha256": "8273fd8c00608f5b2f1faf81368b9f3c238919f297b5d868c8af319b115d9cee",
+  "market_outcome_reads": 0,
+  "model_fits": 0,
+  "native_accounts": 0,
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": []
+  },
+  "limitations": [
+    "Text-window candidate is not a validated segment revenue value or year-over-year comparison.",
+    "SEC filing date is not proved to be the first issuer release time.",
+    "No Qlib factor, future SOXX outcome or account was produced."
+  ],
+  "budget_accounting_addendum": "budget_accounting_addendum.json",
+  "actual_cumulative_raw_original_reads": 64,
+  "frozen_max_raw_original_reads": 63
+}

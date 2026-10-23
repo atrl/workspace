@@ -1,0 +1,11 @@
+{
+  "status": "source_audit_NAS_scoped_restore_verified",
+  "sha256": "890fcac0af5c135ba96a94a014195a36e596ca44faeeccb9de24eb96f4c6671f",
+  "size_bytes": 5781,
+  "nas_path": "/volume1/docker/yanxuan/registry/research-artifacts/89/0f/890fcac0af5c135ba96a94a014195a36e596ca44faeeccb9de24eb96f4c6671f",
+  "members": {
+    "research/stage1_nvda_datacenter_original_source_20261023/plan.json": "416d50b7aa7de5265c06beede3e504e1183cddf897dac968156e9638b2b30609",
+    "research/stage1_nvda_datacenter_original_source_20261023/result.json": "b72232fea921250977f0b60d335c3f0bee5d0b2edb9caec69c0d3c09fb282b4a"
+  },
+  "verified": true
+}

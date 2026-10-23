@@ -1,0 +1,15 @@
+{
+  "attempt": 1,
+  "status": "failed_before_persisted_result_or_NAS_archive",
+  "cause": "BeautifulSoup html.parser was applied to the whole SEC submission including encoded non-HTML GRAPHIC/ZIP payload; a malformed numeric character reference raised ValueError in the first NVDA 2011 original.",
+  "consumed": {
+    "new_HTTP_GETs": 0,
+    "raw_original_reads": 1,
+    "market_outcome_reads": 0,
+    "model_fits": 0,
+    "native_accounts": 0,
+    "Qlib_Recorders": 0
+  },
+  "original_plan_sha256": "416d50b7aa7de5265c06beede3e504e1183cddf897dac968156e9638b2b30609",
+  "no_source_identity_changed": true
+}

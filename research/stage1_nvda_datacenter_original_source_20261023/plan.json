@@ -1,0 +1,36 @@
+{
+  "schema_version": 1,
+  "frozen": true,
+  "experiment": "stage1_nvda_datacenter_original_source_20261023",
+  "phase": "read_only_original_SEC_NVDA_data_center_actual_revenue_source_coverage",
+  "mechanism": "Reported NVIDIA Data Center segment sales may measure persistent semiconductor AI demand and inform medium-horizon Stage1 participation, distinct from total-company forward-guidance realization; no predictive claim in this source audit.",
+  "source": {
+    "parent_card": "research/stage1_amd_nvda_sec_guidance_original_probe_20261023",
+    "selected_quarter_event_adjudication_sha256": "322aa6b4f8e3b167a1c17ecb79dd72d2b2d96d55f2dbf43f59d4429163cdda4a",
+    "selected_NVDA_events": 63,
+    "Item202_inventory_sha256": "f6fe5cbae488dfed86e47df8e90edbc964282e560affab8a6d19ed9388ffcfd6",
+    "all_original_raw_NAS_archive_sha256": "8273fd8c00608f5b2f1faf81368b9f3c238919f297b5d868c8af319b115d9cee",
+    "source_root": "data/snapshots/stage1_amd_nvda_sec_guidance_original_probe_20261023",
+    "raw_file_template": "item202_{accession}.txt"
+  },
+  "fixed_checks": [
+    "For each of exactly 63 adjudicated NVDA quarter events verify raw SHA from selected event and original file availability.",
+    "Parse only original filing text to record whether Data Center/datacenter appears, whether a same-quarter actual revenue amount with monetary units appears, and whether an explicit prior-year comparison appears.",
+    "Retain every event, including early missing and ambiguous; no numeric factor, imputation, or chosen subset from SOXX outcomes.",
+    "Report by calendar announcement year and first/last positive source dates; issuer SEC filing date is a conservative clock proxy, not exact first-public issuer release."
+  ],
+  "budget": {
+    "new_HTTP_GETs": 0,
+    "raw_original_reads_max": 63,
+    "market_outcome_reads": 0,
+    "new_model_fits": 0,
+    "native_accounts": 0,
+    "Qlib_Recorders": 0
+  },
+  "stop": "If raw hash/63-event identity fails, stop. Text presence is not numeric semantics or PIT qualification; require separate bounded original-table numeric/time audit before any Qlib factor or information fit.",
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": []
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "status": "transparent_source_read_budget_overrun_no_scientific_rerun",
+  "frozen_plan_raw_original_reads_max": 63,
+  "failed_attempt_raw_original_reads": 1,
+  "repaired_completion_raw_original_reads": 63,
+  "actual_cumulative_raw_original_reads": 64,
+  "over_budget_reads": 1,
+  "cause": "The first full-submission HTML parse failed after reading the first NVDA original; the bounded EX-99.1/EX-95.1 repair reread all 63 originals.",
+  "source_identities_changed": false,
+  "new_HTTP_GETs": 0,
+  "market_outcome_reads": 0,
+  "numeric_factor_values": 0,
+  "model_fits": 0,
+  "native_accounts": 0,
+  "further_source_rerun": false
+}

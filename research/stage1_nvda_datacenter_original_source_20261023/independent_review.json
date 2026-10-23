@@ -1,0 +1,13 @@
+{
+  "verdict": "CONFIRM_SOURCE_COVERAGE_WITH_DISCLOSED_ONE_READ_BUDGET_OVERRUN",
+  "review_scope": "read_only_63_original_SEC_events_raw_hashes_parser_repair_NAS_and_budget",
+  "confirmed": [
+    "Exactly 63 selected NVDA accessions and original raw hashes match the parent event inventory and NAS archive.",
+    "The repaired parser selects 62 original EX-99.1 press releases and one documented EX-95.1 press release; the full-submission failure and repair are preserved.",
+    "Text term presence 50, nearby dollar candidate 31 and nearby YoY candidate 30 are only source locators, not qualified factor values.",
+    "Parent raw and card audit NAS remote digests and scoped members match.",
+    "Failed first read plus 63 repaired reads total 64, one over the frozen maximum of 63; addendum, summary, notebook and conclusion disclose this with no rerun.",
+    "Zero new HTTP requests, market outcomes, model fits, native accounts and numeric factor values."
+  ],
+  "limit": "EX-99.2 CFO table coverage and numeric semantics need a separate frozen source audit; SEC filing date is not exact first-public issuer-release proof."
+}

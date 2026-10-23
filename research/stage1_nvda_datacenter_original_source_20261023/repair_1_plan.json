@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "frozen": true,
+  "repair": "Select the original SEC earnings press release DOCUMENT/TEXT part before HTML parsing; use EX-99.1 for 62 selected NVDA events and the original press-release EX-95.1 for accession 0001045810-19-000168, whose document description is Q3FY20 PRESS RELEASE. Exclude 8-K wrapper, CFO commentary, GRAPHIC, ZIP and XBRL payloads.",
+  "parent_plan_sha256": "416d50b7aa7de5265c06beede3e504e1183cddf897dac968156e9638b2b30609",
+  "source_quarter_events": 63,
+  "new_HTTP_GETs": 0,
+  "market_outcome_reads": 0,
+  "model_fits": 0,
+  "native_accounts": 0,
+  "new_Qlib_Recorders": 0,
+  "numeric_factor_values": 0,
+  "stop": "If expected document type/description or raw hash mismatches, stop rather than selecting another section by an outcome."
+}
