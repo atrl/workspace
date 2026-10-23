@@ -1,0 +1,52 @@
+{
+  "schema_version": 1,
+  "experiment": "kcs_early20_2021_oct_original_source_20261023",
+  "plan_sha256": "18b34bf71e903a1b04b3812441726a9fa99310e10e841a6a4476847fd5744bcd",
+  "capture_utc": "2026-10-23T04:12:09.328881+00:00",
+  "receipts": [
+    {
+      "name": "official_index.html",
+      "url": "https://www.korea.kr/briefing/pressReleaseView.do?newsId=156476286",
+      "requested_at_utc": "2026-10-23T04:11:58.494006+00:00",
+      "received_at_utc": "2026-10-23T04:12:01.594268+00:00",
+      "curl_exit_code": 0,
+      "http_status": 200,
+      "final_url": "https://www.korea.kr/briefing/pressReleaseView.do?newsId=156476286",
+      "transport_error": "",
+      "body_sha256": "38f850961c4e35208d79ba787c09fecab5413384dc2c7d2afe0d22d60bc1c380",
+      "body_bytes": 149846,
+      "headers_sha256": "1cb43ff203da3d13b237a7a92d898fee8825b0f6afe375202c2fdd264420b20b",
+      "headers_bytes": 375
+    },
+    {
+      "name": "2021_early20.hwp",
+      "url": "https://www.korea.kr/common/download.do?fileId=196144721&tblKey=GMN",
+      "requested_at_utc": "2026-10-23T04:12:01.595294+00:00",
+      "received_at_utc": "2026-10-23T04:12:06.323498+00:00",
+      "curl_exit_code": 0,
+      "http_status": 200,
+      "final_url": "https://www.korea.kr/common/download.do?fileId=196144721&tblKey=GMN",
+      "transport_error": "",
+      "body_sha256": "6a2098d5a8fcc69d0c4cf4e2c7f6496085008f6099406117d1f6107387a6f4f6",
+      "body_bytes": 419840,
+      "headers_sha256": "57993231473befe83a3f681f64f6e06d8e3b89c5696d025ff0c2ed566a29c30a",
+      "headers_bytes": 508
+    },
+    {
+      "name": "2021_early20.pdf",
+      "url": "https://www.korea.kr/common/download.do?fileId=196144722&tblKey=GMN",
+      "requested_at_utc": "2026-10-23T04:12:06.326724+00:00",
+      "received_at_utc": "2026-10-23T04:12:09.327950+00:00",
+      "curl_exit_code": 0,
+      "http_status": 200,
+      "final_url": "https://www.korea.kr/common/download.do?fileId=196144722&tblKey=GMN",
+      "transport_error": "",
+      "body_sha256": "2bd145c7fd1cba2662d0cd1abb22f02bd61e0bb79c8786f5f0a49dd1d3907aa5",
+      "body_bytes": 196870,
+      "headers_sha256": "b2a634335a9ac695cad30ad8bba6b289c287bf8d425baa43d0ff39ebf28b56e1",
+      "headers_bytes": 508
+    }
+  ],
+  "failure": null,
+  "historical_first_public_bytes_qualified": false
+}

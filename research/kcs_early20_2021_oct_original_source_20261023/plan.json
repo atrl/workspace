@@ -1,0 +1,18 @@
+{
+  "schema_version": 1,
+  "experiment": "kcs_early20_2021_oct_original_source_20261023",
+  "frozen": true,
+  "phase": "official_2021_Oct_1_to_20_original_page_HWP_PDF_source_only",
+  "question": "Does the dated 2021-10-21 Korean government/KCS press-release page still serve identifiable original HWP/PDF attachments containing the semiconductor October 1-20 provisional amount and YoY, and do their internal clocks support or limit first-public interpretation?",
+  "exact_requests": [
+    {"name": "official_index.html", "url": "https://www.korea.kr/briefing/pressReleaseView.do?newsId=156476286", "expected": "HTML with 2021.10.21 KCS and both fixed attachment IDs"},
+    {"name": "2021_early20.hwp", "url": "https://www.korea.kr/common/download.do?fileId=196144721&tblKey=GMN", "expected": "HWP OLE compound document"},
+    {"name": "2021_early20.pdf", "url": "https://www.korea.kr/common/download.do?fileId=196144722&tblKey=GMN", "expected": "PDF"}
+  ],
+  "transport": {"method": "GET", "max_GETs": 3, "retries": 0, "connect_timeout_seconds": 10, "total_timeout_seconds_each": 30, "max_response_bytes_each": 3000000, "user_agent": "soxl-qlib-source-research"},
+  "identity_gate": "Each exact URL HTTP200 and expected file signature/HTML newsId, title/date and both IDs. Preserve raw body/header hashes and UTC receipts. Stop on first failure and archive all received bytes; do not substitute a different document or inferred value.",
+  "read_only_document_review": "After NAS remote hash and scoped restore, inspect PDF metadata and all page text; render pages needed to verify the fixed semiconductor export amount, YoY and unit visually. Inspect HWP OLE metadata if supported, otherwise mark unknown. Do not use PDF text extraction alone to certify table row identity.",
+  "timing_boundary": "The portal's displayed 2021-10-21 date and today's current attachment bytes do not prove their exact first-public bytes or intraday receipt. Report source identity and any metadata separately; a later factor needs cross-year historical coverage, revision handling, clock and Qlib source gate.",
+  "budget": {"external_GETs_max": 3, "NAS_snapshots_max": 1, "SOXX_outcome_reads": 0, "model_fits": 0, "native_accounts": 0, "strategy_forward_days": 0},
+  "stop": "Any transport, identity, source-archive or table ambiguity stops before model/account. This one historical month is not a qualified 2018-2022 training panel or SOXX strategy result."
+}
