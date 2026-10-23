@@ -1,0 +1,19 @@
+{
+  "archive_sha256": "f1423ed914e8be789461cca3897d7601886df96fdd837c515211fdde5583657d",
+  "archive_bytes": 10137,
+  "nas_path": "/volume1/docker/yanxuan/registry/research-artifacts/f1/42/f1423ed914e8be789461cca3897d7601886df96fdd837c515211fdde5583657d",
+  "files": {
+    "research/kcs_early20_2023_2026_held_semiconductor_yoy_20261023/attempt1_failure.json": "d9271ababe7e72ce1738eb2cf49dc7eab8ccef8fed5dc371c5d692dafc1fcf3e",
+    "research/kcs_early20_2023_2026_held_semiconductor_yoy_20261023/conclusion.md": "6743dbba754b3172a72fa2dbb5198baaa657e4ab30687ba81b3fae1008172b79",
+    "research/kcs_early20_2023_2026_held_semiconductor_yoy_20261023/kcs_early20_2023_2026_held_semiconductor_yoy_20261023.ipynb": "4a44aed8fea1d1b22e081d64b630218f9fcc2e945169598980819a32c8069a1e",
+    "research/kcs_early20_2023_2026_held_semiconductor_yoy_20261023/nas_binding.json": "cf46464be54e534cb4bd62cbda59c0e4663cb70b5c6ba0a4572e2b1c9501485f",
+    "research/kcs_early20_2023_2026_held_semiconductor_yoy_20261023/nas_scoped_restore.json": "501496f79b9892567e18f84e4546a4b3f9f7f4c7a8ccf6642a5d55adb03dbe2e",
+    "research/kcs_early20_2023_2026_held_semiconductor_yoy_20261023/plan.json": "2f3c6465fc93cb5f7e0378b451865d0dbfa3b5cbf6d30f7fa51d61ba9f78b3cd",
+    "research/kcs_early20_2023_2026_held_semiconductor_yoy_20261023/result.json": "4d026f5e338bb6cc6ee2910e466662fcfb521ccc41567d22e4af0b741e5f8a55",
+    "research/kcs_early20_2023_2026_held_semiconductor_yoy_20261023/run_state.json": "72ec7120450d4ce6a7c2a1fa74a1d9d80a6cdb78686be1d89e2366e0481abce2",
+    "research/kcs_early20_2023_2026_held_semiconductor_yoy_20261023/semantic_repair_plan.json": "4b591e7ed705e0be2de0e2e43ddf50767283d27052f21f1e80dd77e18c39ef44",
+    "research/kcs_early20_2023_2026_held_semiconductor_yoy_20261023/summary.json": "b2a22352dc994e14645c860c01af8d48a64224b89bdc389dca3fd49e0a2ce261",
+    "research/kcs_early20_2023_2026_held_semiconductor_yoy_20261023/workflow.yaml": "75cffa4c1e7f7632516e9edce03c58eb1c56c58edb945cb721ba239968eb64b1"
+  },
+  "scoped_restore_verified": true
+}
