@@ -1,0 +1,34 @@
+{
+  "schema_version": 1,
+  "assessment_date_utc": "2026-10-23",
+  "scope": "Read-only official API documentation check for the existing Futu data-intake path; no Futu OpenD call, vendor contact, order, subscription or purchase.",
+  "target": "Frozen SOXX 2018-2022 decision-time 25-delta put-minus-call 30-calendar-day implied-volatility skew, requiring the contemporaneous chain, bid/ask, signed Delta, IV, underlying and first-availability/revision clocks.",
+  "official_sources": [
+    {
+      "url": "https://openapi.futunn.com/futu-api-doc/en/quote/get-option-chain.html",
+      "document_version_observed": "v10.11",
+      "finding": "get_option_chain returns static current-chain information and explicitly does not support querying expired option chains. Dynamic quotes require a separate subscription."
+    },
+    {
+      "url": "https://openapi.futunn.com/futu-api-doc/en/quote/request-history-kline.html",
+      "document_version_observed": "v10.11",
+      "finding": "request_history_kline documents option candlesticks and daily history, but its listed K-line fields are OHLC/volume and related price fields, not a historical option-chain cross-section with contemporaneous bid/ask, IV and Delta. Intraday K-lines are limited to the last eight years and historical requests consume account quota."
+    },
+    {
+      "url": "https://datashop.cboe.com/Documents/Cboe_OptionSentiment_Specs.pdf",
+      "finding": "Cboe's separate Option Sentiment specification lists norm_25d_skew_30, a normalized metric; it is not definitionally identical to the frozen raw 25-delta put-minus-call mid-IV formula without a separate mapping."
+    },
+    {
+      "url": "https://datashop.cboe.com/faqs",
+      "finding": "Cboe lists Option Sentiment historical availability from January 2012, which is a product-level start date, not proof of SOXX-specific daily coverage or entitlement."
+    }
+  ],
+  "decision": "Futu's documented APIs do not establish a self-contained 2018-2022 SOXX historical skew source. Even if individual expired contract OHLC can be retrieved by independently known codes, that does not by itself reconstruct the required contemporaneous chain, quotes, IV/Delta and first-public vintages. Do not infer that the full source is impossible; no contract-code or entitlement probe was made.",
+  "next_action": "Keep the existing ORATS/Cboe sample path on hold under the user's no-contact decision. Continue non-option Stage1 source qualification and failure-to-feature work; any later option-data purchase or vendor inquiry needs a new user instruction.",
+  "external_market_requests": 0,
+  "vendor_contacts": 0,
+  "purchases": 0,
+  "new_model_fits": 0,
+  "new_native_accounts": 0,
+  "qualified_forward_days": 0
+}
