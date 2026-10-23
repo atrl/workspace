@@ -1,0 +1,34 @@
+[
+  {
+    "source_name": "2025_Oct_early20_HWPX",
+    "source_url": "https://www.korea.kr/common/download.do?fileId=198220302&tblKey=GMN",
+    "started_at_utc": "2026-10-23T00:51:28.176076+00:00",
+    "completed_at_utc": "2026-10-23T00:51:34.132651+00:00",
+    "curl_exit": 0,
+    "http_status": "200",
+    "effective_url": "https://www.korea.kr/common/download.do?fileId=198220302&tblKey=GMN",
+    "error": null,
+    "body_path": "data/snapshots/kcs_early20_hwpx_vintage_probe_20261023/2025_Oct_early20_HWPX.body",
+    "body_bytes": 811885,
+    "body_sha256": "ee603a812748220689f83895ba942c2dd5331b25d3a77f622849b27e6361f76e",
+    "headers_path": "data/snapshots/kcs_early20_hwpx_vintage_probe_20261023/2025_Oct_early20_HWPX.headers",
+    "headers_bytes": 509,
+    "headers_sha256": "07d5259f1bc9b098734ee37a698d314be2384d8be3d380236db384c25d948b0b"
+  },
+  {
+    "source_name": "2026_Oct_early20_HWPX",
+    "source_url": "https://www.korea.kr/common/download.do?fileId=198574611&tblKey=GMN",
+    "started_at_utc": "2026-10-23T00:51:34.159040+00:00",
+    "completed_at_utc": "2026-10-23T00:51:41.177244+00:00",
+    "curl_exit": 0,
+    "http_status": "200",
+    "effective_url": "https://www.korea.kr/common/download.do?fileId=198574611&tblKey=GMN",
+    "error": null,
+    "body_path": "data/snapshots/kcs_early20_hwpx_vintage_probe_20261023/2026_Oct_early20_HWPX.body",
+    "body_bytes": 795926,
+    "body_sha256": "435ba62ce1268101fd3a0950cd889d638e773b80dd390241828f8eb799459249",
+    "headers_path": "data/snapshots/kcs_early20_hwpx_vintage_probe_20261023/2026_Oct_early20_HWPX.headers",
+    "headers_bytes": 524,
+    "headers_sha256": "18510457b95280d02437fb7b3cf83e114593be96d6c6291cacbb09217f5ac67a"
+  }
+]

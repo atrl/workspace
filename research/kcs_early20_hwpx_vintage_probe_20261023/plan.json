@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "experiment": "kcs_early20_hwpx_vintage_probe_20261023",
+  "frozen": true,
+  "phase": "two_official_HWPX_current_receipt_and_internal_metadata_probe",
+  "source_urls": {
+    "2025_Oct_early20_HWPX": "https://www.korea.kr/common/download.do?fileId=198220302&tblKey=GMN",
+    "2026_Oct_early20_HWPX": "https://www.korea.kr/common/download.do?fileId=198574611&tblKey=GMN"
+  },
+  "reference_reviews": {
+    "2025_PDF": "research/kcs_early20_2025_oct_comparability_20261023/visual_comparability_review.json",
+    "2025_PDF_review_sha256": "dba7c62abcab09f5ad383e605c3e770fb037cbf0d64f18dcb13685317a3d6341",
+    "2026_PDF": "research/kcs_early20_official_mirror_pdf_20261023/visual_semantics_review.json",
+    "2026_PDF_review_sha256": "b77e0531801601d06e5d39fb57d197c74be09ce7999d074ff5dc134c178d73ea"
+  },
+  "question": "The current 2025 PDF was created after its printed release. Do the separately linked current HWPX office-document bytes show earlier internal creation/change metadata and the same 2025/2026 semiconductor October 1-20 amounts, or is the first-public vintage still unresolved?",
+  "transport": "One exact GET per frozen URL, 20-second timeout, no retry or alternate URL. Preserve exact headers/body, actual UTC time, HTTP status, byte length and SHA-256, including failures; NAS archive with remote hash and scoped restore.",
+  "read_only_inspection": "If an attachment is a valid ZIP/HWPX, enumerate entry paths, ZIP entry timestamps, and internal XML metadata creation/modified values, then search extracted text only for the fixed October 1-20 semiconductor amount and YoY already recorded in the PDF reviews. Do not modify a source object or treat ZIP timestamps as proof of publication.",
+  "acceptance": "Report per-file transport validity, internal timestamp evidence, exact amount/YoY corroboration or ambiguity, and whether current HWPX bytes are potentially closer to the printed release than the regenerated PDF. None of these alone certify first-public bytes.",
+  "scientific_boundary": "Source-only; no SOXX outcomes, model fit, Qlib factor, funded account, order, strategy forward day or vendor purchase.",
+  "budget": {"HTTP_GETs": 2, "retries": 0, "market_outcome_reads": 0, "model_fits": 0, "native_accounts": 0, "NAS_source_archives": 1},
+  "stop": "If transport or HWPX parsing fails, preserve exact bytes and concrete failure, leave its metadata unknown, do not retry or substitute. Historical first-public qualification remains false without independent original-release receipt or immutable archival evidence."
+}

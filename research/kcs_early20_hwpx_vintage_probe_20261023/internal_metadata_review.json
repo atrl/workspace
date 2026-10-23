@@ -1,0 +1,35 @@
+{
+  "status": "current_HWPX_contents_and_modification_times_plausible_not_first_public_proof",
+  "method": "Read current HWPX ZIP entries, Contents/content.hpf opf:meta elements and Contents/section0.xml numeric tokens from the two frozen source bodies. No additional HTTP requests.",
+  "source_2025": {
+    "sha256": "ee603a812748220689f83895ba942c2dd5331b25d3a77f622849b27e6361f76e",
+    "bytes": 811885,
+    "HWPX_ModifiedDate_UTC": "2025-10-20T22:40:04Z",
+    "converted_ModifiedDate_KST": "2025-10-21 07:40:04",
+    "printed_distribution_KST": "2025-10-21 09:00:00",
+    "minutes_before_printed_distribution": 79.93333333333334,
+    "numeric_tokens_confirmed": ["8,533", "20.2"]
+  },
+  "source_2026": {
+    "sha256": "435ba62ce1268101fd3a0950cd889d638e773b80dd390241828f8eb799459249",
+    "bytes": 795926,
+    "HWPX_ModifiedDate_UTC": "2026-10-20T23:30:25Z",
+    "converted_ModifiedDate_KST": "2026-10-21 08:30:25",
+    "printed_distribution_KST": "2026-10-21 09:00:00",
+    "minutes_before_printed_distribution": 29.583333333333332,
+    "numeric_tokens_confirmed": ["27,516", "222.5"]
+  },
+  "metadata_limits": {
+    "ZIP_member_timestamps": "All 1980-01-01 placeholders in both files",
+    "HWPX_CreatedDate": "2008-09-16T00:00:00Z in both files, evidently inherited template metadata",
+    "HWPX_date_field": "2021-11-08 Korean locale text in both files, not a release date",
+    "ModifiedDate_proves_publication_or_immutability": false,
+    "current_2025_PDF_creation": "2025-10-22 14:18:19 CST, after printed 2025 distribution"
+  },
+  "interpretation": "Both current HWPX files contain the same amount/YoY tokens as their respective PDFs and an internal ModifiedDate shortly before printed 09:00 KST distribution. This is consistent with preparation before the release and makes HWPX a better candidate for original-byte provenance than the regenerated 2025 PDF. Metadata are self-reported and do not establish that these exact bytes were publicly served then.",
+  "historical_first_public_bytes_qualified": false,
+  "market_outcome_reads": 0,
+  "model_fits": 0,
+  "native_accounts": 0,
+  "strategy_forward_days": 0
+}

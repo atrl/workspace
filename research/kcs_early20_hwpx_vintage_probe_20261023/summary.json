@@ -1,0 +1,18 @@
+{
+  "experiment": "kcs_early20_hwpx_vintage_probe_20261023",
+  "decision": "current_HWPX_contents_and_modification_times_plausible_not_first_public_proof",
+  "objective_achieved": false,
+  "plan_sha256": "f9e77a3dcdcfbe49e6e8865f3a71e3af755ecd29ee01920bf8e5b0919d653d61",
+  "result": "result.json",
+  "source_NAS_sha256": "2cae4e98199e7704fd911f63fae67c7b137d0f0b5d745ae7435519ca1d4a5017",
+  "source_NAS_scoped_restore_verified": true,
+  "market_outcome_reads": 0,
+  "model_fits": 0,
+  "native_accounts": 0,
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": []
+  },
+  "internal_metadata_review": "internal_metadata_review.json"
+}
