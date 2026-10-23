@@ -1,0 +1,119 @@
+{
+  "experiment": "stage1_0bp_candidate_queue_audit_20261023",
+  "status": "read_only_no_ready_0bp_candidate_in_named_active_scope",
+  "plan_sha256": "220774659596022ced2805c262b0dbde2a9db1f8ac4fb08461f88a850d506e36",
+  "campaign_before_audit_sha256": "b30860e680287fdd7a651c1fd2ccc249bec7289d3948d0c9b0369ac4dc1afad8",
+  "active_index_before_audit_sha256": "b02f50276148d5a39afc2f5a6d88a68e3995ddb25e2a1a67c432c0c2910c2c02",
+  "active_entries": [
+    {
+      "card": "research/soxx_issuer_shares_source_20261022",
+      "status": "source_only_no_fit_or_account"
+    },
+    {
+      "card": "research/ibkr_soxx_option_skew_forward_source_20261022",
+      "status": "REALTIME_field_entitlement_passed_not_feature_qualified"
+    },
+    {
+      "card": "research/cboe_total_options_activity_source_20261022",
+      "status": "third_2026_10_21_vintage_stable_information_screen_closed"
+    },
+    {
+      "card": "research/korea_semiconductor_exports_korean_vintage_20261022",
+      "status": "source_only_table_vector_complete_factor_PIT_unqualified"
+    },
+    {
+      "card": "research/semiconductor_ip_original_g17_bridge_20261022",
+      "status": "source_numeric_and_calendar_complete_no_information_gate"
+    },
+    {
+      "card": "research/census_ft900_semiconductor_export_source_20261023",
+      "status": "source_only_full_training_PDF_and_row_coverage_no_factor_or_account"
+    },
+    {
+      "card": "research/philadelphia_ads_vintage_source_20261023",
+      "status": "source_only_raw_ZIP_archived_no_factor_or_account"
+    },
+    {
+      "card": "research/stage1_cftc_nq_tff_source_probe_20261023",
+      "status": "all_16_years_source_only_no_fit_or_account"
+    },
+    {
+      "card": "research/stage1_cftc_nq_tff_14d_positioning_map_20261023",
+      "status": "development_only_source_map_no_fit_or_account"
+    },
+    {
+      "card": "research/stage1_cftc_nq_tff_14d_timing_repair_20261023",
+      "status": "development_only_source_map_no_fit_or_account"
+    },
+    {
+      "card": "research/stage1_tsmc_sec_6k_guidance_source_probe_20261023",
+      "status": "development_only_no_fit_or_account"
+    },
+    {
+      "card": "research/stage1_tsmc_sec_guidance_growth_source_20261023",
+      "status": "development_only_no_fit_or_account"
+    },
+    {
+      "card": "research/stage1_amd_nvda_sec_guidance_original_probe_20261023",
+      "status": "source_identity_only_no_fit_or_account"
+    },
+    {
+      "card": "research/stage1_amd_nvda_guidance_breadth_source_20261023",
+      "status": "source_numeric_only_no_fit_or_account"
+    },
+    {
+      "card": "research/stage1_amd_nvda_guidance_breadth_qlib_map_v2_20261023",
+      "status": "development_only_no_fit_or_account"
+    }
+  ],
+  "active_entry_count": 15,
+  "recent_named_cards": {
+    "runtime": {
+      "path": "research/stage1_f696_native_source_runtime_preflight_20261023/summary.json",
+      "sha256": "0146713df1a97599cfbb95f2fc49c3ec1a6bbb5fcba18ae914d31a38818f1747",
+      "decision": "runtime_preflight_pass_no_economic_candidate"
+    },
+    "relative_volume_source": {
+      "path": "research/stage1_relative_dollar_volume_source_preflight_20261023/summary.json",
+      "sha256": "b78b11d4ceb3d714e5218f41c5bfc0b03fed7cf2d2239e82d80717ffaa993604",
+      "decision": "conditional_source_novelty_pass_first_public_unknown"
+    },
+    "relative_volume_information": {
+      "path": "research/stage1_relative_dollar_volume_h5_information_20261023/summary.json",
+      "sha256": "df2acbfcc60228dc05bbe3883a2d029ecf53bc861f20d5346c672271e783d027",
+      "decision": "not_promoted_fixed_relative_dollar_volume_H5_information_failed"
+    },
+    "prior_session_tug_source": {
+      "path": "research/stage1_soxx_prior_session_tug_source_20261023/summary.json",
+      "sha256": "3c800acde6db75838ab6f0390b3fec5332eaea4dea3a8c7eb87d359f55ea7e5c",
+      "decision": "source_novelty_pass_needs_separate_cash_H5_information"
+    },
+    "prior_session_tug_information": {
+      "path": "research/stage1_soxx_prior_session_tug_cash_h5_information_20261023/summary.json",
+      "sha256": "5c9dd4e835d41e6f124782611a6a6d4f1f34a1a7d6dcfdb15b9c11ede12cc3a9",
+      "decision": "not_promoted_fixed_prior_session_tug_cash_H5_information_failed"
+    },
+    "broad_rebound_information": {
+      "path": "research/stage1_broad_rebound_confirmation_cash_h5_20261023/summary.json",
+      "sha256": "f2214886642f6cd30b7f7890230077d934245b5bf18e224c4f14f8a015be4439",
+      "decision": "not_promoted_fixed_broad_rebound_confirmation_cash_H5_failed"
+    },
+    "corrected_static_stop": {
+      "path": "research/stage1_f696_beta_composition_0bp_corrected_20261023/pre_execution_stop.json",
+      "sha256": "ce27cf12bedc07981276d5bef0734ed16a053de5fdcc42c57315117216d31cef",
+      "decision": "stopped_before_candidate_account"
+    }
+  },
+  "ready_0bp_economic_candidates": [],
+  "ready_0bp_economic_candidate_count": 0,
+  "runtime_dependency_cleared": true,
+  "scientific_dependency": "A distinct decision-time mechanism with qualified source and frozen economic/information contract is still required; stopped/failed fixed versions cannot be reactivated by runtime repair.",
+  "scope_limit": "Read the exact active-index entries and named recent cards only. Do not rebuild a repo-wide index, reinterpret frozen old gates, or claim every sparse-hidden branch has been searched.",
+  "objective_achieved": false,
+  "historical_0bp_SOXX_gate_pass_proven": false,
+  "independent_forward_qualified_days": 0,
+  "production_changes_authorized": false,
+  "new_fits": 0,
+  "new_accounts": 0,
+  "new_Recorders": 0
+}

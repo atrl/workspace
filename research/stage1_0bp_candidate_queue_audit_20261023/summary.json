@@ -1,0 +1,18 @@
+{
+  "experiment": "stage1_0bp_candidate_queue_audit_20261023",
+  "decision": "read_only_no_ready_0bp_candidate_in_named_active_scope",
+  "objective_achieved": false,
+  "result": "result.json",
+  "plan_sha256": "220774659596022ced2805c262b0dbde2a9db1f8ac4fb08461f88a850d506e36",
+  "new_model_fits": 0,
+  "new_native_accounts": 0,
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": []
+  },
+  "limitations": [
+    "Read the exact active-index entries and named recent cards only. Do not rebuild a repo-wide index, reinterpret frozen old gates, or claim every sparse-hidden branch has been searched.",
+    "This inventory is not a new market or economic experiment."
+  ]
+}

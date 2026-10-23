@@ -2,6 +2,7 @@
   "schema_version": 2,
   "campaign": "three_asset_stable_excess_20261015",
   "objective_achieved": false,
+  "latest_0bp_candidate_queue_audit": "research/stage1_0bp_candidate_queue_audit_20261023/result.json",
   "economic_failure_diagnosis": {
     "status": "observed_failure_chain_causal_root_unproven",
     "Stage1_objective_alignment": "research/allocator_cash_geometry_20261014/conclusion.md",

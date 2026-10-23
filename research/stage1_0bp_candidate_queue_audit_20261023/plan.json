@@ -1,0 +1,20 @@
+{
+  "experiment": "stage1_0bp_candidate_queue_audit_20261023",
+  "frozen": true,
+  "phase": "read_only_active_campaign_candidate_readiness_reconciliation",
+  "question": "After exact f696 source/runtime repair, is any locally visible active Stage1-derived candidate already source-and-information qualified and missing only its own-state 0bp Tiered SOXX account?",
+  "authorities": [
+    "research/three_asset_campaign.json",
+    "research/active_research_index.json",
+    "research/stage1_f696_native_source_runtime_preflight_20261023/summary.json",
+    "research/stage1_relative_dollar_volume_source_preflight_20261023/summary.json",
+    "research/stage1_relative_dollar_volume_h5_information_20261023/summary.json",
+    "research/stage1_soxx_prior_session_tug_source_20261023/summary.json",
+    "research/stage1_soxx_prior_session_tug_cash_h5_information_20261023/summary.json",
+    "research/stage1_broad_rebound_confirmation_cash_h5_20261023/summary.json",
+    "research/stage1_f696_beta_composition_0bp_corrected_20261023/pre_execution_stop.json"
+  ],
+  "scope": "Read the exact active-index entries and named recent cards only. Do not rebuild a repo-wide index, reinterpret frozen old gates, or claim every sparse-hidden branch has been searched.",
+  "decision_rule": "A ready 0bp economic candidate needs a distinct f696-parent feature/receiver, qualified source/clock, a frozen positive information gate or a separately preregistered direct-economic design, and no closed/stopped fixed-version override. A source-only pass or runtime repair is insufficient.",
+  "budget": {"new_source_reads": 0, "new_market_requests": 0, "model_fits": 0, "accounts": 0, "Recorders": 0}
+}
