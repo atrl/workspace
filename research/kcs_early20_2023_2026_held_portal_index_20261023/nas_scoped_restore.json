@@ -1,0 +1,12 @@
+{
+  "status": "NAS_Recorder_three_selected_objects_scoped_restore_exact",
+  "archive_sha256": "5e9133d579b7f8def086f6ff1efafccf5f1d510c65f2e02ec0e44f3b08a328de",
+  "recorder_id": "321b377d569c4cb49292cefdeeb29e15",
+  "checks": {
+    "analysis/monthly_index": "f3ad69762a98a77848d346c49379fd7c6998b1a3492055ac75e910682d1a1257",
+    "analysis/result": "b5d714b45c9852d3f168bcfaf2a0d52064efa69b2c2e92f3ca6ee58eb2d33f70",
+    "analysis/query_receipts": "a584443e4d497e945ee09c5daa4b1e2c6165f5a2d785d70a300123039823c547"
+  },
+  "new_model_fits": 0,
+  "new_native_accounts": 0
+}

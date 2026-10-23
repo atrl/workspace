@@ -1,0 +1,6 @@
+experiment: kcs_early20_2023_2026_held_portal_index_20261023
+phase: official_held_source_index_only
+plan: plan.json
+result: result.json
+provider_uri: data/qlib/minute_information_pit_allocator_20261012/daily_prices
+economic_account: none

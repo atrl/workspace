@@ -1,0 +1,37 @@
+{
+  "schema_version": 1,
+  "experiment": "kcs_early20_2023_2026_held_portal_index_20261023",
+  "frozen": true,
+  "phase": "official_KCS_2023_2026Sep_early20_held_original_page_index_only",
+  "parent": "frozen_complete_Stage1_0bp_IBKR_Tiered",
+  "question": "Can the same official KCS portal query locate one dated early20 original press-release page for each of the 45 months 2023-01 through 2026-09 needed to evaluate a future Stage1-derived source feature on the reused 2023-2026 history?",
+  "frozen_training_sources": {
+    "index_summary_sha256": "7b9df0a0ace933b612eeae6619e343d528713375973d20aea23f30db4c27aaef",
+    "numeric_summary_sha256": "2e5f6afb75ea9edd6a2e3f4d7bf4ddd7894de842bd1f4d07e01c85953b2d9529",
+    "training_numeric_rows": 60,
+    "training_source_PIT_qualified": false
+  },
+  "query_contract": {
+    "base_url": "https://www.korea.kr/briefing/pressReleaseList.do",
+    "months": "2023-01 through 2026-09 inclusive, exactly45",
+    "parameters": "startDate=YYYY-MM-20, endDate=YYYY-MM-27, srchWord=수출입, repCode=B00003, pageIndex=1 in that order via urllib.parse.urlencode",
+    "method": "GET",
+    "user_agent": "soxl-qlib-source-research",
+    "timeout_seconds_each": 15,
+    "max_response_bytes_each": 500000,
+    "retries": 0,
+    "rate_pause_seconds": 0.1,
+    "identity_rule": "Accept exactly one official pressReleaseView.do newsId whose title/snippet contains queried month, 1일, 20일, 수출입 현황 and 관세청; 0/multiple remain unknown. Do not repair abbreviations in this fixed version."
+  },
+  "source_artifacts": "Preserve exact response bodies/headers, UTC clock, status, hashes, month status and full query receipts under data/snapshots; NAS remote hash and scoped cold restore. Save 45-row native Qlib Recorder index, no attachment or number.",
+  "budget": {
+    "official_GETs_max": 45,
+    "months": 45,
+    "NAS_source_archives_max": 1,
+    "new_Qlib_Recorders_max": 1,
+    "SOXX_outcome_reads": 0,
+    "model_fits": 0,
+    "native_accounts": 0
+  },
+  "stop": "No retry, alternate search, attachment GET, SOXX outcome, fit or account. Missing/ambiguous months require a separate bounded mechanical title repair. Even complete page coverage is not first-public/numeric PIT or independent forward validation."
+}
