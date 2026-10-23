@@ -1,0 +1,36 @@
+{
+  "decision": "official_KCS_2024Sep_held_index_repaired_source_only",
+  "GET_attempts": 1,
+  "receipt": {
+    "url": "https://www.korea.kr/briefing/pressReleaseList.do?startDate=2024-09-20&endDate=2024-09-27&srchWord=%EC%88%98%EC%B6%9C%EC%9E%85&repCode=B00003&pageIndex=1",
+    "final_url": "https://www.korea.kr/briefing/pressReleaseList.do?startDate=2024-09-20&endDate=2024-09-27&srchWord=%EC%88%98%EC%B6%9C%EC%9E%85&repCode=B00003&pageIndex=1",
+    "started_utc": "2026-10-23T05:23:48.302852+00:00",
+    "ended_utc": "2026-10-23T05:23:51.119060+00:00",
+    "http_status": 200,
+    "content_type": "text/html;charset=UTF-8",
+    "body_sha256": "87c4ff72828e1aa2eab3dede6a97485e61c4e49f4a09010c2410bdeff972609a",
+    "body_bytes": 144229,
+    "headers_sha256": "f1e16ef27bb6c5b2756063656f322aadc54ba95cc51cba9dab88dfec58a911c9",
+    "error": null
+  },
+  "reason": "unique_match",
+  "accepted": [
+    {
+      "newsId": "156651567",
+      "title_excerpt": "’24년 9월 1일 ~ 9월 20일 수출입 현황 ’24  년  9  월  1  일  ~ 9  월  20  일 수출입 현황  <  요 약  >  관세청은  23  일  ,  9  월  1  일  ~20  일 기간의 수출입 현황을 발표  했다  .  수출은  356  억 달러  로 전년동기대비  △  1.1%  감소  ,  수입은  348  억 달러  로  ... 2024-09-23 관세청",
+      "href": "https://www.korea.kr/briefing/pressReleaseView.do?newsId=156651567&pageIndex=1&repCodeType=&repCode=B00003&startDate=2024-09-20&endDate=2024-09-27&srchWord=수출입&period="
+    }
+  ],
+  "source_NAS_id": "7f1129a4033c90143de53beda9b8566428e7a7ce9f198b2e984512c8fe6d55c5",
+  "source_NAS_readback_verified": true,
+  "SOXX_outcome_reads": 0,
+  "model_fits": 0,
+  "native_accounts": 0,
+  "historical_first_public_bytes_qualified": false,
+  "repaired_months": 45,
+  "recorder_id": "a10f336d6fa84ea2ba2717f7a5071147",
+  "experiment_id": "905035602797744593",
+  "Recorder_NAS_sha256": "8c531924290a75d83395f3c47d027a06feebc233adae8c26d9759c7464a892a8",
+  "Recorder_NAS_readback_verified": true,
+  "unchanged_44_rows": true
+}

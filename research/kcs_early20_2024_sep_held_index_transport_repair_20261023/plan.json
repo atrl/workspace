@@ -1,0 +1,39 @@
+{
+  "schema_version": 1,
+  "experiment": "kcs_early20_2024_sep_held_index_transport_repair_20261023",
+  "frozen": true,
+  "phase": "one_exact_2024Sep_KCS_portal_list_transport_repair",
+  "parent": {
+    "card": "research/kcs_early20_2023_2026_held_portal_index_20261023",
+    "summary_sha256": "c81b98aba7553c0c004523b011e1cf337bfaa038b125bd5ddf6adb25a9282f9d",
+    "result_sha256": "43986035a81190f3722828f458a5fd85cfa93ba23d162af6e8b96fea60a2ae34",
+    "recorder_id": "321b377d569c4cb49292cefdeeb29e15",
+    "experiment_id": "662222866583051339",
+    "monthly_index_sha256": "f3ad69762a98a77848d346c49379fd7c6998b1a3492055ac75e910682d1a1257",
+    "NAS_readback_verified": true
+  },
+  "exact_GET": "https://www.korea.kr/briefing/pressReleaseList.do?startDate=2024-09-20&endDate=2024-09-27&srchWord=%EC%88%98%EC%B6%9C%EC%9E%85&repCode=B00003&pageIndex=1",
+  "original_failure": "The sole 2024-09 list GET in the 45-month frozen run had TLS handshake URLError and zero response bytes; no original page identity was established.",
+  "transport": {
+    "method": "GET",
+    "max_GETs": 1,
+    "retries": 0,
+    "connect_timeout_seconds": 10,
+    "total_timeout_seconds": 25,
+    "max_response_bytes": 500000,
+    "user_agent": "soxl-qlib-source-research"
+  },
+  "identity_gate": "HTTP200 official list HTML; exactly one KCS pressReleaseView.do newsId with 9월1일,20일,수출입현황 title/snippet. Preserve exact response and headers, UTC, hash; NAS remote/scoped restore. No alternative date, search term or pagination.",
+  "Qlib_repair": "Load original 45-row native source index exactly once. Replace only 2024-09 unknown row with the verified newsId/url/status, preserve 44 other rows bit-for-bit, save new Qlib Recorder and NAS archive/readback. No market outcome or factor.",
+  "budget": {
+    "external_GETs": 1,
+    "source_Recorder_loads_max": 1,
+    "new_Qlib_Recorders_max": 1,
+    "NAS_source_snapshots_max": 1,
+    "NAS_recorder_archives_max": 1,
+    "SOXX_outcome_reads": 0,
+    "model_fits": 0,
+    "native_accounts": 0
+  },
+  "stop": "Transport/identity/NAS or untouched-row mismatch stops; even complete 45 page IDs do not qualify original attachments, first-public byte vintages, economic information or forward strategy days."
+}

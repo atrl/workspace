@@ -1,0 +1,6 @@
+experiment: kcs_early20_2024_sep_held_index_transport_repair_20261023
+phase: one_source_index_transport_repair
+plan: plan.json
+result: result.json
+recorder_artifact: analysis/repaired_index
+economic_account: none

@@ -1,0 +1,31 @@
+{
+  "experiment": "kcs_early20_2024_sep_held_index_transport_repair_20261023",
+  "decision": "official_KCS_2024Sep_held_index_repaired_source_only",
+  "objective_achieved": false,
+  "plan_sha256": "dcbe0db7ebb27219f74715258e58ee4f2be860849f18f152f9cd864147b84cf6",
+  "result": "result.json",
+  "repaired_month": "2024-09",
+  "official_newsId": "156651567",
+  "held_months_unique_pages": 45,
+  "unchanged_original_rows": 44,
+  "GET_attempts": 1,
+  "source_NAS_id": "7f1129a4033c90143de53beda9b8566428e7a7ce9f198b2e984512c8fe6d55c5",
+  "source_NAS_readback_verified": true,
+  "recorder_id": "a10f336d6fa84ea2ba2717f7a5071147",
+  "experiment_id": "905035602797744593",
+  "Recorder_NAS_sha256": "8c531924290a75d83395f3c47d027a06feebc233adae8c26d9759c7464a892a8",
+  "Recorder_NAS_readback_verified": true,
+  "SOXX_outcome_reads": 0,
+  "new_model_fits": 0,
+  "new_native_accounts": 0,
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "inputs/*",
+      "analysis/repaired_index",
+      "analysis/repair_receipt",
+      "analysis/result"
+    ]
+  }
+}
