@@ -1,0 +1,29 @@
+{
+  "decision": "conditional_Cboe_VIX9D_VIX3M_prior_session_source_map_cap_local_receiver_only",
+  "plan_sha256": "52f841364d4b60c2b9c456ab9972ca496403e90c74e0b352db92fbe8bf5b2712",
+  "source_original_NAS_sha256": "90356bcc9c9b889e61464ae052f5845851ed9d10cdc784dbf4bf8572f597541e",
+  "calendar_rows": 1063,
+  "OOF_signal_days": 1061,
+  "OOF_known_days": 1061,
+  "OOF_unknown_dates": [],
+  "binding_mature_train_rows": 239,
+  "binding_mature_eval_rows": 301,
+  "binding_mature_train_source_known": 239,
+  "binding_mature_eval_source_known": 301,
+  "training_Spearman_vs_baseline_features": {
+    "alpha_probability": 0.3139218030308358,
+    "tail_probability": 0.6045866882317781,
+    "raw_beta_minus_cap": 0.01665113744242467,
+    "risk_state": -0.08628791913356286
+  },
+  "prelaunch_backfill_consumed": false,
+  "historical_first_public_or_revision_qualified": false,
+  "market_outcome_values_read": 0,
+  "model_fits": 0,
+  "native_accounts": 0,
+  "recorder_id": "a0812de7e96b4e668a70e8d017bc60b7",
+  "experiment_id": "124106294750800159",
+  "recorder_uri": "/Users/rziiiii/dev/workspace/research/stage1_cboe_vix9d_vix3m_cap_source_20261023/qlib_recorder",
+  "NAS_Recorder_sha256": "7ff12bc59d964c88e30c0b1f2fa55b0c7322f2910c9e437ec92f00630bcb237d",
+  "NAS_remote_hash_verified": true
+}

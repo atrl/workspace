@@ -1,0 +1,5 @@
+experiment: stage1_cboe_vix9d_vix3m_cap_source_20261023
+mode: official_Cboe_VIX9D_VIX3M_prior_session_Qlib_source_map
+parent: frozen_complete_Stage1_0bp_IBKR_Tiered
+model_fits: 0
+native_accounts: 0

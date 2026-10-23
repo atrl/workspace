@@ -1,0 +1,54 @@
+{
+  "experiment": "stage1_cboe_vix9d_vix3m_cap_source_20261023",
+  "decision": "conditional_Cboe_VIX9D_VIX3M_prior_session_source_map_cap_local_receiver_only",
+  "objective_achieved": false,
+  "plan_sha256": "52f841364d4b60c2b9c456ab9972ca496403e90c74e0b352db92fbe8bf5b2712",
+  "source_original_NAS_sha256": "90356bcc9c9b889e61464ae052f5845851ed9d10cdc784dbf4bf8572f597541e",
+  "source_original_scoped_restore_verified": true,
+  "OOF_signal_days": 1061,
+  "OOF_known_days": 1061,
+  "binding_mature_train_source_known": 239,
+  "binding_mature_eval_source_known": 301,
+  "training_Spearman_vs_baseline_features": {
+    "alpha_probability": 0.3139218030308358,
+    "tail_probability": 0.6045866882317781,
+    "raw_beta_minus_cap": 0.01665113744242467,
+    "risk_state": -0.08628791913356286
+  },
+  "prelaunch_backfill_consumed": false,
+  "historical_first_public_or_revision_qualified": false,
+  "market_outcome_values_read": 0,
+  "model_fits": 0,
+  "native_accounts": 0,
+  "recorder_id": "a0812de7e96b4e668a70e8d017bc60b7",
+  "experiment_id": "124106294750800159",
+  "recorder_uri": "/Users/rziiiii/dev/workspace/research/stage1_cboe_vix9d_vix3m_cap_source_20261023/qlib_recorder",
+  "NAS_evidence": {
+    "sha256": "7ff12bc59d964c88e30c0b1f2fa55b0c7322f2910c9e437ec92f00630bcb237d",
+    "size_bytes": 118100,
+    "media_type": "application/gzip",
+    "storage_uri": "sha256/7f/f1/7ff12bc59d964c88e30c0b1f2fa55b0c7322f2910c9e437ec92f00630bcb237d",
+    "uploaded_by": "soxl-minute-research",
+    "created_at": "2026-10-23 12:02:19.213255+08",
+    "duplicate": false,
+    "nas_path": "/volume1/docker/yanxuan/registry/research-artifacts/7f/f1/7ff12bc59d964c88e30c0b1f2fa55b0c7322f2910c9e437ec92f00630bcb237d",
+    "recorder_id": "a0812de7e96b4e668a70e8d017bc60b7",
+    "experiment_id": "124106294750800159",
+    "archive_root": "qlib_recorder"
+  },
+  "NAS_scoped_restore": "nas_scoped_restore.json",
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "inputs/*",
+      "analysis/*"
+    ]
+  },
+  "limitations": [
+    "Cboe current historical CSVs do not prove first-public and unmodified daily vintages, even after the conservative post-launch training boundary.",
+    "VIX9D/VIX3M is an S&P 500 implied-volatility term proxy, not SOXX option skew.",
+    "The prior H5 Cboe strategy route remains closed; only a new physical cap local-value receiver may be screened.",
+    "Coverage/correlation does not prove a fee-net Stage1 account or independent forward evidence."
+  ]
+}

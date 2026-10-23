@@ -1,0 +1,30 @@
+{
+  "experiment": "stage1_cboe_vix9d_vix3m_cap_source_20261023",
+  "phase": "original_Cboe_short_vs_three_month_implied_risk_source_only_for_Stage1_cap_local_value",
+  "parent": "frozen_complete_Stage1_0bp_IBKR_Tiered",
+  "question": "Can the already received original Cboe VIX9D and VIX3M daily closes provide a prior-Qlib-session term-spread observation on every 2018-2022 Stage1 OOF cap-release decision, without using prelaunch backfill or fabricating historical first-public times?",
+  "distinctness": "The previous VIX9D/VIX3M H5 market-forecast strategy route failed and stays closed. This source is considered only for a separately frozen physical 0bp Tiered same-state cap+0.10 local action-value receiver, where short-horizon implied risk should protect against releasing the cap. No H5 re-fit or cost/window rescue.",
+  "sources": {
+    "raw_VIX9D": "data/snapshots/cboe_volatility_official_20261008_v1/VIX9D.csv",
+    "raw_VIX9D_sha256": "e6ff7521b4be50563067fce58c1998be7bd8ae66a739c4e6ca12151f6e2f643f",
+    "raw_VIX3M": "data/snapshots/cboe_volatility_official_20261008_v1/VIX3M.csv",
+    "raw_VIX3M_sha256": "6c1d98c0aef234feaa70f7cba6b6c810fb30184f478d2b60bd0a1fb3667d5e83",
+    "source_manifest": "data/qlib/cboe_volatility_official_20261008_v1/cboe_source_manifest.json",
+    "source_manifest_sha256": "cf96eb72c8a6cdb8a52d81ffc9f0037b7a8e16a93c80be8d0c872079d01836ed",
+    "Qlib_provider": "data/qlib/cboe_volatility_official_20261008_v1",
+    "Qlib_manifest_sha256": "4b09c7e34b5708e503e0ea61c02ef615d45f399e3b4e9ffa05419606653e7716",
+    "saved_OOF_frame_card": "research/stage1_signed_volume_0bp_action_label_source_20261023",
+    "saved_OOF_frame_summary_sha256": "ce6652a6323ec9bd11a8ce8de89239cba167a53bedb50e471080006a1a89f476",
+    "saved_OOF_frame_recorder_id": "3663a1e073f042e383dbcf54969a9bc2",
+    "saved_OOF_frame_artifact_sha256": "fc81f9342955aa17dc584a6587f325af39fc3731490f32a486e8fb121a095d6d",
+    "saved_OOF_path_artifact_sha256": "eb6403c99304be47572635ae3a71494ddd5ce9a96c7e3e361cf5c38f76ffa4e5",
+    "saved_cap_label_card": "research/stage1_cap_release_0bp_local_value_20261023",
+    "saved_cap_label_summary_sha256": "4ef952c9fb764aeb7164ae38bac99b59df6f77879784b38649b5d630391e0c96",
+    "saved_cap_label_artifact_sha256": "5e490b13dbf47c3761599c5ddf69e620dc967cc759d0f2b842474209df8edce2"
+  },
+  "frozen_coordinate": "At Stage1 signal t use log(VIX9D_close/VIX3M_close) from the immediately preceding actual Qlib trading session. Require both original positive finite source closes. No calendar-day forward fill or current-session close. Restrict source-support assessment to2018-2022, after the conservative 2014-02-03 index launch boundary.",
+  "source_checks": ["Exact original bytes and source/Qlib manifest hashes", "Archive the two original Cboe responses to Yanxuan NAS and verify remote SHA plus scoped cold restore", "Native Qlib D.calendar/D.features map and one DatasetH/Recorder source map over full1061 Stage1 OOF days", "Count all 239 train and 301 evaluation mature binding local label days with known lagged source; retain unknown dates and early backfill/PIT caveat", "Report training-only max absolute Spearman with alpha_probability, tail_probability, raw beta gap and risk state; no outcome correlation"],
+  "budget": {"new_external_GETs": 0, "Qlib_calendar_reads": 1, "Qlib_feature_reads": 1, "source_Recorder_object_reads": 3, "DatasetH_builds": 1, "new_Recorders": 1, "model_fits": 0, "native_accounts": 0},
+  "stop": "Stop on raw/provider identity, launch boundary, clock, 239/301 support or NAS readback failure. Numerical coverage is not historical first-public/revision qualification or predictive value. A later information gate needs its own frozen plan and cannot reopen the old H5 strategy route.",
+  "artifact_policy": {"policy": "slim_card_recorder_first", "workflow_config": "workflow.yaml", "recorder_only_artifacts": ["inputs/*", "analysis/*"]}
+}
