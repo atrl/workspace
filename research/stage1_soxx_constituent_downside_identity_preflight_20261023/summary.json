@@ -1,0 +1,47 @@
+{
+  "experiment": "stage1_soxx_constituent_downside_identity_preflight_20261023",
+  "decision": "original_NPORT_crosswalk_exact_price_identity_and_eval_tail_unqualified",
+  "objective_achieved": false,
+  "plan_sha256": "c4be5381a5b4aa43e266eee473e155309a996dc6e18467c2b3edc1c83bb933b3",
+  "triage_plan_sha256": "11d3a25ec747b30e5eebacd9aced609b5d51cf08666425f4521007e2c0054214",
+  "original_reports": 28,
+  "equity_rows": 840,
+  "crosswalk_exact": true,
+  "field_mismatch_count": 0,
+  "unique_ISINs": 50,
+  "unique_tickers": 47,
+  "ticker_reuse_identity_cases": 3,
+  "price_provider_absent_tickers": [
+    "BRKS",
+    "CCMP",
+    "CREE",
+    "IPHI",
+    "MXIM",
+    "WOLF",
+    "XLNX"
+  ],
+  "reports_with_absent_ticker": 20,
+  "absent_weight_pct_net_assets_max": 7.678446417541,
+  "price_provider_calendar_end": "2026-07-02",
+  "Stage1_held_last_signal": "2026-10-07",
+  "feature_source_qualified": false,
+  "market_price_reads": 0,
+  "SOXX_outcome_reads": 0,
+  "model_fits": 0,
+  "native_accounts": 0,
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": []
+  },
+  "limitations": [
+    "Exact SEC crosswalk is source identity only; ticker-to-original-security price history is not certified.",
+    "Seven historical tickers lack a Qlib price instrument in the selected provider and known weight cannot be silently renormalized.",
+    "The selected constituent Qlib provider ends before the Stage1 held evaluation period.",
+    "Historical Yahoo price revisions/first receipt and full Stage1 2011-2019 original basket identity remain unqualified."
+  ],
+  "prior_closed_price_gate": "research/stage1_soxx_nport_member_price_preflight_20261023/summary.json",
+  "prior_closed_price_gate_2019_2022_complete_30_stock_days": "0/780",
+  "new_alpha_candidate": false,
+  "interpretation": "Source-control extension across all28 original NPORT reports; prior same-mechanism 2019-2022 Qlib price gate already found zero complete 30-stock days. Do not replay or fit until missing original-security prices, first-public timing and full evaluation tail are repaired."
+}

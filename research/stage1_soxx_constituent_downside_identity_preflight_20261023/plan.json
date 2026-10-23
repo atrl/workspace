@@ -1,0 +1,22 @@
+{
+  "experiment": "stage1_soxx_constituent_downside_identity_preflight_20261023",
+  "phase": "source_identity_only_before_constituent_downside_feature",
+  "parent": "frozen_complete_Stage1_0bp_IBKR_Tiered",
+  "hypothesis": "The concentration of negative contributions among last-publicly-disclosed SOXX members may distinguish broad semiconductor losses from a few large constituents falling before the Stage1 decision; this is different from static holdings concentration and the XSD ETF proxy.",
+  "frozen_source_gate": [
+    "Compare all 28 original 2019-2026 SOXX N-PORT XML reports with the existing 840-row ticker/ISIN/CUSIP/weight/value Qlib ingestion sidecar, keyed by accession and original ISIN. Do not accept a ticker label as legal identity by itself.",
+    "Report exact member count, report period, CUSIP, ISIN, market value, and original pctVal mismatches. Preserve the 2025-09 amendment as a separate source report.",
+    "Report ISIN-to-ticker conflicts, ticker-to-multiple-ISIN reuse, placeholder-CUSIP rows and Qlib price-provider calendar end. A reused ticker for distinct securities or a missing full evaluation tail is a source qualification gap, not a price or prediction result.",
+    "No constituent return calculation, SOXX outcome read, feature, model fit, threshold, or account in this phase."
+  ],
+  "inputs": {
+    "original_xml_sha_manifest": "research/stage1_soxx_nport_isin_identity_repair_20261023/result.json",
+    "cached_crosswalk": "data/qlib/soxx_pit_leveraged_training_v1/sec_nport_holdings_history.csv",
+    "cached_crosswalk_sha256": "68d9acea5200d7ee46daa923dc1987fa61ede2a332cc02164470f271bbe48faa",
+    "qlib_price_manifest": "data/qlib/soxx_pit_leveraged_training_v1/qlib_store_manifest.json",
+    "qlib_price_manifest_sha256": "65267558677904f78d2e44056361c5af3e795fe405483483a02a7b23099c560d"
+  },
+  "budget": {"original_XML_reads": 28, "cached_sidecar_reads": 1, "market_price_reads": 0, "SOXX_outcome_reads": 0, "model_fits": 0, "native_accounts": 0, "new_Recorders": 0},
+  "stop": "Stop on crosswalk discrepancy or incomplete source identity. Passing only qualifies a source identity mapping for later separate price/PIT coverage work; no 0bp account follows automatically.",
+  "artifact_policy": {"policy": "slim_card_recorder_first", "workflow_config": "workflow.yaml", "recorder_only_artifacts": []}
+}

@@ -1,0 +1,10 @@
+experiment: stage1_soxx_constituent_downside_identity_preflight_20261023
+mode: original_SEC_NPORT_to_Qlib_ingestion_identity_source_gate
+parent: frozen_complete_Stage1_0bp_IBKR_Tiered
+original_source: research/stage1_soxx_nport_isin_identity_repair_20261023/result.json
+cached_crosswalk: data/qlib/soxx_pit_leveraged_training_v1/sec_nport_holdings_history.csv
+price_manifest: data/qlib/soxx_pit_leveraged_training_v1/qlib_store_manifest.json
+market_price_reads: 0
+SOXX_outcome_reads: 0
+model_fits: 0
+native_accounts: 0

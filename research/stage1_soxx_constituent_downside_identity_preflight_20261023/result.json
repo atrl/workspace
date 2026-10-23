@@ -1,0 +1,48 @@
+{
+  "decision": "original_NPORT_crosswalk_identity_audit",
+  "plan_sha256": "c4be5381a5b4aa43e266eee473e155309a996dc6e18467c2b3edc1c83bb933b3",
+  "original_reports": 28,
+  "original_equity_rows": 840,
+  "cached_rows": 840,
+  "report_periods": 27,
+  "missing_original_rows": [],
+  "extra_cached_rows": [],
+  "field_mismatches": [],
+  "unique_original_ISINs": 50,
+  "unique_cached_tickers": 47,
+  "ISIN_to_multiple_tickers": {},
+  "ticker_to_multiple_ISINs": {
+    "CCMP": [
+      "US12571T1007",
+      "US12709P1030"
+    ],
+    "MRVL": [
+      "BMG5876H1051",
+      "US5738741041"
+    ],
+    "LRCX": [
+      "US5128071082",
+      "US5128073062"
+    ]
+  },
+  "cached_tickers_absent_from_Qlib_price_provider": [
+    "BRKS",
+    "CCMP",
+    "CREE",
+    "IPHI",
+    "MXIM",
+    "WOLF",
+    "XLNX"
+  ],
+  "Qlib_price_provider_calendar_start": "2007-02-01",
+  "Qlib_price_provider_calendar_end": "2026-07-02",
+  "Stage1_held_last_signal": "2026-10-07",
+  "price_provider_reaches_held_end": false,
+  "placeholder_CUSIP_rows": 71,
+  "source_crosswalk_exact": true,
+  "feature_source_qualified": false,
+  "market_price_reads": 0,
+  "SOXX_outcome_reads": 0,
+  "model_fits": 0,
+  "native_accounts": 0
+}

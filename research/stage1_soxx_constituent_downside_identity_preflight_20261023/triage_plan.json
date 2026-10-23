@@ -1,0 +1,9 @@
+{
+  "phase": "source_only_missing_price_ticker_weight_triage",
+  "trigger": "Initial exact 840-row original XML crosswalk passed, but seven historical tickers are absent from the Qlib price-provider instrument inventory and three tickers map to multiple original ISINs.",
+  "fixed_read": "Read the unchanged cached crosswalk one additional time. For each report, sum original pctVal for the seven price-absent tickers and report min/median/max and the highest-weight reports. List the original periods and ISINs for the three ticker-reuse cases. Preserve net-asset percentages; never renormalize known rows to 100 percent.",
+  "source": "data/qlib/soxx_pit_leveraged_training_v1/sec_nport_holdings_history.csv",
+  "source_sha256": "68d9acea5200d7ee46daa923dc1987fa61ede2a332cc02164470f271bbe48faa",
+  "budget": {"cached_sidecar_reads": 1, "market_price_reads": 0, "SOXX_outcome_reads": 0, "model_fits": 0, "native_accounts": 0},
+  "stop": "This describes source support only. No feature formula, fill rule, fit or account is authorized by this triage."
+}
