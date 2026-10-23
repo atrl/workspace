@@ -473,6 +473,17 @@
       "recorder_id": "9623e3d4cc194fc3b0cecf81fd04d568",
       "nas_archive_sha256": "59700540653371729398dce9332344ac99d57d751e07f6b38fed27f242a960c1",
       "numeric_fit_is_admissible": false
+    },
+    {
+      "card": "research/stage1_futu_turnover_surprise_preflight_20261023",
+      "status": "closed_before_fit_fixed_turnover_surprise_mechanism_or_novelty_failed",
+      "default_search": false,
+      "evidence_preserved": true,
+      "result": "research/stage1_futu_turnover_surprise_preflight_20261023/summary.json",
+      "recorder_id": "01e593e243ac45cfb1410fb865623d93",
+      "nas_archive_sha256": "5fc5f612259cb950aab8ed5414649ea11b221568ef62e18ed68d0fceefe6c141",
+      "model_fits": 0,
+      "native_accounts": 0
     }
   ],
   "deferred_sources": {
@@ -682,5 +693,6 @@
   "latest_read_only_Stage1_paper_forward_source_freshness": "research/stage1_paper_forward_readiness_audit_20261023/source_freshness_followup_20261023.json",
   "latest_read_only_Stage1_composition_strong_window_overlap": "research/stage1_composition_strong_window_overlap_20261023/result.json",
   "latest_source_only_Stage1_Futu_SOXX_daily_turnover": "research/stage1_futu_daily_turnover_source_20261023/summary.json",
-  "latest_prefit_dedup_Stage1_Futu_raw_signed_turnover": "research/stage1_futu_daily_turnover_source_20261023/representation_preflight.json"
+  "latest_prefit_dedup_Stage1_Futu_raw_signed_turnover": "research/stage1_futu_daily_turnover_source_20261023/representation_preflight.json",
+  "latest_closed_prefit_Stage1_Futu_turnover_surprise": "research/stage1_futu_turnover_surprise_preflight_20261023/summary.json"
 }

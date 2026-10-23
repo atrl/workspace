@@ -277,7 +277,9 @@
     "Stage1_composition_strong_window_overlap": "research/stage1_composition_strong_window_overlap_20261023/result.json",
     "Stage1_composition_strong_window_interpretation": "Exact matched 0bp Tiered native Qlib 126-session windows: original A_0 255/819 positive, fixed beta composition458/819, strong9097 reference481/819. Composition/strong positive-window union is492/819, 82 below574 required; both fail327 windows. Adding A_0 raises union only to496. 2023-start windows45/249 and2025-start143/250 in composition/strong union. This is a hindsight selection of whole saved paths, not a feasible daily router or universal return bound. It closes simply choosing among these fixed whole-window accounts as the missing rolling-stability mechanism; a materially new within-window policy could behave differently and still needs its own frozen Stage1-parent0bp account and independent forward.",
     "Stage1_Futu_SOXX_daily_turnover_source": "research/stage1_futu_daily_turnover_source_20261023/summary.json",
-    "Stage1_Futu_SOXX_daily_turnover_interpretation": "Explicit read-only Futu OpenAPI US.SOXX K_DAY AuType.NONE request gave4172 rows through2026Oct09 in5 pages, raw CSV and receipt exact bytes NAS archived/restored; native Qlib $turnover_rate covers full Stage1 3020/3020 train and946/946 reused-held dates. Historical first-public vendor vintage remains unqualified, no fit/account or SOXX outcome read. Source may support separately frozen conditional information research, not 0bp promotion. The unnormalized SOXX return1*turnover_rate representation was rejected pre-fit because train Spearman with return1=0.968153; direct turnover_rate remains untested."
+    "Stage1_Futu_SOXX_daily_turnover_interpretation": "Explicit read-only Futu OpenAPI US.SOXX K_DAY AuType.NONE request gave4172 rows through2026Oct09 in5 pages, raw CSV and receipt exact bytes NAS archived/restored; native Qlib $turnover_rate covers full Stage1 3020/3020 train and946/946 reused-held dates. Historical first-public vendor vintage remains unqualified, no fit/account or SOXX outcome read. Source may support separately frozen conditional information research, not 0bp promotion. The unnormalized SOXX return1*turnover_rate representation was rejected pre-fit because train Spearman with return1=0.968153; direct turnover_rate remains untested.",
+    "Stage1_Futu_turnover_surprise_prefit": "research/stage1_futu_turnover_surprise_preflight_20261023/summary.json",
+    "Stage1_Futu_turnover_surprise_interpretation": "One fixed prior20-session log turnover-median surprise from explicit Futu NONE daily rate has complete Stage1 coverage (3020/3020 train,944/944 reused-held signal dates) and low max training Spearman against original39 (0.2258) and SOXX return1 (0.0828). However preregistered mechanism contrast fails: 2024Q3 cash-protective mean surprise0.02125 < complete2025 cash-drag mean0.07050. Close this exact normalized surprise representation before any future-return label read, fit, bootstrap or 0bp account; do not flip sign/window from reused history. Historical Futu first-public vintages remain unqualified; raw turnover source remains preserved and not globally invalidated."
   },
   "contract": {
     "path": "docs/three_asset_research_contract.md",
@@ -532,7 +534,8 @@
     "paper_forward_current_boundary": "At 2026-10-23T13:39:33Z verified NAS us_semis_intraday and local Qlib 15min provider both reached Oct22; SOXL/SOXX first-hour bars8/8 complete. Two sealed release code hashes still mismatch; future partial-bar semantics unreviewed. No release write, paper run, qualified forward day or SOXX success. This is an independent infrastructure prerequisite, not the 0bp candidate result.",
     "Stage1_composition_strong_window_overlap": "research/stage1_composition_strong_window_overlap_20261023/result.json",
     "Stage1_Futu_SOXX_daily_turnover_source": "research/stage1_futu_daily_turnover_source_20261023/summary.json",
-    "Stage1_Futu_SOXX_raw_product_dedup": "research/stage1_futu_daily_turnover_source_20261023/representation_preflight.json"
+    "Stage1_Futu_SOXX_raw_product_dedup": "research/stage1_futu_daily_turnover_source_20261023/representation_preflight.json",
+    "Stage1_Futu_turnover_surprise_prefit": "research/stage1_futu_turnover_surprise_preflight_20261023/summary.json"
   },
   "parallel_source_task": {
     "card": "research/korea_semiconductor_exports_korean_vintage_20261022",
@@ -597,7 +600,7 @@
     ]
   },
   "active_index": "research/active_research_index.json",
-  "updated_at_utc": "2026-10-23T13:57:07Z",
+  "updated_at_utc": "2026-10-23T14:03:57Z",
   "execution_totals": {
     "new_model_fits": 85,
     "new_native_accounts": 51,
