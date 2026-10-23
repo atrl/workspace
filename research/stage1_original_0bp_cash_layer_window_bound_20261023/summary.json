@@ -1,0 +1,21 @@
+{
+  "experiment": "stage1_original_0bp_cash_layer_window_bound_20261023",
+  "decision": "read_only_cap_binding_cash_alone_insufficient_on_frozen_account_path",
+  "objective_achieved": false,
+  "plan_sha256": "e700eefafc1a34b7b74005f2a101c399c07794b3f0818a33ab4f1821d0b563a9",
+  "result": "result.json",
+  "source_recorder_id": "2f0392615c4c4b15928b4ada6e01ecd9",
+  "source_NAS_sha256": "54c6e93b4c304774c272b07312c856a9a2a255086d372066db418b5efed359c7",
+  "new_model_fits": 0,
+  "new_native_accounts": 0,
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": []
+  },
+  "limitations": [
+    "All819 windows overlap; counts are not independent trials.",
+    "A direct accounting repair freezes Stage1 holdings, risk feedback and fees; no feasible candidate account is proven.",
+    "No source feature, model, new account or SOXX hard-gate result."
+  ]
+}

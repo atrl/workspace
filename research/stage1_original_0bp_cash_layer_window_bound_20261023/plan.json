@@ -1,0 +1,38 @@
+{
+  "schema_version": 1,
+  "frozen": true,
+  "experiment": "stage1_original_0bp_cash_layer_window_bound_20261023",
+  "phase": "read_only_original_Stage1_0bp_819_window_cash_projection_vs_allocation_component_bound",
+  "parent": "frozen_complete_Stage1_SOXL_SOXX_CASH_100k_0bp_IBKR_Tiered",
+  "question": "Can the broad 126-session SOXX shortfall be repaired solely by direct elimination of negative cash opportunity accumulated on cap-binding dates, or does nonbinding allocation cash also need a new decision-time mechanism?",
+  "sources": {
+    "component_card": "research/stage1_original_0bp_signal_loss_chain_v2_20261023",
+    "component_summary_sha256": "898089b008f1f6f50016ddbbd2fc082f77423464ed8613c54dbdd5fbbae1dc3a",
+    "recorder_id": "2f0392615c4c4b15928b4ada6e01ecd9",
+    "experiment_id": "954993860986722516",
+    "rolling_artifact_sha256": "12f8a16607303370c0ad4a339a3c1de00ab92a467b1490249a160084db2b7635",
+    "NAS_archive_sha256": "54c6e93b4c304774c272b07312c856a9a2a255086d372066db418b5efed359c7",
+    "parent_all_window_card": "research/stage1_original_0bp_all_window_components_20261023"
+  },
+  "fixed_report": [
+    "Verify each of819 native rolling126 rows has cash_opportunity_log=cap_binding_cash_log+nonbinding_cash_log to numeric tolerance and native component closure.",
+    "Count strict SOXX-positive windows under the original path and static direct correction of negative cap-binding cash only, negative nonbinding cash only, and both separately; compare with574/819 rolling gate.",
+    "For all, winning and nonwinning windows report mean cap-binding and nonbinding cash components and count of negative contributions.",
+    "Report complete-account full-period cap-binding versus nonbinding cash totals from source result as context, not future selection rule."
+  ],
+  "budget": {
+    "external_market_requests": 0,
+    "source_Recorder_object_loads": 1,
+    "new_model_fits": 0,
+    "new_native_accounts": 0,
+    "new_bootstraps": 0,
+    "new_Qlib_Recorders": 0
+  },
+  "interpretation_boundary": "Removing an accounting contribution while freezing the original funded path is not a feasible portfolio, action, risk-state, fee or feedback counterfactual; no static bound alone certifies an account or proves a mechanism impossible.",
+  "stop": "One full-window readback and report. Do not select dates, thresholds or cap changes from hindsight; use result to route future source hypotheses to prediction versus risk layers.",
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": []
+  }
+}

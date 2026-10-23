@@ -1,0 +1,55 @@
+{
+  "decision": "read_only_cap_binding_cash_alone_insufficient_on_frozen_account_path",
+  "plan_sha256": "e700eefafc1a34b7b74005f2a101c399c07794b3f0818a33ab4f1821d0b563a9",
+  "source_recorder_id": "2f0392615c4c4b15928b4ada6e01ecd9",
+  "cash_subcomponent_closure_max": 1.1102230246251565e-16,
+  "rolling126_windows": 819,
+  "required_positive_windows_70pct": 574,
+  "original_positive_windows": 255,
+  "static_direct_negative_cash_component_repairs_positive_windows": {
+    "cap_binding_only": 321,
+    "nonbinding_only": 420,
+    "both_separately": 588
+  },
+  "groups": {
+    "all": {
+      "windows": 819,
+      "mean_cap_binding_cash_log": -0.031016064088476503,
+      "mean_nonbinding_cash_log": -0.046686642050405444,
+      "cap_binding_cash_negative_windows": 630,
+      "nonbinding_cash_negative_windows": 672,
+      "both_negative_windows": 543,
+      "mean_cap_binding_fraction": 0.289474194236099
+    },
+    "nonwinning": {
+      "windows": 564,
+      "mean_cap_binding_cash_log": -0.06342743744972416,
+      "mean_nonbinding_cash_log": -0.04959942974236836,
+      "cap_binding_cash_negative_windows": 537,
+      "nonbinding_cash_negative_windows": 480,
+      "both_negative_windows": 460,
+      "mean_cap_binding_fraction": 0.3123944613306316
+    },
+    "winning": {
+      "windows": 255,
+      "mean_cap_binding_cash_log": 0.04067026758110654,
+      "mean_nonbinding_cash_log": -0.04024424103759333,
+      "cap_binding_cash_negative_windows": 93,
+      "nonbinding_cash_negative_windows": 192,
+      "both_negative_windows": 83,
+      "mean_cap_binding_fraction": 0.23877995642701524
+    }
+  },
+  "full_944_day_cash_components": {
+    "cap_binding_cash_log": -0.28700822364970324,
+    "nonbinding_cash_log": -0.3133143772539134,
+    "cash_opportunity_log": -0.6003226009036167
+  },
+  "static_repair_is_native_account": false,
+  "causal_policy_inference": false,
+  "window_overlap": true,
+  "market_requests": 0,
+  "model_fits": 0,
+  "native_accounts": 0,
+  "bootstraps": 0
+}
