@@ -1,0 +1,8 @@
+experiment: stage1_strong_reference_window_overlap_20261023
+mode: read_only_same_basis_Stage1_vs_strong_reference_0bp_window_attribution
+parent: frozen_complete_Stage1_0bp_IBKR_Tiered
+source_Recorders:
+  - research/stage1_domain_heads_20261018/summary.json
+  - research/stage1_original_0bp_signal_loss_chain_v2_20261023/summary.json
+model_fits: 0
+native_accounts: 0

@@ -1,0 +1,25 @@
+{
+  "experiment": "stage1_strong_reference_window_overlap_20261023",
+  "phase": "read_only_matched_Stage1_A0_vs_strong9097_0_SOXX_window_support",
+  "question": "Across all matched 819 overlapping 126-session windows, how many SOXX wins are shared, unique to frozen Stage1 A0 or strong9097, or absent in both? Does an impossible hindsight path chooser between the two fixed accounts even cover the contract's 574 positive-window requirement?",
+  "sources": {
+    "matched_reference_card": "research/stage1_domain_heads_20261018",
+    "matched_reference_summary_sha256": "3b51938ca56ddf45029ff5e4a01a6bbc2f1d1407458efcad7d7c68b0ef5a1d37",
+    "reference_recorder_id": "6e227278b7a64eafbcf34b965e16d2b9",
+    "reference_experiment_id": "283510277269468590",
+    "reference_NAS_sha256": "f3f891d6d09d4187f12815e245b33cc9cfec4acfd4f555b734f66a59348d9884",
+    "stage1_component_card": "research/stage1_original_0bp_signal_loss_chain_v2_20261023",
+    "stage1_component_summary_sha256": "898089b008f1f6f50016ddbbd2fc082f77423464ed8613c54dbdd5fbbae1dc3a",
+    "component_recorder_id": "2f0392615c4c4b15928b4ada6e01ecd9",
+    "component_experiment_id": "954993860986722516",
+    "component_NAS_sha256": "54c6e93b4c304774c272b07312c856a9a2a255086d372066db418b5efed359c7"
+  },
+  "frozen_report": [
+    "Load original Stage1 A0, strong9097 0bp, and original Stage1 component rolling126 from their finished native Qlib Recorders; require exact 819-row first_trade/last_exit alignment.",
+    "Count strict relative_log>0 for both, Stage1-only, strong-only and neither, and calculate union count versus ceil(0.70*819)=574. A union is a retrospective upper bound from two full fixed paths, never a causal or tradable switch; mixing their own states would require a new funded account.",
+    "For neither and each one-sided group, report original Stage1 cash-opportunity and SOXL-selection negative counts and means as descriptive failure attribution. Preserve all intervals; no threshold, date, regime or model selection."
+  ],
+  "budget": {"Qlib_Recorder_object_loads": 3, "market_requests": 0, "model_fits": 0, "native_accounts": 0, "bootstraps": 0, "new_Recorders": 0},
+  "stop": "Stop on source hash, Recorder status, cost identity or interval mismatch. This cannot promote strong9097, replace the Stage1 parent, or claim an achievable combined account or independent evidence.",
+  "artifact_policy": {"policy": "slim_card_recorder_first", "workflow_config": "workflow.yaml", "recorder_only_artifacts": []}
+}

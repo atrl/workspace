@@ -1,0 +1,31 @@
+{
+  "experiment": "stage1_strong_reference_window_overlap_20261023",
+  "decision": "descriptive_same_basis_Stage1_vs_strong_reference_window_overlap_no_policy",
+  "objective_achieved": false,
+  "plan_sha256": "c2be53688879eb7f981719ce506bad523b169422ded04d3abd9429aafe0dedd7",
+  "rolling_windows": 819,
+  "required_positive_windows": 574,
+  "Stage1_positive": 255,
+  "strong9097_positive": 481,
+  "both_positive": 251,
+  "Stage1_only_positive": 4,
+  "strong_only_positive": 230,
+  "neither_positive": 334,
+  "neither_Stage1_cash_negative": 331,
+  "hindsight_union_positive": 485,
+  "hindsight_union_shortfall": 89,
+  "market_requests": 0,
+  "model_fits": 0,
+  "native_accounts": 0,
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": []
+  },
+  "limitations": [
+    "819 windows overlap heavily and are not independent trials.",
+    "The union of two fixed fully funded account windows is an impossible hindsight chooser, not a tradable or own-state hybrid account.",
+    "Strong9097 is attribution-only and does not replace the frozen Stage1 parent.",
+    "No new source feature, 0bp passing account, 2/5bp or qualified forward evidence."
+  ]
+}
