@@ -1,0 +1,51 @@
+{
+  "experiment": "stage1_tsmc_monthly_source_retention_20261023",
+  "decision": "TSMC_2015_2026_original_SEC_monthly_source_backed_2016_2022_information_receiver_unrun",
+  "objective_achieved": false,
+  "plan_sha256": "07d3a038f91ba11ae4142db4f6b8f86896054a470cd5c8f1a0d7fac04cbb3a28",
+  "source_files": 264,
+  "source_archive": {
+    "sha256": "ef85974f40111ea6004efb36be63986734da2203e94408b4ff973df397b1f727",
+    "size_bytes": 781389,
+    "media_type": "application/gzip",
+    "storage_uri": "sha256/ef/85/ef85974f40111ea6004efb36be63986734da2203e94408b4ff973df397b1f727",
+    "uploaded_by": "soxl-minute-research",
+    "created_at": "2026-10-23 12:28:26.575055+08",
+    "duplicate": false,
+    "nas_path": "/volume1/docker/yanxuan/registry/research-artifacts/ef/85/ef85974f40111ea6004efb36be63986734da2203e94408b4ff973df397b1f727",
+    "source_files": 264,
+    "source_bytes": 14671156
+  },
+  "existing_Recorder_archive": {
+    "sha256": "b82835874dd9a3179980f43847dc4973b4ba32dc19275c954bb92f9a4e67f786",
+    "size_bytes": 88343,
+    "media_type": "application/gzip",
+    "storage_uri": "sha256/b8/28/b82835874dd9a3179980f43847dc4973b4ba32dc19275c954bb92f9a4e67f786",
+    "uploaded_by": "soxl-minute-research",
+    "created_at": "2026-10-23 12:28:27.206993+08",
+    "duplicate": false,
+    "nas_path": "/volume1/docker/yanxuan/registry/research-artifacts/b8/28/b82835874dd9a3179980f43847dc4973b4ba32dc19275c954bb92f9a4e67f786",
+    "recorder_id": "4d1dc18e75c7489d8251af1e737c1a0f",
+    "experiment_id": "397792364372528784",
+    "archive_root": "qlib_recorder"
+  },
+  "NAS_scoped_restore": "nas_scoped_restore.json",
+  "support": {
+    "2016_2022_original_events": 84,
+    "2023_2025_original_events": 36,
+    "calendar_rows": 2712,
+    "event_available_rows": 130,
+    "first_feature_date": "2015-12-11 00:00:00",
+    "last_feature_date": "2026-09-25 00:00:00"
+  },
+  "model_fits": 0,
+  "native_accounts": 0,
+  "SOXX_outcome_reads": 0,
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "reuse old Recorder events/docs_manifest/reference_asof_state"
+    ]
+  }
+}

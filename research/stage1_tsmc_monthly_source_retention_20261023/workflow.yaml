@@ -1,0 +1,5 @@
+experiment: stage1_tsmc_monthly_source_retention_20261023
+mode: source_identity_and_NAS_backup_only
+parent: frozen_complete_Stage1_0bp_IBKR_Tiered
+model_fits: 0
+native_accounts: 0

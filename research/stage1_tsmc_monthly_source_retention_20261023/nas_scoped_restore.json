@@ -1,0 +1,20 @@
+{
+  "status": "NAS_all_264_original_source_files_and_selected_existing_Recorder_objects_cold_restored_exact",
+  "source_archive_sha256": "ef85974f40111ea6004efb36be63986734da2203e94408b4ff973df397b1f727",
+  "source_members_checked": 264,
+  "Recorder_archive_sha256": "b82835874dd9a3179980f43847dc4973b4ba32dc19275c954bb92f9a4e67f786",
+  "Recorder_members_checked": {
+    "events": {
+      "sha256": "6a52c451ac1d7cf28e6340437bd17a1ccd8138ceeb57dba4a42276f0403b4b69",
+      "bytes": 47536
+    },
+    "docs_manifest": {
+      "sha256": "56f515ce47e67502b8d8efab3543253ed6d17d9ca82c22ff800779dc4b6da6d7",
+      "bytes": 31460
+    },
+    "reference_asof_state": {
+      "sha256": "d616b3511b2ffb214b7fa5b0fe6e8c2f536efb0968185a6a7f0e384a674fa941",
+      "bytes": 152991
+    }
+  }
+}

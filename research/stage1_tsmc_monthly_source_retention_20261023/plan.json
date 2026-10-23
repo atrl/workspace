@@ -1,0 +1,25 @@
+{
+  "experiment": "stage1_tsmc_monthly_source_retention_20261023",
+  "frozen": true,
+  "phase": "read_only_existing_SEC_TSMC_monthly_source_identity_and_NAS_retention",
+  "parent": "frozen_complete_Stage1_0bp_IBKR_Tiered",
+  "source_root": "data/raw/external/tsmc_monthly_revenue_20261010_v1",
+  "docs_manifest_sha256": "1070967532e9ddd47f4847aaf6dc7cec5920966ee419976b4167faba0c99aa49",
+  "submissions_sha256": "bbd5e352ab8242e31212f1a50ceb004b50c46011854598fcbfcb97eadf0580da",
+  "source_summary": "research/tsmc_monthly_revenue_pit_qualification_20261010/summary.json",
+  "source_summary_sha256": "d9e6d3e706923cf2d9e15455d91d84cc756445988e8f20e2f6c1f53133f8cf8d",
+  "source_recorder_id": "4d1dc18e75c7489d8251af1e737c1a0f",
+  "source_experiment_id": "397792364372528784",
+  "source_events_artifact_sha256": "6a52c451ac1d7cf28e6340437bd17a1ccd8138ceeb57dba4a42276f0403b4b69",
+  "provider_uri": "data/qlib/tsmc_monthly_revenue_20261010_v1",
+  "method": "Verify all 131 source document bytes and the existing FINISHED Qlib Recorder identity. Archive every original source-root file as one content-addressed Yanxuan NAS artifact and archive the existing Recorder separately without refitting. Cold download both, compare exact archive SHA and selected raw/Recorder member bytes, and use native Qlib D.calendar/D.features only for support and timing preflight.",
+  "limits": {
+    "external_GETs": 0,
+    "model_fits": 0,
+    "native_accounts": 0,
+    "SOXX_outcome_reads": 0,
+    "source_archive_uploads_max": 1,
+    "existing_recorder_archive_uploads_max": 1
+  },
+  "stop": "Any source SHA, Qlib event identity, NAS receipt or cold restore mismatch stops before any predictive information screen. Source retention does not prove TSMC predicts SOXX or repair first-public versus conservative SEC acceptance timing."
+}
