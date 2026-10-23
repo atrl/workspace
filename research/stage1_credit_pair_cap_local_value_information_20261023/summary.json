@@ -1,0 +1,136 @@
+{
+  "experiment": "stage1_credit_pair_cap_local_value_information_20261023",
+  "decision": "not_promoted_fixed_credit_pair_cap_value_information_failed",
+  "objective_achieved": false,
+  "plan_sha256": "d796bbd97996c25009f5d98e13889064d5bf6424c93b7cba010a3a155a016b22",
+  "preflight": {
+    "status": "fixed_credit_pair_source_and_cap_local_value_cohort_matched",
+    "plan_sha256": "d796bbd97996c25009f5d98e13889064d5bf6424c93b7cba010a3a155a016b22",
+    "full_OOF_calendar": 1061,
+    "train_mature_binding": 239,
+    "evaluation_mature_binding": 301,
+    "evaluation_2021": 56,
+    "evaluation_2022": 245,
+    "source_Recorder_object_loads": 3,
+    "model_fits": 0,
+    "native_accounts": 0
+  },
+  "metrics": {
+    "candidate_MSE": 6.404552308129054e-06,
+    "baseline_MSE": 6.368773792168582e-06,
+    "train_mean_MSE": 6.330007046203221e-06,
+    "added_standardized_coefficient": 9.213797942139166e-05,
+    "comparators": {
+      "baseline": {
+        "full_mean_gain": -3.577851596047313e-08,
+        "annual": [
+          {
+            "year": 2021,
+            "rows": 56,
+            "mean_gain": 4.7738571790945794e-08,
+            "Spearman": -0.11189336978810664
+          },
+          {
+            "year": 2022,
+            "rows": 245,
+            "mean_gain": -5.486813601794032e-08,
+            "Spearman": 0.025538356086136978
+          }
+        ],
+        "bootstrap": {
+          "paired_mean_loss_improvement": -3.577851596047313e-08,
+          "lower_bound": -1.2233329840425482e-07,
+          "upper_bound": 8.484629058014407e-08,
+          "valid_replicates": 10000,
+          "invalid_replicates": 0,
+          "calendar_rows": 503,
+          "scored_rows": 301
+        }
+      },
+      "train_mean": {
+        "full_mean_gain": -7.454526192583339e-08,
+        "annual": [
+          {
+            "year": 2021,
+            "rows": 56,
+            "mean_gain": -3.309555317037151e-07,
+            "Spearman": -0.11189336978810664
+          },
+          {
+            "year": 2022,
+            "rows": 245,
+            "mean_gain": -1.5937200262317544e-08,
+            "Spearman": 0.025538356086136978
+          }
+        ],
+        "bootstrap": {
+          "paired_mean_loss_improvement": -7.454526192583339e-08,
+          "lower_bound": -4.22005250850139e-07,
+          "upper_bound": 2.0471836872505078e-08,
+          "valid_replicates": 10000,
+          "invalid_replicates": 0,
+          "calendar_rows": 503,
+          "scored_rows": 301
+        }
+      }
+    }
+  },
+  "gates": {
+    "coefficient_positive": true,
+    "baseline": {
+      "full_positive": false,
+      "both_years_positive": false,
+      "both_years_Spearman_positive": false,
+      "corrected_lower_positive": false
+    },
+    "train_mean": {
+      "full_positive": false,
+      "both_years_positive": false,
+      "both_years_Spearman_positive": false,
+      "corrected_lower_positive": false
+    }
+  },
+  "information_gate_pass": false,
+  "new_model_fits": 2,
+  "new_bootstraps": 2,
+  "new_native_accounts": 0,
+  "historical_first_public_or_revision_qualified": false,
+  "historical_independence": false,
+  "recorder_id": "bf32b204e6c74cd7a32ccb6ac5b3b814",
+  "experiment_id": "279818349038712666",
+  "recorder_uri": "/Users/rziiiii/dev/workspace/research/stage1_credit_pair_cap_local_value_information_20261023/qlib_recorder",
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "inputs/*",
+      "models/*",
+      "predictions/*",
+      "analysis/*"
+    ]
+  },
+  "limitations": [
+    "This is a local one-step cap-release value screen, not a closed-loop SOXX account.",
+    "Yahoo historical dividend and raw-price first-public/revision history is unknown; no PIT certification.",
+    "Reused 2021/2022 labels and prior credit H5 research are not independent forward evidence."
+  ],
+  "NAS_evidence": {
+    "sha256": "bd81c27bfc1cf867a7168c0ac61df62e85ff95d833140ac2b2b2f8ede001c861",
+    "size_bytes": 610265,
+    "media_type": "application/gzip",
+    "storage_uri": "sha256/bd/81/bd81c27bfc1cf867a7168c0ac61df62e85ff95d833140ac2b2b2f8ede001c861",
+    "uploaded_by": "soxl-minute-research",
+    "created_at": "2026-10-23 12:10:56.204814+08",
+    "duplicate": false,
+    "nas_path": "/volume1/docker/yanxuan/registry/research-artifacts/bd/81/bd81c27bfc1cf867a7168c0ac61df62e85ff95d833140ac2b2b2f8ede001c861",
+    "recorder_id": "bf32b204e6c74cd7a32ccb6ac5b3b814",
+    "experiment_id": "279818349038712666",
+    "archive_root": "qlib_recorder"
+  },
+  "NAS_readback": {
+    "sha256": "bd81c27bfc1cf867a7168c0ac61df62e85ff95d833140ac2b2b2f8ede001c861",
+    "verified": true
+  },
+  "NAS_scoped_restore": "nas_scoped_restore.json",
+  "delivery_repair": "Initial notebook run finished fits, bootstrap, and FINISHED Recorder, then stopped at missing NAS binding. Binding was added, original Recorder archived and cold-read without repeat fits."
+}

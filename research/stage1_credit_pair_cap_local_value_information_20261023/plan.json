@@ -1,0 +1,69 @@
+{
+  "experiment": "stage1_credit_pair_cap_local_value_information_20261023",
+  "frozen": true,
+  "execution_authorized_by_active_Goal": true,
+  "parent": "frozen_complete_Stage1_f696_plus_b472_0bp_IBKR_Tiered",
+  "hypothesis": "Higher prior-session 20-session HYG-minus-LQD total return indicates stronger credit risk appetite and should raise the one-session net value of releasing the original Stage1 beta cap by 0.10 into SOXX. The added standardized coefficient is expected positive.",
+  "distinctness": "The fixed HYG-LQD H5 market forecast remains closed. This is the original Stage1 same-state physical cap-release local-value receiver, with no new feature horizon or year selection. The Cboe local-value version remains closed and supplies only pinned original Stage1 control coordinates, not its Cboe feature.",
+  "sources": {
+    "credit_card": "research/stage1_credit_risk_pair_source_20261023",
+    "credit_summary_sha256": "0524fe1b80d6e0281205065cda3a5c8c346c6fe545d4c53563604d95dd905808",
+    "credit_recorder_id": "018a98da05724acda3c50b11a7b9a69f",
+    "credit_experiment_id": "157647850511500364",
+    "credit_map_artifact_sha256": "0c42e2a890324079864d8e02544e237e7e14076912fd0ba959200c73d0102161",
+    "control_card": "research/stage1_cboe_vix9d_vix3m_cap_source_20261023",
+    "control_summary_sha256": "8f93c263104a97e163c6fbe59d71762679caecf6bfa7d6ac26528075421bd2ba",
+    "control_recorder_id": "a0812de7e96b4e668a70e8d017bc60b7",
+    "control_experiment_id": "124106294750800159",
+    "control_map_artifact_sha256": "e20772279b91894b63941a127264190124d06fb3ae3f8b06358a5b5741c142b5",
+    "label_card": "research/stage1_cap_release_0bp_local_value_20261023",
+    "label_summary_sha256": "4ef952c9fb764aeb7164ae38bac99b59df6f77879784b38649b5d630391e0c96",
+    "label_recorder_id": "ab150237a3c14f8c83e9772248323e66",
+    "label_experiment_id": "697175102772931174",
+    "label_artifact_sha256": "5e490b13dbf47c3761599c5ddf69e620dc967cc759d0f2b842474209df8edce2",
+    "bootstrap_module_sha256": "02705f897e668b710a38aae514df08b86e26c8cd8951405339960355a08a5ac4"
+  },
+  "receiver": {
+    "baseline": ["alpha_probability", "tail_probability", "raw_beta_minus_cap", "risk_state"],
+    "candidate_extra": "HYG_minus_LQD_log_total_return_20",
+    "source_timing": "Only the signal-date already-ended HYG/LQD source session is used at the following trade-day 09:46; historical dividend first-public/revision vintages remain unqualified.",
+    "label": "Saved eligible original Stage1 0bp IBKR Tiered same-state cap+0.10 SOXX local_fee_net_advantage versus original target with common next09:47 reset; no closed-loop wealth interpretation."
+  },
+  "cohorts": {
+    "train_mature_binding": 239,
+    "evaluation_mature_binding": 301,
+    "evaluation_2021": 56,
+    "evaluation_2022": 245,
+    "evaluation_full_calendar": 503,
+    "train_cutoff": "2021-01-01T00:00:00 America/New_York",
+    "evaluation_end": "2022-12-30",
+    "historical_independence": false
+  },
+  "model": "One median-imputed standardized Ridge(alpha=1) matched four-input baseline fit and one five-input candidate fit on identical pre-2021 mature cap-binding labels; training-label mean is the second control. No direction, horizon, alpha, year or threshold search.",
+  "information_gate": {
+    "added_standardized_coefficient_positive": true,
+    "candidate_vs_both_baseline_and_train_mean": [
+      "full evaluation paired MSE improvement positive",
+      "2021 and 2022 paired improvement positive",
+      "2021 and 2022 candidate prediction-to-local-value Spearman positive",
+      "full 503-session calendar corrected stationary-bootstrap lower bound positive"
+    ],
+    "bootstrap": {
+      "mean_block_sessions": 63,
+      "draws_each": 10000,
+      "seed": 20261024,
+      "one_sided_alpha_each": 0.00078125,
+      "family_denominator": 32
+    }
+  },
+  "budget": {
+    "external_GETs": 0,
+    "source_Recorder_object_loads": 3,
+    "DatasetH_builds": 1,
+    "model_fit_attempts_max": 2,
+    "bootstrap_attempts_max": 2,
+    "new_Qlib_Recorders_max": 1,
+    "native_accounts": 0
+  },
+  "stop": "Stop before fits on pinned hash, signal-time, full-calendar or 239/301/56/245 support mismatch. A failed fixed information version closes without sign, window, source, alpha, year or risk-rule rescue. A pass remains conditional on historical credit-event vintage qualification and a separately frozen original Stage1 own-state 0bp account, then 2/5bp and independent forward evidence."
+}
