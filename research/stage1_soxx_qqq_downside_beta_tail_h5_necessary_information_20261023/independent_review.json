@@ -1,0 +1,15 @@
+{
+  "verdict": "CONFIRM_FAILED_NECESSARY_GATE_CLOSE_FIXED_ROUTE",
+  "review_scope": "read_only_frozen_sources_original_tail_label_AUC_bootstrap_Qlib_NAS",
+  "confirmed": [
+    "Frozen feature, label, artifact and Qlib provider hashes match.",
+    "Native Recorder is FINISHED with 944 Qlib and DatasetH rows, 940 mature labels, 177 tail events and four terminal unknowns.",
+    "Saved score and tail label/availability exactly match the pinned source Recorders.",
+    "Recomputed candidate AUC is 0.5570562 full, 0.5042659/0.5619053 halves, 0.4628957 in complete 2024 and 0.6202 in complete 2025; saved Stage1 tail probability AUC is 0.5709769 on the same rows.",
+    "All 2000 saved finite stationary-bootstrap draws reproduce interval [0.4849974, 0.6254952]; lower bound does not exceed 0.5.",
+    "All 16 quarters total 940 mature rows and 177 events; NAS archive report, daily rows and draws pass remote readback.",
+    "No model fit or native account ran."
+  ],
+  "limit": "Historical source first receipts remain unqualified. Marginal AUC is not incremental original39 information or full Stage1 SOXX performance.",
+  "next_action": "Close fixed positive prior60/H5 route without 2025, quarter, window, sign or QQQ threshold rescue."
+}

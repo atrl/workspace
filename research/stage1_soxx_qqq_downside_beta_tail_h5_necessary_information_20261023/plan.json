@@ -1,0 +1,77 @@
+{
+  "schema_version": 1,
+  "frozen": true,
+  "experiment": "stage1_soxx_qqq_downside_beta_tail_h5_necessary_information_20261023",
+  "phase": "conditional_source_coordinate_to_original_SOXX_tail_H5_necessary_information",
+  "question": "Does the fixed prior-60-session SOXX-on-QQQ downside-beta gap rank the original Stage1 five-interval SOXX tail event above chance in the full reused held calendar?",
+  "sources": {
+    "feature_card": "research/stage1_soxx_qqq_downside_beta_source_20261023",
+    "feature_summary_sha256": "1110091e2bfd906c4d624bf791d422372056cef64f5ba9590b50ee5d776d0322",
+    "feature_recorder_id": "e357303114444af79ae34c41f4b58e41",
+    "feature_experiment_id": "107662550415421774",
+    "feature_frame_sha256": "f23954e857f94311fb35c71e111818f664717f54daa928bdb9a70173d4c1a083",
+    "feature_NAS_sha256": "9628994993e30700c35e5b49e35318a2d29f443e676bcce94dbefa1a154ac878",
+    "label_card": "research/allocator_cash_information_20261014",
+    "label_summary_sha256": "bc093ba4f1ba9b14bc1ac9632bfdd70dfd9b3d1eba833621d080c7f905fd52a0",
+    "label_recorder_id": "2d7bd1e5020d46dd801f384a3c97ef7f",
+    "label_experiment_id": "408822489499271253",
+    "label_daily_sha256": "36da3ce44a3ea6fc0ae6b3c22b0e25f325c4d821aa1034beeb70be4abcf88755",
+    "label_NAS_sha256": "0d458acae46b991b8ce21a03f742a9dcba94a0bd4eed0f3bca41d2a40d8da9c5",
+    "Qlib_provider": "data/qlib/minute_information_pit_allocator_20261012/daily_prices",
+    "Qlib_config_sha256": "951024d796cc625b695938e64589cd23808c5b048ac816c11f001fb0719742a2"
+  },
+  "score": "Saved downside_beta_gap_60 on each signal date; source already uses exactly 60 complete prior Qlib sessions. No fit, sign flip, percentile, interaction, or selection from market outcomes.",
+  "label": "Exact saved original Stage1 tail_h5: next five funded 09:47 holding intervals with SOXX close/exit mark <=95% of entry mark. 177 positive among 940 mature rows; terminal four unknown.",
+  "cohort": {
+    "start": "2023-01-03",
+    "end": "2026-10-07",
+    "full_calendar_rows": 944,
+    "mature_H5_rows": 940,
+    "complete_years": [
+      2024,
+      2025
+    ],
+    "partial_endpoint_years": [
+      2023,
+      2026
+    ],
+    "reused_history": true
+  },
+  "statistics": {
+    "primary": "ROC AUC of fixed score versus binary tail_h5 on all 940 mature rows; expected >0.5",
+    "secondary": "fixed halves 2023-2024 and 2025-2026, all four annual and 16 quarterly AUCs descriptive, saved Stage1 tail_probability AUC on identical rows as descriptive matched control",
+    "uncertainty": {
+      "method": "circular stationary bootstrap indices on full 944 Qlib calendar, retain mature mask inside each replicate",
+      "mean_block_sessions": 63,
+      "draws": 2000,
+      "seed": 20261023,
+      "two_sided_quantiles": [
+        0.025,
+        0.975
+      ]
+    },
+    "necessary_support": "Candidate AUC >0.5 full, both halves and complete 2024/2025, plus descriptive full-calendar 95% lower bound >0.5. This is not original39 incremental evidence or project-wide multiple-search correction."
+  },
+  "source_limits": [
+    "Current Yahoo price histories/first receipts unqualified; only conditional retrospective development feedback.",
+    "No same-day feature close and no independent forward evidence."
+  ],
+  "budget": {
+    "external_requests": 0,
+    "source_Recorder_loads": 2,
+    "DatasetH_builds": 1,
+    "new_model_fits": 0,
+    "new_native_accounts": 0,
+    "new_bootstraps": 1,
+    "new_Qlib_Recorders": 1
+  },
+  "stop": "If source identity, 944/940 alignment, label maturity or 2000 full-calendar bootstrap fail, stop. If any support gate fails, close this exact score/positive/H5 route; no sign, window, QQQ threshold or regime rescue. A pass only permits a separately frozen original39 incremental tail-head screen, then complete Stage1 0bp account after PIT qualification.",
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "inputs/*",
+      "analysis/*"
+    ]
+  }
+}

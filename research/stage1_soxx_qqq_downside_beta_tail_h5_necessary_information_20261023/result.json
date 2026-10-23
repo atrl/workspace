@@ -1,0 +1,151 @@
+{
+  "decision": "closed_fixed_SOXX_QQQ_downside_beta_tail_H5_necessary_information_failed",
+  "primary_H5_AUC": 0.5570562232045672,
+  "saved_Stage1_tail_probability_AUC_descriptive": 0.5709768902118459,
+  "held_halves_H5_AUC": [
+    0.504265873015873,
+    0.5619052997148262
+  ],
+  "complete_2024_2025_H5_AUC": {
+    "2024": 0.4628956927867151,
+    "2025": 0.6202
+  },
+  "descriptive_95pct_full_calendar_block_interval": [
+    0.4849974133821186,
+    0.6254952055144989
+  ],
+  "necessary_support": false,
+  "annual": {
+    "2023": {
+      "rows": 250,
+      "positive_tail": 23,
+      "AUC": 0.5860946178892932,
+      "mean_beta_gap": -0.07145466864248008
+    },
+    "2024": {
+      "rows": 252,
+      "positive_tail": 47,
+      "AUC": 0.4628956927867151,
+      "mean_beta_gap": -0.03774988363714136
+    },
+    "2025": {
+      "rows": 250,
+      "positive_tail": 50,
+      "AUC": 0.6202,
+      "mean_beta_gap": -0.01965968063877715
+    },
+    "2026": {
+      "rows": 188,
+      "positive_tail": 57,
+      "AUC": 0.4233293156555511,
+      "mean_beta_gap": 0.17062849612482578
+    }
+  },
+  "quarters": {
+    "2023Q1": {
+      "rows": 62,
+      "positive_tail": 8,
+      "AUC": 0.673611111111111,
+      "mean_beta_gap": -0.10644290300593875
+    },
+    "2023Q2": {
+      "rows": 62,
+      "positive_tail": 3,
+      "AUC": 0.22033898305084743,
+      "mean_beta_gap": 0.03584183926025854
+    },
+    "2023Q3": {
+      "rows": 63,
+      "positive_tail": 4,
+      "AUC": 0.576271186440678,
+      "mean_beta_gap": -0.27506216496385505
+    },
+    "2023Q4": {
+      "rows": 63,
+      "positive_tail": 8,
+      "AUC": 0.9113636363636364,
+      "mean_beta_gap": 0.06099230451325431
+    },
+    "2024Q1": {
+      "rows": 61,
+      "positive_tail": 4,
+      "AUC": 0.32456140350877194,
+      "mean_beta_gap": 0.2977524568348691
+    },
+    "2024Q2": {
+      "rows": 63,
+      "positive_tail": 8,
+      "AUC": 0.35,
+      "mean_beta_gap": -0.0690808344980804
+    },
+    "2024Q3": {
+      "rows": 64,
+      "positive_tail": 22,
+      "AUC": 0.632034632034632,
+      "mean_beta_gap": -0.10246984980139602
+    },
+    "2024Q4": {
+      "rows": 64,
+      "positive_tail": 13,
+      "AUC": 0.5595776772247361,
+      "mean_beta_gap": -0.2619641809815348
+    },
+    "2025Q1": {
+      "rows": 60,
+      "positive_tail": 21,
+      "AUC": 0.6568986568986569,
+      "mean_beta_gap": -0.06955842639956812
+    },
+    "2025Q2": {
+      "rows": 62,
+      "positive_tail": 8,
+      "AUC": 0.8726851851851852,
+      "mean_beta_gap": 0.026001802877328253
+    },
+    "2025Q3": {
+      "rows": 64,
+      "positive_tail": 3,
+      "AUC": 0.7595628415300546,
+      "mean_beta_gap": -0.04215380376001662
+    },
+    "2025Q4": {
+      "rows": 64,
+      "positive_tail": 18,
+      "AUC": 0.4396135265700483,
+      "mean_beta_gap": 0.0053799544769767525
+    },
+    "2026Q1": {
+      "rows": 61,
+      "positive_tail": 17,
+      "AUC": 0.2593582887700535,
+      "mean_beta_gap": 0.30497521451736914
+    },
+    "2026Q2": {
+      "rows": 62,
+      "positive_tail": 16,
+      "AUC": 0.3845108695652174,
+      "mean_beta_gap": 0.013287262644650156
+    },
+    "2026Q3": {
+      "rows": 64,
+      "positive_tail": 23,
+      "AUC": 0.4146341463414634,
+      "mean_beta_gap": 0.1941247130048775
+    },
+    "2026Q4": {
+      "rows": 1,
+      "positive_tail": 1,
+      "AUC": null,
+      "mean_beta_gap": 0.22687726962725696
+    }
+  },
+  "calendar_rows": 944,
+  "mature_H5_rows": 940,
+  "tail_positive_rows": 177,
+  "bootstrap_replicates": 2000,
+  "new_model_fits": 0,
+  "new_native_accounts": 0,
+  "historical_independence": false,
+  "historical_PIT_qualified": false,
+  "project_wide_search_corrected": false
+}

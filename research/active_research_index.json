@@ -545,5 +545,6 @@
   "latest_source_gate_SOXX_raw_quote_NAV_scale": "research/stage1_soxx_nav_yahoo_raw_close_source_20261023/summary.json",
   "latest_closed_information_SOXX_prior_premium_cash_H5": "research/stage1_soxx_nav_premium_cash_h5_necessary_information_20261023/summary.json",
   "latest_read_only_Stage1_static_composition_tail_window_bound": "research/stage1_static_composition_tail_window_bound_20261023/summary.json",
-  "latest_source_gate_Stage1_SOXX_QQQ_downside_beta": "research/stage1_soxx_qqq_downside_beta_source_20261023/summary.json"
+  "latest_source_gate_Stage1_SOXX_QQQ_downside_beta": "research/stage1_soxx_qqq_downside_beta_source_20261023/summary.json",
+  "latest_closed_information_Stage1_SOXX_QQQ_downside_beta_tail_H5": "research/stage1_soxx_qqq_downside_beta_tail_h5_necessary_information_20261023/summary.json"
 }
