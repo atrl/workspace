@@ -1,0 +1,23 @@
+{
+  "status": "uploaded_exact_official_portal_PDF_response",
+  "archive_sha256": "430420d84879259319a190973712efd8c15d06c366e2fb56f151eda12a88d352",
+  "archive_bytes": 398960,
+  "entries": {
+    "data/snapshots/kcs_early20_official_mirror_pdf_20261023/attachment.body": "3c25f7dc79c44df47c3e0d64a9639d9c7f9236ff322892e2d480cd445fe4509d",
+    "data/snapshots/kcs_early20_official_mirror_pdf_20261023/attachment.headers": "465738afccffc2e551ddf2516a6f6a5ca899eca62b72d0b87ba7f7a7eca8bbee",
+    "research/kcs_early20_official_mirror_pdf_20261023/plan.json": "b75012da1c434380d569049498ed65593782ce0019d7c2f1ddfc5e8c7f6b19cc",
+    "research/kcs_early20_official_mirror_pdf_20261023/response_receipt.json": "0967df532c1b17ab6728a229c10c90c32763ae85c97ba67ff8bb91ecbf126120"
+  },
+  "nas_artifact": {
+    "sha256": "430420d84879259319a190973712efd8c15d06c366e2fb56f151eda12a88d352",
+    "size_bytes": 398960,
+    "media_type": "application/gzip",
+    "storage_uri": "sha256/43/04/430420d84879259319a190973712efd8c15d06c366e2fb56f151eda12a88d352",
+    "uploaded_by": "soxl-minute-research",
+    "created_at": "2026-10-23 08:37:40.733653+08",
+    "duplicate": false
+  },
+  "nas_path": "/volume1/docker/yanxuan/registry/research-artifacts/43/04/430420d84879259319a190973712efd8c15d06c366e2fb56f151eda12a88d352",
+  "remote_hash_verified": true,
+  "scoped_restore_verified": true
+}

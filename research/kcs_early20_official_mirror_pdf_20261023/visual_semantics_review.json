@@ -1,0 +1,30 @@
+{
+  "status": "current_official_mirror_PDF_semantics_verified_source_only",
+  "source_PDF_sha256": "3c25f7dc79c44df47c3e0d64a9639d9c7f9236ff322892e2d480cd445fe4509d",
+  "source_PDF_bytes": 460569,
+  "pages_visually_reviewed": [1, 2, 3, 4],
+  "page_1": {
+    "KCS_press_release": true,
+    "title_observation_period": "2026-10-01 through 2026-10-20 provisional export/import status",
+    "printed_distribution": "2026-10-21 09:00 Korea time; distribution immediately",
+    "summary_semiconductor_amount_100m_USD_rounded": 275
+  },
+  "page_4_first_export_row": {
+    "table_period": "2026-10-01 through 2026-10-20",
+    "row": "semiconductor exports",
+    "unit": "USD million, year-over-year percent",
+    "amount_USD_million": 27516,
+    "year_over_year_pct": 222.5,
+    "same_page_category": "exports, not semiconductor imports"
+  },
+  "page_3_source_caveat": "The source labels the 1-20 day statistics provisional and says some figures may be revised before annual statistics are finalized in February 2027.",
+  "pdfinfo_displayed_creation_date": "Wed Oct 21 07:30:45 2026 CST",
+  "identity_concordance": "27,516 USD million equals 275.16 hundred-million USD and rounds to the 275 hundred-million USD shown in the official portal and PDF summary.",
+  "first_public_original_bytes_qualified": false,
+  "actual_receipt_utc": "2026-10-23T00:37:35.301350+00:00",
+  "historical_source_series_qualified": false,
+  "strategy_forward_day_qualified": false,
+  "market_outcome_reads": 0,
+  "model_fits": 0,
+  "native_accounts": 0
+}

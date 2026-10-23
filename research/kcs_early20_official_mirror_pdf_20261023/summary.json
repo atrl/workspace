@@ -1,0 +1,19 @@
+{
+  "experiment": "kcs_early20_official_mirror_pdf_20261023",
+  "decision": "current_official_mirror_PDF_semantics_verified_source_only",
+  "objective_achieved": false,
+  "plan_sha256": "b75012da1c434380d569049498ed65593782ce0019d7c2f1ddfc5e8c7f6b19cc",
+  "result": "result.json",
+  "source_archive_receipt": "source_archive_receipt.json",
+  "source_NAS_sha256": "430420d84879259319a190973712efd8c15d06c366e2fb56f151eda12a88d352",
+  "source_NAS_scoped_restore_verified": true,
+  "market_outcome_reads": 0,
+  "model_fits": 0,
+  "native_accounts": 0,
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": []
+  },
+  "visual_semantics_review": "visual_semantics_review.json"
+}

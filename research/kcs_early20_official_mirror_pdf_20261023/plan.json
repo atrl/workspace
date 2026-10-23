@@ -1,0 +1,18 @@
+{
+  "schema_version": 1,
+  "experiment": "kcs_early20_official_mirror_pdf_20261023",
+  "frozen": true,
+  "phase": "one_distinct_official_portal_PDF_transport_repair",
+  "parent_capture_card": "research/kcs_early20_semiconductor_source_20261023",
+  "parent_plan_sha256": "f82e4e64b5002cb76375e277a7c2a90de4f758e8c351566be3d48b86daf10543",
+  "parent_result_sha256": "518110797eb0f35fe3ff65b0a63a1f8dee7e15d93886ddbafbe1f750790cc518",
+  "parent_summary_sha256": "4552f36fd7d9b5d9b91a8ad8668f41cdfc1dd6cc0c893402e6e29e69962e2139",
+  "source_url": "https://www.korea.kr/common/download.do?fileId=198574612&tblKey=GMN",
+  "source_identity": "Government policy portal attachment linked on its 2026-10-21 KCS press-release mirror; separate URL and transport from the failed direct KCS article/PDF requests. The parent mirror HTML exact bytes are already archived and read back.",
+  "transport": "One exact GET, 20-second timeout, no retry or alternate URL. Preserve response headers/body, actual UTC start/end, HTTP status, byte count and SHA-256 even on failure.",
+  "inspection": "If body starts %PDF- and pdfinfo accepts it, search the rendered or extracted complete relevant page for the 2026-10-01..20 semiconductor amount, year-over-year change, period, units, provisional and revision language. Require direct visual confirmation before declaring table semantics. Do not infer cells from the parent HTML summary.",
+  "acceptance": "Official PDF bytes valid and linked to the October 21 release; exact semiconductor 1-20 amount and unit cross-check with parent mirror's 275 hundred-million USD. Report additional YoY value only when it is unambiguously in the same table row and period. Any conflict remains unknown.",
+  "scientific_boundary": "This is an October 23 source receipt before the frozen full-month release. It does not prove October 21 first-received bytes, old historical vintages, a Qlib factor, SOXX performance, or a strategy forward day. No SOXX outcomes, model fit, account, order or vendor purchase.",
+  "budget": {"HTTP_GETs": 1, "retries": 0, "market_outcome_reads": 0, "model_fits": 0, "native_accounts": 0, "NAS_source_archives": 1},
+  "stop": "On HTTP/transport failure preserve exact response and stop this repair version. If PDF is valid but content or NAS readback is uncertain, retain raw bytes and mark the specific uncertainty; do not fetch a substitute URL."
+}
