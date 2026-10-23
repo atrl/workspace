@@ -1,0 +1,62 @@
+{
+  "experiment": "stage1_common_failure_component_map_20261023",
+  "frozen": true,
+  "phase": "read_only_regime_component_attribution_no_policy",
+  "question": "For every matched126-session 0bp window where both the frozen Stage1 beta composition and strong9097 fail SOXX, is the composition account cash-opportunity component or SOXL-relative selection component the dominant negative term, and how does that compare with composition-positive windows?",
+  "sources": {
+    "overlap": {
+      "card": "research/stage1_composition_strong_window_overlap_20261023",
+      "summary_sha256": "97fe8c1f31975eb775a3cce26f37d4f0666476e99d4cf87fd968eec7c027d1f4",
+      "recorder_id": "b957dc08a73740b3b5b721e77483d34b",
+      "experiment_id": "986568774567978544",
+      "NAS_archive_sha256": "fa43e319f7fbd6e86e3781d634d6dacc70d7a842bf955c71d0718e4e2de4f973",
+      "artifact": "analysis/all_windows"
+    },
+    "composition_components": {
+      "card": "research/stage1_beta_composition_account_contributions_20261023",
+      "summary_sha256": "97df2fcd2820067fa7a3b95b0b373806581754e0bfded2bf6195f90d3f6e1612",
+      "recorder_id": "6a1ae1cb25744c8cb2179176088807bd",
+      "experiment_id": "103270318570760043",
+      "NAS_archive_sha256": "068f626ddaee9a0fa99836456252929f85b03de95d43e6f295d49f8c0e69e69c",
+      "artifact": "analysis/windows/rolling126"
+    },
+    "original_components": {
+      "card": "research/stage1_original_0bp_account_contributions_20261023",
+      "summary_sha256": "055cea546522037402cd7f92714ae64aef759913fa7369d40555f06df4f1c4e5",
+      "recorder_id": "bf012e010e3f4a5b9fd030b939ab989f",
+      "experiment_id": "320335441277021728",
+      "NAS_archive_sha256": "e8874e3659435248ed6444d6fbad787ba53162f0053c0d6d544b432fac134285",
+      "artifact": "analysis/rolling126"
+    }
+  },
+  "groups": {
+    "all_windows": 819,
+    "common_composition_strong_negative": 327,
+    "composition_positive": 458,
+    "all_three_negative": 323,
+    "start_trade_years": "all partial and complete",
+    "start_trade_quarters": "all, no selected window"
+  },
+  "component_rules": {
+    "cash_negative": "cash_opportunity_log <0",
+    "selection_negative": "SOXL_selection_log <0",
+    "cash_more_negative": "cash_opportunity_log < SOXL_selection_log and cash_opportunity_log <0",
+    "selection_more_negative": "SOXL_selection_log < cash_opportunity_log and SOXL_selection_log <0",
+    "both_negative": "both components <0",
+    "closure": "cash+selection+fees+residual equals native paired log excess within 1e-10 for each of819 windows"
+  },
+  "method": "Load three frozen Qlib rolling-window Recorder objects, exact date alignment, preserve all819 source windows and each account native component field. Report counts, mean/median component values and start-year/quarter groups; no new price request or account. Overlapping windows and separate own-state paths are descriptive, not independent trials or causal switches.",
+  "budget": {
+    "new_market_requests": 0,
+    "source_Recorder_object_loads_max": 3,
+    "new_fits": 0,
+    "new_accounts": 0,
+    "new_bootstraps": 0,
+    "new_Recorders_max": 1
+  },
+  "stops": [
+    "Any source summary/NAS/artifact hash or window alignment mismatch",
+    "Any component closure error",
+    "Do not choose sign/threshold/year/window as a trading rule; use result only to prioritize a materially different decision-time source/receiver before full Stage1-parent0bp account"
+  ]
+}
