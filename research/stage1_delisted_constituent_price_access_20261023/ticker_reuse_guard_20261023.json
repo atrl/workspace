@@ -1,0 +1,27 @@
+{
+  "status": "source_identity_guard_no_factor",
+  "historical_required_security": {
+    "name": "SanDisk Corp. in the original 2010-10-31 SOXX 30-equity report",
+    "evidence": "research/stage1_disclosed_loss_concentration_preflight_20261023/source_preflight_result.json",
+    "first_Stage1_signal": "2011-01-03",
+    "original_CUSIP_to_raw_price_mapping": "unqualified"
+  },
+  "ticker_reuse": {
+    "symbol": "SNDK",
+    "new_listing": "Sandisk Corporation began independent Nasdaq trading under SNDK on 2025-02-24 after separation from Western Digital",
+    "new_issuer_CIK": "2023554",
+    "primary_source": "https://www.sec.gov/Archives/edgar/data/2023554/000202355425000034/sndk-20250627.htm",
+    "rule": "A current SNDK price page or vendor series must not be spliced into the original 2011 SanDisk holding by ticker alone. Require original security identifiers, listing interval, source price bytes and split/merger events."
+  },
+  "other_free_page_triage": {
+    "Stooq": "Current pages challenge automated access; no exact old-security dated price bytes were obtained.",
+    "FinanceCharts_XLNX": "Indexed old XLNX date snippets exist, but direct page delivered a captcha; no full raw price series, adjustment contract or permitted archive was obtained.",
+    "Barchart_MXIM": "Indexed historical page exists, but direct read delivered a JavaScript verification page; no auditable raw price series was obtained."
+  },
+  "existing_entitlement_check": "No Sharadar, CRSP, WRDS or EODHD credential was exposed as a named environment variable, and no matching canonical data file appeared under the current data tree. This is a scoped local check, not a claim about every NAS or connected account.",
+  "source_bytes_received": false,
+  "NAS_backup_for_new_source": false,
+  "model_fits": 0,
+  "accounts": 0,
+  "decision": "keep_disclosed_basket_price_feature_needs_entitled_survivorship_free_history"
+}

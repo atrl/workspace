@@ -8,5 +8,10 @@
   "market_outcome_reads": 0,
   "model_fits": 0,
   "native_accounts": 0,
-  "artifact_policy": {"policy": "slim_card_recorder_first", "workflow_config": "workflow.yaml", "recorder_only_artifacts": []}
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": []
+  },
+  "ticker_reuse_guard": "ticker_reuse_guard_20261023.json"
 }
