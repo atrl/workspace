@@ -1,0 +1,59 @@
+{
+  "experiment": "stage1_broad_rebound_confirmation_cash_h5_20261023",
+  "frozen": true,
+  "phase": "one_bounded_existing_source_interaction_cash_H5_information_screen",
+  "parent": "Exact frozen f696 A_0 allocator plus b472 action/risk/recovery; 0bp Tiered own-state account is attribution baseline, SOXX final benchmark",
+  "failure_link": "In exact f696 0bp all-window attribution, each prior SOXX 5/20 trend-sign state contains both weak and good 126-day windows. A broad cross-asset rebound could distinguish durable risk-on from a narrow SOXX bounce within the same trend direction; this is an ex-ante information hypothesis, not an outcome-chosen window switch.",
+  "distinctness": "Original39 already receives SOXX ret5 and cross_breadth_pos_20 separately, but not their fixed joint 4-of-5 breadth confirmation indicator. This is an explicit interaction with no new raw information. It is not XSD/SOXX relative ETF leadership, same-day 09:45 opening data, the closed cash-gap rule, or a risk-cap bypass. Do not change the five-asset basket or thresholds after results.",
+  "source": {
+    "parent_card": "research/minute_information_pit_allocator_20261012",
+    "parent_summary_sha256": "61c91f958323cf51b43f4b1554eeca5687011d30771e80bc7ff02d16b6d577ca",
+    "parent_recorder_id": "68e31a0a0fad44e7ba1d1f7d856c7a0d",
+    "parent_experiment_id": "905520356740140469",
+    "parent_NAS_sha256": "ee328cab292f178bf3582ef574fb411561c93b82545cd3bb90842ecd9a9a24f1",
+    "provider_uri": "data/qlib/minute_information_pit_allocator_20261012/daily_prices",
+    "provider_manifest_sha256": "d80a08d479b73098053006909b5e6227b03a56ab705681742d7261088e0a7e6c",
+    "bootstrap_module_sha256": "02705f897e668b710a38aae514df08b86e26c8cd8951405339960355a08a5ac4"
+  },
+  "feature": {
+    "name": "SOXX_broad_rebound_confirmed",
+    "formula": "1 if saved original39 soxx_ret5 > 0 and saved cross_breadth_pos_20 >= 0.8 (at least 4/5 original underlying ETFs have positive 20-session return), else 0; unknown if either source unknown",
+    "decision_clock": "completed signal-day close before next trade-day 09:29 America/New_York allocation",
+    "expected_cash_H5_coefficient": "negative",
+    "no_new_market_source": true
+  },
+  "prefit_gates": {
+    "train_indicator_positive_min": 250,
+    "held_indicator_positive_min": 50,
+    "train_and_held_source_known_full_calendar": true,
+    "train_max_abs_spearman_original39_below": 0.8,
+    "original39_exact_columns_and_Qlib_calendar": true
+  },
+  "receiver": {
+    "label": "negative sum of five saved next open-to-open SOXX log returns, with fifth return_available_at maturity",
+    "train_signals": ["2011-01-03", "2022-12-30"],
+    "train_label_available_before": "2023-01-01T00:00:00-05:00",
+    "reused_held_signals": ["2023-01-03", "2026-10-07"],
+    "held_label_available_before": "2026-10-10T00:00:00-04:00",
+    "expected_train_mature": 3014,
+    "expected_held_mature": 940,
+    "baseline": "original39 SimpleImputer median, StandardScaler, Ridge alpha=1",
+    "candidate": "same baseline plus one fixed broad-rebound indicator on identical rows",
+    "null": "matched training label mean"
+  },
+  "information_gate": {
+    "negative_standardized_feature_coefficient": true,
+    "candidate_MSE_better_than_baseline_and_train_mean_full_held": true,
+    "paired_candidate_minus_baseline_improvement_positive_both_chronological_halves": true,
+    "paired_candidate_minus_baseline_improvement_positive_complete_2024_and_2025": true,
+    "paired_full_calendar_stationary_block_lower_positive": {
+      "calendar_rows": 944,
+      "mean_block": 63,
+      "resamples": 2000,
+      "seed": 20261023,
+      "one_sided_alpha": 0.025
+    }
+  },
+  "budget": {"new_market_requests": 0, "future_label_reads_before_prefit_gate": 0, "DatasetH_builds_max": 1, "new_model_fits_max": 2, "bootstrap_attempts_max": 1, "new_Recorders_max": 1, "new_native_accounts": 0},
+  "stop": "If prefit support, novelty, source/clock or full-calendar maturity fails, stop before outcome label reads and fit. If any fixed information gate fails, close this representation without changing basket, breadth count, trend horizon, sign, receiver, years or alpha. An information pass only authorizes a separately frozen full f696-derived own-state 0bp Tiered account, not promotion."
+}

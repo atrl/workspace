@@ -1,0 +1,92 @@
+{
+  "experiment": "stage1_broad_rebound_confirmation_cash_h5_20261023",
+  "decision": "not_promoted_fixed_broad_rebound_confirmation_cash_H5_failed",
+  "promotion": "not_promoted_information_only",
+  "objective_achieved": false,
+  "plan_sha256": "8951a95dc46402b40ab87e1a621113a579c55906e0e4949091e4115452c130eb",
+  "parent_recorder_id": "68e31a0a0fad44e7ba1d1f7d856c7a0d",
+  "recorder_id": "3c56ba5146914cf1a1a84b991290c24e",
+  "experiment_id": "842346485458689690",
+  "preflight": {
+    "status": "source_novelty_pass",
+    "calendar_rows": 3966,
+    "train_rows": 3020,
+    "train_positive": 1292,
+    "held_rows": 946,
+    "held_positive": 410,
+    "max_abs_spearman_original39": 0.664019820391687,
+    "gates": {
+      "train_positive_support": true,
+      "held_positive_support": true,
+      "full_calendar_known": true,
+      "nonredundant_to_original39": true
+    },
+    "future_label_reads": 0,
+    "model_fits": 0,
+    "accounts": 0,
+    "plan_sha256": "8951a95dc46402b40ab87e1a621113a579c55906e0e4949091e4115452c130eb"
+  },
+  "metrics": {
+    "standardized_indicator_coefficient": -0.0011661053299059157,
+    "MSE_baseline": 0.002526266936598172,
+    "MSE_candidate": 0.0025300832884263542,
+    "MSE_train_mean": 0.0023466841316487535,
+    "improvement_vs_baseline": -3.816351828182152e-06,
+    "improvement_vs_train_mean": -0.00018339915677760072,
+    "first_half_improvement": -4.041017161982159e-06,
+    "second_half_improvement": -3.5916864943821425e-06,
+    "2024_improvement": -1.615730069278062e-06,
+    "2025_improvement": -1.9821507554418145e-06
+  },
+  "bootstrap": {
+    "paired_mean_loss_improvement": -3.816351828182151e-06,
+    "lower_bound": -9.607323970645244e-06,
+    "upper_bound": 1.5935475050785641e-06,
+    "valid_replicates": 2000,
+    "invalid_replicates": 0,
+    "calendar_rows": 944,
+    "scored_rows": 940
+  },
+  "gates": {
+    "negative_coefficient": true,
+    "beats_original39": false,
+    "beats_train_mean": false,
+    "both_halves": false,
+    "both_complete_years": false,
+    "positive_block_lower": false
+  },
+  "model_fits": 2,
+  "native_accounts": 0,
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "inputs/*",
+      "models/*",
+      "predictions/*",
+      "analysis/*"
+    ]
+  },
+  "limitations": [
+    "The feature is an explicit interaction of existing original39 inputs, not new raw market information.",
+    "2023-2026 is reused development history, not independent forward evidence.",
+    "H5 price loss is not funded Tiered account value."
+  ],
+  "NAS_evidence": {
+    "sha256": "42fd34106a313c6ab056f9087d560a4c42620314ff0e0b811e175510c6289dd1",
+    "size_bytes": 182624,
+    "media_type": "application/gzip",
+    "storage_uri": "sha256/42/fd/42fd34106a313c6ab056f9087d560a4c42620314ff0e0b811e175510c6289dd1",
+    "uploaded_by": "soxl-minute-research",
+    "created_at": "2026-10-23 23:32:24.115216+08",
+    "duplicate": false,
+    "nas_path": "/volume1/docker/yanxuan/registry/research-artifacts/42/fd/42fd34106a313c6ab056f9087d560a4c42620314ff0e0b811e175510c6289dd1",
+    "recorder_id": "3c56ba5146914cf1a1a84b991290c24e",
+    "experiment_id": "842346485458689690",
+    "archive_root": "qlib_recorder"
+  },
+  "NAS_readback": {
+    "verified": true,
+    "sha256": "42fd34106a313c6ab056f9087d560a4c42620314ff0e0b811e175510c6289dd1"
+  }
+}

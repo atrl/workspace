@@ -1,0 +1,19 @@
+{
+  "status": "source_novelty_pass",
+  "calendar_rows": 3966,
+  "train_rows": 3020,
+  "train_positive": 1292,
+  "held_rows": 946,
+  "held_positive": 410,
+  "max_abs_spearman_original39": 0.664019820391687,
+  "gates": {
+    "train_positive_support": true,
+    "held_positive_support": true,
+    "full_calendar_known": true,
+    "nonredundant_to_original39": true
+  },
+  "future_label_reads": 0,
+  "model_fits": 0,
+  "accounts": 0,
+  "plan_sha256": "8951a95dc46402b40ab87e1a621113a579c55906e0e4949091e4115452c130eb"
+}
