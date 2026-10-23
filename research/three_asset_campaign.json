@@ -541,7 +541,7 @@
     ]
   },
   "active_index": "research/active_research_index.json",
-  "updated_at_utc": "2026-10-23T04:45:01Z",
+  "updated_at_utc": "2026-10-23T05:01:13Z",
   "execution_totals": {
     "new_model_fits": 85,
     "new_native_accounts": 51,
@@ -581,6 +581,8 @@
     "KCS_2021_10_early20_original_page_HWP_PDF": "research/kcs_early20_2021_oct_original_source_20261023/summary.json",
     "KCS_2021_10_early20_interpretation": "Official 2021-10-21 KCS government page plus HWP/PDF exact current bytes NAS-backed; visual PDF p2 semiconductor Oct1-20 export 6,394 USD million, +23.9% YoY, provisional and working-day sensitive. PDF metadata same-day 09:01:28 KST is plausible but not an independent first-public byte receipt. One historical month, zero SOXX outcomes/fits/accounts; not a qualified 2018-2022 panel.",
     "KCS_2022_10_early20_original_page_HWP": "research/kcs_early20_2022_oct_original_hwp_20261023/summary.json",
-    "KCS_2021_2022_10_early20_original_comparison": "Official government current original-release attachments: 2021 PDF/HWP 6,394 USD million +23.9% and 2022 HWP 5,573 USD million -12.8%; binary HWP table row validated against 2021 visual PDF, ratio gives -12.840% rounded. 2022 HWP prints Oct21 09:00 KST distribution; working days13 vs13.5. Exact current bytes NAS-backed but historical first-public online receipt and full 2018-2022 monthly panel unqualified. Zero SOXX outcome/fits/accounts."
+    "KCS_2021_2022_10_early20_original_comparison": "Official government current original-release attachments: 2021 PDF/HWP 6,394 USD million +23.9% and 2022 HWP 5,573 USD million -12.8%; binary HWP table row validated against 2021 visual PDF, ratio gives -12.840% rounded. 2022 HWP prints Oct21 09:00 KST distribution; working days13 vs13.5. Exact current bytes NAS-backed but historical first-public online receipt and full 2018-2022 monthly panel unqualified. Zero SOXX outcome/fits/accounts.",
+    "KCS_2018_2020_Oct_early20_original_HWP_pilot": "research/kcs_early20_2018_2020_oct_original_attachments_20261023/summary.json",
+    "KCS_2018_2022_Oct_early20_pilot_interpretation": "Official 2018/2019/2020 KCS Oct1-20 HWP originals and government pages NAS-backed, completing five official October release examples with 2021/2022. Hancom HWP5 record parser validated against 2021 PDF and 2022 HWP. Earlier three report semiconductor export YoY +9.4/-28.8/+12.1 in prose but no certified product amount in parsed text; 2021/2022 table amounts 6,394/5,573 USD million. Working days vary 14.5/13.5/12/13/13.5; first-public bytes and all-month training panel unqualified. Zero SOXX outcomes/fits/accounts."
   }
 }
