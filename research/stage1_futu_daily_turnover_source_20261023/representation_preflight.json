@@ -1,0 +1,43 @@
+{
+  "status": "source_redundancy_screen_not_factor_result",
+  "source_recorder_id": "ff416be4fcf447409a45349287d1e4ca",
+  "parent_recorder_id": "68e31a0a0fad44e7ba1d1f7d856c7a0d",
+  "source_Qlib_manifest_sha256": "b09dd50f7ae20fb62d79951483f742bd8f0407ff1525fab969fd0d37843d097d",
+  "parent_daily_provider_manifest_sha256": "d80a08d479b73098053006909b5e6227b03a56ab705681742d7261088e0a7e6c",
+  "coordinate": "SOXX prior-signal-day close-to-close return1 times same-day vendor turnover_rate, both available before next Stage1 09:29 allocator decision",
+  "train_rows": 3020,
+  "train_known": 3020,
+  "held_rows": 944,
+  "held_known": 944,
+  "train_signed_product_spearman_with_return1": 0.968153127945437,
+  "train_signed_product_max_abs_spearman_with_original39": 0.5103947886261059,
+  "train_turnover_max_abs_spearman_with_original39": 0.34054835832574143,
+  "interval_descriptors": {
+    "2024Q3": {
+      "rows": 64,
+      "turnover_mean": 0.06865546107292175,
+      "turnover_median": 0.061739999800920486,
+      "signed_product_mean": -0.0004004643706139177
+    },
+    "2025": {
+      "rows": 250,
+      "turnover_mean": 0.10593479871749878,
+      "turnover_median": 0.09151500463485718,
+      "signed_product_mean": 8.589545177528635e-05
+    },
+    "original_worst126_trade_dates": {
+      "rows": 127,
+      "turnover_mean": 0.05285842716693878,
+      "turnover_median": 0.05000999942421913,
+      "signed_product_mean": 2.4074633984128013e-05
+    },
+    "original_best126_trade_dates": {
+      "rows": 127,
+      "turnover_mean": 0.055951811373233795,
+      "turnover_median": 0.04749000072479248,
+      "signed_product_mean": -0.0005043664714321494
+    }
+  },
+  "decision": "close_exact_raw_return1_times_turnover_representation_before_fit_as_near_duplicate_of_return1",
+  "scope_limit": "No future return/label read, no fit/account, no sign or threshold chosen. This closes only the unnormalized product, not turnover-rate information generally. Current Futu historical vintage remains unqualified."
+}

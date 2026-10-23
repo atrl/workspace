@@ -39,5 +39,6 @@
     "Field is vendor-reported ETF turnover, not broker order flow or a predictive signal.",
     "Reused 2023-2026 history is development feedback, not independent forward."
   ],
-  "NAS_scoped_restore": "nas_scoped_restore.json"
+  "NAS_scoped_restore": "nas_scoped_restore.json",
+  "representation_preflight": "representation_preflight.json"
 }
