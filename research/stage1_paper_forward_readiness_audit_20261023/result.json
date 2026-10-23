@@ -1,0 +1,106 @@
+{
+  "status": "paper_forward_not_ready_release_hash_and_current_source_freshness",
+  "observed_at_utc": "2026-10-23T01:05:05.842513+00:00",
+  "release_manifest_sha256": "bd7210b4a907dd1da08cd26de21854be976a5cb0041f74e6d04b23972de83156",
+  "sealed_source_commit": "9ff3fcf1243af6cc524090e64f7ab27302ef3c21",
+  "release_code_files": 12,
+  "code_mismatches": [
+    {
+      "path": "src/workflow/stage1_open_action_value.py",
+      "sealed_sha256": "3b6cc0d1f385ff797bdcaaaa1aca599c554e9c91931861bb66777fb1d8f25359",
+      "current_sha256": "6459fb44b1019bd8c4555ebd6b2ba6e9dbe8241844875b23a439837040734671"
+    },
+    {
+      "path": "src/workflow/intraday_recovery_direct_allocation.py",
+      "sealed_sha256": "7973c6395d3232868f739f1fdc4251ce03552e6e10dd70126c8481c6d1b3c784",
+      "current_sha256": "48b4a62a1c8139ecaa5d224023693bd4b1589851feab4b3a114d7188428cb013"
+    }
+  ],
+  "code_diff_sha256": "2e2621864fe111ee1980529d3cf2c70dcb2871e3fcd2e6a007ad6063809b8ecb",
+  "paper_prepare_on_policy_open_keywords": [
+    [
+      null,
+      "model",
+      "action_spec"
+    ]
+  ],
+  "paper_passes_state_transition": false,
+  "is_complete_branch_active_in_current_provider": true,
+  "historical_first_four_bar_checks": [
+    {
+      "instrument": "SOXL",
+      "date": "2026-10-19",
+      "first_four_rows": 4,
+      "complete_nonnull": 4,
+      "min_is_complete": 1.0,
+      "bar_count_min": 26.0
+    },
+    {
+      "instrument": "SOXL",
+      "date": "2026-10-20",
+      "first_four_rows": 4,
+      "complete_nonnull": 4,
+      "min_is_complete": 1.0,
+      "bar_count_min": 26.0
+    },
+    {
+      "instrument": "SOXL",
+      "date": "2026-10-21",
+      "first_four_rows": 4,
+      "complete_nonnull": 4,
+      "min_is_complete": 1.0,
+      "bar_count_min": 26.0
+    },
+    {
+      "instrument": "SOXX",
+      "date": "2026-10-19",
+      "first_four_rows": 4,
+      "complete_nonnull": 4,
+      "min_is_complete": 1.0,
+      "bar_count_min": 26.0
+    },
+    {
+      "instrument": "SOXX",
+      "date": "2026-10-20",
+      "first_four_rows": 4,
+      "complete_nonnull": 4,
+      "min_is_complete": 1.0,
+      "bar_count_min": 26.0
+    },
+    {
+      "instrument": "SOXX",
+      "date": "2026-10-21",
+      "first_four_rows": 4,
+      "complete_nonnull": 4,
+      "min_is_complete": 1.0,
+      "bar_count_min": 26.0
+    }
+  ],
+  "observed_first_four_bars_all_complete": true,
+  "provider_manifest_as_of": "2026-10-21",
+  "Qlib_calendar_max": "2026-10-21 16:00:00",
+  "Qlib_calendar_dates": [
+    "2026-10-19",
+    "2026-10-20",
+    "2026-10-21"
+  ],
+  "NAS_latest_verified_snapshot_id": "c7ddae9b31f9a1714d886b20625c2eec4068b9bd41801c1bac4aa7ffb5c93b6e",
+  "NAS_latest_verified_as_of": "2026-10-21",
+  "NAS_latest_verified_at": "2026-10-22T02:21:18.601793+00:00",
+  "NAS_frozen_snapshot_same": true,
+  "launchctl_read_exit": 0,
+  "launchctl_matching_jobs": [
+    "-\t1\tcom.soxl.stage1.futu.sim",
+    "-\t0\tcom.soxl.stage1.regime.paper",
+    "-\t0\tcom.soxl.stage1.economic.shadow",
+    "-\t0\tcom.soxl.stage1.opend",
+    "-\t0\tcom.rziiiii.bark-stage1-snapshot",
+    "-\t0\tcom.soxl.stage1.futu.sim.heartbeat"
+  ],
+  "new_model_fits": 0,
+  "new_native_accounts": 0,
+  "market_outcome_reads": 0,
+  "release_writes": 0,
+  "orders": 0,
+  "interpretation": "Sealed code mismatch blocks runtime now. Optional transition default is unused in paper call. is_complete filtering is semantically active for future incomplete bars even if observed completed dates are all1. Current Qlib provider and NAS source as_of must be treated at observed time; no production reseal or forward-day claim."
+}

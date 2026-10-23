@@ -1,0 +1,24 @@
+{
+  "schema_version": 1,
+  "experiment": "stage1_paper_forward_readiness_audit_20261023",
+  "frozen": true,
+  "phase": "read_only_release_identity_and_source_freshness_audit",
+  "as_of_utc_window": ["2026-10-23T01:02:00Z", "2026-10-23T01:20:00Z"],
+  "question": "What exactly prevents the existing Stage1 independent paper observation from adding qualified forward days: sealed release code identity, first-hour completeness semantics, source freshness, or an inactive scheduler? Separate present evidence from future unknowns; do not change a release.",
+  "sources": {
+    "release_manifest": "production/stage1_regime_paper_20261001/release_manifest.json",
+    "release_manifest_sha256": "bd7210b4a907dd1da08cd26de21854be976a5cb0041f74e6d04b23972de83156",
+    "prior_runtime_block": "production/stage1_regime_paper_20261001/runtime_code_identity_block_20261022.json",
+    "sealed_source_commit": "9ff3fcf1243af6cc524090e64f7ab27302ef3c21",
+    "current_open_action_sha256": "6459fb44b1019bd8c4555ebd6b2ba6e9dbe8241844875b23a439837040734671",
+    "current_recovery_loader_sha256": "48b4a62a1c8139ecaa5d224023693bd4b1589851feab4b3a114d7188428cb013",
+    "provider_uri": "data/qlib/soxl_intraday_15min",
+    "provider_manifest_sha256": "d373f95cb349532338e88160cbf9a1d56b75a68fdff3cea119ec96454bdc7c34",
+    "NAS_source_authority": "data/nas_sources.json",
+    "NAS_verified_snapshot_id_at_freeze": "c7ddae9b31f9a1714d886b20625c2eec4068b9bd41801c1bac4aa7ffb5c93b6e"
+  },
+  "inspection": "Verify the 12 release code hashes against current files and recover the exact sealed Git bytes for the two differences; preserve their focused diff. Confirm the paper call does not supply state_transition. Use native Qlib D.calendar and D.features on $is_complete/$bar_count only for SOXL/SOXX October 19-21 15-minute first four bars from 09:45; no price/return labels. Read NAS latest verified snapshot metadata once and compare as_of to provider calendar. Read current process/scheduler registration without starting, stopping or editing it.",
+  "decision_boundary": "Optional default state_transition may be equivalent for the unchanged paper call, but the is_complete branch can alter first-hour inputs when incomplete bars exist. A current completed historical sample does not prove future equivalence. Even a source refresh or semantic parity cannot override sealed hash mismatch. No manifest reseal, production activation, paper order, model fit, account, SOXX outcome analysis or qualified-forward claim.",
+  "budget": {"Qlib_D_calendar_reads": 1, "Qlib_D_features_reads": 1, "NAS_latest_snapshot_metadata_reads": 1, "market_outcome_reads": 0, "model_fits": 0, "native_accounts": 0, "release_writes": 0, "orders": 0},
+  "stop": "If pinned file hashes drift, report exact drift and stop dependent parity claims. If NAS source metadata or Qlib completeness read is unavailable, retain that layer unknown. Do not edit the sealed release or start an expired one-shot forward job."
+}

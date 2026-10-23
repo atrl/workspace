@@ -1,0 +1,53 @@
+diff --git a/src/workflow/intraday_recovery_direct_allocation.py b/src/workflow/intraday_recovery_direct_allocation.py
+index caf86d32..37272046 100644
+--- a/src/workflow/intraday_recovery_direct_allocation.py
++++ b/src/workflow/intraday_recovery_direct_allocation.py
+@@ -763,6 +763,11 @@ def _extend_frozen_source_outputs(
+ def _load_first_hour_features(
+     spec: IntradayRecoveryDirectAllocationSpec, *, end: pd.Timestamp
+ ) -> pd.DataFrame:
++    manifest = json.loads((spec.intraday_provider_uri / "qlib_store_manifest.json").read_text())
++    fields = ["$open", "$high", "$low", "$close", "$volume", "$bar_count"]
++    certified_minutes = "$is_complete" in manifest.get("fields", [])
++    if certified_minutes:
++        fields.append("$is_complete")
+     qframe = load_qlib_feature_frame(
+         QlibProviderConfig(
+             provider_uri=spec.intraday_provider_uri,
+@@ -772,7 +777,7 @@ def _load_first_hour_features(
+             kernels=1,
+         ),
+         instruments=["SOXL", "SOXX"],
+-        fields=["$open", "$high", "$low", "$close", "$volume", "$bar_count"],
++        fields=fields,
+         start="2018-12-31 09:45:00",
+         end=f"{pd.Timestamp(end).date()} 16:00:00",
+     ).reset_index()
+@@ -782,6 +787,10 @@ def _load_first_hour_features(
+     early = qframe.groupby(["instrument", "date"], group_keys=False).head(
+         spec.intraday_bars_observed
+     )
++    if certified_minutes:
++        ready = early.groupby(["instrument", "date"])["$is_complete"].agg(["count", "min"])
++        good = ready.index[(ready["count"] == spec.intraday_bars_observed) & ready["min"].eq(1)]
++        early = early.loc[pd.MultiIndex.from_frame(early[["instrument", "date"]]).isin(good)]
+     grouped = early.groupby(["date", "instrument"]).agg(
+         early_open=("$open", "first"),
+         early_close=("$close", "last"),
+diff --git a/src/workflow/stage1_open_action_value.py b/src/workflow/stage1_open_action_value.py
+index 7c511f1c..8ad6c1f4 100644
+--- a/src/workflow/stage1_open_action_value.py
++++ b/src/workflow/stage1_open_action_value.py
+@@ -605,10 +605,11 @@ def prepare_on_policy_open(
+     recovery_spec: IntradayRecoveryDirectAllocationSpec,
+     model: Any | None,
+     action_spec: Stage1OpenActionValueSpec,
++    state_transition=None,
+ ) -> dict[str, Any]:
+     """Prepare one open decision from the strategy's own settled ledger state."""
+     drawdown = max(0.0, 1.0 - equity / peak)
+-    state, clock, q = _advance_state(risk_state, risk_clock, drawdown, recovery_spec)
++    state, clock, q = (state_transition or _advance_state)(risk_state, risk_clock, drawdown, recovery_spec)
+     cap, raw_beta = _base_cap(
+         row, q=q, drawdown=drawdown, history=history, spec=recovery_spec
+     )

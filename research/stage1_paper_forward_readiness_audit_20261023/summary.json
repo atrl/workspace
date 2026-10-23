@@ -1,0 +1,16 @@
+{
+  "experiment": "stage1_paper_forward_readiness_audit_20261023",
+  "decision": "paper_forward_not_ready_release_hash_and_current_source_freshness",
+  "objective_achieved": false,
+  "plan_sha256": "9845407f8d7377fc542574ff297f9294ac6bb551124dc4db63d8b903ab65f14d",
+  "result": "result.json",
+  "code_diff": "code_diff.patch",
+  "market_outcome_reads": 0,
+  "model_fits": 0,
+  "native_accounts": 0,
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": []
+  }
+}
