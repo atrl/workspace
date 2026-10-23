@@ -1,0 +1,5 @@
+experiment: stage1_training_cost_0bp_ablation_20261023
+plan: plan.json
+parent: research/stage1_domain_heads_20261018
+provider_uri: data/qlib/stage1_training_cost_0bp_ablation_20261023
+cost_path: 0bp_added_slippage_with_IBKR_Tiered

@@ -1,0 +1,25 @@
+{
+  "kind": "mechanical_post_account_report_readback_repair",
+  "plan_sha256": "8a943f6f722c414b43710ba5ba34b8c9645fe79bc4ba7ef5da4280123b8eb391",
+  "same_recorder_id": "4a8a2447ea274fe082397a1ff5c4a8b3",
+  "same_experiment_id": "460050190338860029",
+  "completed_fit_ids": [
+    "candidate_71",
+    "candidate_172",
+    "candidate_273"
+  ],
+  "completed_path_ids": [
+    "candidate_cost0_0"
+  ],
+  "completed_native_ids": [
+    "candidate_cost0_0"
+  ],
+  "change": "Cast the five numeric initial-account point fields to float before np.testing.assert_allclose; account/path/model computations and scientific gates unchanged.",
+  "new_source_sha256": "e5e2420974c53c5ddc6b6a6d777368ad12a98965b184d42e62d7dbc13e8a3edb",
+  "allowed_on_resume": {
+    "new_fit_attempts": 0,
+    "new_raw_path_attempts": 0,
+    "new_native_account_attempts": 0,
+    "new_bootstrap_attempts_max": 1
+  }
+}

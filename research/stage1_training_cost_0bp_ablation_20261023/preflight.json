@@ -1,0 +1,63 @@
+{
+  "plan_sha256": "8a943f6f722c414b43710ba5ba34b8c9645fe79bc4ba7ef5da4280123b8eb391",
+  "primary_rows": 3014,
+  "auxiliary_rows": 20741,
+  "primary_last_mature": "2022-12-30 09:31:00-05:00",
+  "aux_first_signal": "2019-11-25 00:00:00",
+  "aux_last_signal": "2022-12-22 00:00:00",
+  "aux_observations_end_max": "2022-12-30 00:00:00",
+  "source_hashes_checked": true,
+  "source_api": [
+    "Recorder.load_object",
+    "DatasetH.prepare"
+  ],
+  "main_inputs": 39,
+  "common_inputs": 16,
+  "account_sessions": 944,
+  "early_fields_exact_source_equality": [
+    "early_ret_soxl",
+    "early_ret_soxx",
+    "early_range_soxl",
+    "early_range_soxx",
+    "early_from_low_soxl",
+    "early_from_low_soxx",
+    "early_volume_soxl",
+    "early_volume_soxx",
+    "early_bar_count_soxl",
+    "early_bar_count_soxx"
+  ],
+  "reused_reference_accounts": 9,
+  "active_bundle_and_classifier_hashes_verified": true,
+  "initialization": [
+    {
+      "seed": 71,
+      "original_parameters": 973,
+      "candidate_parameters": 991,
+      "original_tensors_identical": true,
+      "initial_primary_and_auxiliary_outputs_identical": true,
+      "initial_rng_state_identical": true,
+      "original_initial_sha256": "38fbb65bbbb4ccc9cbda98bd784ced4fc0c4caf742893b68e094b5079acde254"
+    },
+    {
+      "seed": 172,
+      "original_parameters": 973,
+      "candidate_parameters": 991,
+      "original_tensors_identical": true,
+      "initial_primary_and_auxiliary_outputs_identical": true,
+      "initial_rng_state_identical": true,
+      "original_initial_sha256": "0991bc4ffb653bdfdd5710dafba05346ef58aed7fe7888652152683a16f4293e"
+    },
+    {
+      "seed": 273,
+      "original_parameters": 973,
+      "candidate_parameters": 991,
+      "original_tensors_identical": true,
+      "initial_primary_and_auxiliary_outputs_identical": true,
+      "initial_rng_state_identical": true,
+      "original_initial_sha256": "8d1652ab6c762dfde309eb4f4b1f25d5f15f01b0b43d0e5955aa28bcadd5b95e"
+    }
+  ],
+  "new_model_fits": 0,
+  "new_accounts": 0,
+  "dirty_runtime_providers_used_as_input": false
+}

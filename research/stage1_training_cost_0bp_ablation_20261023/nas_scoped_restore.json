@@ -1,0 +1,20 @@
+{
+  "status": "verified",
+  "recorder_id": "4a8a2447ea274fe082397a1ff5c4a8b3",
+  "model_fits": 3,
+  "native_accounts": 1,
+  "account_rows": 944,
+  "rolling126_windows": 819,
+  "NAS_archive_sha256": "ceb98abc95612c4d1399c0637ff646159a3aa87b3e95866565a7f66be5551c87",
+  "scoped_members": [
+    "models/candidate_71",
+    "models/candidate_172",
+    "models/candidate_273",
+    "paths/candidate_cost0_0",
+    "native/candidate_cost0_0",
+    "analysis/summary",
+    "analysis/rolling126"
+  ],
+  "all_scoped_member_SHA256_parity": true,
+  "same_recorder_after_repair": true
+}
