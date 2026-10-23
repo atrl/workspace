@@ -1,0 +1,25 @@
+{
+  "status": "original_Stage1_A0_current_code_path_exact_parity_and_masked_DatasetH_contract_passed",
+  "plan_sha256": "d33c5ea855bd06fb8a41911b6bace14b8ab0a0a0911db7325f5b730c96399d14",
+  "source_training_objects": 10,
+  "source_raw_reference_objects": 3,
+  "source_matched_account_objects": 11,
+  "mature_training_rows": 3014,
+  "auxiliary_rows": 20741,
+  "predict_rows": 946,
+  "mask_medians": {
+    "mom5": 0.006551146507263184,
+    "mom20": 0.019736766815185547,
+    "mom60": 0.05451840162277222
+  },
+  "A0_path_exact_fields": [
+    "replay",
+    "orders",
+    "points",
+    "targets",
+    "trace"
+  ],
+  "new_model_fits": 0,
+  "new_native_accounts": 0,
+  "A0_replay_paths": 1
+}

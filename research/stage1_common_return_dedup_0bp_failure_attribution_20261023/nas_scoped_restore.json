@@ -1,0 +1,21 @@
+{
+  "status": "NAS_Recorder_cold_readback_selected_attribution_artifacts_exact",
+  "archive_sha256": "c6c5f1527b5d6665e4dbaf0ac3108f12c826f1c7fbaf7e3a21cddbe2d3b5ad42",
+  "archive_bytes": 600975,
+  "checked": {
+    "analysis/daily": {
+      "sha256": "b10f1f8d026b69d52014d77c2af9d0d85bbc52fbf5dfc6f6c11f9471de1721a1",
+      "bytes": 167926
+    },
+    "analysis/rolling126": {
+      "sha256": "6909134f382e2f2c1fb8954bad6c75d8757dc4a42a1f29712afd96af98d7c3df",
+      "bytes": 170256
+    },
+    "analysis/result": {
+      "sha256": "fd0483d2faca6268e8ddeb269cee8a2e21bfac79d8f5e38a6bf16ad32726039e",
+      "bytes": 1403
+    }
+  },
+  "new_fits": 0,
+  "new_accounts": 0
+}

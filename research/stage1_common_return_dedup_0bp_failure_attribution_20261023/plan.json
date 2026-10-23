@@ -1,0 +1,29 @@
+{
+  "experiment": "stage1_common_return_dedup_0bp_failure_attribution_20261023",
+  "phase": "one_read_only_saved_native_B_C_0bp_holdings_component_failure_attribution",
+  "parent": "frozen_Stage1_A0_f696_b472_and_fixed_masked_common_C_0bp",
+  "question": "Why did the fixed common-return deduplication improve the matched B account but still fail SOXX wealth, 2025, rolling126 and bootstrap gates? Attribute saved B/C physical holdings' relative log excess to cash opportunity, SOXL selection, direct fees and timing/benchmark residual across the full account and all complete years/quarters/windows.",
+  "sources": {
+    "candidate_card": "research/stage1_common_return_dedup_0bp_20261023",
+    "candidate_plan_sha256": "d33c5ea855bd06fb8a41911b6bace14b8ab0a0a0911db7325f5b730c96399d14",
+    "candidate_analysis_result_sha256": "c4aa3f18cc9e6fd57b711f16d0c0d21d586f278e805ebfbc86334efbc6048514",
+    "candidate_recorder_id": "a42f11bdd1484bde86d4dbb1e4855af3",
+    "candidate_experiment_id": "393525215581674229",
+    "candidate_NAS_sha256": "cd98ce324cb0c19b393bafc149ad727c6c55bd7860d8f915eae3cf2d43c0f86d",
+    "saved_B_target_artifact_sha256": "59026085c2876d09e5d960998d13fa09dfa0a6cc6b222a0b13900f61abb205ca",
+    "saved_C_target_artifact_sha256": "510deb8893abec9fd9dc48d7315298ca853c1a0e6951bfc279face7735d34587",
+    "matched_source_card": "research/stage1_domain_heads_20261018",
+    "matched_source_summary_sha256": "3b51938ca56ddf45029ff5e4a01a6bbc2f1d1407458efcad7d7c68b0ef5a1d37",
+    "original_Stage1_component_card": "research/stage1_original_0bp_account_contributions_20261023",
+    "original_Stage1_component_result_sha256": "8d5c582a0a99feee4fe9acd9428ba9d0401c14de029a99884a8ff06dcec8fecc",
+    "helper_sha256": "0561a6c4a6a468f7d4a6b859d547d63edd5f03de1236f0492ac2dc0e63f48f8f"
+  },
+  "frozen_report": [
+    "Call the existing physical holdings_attribution exactly once for saved B_original55 and once for saved C_common_dedup, using each saved raw proposal target and the same pinned point prices, schedule and SOXX native reference. Require daily simple/log component closure and native account date identity.",
+    "Report full 944 sessions, all four years including 2023/2026 partial, all 16 quarters, all 819 contiguous 126-session windows. Compare B/C components descriptively; they have different own-state paths, so no component difference is an isolated causal treatment.",
+    "Identify whether C's residual SOXX underperformance and 2025 loss are cash opportunity or SOXL selection dominated. Do not select tradable dates/regimes/thresholds or rerun fits/accounts."
+  ],
+  "budget": {"Qlib_source_Recorder_object_loads_max": 9, "holdings_attribution_calls_max": 2, "new_model_fits": 0, "new_native_accounts": 0, "new_bootstraps": 0, "new_Qlib_Recorders_max": 1},
+  "stop": "Stop on source hash, native audit, date/point grid, component closure or calendar mismatch. Attribution closes this failed fixed version; any new action requires a separately frozen materially different mechanism.",
+  "artifact_policy": {"policy": "slim_card_recorder_first", "workflow_config": "workflow.yaml", "recorder_only_artifacts": ["inputs/*", "analysis/*"]}
+}

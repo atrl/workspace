@@ -1,0 +1,38 @@
+{
+  "status": "NAS_Recorder_cold_readback_selected_model_account_analysis_exact",
+  "archive_sha256": "cd98ce324cb0c19b393bafc149ad727c6c55bd7860d8f915eae3cf2d43c0f86d",
+  "archive_bytes": 8108487,
+  "checked": {
+    "models/B_original55": {
+      "sha256": "85c22944526ecca4206f4d2de343faf62f213432f97e6cc29d90cc0cdb55d06f",
+      "bytes": 15524
+    },
+    "models/C_common_dedup": {
+      "sha256": "7ca8da9056fb2bd889f589a7d3c278e7fc2cccdb736362edb38e88a644f2a454",
+      "bytes": 15524
+    },
+    "native/B_original55": {
+      "sha256": "119a8216f12fbbd79a4bc734af08e1c06c31953b646318086e58a784ed9bff4a",
+      "bytes": 9354759
+    },
+    "native/C_common_dedup": {
+      "sha256": "62bc5d225ce0634120f8d3c884ee0c2531288012605898ac22b05fcd612e9df5",
+      "bytes": 9415733
+    },
+    "analysis/result": {
+      "sha256": "23e6ace6d5b4fe31480e909ad2e65e20bc42936b017b5e1148f15af8fde2470e",
+      "bytes": 2583
+    },
+    "analysis/gates": {
+      "sha256": "0aef6d1197bd1e8960278e56bd60b2e2ab6aa8ae8f9e8743978eb38efa9a99a3",
+      "bytes": 192
+    },
+    "analysis/rolling126": {
+      "sha256": "f370e32a4690b70d34c295ad40db070df17e01cb5834b2088649e19c6f83d061",
+      "bytes": 27293
+    }
+  },
+  "new_model_fits": 0,
+  "new_accounts": 0,
+  "new_bootstraps": 0
+}

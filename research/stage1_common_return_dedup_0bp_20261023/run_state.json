@@ -1,0 +1,33 @@
+{
+  "status": "finished",
+  "plan_sha256": "d33c5ea855bd06fb8a41911b6bace14b8ab0a0a0911db7325f5b730c96399d14",
+  "source_objects_read_after_handoff": 24,
+  "fit_attempts": [
+    "B_original55",
+    "C_common_dedup"
+  ],
+  "fits_done": [
+    "B_original55",
+    "C_common_dedup"
+  ],
+  "path_attempts": [
+    "B_original55",
+    "C_common_dedup"
+  ],
+  "paths_done": [
+    "B_original55",
+    "C_common_dedup"
+  ],
+  "native_attempts": [
+    "B_original55",
+    "C_common_dedup"
+  ],
+  "native_done": [
+    "B_original55",
+    "C_common_dedup"
+  ],
+  "bootstrap_attempts": 2,
+  "recorder_id": "a42f11bdd1484bde86d4dbb1e4855af3",
+  "experiment_id": "393525215581674229",
+  "B_saved_prediction_parity": true
+}

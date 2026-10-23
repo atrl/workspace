@@ -1,0 +1,17 @@
+{
+  "phase": "saved_native_0bp_only_hard_gate_analysis_adapter_repair",
+  "original_plan_sha256": "d33c5ea855bd06fb8a41911b6bace14b8ab0a0a0911db7325f5b730c96399d14",
+  "candidate_recorder_id": "a42f11bdd1484bde86d4dbb1e4855af3",
+  "candidate_experiment_id": "393525215581674229",
+  "saved_native_artifact_sha256": {
+    "B_original55": "119a8216f12fbbd79a4bc734af08e1c06c31953b646318086e58a784ed9bff4a",
+    "C_common_dedup": "62bc5d225ce0634120f8d3c884ee0c2531288012605898ac22b05fcd612e9df5"
+  },
+  "source_A0_native_sha256": "ce59dcab49559c7d07b98de85a75ccb7516561b5a317c110ad1dfe474ce45678",
+  "source_SOXX_0_native_sha256": "03cfa5fb3d20652c117c7034671364b46dacdb8b0b42f72d4094bc1a43e46550",
+  "paired_metrics_module_sha256": "63a04045c59e8266efc2642a4db3d080845bdefbad6c2ac914a2194d26c17fc4",
+  "frozen_metrics": ["C/SOXX net relative wealth >1+1e-8", "close and all available point MaxDD <=30%", "C CVaR5 no worse than SOXX", "two complete years and >=70% positive", "all 819 contiguous 126-session windows >=70% positive", "one-sided SOXX paired stationary-bootstrap mean-block63 draws10000 seed20261014 alpha0.025/15 lower >0"],
+  "diagnostic": "B/C paired wealth and one same-parameter bootstrap, never a substitute SOXX gate or post-result selection.",
+  "budget": {"saved_Recorder_object_loads_max": 6, "new_model_fits": 0, "new_replay_paths": 0, "new_native_accounts": 0, "new_bootstraps_max": 2, "new_Recorder_ids": 0},
+  "stop": "Stop if any saved Recorder artifact, native audit, date/point grid, source hash or original gate definition differs. Never restart the fixed model/account run for this adapter error."
+}

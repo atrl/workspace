@@ -1,0 +1,75 @@
+{
+  "decision": "saved_native_common_return_dedup_failure_attributed_no_policy",
+  "plan_sha256": "1f7140824c1e02ae5a611afe49238ae1f4fbeb22c499c5aae0225706b1c0fb0e",
+  "source_recorder_id": "a42f11bdd1484bde86d4dbb1e4855af3",
+  "source_NAS_sha256": "cd98ce324cb0c19b393bafc149ad727c6c55bd7860d8f915eae3cf2d43c0f86d",
+  "sessions": 944,
+  "quarters": 16,
+  "rolling126_windows": 819,
+  "full": {
+    "B_original55": {
+      "relative_log_excess": -0.3593918264390208,
+      "relative_wealth": 0.698100763419373,
+      "mean_post_open_cash_weight": 0.4889700529939973,
+      "mean_post_open_soxl_weight": 0.14571368611322008,
+      "cash_opportunity_log": -0.6108293291660948,
+      "SOXL_selection_log": 0.25342074627578154,
+      "direct_fees_log": -0.010300652992589567,
+      "timing_and_benchmark_residual_log": 0.00831740944388196
+    },
+    "C_common_dedup": {
+      "relative_log_excess": -0.03928917033085769,
+      "relative_wealth": 0.9614726395822718,
+      "mean_post_open_cash_weight": 0.3988971129216386,
+      "mean_post_open_soxl_weight": 0.17225620375907574,
+      "cash_opportunity_log": -0.4025580170935023,
+      "SOXL_selection_log": 0.36432085921309315,
+      "direct_fees_log": -0.010294373797322742,
+      "timing_and_benchmark_residual_log": 0.009242361346873985
+    }
+  },
+  "C_minus_B_full_log_component_differences_descriptive": {
+    "cash_opportunity_log": 0.20827131207259247,
+    "SOXL_selection_log": 0.11090011293731161,
+    "direct_fees_log": 6.2791952668249384e-06,
+    "timing_and_benchmark_residual_log": 0.0009249519029920251
+  },
+  "C_2025": {
+    "relative_log_excess": -0.0645719256888738,
+    "relative_wealth": 0.9374686837562093,
+    "cash_opportunity_log": -0.1055552432424009,
+    "SOXL_selection_log": 0.04033792653513725,
+    "direct_fees_log": -0.0028250094253913995,
+    "timing_and_benchmark_residual_log": 0.0034704004437811943
+  },
+  "original_A_full_log_components": {
+    "cash_opportunity_log": -0.6003226009036167,
+    "SOXL_selection_log": 0.22593145822639604,
+    "Stage1_direct_fees_log": -0.010264807879909826,
+    "timing_and_benchmark_residual_log": 0.007787682531410271
+  },
+  "nonwinning_window_components": {
+    "B_original55": {
+      "nonwinning_126_windows": 524,
+      "nonwinning_cash_negative": 521,
+      "nonwinning_selection_negative": 301
+    },
+    "C_common_dedup": {
+      "nonwinning_126_windows": 450,
+      "nonwinning_cash_negative": 418,
+      "nonwinning_selection_negative": 158
+    }
+  },
+  "component_closure_max_abs": {
+    "B_original55": 6.938893903907228e-18,
+    "C_common_dedup": 1.3877787807814457e-17
+  },
+  "new_model_fits": 0,
+  "new_native_accounts": 0,
+  "new_bootstraps": 0,
+  "recorder_id": "a10c938967a2433cbf80de74d924f4c1",
+  "experiment_id": "126246128167380803",
+  "recorder_uri": "/Users/rziiiii/dev/workspace/research/stage1_common_return_dedup_0bp_failure_attribution_20261023/qlib_recorder",
+  "NAS_sha256": "c6c5f1527b5d6665e4dbaf0ac3108f12c826f1c7fbaf7e3a21cddbe2d3b5ad42",
+  "NAS_remote_hash_verified": true
+}

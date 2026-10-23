@@ -1,0 +1,15 @@
+{
+  "status": "two_models_two_native_0bp_accounts_saved_analysis_adapter_failed",
+  "plan_sha256": "d33c5ea855bd06fb8a41911b6bace14b8ab0a0a0911db7325f5b730c96399d14",
+  "recorder_id": "a42f11bdd1484bde86d4dbb1e4855af3",
+  "experiment_id": "393525215581674229",
+  "recorder_status_after_failure": "FAILED",
+  "A0_current_code_exact_path_parity": true,
+  "B_saved_prediction_parity": true,
+  "model_fits_completed": 2,
+  "candidate_replay_paths_completed": 2,
+  "native_0bp_accounts_completed_and_audit_passed": 2,
+  "bootstrap_attempts": 0,
+  "failure": "src.analysis.stage1_domain_heads.analyze_paired_accounts requires the original three slippage costs and rejected this predeclared 0bp-only first screen after B/C native accounts were saved. No analysis gate or summary was produced.",
+  "repair": "Read the two saved native candidate books and pinned source SOXX/A books once. Apply the same paired_metrics, available-point drawdown, CVaR, complete-year, all 819 rolling126, and frozen SOXX 63-session bootstrap definitions to 0bp only. Add one B/C matched bootstrap as diagnostic. Resume the same Qlib Recorder for analysis artifacts, without refitting or replaying any account."
+}

@@ -1,0 +1,181 @@
+{
+  "decision": "not_promoted_fixed_Stage1_common_return_dedup_0bp_failed",
+  "plan_sha256": "d33c5ea855bd06fb8a41911b6bace14b8ab0a0a0911db7325f5b730c96399d14",
+  "analysis_repair_plan_sha256": "6a20cb52ad96264ad911fba548fde015f59e479d093a7ad3b815290916ed69b7",
+  "source_Recorder_status_before_repair": "FAILED",
+  "A0_exact_path_parity": true,
+  "B_saved_prediction_parity": true,
+  "new_model_fits": 2,
+  "new_A0_parity_paths": 1,
+  "new_candidate_paths": 2,
+  "new_native_accounts": 2,
+  "new_bootstraps": 2,
+  "candidate_SOXX_relative_wealth": 0.9614726395822718,
+  "candidate_close_MaxDD_pct": -28.599019139177926,
+  "candidate_sampled_MaxDD_pct": -28.81039746032282,
+  "candidate_CVaR5_pct": -4.712155261961044,
+  "SOXX_CVaR5_pct": -4.90478329004924,
+  "all_years": [
+    {
+      "year": "2023",
+      "sessions": 249,
+      "complete_year": false,
+      "relative_wealth": 0.9099703505349035
+    },
+    {
+      "year": "2024",
+      "sessions": 252,
+      "complete_year": true,
+      "relative_wealth": 1.1416937094387585
+    },
+    {
+      "year": "2025",
+      "sessions": 250,
+      "complete_year": true,
+      "relative_wealth": 0.9374686837562093
+    },
+    {
+      "year": "2026",
+      "sessions": 193,
+      "complete_year": false,
+      "relative_wealth": 0.9871958272680867
+    }
+  ],
+  "all_quarters": [
+    {
+      "quarter": "2023Q1",
+      "sessions": 61,
+      "relative_wealth": 1.051383958460671
+    },
+    {
+      "quarter": "2023Q2",
+      "sessions": 62,
+      "relative_wealth": 0.9853515482985822
+    },
+    {
+      "quarter": "2023Q3",
+      "sessions": 63,
+      "relative_wealth": 0.9591278473040035
+    },
+    {
+      "quarter": "2023Q4",
+      "sessions": 63,
+      "relative_wealth": 0.9157948389811091
+    },
+    {
+      "quarter": "2024Q1",
+      "sessions": 61,
+      "relative_wealth": 0.9972394479942369
+    },
+    {
+      "quarter": "2024Q2",
+      "sessions": 63,
+      "relative_wealth": 0.9998977555266365
+    },
+    {
+      "quarter": "2024Q3",
+      "sessions": 64,
+      "relative_wealth": 1.1264623454187481
+    },
+    {
+      "quarter": "2024Q4",
+      "sessions": 64,
+      "relative_wealth": 1.016430962350838
+    },
+    {
+      "quarter": "2025Q1",
+      "sessions": 60,
+      "relative_wealth": 0.9739061192289904
+    },
+    {
+      "quarter": "2025Q2",
+      "sessions": 62,
+      "relative_wealth": 0.9931068106590882
+    },
+    {
+      "quarter": "2025Q3",
+      "sessions": 64,
+      "relative_wealth": 0.9860643025718492
+    },
+    {
+      "quarter": "2025Q4",
+      "sessions": 64,
+      "relative_wealth": 0.9829659573263992
+    },
+    {
+      "quarter": "2026Q1",
+      "sessions": 61,
+      "relative_wealth": 0.9851713954987023
+    },
+    {
+      "quarter": "2026Q2",
+      "sessions": 62,
+      "relative_wealth": 1.0993588332362847
+    },
+    {
+      "quarter": "2026Q3",
+      "sessions": 64,
+      "relative_wealth": 0.9011898475318463
+    },
+    {
+      "quarter": "2026Q4",
+      "sessions": 6,
+      "relative_wealth": 1.0114298266505168
+    }
+  ],
+  "rolling126_windows": 819,
+  "rolling126_positive": 369,
+  "rolling126_required": 574,
+  "SOXX_bootstrap": {
+    "method": "paired_stationary_bootstrap_percentile_mean_log_excess",
+    "sessions": 944,
+    "mean_block": 63,
+    "resamples": 10000,
+    "random_seed": 20261014,
+    "one_sided_confidence": 0.9983333333333333,
+    "alpha": 0.0016666666666666668,
+    "daily_mean_log_excess": -4.161988382506111e-05,
+    "daily_lower_bound": -0.0007488395009833209,
+    "daily_upper_bound": 0.0006907382772394107,
+    "annualized_log_excess": -0.0104882107239154,
+    "annualized_lower_bound": -0.18870755424779687,
+    "annualized_upper_bound": 0.1740660458643315,
+    "lower_bound_positive": false,
+    "bootstrap_nonpositive_fraction_not_pvalue": 0.5615,
+    "reference": "https://www.tandfonline.com/doi/abs/10.1080/01621459.1994.10476870",
+    "limitation": "Conditional on this reused path and weak stationarity; excludes model refit/selection uncertainty and is not new forward evidence."
+  },
+  "matched_B_C_relative_wealth": 1.377269142169212,
+  "matched_B_C_bootstrap": {
+    "method": "paired_stationary_bootstrap_percentile_mean_log_excess",
+    "sessions": 944,
+    "mean_block": 63,
+    "resamples": 10000,
+    "random_seed": 20261014,
+    "one_sided_confidence": 0.9983333333333333,
+    "alpha": 0.0016666666666666668,
+    "daily_mean_log_excess": 0.000339091796724749,
+    "daily_lower_bound": -0.000729994546940313,
+    "daily_upper_bound": 0.0013193991154225896,
+    "annualized_log_excess": 0.08545113277463676,
+    "annualized_lower_bound": -0.1839586258289589,
+    "annualized_upper_bound": 0.3324885770864926,
+    "lower_bound_positive": false,
+    "bootstrap_nonpositive_fraction_not_pvalue": 0.1654,
+    "reference": "https://www.tandfonline.com/doi/abs/10.1080/01621459.1994.10476870",
+    "limitation": "Conditional on this reused path and weak stationarity; excludes model refit/selection uncertainty and is not new forward evidence."
+  },
+  "gates": {
+    "SOXX_wealth": false,
+    "close_and_available_point_MaxDD": true,
+    "CVaR5_no_worse_SOXX": true,
+    "minimum_two_complete_years": true,
+    "complete_years_70pct": false,
+    "rolling126_70pct": false,
+    "SOXX_block_lower_positive": false
+  },
+  "coarse_SOXX_0bp_hard_gate_pass": false,
+  "model_fits_in_this_repair": 0,
+  "accounts_in_this_repair": 0,
+  "source_Recorder_status_after_repair": "FINISHED"
+}

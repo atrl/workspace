@@ -1,0 +1,6 @@
+experiment: stage1_common_return_dedup_0bp_20261023
+mode: original_Stage1_matched_common_return_dedup_0bp_native_account
+parent: frozen_complete_Stage1_0bp_IBKR_Tiered
+slippage_bps: 0
+model_fit_attempts_max: 2
+native_accounts_max: 2

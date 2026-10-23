@@ -1,0 +1,266 @@
+{
+  "schema_version": 1,
+  "experiment": "stage1_common_return_dedup_0bp_20261023",
+  "frozen": true,
+  "execution_authorized_by_active_Goal": true,
+  "phase": "single_seed_matched_original55_vs_training_median_masked_common3_original_Stage1_0bp_own_state_account",
+  "question": "Does removing duplicate SOXX 5/20/60-day return representation only from the common encoder improve the full frozen Stage1-parent funded 0bp Tiered account enough to pass stable SOXX v2 hard gates without changing market information, labels, actions, risk rules or cost?",
+  "parent": "frozen f696 Stage1 allocator plus b472 action/risk/recovery on same raw-share Qlib price and all-session SOXX reference. B is fresh matched training control; C is the only candidate. strong9097 remains diagnostic.",
+  "source": {
+    "training_card": "research/minute_information_pit_allocator_20261012",
+    "training_summary_sha256": "61c91f958323cf51b43f4b1554eeca5687011d30771e80bc7ff02d16b6d577ca",
+    "matched_account_card": "research/stage1_domain_heads_20261018",
+    "matched_account_plan_sha256": "96dc55af2318e26162e7ff8f74c4fdf24bcd15c4d9a3c4e1e2ca18357e3e17c7",
+    "matched_account_summary_sha256": "3b51938ca56ddf45029ff5e4a01a6bbc2f1d1407458efcad7d7c68b0ef5a1d37",
+    "matched_account_manifest_sha256": "e166f7718f11fa8a2280997ee757386c398f31424ffe9105a69e8ad0477988ab",
+    "matched_account_NAS_sha256": "f3f891d6d09d4187f12815e245b33cc9cfec4acfd4f555b734f66a59348d9884",
+    "preflight_card": "research/stage1_common_return_dedup_preflight_20261023",
+    "preflight_summary_sha256": "b4e77da4980c48b458f7a5dfb1beb4fc4b61c9865f612a40d662ed06f044319f",
+    "training_source": {
+      "card": "research/minute_information_pit_allocator_20261012",
+      "recorder_id": "68e31a0a0fad44e7ba1d1f7d856c7a0d",
+      "archive": "ee328cab292f178bf3582ef574fb411561c93b82545cd3bb90842ecd9a9a24f1",
+      "inventory_sha256": "ac90270cf66164e5fb9bca62b50ab86eeab7733bd0146799c45d97937f94e82a",
+      "artifacts": [
+        "inputs/daily_frame",
+        "inputs/features",
+        "inputs/common",
+        "inputs/timing",
+        "inputs/auxiliary",
+        "inputs/plan",
+        "analysis/outer_predictions",
+        "models/base_outer_71",
+        "models/base_outer_172",
+        "models/base_outer_273"
+      ],
+      "artifact_sha256": {
+        "inputs/daily_frame": "674443e012ef98d21438891666e32e9fca8dcde6eb60fb3141f89ed6e0ca330c",
+        "inputs/features": "482d6a908ae95230143dc08014732c3247d22ccb1560f8509f6ac564a4d647ec",
+        "inputs/common": "a90e4be474fae56a4cb9d226aced8186a5b402ce04aa0cc97cbef3b8dfc5eb14",
+        "inputs/timing": "66e3292d7f47ac6981f2e488ed198d1109f340f2c3a4bf2a5f538fa41465764e",
+        "inputs/auxiliary": "7362829c6ac4d41346dbb74c5e2f9ad24f77c9d942cc3f851f95831c32de9663",
+        "inputs/plan": "a1c4bbefa76d1f245e9b2b66741604a3697a8789727a7a3f3621010e88413f7b",
+        "analysis/outer_predictions": "20774d619976cb2963d38aef606de924db0aa78b4e6c38da499a4120a53bee80",
+        "models/base_outer_71": "5945030ca770bb7ca63c6b03d53e6cf7265f239312cac1308debfde93afddcac",
+        "models/base_outer_172": "108a7ace548f94c92425e8a283b0af27add7946784232e0ff881d822ac2d0253",
+        "models/base_outer_273": "cd1f9e86e4d43efa199de3b5416baad0c044e942b15352db614e0f430fd1d02a"
+      }
+    },
+    "raw_reference_source": {
+      "card": "research/frozen_policy_raw_cashbook_20261015",
+      "recorder_id": "55b4223a73d44fee89c86608edf8f58c",
+      "archive": "cb4d3c04e805a7c09010d30338f0d12f3bf42a5fa1ceaa40428f0dc5bbfc3869",
+      "inventory_sha256": "bd63e0f24735d4ef323e908dc35b5d9f01fef12c811bb3f31ac404b0d474f054",
+      "artifacts": [
+        "inputs/frame",
+        "inputs/plan",
+        "inputs/raw_points",
+        "inputs/schedule",
+        "inputs/repair_1_calendar_guard",
+        "inputs/repair_1_provider_manifest",
+        "native/raw_SOXX_0",
+        "native/raw_SOXX_2",
+        "native/raw_SOXX_5",
+        "native/raw_strong9097_0",
+        "native/raw_strong9097_2",
+        "native/raw_strong9097_5",
+        "native/raw_candidate27baa_0",
+        "native/raw_candidate27baa_2",
+        "native/raw_candidate27baa_5"
+      ],
+      "artifact_sha256": {
+        "inputs/frame": "cc705b51047c85a1fc58f05d22ba4f98797830861a4bab58b94aeb4b869c20bc",
+        "inputs/plan": "ead4fa68daa779ea4da4708b762913e7d89e7c9d6f68523340e0252866eb712b",
+        "inputs/raw_points": "f02e47907db51273058927d151b8cc452e358cf94dd89c7b888096ae3188b9dd",
+        "inputs/schedule": "87e98fd8a24c883e45a25ea2702615883c27c011535b1763fd18821261143d2b",
+        "inputs/repair_1_calendar_guard": "4907327eca838c5cd92b8451076f6f42cc3d95282ea724253dce9a26f2230b24",
+        "inputs/repair_1_provider_manifest": "fe4f64aaba30981903443de94f19b36496033de66aa752692caabdf5dd953c27",
+        "native/raw_SOXX_0": "03cfa5fb3d20652c117c7034671364b46dacdb8b0b42f72d4094bc1a43e46550",
+        "native/raw_SOXX_2": "e706271daa924cb98fbc1065438368c2582b68edfe690659d54bf45536356b0d",
+        "native/raw_SOXX_5": "4a65872ec33a0934f0a6b3b62321488703285acc27bbf538c1af1714e4978a9e",
+        "native/raw_strong9097_0": "cfb9fe304a02ed7f3bc5732e665fdc936f1b36c675aa4eadac87ce932146dc93",
+        "native/raw_strong9097_2": "74beab09a00bf4240f4b3c0d8c79470efbdf3c10cced45e70241a06657caf85f",
+        "native/raw_strong9097_5": "740cdb55442a414e7cd8fe486b0f5d5bf42d4e95a3387dbf098f566d653e0a05",
+        "native/raw_candidate27baa_0": "36857d66a4d2160ab753c0db94246717968233b95d38b15828acaf314264a466",
+        "native/raw_candidate27baa_2": "d4eba2b0584392ab27548acdf53cfd53650b65f21a9e2a2cf3f2f3fa58324f31",
+        "native/raw_candidate27baa_5": "40139b6b2558043a96f4e5542d3449746a27dd75287e66c3da7c7ffb0798c77d"
+      }
+    }
+  },
+  "code_sha256": {
+    "src/workflow/stage1_domain_heads.py": "5b4305c0c1311a52e0a7de87257bd2de03b5be34084ee7709859a9defe88b04a",
+    "src/model/stage1_domain_heads.py": "79f7cceec8897837dd77d03cbba97f3de7892e6388edf3109170eb194a5dbd6f",
+    "src/model/minute_pit_allocator.py": "d06962ac2739633c0af34e3843365f1ad4c0a9bbc9dff0ba38e1636db6a175c8",
+    "src/backtest/stage1_domain_heads_raw.py": "9d188c23d6eb668aaaa268aa520f0fcd03d4a20316f55331d31056bdc614cb88",
+    "src/workflow/minute_pit_allocator.py": "7d8131a084b173e7903dbdf246001c6b73d29d83433177564e2cce04a0c62a13",
+    "src/analysis/integrated_allocation.py": "63a04045c59e8266efc2642a4db3d080845bdefbad6c2ac914a2194d26c17fc4",
+    "src/backtest/raw_corporate_policy.py": "4783e33cf934760385c572e7da6fd4467698120801e21e5fdad7d1e608e0f4aa",
+    "src/backtest/native_raw_corporate.py": "1e15ec3b05fac80a79b8ac9f24d10beb92e7e6573611d8c27471ff42354fdd75",
+    "src/backtest/ibkr_tiered.py": "4e47234c1aef8c9ea4fd26389cdbaa23d3affd75bd7c105bf3192939f3781c35",
+    "src/workflow/stage1_open_action_value.py": "6459fb44b1019bd8c4555ebd6b2ba6e9dbe8241844875b23a439837040734671",
+    "src/workflow/intraday_recovery_direct_allocation.py": "48b4a62a1c8139ecaa5d224023693bd4b1589851feab4b3a114d7188428cb013",
+    "src/workflow/pit_constituent_auxiliary_training_allocation.py": "1120abca4fdc1257c3a2ed9b42cd8b515356eeea0f5ef9e79622f3b38ceff85d",
+    "src/core/recorder_sources.py": "3a6a15935247d3f4552fd99cc6b0b0fc33f2edadf5f9195527079312c710b3f1",
+    "src/analysis/stage1_domain_heads.py": "b786650912e4645bd7d5bdc3ecc842f05a4f5ea9d45ffd2b6bc7158395b4fb39"
+  },
+  "training": {
+    "seed": 71,
+    "same_source_spec_and_final_epoch": true,
+    "mature_primary_rows": 3014,
+    "auxiliary_rows": 20741,
+    "predict_rows": 946,
+    "primary_features": 39,
+    "common_features": 16,
+    "matched_model_fit_attempts": 2,
+    "baseline_prediction_parity": "saved analysis/outer_predictions [(base,71)] same dates and all five outputs rtol1e-6 atol1e-7 before candidate fit"
+  },
+  "intervention": {
+    "mask_common_only": [
+      "mom5",
+      "mom20",
+      "mom60"
+    ],
+    "aliases_primary": [
+      "soxx_ret5",
+      "soxx_ret20",
+      "soxx_ret60"
+    ],
+    "training_medians": {
+      "mom5": 0.006551146507263184,
+      "mom20": 0.019736766815185547,
+      "mom60": 0.05451840162277222
+    },
+    "apply_to": [
+      "candidate primary train/predict common group",
+      "candidate eligible auxiliary train common group"
+    ],
+    "no_change": [
+      "primary39 inputs",
+      "labels/maturity",
+      "all other13 common fields",
+      "16-dimensional network",
+      "seed/optimizer/loss/epochs",
+      "Stage1 b472 action/risk/recovery",
+      "SOXL/SOXX/CASH universe"
+    ]
+  },
+  "account_parity": "Before any fit, replay frozen A_active_research_replay at0bp with current account code and exact source frame/point grid; require saved native A path replay/point/order equality. Stop before fits on mismatch. Then fit B and require saved base71 prediction parity before C.",
+  "accounts": {
+    "families": [
+      "A_active_research_replay",
+      "B_original55",
+      "C_common_dedup",
+      "SOXX",
+      "strong9097",
+      "additional27baa"
+    ],
+    "initial_cash": 100000,
+    "expected_sessions": 944,
+    "first_signal": "2023-01-03",
+    "first_trade": "2023-01-04",
+    "terminal": "2026-10-09T09:47:00-04:00",
+    "clock": "09:45 known,09:46 decision,09:47 fill,next09:47 exit;firsthour recovery fill10:32. Historical bar availability convention, not actual first receipt/execution qualification.",
+    "A_label": "Frozen active f696+b472 model chain replayed under same raw research execution contract; not actual deployed09:31/10:31 replay.",
+    "ABC_policy": "A is frozen f696+b472 raw Stage1 parent. B and C replace all5 allocation outputs but retain the same b472 action/risk/recovery and legal projection. B/C each have independent own-state 0bp funded accounts.",
+    "reference_policy": "SOXX buyonce raw shares; strong9097/additional27baa retain their frozen commoncap/ALL3/T policies. Different strategy controls disclosed, same price/corporate/fees/dates/initialcash. Do not inherit old fullminute risk qualification.",
+    "strict_reuse": "Reuse exact same-basis saved native A/SOXX/strong9097/additional27baa0bp books after A replay path parity; B/C alone each get a new own-state native account. No 2/5bp in this first screen.",
+    "raw_interfaces": [
+      "src.backtest.stage1_domain_heads_raw.replay_stage1_raw",
+      "src.backtest.raw_corporate_policy.IncomeLedger",
+      "src.backtest.raw_corporate_policy.settle_raw",
+      "src.backtest.native_raw_corporate.native_raw_validate"
+    ],
+    "slippage_bps": [
+      0
+    ],
+    "maximum_total_comparison_accounts": 6,
+    "maximum_new_native_accounts": 2,
+    "source_native_accounts_reused": 4,
+    "currency": "USD gross paper assumption and documented corporate entitlement/payment convention; not broker or historicalPIT certification"
+  },
+  "tariff": {
+    "role": "2026-10-13 current IBKR Pro Tiered price projection across reused history, not historical realized bills",
+    "tiers": [
+      {
+        "through_shares": 300000,
+        "per_share": 0.0035
+      },
+      {
+        "through_shares": 3000000,
+        "per_share": 0.002
+      },
+      {
+        "through_shares": 20000000,
+        "per_share": 0.0015
+      },
+      {
+        "through_shares": 100000000,
+        "per_share": 0.001
+      },
+      {
+        "through_shares": null,
+        "per_share": 0.0005
+      }
+    ],
+    "minimum_per_order": 0.35,
+    "maximum_order_fraction": 0.01,
+    "venue_per_share": 0.003,
+    "venue_subdollar_fraction": 0.003,
+    "clearing_per_share": 0.0002,
+    "clearing_maximum_fraction": 0.005,
+    "sec_sale_fraction": 2.06e-05,
+    "taf_per_sold_share": 0.0,
+    "taf_maximum_per_trade": 9.79,
+    "cat_per_share": 3e-06,
+    "commission_pass_through_fraction": 0.000735,
+    "venue_assumption": "SMART orders removing displayed Nasdaq liquidity; no assumed maker rebate",
+    "TAF_rule": "current IBKR fee holiday 2026-10-01 through 2026-12-31; zero projection over the full diagnostic history",
+    "fractional_share_fills": false,
+    "usd_cent_rounding": "unrounded rate projection, not exact statement cents"
+  },
+  "gates": {
+    "required_comparators": [
+      "SOXX"
+    ],
+    "net_relative_wealth_all_costs": ">1+1e-8 vs same-basis SOXX 0bp",
+    "sampled_maxdrawdown": "<=30percent close and all available raw point marks",
+    "cvar5": "no worse than SOXX",
+    "complete_annual_positive_fraction": 0.7,
+    "minimum_complete_years": 2,
+    "rolling126_positive_fraction": 0.7,
+    "paired_uncertainty": {
+      "mean_block": 63,
+      "resamples": 10000,
+      "alpha": 0.0016666666666666668,
+      "seed": 20261014,
+      "lower_positive": true,
+      "statistic": "one-sided paired stationary-bootstrap mean daily log excess; lower quantile strictly positive"
+    },
+    "qualified_independent_forward": false,
+    "fresh_fullminute_risk_qualified": false
+  },
+  "additional_matched_attribution": "Report B_original55 versus C_common_dedup paired same-basis wealth and one bootstrap, diagnostic only; no postresult selection. Full candidate hard gate is C versus SOXX only.",
+  "budget": {
+    "source_Recorder_object_loads_max": 32,
+    "DatasetH_builds_max": 4,
+    "new_model_fit_attempts_max": 2,
+    "new_replay_path_attempts_max": 3,
+    "new_native_accounts_max": 2,
+    "new_stationary_bootstraps_max": 2,
+    "new_Qlib_Recorders_max": 1,
+    "new_market_requests": 0
+  },
+  "stop": "A path parity failure stops before fits. B saved-prediction parity failure stops before C fit. Execute C full 0bp account even if an intermediate prediction metric looks weak, then close fixed version on any SOXX hard-gate failure without remasking, threshold, seed, alpha, year or risk-rule rescue. 0bp passage only advances to separately frozen 2/5bp and qualified independent forward; reused 2023-2026 history is development only.",
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "inputs/*",
+      "models/*",
+      "predictions/*",
+      "paths/*",
+      "native/*",
+      "analysis/*"
+    ]
+  }
+}

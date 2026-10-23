@@ -1,0 +1,6 @@
+{
+  "cause": "The no-fit source/A-path parity preflight ran in an isolated Qlib process and saved a signed result, not Python objects. The full execution must reload its pinned Qlib source objects in a new process.",
+  "fixed_handoff": "Verify the saved preflight plan SHA and exact A-path parity receipt, then re-read only the source artifacts needed for matched B/C DatasetH, predictions, raw-share accounts and references. Do not rerun the A parity path or alter any scientific parameter.",
+  "physical_budget_addendum": {"source_Recorder_object_loads_max": 24, "DatasetH_builds_max": 4, "A_parity_replay_attempts": 0, "model_fit_attempts": 0, "native_accounts": 0},
+  "stop": "If the pinned source/hash/preflight receipt differs, stop before fitting. Preserve actual read counts in the result."
+}
