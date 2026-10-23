@@ -163,7 +163,9 @@
     "SOXX_issuer_shares_split_original_control": "research/stage1_soxx_share_original_split_control_20261023/summary.json",
     "SOXX_issuer_shares_split_original_control_interpretation": "Original 2011-01-31 SOXX SEC N-CSRS shares outstanding 3.75m versus current iShares Historical workbook 11.25m, exactly 3x matching officially documented 2024-03-06 three-for-one split. This proves retrospective split adjustment at that control date, not full-history daily publication clock or revision stability. Zero market outcomes/fits/accounts; no PIT creation-flow factor.",
     "SOXX_issuer_shares_outstanding_additional_current_workbook_check": "research/stage1_soxx_official_share_creation_source_20261023/summary.json",
-    "Stage1_SMH_SOXX_leadership_source": "research/stage1_smh_soxx_leadership_source_20261023/summary.json"
+    "Stage1_SMH_SOXX_leadership_source": "research/stage1_smh_soxx_leadership_source_20261023/summary.json",
+    "Stage1_SMH_SOXX_leadership_map_closeout": "research/stage1_smh_soxx_leadership_qlib_map_20261023/summary.json",
+    "Stage1_SMH_SOXX_leadership_map_interpretation": "SMH source has 2755/3020 train and944/944 held Qlib-mapped prior-close 20-session values, low training correlation with original39 max0.216 and XSD -0.139, Qlib Recorder/NAS restored, zero fits/accounts. Despite numeric novelty, prior fixed XSD conclusion explicitly forbids ETF substitution to rescue the relative leadership route; close SMH map before fit, no 0bp account."
   },
   "contract": {
     "path": "docs/three_asset_research_contract.md",

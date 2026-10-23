@@ -1,0 +1,61 @@
+{
+  "decision": "source_map_novelty_screen_passed_conditional_retrospective_only",
+  "plan_sha256": "fcb2a3b7727848645d6416aae85bfc6e3280431d481f0bbf3e469adf3ac78b28",
+  "calendar_rows": 3964,
+  "train_rows": 3020,
+  "train_known": 2755,
+  "train_unknown": 265,
+  "held_rows": 944,
+  "held_known": 944,
+  "held_unknown": 0,
+  "max_abs_original39_train_Pearson": 0.21583259559850754,
+  "top_original39_train_correlations": [
+    {
+      "feature": "semis_vs_cross_60",
+      "pearson": -0.21583259559850754
+    },
+    {
+      "feature": "soxx_trend60",
+      "pearson": -0.20995691530047447
+    },
+    {
+      "feature": "semis_vs_cross_20",
+      "pearson": -0.19699212557531587
+    },
+    {
+      "feature": "soxx_ret20",
+      "pearson": -0.1870329997952715
+    },
+    {
+      "feature": "soxl_ret20",
+      "pearson": -0.17909264755518498
+    },
+    {
+      "feature": "soxx_drawdown60",
+      "pearson": -0.17899039659136468
+    },
+    {
+      "feature": "relative_momentum20",
+      "pearson": -0.17868577289786128
+    },
+    {
+      "feature": "soxx_ret60",
+      "pearson": -0.17635412952622356
+    },
+    {
+      "feature": "cross_breadth_pos_20",
+      "pearson": -0.1661107956255662
+    },
+    {
+      "feature": "tech_breadth_60",
+      "pearson": -0.1611617307640595
+    }
+  ],
+  "closed_XSD_train_Pearson": -0.13908919026862243,
+  "duplicate_by_frozen_gate": false,
+  "first_public_clock_qualified": false,
+  "dividend_and_adjustment_qualified": false,
+  "market_future_outcome_reads": 0,
+  "model_fits": 0,
+  "native_accounts": 0
+}

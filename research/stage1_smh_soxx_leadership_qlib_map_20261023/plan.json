@@ -1,0 +1,78 @@
+{
+  "schema_version": 1,
+  "frozen": true,
+  "experiment": "stage1_smh_soxx_leadership_qlib_map_20261023",
+  "phase": "source_only_Qlib_20_session_SMH_minus_SOXX_prior_close_leadership_redundancy",
+  "mechanism": "SMH is global, mega-cap concentrated semiconductor exposure versus SOXX; previous close relative 20-session performance may distinguish supply-chain leadership from domestic equal-weight breadth. This is explicitly compared with the closed XSD relative-breadth mechanism before any information fit.",
+  "source": {
+    "card": "research/stage1_smh_soxx_leadership_source_20261023",
+    "source_summary_sha256": "9da706a4ee06a5c83eeb665c27fc18373277a971302b5787cdbe03dbc29e9229",
+    "raw_workbook": "data/snapshots/stage1_smh_soxx_leadership_source_20261023.xlsx",
+    "raw_sha256": "c8b0c443f531efcae438693243745f9476d0066d245e3696f0a5097f27978084",
+    "nas_sha256": "11c83f7f5907b32f74d582c478301a91ecdf7b254828eb2f2fdce95f52c5bef0"
+  },
+  "calendar_and_price": {
+    "provider": "data/qlib/minute_information_pit_allocator_20261012/daily_prices",
+    "qlib_yaml_sha256": "951024d796cc625b695938e64589cd23808c5b048ac816c11f001fb0719742a2",
+    "soxx_close_sha256": "ee40293ef9a1cab290db994c80690a3b067a02748a78b5ca96a49333b81b3470",
+    "calendar_bounds": [
+      "2011-01-03",
+      "2026-10-07"
+    ]
+  },
+  "parent_original39": {
+    "card": "research/minute_information_pit_allocator_20261012",
+    "experiment_id": "905520356740140469",
+    "recorder_id": "68e31a0a0fad44e7ba1d1f7d856c7a0d",
+    "base_model_artifact_sha256": "5945030ca770bb7ca63c6b03d53e6cf7265f239312cac1308debfde93afddcac",
+    "base_features_artifact_sha256": "482d6a908ae95230143dc08014732c3247d22ccb1560f8509f6ac564a4d647ec",
+    "frame_artifact_sha256": "674443e012ef98d21438891666e32e9fca8dcde6eb60fb3141f89ed6e0ca330c"
+  },
+  "closed_XSD_map": {
+    "card": "research/stage1_xsd_semiconductor_breadth_map_20261023",
+    "experiment_id": "541018705945447568",
+    "recorder_id": "f3eb1079959b448bb826eb9eda08264a",
+    "mapped_signal_artifact_sha256": "63ab301216ae7e0179b76f63abffc02b67b6f8ae472f901d22a5a7e839f7b331"
+  },
+  "formula": "At Stage1 09:46 session t, log(SMH Last Trade[t-1]/SMH Last Trade[t-21]) - log(native Qlib SOXX adjusted close[t-1]/SOXX close[t-21]); 20 completed open-session gaps; unknown before SMH inception/window; no forward filling, no weekend rows.",
+  "cohorts": {
+    "train": [
+      "2011-01-03",
+      "2022-12-30"
+    ],
+    "held_reused": [
+      "2023-01-03",
+      "2026-10-07"
+    ],
+    "train_min_known": 2500,
+    "held_expected_known": 944
+  },
+  "redundancy_gate": {
+    "matched_train_only": true,
+    "max_abs_original39_pairwise_Pearson_below": 0.95,
+    "abs_Pearson_with_closed_XSD_signal_below": 0.8,
+    "otherwise": "close before any model fit"
+  },
+  "timing": "Issuer Last Trade and SOXX Qlib close are prior-session completed values. Historical first publication, revisions, dividend and split-plane equivalence unqualified, so this map is conditional retrospective source evidence only.",
+  "budget": {
+    "external_HTTP_GETs": 0,
+    "raw_workbook_loads": 1,
+    "D_calendar_calls": 1,
+    "D_features_calls": 1,
+    "parent_Recorder_object_loads": 3,
+    "XSD_Recorder_object_loads": 1,
+    "DatasetH_builds": 1,
+    "new_Qlib_Recorders": 1,
+    "model_fits": 0,
+    "native_accounts": 0
+  },
+  "stop": "Stop on pinned source/recorder/provider mismatch, Qlib calendar mismatch, fewer than2500 train eligible, missing held support, high XSD or original39 redundancy. A map pass only permits separately frozen information testing and does not authorize a 0bp account.",
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "inputs/*",
+      "analysis/*"
+    ]
+  }
+}

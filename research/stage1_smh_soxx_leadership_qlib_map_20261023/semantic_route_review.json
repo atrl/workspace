@@ -1,0 +1,17 @@
+{
+  "verdict": "CLOSE_BEFORE_FIT_PRIOR_ETF_SUBSTITUTION_ROUTE",
+  "numeric_source_map_result": "preflight.json",
+  "numeric_source_map_plan_sha256": "fcb2a3b7727848645d6416aae85bfc6e3280431d481f0bbf3e469adf3ac78b28",
+  "numeric_train_known": 2755,
+  "numeric_held_known": 944,
+  "max_abs_original39_train_Pearson": 0.21583259559850754,
+  "XSD_train_Pearson": -0.13908919026862243,
+  "numeric_duplicate_gate": false,
+  "prior_closed_XSD_conclusion": "research/stage1_xsd_breadth_h5_information_20261023/conclusion.md",
+  "prior_closed_XSD_conclusion_sha256": "447d5efb1ab6c679863f14b7d6ac696f2c5b507a03de44f7be78f993d9f2ef8e",
+  "reason": "The frozen XSD information conclusion explicitly forbids changing ETF to rescue the fixed relative ETF leadership route. SMH differs in concentration/global composition and has low sample correlation, but low correlation is a necessary novelty diagnostic, not authority to reopen the same ETF-substitution family on reused 2023-2026 history.",
+  "market_future_outcome_reads": 0,
+  "model_fits": 0,
+  "native_accounts": 0,
+  "next_action": "Seek a materially different decision-time mechanism with qualified source; do not fit SMH-minus-SOXX H5 or run account under this card."
+}

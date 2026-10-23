@@ -1,0 +1,44 @@
+{
+  "experiment": "stage1_smh_soxx_leadership_qlib_map_20261023",
+  "decision": "closed_before_fit_prior_XSD_no_ETF_substitution",
+  "objective_achieved": false,
+  "plan_sha256": "fcb2a3b7727848645d6416aae85bfc6e3280431d481f0bbf3e469adf3ac78b28",
+  "recorder_id": "2c50e8861fda49ce8360def6f4c6dc25",
+  "experiment_id": "674590108897401409",
+  "recorder_uri": "/Users/rziiiii/dev/workspace/research/stage1_smh_soxx_leadership_qlib_map_20261023/qlib_recorder",
+  "preflight": "preflight.json",
+  "model_fits": 0,
+  "native_accounts": 0,
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "inputs/*",
+      "analysis/*"
+    ]
+  },
+  "limitations": [
+    "Conditional retrospective source map only: SMH issuer historical delivery and revisions are unqualified.",
+    "SMH prior close and Qlib SOXX adjusted close include different dividend/price planes.",
+    "No future outcome, information fit or Stage1 account."
+  ],
+  "nas_evidence": {
+    "sha256": "a512543cf52782edbd4e6b1c5758f11a00da7b1882c095a1da4e32b03ae540e2",
+    "size_bytes": 172836,
+    "media_type": "application/gzip",
+    "storage_uri": "sha256/a5/12/a512543cf52782edbd4e6b1c5758f11a00da7b1882c095a1da4e32b03ae540e2",
+    "uploaded_by": "soxl-minute-research",
+    "created_at": "2026-10-23 08:54:07.708709+08",
+    "duplicate": false,
+    "nas_path": "/volume1/docker/yanxuan/registry/research-artifacts/a5/12/a512543cf52782edbd4e6b1c5758f11a00da7b1882c095a1da4e32b03ae540e2",
+    "recorder_id": "2c50e8861fda49ce8360def6f4c6dc25",
+    "experiment_id": "674590108897401409",
+    "archive_root": "qlib_recorder"
+  },
+  "nas_readback": {
+    "verified": true,
+    "sha256": "a512543cf52782edbd4e6b1c5758f11a00da7b1882c095a1da4e32b03ae540e2"
+  },
+  "numeric_source_map_decision": "source_map_novelty_screen_passed_conditional_retrospective_only",
+  "semantic_route_review": "semantic_route_review.json"
+}
