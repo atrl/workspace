@@ -454,7 +454,9 @@
     "Stage1_0bp_HOLD_cash_bound": "research/stage1_original_0bp_hold_cash_bound_20261023/summary.json",
     "Stage1_0bp_HOLD_cash_bound_interpretation": "Full 944-session original Stage1 0bp Tiered account: HOLD147 days contributes cash opportunity -0.148127 log, EXECUTE797 contributes -0.452195. Even direct erasure of every negative HOLD-day cash component on the frozen path raises SOXX-positive rolling126 windows only 255->450/819 versus574 required. This is not a causal account impossibility theorem; it deprioritizes action-HOLD-only rescue and points to EXECUTE target/risk cash decisions across binding and nonbinding days.",
     "Stage1_0bp_projection_dollar_slack": "research/stage1_original_0bp_projection_dollar_slack_20261023/summary.json",
-    "Stage1_0bp_projection_interpretation": "All797 original Stage1 0bp EXECUTE targets saturate min(raw risky-dollar intent, own-state beta cap, 0.85) to <=1.1e-16; no same-cap/same-raw-risk geometry can lower cash. Of EXECUTE days,600 are raw-risk-intent limited (cash log -0.295864),197 beta-cap-dollar limited (-0.156331), floor0. Of261 nominal-beta-binding EXECUTE days,64 remain raw-risk-intent dollar limited. HOLD147 are carried holdings, not new projection targets. Next mechanism must change an informed upstream allocation or cap, not projection geometry; no new account or SOXX pass."
+    "Stage1_0bp_projection_interpretation": "All797 original Stage1 0bp EXECUTE targets saturate min(raw risky-dollar intent, own-state beta cap, 0.85) to <=1.1e-16; no same-cap/same-raw-risk geometry can lower cash. Of EXECUTE days,600 are raw-risk-intent limited (cash log -0.295864),197 beta-cap-dollar limited (-0.156331), floor0. Of261 nominal-beta-binding EXECUTE days,64 remain raw-risk-intent dollar limited. HOLD147 are carried holdings, not new projection targets. Next mechanism must change an informed upstream allocation or cap, not projection geometry; no new account or SOXX pass.",
+    "Stage1_common_return_dedup_0bp_independent_review": "research/stage1_common_return_dedup_0bp_20261023/independent_result_review.json",
+    "Stage1_common_return_dedup_review_interpretation": "Independent native Qlib/NAS readback confirms C common-return-dedup own-state 0bp Tiered account is fixed not_promoted: SOXX wealth0.961473, sampled DD28.81pct and CVaR pass, complete years1/2, rolling126369/819 versus574, corrected block lower negative. Matched B/C wealth ratio1.377 is attribution only; C is not a new parent. One sidecar adds post-save FINISHED status after native result; all economic fields match. No 2/5bp or qualified forward success."
   },
   "parallel_source_task": {
     "card": "research/korea_semiconductor_exports_korean_vintage_20261022",
@@ -519,7 +521,7 @@
     ]
   },
   "active_index": "research/active_research_index.json",
-  "updated_at_utc": "2026-10-23T03:31:48Z",
+  "updated_at_utc": "2026-10-23T03:58:26Z",
   "execution_totals": {
     "new_model_fits": 85,
     "new_native_accounts": 51,
