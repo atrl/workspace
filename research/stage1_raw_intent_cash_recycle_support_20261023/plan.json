@@ -1,0 +1,21 @@
+{
+  "experiment": "stage1_raw_intent_cash_recycle_support_20261023",
+  "frozen": true,
+  "phase": "source_and_projection_support_only_before_local_value_label",
+  "parent": "frozen_complete_Stage1_f696_allocator_plus_b472_action_risk_recovery_0bp_IBKR_Tiered",
+  "failure_mechanism": "In the original Stage1 own-state 0bp held account, 600 of 797 EXECUTE targets are constrained by raw risky-dollar intent, with -0.2958641337 cash-opportunity log contribution. Source-level cash decisions must change before projection; a cap-only intervention cannot reach this layer.",
+  "question": "Does the saved original-architecture 2018-2022 0bp Tiered OOF training reference contain broad EXECUTE support for an upstream +0.10 SOXX / -0.10 cash candidate while preserving the own-state beta cap, 15 percent cash floor, 30 percent SOXL ceiling and exact original projection?",
+  "sources": {
+    "training_card": "research/stage1_signed_volume_0bp_action_label_source_20261023",
+    "training_summary_sha256": "ce6652a6323ec9bd11a8ce8de89239cba167a53bedb50e471080006a1a89f476",
+    "training_recorder_id": "3663a1e073f042e383dbcf54969a9bc2",
+    "training_experiment_id": "194705746221035167",
+    "held_projection_summary_sha256": "d7c563921bcab50c1a21721f5ed1778ce8e188873588bbba1b4213c325b85074",
+    "projector_module_sha256": "48b4a62a1c8139ecaa5d224023693bd4b1589851feab4b3a114d7188428cb013",
+    "provider_uri": "data/qlib/full_path_tiered_allocation_20261013"
+  },
+  "candidate_source_definition": "At original Stage1 opening decision, require original action EXECUTE; finite nonnegative raw SOXL/SOXX/cash weights; cash source at least0.25; and raw nominal beta=3*SOXL+SOXX at least0.10 below saved own-state beta cap. Keep original raw SOXL, increase raw SOXX by exactly0.10, decrease cash by0.10, and project with the unchanged project_legal_weights(cap,15pct floor,30pct SOXL). Require projected control target exact saved target and projected candidate has same SOXL, SOXX+0.10, cash-0.10 within1e-9. This is source-level geometry, not a funded fill or profit label.",
+  "support_gate": "Record all 1061 Qlib trade dates and each year separately. Advance only if at least100 source eligible EXECUTE dates and at least3 calendar years each have at least20 eligible dates. The thresholds concern label support only; no return, sign or year selection is permitted.",
+  "budget": {"external_requests": 0, "Qlib_D_calendar_calls_max": 1, "source_Recorder_object_loads_max": 2, "new_Qlib_Recorders_max": 1, "future_return_reads": 0, "model_fits": 0, "native_accounts": 0, "bootstraps": 0},
+  "stop": "Any source hash/NAS mismatch, calendar/target parity error, missing 0bp native-audit identity, invalid cash/beta geometry or failed support gate closes this source preflight. Passing support only permits a separately frozen whole-share Tiered physical-settlement and same-state local value design, followed by a distinct receiver and eventually a complete Stage1-parent own-state 0bp SOXX account if information passes."
+}

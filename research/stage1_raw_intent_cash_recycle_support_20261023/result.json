@@ -1,0 +1,49 @@
+{
+  "decision": "source_support_fail_close_fixed_upstream_cash_recycle_preflight",
+  "plan_sha256": "9a6ccb1b5a1954fcbb0fcce94362a20af965eb9c05167807ac62de08c3344710",
+  "source_recorder_id": "3663a1e073f042e383dbcf54969a9bc2",
+  "sessions": 1061,
+  "max_control_projection_parity_error": 0.0,
+  "candidate_add_SOXX_weight": 0.1,
+  "candidate_source_eligible": 0,
+  "years_with_at_least20": 0,
+  "support_gate_pass": false,
+  "annual": [
+    {
+      "year": 2018,
+      "calendar_rows": 53,
+      "control_EXECUTE": 53,
+      "candidate_source_eligible": 0
+    },
+    {
+      "year": 2019,
+      "calendar_rows": 252,
+      "control_EXECUTE": 252,
+      "candidate_source_eligible": 0
+    },
+    {
+      "year": 2020,
+      "calendar_rows": 253,
+      "control_EXECUTE": 253,
+      "candidate_source_eligible": 0
+    },
+    {
+      "year": 2021,
+      "calendar_rows": 252,
+      "control_EXECUTE": 252,
+      "candidate_source_eligible": 0
+    },
+    {
+      "year": 2022,
+      "calendar_rows": 251,
+      "control_EXECUTE": 251,
+      "candidate_source_eligible": 0
+    }
+  ],
+  "new_market_requests": 0,
+  "future_return_reads": 0,
+  "new_model_fits": 0,
+  "new_native_accounts": 0,
+  "new_bootstraps": 0,
+  "limitation": "Source-level and projection geometry only; no whole-share Tiered settlement, local profit label, receiver fit, 2023+ own-state account, risk feedback or SOXX gate."
+}

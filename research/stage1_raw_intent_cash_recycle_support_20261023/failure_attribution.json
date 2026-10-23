@@ -1,0 +1,20 @@
+{
+  "status": "read_only_source_support_failure_attribution",
+  "source_sessions": 1061,
+  "source_cash_at_least25pct": 407,
+  "raw_beta_above_saved_cap": 541,
+  "raw_beta_equal_saved_cap": 520,
+  "raw_beta_below_saved_cap": 0,
+  "control_EXECUTE": 1061,
+  "eligible_upstream_plus10pct_SOXX_without_cap_change": 0,
+  "exact_projection_parity_max_abs_error": 0.0,
+  "held_complete_Stage1_context": {
+    "EXECUTE_raw_risk_limited_sessions": 600,
+    "among_these_nominal_beta_nonbinding": 536,
+    "cash_opportunity_log_raw_risk_limited": -0.295864133733216
+  },
+  "interpretation": "The saved 2018-2022 original-architecture OOF training reference has no beta headroom at all, so its unchanged-cap +0.10 SOXX cash recycle arm is unsupported despite 407 dates with enough source cash. The 2023-2026 complete Stage1 own-state path has a different projection mix, including nonbinding raw-risk-limited days. This source mismatch prevents learning that exact action from the existing OOF reference; it does not prove every upstream cash policy impossible. A beta-neutral SOXL-to-SOXX composition shift is a different policy and earlier fixed composition/dedup accounts failed SOXX stability gates. No threshold/sign/year rescue in this fixed source version.",
+  "future_return_reads": 0,
+  "new_fits": 0,
+  "new_accounts": 0
+}

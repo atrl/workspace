@@ -1,0 +1,14 @@
+{
+  "status": "NAS_raw_intent_support_selected_artifact_cold_readback",
+  "verified": true,
+  "archive_sha256": "d26e9fb81bbef0dbcc4ac93da8a09346baed1faf80a897497894b474574a859a",
+  "selected_artifact_sha256": "c278a32f458d6304215393a037b7628c382d553d1fdc326140d7bd8591d3859e",
+  "selected_artifact_bytes": 85024,
+  "native_recorder_status": "FINISHED",
+  "rows": 1061,
+  "raw_beta_above_cap": 541,
+  "raw_beta_at_cap": 520,
+  "raw_beta_below_cap": 0,
+  "source_cash_ge_025": 407,
+  "control_EXECUTE": 1061
+}
