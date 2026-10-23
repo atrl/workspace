@@ -417,7 +417,9 @@
     "latest_joint_cash_cap_training_label": "research/stage1_joint_cash_cap_soxx_0bp_local_value_20261023/summary.json",
     "latest_joint_cash_cap_decision": "Closed at 2018-2022 0bp Tiered local-label/support stage: 688 mature labels, 2022 mean negative, only 2 nonbinding 2022 labels; no information fit or held account. Next mechanism must remain complete Stage1-derived and first screen at 0bp.",
     "option_vendor_contact_authorized": false,
-    "option_vendor_contact_decision": "User declined contacting vendors for SOXX historical option samples or quotes; no inquiry, purchase or subscription."
+    "option_vendor_contact_decision": "User declined contacting vendors for SOXX historical option samples or quotes; no inquiry, purchase or subscription.",
+    "Stage1_Treasury_real_yield_source": "research/stage1_treasury_real_yield_source_20261023/summary.json",
+    "Stage1_Treasury_real_yield_status": "Official retrospective 10-year real yield CSVs NAS archived and Qlib-mapped at two-session lag: 1060/1061 Stage1 train and 944/944 reused held dates. Historical first-public/revision identity and information gain remain unqualified; no model or 0bp account."
   },
   "parallel_source_task": {
     "card": "research/korea_semiconductor_exports_korean_vintage_20261022",
@@ -482,7 +484,7 @@
     ]
   },
   "active_index": "research/active_research_index.json",
-  "updated_at_utc": "2026-10-23T01:32:37Z",
+  "updated_at_utc": "2026-10-23T02:04:34Z",
   "execution_totals": {
     "new_model_fits": 85,
     "new_native_accounts": 51,
