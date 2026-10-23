@@ -1,0 +1,27 @@
+{
+  "schema_version": 1,
+  "experiment": "stage1_cap_release_0bp_local_value_20261023",
+  "frozen": true,
+  "phase": "one_training_only_same_state_local_label_pass",
+  "hypothesis": "A 0.10 beta relaxation of the original Stage1 cap can have a fee-net local value that differs from the closed five-session cash prediction task. Before fitting any receiver, construct its matched physical-account target only on the saved 2018-2022 OOF training reference.",
+  "parent_boundary": "Saved original-architecture OOF 2018-2022 0bp Tiered account is a training scaffold. A later held economic candidate must keep frozen full Stage1 f696 allocator plus b472 action/risk/recovery, own funded 0bp account, and SOXX hard gate.",
+  "sources": {
+    "reference_card": "research/stage1_signed_volume_0bp_action_label_source_20261023",
+    "reference_summary_sha256": "ce6652a6323ec9bd11a8ce8de89239cba167a53bedb50e471080006a1a89f476",
+    "reference_recorder_id": "3663a1e073f042e383dbcf54969a9bc2",
+    "reference_experiment_id": "194705746221035167",
+    "physical_preflight_card": "research/stage1_cap_release_execution_eligibility_20261023",
+    "physical_preflight_summary_sha256": "21807a8358e7306c7d4e8cb5f9e1c486720ee83d993c0a180956984ff3f1b628",
+    "physical_preflight_result_sha256": "6110d21510816a95d411ae296bc515bd0e7541e6b1c782706da84ed8cc75c71d",
+    "tariff_plan": "research/full_history_recovery_20261015/plan.json",
+    "tariff_plan_sha256": "053147267377f575b4508806dfe925cfaf804ba0d3f816994eb2ed4b7a64a668",
+    "projector_module_sha256": "48b4a62a1c8139ecaa5d224023693bd4b1589851feab4b3a114d7188428cb013",
+    "fee_module_sha256": "4e47234c1aef8c9ea4fd26389cdbaa23d3affd75bd7c105bf3192939f3781c35"
+  },
+  "clock_and_eligibility": "At 09:46, raw beta=3*saved raw SOXL weight+saved raw SOXX weight. Eligible only if raw beta exceeds own-state cap by >=0.10 and original open controller EXECUTE. This mask uses no 09:47 price or future return. The last training date without next-session reset stays label-unknown.",
+  "paired_label": "From identical saved pre-09:47 adjusted quantities, cash and monthly Tiered share-count state, branch A executes the original projected target; branch B executes the same raw Stage1 target projected with own-state cap+0.10, unchanged 15% cash floor and 30% SOXL max. Both use observed 09:47 adjusted/raw execution marks, whole raw shares, sells-first funding and 0bp added slippage with frozen IBKR Tiered fees. At the following Qlib session 09:47 both branches separately rebalance to the same saved next-session original projected target with independently carried fee counters. Label=(B NAV after common reset-A NAV after common reset)/pre-branch NAV. Available only at next-session 09:49. This one-step local label does not propagate either branch risk state or holdings to further sessions.",
+  "validation": "Assert exact Qlib 1061-day calendar and source identities, original projected-target parity, original continuous cash/share ledger parity, equal branch initial state and fee counters, legal funded orders, finite branch NAV and deterministic next-session reset. Keep all 1061 calendar rows with unknown ineligible/end labels. Record annual support and descriptive sign/mean without selecting a policy. Do not read 2023+ outcomes.",
+  "cost_scope": "The tariff is the frozen 2026-10-13 IBKR Pro Tiered projection applied over saved history, not actual historical broker bills. No external spread/latency proof beyond the frozen price plane.",
+  "budget": {"new_market_requests": 0, "new_model_fits": 0, "new_native_accounts": 0, "label_passes": 1, "new_qlib_recorders": 1, "new_bootstraps": 0, "NAS_recorder_archives": 1},
+  "stop": "If original ledger or projection parity, branch funding, next-session reset, source hash, native calendar, or NAS receipt/readback fails, record the precise failure and stop. No receiver fit or held account in this card. A later receiver/control/annual gate must be frozen before any fitting; 2019/2021 support is thin."
+}

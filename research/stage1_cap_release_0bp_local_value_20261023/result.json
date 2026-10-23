@@ -1,0 +1,73 @@
+{
+  "decision": "training_only_local_fee_net_label_no_receiver_or_account",
+  "sessions": 1061,
+  "eligible": 541,
+  "mature": 540,
+  "mean_local_advantage": 8.588219763452809e-05,
+  "median_local_advantage": 0.00017894613396477214,
+  "positive": 285,
+  "negative": 255,
+  "zero": 0,
+  "annual": [
+    {
+      "year": 2018,
+      "sessions": 53,
+      "eligible": 18,
+      "mature": 18,
+      "positive": 10,
+      "negative": 8,
+      "zero": 0,
+      "mean": 8.157395341140011e-05
+    },
+    {
+      "year": 2019,
+      "sessions": 252,
+      "eligible": 39,
+      "mature": 39,
+      "positive": 18,
+      "negative": 21,
+      "zero": 0,
+      "mean": 4.255810478873768e-06
+    },
+    {
+      "year": 2020,
+      "sessions": 253,
+      "eligible": 182,
+      "mature": 182,
+      "positive": 110,
+      "negative": 72,
+      "zero": 0,
+      "mean": 0.0002453605136320887
+    },
+    {
+      "year": 2021,
+      "sessions": 252,
+      "eligible": 56,
+      "mature": 56,
+      "positive": 33,
+      "negative": 23,
+      "zero": 0,
+      "mean": 0.0005414224561447958
+    },
+    {
+      "year": 2022,
+      "sessions": 251,
+      "eligible": 246,
+      "mature": 245,
+      "positive": 114,
+      "negative": 131,
+      "zero": 0,
+      "mean": -0.000123400783969734
+    }
+  ],
+  "max_projected_target_parity_error": 0.0,
+  "max_original_cash_share_ledger_error_usd": 0.0,
+  "max_control_branch_identity_error_usd": 0.0,
+  "label_last_unknown": "2022-12-30",
+  "new_model_fits": 0,
+  "new_native_accounts": 0,
+  "new_market_requests": 0,
+  "label_passes": 1,
+  "reused_held_outcomes": false,
+  "interpretation": "Local same-start and next-session common-reset 0bp Tiered labels on 2018-2022 OOF training scaffold only; not a complete policy return or a 2023+ SOXX validation."
+}
