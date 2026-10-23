@@ -9,3 +9,5 @@
 **旧代码复用防线：** 当前 `SNDK` 代码在2025-02-24重新用于Western Digital分拆后独立交易的Sandisk；[SEC原始10-K](https://www.sec.gov/Archives/edgar/data/2023554/000202355425000034/sndk-20250627.htm)对应新发行人CIK 2023554。不能仅凭同名代码将当前SNDK价格接到2011年原SOXX持仓。Stooq、FinanceCharts、Barchart这次只显示验证页或索引片段，均未交付可校验完整旧证券价格原件；详见 `ticker_reuse_guard_20261023.json`。不把网页索引当价格数据，也不发供应商询问或购买。
 
 **NAS范围核验：** 当前经哈希验证的 `us_semis_intraday` 2026-10-23 快照登记83个对象，关联的Qlib同行情工具仅列AMD、NVDA、QQQ、SMH；源路径未列旧 SNDK/ALTR/BRCM/XLNX/MXIM。见 [`nas_scope_audit_20261023.json`](nas_scope_audit_20261023.json)。这只界定这一份已登记快照，不能说整个NAS没有旧证券数据；也不能以“都已备份”为由跳过原证券价格与身份准入。
+
+在NAS `/volume1/docker/yanxuan/data/market` 下限定6层、按XLNX/MXIM/SNDK/ALTR/BRCM文件名查找，匹配普通文件0个。它仅是文件名检查，不搜索哈希工件内容或数据表内行，不能据此断言全NAS不存在这些证券。

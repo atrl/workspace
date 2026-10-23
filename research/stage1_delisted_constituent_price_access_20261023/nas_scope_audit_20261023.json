@@ -15,6 +15,13 @@
     "data/processed/intraday/soxl_soxx_none_1m.parquet",
     "data/processed/intraday/soxl_soxx_1m.parquet"
   ],
+  "additional_named_path_probe": {
+    "root": "/volume1/docker/yanxuan/data/market",
+    "maxdepth": 6,
+    "basename_patterns": ["*XLNX*", "*MXIM*", "*SNDK*", "*ALTR*", "*BRCM*"],
+    "matched_regular_files": 0,
+    "limit": "File-name search only; hashed artifact names and rows inside datasets were not examined."
+  },
   "scope_limit": "This verifies the current named us_semis_intraday snapshot and its context instrument list. It does not enumerate every NAS backup, inspect every parquet row, or prove that no other project contains old constituent prices.",
   "disclosed_basket_source_decision": "no_authorized_original_SNDK_ALTR_BRCM_XLNX_MXIM_price_identity_from_this_feed",
   "new_market_requests": 0,
