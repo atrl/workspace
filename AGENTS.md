@@ -44,6 +44,15 @@ cards keep their original gates. The active campaign entry is
   Separate cash opportunity cost, SOXL-relative selection, execution cost, and
   risk-state feedback. Compare bad intervals with good intervals and matched
   controls; do not choose a tradable switch or threshold from hindsight groups.
+- Read the exact f696 A_0 0bp cash-layer bound before another cash-only feature:
+  `research/stage1_original_0bp_cash_layer_window_bound_20261023`. On the
+  frozen path, 255/819 rolling windows beat SOXX; unrealistically erasing all
+  negative cash contribution from cap-binding days alone reaches 321, and from
+  nonbinding days alone reaches 420, below the required 574. Erasing both reaches
+  588. This accounting exercise is not a tradable counterfactual or a proof that
+  every one-layer policy fails. It means the next mechanism must address how
+  allocation intent and own-state risk capacity jointly reach the funded action,
+  then prove the result in its own complete 0bp account.
 - Correcting a prior experiment's parent identity is an audit repair, not a new
   economic hypothesis. Do not automatically rerun a static composition, cap,
   bypass, or other old intervention on f696 merely because its earlier account
