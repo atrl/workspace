@@ -1,0 +1,24 @@
+{
+  "plan_sha256": "d192071d57afb17f509b1a732aa976eab8c93c9831f95b9efb67803dc7493821",
+  "formula": "(SOXL first completed 09:45 bar close/open - 1) - 3*(SOXX first completed 09:45 bar close/open - 1), from the same published-affine Qlib provider. It is a cross-ETF response, not ETF tracking error.",
+  "train_known_dates": 1061,
+  "train_unknown_dates": 1,
+  "held_known_dates": 944,
+  "train_quantiles": {
+    "0": -0.04908931255340576,
+    "0.01": -0.011667823791503907,
+    "0.25": -0.002220332622528076,
+    "0.5": -3.635883331298828e-05,
+    "0.75": 0.0023293495178222656,
+    "0.99": 0.00901559591293336,
+    "1": 0.02712845802307129
+  },
+  "max_abs_spearman_original39_train": 0.15517445262625082,
+  "max_abs_spearman_original39_feature": "range_pos_252",
+  "exact_duplicate_original_input": false,
+  "historical_first_receipt_qualified": false,
+  "published_affine_price_basis_PIT_qualified": false,
+  "SOXX_outcome_reads": 0,
+  "model_fits": 0,
+  "native_accounts": 0
+}

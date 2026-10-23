@@ -1,0 +1,40 @@
+{
+  "experiment": "stage1_0945_soxl_soxx_cross_response_source_20261023",
+  "decision": "conditional_0945_cross_ETF_response_source_constructible_PIT_unqualified",
+  "objective_achieved": false,
+  "plan_sha256": "bb8afbb17cdb9ac42bafb781300d49049e46f8baefdd4f45ecbe6667b9158057",
+  "coordinate_plan_sha256": "d192071d57afb17f509b1a732aa976eab8c93c9831f95b9efb67803dc7493821",
+  "train_complete_pair_days": 1061,
+  "train_calendar_days": 1062,
+  "train_unknown_dates": [
+    "2020-03-16"
+  ],
+  "held_complete_pair_days": 944,
+  "held_Stage1_days": 944,
+  "max_abs_training_spearman_original39": 0.15517445262625082,
+  "exact_duplicate_original_input": false,
+  "historical_first_receipt_qualified": false,
+  "exact_NAS_snapshot_restore_verified_in_this_card": false,
+  "new_model_fits": 0,
+  "native_accounts": 0,
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": []
+  },
+  "runtime_failures": [
+    "coordinate_attempt1_failure.json",
+    "coordinate_attempt2_failure.json"
+  ],
+  "physical_reads_disclosure": "Initial source gate: D.calendar1, D.features1, Recorder1. Coordinate phase: D.features3 physical attempts, Recorder object loads2 successful plus failed first attempt; one explicit Recorder status lookup. No outcomes/fits/accounts.",
+  "limitations": [
+    "The original NONE minute source snapshot was remotely hash checked and its manifest scoped-read back, but the derived published-affine Qlib bins were not independently cold-restored and historical daily first receipt remains unqualified.",
+    "The ETF benchmarks and corporate-action adjustments differ; this is cross-ETF response, not tracking error.",
+    "2020-03-16 first bar is unknown; no value is filled.",
+    "Low training correlation is not incremental predictive information, net account value or independent forward evidence."
+  ],
+  "nas_original_minute_source_readback": "nas_source_readback.json",
+  "nas_original_minute_source_id": "c7ddae9b31f9a1714d886b20625c2eec4068b9bd41801c1bac4aa7ffb5c93b6e",
+  "nas_original_minute_raw_sha256_verified": true,
+  "derived_provider_bin_bytes_NAS_restored": false
+}

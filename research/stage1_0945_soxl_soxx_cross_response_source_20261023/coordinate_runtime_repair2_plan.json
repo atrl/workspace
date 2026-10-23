@@ -1,0 +1,6 @@
+{
+  "cause": "The repo Qlib 0.9.7 runtime does not resolve the saved parent experiment by name in this context; no Recorder object was loaded on attempt 2.",
+  "fixed_repair": "Set MLFLOW_ALLOW_FILE_STORE=true and use the saved experiment_id 905520356740140469 with the same recorder_id and URI. A Recorder-only status lookup already returned FINISHED. Then rerun the unchanged Qlib feature and coordinate calculation once.",
+  "physical_budget_addendum": {"Qlib_feature_reads": 1, "Recorder_status_lookups": 1},
+  "stop": "If saved objects cannot load by explicit ID, stop. Do not change data, formula, training dates or model gates."
+}

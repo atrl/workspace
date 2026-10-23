@@ -1,0 +1,7 @@
+experiment: stage1_0945_soxl_soxx_cross_response_source_20261023
+mode: Qlib_0945_firstbar_source_and_training_redundancy
+parent: frozen_complete_Stage1_0bp_IBKR_Tiered
+provider: data/qlib/soxl_intraday_15min
+source_Recorder: research/stage1_original_0bp_signal_loss_chain_v2_20261023/summary.json
+model_fits: 0
+native_accounts: 0

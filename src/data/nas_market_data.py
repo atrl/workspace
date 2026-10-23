@@ -86,19 +86,26 @@ def _settings(root: Path) -> dict:
 def _latest_verified_snapshot(settings: dict) -> dict:
     # sync.current is also refreshed by the daily updater. Its source index is
     # reconstructible from immutable NAS snapshots, never from local caches.
+    source_manifest_path = settings.get(
+        "source_manifest_path", "data/raw/external/semis_minute_refresh/source_manifest.json"
+    )
     script = """import json,hashlib
 from pathlib import Path
 parent=Path(PARENT)
+expected_source_manifest=SOURCE_MANIFEST_PATH
 candidates=[]
 for path in parent.glob('*/nas_binding.json'):
  data=json.loads(path.read_text())
  if data.get('verified') is not True or data.get('authority')!='yanxuan_nas':continue
  if data['snapshot_root']!=str(path.parent):continue
- source=path.parent/data['source_manifest_path']
+ if data.get('source_manifest_path')!=expected_source_manifest:continue
+ source=path.parent/expected_source_manifest
  if hashlib.sha256(source.read_bytes()).hexdigest()!=data['source_id']:continue
  candidates.append(data)
 print(json.dumps(max(candidates,key=lambda item:(item['as_of'],item['verified_at'])) if candidates else {}))
-""".replace("PARENT", repr(settings["snapshot_parent"]))
+""".replace("PARENT", repr(settings["snapshot_parent"])).replace(
+        "SOURCE_MANIFEST_PATH", repr(source_manifest_path)
+    )
     binding = json.loads(_ssh(settings["ssh"], "python3 -", input=script))
     if not binding:
         raise ValueError("needs_data: no verified NAS minute snapshot")

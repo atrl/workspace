@@ -1,0 +1,20 @@
+{
+  "status": "original_minute_snapshot_remote_hash_and_scoped_manifest_readback_verified",
+  "as_of": "2026-10-21",
+  "source_id": "c7ddae9b31f9a1714d886b20625c2eec4068b9bd41801c1bac4aa7ffb5c93b6e",
+  "source_manifest_path": "data/raw/external/semis_minute_refresh/source_manifest.json",
+  "scoped_remote_manifest_bytes": 1391,
+  "scoped_remote_manifest_sha256": "c7ddae9b31f9a1714d886b20625c2eec4068b9bd41801c1bac4aa7ffb5c93b6e",
+  "local_manifest_exact_match": true,
+  "raw_cache_path": "data/processed/intraday/soxl_soxx_none_1m.parquet",
+  "raw_cache_bytes": 64529199,
+  "local_and_remote_raw_sha256": "4af9368923332a02acad24bd5edbc74f87333898c41ed9f6e5c41332381431b4",
+  "remote_raw_hash_match": true,
+  "derived_15min_provider_manifest_sha256": "d373f95cb349532338e88160cbf9a1d56b75a68fdff3cea119ec96454bdc7c34",
+  "derived_provider_bin_bytes_scoped_restored": false,
+  "historical_day_by_day_first_receipt_qualified": false,
+  "sync_current_us_semis_intraday_entry_present_at_read": false,
+  "pre_fix_unfiltered_fallback_returned": "ALFRED_public_graph_CSV_snapshot_2026-10-23",
+  "post_fix_filtered_fallback_source_id": "c7ddae9b31f9a1714d886b20625c2eec4068b9bd41801c1bac4aa7ffb5c93b6e",
+  "NAS_registry_modified": false
+}

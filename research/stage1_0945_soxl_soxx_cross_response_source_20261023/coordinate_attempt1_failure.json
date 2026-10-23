@@ -1,0 +1,13 @@
+{
+  "phase": "source_only_coordinate_constructibility_and_training_redundancy",
+  "status": "failed_before_result",
+  "interpreter": "/opt/homebrew/Cellar/python@3.14/3.14.3_1/Frameworks/Python.framework/Versions/3.14/bin/python3",
+  "failure": "OMP Error #15: libomp.dylib already initialized when loading the saved Stage1 model and feature Recorder objects",
+  "source_Qlib_feature_read_attempts": 1,
+  "source_Recorder_object_load_attempts": 2,
+  "result_written": false,
+  "market_outcome_reads": 0,
+  "model_fits": 0,
+  "native_accounts": 0,
+  "repair": "Retry the identical frozen code once under repository qlib_venv Python 3.12 without KMP_DUPLICATE_LIB_OK. Preserve this failed attempt and count the extra physical reads."
+}

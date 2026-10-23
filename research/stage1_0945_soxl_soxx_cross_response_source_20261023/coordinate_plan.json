@@ -1,0 +1,12 @@
+{
+  "phase": "source_only_coordinate_constructibility_and_training_redundancy",
+  "trigger": "The fixed first-bar source gate found 1061/1062 complete paired 2018-2022 dates and 944/944 complete paired held Stage1 dates; 2020-03-16 is unknown.",
+  "formula": "(SOXL first completed 09:45 bar close/open - 1) - 3*(SOXX first completed 09:45 bar close/open - 1), from the same published-affine Qlib provider. It is a cross-ETF response, not ETF tracking error.",
+  "fixed_checks": [
+    "Re-read the same Qlib provider once; compute the coordinate only on paired complete bars and retain NaN for unknown dates.",
+    "Load the frozen original Stage1 model feature-order object and original 39-input Qlib Recorder object once each. On 2018-2022 known training dates only, report maximal absolute Spearman correlation with each original input and coordinate finite/quantile checks. Do not read labels or held outcomes.",
+    "Do not choose a sign, threshold, lag, outcome window or account action from these source-only values. Historical first receipt and exact NAS snapshot identity remain unqualified."
+  ],
+  "budget": {"Qlib_feature_reads": 1, "source_Recorder_object_reads": 2, "SOXX_outcome_reads": 0, "model_fits": 0, "native_accounts": 0, "new_Recorders": 0},
+  "stop": "A coordinate with non-finite known values or exact duplicate original input is stopped before a separate frozen information gate. Otherwise this only establishes source constructibility, not predictive value or promotion."
+}

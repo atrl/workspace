@@ -387,6 +387,45 @@ def test_nas_source_registration_preserves_other_state_and_recovers_replaced_ind
     assert source["observation"]["index_reconstructed_from_verified_nas_snapshots"]
 
 
+def test_nas_snapshot_fallback_ignores_other_sources_in_shared_parent(tmp_path, monkeypatch):
+    import hashlib
+    import json
+    import subprocess
+    import sys
+    from src.data import nas_market_data as nas
+
+    parent = tmp_path / "snapshots"
+    minute_path = "data/raw/external/semis_minute_refresh/source_manifest.json"
+    for kind, as_of, manifest_path in (
+        ("minute", "2026-10-21", minute_path),
+        ("treasury", "2026-10-23", "data/snapshots/treasury/source_manifest.json"),
+    ):
+        root = parent / kind
+        source = root / manifest_path
+        source.parent.mkdir(parents=True)
+        source.write_text(kind)
+        binding = {
+            "authority": "yanxuan_nas",
+            "verified": True,
+            "snapshot_root": str(root),
+            "source_manifest_path": manifest_path,
+            "source_id": hashlib.sha256(source.read_bytes()).hexdigest(),
+            "as_of": as_of,
+            "verified_at": as_of + "T00:00:00Z",
+        }
+        (root / "nas_binding.json").write_text(json.dumps(binding))
+
+    def run_remote(_ssh_config, _command, *, input):
+        result = subprocess.run([sys.executable, "-c", input], text=True, capture_output=True, check=True)
+        return result.stdout
+
+    monkeypatch.setattr(nas, "_ssh", run_remote)
+    selected = nas._latest_verified_snapshot(
+        {"ssh": {}, "snapshot_parent": str(parent), "source_manifest_path": minute_path}
+    )
+    assert selected["snapshot_root"] == str(parent / "minute")
+
+
 def test_nas_snapshot_transport_restores_pinned_bytes_and_rejects_corrupt_published_object(tmp_path, monkeypatch):
     import json
     from pathlib import Path

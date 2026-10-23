@@ -1,0 +1,24 @@
+{
+  "experiment": "stage1_0945_soxl_soxx_cross_response_source_20261023",
+  "phase": "source_only_first_completed_15min_pair_coverage",
+  "parent": "frozen_complete_Stage1_f696_plus_b472_0bp_IBKR_Tiered",
+  "hypothesis": "A completed 09:30-09:45 SOXL-versus-SOXX relative price response may reveal leveraged ETF demand or sector-composition pressure before the 09:46 research decision. It is not asserted to be tracking error because the fund indexes and price adjustments differ.",
+  "candidate_coordinate_if_source_qualifies": "(SOXL_09:45_close / SOXL_09:30_open - 1) - 3 * (SOXX_09:45_close / SOXX_09:30_open - 1); source-only here, no feature/value saved for fitting.",
+  "source_gate": [
+    "Use only Qlib D.calendar and D.features from the fixed 15min SOXL/SOXX provider. Select the bar stamped 09:45 America/New_York and require both instruments, finite positive open/close, is_complete=1, observed_1m_count=expected_1m_count=15.",
+    "Compare complete paired dates separately in 2018-2022 and against all 944 held Stage1 native signal dates. Report missing dates and yearly counts; do not drop unknown dates when describing support.",
+    "Verify provider manifest SHA and held Stage1 Recorder identity. The current provider is a retrospective published-affine cache; first historical receipt and an exact NAS snapshot restore must be independently qualified before any performance claim."
+  ],
+  "sources": {
+    "intraday_provider": "data/qlib/soxl_intraday_15min",
+    "intraday_manifest": "data/qlib/soxl_intraday_15min/qlib_store_manifest.json",
+    "intraday_manifest_sha256": "d373f95cb349532338e88160cbf9a1d56b75a68fdff3cea119ec96454bdc7c34",
+    "held_stage1_summary": "research/stage1_original_0bp_signal_loss_chain_v2_20261023/summary.json",
+    "held_stage1_summary_sha256": "898089b008f1f6f50016ddbbd2fc082f77423464ed8613c54dbdd5fbbae1dc3a",
+    "nas_authority_manifest": "data/nas_sources.json",
+    "nas_authority_manifest_sha256": "1131fed59993ce2e359336f438956e59b601bda61ed9d364a329e47bc8bee91e"
+  },
+  "budget": {"Qlib_calendar_reads": 1, "Qlib_feature_reads": 1, "source_Recorder_object_reads": 1, "new_source_GETs": 0, "SOXX_outcome_reads": 0, "model_fits": 0, "native_accounts": 0, "new_Recorders": 0},
+  "stop": "If the first completed bar lacks full paired coverage, stop before feature design. A coverage pass does not establish historical PIT, incremental prediction, account value, or promotion.",
+  "artifact_policy": {"policy": "slim_card_recorder_first", "workflow_config": "workflow.yaml", "recorder_only_artifacts": []}
+}

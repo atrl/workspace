@@ -1,0 +1,43 @@
+{
+  "decision": "09_45_paired_complete_bar_source_coverage_only",
+  "plan_sha256": "bb8afbb17cdb9ac42bafb781300d49049e46f8baefdd4f45ecbe6667b9158057",
+  "provider_manifest_sha256": "d373f95cb349532338e88160cbf9a1d56b75a68fdff3cea119ec96454bdc7c34",
+  "provider_calendar_firstbar_dates": 2006,
+  "train_2018_2022_calendar_firstbar_dates": 1062,
+  "train_2018_2022_complete_pair_dates": 1061,
+  "train_2018_2022_missing_pair_dates": [
+    "2020-03-16"
+  ],
+  "held_Stage1_signal_dates": 944,
+  "held_dates_in_intraday_provider": 944,
+  "held_complete_pair_dates": 944,
+  "held_missing_pair_dates": [],
+  "held_by_year": {
+    "2023": {
+      "stage1_signal_dates": 250,
+      "paired_complete_first_bars": 250,
+      "missing_dates": []
+    },
+    "2024": {
+      "stage1_signal_dates": 252,
+      "paired_complete_first_bars": 252,
+      "missing_dates": []
+    },
+    "2025": {
+      "stage1_signal_dates": 250,
+      "paired_complete_first_bars": 250,
+      "missing_dates": []
+    },
+    "2026": {
+      "stage1_signal_dates": 192,
+      "paired_complete_first_bars": 192,
+      "missing_dates": []
+    }
+  },
+  "historical_first_receipt_qualified": false,
+  "exact_NAS_snapshot_restore_verified_in_this_card": false,
+  "cross_ETF_response_feature_qualified": false,
+  "SOXX_outcome_reads": 0,
+  "model_fits": 0,
+  "native_accounts": 0
+}

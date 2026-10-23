@@ -2,6 +2,7 @@
   "schema_version": "nas_source_consumer_v1",
   "authority": "yanxuan_nas",
   "source_name": "us_semis_intraday",
+  "source_manifest_path": "data/raw/external/semis_minute_refresh/source_manifest.json",
   "state_key": "sync.current",
   "snapshot_parent": "/volume1/docker/yanxuan/data/market/us_semis/snapshots",
   "artifact_root": "/volume1/docker/yanxuan/registry/research-artifacts",

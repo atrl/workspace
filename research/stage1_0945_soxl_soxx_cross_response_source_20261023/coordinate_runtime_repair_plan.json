@@ -1,0 +1,6 @@
+{
+  "cause": "Initial frozen coordinate execution reached the saved Recorder object load and terminated on duplicate Homebrew OpenMP runtime before writing a result.",
+  "fixed_repair": "Run the same coordinate notebook cell once with qlib_venv/bin/python (Python 3.12, repo Qlib environment). No feature, source, threshold, date or model changes.",
+  "physical_budget_addendum": {"Qlib_feature_reads": 1, "source_Recorder_object_load_attempts": 2},
+  "stop": "If the repo environment cannot read the saved objects, stop with failure evidence. Do not enable KMP_DUPLICATE_LIB_OK or change the scientific calculation."
+}

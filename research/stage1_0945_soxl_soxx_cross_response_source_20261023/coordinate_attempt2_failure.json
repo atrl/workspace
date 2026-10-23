@@ -1,0 +1,13 @@
+{
+  "phase": "source_only_coordinate_constructibility_and_training_redundancy",
+  "status": "failed_before_Recorder_object_read",
+  "interpreter": "qlib_venv/bin/python Python 3.12",
+  "failure": "Qlib 0.9.7 R.get_recorder(experiment_name=...) did not resolve the existing MLflow experiment under this environment; ValueError No valid experiment has been found",
+  "source_Qlib_feature_read_attempts": 1,
+  "source_Recorder_object_load_attempts": 0,
+  "result_written": false,
+  "market_outcome_reads": 0,
+  "model_fits": 0,
+  "native_accounts": 0,
+  "repair": "A separate Recorder-only lookup confirmed the exact experiment ID 905520356740140469 and recorder FINISHED with MLFLOW_ALLOW_FILE_STORE=true. Use that explicit experiment ID; no source/formula/selection change."
+}
