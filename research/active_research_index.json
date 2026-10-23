@@ -605,5 +605,7 @@
   "latest_independent_review_Stage1_common_return_dedup_0bp": "research/stage1_common_return_dedup_0bp_20261023/independent_result_review.json",
   "latest_source_gate_Stage1_Cboe_term_cap_value": "research/stage1_cboe_vix9d_vix3m_cap_source_20261023/summary.json",
   "latest_closed_information_Stage1_Cboe_term_cap_value": "research/stage1_cboe_term_cap_local_value_information_20261023/summary.json",
-  "latest_closed_information_Stage1_credit_pair_cap_value": "research/stage1_credit_pair_cap_local_value_information_20261023/summary.json"
+  "latest_closed_information_Stage1_credit_pair_cap_value": "research/stage1_credit_pair_cap_local_value_information_20261023/summary.json",
+  "latest_source_gate_KCS_2021_Oct_early20_original": "research/kcs_early20_2021_oct_original_source_20261023/summary.json",
+  "latest_NAS_us_semis_intraday_source_refresh": "research/stage1_20261022_minute_source_refresh_20261023/summary.json"
 }
