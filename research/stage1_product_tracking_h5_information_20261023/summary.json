@@ -1,0 +1,76 @@
+{
+  "experiment": "stage1_product_tracking_h5_information_20261023",
+  "decision": "not_promoted_fixed_product_tracking_H5_information_failed",
+  "promotion": "not_promoted_information_only",
+  "objective_achieved": false,
+  "plan_sha256": "5672a8138d05cc469de584352003bfcd486abdc2265de05b240452a9af922143",
+  "source_provider_uri": "data/qlib/minute_information_pit_allocator_20261012/daily_prices",
+  "source_provider_manifest_sha256": "d80a08d479b73098053006909b5e6227b03a56ab705681742d7261088e0a7e6c",
+  "parent_recorder_id": "68e31a0a0fad44e7ba1d1f7d856c7a0d",
+  "recorder_id": "6c50d3adc96b42eba6be0cba098d78fb",
+  "experiment_id": "483760594732810069",
+  "metrics": {
+    "coefficient_standardized": -0.0034873206884033447,
+    "all_held_MSE_baseline": 0.011053668538613231,
+    "all_held_MSE_candidate": 0.010964085583994277,
+    "all_held_MSE_train_mean": 0.009816160572319597,
+    "all_held_improvement_vs_baseline": 8.958295461895436e-05,
+    "all_held_improvement_vs_train_mean": -0.00114792501167468,
+    "first_half_improvement": 5.016756209727138e-05,
+    "second_half_improvement": 0.00012899834714063732,
+    "2024_improvement": 6.853935029354283e-05,
+    "2025_improvement": -0.00010715039764365734
+  },
+  "bootstrap": {
+    "paired_mean_loss_improvement": 8.958295461895436e-05,
+    "lower_bound": -5.7443443092141535e-05,
+    "upper_bound": 0.0002643397950741627,
+    "valid_replicates": 2000,
+    "invalid_replicates": 0,
+    "calendar_rows": 944,
+    "scored_rows": 940
+  },
+  "gates": {
+    "positive_coefficient": false,
+    "beats_baseline": true,
+    "beats_train_mean": false,
+    "both_halves": true,
+    "both_complete_years": false,
+    "positive_block_lower": false
+  },
+  "model_fits": 2,
+  "native_accounts": 0,
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "inputs/*",
+      "models/*",
+      "predictions/*",
+      "analysis/*"
+    ]
+  },
+  "limitations": [
+    "2023-2026 reuse is development feedback, not independent forward evidence.",
+    "H5 labels omit funded Tiered fees and account feedback.",
+    "No cash advantage receiver is tested here."
+  ],
+  "NAS_evidence": {
+    "sha256": "70338233b468c68a825a6189ec02b96c521a6f6f42cdb8b19665f73426133b79",
+    "size_bytes": 130600,
+    "media_type": "application/gzip",
+    "storage_uri": "sha256/70/33/70338233b468c68a825a6189ec02b96c521a6f6f42cdb8b19665f73426133b79",
+    "uploaded_by": "soxl-minute-research",
+    "created_at": "2026-10-23 20:47:01.891295+08",
+    "duplicate": false,
+    "nas_path": "/volume1/docker/yanxuan/registry/research-artifacts/70/33/70338233b468c68a825a6189ec02b96c521a6f6f42cdb8b19665f73426133b79",
+    "recorder_id": "6c50d3adc96b42eba6be0cba098d78fb",
+    "experiment_id": "483760594732810069",
+    "archive_root": "qlib_recorder"
+  },
+  "NAS_readback": {
+    "verified": true,
+    "sha256": "70338233b468c68a825a6189ec02b96c521a6f6f42cdb8b19665f73426133b79"
+  },
+  "NAS_scoped_restore": "nas_scoped_restore.json"
+}

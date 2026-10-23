@@ -1,0 +1,14 @@
+{
+  "status": "verified",
+  "recorder_id": "6c50d3adc96b42eba6be0cba098d78fb",
+  "native_Recorder_readback": [
+    "analysis/metrics",
+    "analysis/gates",
+    "predictions/held_scored",
+    "analysis/full_held_calendar"
+  ],
+  "held_scored_rows": 940,
+  "held_calendar_rows": 944,
+  "NAS_archive_sha256": "70338233b468c68a825a6189ec02b96c521a6f6f42cdb8b19665f73426133b79",
+  "NAS_scoped_member_SHA256_parity": true
+}

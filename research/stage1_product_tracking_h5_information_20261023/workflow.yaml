@@ -1,0 +1,6 @@
+experiment: stage1_product_tracking_h5_information_20261023
+plan: plan.json
+provider_uri: data/qlib/minute_information_pit_allocator_20261012/daily_prices
+parent: research/minute_information_pit_allocator_20261012
+receiver: matched_Ridge_H5_SOXL_relative
+added_slippage: 0bp_information_only_no_account
