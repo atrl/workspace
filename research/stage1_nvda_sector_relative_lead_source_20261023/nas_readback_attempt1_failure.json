@@ -1,0 +1,7 @@
+{
+  "status": "read_only_scoped_restore_alignment_assertion_failed",
+  "error": "Recorder analysis/lead retains the original 3966-row feature calendar through 2026-10-09; result train+held counts deliberately stop the held information at the f696 last signal 2026-10-07 (3020+944). Comparing those lengths was invalid.",
+  "repair": "Verify the restored lead against the full 3966-row source feature calendar and separately verify 3020 train plus 944 f696 held known rows. No source, formula, data or gate change.",
+  "new_fits": 0,
+  "new_accounts": 0
+}

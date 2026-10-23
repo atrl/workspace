@@ -1,0 +1,49 @@
+{
+  "experiment": "stage1_nvda_sector_relative_lead_source_20261023",
+  "frozen": true,
+  "phase": "read_only_single_constituent_leadership_source_and_novelty",
+  "parent": "Exact frozen f696 A_0 allocation plus b472 action/risk/recovery; SOXX is final benchmark, 0bp Tiered own-state account is attribution baseline",
+  "mechanism": "A single semiconductor heavyweight pulling away from or lagging SOXX can indicate narrow versus broad sector leadership, distinct from XSD/SMH ETF-leadership substitution. NVDA price alone is not its SOXX contribution: no historical weight is inferred.",
+  "source": {
+    "old_NVDA_provider": "data/qlib/soxx_pit_leveraged_training_v1",
+    "old_provider_manifest_sha256": "65267558677904f78d2e44056361c5af3e795fe405483483a02a7b23099c560d",
+    "old_NVDA_close_bin_sha256": "eb6e918b05e732aca736ccb0aa45a90916e887d9a1b83ad2f6c50764a5f436cd",
+    "old_provider_as_of": "2026-07-02",
+    "peer_card": "research/semis_context_refresh_20261014",
+    "peer_summary_sha256": "32158267aeaccd7ac2e46f5c7fbabb5886e70d31bf370f7ad7da2e2968a07869",
+    "peer_recorder_NAS_sha256": "4ee32995dd21152c2d95dd3ff8e7f9971fbdc3e8a18a12e8c95df8fc91105665",
+    "peer_verification_manifest_sha256": "b964528093c328efef54e96e5cd574df5b133f46f8b532e45db838f28ded2e39",
+    "peer_raw_NVDA_5min": "data/raw/external/semis_context_refresh_20261014/full/NVDA_none.parquet",
+    "peer_raw_NVDA_5min_sha256": "277e9365c07362bef836c44cb5a96686985da145ae1c22dba1ac042ce20f0eec",
+    "peer_NVDA_actions": "data/raw/external/semis_context_refresh_20261014/tail/NVDA_rehab.parquet",
+    "peer_NVDA_actions_sha256": "aa55fe6b0bfc11c8eaec6a8de57c0660b27ccfb2628b812362734560a1332f0b",
+    "NAS_verified_snapshot_source_id": "4cf2a79d77f8cb38f88f4ead5b554b52f51a48e43b6de99ffa98d51efded3b88",
+    "NAS_peer_object_sha256": "277e9365c07362bef836c44cb5a96686985da145ae1c22dba1ac042ce20f0eec",
+    "Stage1_SOXX_provider": "data/qlib/minute_information_pit_allocator_20261012/daily_prices",
+    "Stage1_provider_manifest_sha256": "d80a08d479b73098053006909b5e6227b03a56ab705681742d7261088e0a7e6c",
+    "original39_card": "research/minute_information_pit_allocator_20261012",
+    "original39_summary_sha256": "61c91f958323cf51b43f4b1554eeca5687011d30771e80bc7ff02d16b6d577ca",
+    "original39_recorder_id": "68e31a0a0fad44e7ba1d1f7d856c7a0d",
+    "original39_experiment_id": "905520356740140469"
+  },
+  "fixed_source_bridge": {
+    "old": "Use pinned Qlib NVDA $close on all Stage1 signal dates through 2026-07-02 inclusive",
+    "tail": "For 2026-07-03 through 2026-10-07, use the final complete regular-session NVDA K_5M AuType.NONE close from the verified NAS peer source, on the same Qlib US session calendar",
+    "seam": "The last 13 common Qlib sessions 2026-06-15 through 2026-07-02 must have raw peer/Qlib close absolute difference <=0.0001 and return difference <=0.000001; no fitted rescaling factor",
+    "split": "Reject any split_ratio corporate action from 2026-07-03 through 2026-10-07; cash dividends are disclosed but this source uses price-only close for both arms",
+    "factor": "log(NVDA close_t / NVDA close_{t-20}) - log(SOXX close_t / SOXX close_{t-20}); completed signal-day t only, available before next trade-day 09:29 ET",
+    "no_fill_or_acquirer_splice": true
+  },
+  "gates": {
+    "train_2011_2022_known_min": 3000,
+    "held_2023_2026_known_min": 940,
+    "seam_common_sessions": 13,
+    "no_tail_split": true,
+    "train_max_abs_spearman_original39_below": 0.8,
+    "NAS_raw_peer_remote_hash_and_local_parity": true,
+    "native_Qlib_store_calendar_and_feature_parity": true
+  },
+  "if_pass": "Only then freeze one SOXL-minus-SOXX H5 matched information screen with original39 and SOXX-only trend controls and a fixed sign; no own-state 0bp account until source timing and information gate are both qualified.",
+  "budget": {"new_market_requests": 0, "future_return_reads": 0, "model_fits": 0, "native_accounts": 0, "new_Recorders_max": 1},
+  "limits": "Existing Yahoo-based historical Qlib prices and retrospective Futu peer bytes do not prove every original first-public vintage. A source/novelty pass remains conditional development evidence, not a tradable or promoted feature."
+}

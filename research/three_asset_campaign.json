@@ -3,6 +3,8 @@
   "campaign": "three_asset_stable_excess_20261015",
   "objective_achieved": false,
   "latest_0bp_candidate_queue_audit": "research/stage1_0bp_candidate_queue_audit_20261023/result.json",
+  "latest_NVDA_SOXX_single_leader_source": "research/stage1_nvda_sector_relative_lead_source_20261023/summary.json",
+  "NVDA_SOXX_single_leader_source_interpretation": "A fixed existing-data bridge uses the old Qlib NVDA close through2026Jul02 and verified NAS NVDA raw 5-minute final regular-session close for67 later f696 sessions throughOct07. Thirteen June15-Jul02 overlap closes differ at most6.714e-6 and returns7.435e-8, with no later split and one disclosed cash dividend. Native Qlib NVDA-minus-SOXX prior20 log momentum is known3020/3020 training and944/944 f696 reused-held signals, max original39 train Spearman0.2153; all7 source/novelty gates pass. It is a single-company leadership proxy, not actual SOXX contribution without historical weights. Source Recorder/NAS scoped restore passed, zero future label/fits/accounts, historical Yahoo/Futu first-public vintages unqualified. A separate fixed SOXL-relative H5 information gate is next; no 0bp result.",
   "economic_failure_diagnosis": {
     "status": "observed_failure_chain_causal_root_unproven",
     "Stage1_objective_alignment": "research/allocator_cash_geometry_20261014/conclusion.md",

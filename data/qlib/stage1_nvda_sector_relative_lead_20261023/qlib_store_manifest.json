@@ -1,0 +1,31 @@
+{
+  "as_of": "2026-10-09",
+  "audit_snapshot_hash": "b2ab96f92bd93fe2",
+  "calendar_end": "2026-10-09",
+  "calendar_start": "2010-03-11",
+  "feature_file_count": 2,
+  "fields": [
+    "$close"
+  ],
+  "freq": "day",
+  "hash": "333a2d4e18b1b455",
+  "instruments": [
+    "NVDA",
+    "SOXX"
+  ],
+  "market": "all",
+  "max_datetime": "2026-10-09",
+  "operation": "qlib_store_build",
+  "provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/stage1_nvda_sector_relative_lead_20261023",
+  "region": "us",
+  "row_count": 8342,
+  "source": "old_NVDA_Qlib_manifest=65267558677904f78d2e44056361c5af3e795fe405483483a02a7b23099c560d;tail_peer_NAS=4cf2a79d77f8cb38f88f4ead5b554b52f51a48e43b6de99ffa98d51efded3b88;SOXX_Stage1_manifest=d80a08d479b73098053006909b5e6227b03a56ab705681742d7261088e0a7e6c",
+  "source_api": [
+    "qlib.init",
+    "qlib.data.storage.file_storage.FileFeatureStorage",
+    "qlib.data.D.calendar",
+    "qlib.data.D.instruments",
+    "qlib.data.D.features"
+  ],
+  "status": "ok"
+}

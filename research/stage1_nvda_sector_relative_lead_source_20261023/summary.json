@@ -1,0 +1,42 @@
+{
+  "experiment": "stage1_nvda_sector_relative_lead_source_20261023",
+  "decision": "conditional_source_novelty_pass_first_public_pending",
+  "objective_achieved": false,
+  "plan_sha256": "24e7983f38cd45abe3e93936d2adb47316aad52b8c167e644285a4c83d23ee47",
+  "result": "result.json",
+  "recorder_id": "0d8cebe535424f5eb36fbb30a8ffc466",
+  "experiment_id": "336674445236657879",
+  "NAS_evidence": {
+    "sha256": "070c917669a8ff4b748e53d005f8d689da777b80dfa2308b6a35f41fdf9e6feb",
+    "size_bytes": 123393,
+    "media_type": "application/gzip",
+    "storage_uri": "sha256/07/0c/070c917669a8ff4b748e53d005f8d689da777b80dfa2308b6a35f41fdf9e6feb",
+    "uploaded_by": "soxl-minute-research",
+    "created_at": "2026-10-23 23:47:38.94083+08",
+    "duplicate": false,
+    "nas_path": "/volume1/docker/yanxuan/registry/research-artifacts/07/0c/070c917669a8ff4b748e53d005f8d689da777b80dfa2308b6a35f41fdf9e6feb",
+    "recorder_id": "0d8cebe535424f5eb36fbb30a8ffc466",
+    "experiment_id": "336674445236657879",
+    "archive_root": "qlib_recorder"
+  },
+  "NAS_readback": {
+    "verified": true,
+    "sha256": "070c917669a8ff4b748e53d005f8d689da777b80dfa2308b6a35f41fdf9e6feb"
+  },
+  "new_model_fits": 0,
+  "new_native_accounts": 0,
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "inputs/*",
+      "analysis/lead",
+      "analysis/seam"
+    ]
+  },
+  "limitations": [
+    "NVDA price leadership is not its SOXX portfolio contribution without historical weights.",
+    "Yahoo-derived older Qlib prices and retrospective peer Futu history do not prove original first-public vintages.",
+    "Source and novelty checks do not establish H5 predictive value or SOXX excess."
+  ]
+}

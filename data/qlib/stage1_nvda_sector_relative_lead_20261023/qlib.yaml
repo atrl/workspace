@@ -1,0 +1,8 @@
+# Qlib configuration
+provider_uri: /Users/rziiiii/dev/workspace/data/qlib/stage1_nvda_sector_relative_lead_20261023
+redis:
+  host: null
+  port: null
+market:
+  market: all
+  market_type: stock
