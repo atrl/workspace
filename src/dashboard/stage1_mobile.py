@@ -37,20 +37,33 @@ def build_stage1_mobile_summary(root: Path) -> dict[str, Any]:
     if len(paired) >= 2:
         first, last = paired[0], paired[-1]
         if first.get("date") != last.get("date"):
+            first_equity = float(first["equity"])
+            first_prices = {symbol: float(first["prices"][symbol]) for symbol in ("SOXX", "SOXL")}
             returns = {
-                "Stage1": 100 * (float(last["equity"]) / float(first["equity"]) - 1),
+                "Stage1": 100 * (float(last["equity"]) / first_equity - 1),
                 **{symbol: 100 * (float(last["prices"][symbol]) /
-                                  float(first["prices"][symbol]) - 1)
+                                  first_prices[symbol] - 1)
                    for symbol in ("SOXX", "SOXL")},
             }
+            series = [
+                {
+                    "date": row["date"],
+                    "stage1_nav": float(row["equity"]) / first_equity,
+                    "soxx_nav": float(row["prices"]["SOXX"]) / first_prices["SOXX"],
+                    "soxl_nav": float(row["prices"]["SOXL"]) / first_prices["SOXL"],
+                }
+                for row in paired
+            ]
             performance = {
                 "start": first["date"], "end": last["date"],
                 "source": "paired_settled_qlib_marks",
                 "returns_pct": returns,
+                "series": series,
+                "series_basis": "first_paired_settled_mark_equals_one",
                 "difference_vs_soxx_pp": returns["Stage1"] - returns["SOXX"],
                 "difference_vs_soxl_pp": returns["Stage1"] - returns["SOXL"],
                 "comparison_status": "diagnostic_only",
-                "note": "同窗收盘标记；SOXX/SOXL 为持有收益，未计基线交易成本；非晋升证据",
+                "note": "仅连接已有Qlib结算标记；SOXX/SOXL为持有收益，未计基线交易成本；非晋升证据",
             }
 
     fills = [row for row in ledger.get("fills", []) if isinstance(row, dict)

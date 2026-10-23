@@ -27,6 +27,12 @@ def test_mobile_summary_uses_paired_qlib_marks_and_confirmed_fills(tmp_path):
     assert summary["status"] == "ready"
     assert summary["performance"]["returns_pct"] == pytest.approx({"Stage1": 10.0, "SOXX": 5.0, "SOXL": 10.0})
     assert summary["performance"]["difference_vs_soxx_pp"] == pytest.approx(5.0)
+    assert summary["performance"]["series_basis"] == "first_paired_settled_mark_equals_one"
+    assert summary["performance"]["series"] == [
+        {"date": "2026-10-20", "stage1_nav": 1.0, "soxx_nav": 1.0, "soxl_nav": 1.0},
+        {"date": "2026-10-21", "stage1_nav": pytest.approx(1.1),
+         "soxx_nav": pytest.approx(1.05), "soxl_nav": pytest.approx(1.1)},
+    ]
     assert summary["recent_fills"][-1]["side"] == "BUY"
     assert {row["side"] for row in summary["latest_by_side"]} == {"BUY", "SELL"}
     message = build_stage1_bark_message({"status": "heartbeat", "slot": "daily_heartbeat"},
