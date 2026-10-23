@@ -1,0 +1,75 @@
+{
+  "schema_version": 1,
+  "frozen": true,
+  "experiment": "stage1_nvda_datacenter_mellanox_semantics_v2_20261023",
+  "phase": "original_SEC_first_Mellanox_inclusion_and_four_YoY_comparability_mask",
+  "predecessor_failure": "research/stage1_nvda_datacenter_mellanox_semantics_20261023/attempt1_failure.json",
+  "predecessor_failure_sha256": "c358a51bff5004b8f8c246d2b450f9bab1b6397eaa09e2c18677583ce599c300",
+  "source_result": "research/stage1_nvda_datacenter_q4_table_lineage_repair_20261023/result.json",
+  "source_result_sha256": "a7e6107d68ab0cabc0e852e6e48a593178adf04052ce0b774d1f7538edd142b6",
+  "exact_original": {
+    "accession": "0001045810-20-000145",
+    "filing_date": "2020-08-19",
+    "raw_sha256": "42985ad180589d8cc0c2648e4ec75aab27fe9125fcb7aa6a249dc6fc9329190f",
+    "path": "data/snapshots/stage1_amd_nvda_sec_guidance_original_probe_20261023/item202_0001045810-20-000145.txt"
+  },
+  "frozen_four_accessions": [
+    {
+      "accession": "0001045810-20-000145",
+      "filing_date": "2020-08-19",
+      "raw_sha256": "42985ad180589d8cc0c2648e4ec75aab27fe9125fcb7aa6a249dc6fc9329190f",
+      "current_million": 1752,
+      "prior_year_million": 655,
+      "same_release_YoY": 1.6748091603053434,
+      "first_conservative_Qlib_signal_date": "2020-08-20"
+    },
+    {
+      "accession": "0001045810-20-000187",
+      "filing_date": "2020-11-18",
+      "raw_sha256": "24d4b05f92a8bf152495cfd359ac6e4de235d0320090ab658bb5ae958db76721",
+      "current_million": 1900,
+      "prior_year_million": 726,
+      "same_release_YoY": 1.6170798898071626,
+      "first_conservative_Qlib_signal_date": "2020-11-19"
+    },
+    {
+      "accession": "0001045810-21-000007",
+      "filing_date": "2021-02-24",
+      "raw_sha256": "5f12358c95fb100d02b98e354fd9aa8a59c9d8bba18098b3c357b0c407631f21",
+      "current_million": 1903,
+      "prior_year_million": 968,
+      "same_release_YoY": 0.9659090909090908,
+      "first_conservative_Qlib_signal_date": "2021-02-25"
+    },
+    {
+      "accession": "0001045810-21-000063",
+      "filing_date": "2021-05-26",
+      "raw_sha256": "c8134497d791c2059fbee573190d7d46c8e11e3dd674e1c1829b7a8451bb89d2",
+      "current_million": 2048,
+      "prior_year_million": 1141,
+      "same_release_YoY": 0.7949167397020158,
+      "first_conservative_Qlib_signal_date": "2021-05-27"
+    }
+  ],
+  "first_comparable_after_one_year": {
+    "accession": "0001045810-21-000128",
+    "filing_date": "2021-08-18",
+    "raw_sha256": "1b336053658044874eee217b92609c3723660fb3738297e6f2ac6082e3525825",
+    "first_conservative_Qlib_signal_date": "2021-08-19"
+  },
+  "fixed_source_test": "Read only exact 2020-08-19 original SEC submission once, select original EX-99.1/EX-99.2 HTML TEXT, and require explicit April 27 2020 Mellanox close plus original text that Data Center revenue includes Mellanox or gives its contribution. Join with saved 2020-05-21 pre-inclusion and 2021-08-18 post-one-year control receipts without rereading them. Preserve all numbers; mark four listed YoY quarter events structurally incomparable because current includes acquired Mellanox and prior-year does not. Do not infer all later definitions constant.",
+  "budget": {
+    "new_HTTP_GETs": 0,
+    "new_original_raw_reads": 1,
+    "market_outcome_reads": 0,
+    "model_fits": 0,
+    "native_accounts": 0,
+    "new_Qlib_Recorders": 0
+  },
+  "stop": "If original source hash or explicit acquisition/Data Center inclusion phrase fails, stop without a mask. No future outcome or strategy use.",
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": []
+  }
+}

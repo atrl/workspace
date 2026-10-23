@@ -1,0 +1,13 @@
+{
+  "verdict": "CONFIRM_ORIGINAL_SEC_MELLANOX_FOUR_EVENT_COMPARABILITY_MASK",
+  "review_scope": "read_only_frozen_v1_failure_v2_original_SEC_source_four_events_NAS",
+  "confirmed": [
+    "V1 preserved exactly two raw reads and a failed wrong-control assertion, with zero outcomes, fits or accounts.",
+    "V2 pinned only the 2020-08-19 original SEC file; its raw SHA and two EX-99 TEXT parts match the saved source text hash.",
+    "Original text states the Mellanox acquisition closed April 27, 2020, the first fiscal Q2 day, and that Data Center revenue included Mellanox, contributing just over 30% that quarter.",
+    "Four frozen fiscal Q2/Q3 FY21 and Q4/Q1 FY22 current-versus-prior-year events match the parent numeric identities and cross the acquisition scope boundary.",
+    "The 2021-08-18 fiscal Q2 FY22 event is the first after-one-year reference, not proof all later definitions are stable.",
+    "V2 and parent raw NAS remote digests and scoped members match; no numeric values changed or new HTTP/outcome/fit/account ran."
+  ],
+  "limits": "This marks four reported YoY values structurally incomparable for the proposed demand feature. It does not prove an organic AI demand signal, other platform definitions, or exact issuer first-publication timing."
+}

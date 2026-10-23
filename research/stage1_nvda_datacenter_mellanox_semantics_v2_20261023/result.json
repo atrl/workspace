@@ -1,0 +1,56 @@
+{
+  "decision": "original_SEC_Mellanox_four_YoY_events_incomparable_source_mask",
+  "plan_sha256": "25198df887dd8269587e6fb6c5c7a1c599836126097a8c10532dc8a641b61965",
+  "new_raw_original_reads": 1,
+  "first_inclusion_original": {
+    "accession": "0001045810-20-000145",
+    "raw_sha256": "42985ad180589d8cc0c2648e4ec75aab27fe9125fcb7aa6a249dc6fc9329190f",
+    "EX99_document_text_count": 2,
+    "Mellanox_close_April27_2020_in_original": true,
+    "Data_Center_includes_Mellanox_in_original": true,
+    "selected_text_sha256": "28f260edd8cbcb9160ea6b0bb118939e663b3c1bd8d38c25595ca80b6e6b0cee"
+  },
+  "predecessor_two_read_failure_preserved": true,
+  "masked_events": [
+    {
+      "accession": "0001045810-20-000145",
+      "filing_date": "2020-08-19",
+      "first_conservative_Qlib_signal_date": "2020-08-20",
+      "raw_sha256": "42985ad180589d8cc0c2648e4ec75aab27fe9125fcb7aa6a249dc6fc9329190f",
+      "comparability": "unknown_Mellanox_current_prior_year_asymmetry"
+    },
+    {
+      "accession": "0001045810-20-000187",
+      "filing_date": "2020-11-18",
+      "first_conservative_Qlib_signal_date": "2020-11-19",
+      "raw_sha256": "24d4b05f92a8bf152495cfd359ac6e4de235d0320090ab658bb5ae958db76721",
+      "comparability": "unknown_Mellanox_current_prior_year_asymmetry"
+    },
+    {
+      "accession": "0001045810-21-000007",
+      "filing_date": "2021-02-24",
+      "first_conservative_Qlib_signal_date": "2021-02-25",
+      "raw_sha256": "5f12358c95fb100d02b98e354fd9aa8a59c9d8bba18098b3c357b0c407631f21",
+      "comparability": "unknown_Mellanox_current_prior_year_asymmetry"
+    },
+    {
+      "accession": "0001045810-21-000063",
+      "filing_date": "2021-05-26",
+      "first_conservative_Qlib_signal_date": "2021-05-27",
+      "raw_sha256": "c8134497d791c2059fbee573190d7d46c8e11e3dd674e1c1829b7a8451bb89d2",
+      "comparability": "unknown_Mellanox_current_prior_year_asymmetry"
+    }
+  ],
+  "first_after_one_year_original_reference": {
+    "accession": "0001045810-21-000128",
+    "filing_date": "2021-08-18",
+    "raw_sha256": "1b336053658044874eee217b92609c3723660fb3738297e6f2ac6082e3525825",
+    "first_conservative_Qlib_signal_date": "2021-08-19"
+  },
+  "numeric_values_changed": false,
+  "other_definition_changes_qualified_absent": false,
+  "issuer_first_publication_qualified": false,
+  "market_outcome_reads": 0,
+  "model_fits": 0,
+  "native_accounts": 0
+}

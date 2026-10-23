@@ -1,0 +1,17 @@
+{
+  "experiment": "stage1_nvda_datacenter_mellanox_semantics_20261023",
+  "decision": "failed_wrong_frozen_source_control_no_semantic_admission",
+  "objective_achieved": false,
+  "plan_sha256": "6e97608e6c5476f27525f189e6e65740e89d8a17a06f91fde272e7a79b592e4a",
+  "failure": "attempt1_failure.json",
+  "raw_original_reads": 2,
+  "new_HTTP_GETs": 0,
+  "market_outcome_reads": 0,
+  "model_fits": 0,
+  "native_accounts": 0,
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": []
+  }
+}

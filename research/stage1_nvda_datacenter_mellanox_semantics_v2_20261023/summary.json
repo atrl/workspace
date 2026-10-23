@@ -1,0 +1,21 @@
+{
+  "experiment": "stage1_nvda_datacenter_mellanox_semantics_v2_20261023",
+  "decision": "original_SEC_Mellanox_four_YoY_events_incomparable_source_mask",
+  "objective_achieved": false,
+  "plan_sha256": "25198df887dd8269587e6fb6c5c7a1c599836126097a8c10532dc8a641b61965",
+  "result": "result.json",
+  "source_archive": "nas_source_archive.json",
+  "new_raw_original_reads": 1,
+  "model_fits": 0,
+  "native_accounts": 0,
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": []
+  },
+  "limitations": [
+    "Four reported YoY events are source-incomparable due to Mellanox current/prior-year asymmetry.",
+    "The first after-one-year event is a comparability boundary only, not proof all later platform definitions are stable.",
+    "No SOXX market outcome or trading account."
+  ]
+}

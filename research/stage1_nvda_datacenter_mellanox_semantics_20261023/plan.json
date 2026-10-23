@@ -1,0 +1,81 @@
+{
+  "schema_version": 1,
+  "frozen": true,
+  "experiment": "stage1_nvda_datacenter_mellanox_semantics_20261023",
+  "phase": "original_SEC_Mellanox_Data_Center_reported_YoY_definition_boundary",
+  "question": "Which original same-release Data Center YoY events compare a post-Mellanox current quarter with a pre-Mellanox prior-year quarter, and must be marked structurally incomparable before a Stage1 demand information screen?",
+  "sources": {
+    "parent_numeric_card": "research/stage1_nvda_datacenter_q4_table_lineage_repair_20261023",
+    "parent_result_sha256": "a7e6107d68ab0cabc0e852e6e48a593178adf04052ce0b774d1f7538edd142b6",
+    "parent_summary_sha256": "3d0833971ed66e883ac226d6d42b65724fe222c8aa1bd329fdb018fd2d27a34b",
+    "original_raw_root": "data/snapshots/stage1_amd_nvda_sec_guidance_original_probe_20261023",
+    "original_raw_template": "item202_{accession}.txt",
+    "raw_NAS_archive_sha256": "8273fd8c00608f5b2f1faf81368b9f3c238919f297b5d868c8af319b115d9cee"
+  },
+  "exact_definition_transition_accessions": [
+    {
+      "accession": "0001045810-20-000145",
+      "filing_date": "2020-08-19",
+      "raw_sha256": "42985ad180589d8cc0c2648e4ec75aab27fe9125fcb7aa6a249dc6fc9329190f",
+      "current_million": 1752,
+      "prior_year_million": 655,
+      "same_release_YoY": 1.6748091603053434
+    },
+    {
+      "accession": "0001045810-20-000187",
+      "filing_date": "2020-11-18",
+      "raw_sha256": "24d4b05f92a8bf152495cfd359ac6e4de235d0320090ab658bb5ae958db76721",
+      "current_million": 1900,
+      "prior_year_million": 726,
+      "same_release_YoY": 1.6170798898071626
+    },
+    {
+      "accession": "0001045810-21-000007",
+      "filing_date": "2021-02-24",
+      "raw_sha256": "5f12358c95fb100d02b98e354fd9aa8a59c9d8bba18098b3c357b0c407631f21",
+      "current_million": 1903,
+      "prior_year_million": 968,
+      "same_release_YoY": 0.9659090909090908
+    },
+    {
+      "accession": "0001045810-21-000063",
+      "filing_date": "2021-05-26",
+      "raw_sha256": "c8134497d791c2059fbee573190d7d46c8e11e3dd674e1c1829b7a8451bb89d2",
+      "current_million": 2048,
+      "prior_year_million": 1141,
+      "same_release_YoY": 0.7949167397020158
+    }
+  ],
+  "source_text_controls": [
+    {
+      "accession": "0001045810-20-000063",
+      "filing_date": "2020-05-21",
+      "raw_sha256": "2485107bde56ace7a00f9a27df0bd926c53551ef15dc6ad392ac8eae1c709db1"
+    },
+    {
+      "accession": "0001045810-21-000128",
+      "filing_date": "2021-08-18",
+      "raw_sha256": "1b336053658044874eee217b92609c3723660fb3738297e6f2ac6082e3525825"
+    }
+  ],
+  "frozen_rule": "Mellanox closed April 27 2020, first day of NVIDIA fiscal Q2 FY2021, and was included in reported Data Center thereafter. Mark the four fiscal Q2FY21 through Q1FY22 year-over-year rows unknown because current includes Mellanox while prior-year does not; Q1FY21 predates inclusion, and Q2FY22 has Mellanox on both same-release current/prior-year bases. This is a comparability mask, not a market-derived sign/window choice.",
+  "fixed_checks": [
+    "Verify two original raw controls have exact hashes and SEC exhibit text confirming pre-inclusion Q1 and inclusion from Q2.",
+    "Verify all four masked accessions and one post-boundary accession are numeric in the parent result and no other values altered.",
+    "Preserve event dates and hash identity; do not compute SOXX outcome, fit or account."
+  ],
+  "budget": {
+    "new_HTTP_GETs": 0,
+    "original_raw_reads_max": 2,
+    "market_outcome_reads": 0,
+    "model_fits": 0,
+    "native_accounts": 0,
+    "new_Qlib_Recorders": 0
+  },
+  "stop": "If original controls do not establish the acquisition inclusion boundary, mark semantics unknown and do not fit. Do not claim other platform definition changes absent.",
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": []
+  }
+}

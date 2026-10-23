@@ -1,0 +1,29 @@
+{
+  "status": "failed_frozen_source_control_wrong_issuer_event",
+  "plan_sha256": "6e97608e6c5476f27525f189e6e65740e89d8a17a06f91fde272e7a79b592e4a",
+  "cause": "Second frozen source_text_control was 2021-08-18, not the 2020-08-19 first Mellanox-included quarter. Original two source reads and phrase checks correctly failed the explicit Q2-inclusion assertion.",
+  "raw_original_reads": 2,
+  "new_HTTP_GETs": 0,
+  "market_outcome_reads": 0,
+  "numeric_values_extracted": 0,
+  "model_fits": 0,
+  "native_accounts": 0,
+  "Qlib_Recorders": 0,
+  "source_control_observations": [
+    {
+      "accession": "0001045810-20-000063",
+      "filing_date": "2020-05-21",
+      "raw_sha256": "2485107bde56ace7a00f9a27df0bd926c53551ef15dc6ad392ac8eae1c709db1",
+      "Q1_outlook_next_quarter_Mellanox": true,
+      "source_text_sha256": "ca85fb7812f47a3bb50d8ef8e0e0683f7fddcc81f25aae5fdd1df7680c3a3c3a"
+    },
+    {
+      "accession": "0001045810-21-000128",
+      "filing_date": "2021-08-18",
+      "raw_sha256": "1b336053658044874eee217b92609c3723660fb3738297e6f2ac6082e3525825",
+      "Q2_initial_inclusion": false,
+      "source_text_sha256": "a5015cd71030b465476ce126fa6e2fc44535499c645ec2ea6311ef90d7e40829"
+    }
+  ],
+  "next": "New separately frozen v2 with exactly 2020-08-19 original first-inclusion source and one raw read; do not rerun this version."
+}

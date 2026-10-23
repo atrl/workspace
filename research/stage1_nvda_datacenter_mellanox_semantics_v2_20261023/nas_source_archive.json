@@ -1,0 +1,11 @@
+{
+  "status": "semantics_source_NAS_scoped_restore_verified",
+  "sha256": "06b7486cf4a6297a8db0f67233627b5866b7359b75bd5a64db145c22d11e532e",
+  "size_bytes": 2149,
+  "nas_path": "/volume1/docker/yanxuan/registry/research-artifacts/06/b7/06b7486cf4a6297a8db0f67233627b5866b7359b75bd5a64db145c22d11e532e",
+  "members": {
+    "research/stage1_nvda_datacenter_mellanox_semantics_v2_20261023/plan.json": "25198df887dd8269587e6fb6c5c7a1c599836126097a8c10532dc8a641b61965",
+    "research/stage1_nvda_datacenter_mellanox_semantics_v2_20261023/result.json": "77028e0fc2364527118fa781a20997c31ee24c3379630c1ae90c0cd9d70bf126"
+  },
+  "verified": true
+}
