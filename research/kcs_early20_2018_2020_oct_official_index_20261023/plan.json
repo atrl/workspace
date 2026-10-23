@@ -1,0 +1,48 @@
+{
+  "schema_version": 1,
+  "experiment": "kcs_early20_2018_2020_oct_official_index_20261023",
+  "frozen": true,
+  "phase": "three_official_KCS_Oct_early20_historical_release_index_queries_only",
+  "question": "Do official Korean government press-release list queries expose identifiable October1-20 KCS original-release pages for 2018,2019,2020, complementing already NAS-backed 2021/2022 official October examples?",
+  "known_controls": {
+    "2021": "research/kcs_early20_2021_oct_original_source_20261023/summary.json",
+    "2022": "research/kcs_early20_2022_oct_original_hwp_20261023/summary.json"
+  },
+  "exact_requests": [
+    {
+      "year": 2018,
+      "name": "2018_Oct20_25_list.html",
+      "url": "https://www.korea.kr/briefing/pressReleaseList.do?startDate=2018-10-20&endDate=2018-10-25&srchWord=%EC%88%98%EC%B6%9C%EC%9E%85&repCode=B00003&repCodeType=%EC%A0%95%EB%B6%80%EB%B6%80%EC%B2%98&pageIndex=1"
+    },
+    {
+      "year": 2019,
+      "name": "2019_Oct20_25_list.html",
+      "url": "https://www.korea.kr/briefing/pressReleaseList.do?startDate=2019-10-20&endDate=2019-10-25&srchWord=%EC%88%98%EC%B6%9C%EC%9E%85&repCode=B00003&repCodeType=%EC%A0%95%EB%B6%80%EB%B6%80%EC%B2%98&pageIndex=1"
+    },
+    {
+      "year": 2020,
+      "name": "2020_Oct20_25_list.html",
+      "url": "https://www.korea.kr/briefing/pressReleaseList.do?startDate=2020-10-20&endDate=2020-10-25&srchWord=%EC%88%98%EC%B6%9C%EC%9E%85&repCode=B00003&repCodeType=%EC%A0%95%EB%B6%80%EB%B6%80%EC%B2%98&pageIndex=1"
+    }
+  ],
+  "transport": {
+    "method": "GET",
+    "max_GETs": 3,
+    "retries": 0,
+    "connect_timeout_seconds": 10,
+    "total_timeout_seconds_each": 25,
+    "max_response_bytes_each": 500000,
+    "user_agent": "soxl-qlib-source-research"
+  },
+  "identity_gate": "Each response HTTP200 official korea.kr list HTML for its frozen date range. Preserve exact bytes, headers, UTC time and SHA-256; NAS archive/remote hash/scoped restore. Parse only returned pressReleaseView links with title, displayed date and agency; accept October 1-20 KCS source lead only when title/date/agency match. If zero or ambiguous, report unknown, not source absence. Do not follow article/attachment links in this card.",
+  "timing_boundary": "List query and a current archived title do not prove exact original attachment bytes, release second or first availability. A later exact-source card must separately freeze article/attachment URLs and check semantics before any factor.",
+  "budget": {
+    "external_GETs_max": 3,
+    "NAS_snapshots_max": 1,
+    "SOXX_outcome_reads": 0,
+    "model_fits": 0,
+    "native_accounts": 0,
+    "strategy_forward_days": 0
+  },
+  "stop": "No retries, pagination changes or alternate search terms after result. An index lead is source-only, not a complete 2018-2022 monthly training panel or Stage1 0bp economic result."
+}

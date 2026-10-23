@@ -1,0 +1,31 @@
+{
+  "experiment": "kcs_early20_2018_2020_oct_official_index_20261023",
+  "decision": "official_KCS_2018_2020_Oct_early20_index_leads_mapped_source_only",
+  "objective_achieved": false,
+  "plan_sha256": "c80686114440771c7b2bd21b72316789a4c3984907877dc299f68f989c110716",
+  "result": "result.json",
+  "years_with_matching_official_index": [
+    2018,
+    2019,
+    2020
+  ],
+  "matched_original_page_newsIds": [
+    "156299697",
+    "156356469",
+    "156416374"
+  ],
+  "GET_attempts": 3,
+  "NAS_source_id": "4b3f6d702cdc6250d7360dd8a72582fceb7cd226af08937d8e3643af5d45cb99",
+  "NAS_readback_verified": true,
+  "historical_first_public_bytes_qualified": false,
+  "full_monthly_training_panel_qualified": false,
+  "SOXX_outcome_reads": 0,
+  "new_model_fits": 0,
+  "new_native_accounts": 0,
+  "strategy_forward_days": 0,
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": []
+  }
+}
