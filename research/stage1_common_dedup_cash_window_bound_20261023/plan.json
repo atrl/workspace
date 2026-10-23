@@ -1,0 +1,24 @@
+{
+  "experiment": "stage1_common_dedup_cash_window_bound_20261023",
+  "phase": "read_only_fixed_path_Stage1_dedup_0bp_cash_vs_selection_126_window_necessary_bound",
+  "question": "On all saved 819 dedup C 0bp Tiered SOXX-relative rolling windows, is a perfect direct removal of negative cash opportunity components even sufficient to reach 574 positive windows, and how does that compare with an equally unrealistic perfect negative SOXL-selection correction?",
+  "sources": {
+    "dedup_account_summary": "research/stage1_common_return_dedup_0bp_20261023/summary.json",
+    "dedup_account_summary_sha256": "31069b6c16600384eab765606d78ff4a582a94142a33b488f95ff1f5aa82c827",
+    "dedup_attribution_card": "research/stage1_common_return_dedup_0bp_failure_attribution_20261023",
+    "dedup_attribution_summary_sha256": "2961578d9a3ce07ec6e23729032c15445bbbbc44c6ee7a52ca393ee355409a65",
+    "rolling_Recorder_id": "a10c938967a2433cbf80de74d924f4c1",
+    "rolling_experiment_id": "126246128167380803",
+    "rolling_artifact": "analysis/rolling126",
+    "rolling_artifact_sha256": "6909134f382e2f2c1fb8954bad6c75d8757dc4a42a1f29712afd96af98d7c3df",
+    "source_NAS_sha256": "c6c5f1527b5d6665e4dbaf0ac3108f12c826f1c7fbaf7e3a21cddbe2d3b5ad42"
+  },
+  "fixed_report": [
+    "Require exact 819-window first_trade/last_exit and component sum to actual relative log excess. Strict positive means >0; required count ceil(0.70*819)=574.",
+    "For each saved window, replace only min(cash_opportunity_log,0) by zero while holding all other saved components fixed; repeat separately for negative SOXL_selection_log and jointly for both. Count strict positive windows and the eligible failing-window support. No date or threshold selection.",
+    "Report the uniform direct additive 126-window log lift required for the 574th-ranked window. These direct fixed-path corrections do not alter holdings, risk feedback, fees or later NAV, so they are not physical strategies or achievable alpha bounds."
+  ],
+  "budget": {"source_Recorder_object_loads": 1, "market_requests": 0, "model_fits": 0, "native_accounts": 0, "bootstraps": 0, "new_Recorders": 0},
+  "stop": "Stop on source/hash/819 windows/component closure mismatch. Never turn outcome-labelled windows or these perfect repairs into a policy rule or account success.",
+  "artifact_policy": {"policy": "slim_card_recorder_first", "workflow_config": "workflow.yaml", "recorder_only_artifacts": []}
+}

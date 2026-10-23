@@ -1,0 +1,33 @@
+{
+  "experiment": "stage1_common_dedup_cash_window_bound_20261023",
+  "decision": "read_only_dedup_0bp_fixed_path_cash_vs_selection_necessary_window_bound_no_policy",
+  "objective_achieved": false,
+  "plan_sha256": "5fb8de28ca3a7a3b95ade01cf49eebf956be2fc8762d8979f3bc01c4a07621ae",
+  "result": "result.json",
+  "source_recorder_id": "a10c938967a2433cbf80de74d924f4c1",
+  "rolling_windows": 819,
+  "required_positive_windows": 574,
+  "original_positive_windows": 369,
+  "additional_positive_windows_required": 205,
+  "cash_negative_nonwinning_windows": 418,
+  "selection_negative_nonwinning_windows": 158,
+  "direct_repairs_positive_windows": {
+    "negative_cash_only": 659,
+    "negative_selection_only": 399,
+    "both_negative_components": 689
+  },
+  "cash_only_minimum_eligible_flip_fraction": 0.4904306220095694,
+  "uniform_126_window_log_lift_infimum": 0.03861590034435941,
+  "model_fits": 0,
+  "native_accounts": 0,
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": []
+  },
+  "limitations": [
+    "819 windows overlap and counts are not independent opportunities.",
+    "Replacing negative saved components by zero freezes holdings, fees and feedback and is not a physical account or attainable upper bound for a real policy.",
+    "No decision-time predictive feature or SOXX 0bp gate passage."
+  ]
+}

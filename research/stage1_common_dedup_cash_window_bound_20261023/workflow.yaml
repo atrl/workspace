@@ -1,0 +1,5 @@
+experiment: stage1_common_dedup_cash_window_bound_20261023
+mode: read_only_native_Stage1_dedup_0bp_window_component_necessary_count
+source: research/stage1_common_return_dedup_0bp_failure_attribution_20261023/summary.json
+model_fits: 0
+native_accounts: 0

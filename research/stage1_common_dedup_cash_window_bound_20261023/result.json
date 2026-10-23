@@ -1,0 +1,26 @@
+{
+  "decision": "read_only_dedup_0bp_fixed_path_cash_vs_selection_necessary_window_bound_no_policy",
+  "plan_sha256": "5fb8de28ca3a7a3b95ade01cf49eebf956be2fc8762d8979f3bc01c4a07621ae",
+  "source_recorder_id": "a10c938967a2433cbf80de74d924f4c1",
+  "windows": 819,
+  "required_positive_windows": 574,
+  "original_positive_windows": 369,
+  "additional_positive_windows_required": 205,
+  "nonwinning_with_negative_cash": 418,
+  "nonwinning_with_negative_selection": 158,
+  "perfect_direct_component_removal_positive_windows": {
+    "negative_cash_only": 659,
+    "negative_selection_only": 399,
+    "both_negative_components": 689
+  },
+  "cash_only_eligible_failure_windows": 418,
+  "cash_only_minimum_fraction_of_eligible_failures_to_flip": 0.4904306220095694,
+  "uniform_126_window_log_lift_infimum_for_70pct": 0.03861590034435941,
+  "window_overlap": true,
+  "direct_repair_is_native_account": false,
+  "causal_policy_inference": false,
+  "market_requests": 0,
+  "model_fits": 0,
+  "native_accounts": 0,
+  "bootstraps": 0
+}
