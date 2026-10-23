@@ -1,0 +1,48 @@
+{
+  "experiment": "stage1_alpha_tail_cap_release_information_20261023",
+  "frozen": true,
+  "execution_authorized_by_active_Goal": true,
+  "phase": "original_Stage1_OOF_two_head_interaction_vs_additive_same_state_0bp_Tiered_cap_release_value_information",
+  "parent": "frozen_complete_Stage1_f696_plus_b472_0bp_IBKR_Tiered",
+  "hypothesis": "When the original Stage1 alpha head is confident about SOXL relative upside while its tail head assigns low SOXX five-session crash probability, their preregistered interaction alpha_probability*(1-tail_probability) may add positive information about the fee-net one-session value of a bounded 0.10-beta SOXX cap release beyond the separate head probabilities and own-state cap gap/risk state.",
+  "sources": {
+    "label_card": "research/stage1_cap_release_0bp_local_value_20261023",
+    "label_summary_sha256": "4ef952c9fb764aeb7164ae38bac99b59df6f77879784b38649b5d630391e0c96",
+    "label_recorder_id": "ab150237a3c14f8c83e9772248323e66",
+    "label_experiment_id": "697175102772931174",
+    "label_artifact_sha256": "5e490b13dbf47c3761599c5ddf69e620dc967cc759d0f2b842474209df8edce2",
+    "frame_card": "research/stage1_signed_volume_0bp_action_label_source_20261023",
+    "frame_summary_sha256": "ce6652a6323ec9bd11a8ce8de89239cba167a53bedb50e471080006a1a89f476",
+    "frame_recorder_id": "3663a1e073f042e383dbcf54969a9bc2",
+    "frame_experiment_id": "194705746221035167",
+    "frame_artifact_sha256": "fc81f9342955aa17dc584a6587f325af39fc3731490f32a486e8fb121a095d6d",
+    "path_artifact_sha256": "eb6403c99304be47572635ae3a71494ddd5ce9a96c7e3e361cf5c38f76ffa4e5",
+    "bootstrap_module_sha256": "02705f897e668b710a38aae514df08b86e26c8cd8951405339960355a08a5ac4"
+  },
+  "fixed_features": {
+    "baseline": ["alpha_probability", "tail_probability", "raw_beta_minus_cap", "risk_state"],
+    "candidate_extra": "alpha_probability*(1-tail_probability)",
+    "expected_extra_standardized_coefficient": ">0",
+    "source_clock": "Both head outputs and own-state inputs must be saved before the 09:46 Stage1 decision; no next-session price/label feature."
+  },
+  "target": "The saved training-only 0bp-added-slippage with Tiered physical same-start cap+0.10 versus original next-session common-reset local_fee_net_advantage; use only eligible cap-binding rows whose label_available_at is mature before the frozen cutoff.",
+  "cohorts": {
+    "full_Qlib_calendar": ["2018-10-15", "2022-12-30"],
+    "train": "2018-2020 trade dates, label_available_at strictly before 2021-01-01T00:00:00 America/New_York",
+    "evaluation": "2021-2022 trade dates, label_available_at strictly before 2023-01-01T00:00:00 America/New_York",
+    "expected_train_rows": 239,
+    "expected_evaluation_rows": 301,
+    "expected_2021_rows": 56,
+    "expected_2022_rows": 245,
+    "evaluation_full_calendar_rows": 503,
+    "history_reused_not_independent": true
+  },
+  "model": "Fit once each SimpleImputer(median)->StandardScaler->Ridge(alpha=1) baseline four inputs and candidate same four plus fixed interaction. A constant training-label mean is a second no-fit control. No seed, feature, coefficient sign or action threshold search.",
+  "information_gate": {
+    "extra_coefficient_positive": true,
+    "candidate_vs_both_additive_and_train_mean": ["full evaluation paired MSE improvement positive", "2021 and 2022 paired MSE improvements positive", "2021 and 2022 prediction-to-value Spearman positive", "full 503-session calendar paired stationary-bootstrap corrected lower bound positive"],
+    "bootstrap": {"mean_block_sessions": 63, "draws_each": 10000, "seed": 20261023, "one_sided_alpha_each": 0.00078125, "family_denominator": 32}
+  },
+  "budget": {"market_requests": 0, "source_Recorder_object_loads": 3, "DatasetH_builds": 1, "model_fit_attempts_max": 2, "bootstrap_attempts_max": 2, "new_Qlib_Recorders_max": 1, "native_accounts": 0},
+  "stop": "Stop before fit on source hash, predecision clock, label maturity, full calendar or 239/301/56/245 support mismatch. A failed fixed interaction closes this receiver without changing sign, gap definition, label horizon, risk cap or evaluation years. An information pass only justifies separately freezing an original-Stage1-parent own-state 0bp account, then 2/5bp and qualified forward evidence."
+}

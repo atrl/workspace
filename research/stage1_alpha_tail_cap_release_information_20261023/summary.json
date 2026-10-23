@@ -1,0 +1,137 @@
+{
+  "experiment": "stage1_alpha_tail_cap_release_information_20261023",
+  "decision": "not_promoted_fixed_alpha_tail_cap_release_information_failed",
+  "objective_achieved": false,
+  "plan_sha256": "babaa29a86a742abf136f56bacef36209c102637d3fabec4f4a83c8ad108a1b5",
+  "preflight": {
+    "status": "same_state_cap_release_two_head_interaction_preflight_passed",
+    "plan_sha256": "babaa29a86a742abf136f56bacef36209c102637d3fabec4f4a83c8ad108a1b5",
+    "full_calendar_rows": 1061,
+    "train_mature_binding": 239,
+    "evaluation_mature_binding": 301,
+    "evaluation_2021": 56,
+    "evaluation_2022": 245,
+    "source_Recorder_object_loads": 3,
+    "model_fits": 0,
+    "native_accounts": 0
+  },
+  "metrics": {
+    "candidate_MSE": 6.369592282980019e-06,
+    "additive_MSE": 6.368773792168581e-06,
+    "train_mean_MSE": 6.330007046203221e-06,
+    "added_standardized_coefficient": -0.0005256794553080371,
+    "comparators": {
+      "additive": {
+        "full_mean_gain": -8.184908114375448e-10,
+        "annual": [
+          {
+            "year": 2021,
+            "rows": 56,
+            "mean_gain": -3.513315191031759e-08,
+            "Spearman": -0.05030758714969242
+          },
+          {
+            "year": 2022,
+            "rows": 245,
+            "mean_gain": 7.024860296877893e-09,
+            "Spearman": 0.026251540200246438
+          }
+        ],
+        "bootstrap": {
+          "paired_mean_loss_improvement": -8.184908114375458e-10,
+          "lower_bound": -4.719933571462035e-08,
+          "upper_bound": 2.277444855451837e-08,
+          "valid_replicates": 10000,
+          "invalid_replicates": 0,
+          "calendar_rows": 503,
+          "scored_rows": 301
+        }
+      },
+      "train_mean": {
+        "full_mean_gain": -3.958523677679762e-08,
+        "annual": [
+          {
+            "year": 2021,
+            "rows": 56,
+            "mean_gain": -4.1382725540497793e-07,
+            "Spearman": -0.05030758714969242
+          },
+          {
+            "year": 2022,
+            "rows": 245,
+            "mean_gain": 4.595579605250075e-08,
+            "Spearman": 0.026251540200246438
+          }
+        ],
+        "bootstrap": {
+          "paired_mean_loss_improvement": -3.9585236776797587e-08,
+          "lower_bound": -5.21249806423905e-07,
+          "upper_bound": 1.129783812334707e-07,
+          "valid_replicates": 10000,
+          "invalid_replicates": 0,
+          "calendar_rows": 503,
+          "scored_rows": 301
+        }
+      }
+    }
+  },
+  "gates": {
+    "coefficient_positive": false,
+    "additive": {
+      "full_positive": false,
+      "both_years_positive": false,
+      "both_years_Spearman_positive": false,
+      "corrected_lower_positive": false
+    },
+    "train_mean": {
+      "full_positive": false,
+      "both_years_positive": false,
+      "both_years_Spearman_positive": false,
+      "corrected_lower_positive": false
+    }
+  },
+  "information_gate_pass": false,
+  "new_model_fits": 2,
+  "new_bootstraps": 2,
+  "new_native_accounts": 0,
+  "historical_independence": false,
+  "recorder_id": "7278eb05509649eeae80ec51bcc8734d",
+  "experiment_id": "171845018528749508",
+  "recorder_uri": "/Users/rziiiii/dev/workspace/research/stage1_alpha_tail_cap_release_information_20261023/qlib_recorder",
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "inputs/*",
+      "models/*",
+      "predictions/*",
+      "analysis/*"
+    ]
+  },
+  "limitations": [
+    "The target is a local one-session common-reset action value, not closed-loop strategy wealth.",
+    "2021/2022 history is reused development evidence; no independent 2023+ strategy evaluation.",
+    "A changed own-state account would generate different caps and risk states and requires separately frozen full-account proof."
+  ],
+  "NAS_evidence": {
+    "sha256": "0052a0280bb466939dc297be86a7fb65be1a0bf763adb1977e8c58d6c78bdd87",
+    "size_bytes": 616685,
+    "media_type": "application/gzip",
+    "storage_uri": "sha256/00/52/0052a0280bb466939dc297be86a7fb65be1a0bf763adb1977e8c58d6c78bdd87",
+    "uploaded_by": "soxl-minute-research",
+    "created_at": "2026-10-23 11:56:07.183572+08",
+    "duplicate": false,
+    "nas_path": "/volume1/docker/yanxuan/registry/research-artifacts/00/52/0052a0280bb466939dc297be86a7fb65be1a0bf763adb1977e8c58d6c78bdd87",
+    "recorder_id": "7278eb05509649eeae80ec51bcc8734d",
+    "experiment_id": "171845018528749508",
+    "archive_root": "qlib_recorder"
+  },
+  "NAS_readback": {
+    "sha256": "0052a0280bb466939dc297be86a7fb65be1a0bf763adb1977e8c58d6c78bdd87",
+    "verified": true
+  },
+  "attempt1_preflight_failure": "attempt1_preflight_failure.json",
+  "preflight_schema_repair": "preflight_schema_repair_plan.json",
+  "physical_source_Recorder_object_loads_total": 7,
+  "NAS_scoped_restore": "nas_scoped_restore.json"
+}

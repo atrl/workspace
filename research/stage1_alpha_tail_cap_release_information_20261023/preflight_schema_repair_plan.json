@@ -1,0 +1,6 @@
+{
+  "cause": "The frozen local cap-release label stores binding eligibility as eligible plus raw_beta_minus_cap rather than a redundant cap_binding column.",
+  "fixed_change": "Derive cap_binding = raw_beta_minus_cap>1e-8 and assert labels.eligible implies cap_binding on all 1061 source days. No change to the eligible/mature train or evaluation masks, interaction, prediction target or statistical gate.",
+  "physical_budget_addendum": {"source_Recorder_object_loads": 4, "model_fit_attempts": 0, "bootstrap_attempts": 0, "native_accounts": 0},
+  "stop": "If the eligible rows or expected 239/301 cohort support differ after this source-schema repair, stop before fitting."
+}

@@ -1,0 +1,11 @@
+{
+  "status": "source_schema_preflight_failed_before_fit",
+  "plan_sha256": "babaa29a86a742abf136f56bacef36209c102637d3fabec4f4a83c8ad108a1b5",
+  "failure": "The saved stage1_cap_release_0bp_local_value analysis/labels object has no cap_binding column. Its eligible flag and raw_beta_minus_cap are present; a separate read-only lookup confirmed all 541 eligible rows have raw_beta_minus_cap>1e-8.",
+  "source_Recorder_object_load_attempts": 3,
+  "model_fits": 0,
+  "bootstraps": 0,
+  "native_accounts": 0,
+  "new_Recorders": 0,
+  "repair": "Use the existing raw_beta_minus_cap>1e-8 as the cap-binding field, assert every eligible row satisfies it, and keep the exact frozen cohorts, label, model, interaction and gates. One mechanical retry only."
+}
