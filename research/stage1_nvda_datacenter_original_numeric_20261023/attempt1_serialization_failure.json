@@ -1,0 +1,17 @@
+{
+  "attempt": 1,
+  "status": "post_Recorder_JSON_serialization_failure",
+  "error_type": "TypeError",
+  "error": "Object of type int64 is not JSON serializable at result.unknown_by_status.no_exact_Data_Center_market_platform_row",
+  "frozen_plan_sha256": "1b88d7eaa02913e96c75afc80f5e2fa69f1242603032c3fea0c27e4fba766d6b",
+  "source_original_reads": 63,
+  "new_Qlib_Recorders": 1,
+  "recorder_id": "79535324617845bc9c5f75bb60c297b6",
+  "experiment_id": "941088655612347364",
+  "new_HTTP_GETs": 0,
+  "market_outcome_reads": 0,
+  "model_fits": 0,
+  "native_accounts": 0,
+  "result_sidecar_persisted": false,
+  "source_objects_saved_in_Recorder": true
+}

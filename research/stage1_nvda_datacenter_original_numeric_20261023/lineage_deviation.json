@@ -1,0 +1,13 @@
+{
+  "status": "frozen_evidence_omission_disclosed",
+  "plan_requirement": "Preserve original row, table and source hashes for each accepted numeric event.",
+  "saved": "The FINISHED Recorder and result retain each original raw SEC source SHA-256 and the exact extracted row cell strings, but no independent row or enclosing table SHA-256.",
+  "affected_numeric_events": 32,
+  "numeric_values_changed": false,
+  "Qlib_calendar_map_changed": false,
+  "market_outcome_reads": 0,
+  "model_fits": 0,
+  "native_accounts": 0,
+  "interpretation": "The accepted values and same-release YoY arithmetic remain reproducible, but exact table lineage is not fully sealed under the frozen evidence rule.",
+  "minimum_repair": "Use a separately frozen metadata-only original-table read with a finite 32-event or combined Q4-repair budget; retain this v1 Recorder and compare all 32 values and rows before any information fit."
+}

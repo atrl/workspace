@@ -1,0 +1,14 @@
+{
+  "verdict": "CONFIRM_PARTIAL_NUMERIC_SOURCE_MAP_WITH_TABLE_LINEAGE_OMISSION",
+  "review_scope": "read_only_63_original_SEC_tables_numeric_YoY_Qlib_calendar_Recorder_NAS_and_output_finalize",
+  "confirmed": [
+    "All 63 selected NVDA accession, filing date and original raw SHA identities match the pinned source.",
+    "Thirty-two accepted unique quarterly EX-99.2 Data Center rows are in USD millions with current, prior-quarter and prior-year values; reported YoY checks differ by at most 0.5 percentage points.",
+    "Twenty-one events lack an exact row and ten annual Q4 filings contain ambiguous quarterly and full-year rows; both categories remain unknown.",
+    "The SEC acceptance date maps strictly to the next real Qlib session for every event; native 3966-day Recorder and DatasetH have 3020 train and 946 held rows, with 1284 and 696 known days.",
+    "The NumPy int64 JSON failure occurred after the Recorder finished; output finalization reused that Recorder with zero raw rereads, new Recorders, fits or accounts.",
+    "Parent raw and current Recorder NAS remote hashes and scoped artifacts match."
+  ],
+  "evidence_gap": "The frozen plan required row and enclosing table SHA-256, but v1 saved only the raw-file SHA and original row strings. This is disclosed in lineage_deviation.json; table lineage must be repaired under a separate bounded metadata plan before information fitting.",
+  "qualification": "No historical first issuer-publication or stable platform-definition qualification, economic account, or promotion approval."
+}

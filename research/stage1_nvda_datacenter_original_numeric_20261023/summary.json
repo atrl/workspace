@@ -1,0 +1,49 @@
+{
+  "experiment": "stage1_nvda_datacenter_original_numeric_20261023",
+  "decision": "original_SEC_NVDA_Data_Center_same_release_table_numeric_source_map_conditional_first_public_unqualified",
+  "objective_achieved": false,
+  "plan_sha256": "1b88d7eaa02913e96c75afc80f5e2fa69f1242603032c3fea0c27e4fba766d6b",
+  "recorder_id": "79535324617845bc9c5f75bb60c297b6",
+  "experiment_id": "941088655612347364",
+  "recorder_uri": "/Users/rziiiii/dev/workspace/research/stage1_nvda_datacenter_original_numeric_20261023/qlib_recorder",
+  "result": "result.json",
+  "numeric_events": 32,
+  "training_known_days": 1284,
+  "held_known_days": 696,
+  "model_fits": 0,
+  "native_accounts": 0,
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "inputs/*",
+      "analysis/*"
+    ]
+  },
+  "output_finalize": "output_finalize_receipt.json",
+  "limitations": [
+    "Same-release CFO table values are source evidence but 10 annual quarterly rows remain ambiguous and 21 events lack exact rows.",
+    "SEC acceptance next-Qlib-day is conservative, but issuer first-public release clock and platform-definition continuity remain unqualified.",
+    "No SOXX future outcomes, information fit, fee-net account or forward validation.",
+    "Original row and enclosing table SHA-256 were omitted from v1 despite frozen plan; see lineage_deviation.json."
+  ],
+  "nas_evidence": {
+    "sha256": "674874c024ad7ece4c22a5d7b5700de0ed480bbda6e2c0ffefa39c9e723d28d5",
+    "size_bytes": 125734,
+    "media_type": "application/gzip",
+    "storage_uri": "sha256/67/48/674874c024ad7ece4c22a5d7b5700de0ed480bbda6e2c0ffefa39c9e723d28d5",
+    "uploaded_by": "soxl-minute-research",
+    "created_at": "2026-10-23 08:14:11.285598+08",
+    "duplicate": false,
+    "nas_path": "/volume1/docker/yanxuan/registry/research-artifacts/67/48/674874c024ad7ece4c22a5d7b5700de0ed480bbda6e2c0ffefa39c9e723d28d5",
+    "recorder_id": "79535324617845bc9c5f75bb60c297b6",
+    "experiment_id": "941088655612347364",
+    "archive_root": "qlib_recorder"
+  },
+  "nas_readback": {
+    "verified": true,
+    "sha256": "674874c024ad7ece4c22a5d7b5700de0ed480bbda6e2c0ffefa39c9e723d28d5"
+  },
+  "lineage_deviation": "lineage_deviation.json",
+  "table_hash_lineage_complete": false
+}

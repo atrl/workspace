@@ -1,0 +1,53 @@
+{
+  "schema_version": 1,
+  "frozen": true,
+  "experiment": "stage1_nvda_datacenter_original_numeric_20261023",
+  "phase": "original_SEC_EX99_2_Data_Center_same_release_numeric_and_Qlib_availability",
+  "question": "Can original NVIDIA CFO commentary tables supply a comparable Data Center current-quarter and prior-year revenue pair at conservative Stage1 decision dates without future-vintage backfill?",
+  "sources": {
+    "parent_card": "research/stage1_amd_nvda_sec_guidance_original_probe_20261023",
+    "selected_events_sha256": "322aa6b4f8e3b167a1c17ecb79dd72d2b2d96d55f2dbf43f59d4429163cdda4a",
+    "selected_NVDA_events": 63,
+    "parent_raw_NAS_archive_sha256": "8273fd8c00608f5b2f1faf81368b9f3c238919f297b5d868c8af319b115d9cee",
+    "coverage_card": "research/stage1_nvda_datacenter_original_source_20261023",
+    "coverage_summary_sha256": "f3274ac97c7de62c05a9f3015d1f40ad98ec0615d4c04611579236b4e1c288d3",
+    "source_root": "data/snapshots/stage1_amd_nvda_sec_guidance_original_probe_20261023",
+    "raw_file_template": "item202_{accession}.txt",
+    "Qlib_provider": "data/qlib/minute_information_pit_allocator_20261012/daily_prices",
+    "Qlib_config_sha256": "951024d796cc625b695938e64589cd23808c5b048ac816c11f001fb0719742a2"
+  },
+  "fixed_extraction": {
+    "document": "Only original SEC EX-99.2 CFO commentary DOCUMENT/TEXT; no news release fallback for numeric row.",
+    "table": "Unique HTML table containing Revenue by Market Platform and a row whose first cell is exactly Datacenter or Data Center (case/whitespace normalized).",
+    "units": "Table must state dollars in millions; current, prior quarter and prior-year row numeric cells are interpreted in USD millions.",
+    "value": "Use first three numeric cells after exact row label, preserving original strings, current/prior-quarter/prior-year and original row/table/source hashes.",
+    "growth": "YoY=current/prior_year-1 from the same original table; verify last displayed YoY percentage within 1.5 percentage points when parseable.",
+    "missing": "No table, nonunique row, unknown unit, invalid numbers or failed check stays unknown; no imputation.",
+    "time": "Parse SEC ACCEPTANCE-DATETIME from original raw submission. First eligible Stage1 signal date is the next actual Qlib trading session after the SEC acceptance calendar date; no same-day use. Historical first issuer press-release clock remains unqualified.",
+    "definition": "Preserve 2020 Mellanox acquisition and any table label/definition changes as flags; do not claim constant economic scope across all quarters."
+  },
+  "fixed_checks": [
+    "63 raw hashes and selected event identities exact",
+    "all source rows including unknown and original acceptance times",
+    "annual numeric support, train2011-2022/held2023-2026 Qlib daily known counts, source ages and unknown masks",
+    "no SOXX price/label/outcome read, fit, account or fee result"
+  ],
+  "budget": {
+    "new_HTTP_GETs": 0,
+    "raw_original_reads_max": 63,
+    "new_Qlib_Recorders": 1,
+    "DatasetH_builds": 1,
+    "market_outcome_reads": 0,
+    "model_fits": 0,
+    "native_accounts": 0
+  },
+  "stop": "Stop on source/hash/acceptance/calendar mismatch. If comparable numeric support is inadequate or any claimed event fails original table semantics, do not run information fit. Source map alone does not qualify historical first-publication or SOXX alpha.",
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "inputs/*",
+      "analysis/*"
+    ]
+  }
+}

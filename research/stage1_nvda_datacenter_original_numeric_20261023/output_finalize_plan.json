@@ -1,0 +1,18 @@
+{
+  "schema_version": 1,
+  "frozen": true,
+  "parent_plan_sha256": "1b88d7eaa02913e96c75afc80f5e2fa69f1242603032c3fea0c27e4fba766d6b",
+  "parent_failed_attempt": "attempt1_serialization_failure.json",
+  "recorder_id": "79535324617845bc9c5f75bb60c297b6",
+  "experiment_id": "941088655612347364",
+  "allowed": "Read-only load exactly saved Recorder analysis/event_rows, analysis/source_frame and analysis/report; convert saved scalar types to JSON primitives, join saved events into result.json, write summary and source/cost receipts, archive the same completed Recorder to NAS and verify scoped restore. Patch primary notebook serialization code for future clean reruns but do not execute it again.",
+  "budget": {
+    "new_HTTP_GETs": 0,
+    "new_raw_original_reads": 0,
+    "new_Qlib_Recorders": 0,
+    "new_model_fits": 0,
+    "new_native_accounts": 0,
+    "source_Recorder_object_loads": 3
+  },
+  "stop": "Stop if Recorder is not FINISHED, saved plan/hash/status does not match, event rows are not 63, source frame not 3966 or saved report inconsistent. No rerun of original source extraction or market outcome read."
+}

@@ -1,0 +1,16 @@
+{
+  "status": "same_finished_Recorder_output_only_finalized",
+  "parent_plan_sha256": "1b88d7eaa02913e96c75afc80f5e2fa69f1242603032c3fea0c27e4fba766d6b",
+  "finalize_plan_sha256": "3403b2e69b196feefc9049eaf23571561b3f59b6344ef17c7c2d96a73a7ea620",
+  "recorder_id": "79535324617845bc9c5f75bb60c297b6",
+  "experiment_id": "941088655612347364",
+  "saved_event_rows": 63,
+  "saved_source_frame_rows": 3966,
+  "numeric_events": 32,
+  "result_sha256": "c070a6376cc4acf23b6c22f7e6a59040978e0da90451964862ee83f21d3f20bb",
+  "NAS_recorder_sha256": "674874c024ad7ece4c22a5d7b5700de0ed480bbda6e2c0ffefa39c9e723d28d5",
+  "new_raw_reads": 0,
+  "new_Qlib_Recorders": 0,
+  "new_model_fits": 0,
+  "new_native_accounts": 0
+}
