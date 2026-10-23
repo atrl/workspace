@@ -443,7 +443,9 @@
     "Stage1_0946_peer_breadth_cash_H5_information": "research/stage1_0946_peer_breadth_cash_h5_information_20261023/summary.json",
     "Stage1_0946_peer_breadth_cash_H5_interpretation": "Fixed original39-plus-one opening peer breadth cash-minus-SOXX H5 information screen closed: 1055 train/940 reused held mature labels; candidate coefficient negative, but candidate MSE0.002589231 versus training-mean0.002343479, corrected lower negative and 2024 original39 increment negative. Two fits/two bootstraps, no 0bp account. Historical 09:45 bar first-receipt remains unqualified. Do not tune this fixed source/target.",
     "Stage1_0bp_HOLD_cash_bound": "research/stage1_original_0bp_hold_cash_bound_20261023/summary.json",
-    "Stage1_0bp_HOLD_cash_bound_interpretation": "Full 944-session original Stage1 0bp Tiered account: HOLD147 days contributes cash opportunity -0.148127 log, EXECUTE797 contributes -0.452195. Even direct erasure of every negative HOLD-day cash component on the frozen path raises SOXX-positive rolling126 windows only 255->450/819 versus574 required. This is not a causal account impossibility theorem; it deprioritizes action-HOLD-only rescue and points to EXECUTE target/risk cash decisions across binding and nonbinding days."
+    "Stage1_0bp_HOLD_cash_bound_interpretation": "Full 944-session original Stage1 0bp Tiered account: HOLD147 days contributes cash opportunity -0.148127 log, EXECUTE797 contributes -0.452195. Even direct erasure of every negative HOLD-day cash component on the frozen path raises SOXX-positive rolling126 windows only 255->450/819 versus574 required. This is not a causal account impossibility theorem; it deprioritizes action-HOLD-only rescue and points to EXECUTE target/risk cash decisions across binding and nonbinding days.",
+    "Stage1_0bp_projection_dollar_slack": "research/stage1_original_0bp_projection_dollar_slack_20261023/summary.json",
+    "Stage1_0bp_projection_interpretation": "All797 original Stage1 0bp EXECUTE targets saturate min(raw risky-dollar intent, own-state beta cap, 0.85) to <=1.1e-16; no same-cap/same-raw-risk geometry can lower cash. Of EXECUTE days,600 are raw-risk-intent limited (cash log -0.295864),197 beta-cap-dollar limited (-0.156331), floor0. Of261 nominal-beta-binding EXECUTE days,64 remain raw-risk-intent dollar limited. HOLD147 are carried holdings, not new projection targets. Next mechanism must change an informed upstream allocation or cap, not projection geometry; no new account or SOXX pass."
   },
   "parallel_source_task": {
     "card": "research/korea_semiconductor_exports_korean_vintage_20261022",
@@ -508,7 +510,7 @@
     ]
   },
   "active_index": "research/active_research_index.json",
-  "updated_at_utc": "2026-10-23T03:06:12Z",
+  "updated_at_utc": "2026-10-23T03:31:48Z",
   "execution_totals": {
     "new_model_fits": 85,
     "new_native_accounts": 51,
