@@ -1,0 +1,35 @@
+{
+  "status": "KCS_2025_Aug_one_exact_TLS_transport_repair_source_only",
+  "plan_sha256": "84646c58e0caf8f1daa60b1e2a145c23df633ab8e30673f117b84f07d0f5fd47",
+  "prior_unique_months": 44,
+  "new_month": {
+    "month": "2025-08",
+    "newsId": "156712088",
+    "list_status": "unique",
+    "page_status": "identified",
+    "attachment_links": 2,
+    "attachment_attempts": 2,
+    "signature_qualified_attachments": 2,
+    "all_linked_signatures_qualified": true
+  },
+  "final_unique_months": 45,
+  "unchanged_other_months": 44,
+  "list_GET_attempts": 1,
+  "page_GET_attempts": 1,
+  "attachment_GET_attempts": 2,
+  "source_archive": {
+    "sha256": "6f088eb1d4dc8fd4a1affe91bb52a21bc1b936fe0189d3fc7de6a37fcfa009ea",
+    "size_bytes": 728526,
+    "media_type": "application/gzip",
+    "storage_uri": "sha256/6f/08/6f088eb1d4dc8fd4a1affe91bb52a21bc1b936fe0189d3fc7de6a37fcfa009ea",
+    "uploaded_by": "soxl-minute-research",
+    "created_at": "2026-10-23 13:31:38.825693+08",
+    "duplicate": false,
+    "nas_path": "/volume1/docker/yanxuan/registry/research-artifacts/6f/08/6f088eb1d4dc8fd4a1affe91bb52a21bc1b936fe0189d3fc7de6a37fcfa009ea",
+    "files": 9,
+    "repair_manifest_sha256": "243cb64bf46cf2f9a7179dd56a48a75c0d6db0b001c5205b2efbeefb077581ff"
+  },
+  "SOXX_outcome_reads": 0,
+  "model_fits": 0,
+  "native_accounts": 0
+}

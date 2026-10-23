@@ -1,0 +1,21 @@
+{
+  "experiment": "kcs_early20_2025_aug_transport_repair_20261023",
+  "frozen": true,
+  "phase": "one_month_official_portal_TLS_transport_repair_only",
+  "parent": "frozen_complete_Stage1_0bp_IBKR_Tiered",
+  "question": "Does a single repeat of the exact 2025-08 Korean Customs early20 official list URL repair the prior zero-byte TLS handshake timeout and identify a source page plus all linked original attachments, while every other held month remains unchanged?",
+  "sources": {
+    "held_capture_card": "research/kcs_early20_2023_2026_held_original_capture_20261023",
+    "held_capture_summary_sha256": "8f46a275636301e32ef70651e2969445c83a8059d39d3827676c2d398fab887c",
+    "held_capture_experiment_id": "561161740562976425",
+    "held_capture_recorder_id": "328486d078f04b89b19be724feda11c0",
+    "held_capture_monthly_artifact_sha256": "dbb2f19b0a84bec8029eb975bac7dcbcee74a6fcf685f143a2d00bdcc3e8c86d",
+    "prior_2025_year_manifest_sha256": "26357c83388792740706cd8df1e3200be6ae3b01fb038138161822eb9fb04e2b"
+  },
+  "exact_list_url": "https://www.korea.kr/briefing/pressReleaseList.do?startDate=2025-08-20&endDate=2025-08-27&srchWord=%EC%88%98%EC%B6%9C%EC%9E%85&repCode=B00003&pageIndex=1",
+  "prior_failure": "2026-10-23T05:22:32Z attempt ended after 20 seconds with URLError _ssl.c:993 handshake operation timed out, HTTP status unknown and zero body; it is not evidence of release absence.",
+  "method": "GET exact list once, then only if unique Customs 2025-Aug 1-20 release appears GET canonical newsId page once and all its unique official HWP/HWPX/PDF download.do fileIds (max4) once. Preserve all current response bytes, safe headers, URLs and UTC clocks. Require HTTP200, visible title/agency and expected signatures; otherwise keep August unknown. Use prior 44-row source index unchanged, archive this repair source to NAS and cold restore, save resulting 45-row status in a new Qlib Recorder/NAS.",
+  "transport": {"user_agent": "soxl-qlib-source-research", "timeout_seconds_each": 20, "max_list_bytes": 500000, "max_page_bytes": 600000, "max_attachment_bytes": 5000000, "retries": 0},
+  "budget": {"list_GETs_max": 1, "page_GETs_max": 1, "attachment_GETs_max": 4, "NAS_source_archives_max": 1, "new_Qlib_Recorders_max": 1, "SOXX_outcome_reads": 0, "model_fits": 0, "native_accounts": 0},
+  "stop": "No alternative search terms, dates, pages, file formats or retries in this version. A current-page repair still does not certify 2025-08 first-public bytes, semiconductor numeric values, Qlib factor or SOXX information."
+}
