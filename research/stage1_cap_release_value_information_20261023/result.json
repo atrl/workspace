@@ -1,0 +1,47 @@
+{
+  "decision": "not_promoted_fixed_cap_release_value_information_failed",
+  "objective_achieved": false,
+  "train_rows": 239,
+  "evaluation_rows": 301,
+  "evaluation_calendar_rows": 503,
+  "train_label_mean_control": 0.00019368167887498505,
+  "candidate_MSE": 8.199876818417991e-06,
+  "control_MSE": 6.330007046203221e-06,
+  "full_paired_MSE_improvement": -1.8698697722147687e-06,
+  "per_year": [
+    {
+      "year": 2021,
+      "rows": 56,
+      "paired_MSE_improvement": -2.1892962579359416e-06,
+      "Spearman": -0.040738209159261796
+    },
+    {
+      "year": 2022,
+      "rows": 245,
+      "paired_MSE_improvement": -1.7968580040499292e-06,
+      "Spearman": 0.061264473802315825
+    }
+  ],
+  "bootstrap": {
+    "draws": 10000,
+    "mean_block_sessions": 63,
+    "seed": 20261023,
+    "one_sided_alpha": 0.00078125,
+    "lower": -3.3744481266679513e-06,
+    "upper": -7.15163652499325e-07,
+    "calendar_rows": 503,
+    "scored_rows": 301,
+    "indices_sha256": "2bf4bb3159e4081eac4d417885bad5a1d199df31a3379ae20031b41bf3ddb9b4"
+  },
+  "gates": {
+    "full_paired_MSE_improvement_positive": false,
+    "each_2021_2022_paired_MSE_improvement_positive": false,
+    "each_2021_2022_Spearman_positive": false,
+    "full_calendar_stationary_block_corrected_lower_positive": false
+  },
+  "new_model_fits": 1,
+  "new_bootstraps": 1,
+  "new_native_accounts": 0,
+  "independent_forward_days": 0,
+  "historical_independence": false
+}

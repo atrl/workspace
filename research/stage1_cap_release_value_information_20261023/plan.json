@@ -1,0 +1,113 @@
+{
+  "schema_version": 1,
+  "experiment": "stage1_cap_release_value_information_20261023",
+  "frozen": true,
+  "phase": "one_original_information_set_cross_year_local_value_receiver",
+  "hypothesis": "Original Stage1 predecision features plus its current own-state cap gap and risk state can distinguish whether a fixed 0.10 beta cap release has positive fee-net one-step value, beyond a constant training-mean receiver. This is a new action-value target, not a rerun of closed H5 cash or relative-return heads.",
+  "parent_boundary": "Saved 2018-2022 original-architecture OOF 0bp Tiered reference supplies development labels. Frozen complete f696+b472 Stage1 own-state 0bp account remains the only later economic parent; SOXX is the hard gate.",
+  "sources": {
+    "label_card": "research/stage1_cap_release_0bp_local_value_20261023",
+    "label_summary_sha256": "4ef952c9fb764aeb7164ae38bac99b59df6f77879784b38649b5d630391e0c96",
+    "label_recorder_id": "ab150237a3c14f8c83e9772248323e66",
+    "label_experiment_id": "697175102772931174",
+    "feature_card": "research/stage1_signed_volume_0bp_action_label_source_20261023",
+    "feature_summary_sha256": "ce6652a6323ec9bd11a8ce8de89239cba167a53bedb50e471080006a1a89f476",
+    "feature_recorder_id": "3663a1e073f042e383dbcf54969a9bc2",
+    "bootstrap_module_sha256": "3d1c58c381687de928c06cfa9ce2715bcb2d6bc312de6e2a9a74f96ebe279549"
+  },
+  "features": {
+    "original39": [
+      "soxl_ret3",
+      "soxl_ret5",
+      "soxl_ret10",
+      "soxl_ret20",
+      "soxl_ret60",
+      "soxx_ret3",
+      "soxx_ret5",
+      "soxx_ret10",
+      "soxx_ret20",
+      "soxx_ret60",
+      "relative_momentum20",
+      "soxx_trend20",
+      "soxx_trend60",
+      "trend_efficiency_20",
+      "levered_decay_20",
+      "soxx_lead_10",
+      "range_pos_252",
+      "cross_breadth_pos_20",
+      "cross_breadth_pos_60",
+      "semis_vs_cross_20",
+      "semis_vs_cross_60",
+      "tech_breadth_20",
+      "tech_breadth_60",
+      "soxx_vol20",
+      "soxx_drawdown60",
+      "dist_high_252",
+      "vix",
+      "vix_chg5",
+      "vix_z_60",
+      "rv20",
+      "rv60",
+      "rv20_expansion",
+      "tracking_error_5_z20",
+      "tracking_error_5_pctile60",
+      "panic_reversal_5",
+      "chop_breakdown_risk",
+      "high_chop_pressure",
+      "cross_vol_breadth_high",
+      "cross_dispersion_20"
+    ],
+    "extra": [
+      "raw_beta_minus_cap",
+      "risk_state"
+    ],
+    "forbidden": [
+      "same_day_09_47_execution_price",
+      "label",
+      "next_day_price",
+      "held_2023_plus_outcomes"
+    ],
+    "availability": "All original39 source feature_available_at no later than original 09:46 decision; cap gap and risk_state are saved own-state predecision fields. Their values are from original reference, so a changed future account may have different state."
+  },
+  "target": "Saved 0bp IBKR Tiered same-start cap+0.10 versus original next-session common-reset local_fee_net_advantage; ineligible/last unknown rows remain on full Qlib 1061-day calendar.",
+  "cohorts": {
+    "train": "Eligible local labels whose label_available_at is strictly before 2021-01-01T00:00:00 America/New_York, with trade_date in 2018-2020.",
+    "evaluation": "2021-01-01 through 2022-12-30 trade dates with finite mature labels; fit frozen at 2021 cutoff, no 2022 refit.",
+    "evaluation_years": [
+      2021,
+      2022
+    ],
+    "train_minimum_rows": 200,
+    "evaluation_minimum_each_year": 50,
+    "historical_independence": false
+  },
+  "receiver": {
+    "candidate": "One SimpleImputer(median)->StandardScaler()->Ridge(alpha=10.0) on the 41 frozen feature columns; one fit before evaluation.",
+    "control": "Training-label arithmetic mean, held constant over both evaluation years.",
+    "predictions": "Continuous local value; no sign threshold or action mapping in this card.",
+    "new_fit_attempts_max": 1
+  },
+  "information_gate": {
+    "full_paired_MSE_improvement_positive": true,
+    "each_2021_2022_paired_MSE_improvement_positive": true,
+    "each_2021_2022_Spearman_positive": true,
+    "full_calendar_stationary_block_corrected_lower_positive": true,
+    "bootstrap": {
+      "mean_block_sessions": 63,
+      "draws": 10000,
+      "seed": 20261023,
+      "one_sided_alpha": 0.00078125,
+      "family_denominator": 32,
+      "calendar": "All 2021-2022 Qlib sessions, ineligible rows retained as zero paired-loss contribution and mask; resampled statistic divides by scored count."
+    }
+  },
+  "budget": {
+    "new_market_requests": 0,
+    "new_model_fit_attempts_max": 1,
+    "bootstrap_attempts_max": 1,
+    "new_Qlib_recorders_max": 1,
+    "new_native_accounts": 0,
+    "NAS_recorder_archives_max": 1
+  },
+  "stop": "If source hashes/NAS, feature order/timing, 2021 maturity cutoff, 1061-day Qlib calendar, minimum train/year support, DatasetH alignment or Recorder identity fail, stop before fitting. After one fit and one fixed bootstrap, any information-gate failure closes this fixed receiver version; no sign, year, threshold, feature, alpha or window rescue. A passing information screen only authorizes a separately frozen complete Stage1-parent own-state 0bp candidate account, never SOXX promotion."
+}

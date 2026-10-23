@@ -1,0 +1,28 @@
+{
+  "status": "closed_fixed_receiver_diagnostic_only",
+  "result_sha256": "aeef48f4bf2f7773dfd9a6d63d6446bc8bdd0ff10e4fddf977efad17ec57056c",
+  "readback_recorder_id": "ed8483b445e74e45b75281b5bd67cbd3",
+  "annual_calibration": {
+    "2021": {
+      "rows": 56,
+      "realized_local_value_mean": 0.0005414224561447958,
+      "candidate_prediction_mean": -0.00046623561098467134,
+      "training_mean_control": 0.00019368167887498508,
+      "paired_MSE_improvement": -0.0000021892962579359416,
+      "Spearman": -0.040738209159261796
+    },
+    "2022": {
+      "rows": 245,
+      "realized_local_value_mean": -0.000123400783969734,
+      "candidate_prediction_mean": 0.0005408999431920538,
+      "training_mean_control": 0.00019368167887498508,
+      "paired_MSE_improvement": -0.0000017968580040499292,
+      "Spearman": 0.061264473802315825
+    }
+  },
+  "interpretation": "The fixed receiver's annual prediction mean points opposite to realized local value in both evaluation years; 2021 rank is also wrong-signed. The model worsened paired MSE in both years and the preregistered corrected block interval is wholly negative. This is attribution of forecast failure, not proof of a causal market regime or an authorized sign/year/threshold reversal.",
+  "new_model_fits": 0,
+  "new_bootstraps": 0,
+  "new_native_accounts": 0,
+  "next_action": "Close this fixed 41-input Ridge local-value receiver. Continue the active SOXX Goal through a materially different decision-time mechanism with source and matched task qualification; no held account for this failed version."
+}
