@@ -1,0 +1,54 @@
+{
+  "status": "official_portal_2018_2022_all_60_early20_page_leads_identified_source_only",
+  "plan_sha256": "d40c0d6f94694f6250a979b9b458a6ff7204cae4642c0ca171a665a8073fcbc0",
+  "months": 60,
+  "prior_unique": 56,
+  "repaired_months": [
+    {
+      "month": "2019-05",
+      "newsId": "156332380",
+      "evidence": "exact_saved_official_list_response_and_fixed_abbreviated_title",
+      "title_excerpt": "5.1-20 수출입 현황 ...  감소  ,  수입  △  10.1%  (30.9  억 달러  ↓  )  감소  <  5  월  (1  일  ∼  20  일  ) 수출입 실적  (  통관기준 잠정치  )  >  (  단위  :  백만 달러  ,  %)  구분  2018  년  2019  년  당 월  (5.1.-20.)  ... 2019-05-21 관세청"
+    },
+    {
+      "month": "2019-07",
+      "newsId": "156342252",
+      "evidence": "exact_saved_official_list_response_and_fixed_abbreviated_title",
+      "title_excerpt": "7.1~20일 수출입 현황 ... ↑  )  증가  ,  수입  2.8%  (7.7  억 달러  ↑  )  증가  <  7  월  (1  일  ∼  20  일  ) 수출입 실적  (  통관기준 잠정치  )  >  (  단위  :  백만 달러  ,  %)  구분  2018  년  2019  년  당 월  (7.1.-20.)  ... 2019-07-22 관세청"
+    },
+    {
+      "month": "2019-08",
+      "newsId": "156346327",
+      "evidence": "exact_saved_official_list_response_and_fixed_abbreviated_title",
+      "title_excerpt": "8.1-20 수출입 현황 ... 감소  ,  수입  △  6  .8%  (19.4  억 달러  ↓  )  감소  <  8  월  (1  일  ∼  20  일  ) 수출입 실적  (  통관기준 잠정치  )  >  (  단위  :  백만 달러  ,  %)  구분  2018  년  2019  년  당 월  (8.1.-20.)  ... 2019-08-21 관세청"
+    },
+    {
+      "month": "2019-01",
+      "chosen_newsId": "156313813",
+      "rejected_newsId": "156313866",
+      "valid_attachment": "(190121)19년 1월(1-20일)_수출입현황.hwp",
+      "rejected_attachment_names": [
+        "190121 설명절 관세행정 지원대책.hwp"
+      ]
+    }
+  ],
+  "final_unique": 60,
+  "unchanged_original_rows": 56,
+  "GET_attempts": 2,
+  "source_archive": {
+    "sha256": "519fcf76da276d9a3e091f131f2e7001d96478694922e07f91b87abeffab9c6b",
+    "size_bytes": 56629,
+    "media_type": "application/gzip",
+    "storage_uri": "sha256/51/9f/519fcf76da276d9a3e091f131f2e7001d96478694922e07f91b87abeffab9c6b",
+    "uploaded_by": "soxl-minute-research",
+    "created_at": "2026-10-23 12:55:01.96889+08",
+    "duplicate": false,
+    "nas_path": "/volume1/docker/yanxuan/registry/research-artifacts/51/9f/519fcf76da276d9a3e091f131f2e7001d96478694922e07f91b87abeffab9c6b",
+    "members": 5,
+    "request_manifest_sha256": "e3fe0ff071033774f4e213c487a9c6755579e23f93a96c0050bcbe10326a9470"
+  },
+  "source_restore": "source_restore.json",
+  "SOXX_outcome_reads": 0,
+  "model_fits": 0,
+  "native_accounts": 0
+}

@@ -1,0 +1,30 @@
+{
+  "experiment": "kcs_early20_2019_title_identity_repair_20261023",
+  "frozen": true,
+  "phase": "mechanical_official_portal_2019_early20_title_and_duplicate_page_identity_repair",
+  "parent": "frozen_complete_Stage1_0bp_IBKR_Tiered",
+  "question": "Can four unknown 2019 months in the fixed 2018-2022 official list index be resolved without requerying the other 56 months or looking at SOXX results?",
+  "sources": {
+    "index_card": "research/kcs_early20_2018_2022_portal_index_20261023",
+    "index_summary_sha256": "7b9df0a0ace933b612eeae6619e343d528713375973d20aea23f30db4c27aaef",
+    "index_experiment_id": "945446279852715369",
+    "index_recorder_id": "0cd12e0dfc0c4c1fa1329e71c2040525",
+    "index_monthly_artifact_sha256": "503951cfaf7f3e8a079228b14220fd4c278bf46b594750452eddc90f7bce4314",
+    "index_request_manifest": "data/snapshots/kcs_early20_2018_2022_portal_index_20261023/request_manifest.json",
+    "index_request_manifest_sha256": "33c284016f6d5ccaf35ba3c2b357ded97c21de72fb7172c8728b8cf1d6041209"
+  },
+  "fixed_saved_list_repairs": {
+    "2019-05": "156332380",
+    "2019-07": "156342252",
+    "2019-08": "156346327"
+  },
+  "exact_new_GETs": [
+    "https://www.korea.kr/briefing/pressReleaseView.do?newsId=156313866",
+    "https://www.korea.kr/briefing/pressReleaseView.do?newsId=156313813"
+  ],
+  "January_identity_rule": "Both listed January pages have near-identical 1-20 titles. Accept only the one whose own official page attachment visible filename contains 190121 and 수출입현황 or 수출입 현황; reject a page whose attachment is a different customs administrative support document. If either page fails transport or attachment discrimination is ambiguous, January remains unknown. Do not choose by newsId order or a market outcome.",
+  "transport": {"method": "GET", "user_agent": "soxl-qlib-source-research", "timeout_seconds_each": 15, "max_response_bytes_each": 500000, "retries": 0},
+  "audit": "All 56 prior unique candidates remain byte-for-byte selected; only the four unknown rows may change. The three shorthand matches must be present exactly once in the already NAS-backed saved response candidates and match their fixed month. Preserve two January response bodies, headers, UTC receipts and hashes; archive them to NAS and cold restore. Save repaired 60-row index and all decisions to native Qlib Recorder/NAS.",
+  "budget": {"external_GETs_max": 2, "NAS_source_archives_max": 1, "new_Qlib_Recorders_max": 1, "SOXX_outcome_reads": 0, "model_fits": 0, "native_accounts": 0},
+  "stop": "Any pinned index hash, exact candidate identity, January attachment, NAS receipt or readback mismatch stops. This only repairs page identity; do not download 60 attachments, extract semiconductor values, infer historical first-public bytes, build a factor or run a Stage1 account in this version."
+}
