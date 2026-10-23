@@ -1,0 +1,54 @@
+{
+  "experiment": "stage1_kcs_early20_cash_h5_information_20261023",
+  "frozen": true,
+  "execution_authorized_by_active_Goal": true,
+  "parent": "frozen_complete_Stage1_f696_plus_b472_0bp_IBKR_Tiered",
+  "hypothesis": "A higher Korean Customs first-20-day semiconductor export YoY, available only from the first US session strictly after the official portal registered date, signals stronger near-term semiconductor demand. Conditional on original Stage1 39 inputs and common month/age controls it should predict lower cash-minus-SOXX next-five-open-interval value; the candidate's added standardized coefficient is expected negative.",
+  "distinctness": "The Customs provisional early20 release is earlier and issuer-composition-independent relative to previously failed delayed global SIA sales and TSMC realized monthly revenue. This version uses only reported raw semiconductor YoY, not a working-day-adjusted or consensus surprise, and a matched Stage1 cash H5 receiver; no route or sign search.",
+  "sources": {
+    "parent_card": "research/minute_information_pit_allocator_20261012",
+    "parent_summary_sha256": "61c91f958323cf51b43f4b1554eeca5687011d30771e80bc7ff02d16b6d577ca",
+    "parent_recorder_id": "68e31a0a0fad44e7ba1d1f7d856c7a0d",
+    "parent_experiment_id": "905520356740140469",
+    "parent_features_sha256": "482d6a908ae95230143dc08014732c3247d22ccb1560f8509f6ac564a4d647ec",
+    "parent_frame_sha256": "674443e012ef98d21438891666e32e9fca8dcde6eb60fb3141f89ed6e0ca330c",
+    "parent_timing_sha256": "66e3292d7f47ac6981f2e488ed198d1109f340f2c3a4bf2a5f538fa41465764e",
+    "parent_model_sha256": "5945030ca770bb7ca63c6b03d53e6cf7265f239312cac1308debfde93afddcac",
+    "KCS_source_map_card": "research/kcs_early20_2018_2026_qlib_availability_map_20261023",
+    "KCS_source_map_summary_sha256": "7814f6445a139727b845018734381334d2ca4f610e069dbfe566c8a20c657185",
+    "KCS_source_map_experiment_id": "317046971405373670",
+    "KCS_source_map_recorder_id": "5b3c2e44c6db494cb3015d00648ba162",
+    "KCS_mapped_calendar_artifact_sha256": "42206f76c9acf12c3e60ce46a5e3d1cc8cee425bb60990d9006e9815d2ca72ac",
+    "bootstrap_module_sha256": "02705f897e668b710a38aae514df08b86e26c8cd8951405339960355a08a5ac4"
+  },
+  "receiver": {
+    "baseline": "Original Stage1 39 inputs plus common sin/cos calendar-month phase and source age in actual Qlib sessions. Identical median imputation, StandardScaler, Ridge(alpha=1) on only common mature source-known rows.",
+    "candidate": "The identical baseline plus one carried reported raw KCS semiconductor export YoY percent. No clipping or sign reversal, including 2026 extreme values.",
+    "second_control": "Mean of the identical training labels, no fit.",
+    "label": "Negative sum of log(1+SOXX forward open-to-open return) across exactly five consecutive native Qlib sessions from frozen parent frame; available only after the fifth interval matures.",
+    "decision_clock": "KCS map joins to the trade session derived from frozen parent timing.decision_at, not the prior signal-date close. Portal-date strict-next-Qlib-session mapping is conservative but current source byte vintage remains unqualified."
+  },
+  "cohorts": {
+    "train_signal_span": ["2018-01-02", "2022-12-30"],
+    "train_common_mature_source_known": 1240,
+    "train_source_months": 60,
+    "held_signal_span": ["2023-01-03", "2026-10-07"],
+    "held_full_calendar": 944,
+    "held_common_mature_source_known": 940,
+    "held_source_months": 45,
+    "held_complete_years": [2024, 2025],
+    "reused_market_history_is_independent": false
+  },
+  "information_gate": {
+    "added_standardized_coefficient_negative": true,
+    "candidate_vs_both_baseline_and_train_mean": [
+      "full common held paired MSE improvement positive",
+      "two fixed equal-calendar halves paired improvement positive",
+      "complete 2024 and 2025 paired improvement positive",
+      "full 944-session calendar corrected stationary-bootstrap lower bound positive"
+    ],
+    "bootstrap": {"mean_block_sessions": 63, "draws_each": 10000, "seed": 20261023, "one_sided_alpha_each": 0.000625, "family_denominator": 40}
+  },
+  "budget": {"new_external_requests": 0, "parent_Recorder_object_loads": 4, "KCS_source_Recorder_object_loads": 1, "DatasetH_builds": 1, "model_fit_attempts_max": 2, "bootstrap_attempts_max": 2, "new_Qlib_Recorders_max": 1, "native_accounts": 0},
+  "stop": "Stop before fits on pinned source identity, original39 feature set, trade-session timing, full 944 calendar or 1240/940 label/support mismatch. A failed fixed information version closes without month/year, sign, working-day adjustment, lag, alpha, source or threshold rescue. A pass remains conditional development feedback: historical KCS first-public byte vintages must be qualified before a separately frozen complete Stage1 own-state 0bp Tiered account, then 2/5bp and independent forward."
+}

@@ -1,0 +1,14 @@
+{
+  "status": "pinned_Stage1_39_plus_common_controls_KCS_cash_H5_cohorts_matched",
+  "plan_sha256": "9a8b1ddd32033b7f1edaf7acefd98c175ec424b21a674752a39acf2679ce01ee",
+  "train_mature": 1240,
+  "held_calendar": 944,
+  "held_scored": 940,
+  "held_unknown_label_tail": 4,
+  "train_KCS_event_sessions": 60,
+  "held_KCS_event_sessions": 45,
+  "max_abs_train_original39_Spearman": 0.2518061545362259,
+  "historical_source_byte_vintage_qualified": false,
+  "model_fits": 0,
+  "native_accounts": 0
+}

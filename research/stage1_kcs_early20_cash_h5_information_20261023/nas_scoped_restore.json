@@ -1,0 +1,32 @@
+{
+  "status": "NAS_Recorder_cold_readback_selected_KCS_cash_H5_information_artifacts_exact",
+  "archive_sha256": "cca3ee092325fde9806f0271d303ce3e29326fe66a62eeb46c244915cf6635b6",
+  "archive_bytes": 1538606,
+  "checked": {
+    "models/baseline": {
+      "sha256": "626f9023c0b966ca6ce1fc18ac213c9e36d16365a2f0f5ae2b3de3180cefde9f",
+      "bytes": 2776
+    },
+    "models/candidate": {
+      "sha256": "081c9b31a604fac9d753a3e5d5c5033abf660bb60f0e6827509bfe995af7e7b4",
+      "bytes": 2816
+    },
+    "analysis/metrics": {
+      "sha256": "5f08aee86b1b1a6f0b8dac1e4e478ea274763d0e5888f824959305b9ff1e908d",
+      "bytes": 864
+    },
+    "analysis/gates": {
+      "sha256": "44fa0c80d8f520adb32d27f3d2011766a8d270100f5d4f5787ef3f0972d57f3e",
+      "bytes": 180
+    },
+    "predictions/scored": {
+      "sha256": "df5abdc9fa0b2710073bc14408509799e15c6df4871a225b69d3f92e9fe0045c",
+      "bytes": 53854
+    }
+  },
+  "native_Recorder_status": "FINISHED",
+  "scored_rows": 940,
+  "full_calendar_rows": 944,
+  "new_fits": 0,
+  "new_accounts": 0
+}

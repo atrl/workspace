@@ -1,0 +1,16 @@
+{
+  "status": "approved_mechanical_terminal_unknown_mask_only",
+  "prior_failure_sha256": "9184af665b0eb1e4a2bee3aac5811aa06a79ce92c12bd8ec7c13adf879c98b92",
+  "only_code_change": "Treat exactly the out-of-calendar final parent signal 2026-10-09/decision trade 2026-10-12 as source unknown; require source_known nonnull for every frozen 2018-2022 train and 2023-2026-Oct07 held signal; portal-before-trade check uses fillna(false) only for that terminal row. No source dates, label horizon, cohort, feature, model, cost or gate changes.",
+  "cumulative_budget_after_one_repair": {
+    "parent_Recorder_object_loads_max": 8,
+    "KCS_source_Recorder_object_loads_max": 2,
+    "D_calendar_calls_max": 2,
+    "DatasetH_builds_max": 1,
+    "model_fit_attempts_max": 2,
+    "bootstrap_attempts_max": 2,
+    "new_Qlib_Recorders_max": 1,
+    "native_accounts": 0
+  },
+  "no_second_repair_without_new_audit": true
+}

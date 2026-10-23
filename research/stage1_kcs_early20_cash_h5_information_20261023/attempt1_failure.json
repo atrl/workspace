@@ -1,0 +1,17 @@
+{
+  "status": "pre_fit_terminal_parent_signal_maps_beyond_KCS_source_calendar",
+  "plan_sha256": "9a8b1ddd32033b7f1edaf7acefd98c175ec424b21a674752a39acf2679ce01ee",
+  "failed_assertion": "Whole 3966-signal parent frame source_known.notna().all, despite last signal 2026-10-09 having decision trade 2026-10-12 outside pinned source calendar ending 2026-10-09.",
+  "terminal_signal": "2026-10-09",
+  "terminal_decision_trade": "2026-10-12",
+  "fixed_held_last_signal": "2026-10-07",
+  "train_or_held_scored_rows_consumed": 0,
+  "actual_parent_Recorder_object_loads": 4,
+  "actual_KCS_source_Recorder_object_loads": 1,
+  "actual_D_calendar_calls": 1,
+  "DatasetH_builds": 0,
+  "model_fit_attempts": 0,
+  "bootstrap_attempts": 0,
+  "new_Qlib_Recorders": 0,
+  "native_accounts": 0
+}
