@@ -535,7 +535,9 @@
     "Stage1_composition_strong_window_overlap": "research/stage1_composition_strong_window_overlap_20261023/result.json",
     "Stage1_Futu_SOXX_daily_turnover_source": "research/stage1_futu_daily_turnover_source_20261023/summary.json",
     "Stage1_Futu_SOXX_raw_product_dedup": "research/stage1_futu_daily_turnover_source_20261023/representation_preflight.json",
-    "Stage1_Futu_turnover_surprise_prefit": "research/stage1_futu_turnover_surprise_preflight_20261023/summary.json"
+    "Stage1_Futu_turnover_surprise_prefit": "research/stage1_futu_turnover_surprise_preflight_20261023/summary.json",
+    "paper_forward_release_semantics_review": "research/stage1_paper_forward_readiness_audit_20261023/release_reseal_semantics_review_20261023.json",
+    "paper_forward_release_semantics_boundary": "Owner read-only review: optional state_transition parameter is not passed by paper route, so default behavior stays original; $is_complete first-four-bar filter is an actual future partial-bar semantic change, with existing synthetic partial-bar contract executed and Oct22 observed8/8 first-hour bars complete. Two source hashes still mismatch sealed release. Independent review and production authorization absent; no reseal, paper run, qualified forward day or SOXX success."
   },
   "parallel_source_task": {
     "card": "research/korea_semiconductor_exports_korean_vintage_20261022",
@@ -600,7 +602,7 @@
     ]
   },
   "active_index": "research/active_research_index.json",
-  "updated_at_utc": "2026-10-23T14:03:57Z",
+  "updated_at_utc": "2026-10-23T14:09:37Z",
   "execution_totals": {
     "new_model_fits": 85,
     "new_native_accounts": 51,

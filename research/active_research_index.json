@@ -694,5 +694,6 @@
   "latest_read_only_Stage1_composition_strong_window_overlap": "research/stage1_composition_strong_window_overlap_20261023/result.json",
   "latest_source_only_Stage1_Futu_SOXX_daily_turnover": "research/stage1_futu_daily_turnover_source_20261023/summary.json",
   "latest_prefit_dedup_Stage1_Futu_raw_signed_turnover": "research/stage1_futu_daily_turnover_source_20261023/representation_preflight.json",
-  "latest_closed_prefit_Stage1_Futu_turnover_surprise": "research/stage1_futu_turnover_surprise_preflight_20261023/summary.json"
+  "latest_closed_prefit_Stage1_Futu_turnover_surprise": "research/stage1_futu_turnover_surprise_preflight_20261023/summary.json",
+  "latest_read_only_Stage1_paper_release_semantics_review": "research/stage1_paper_forward_readiness_audit_20261023/release_reseal_semantics_review_20261023.json"
 }
