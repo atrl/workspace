@@ -1,0 +1,35 @@
+{
+  "experiment": "kcs_early20_2018_2020_oct_original_attachments_20261023",
+  "decision": "official_2018_2020_Oct_early20_semiconductor_YoY_only_amount_not_reported_in_captured_HWP",
+  "objective_achieved": false,
+  "plan_sha256": "1462a61f1c74255626c694cf295005a2fe2803dbf2c1f105c619df3224f2704f",
+  "capture_result": "result.json",
+  "first_numeric_probe": "hwp_numeric_probe.json",
+  "record_parser_repair": "hwp_record_repair_result.json",
+  "semantic_review": "hwp_semantic_review.json",
+  "years_with_official_HWP": [
+    2018,
+    2019,
+    2020
+  ],
+  "semiconductor_export_yoy_percent": [
+    9.4,
+    -28.8,
+    12.1
+  ],
+  "semiconductor_export_amounts_qualified": false,
+  "GET_attempts": 6,
+  "NAS_source_id": "790687ab393e72db53827e9c5929409c00ce0dc151536a9d5fdde962cd72c07a",
+  "NAS_readback_verified": true,
+  "historical_first_public_bytes_qualified": false,
+  "full_monthly_training_panel_qualified": false,
+  "SOXX_outcome_reads": 0,
+  "new_model_fits": 0,
+  "new_native_accounts": 0,
+  "strategy_forward_days": 0,
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": []
+  }
+}

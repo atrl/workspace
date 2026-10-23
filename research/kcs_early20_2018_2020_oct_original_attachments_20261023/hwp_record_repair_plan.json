@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "frozen": true,
+  "phase": "one_Hancom_HWP5_record_text_parser_repair_after_ambiguous_token_offsets",
+  "parent_review_plan": "hwp_numeric_review_plan.json",
+  "parent_probe": "hwp_numeric_probe.json",
+  "official_format_reference": "https://cdn.hancom.com/link/docs/%ED%95%9C%EA%B8%80%EB%AC%B8%EC%84%9C_%ED%8C%8C%EC%9D%BC%ED%98%95%EC%8B%9D_5.0_revision1.2.pdf",
+  "method": "Read each exact NAS-backed HWP5 OLE BodyText/Section0, apply raw deflate, parse each 4-byte little-endian record header as tag ID 10 bits, level 10 bits and size 12 bits (extended 4-byte size when 0xFFF); decode only tag 67 HWPTAG_PARA_TEXT payloads as UTF-16LE. Preserve paragraph record order/level and control tokens; do not derive numeric amounts from other years.",
+  "control_gate": "Before interpreting 2018-2020, the same record parser must recover 2021 export semiconductor 6,394/+23.9 and 2022 5,573/-12.8 as adjacent table-cell paragraphs after the semiconductor label. If either fails, stop with concrete parser evidence.",
+  "unknown_year_gate": "For each 2018-2020 HWP, report every semiconductor paragraph and neighboring numeric paragraph with record order/level. Accept one export amount and YoY only if the export table heading, matching period/unit and row sequence distinguish it from imports, total exports and annual cumulative figures. Ambiguity stays unknown; do not use secondary transcriptions or outcome signs to choose.",
+  "budget": {"control_HWP_reads_max": 2, "unknown_HWP_reads_max": 3, "external_GETs": 0, "SOXX_outcome_reads": 0, "model_fits": 0, "native_accounts": 0},
+  "stop": "One parser repair only. Retain previous raw-token probe, source bytes and original plans. Historical first-public attachment bytes and full monthly training coverage remain unqualified."
+}

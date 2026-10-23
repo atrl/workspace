@@ -1,0 +1,2196 @@
+{
+  "decision": "HWP_record_parser_controls_passed_unknown_year_rows_require_semantic_review",
+  "plan_sha256": "a6d87c3e94c739050b2594e975600d02467fe63378ae3926f4dcbc83ede657ff",
+  "controls": {
+    "2021": {
+      "expected_amount": "6,394",
+      "expected_yoy": "23.9",
+      "matching_semiconductor_paragraph_indices": [
+        71,
+        86
+      ],
+      "passed": true
+    },
+    "2022": {
+      "expected_amount": "5,573",
+      "expected_yoy": "12.8",
+      "matching_semiconductor_paragraph_indices": [
+        94
+      ],
+      "passed": true
+    }
+  },
+  "controls_pass": true,
+  "documents": {
+    "2021": {
+      "decompressed_bytes": 37356,
+      "records": 1146,
+      "paragraphs": 220,
+      "extended_size_records": 0,
+      "OLE_stream_count": 11,
+      "section_count": 1,
+      "semiconductor_hits": [
+        {
+          "paragraph_index": 68,
+          "paragraph": {
+            "record": 370,
+            "level": 3,
+            "text": "ㅇ (주요품목) 전년 동기 대비 반도체(23.9%), 석유제품(128.7%), 승용차(10.5%), 무선통신기기(2.6%), 선박(93.5%), 정밀기기(26.7%) 등 증가"
+          },
+          "context": [
+            {
+              "paragraph_index": 60,
+              "record": 323,
+              "level": 5,
+              "text": "무역수지"
+            },
+            {
+              "paragraph_index": 61,
+              "record": 328,
+              "level": 5,
+              "text": "330"
+            },
+            {
+              "paragraph_index": 62,
+              "record": 333,
+              "level": 5,
+              "text": "26,969"
+            },
+            {
+              "paragraph_index": 63,
+              "record": 338,
+              "level": 5,
+              "text": "1,131"
+            },
+            {
+              "paragraph_index": 64,
+              "record": 343,
+              "level": 5,
+              "text": "-2,488"
+            },
+            {
+              "paragraph_index": 65,
+              "record": 348,
+              "level": 5,
+              "text": "22,795"
+            },
+            {
+              "paragraph_index": 66,
+              "record": 352,
+              "level": 3,
+              "text": "※조업일수[(’20)12일,(’21)13일]고려 시 일평균수출액[(’20.10.)20.9,(’21.10.)26.3억 달러] 25.7% 증가"
+            },
+            {
+              "paragraph_index": 67,
+              "record": 362,
+              "level": 3,
+              "text": "灳瑣 수출현황"
+            },
+            {
+              "paragraph_index": 68,
+              "record": 370,
+              "level": 3,
+              "text": "ㅇ (주요품목) 전년 동기 대비 반도체(23.9%), 석유제품(128.7%), 승용차(10.5%), 무선통신기기(2.6%), 선박(93.5%), 정밀기기(26.7%) 등 증가"
+            },
+            {
+              "paragraph_index": 69,
+              "record": 377,
+              "level": 3,
+              "text": "ㅇ (주요국가) 중국(30.9%), 미국(37.1%), 유럽연합(42.1%), 베트남(15.0%), 일본(51.9%), 대만(61.4%) 등 증가"
+            },
+            {
+              "paragraph_index": 70,
+              "record": 384,
+              "level": 3,
+              "text": "수입현황"
+            },
+            {
+              "paragraph_index": 71,
+              "record": 391,
+              "level": 3,
+              "text": "ㅇ (주요품목) 전년 동기 대비 원유(98.4%), 반도체(20.3%), 가스(157.8%), 석유제품(330.1%), 기계류(0.9%) 등 증가, 승용차(△8.8%) 등 감소"
+            },
+            {
+              "paragraph_index": 72,
+              "record": 398,
+              "level": 3,
+              "text": "ㅇ (주요국가) 중국(37.4%), 미국(44.0%), 유럽연합(28.1%), 일본(21.9%), 호주(84.0%), 베트남(11.5%) 등 증가"
+            },
+            {
+              "paragraph_index": 73,
+              "record": 402,
+              "level": 1,
+              "text": "氠瑢"
+            },
+            {
+              "paragraph_index": 74,
+              "record": 409,
+              "level": 3,
+              "text": "10.1~20일 수출입 통계(속보치)"
+            },
+            {
+              "paragraph_index": 75,
+              "record": 416,
+              "level": 1,
+              "text": "□ 주요품목"
+            },
+            {
+              "paragraph_index": 76,
+              "record": 420,
+              "level": 1,
+              "text": "(단위:백만 달러,전년동기대비 %)"
+            },
+            {
+              "paragraph_index": 77,
+              "record": 424,
+              "level": 1,
+              "text": "氠瑢"
+            },
+            {
+              "paragraph_index": 78,
+              "record": 431,
+              "level": 3,
+              "text": "수출(10.1.~20.)"
+            },
+            {
+              "paragraph_index": 79,
+              "record": 436,
+              "level": 3,
+              "text": "수입(10.1.~20.)"
+            },
+            {
+              "paragraph_index": 80,
+              "record": 441,
+              "level": 3,
+              "text": "주요품목"
+            },
+            {
+              "paragraph_index": 81,
+              "record": 446,
+              "level": 3,
+              "text": "금액"
+            },
+            {
+              "paragraph_index": 82,
+              "record": 451,
+              "level": 3,
+              "text": "증감률"
+            },
+            {
+              "paragraph_index": 83,
+              "record": 456,
+              "level": 3,
+              "text": "주요품목"
+            },
+            {
+              "paragraph_index": 84,
+              "record": 461,
+              "level": 3,
+              "text": "금액"
+            },
+            {
+              "paragraph_index": 85,
+              "record": 466,
+              "level": 3,
+              "text": "증감률"
+            }
+          ]
+        },
+        {
+          "paragraph_index": 71,
+          "paragraph": {
+            "record": 391,
+            "level": 3,
+            "text": "ㅇ (주요품목) 전년 동기 대비 원유(98.4%), 반도체(20.3%), 가스(157.8%), 석유제품(330.1%), 기계류(0.9%) 등 증가, 승용차(△8.8%) 등 감소"
+          },
+          "context": [
+            {
+              "paragraph_index": 63,
+              "record": 338,
+              "level": 5,
+              "text": "1,131"
+            },
+            {
+              "paragraph_index": 64,
+              "record": 343,
+              "level": 5,
+              "text": "-2,488"
+            },
+            {
+              "paragraph_index": 65,
+              "record": 348,
+              "level": 5,
+              "text": "22,795"
+            },
+            {
+              "paragraph_index": 66,
+              "record": 352,
+              "level": 3,
+              "text": "※조업일수[(’20)12일,(’21)13일]고려 시 일평균수출액[(’20.10.)20.9,(’21.10.)26.3억 달러] 25.7% 증가"
+            },
+            {
+              "paragraph_index": 67,
+              "record": 362,
+              "level": 3,
+              "text": "灳瑣 수출현황"
+            },
+            {
+              "paragraph_index": 68,
+              "record": 370,
+              "level": 3,
+              "text": "ㅇ (주요품목) 전년 동기 대비 반도체(23.9%), 석유제품(128.7%), 승용차(10.5%), 무선통신기기(2.6%), 선박(93.5%), 정밀기기(26.7%) 등 증가"
+            },
+            {
+              "paragraph_index": 69,
+              "record": 377,
+              "level": 3,
+              "text": "ㅇ (주요국가) 중국(30.9%), 미국(37.1%), 유럽연합(42.1%), 베트남(15.0%), 일본(51.9%), 대만(61.4%) 등 증가"
+            },
+            {
+              "paragraph_index": 70,
+              "record": 384,
+              "level": 3,
+              "text": "수입현황"
+            },
+            {
+              "paragraph_index": 71,
+              "record": 391,
+              "level": 3,
+              "text": "ㅇ (주요품목) 전년 동기 대비 원유(98.4%), 반도체(20.3%), 가스(157.8%), 석유제품(330.1%), 기계류(0.9%) 등 증가, 승용차(△8.8%) 등 감소"
+            },
+            {
+              "paragraph_index": 72,
+              "record": 398,
+              "level": 3,
+              "text": "ㅇ (주요국가) 중국(37.4%), 미국(44.0%), 유럽연합(28.1%), 일본(21.9%), 호주(84.0%), 베트남(11.5%) 등 증가"
+            },
+            {
+              "paragraph_index": 73,
+              "record": 402,
+              "level": 1,
+              "text": "氠瑢"
+            },
+            {
+              "paragraph_index": 74,
+              "record": 409,
+              "level": 3,
+              "text": "10.1~20일 수출입 통계(속보치)"
+            },
+            {
+              "paragraph_index": 75,
+              "record": 416,
+              "level": 1,
+              "text": "□ 주요품목"
+            },
+            {
+              "paragraph_index": 76,
+              "record": 420,
+              "level": 1,
+              "text": "(단위:백만 달러,전년동기대비 %)"
+            },
+            {
+              "paragraph_index": 77,
+              "record": 424,
+              "level": 1,
+              "text": "氠瑢"
+            },
+            {
+              "paragraph_index": 78,
+              "record": 431,
+              "level": 3,
+              "text": "수출(10.1.~20.)"
+            },
+            {
+              "paragraph_index": 79,
+              "record": 436,
+              "level": 3,
+              "text": "수입(10.1.~20.)"
+            },
+            {
+              "paragraph_index": 80,
+              "record": 441,
+              "level": 3,
+              "text": "주요품목"
+            },
+            {
+              "paragraph_index": 81,
+              "record": 446,
+              "level": 3,
+              "text": "금액"
+            },
+            {
+              "paragraph_index": 82,
+              "record": 451,
+              "level": 3,
+              "text": "증감률"
+            },
+            {
+              "paragraph_index": 83,
+              "record": 456,
+              "level": 3,
+              "text": "주요품목"
+            },
+            {
+              "paragraph_index": 84,
+              "record": 461,
+              "level": 3,
+              "text": "금액"
+            },
+            {
+              "paragraph_index": 85,
+              "record": 466,
+              "level": 3,
+              "text": "증감률"
+            },
+            {
+              "paragraph_index": 86,
+              "record": 471,
+              "level": 3,
+              "text": "반도체"
+            },
+            {
+              "paragraph_index": 87,
+              "record": 476,
+              "level": 3,
+              "text": "6,394"
+            },
+            {
+              "paragraph_index": 88,
+              "record": 481,
+              "level": 3,
+              "text": "23.9"
+            }
+          ]
+        },
+        {
+          "paragraph_index": 86,
+          "paragraph": {
+            "record": 471,
+            "level": 3,
+            "text": "반도체"
+          },
+          "context": [
+            {
+              "paragraph_index": 78,
+              "record": 431,
+              "level": 3,
+              "text": "수출(10.1.~20.)"
+            },
+            {
+              "paragraph_index": 79,
+              "record": 436,
+              "level": 3,
+              "text": "수입(10.1.~20.)"
+            },
+            {
+              "paragraph_index": 80,
+              "record": 441,
+              "level": 3,
+              "text": "주요품목"
+            },
+            {
+              "paragraph_index": 81,
+              "record": 446,
+              "level": 3,
+              "text": "금액"
+            },
+            {
+              "paragraph_index": 82,
+              "record": 451,
+              "level": 3,
+              "text": "증감률"
+            },
+            {
+              "paragraph_index": 83,
+              "record": 456,
+              "level": 3,
+              "text": "주요품목"
+            },
+            {
+              "paragraph_index": 84,
+              "record": 461,
+              "level": 3,
+              "text": "금액"
+            },
+            {
+              "paragraph_index": 85,
+              "record": 466,
+              "level": 3,
+              "text": "증감률"
+            },
+            {
+              "paragraph_index": 86,
+              "record": 471,
+              "level": 3,
+              "text": "반도체"
+            },
+            {
+              "paragraph_index": 87,
+              "record": 476,
+              "level": 3,
+              "text": "6,394"
+            },
+            {
+              "paragraph_index": 88,
+              "record": 481,
+              "level": 3,
+              "text": "23.9"
+            },
+            {
+              "paragraph_index": 89,
+              "record": 486,
+              "level": 3,
+              "text": "원 유"
+            },
+            {
+              "paragraph_index": 90,
+              "record": 491,
+              "level": 3,
+              "text": "4,782"
+            },
+            {
+              "paragraph_index": 91,
+              "record": 496,
+              "level": 3,
+              "text": "98.4"
+            },
+            {
+              "paragraph_index": 92,
+              "record": 501,
+              "level": 3,
+              "text": "철강제품"
+            },
+            {
+              "paragraph_index": 93,
+              "record": 506,
+              "level": 3,
+              "text": "2,901"
+            },
+            {
+              "paragraph_index": 94,
+              "record": 511,
+              "level": 3,
+              "text": "51.5"
+            },
+            {
+              "paragraph_index": 95,
+              "record": 516,
+              "level": 3,
+              "text": "반도체"
+            },
+            {
+              "paragraph_index": 96,
+              "record": 521,
+              "level": 3,
+              "text": "3,798"
+            },
+            {
+              "paragraph_index": 97,
+              "record": 526,
+              "level": 3,
+              "text": "20.3"
+            },
+            {
+              "paragraph_index": 98,
+              "record": 531,
+              "level": 3,
+              "text": "석유제품"
+            },
+            {
+              "paragraph_index": 99,
+              "record": 536,
+              "level": 3,
+              "text": "2,484"
+            },
+            {
+              "paragraph_index": 100,
+              "record": 541,
+              "level": 3,
+              "text": "128.7"
+            },
+            {
+              "paragraph_index": 101,
+              "record": 546,
+              "level": 3,
+              "text": "가스"
+            },
+            {
+              "paragraph_index": 102,
+              "record": 551,
+              "level": 3,
+              "text": "2,273"
+            },
+            {
+              "paragraph_index": 103,
+              "record": 556,
+              "level": 3,
+              "text": "157.8"
+            }
+          ]
+        },
+        {
+          "paragraph_index": 95,
+          "paragraph": {
+            "record": 516,
+            "level": 3,
+            "text": "반도체"
+          },
+          "context": [
+            {
+              "paragraph_index": 87,
+              "record": 476,
+              "level": 3,
+              "text": "6,394"
+            },
+            {
+              "paragraph_index": 88,
+              "record": 481,
+              "level": 3,
+              "text": "23.9"
+            },
+            {
+              "paragraph_index": 89,
+              "record": 486,
+              "level": 3,
+              "text": "원 유"
+            },
+            {
+              "paragraph_index": 90,
+              "record": 491,
+              "level": 3,
+              "text": "4,782"
+            },
+            {
+              "paragraph_index": 91,
+              "record": 496,
+              "level": 3,
+              "text": "98.4"
+            },
+            {
+              "paragraph_index": 92,
+              "record": 501,
+              "level": 3,
+              "text": "철강제품"
+            },
+            {
+              "paragraph_index": 93,
+              "record": 506,
+              "level": 3,
+              "text": "2,901"
+            },
+            {
+              "paragraph_index": 94,
+              "record": 511,
+              "level": 3,
+              "text": "51.5"
+            },
+            {
+              "paragraph_index": 95,
+              "record": 516,
+              "level": 3,
+              "text": "반도체"
+            },
+            {
+              "paragraph_index": 96,
+              "record": 521,
+              "level": 3,
+              "text": "3,798"
+            },
+            {
+              "paragraph_index": 97,
+              "record": 526,
+              "level": 3,
+              "text": "20.3"
+            },
+            {
+              "paragraph_index": 98,
+              "record": 531,
+              "level": 3,
+              "text": "석유제품"
+            },
+            {
+              "paragraph_index": 99,
+              "record": 536,
+              "level": 3,
+              "text": "2,484"
+            },
+            {
+              "paragraph_index": 100,
+              "record": 541,
+              "level": 3,
+              "text": "128.7"
+            },
+            {
+              "paragraph_index": 101,
+              "record": 546,
+              "level": 3,
+              "text": "가스"
+            },
+            {
+              "paragraph_index": 102,
+              "record": 551,
+              "level": 3,
+              "text": "2,273"
+            },
+            {
+              "paragraph_index": 103,
+              "record": 556,
+              "level": 3,
+              "text": "157.8"
+            },
+            {
+              "paragraph_index": 104,
+              "record": 561,
+              "level": 3,
+              "text": "승용차"
+            },
+            {
+              "paragraph_index": 105,
+              "record": 566,
+              "level": 3,
+              "text": "2,008"
+            },
+            {
+              "paragraph_index": 106,
+              "record": 571,
+              "level": 3,
+              "text": "10.5"
+            },
+            {
+              "paragraph_index": 107,
+              "record": 576,
+              "level": 3,
+              "text": "석유제품"
+            },
+            {
+              "paragraph_index": 108,
+              "record": 581,
+              "level": 3,
+              "text": "1,583"
+            },
+            {
+              "paragraph_index": 109,
+              "record": 586,
+              "level": 3,
+              "text": "330.1"
+            },
+            {
+              "paragraph_index": 110,
+              "record": 591,
+              "level": 3,
+              "text": "무선통신기기"
+            },
+            {
+              "paragraph_index": 111,
+              "record": 596,
+              "level": 3,
+              "text": "1,526"
+            },
+            {
+              "paragraph_index": 112,
+              "record": 601,
+              "level": 3,
+              "text": "2.6"
+            }
+          ]
+        },
+        {
+          "paragraph_index": 131,
+          "paragraph": {
+            "record": 696,
+            "level": 3,
+            "text": "반도체제조장비"
+          },
+          "context": [
+            {
+              "paragraph_index": 123,
+              "record": 656,
+              "level": 3,
+              "text": "1,053"
+            },
+            {
+              "paragraph_index": 124,
+              "record": 661,
+              "level": 3,
+              "text": "7.9"
+            },
+            {
+              "paragraph_index": 125,
+              "record": 666,
+              "level": 3,
+              "text": "정밀기기"
+            },
+            {
+              "paragraph_index": 126,
+              "record": 671,
+              "level": 3,
+              "text": "939"
+            },
+            {
+              "paragraph_index": 127,
+              "record": 676,
+              "level": 3,
+              "text": "9.3"
+            },
+            {
+              "paragraph_index": 128,
+              "record": 681,
+              "level": 3,
+              "text": "정밀기기"
+            },
+            {
+              "paragraph_index": 129,
+              "record": 686,
+              "level": 3,
+              "text": "748"
+            },
+            {
+              "paragraph_index": 130,
+              "record": 691,
+              "level": 3,
+              "text": "26.7"
+            },
+            {
+              "paragraph_index": 131,
+              "record": 696,
+              "level": 3,
+              "text": "반도체제조장비"
+            },
+            {
+              "paragraph_index": 132,
+              "record": 701,
+              "level": 3,
+              "text": "920"
+            },
+            {
+              "paragraph_index": 133,
+              "record": 706,
+              "level": 3,
+              "text": "36.7"
+            },
+            {
+              "paragraph_index": 134,
+              "record": 711,
+              "level": 3,
+              "text": "컴퓨터 주변기기"
+            },
+            {
+              "paragraph_index": 135,
+              "record": 716,
+              "level": 3,
+              "text": "612"
+            },
+            {
+              "paragraph_index": 136,
+              "record": 721,
+              "level": 3,
+              "text": "27.5"
+            },
+            {
+              "paragraph_index": 137,
+              "record": 726,
+              "level": 3,
+              "text": "석탄"
+            },
+            {
+              "paragraph_index": 138,
+              "record": 731,
+              "level": 3,
+              "text": "899"
+            },
+            {
+              "paragraph_index": 139,
+              "record": 736,
+              "level": 3,
+              "text": "139.0"
+            },
+            {
+              "paragraph_index": 140,
+              "record": 741,
+              "level": 3,
+              "text": "가전제품"
+            },
+            {
+              "paragraph_index": 141,
+              "record": 746,
+              "level": 3,
+              "text": "468"
+            },
+            {
+              "paragraph_index": 142,
+              "record": 751,
+              "level": 3,
+              "text": "25.4"
+            },
+            {
+              "paragraph_index": 143,
+              "record": 756,
+              "level": 3,
+              "text": "승용차"
+            },
+            {
+              "paragraph_index": 144,
+              "record": 761,
+              "level": 3,
+              "text": "545"
+            },
+            {
+              "paragraph_index": 145,
+              "record": 766,
+              "level": 3,
+              "text": "△8.8"
+            },
+            {
+              "paragraph_index": 146,
+              "record": 773,
+              "level": 1,
+              "text": "□ 주요국가"
+            },
+            {
+              "paragraph_index": 147,
+              "record": 777,
+              "level": 1,
+              "text": "(단위:백만 달러,전년동기대비 %)"
+            },
+            {
+              "paragraph_index": 148,
+              "record": 781,
+              "level": 1,
+              "text": "氠瑢"
+            }
+          ]
+        }
+      ]
+    },
+    "2022": {
+      "decompressed_bytes": 40182,
+      "records": 1210,
+      "paragraphs": 230,
+      "extended_size_records": 0,
+      "OLE_stream_count": 13,
+      "section_count": 1,
+      "semiconductor_hits": [
+        {
+          "paragraph_index": 75,
+          "paragraph": {
+            "record": 406,
+            "level": 1,
+            "text": "ㅇ (주요품목) 전년 동기 대비 석유제품(16.4%), 승용차(32.1%) 등 증가, 반도체(△12.8%), 무선통신기기(△15.6%), 선박(△22.9%) 등 감소"
+          },
+          "context": [
+            {
+              "paragraph_index": 67,
+              "record": 362,
+              "level": 3,
+              "text": "무역수지"
+            },
+            {
+              "paragraph_index": 68,
+              "record": 367,
+              "level": 3,
+              "text": "-2,374"
+            },
+            {
+              "paragraph_index": 69,
+              "record": 372,
+              "level": 3,
+              "text": "22,573"
+            },
+            {
+              "paragraph_index": 70,
+              "record": 377,
+              "level": 3,
+              "text": "-4,108"
+            },
+            {
+              "paragraph_index": 71,
+              "record": 382,
+              "level": 3,
+              "text": "-4,954"
+            },
+            {
+              "paragraph_index": 72,
+              "record": 387,
+              "level": 3,
+              "text": "-33,843"
+            },
+            {
+              "paragraph_index": 73,
+              "record": 391,
+              "level": 1,
+              "text": "※조업일수[(’21)13일,(’22)13.5일]고려 시 일평균수출액[(’21.10.)26.4,(’22.10.)24.0억 달러] △9.0% 감소"
+            },
+            {
+              "paragraph_index": 74,
+              "record": 398,
+              "level": 1,
+              "text": "灳瑣 수출현황"
+            },
+            {
+              "paragraph_index": 75,
+              "record": 406,
+              "level": 1,
+              "text": "ㅇ (주요품목) 전년 동기 대비 석유제품(16.4%), 승용차(32.1%) 등 증가, 반도체(△12.8%), 무선통신기기(△15.6%), 선박(△22.9%) 등 감소"
+            },
+            {
+              "paragraph_index": 76,
+              "record": 413,
+              "level": 1,
+              "text": "ㅇ (주요국가) 미국(6.3%), 유럽연합(3.4%), 베트남(1.7%) 등 증가, 중국(△16.3%), 일본(△16.1%), 대만(△26.7%) 등 감소"
+            },
+            {
+              "paragraph_index": 77,
+              "record": 420,
+              "level": 1,
+              "text": "수입현황"
+            },
+            {
+              "paragraph_index": 78,
+              "record": 427,
+              "level": 1,
+              "text": "ㅇ (주요품목) 전년 동기 대비 반도체(13.9%), 가스(24.6%) 등 증가, 원유(△0.3%), 석유제품(△18.5%), 정밀기기(△2.7%) 등 감소"
+            },
+            {
+              "paragraph_index": 79,
+              "record": 434,
+              "level": 1,
+              "text": "ㅇ (주요국가) 중국(10.9%), 미국(6.6%) 등 증가, 유럽연합(△1.5%), 일본(△6.0%), 사우디아라비아(△1.4%) 등 감소"
+            },
+            {
+              "paragraph_index": 80,
+              "record": 438,
+              "level": 1,
+              "text": "氠瑢"
+            },
+            {
+              "paragraph_index": 81,
+              "record": 445,
+              "level": 3,
+              "text": "붙임"
+            },
+            {
+              "paragraph_index": 82,
+              "record": 454,
+              "level": 3,
+              "text": "10.1~20일 수출입 통계(속보치)"
+            },
+            {
+              "paragraph_index": 83,
+              "record": 461,
+              "level": 1,
+              "text": "□ 주요품목"
+            },
+            {
+              "paragraph_index": 84,
+              "record": 465,
+              "level": 1,
+              "text": "(단위:백만 달러,전년동기대비 %)"
+            },
+            {
+              "paragraph_index": 85,
+              "record": 469,
+              "level": 1,
+              "text": "氠瑢"
+            },
+            {
+              "paragraph_index": 86,
+              "record": 476,
+              "level": 3,
+              "text": "수출(10.1.~20.)"
+            },
+            {
+              "paragraph_index": 87,
+              "record": 481,
+              "level": 3,
+              "text": "수입(10.1.~20.)"
+            },
+            {
+              "paragraph_index": 88,
+              "record": 486,
+              "level": 3,
+              "text": "주요품목"
+            },
+            {
+              "paragraph_index": 89,
+              "record": 491,
+              "level": 3,
+              "text": "금액"
+            },
+            {
+              "paragraph_index": 90,
+              "record": 496,
+              "level": 3,
+              "text": "증감률"
+            },
+            {
+              "paragraph_index": 91,
+              "record": 501,
+              "level": 3,
+              "text": "주요품목"
+            },
+            {
+              "paragraph_index": 92,
+              "record": 506,
+              "level": 3,
+              "text": "금액"
+            }
+          ]
+        },
+        {
+          "paragraph_index": 78,
+          "paragraph": {
+            "record": 427,
+            "level": 1,
+            "text": "ㅇ (주요품목) 전년 동기 대비 반도체(13.9%), 가스(24.6%) 등 증가, 원유(△0.3%), 석유제품(△18.5%), 정밀기기(△2.7%) 등 감소"
+          },
+          "context": [
+            {
+              "paragraph_index": 70,
+              "record": 377,
+              "level": 3,
+              "text": "-4,108"
+            },
+            {
+              "paragraph_index": 71,
+              "record": 382,
+              "level": 3,
+              "text": "-4,954"
+            },
+            {
+              "paragraph_index": 72,
+              "record": 387,
+              "level": 3,
+              "text": "-33,843"
+            },
+            {
+              "paragraph_index": 73,
+              "record": 391,
+              "level": 1,
+              "text": "※조업일수[(’21)13일,(’22)13.5일]고려 시 일평균수출액[(’21.10.)26.4,(’22.10.)24.0억 달러] △9.0% 감소"
+            },
+            {
+              "paragraph_index": 74,
+              "record": 398,
+              "level": 1,
+              "text": "灳瑣 수출현황"
+            },
+            {
+              "paragraph_index": 75,
+              "record": 406,
+              "level": 1,
+              "text": "ㅇ (주요품목) 전년 동기 대비 석유제품(16.4%), 승용차(32.1%) 등 증가, 반도체(△12.8%), 무선통신기기(△15.6%), 선박(△22.9%) 등 감소"
+            },
+            {
+              "paragraph_index": 76,
+              "record": 413,
+              "level": 1,
+              "text": "ㅇ (주요국가) 미국(6.3%), 유럽연합(3.4%), 베트남(1.7%) 등 증가, 중국(△16.3%), 일본(△16.1%), 대만(△26.7%) 등 감소"
+            },
+            {
+              "paragraph_index": 77,
+              "record": 420,
+              "level": 1,
+              "text": "수입현황"
+            },
+            {
+              "paragraph_index": 78,
+              "record": 427,
+              "level": 1,
+              "text": "ㅇ (주요품목) 전년 동기 대비 반도체(13.9%), 가스(24.6%) 등 증가, 원유(△0.3%), 석유제품(△18.5%), 정밀기기(△2.7%) 등 감소"
+            },
+            {
+              "paragraph_index": 79,
+              "record": 434,
+              "level": 1,
+              "text": "ㅇ (주요국가) 중국(10.9%), 미국(6.6%) 등 증가, 유럽연합(△1.5%), 일본(△6.0%), 사우디아라비아(△1.4%) 등 감소"
+            },
+            {
+              "paragraph_index": 80,
+              "record": 438,
+              "level": 1,
+              "text": "氠瑢"
+            },
+            {
+              "paragraph_index": 81,
+              "record": 445,
+              "level": 3,
+              "text": "붙임"
+            },
+            {
+              "paragraph_index": 82,
+              "record": 454,
+              "level": 3,
+              "text": "10.1~20일 수출입 통계(속보치)"
+            },
+            {
+              "paragraph_index": 83,
+              "record": 461,
+              "level": 1,
+              "text": "□ 주요품목"
+            },
+            {
+              "paragraph_index": 84,
+              "record": 465,
+              "level": 1,
+              "text": "(단위:백만 달러,전년동기대비 %)"
+            },
+            {
+              "paragraph_index": 85,
+              "record": 469,
+              "level": 1,
+              "text": "氠瑢"
+            },
+            {
+              "paragraph_index": 86,
+              "record": 476,
+              "level": 3,
+              "text": "수출(10.1.~20.)"
+            },
+            {
+              "paragraph_index": 87,
+              "record": 481,
+              "level": 3,
+              "text": "수입(10.1.~20.)"
+            },
+            {
+              "paragraph_index": 88,
+              "record": 486,
+              "level": 3,
+              "text": "주요품목"
+            },
+            {
+              "paragraph_index": 89,
+              "record": 491,
+              "level": 3,
+              "text": "금액"
+            },
+            {
+              "paragraph_index": 90,
+              "record": 496,
+              "level": 3,
+              "text": "증감률"
+            },
+            {
+              "paragraph_index": 91,
+              "record": 501,
+              "level": 3,
+              "text": "주요품목"
+            },
+            {
+              "paragraph_index": 92,
+              "record": 506,
+              "level": 3,
+              "text": "금액"
+            },
+            {
+              "paragraph_index": 93,
+              "record": 511,
+              "level": 3,
+              "text": "증감률"
+            },
+            {
+              "paragraph_index": 94,
+              "record": 516,
+              "level": 3,
+              "text": "반도체"
+            },
+            {
+              "paragraph_index": 95,
+              "record": 521,
+              "level": 3,
+              "text": "5,573"
+            }
+          ]
+        },
+        {
+          "paragraph_index": 94,
+          "paragraph": {
+            "record": 516,
+            "level": 3,
+            "text": "반도체"
+          },
+          "context": [
+            {
+              "paragraph_index": 86,
+              "record": 476,
+              "level": 3,
+              "text": "수출(10.1.~20.)"
+            },
+            {
+              "paragraph_index": 87,
+              "record": 481,
+              "level": 3,
+              "text": "수입(10.1.~20.)"
+            },
+            {
+              "paragraph_index": 88,
+              "record": 486,
+              "level": 3,
+              "text": "주요품목"
+            },
+            {
+              "paragraph_index": 89,
+              "record": 491,
+              "level": 3,
+              "text": "금액"
+            },
+            {
+              "paragraph_index": 90,
+              "record": 496,
+              "level": 3,
+              "text": "증감률"
+            },
+            {
+              "paragraph_index": 91,
+              "record": 501,
+              "level": 3,
+              "text": "주요품목"
+            },
+            {
+              "paragraph_index": 92,
+              "record": 506,
+              "level": 3,
+              "text": "금액"
+            },
+            {
+              "paragraph_index": 93,
+              "record": 511,
+              "level": 3,
+              "text": "증감률"
+            },
+            {
+              "paragraph_index": 94,
+              "record": 516,
+              "level": 3,
+              "text": "반도체"
+            },
+            {
+              "paragraph_index": 95,
+              "record": 521,
+              "level": 3,
+              "text": "5,573"
+            },
+            {
+              "paragraph_index": 96,
+              "record": 526,
+              "level": 3,
+              "text": "△12.8"
+            },
+            {
+              "paragraph_index": 97,
+              "record": 531,
+              "level": 3,
+              "text": "원 유"
+            },
+            {
+              "paragraph_index": 98,
+              "record": 536,
+              "level": 3,
+              "text": "4,767"
+            },
+            {
+              "paragraph_index": 99,
+              "record": 541,
+              "level": 3,
+              "text": "△0.3"
+            },
+            {
+              "paragraph_index": 100,
+              "record": 546,
+              "level": 3,
+              "text": "석유제품"
+            },
+            {
+              "paragraph_index": 101,
+              "record": 551,
+              "level": 3,
+              "text": "3,045"
+            },
+            {
+              "paragraph_index": 102,
+              "record": 556,
+              "level": 3,
+              "text": "16.4"
+            },
+            {
+              "paragraph_index": 103,
+              "record": 561,
+              "level": 3,
+              "text": "반도체"
+            },
+            {
+              "paragraph_index": 104,
+              "record": 566,
+              "level": 3,
+              "text": "4,328"
+            },
+            {
+              "paragraph_index": 105,
+              "record": 571,
+              "level": 3,
+              "text": "13.9"
+            },
+            {
+              "paragraph_index": 106,
+              "record": 576,
+              "level": 3,
+              "text": "승용차"
+            },
+            {
+              "paragraph_index": 107,
+              "record": 581,
+              "level": 3,
+              "text": "2,652"
+            },
+            {
+              "paragraph_index": 108,
+              "record": 586,
+              "level": 3,
+              "text": "32.1"
+            },
+            {
+              "paragraph_index": 109,
+              "record": 591,
+              "level": 3,
+              "text": "가스"
+            },
+            {
+              "paragraph_index": 110,
+              "record": 596,
+              "level": 3,
+              "text": "2,815"
+            },
+            {
+              "paragraph_index": 111,
+              "record": 601,
+              "level": 3,
+              "text": "24.6"
+            }
+          ]
+        },
+        {
+          "paragraph_index": 103,
+          "paragraph": {
+            "record": 561,
+            "level": 3,
+            "text": "반도체"
+          },
+          "context": [
+            {
+              "paragraph_index": 95,
+              "record": 521,
+              "level": 3,
+              "text": "5,573"
+            },
+            {
+              "paragraph_index": 96,
+              "record": 526,
+              "level": 3,
+              "text": "△12.8"
+            },
+            {
+              "paragraph_index": 97,
+              "record": 531,
+              "level": 3,
+              "text": "원 유"
+            },
+            {
+              "paragraph_index": 98,
+              "record": 536,
+              "level": 3,
+              "text": "4,767"
+            },
+            {
+              "paragraph_index": 99,
+              "record": 541,
+              "level": 3,
+              "text": "△0.3"
+            },
+            {
+              "paragraph_index": 100,
+              "record": 546,
+              "level": 3,
+              "text": "석유제품"
+            },
+            {
+              "paragraph_index": 101,
+              "record": 551,
+              "level": 3,
+              "text": "3,045"
+            },
+            {
+              "paragraph_index": 102,
+              "record": 556,
+              "level": 3,
+              "text": "16.4"
+            },
+            {
+              "paragraph_index": 103,
+              "record": 561,
+              "level": 3,
+              "text": "반도체"
+            },
+            {
+              "paragraph_index": 104,
+              "record": 566,
+              "level": 3,
+              "text": "4,328"
+            },
+            {
+              "paragraph_index": 105,
+              "record": 571,
+              "level": 3,
+              "text": "13.9"
+            },
+            {
+              "paragraph_index": 106,
+              "record": 576,
+              "level": 3,
+              "text": "승용차"
+            },
+            {
+              "paragraph_index": 107,
+              "record": 581,
+              "level": 3,
+              "text": "2,652"
+            },
+            {
+              "paragraph_index": 108,
+              "record": 586,
+              "level": 3,
+              "text": "32.1"
+            },
+            {
+              "paragraph_index": 109,
+              "record": 591,
+              "level": 3,
+              "text": "가스"
+            },
+            {
+              "paragraph_index": 110,
+              "record": 596,
+              "level": 3,
+              "text": "2,815"
+            },
+            {
+              "paragraph_index": 111,
+              "record": 601,
+              "level": 3,
+              "text": "24.6"
+            },
+            {
+              "paragraph_index": 112,
+              "record": 606,
+              "level": 3,
+              "text": "철강제품"
+            },
+            {
+              "paragraph_index": 113,
+              "record": 611,
+              "level": 3,
+              "text": "2,389"
+            },
+            {
+              "paragraph_index": 114,
+              "record": 616,
+              "level": 3,
+              "text": "△17.6"
+            },
+            {
+              "paragraph_index": 115,
+              "record": 621,
+              "level": 3,
+              "text": "기계류"
+            },
+            {
+              "paragraph_index": 116,
+              "record": 626,
+              "level": 3,
+              "text": "1,534"
+            },
+            {
+              "paragraph_index": 117,
+              "record": 631,
+              "level": 3,
+              "text": "4.3"
+            },
+            {
+              "paragraph_index": 118,
+              "record": 636,
+              "level": 3,
+              "text": "무선통신기기"
+            },
+            {
+              "paragraph_index": 119,
+              "record": 641,
+              "level": 3,
+              "text": "1,288"
+            },
+            {
+              "paragraph_index": 120,
+              "record": 646,
+              "level": 3,
+              "text": "△15.6"
+            }
+          ]
+        },
+        {
+          "paragraph_index": 133,
+          "paragraph": {
+            "record": 711,
+            "level": 3,
+            "text": "반도체제조장비"
+          },
+          "context": [
+            {
+              "paragraph_index": 125,
+              "record": 671,
+              "level": 3,
+              "text": "1,156"
+            },
+            {
+              "paragraph_index": 126,
+              "record": 676,
+              "level": 3,
+              "text": "9.8"
+            },
+            {
+              "paragraph_index": 127,
+              "record": 681,
+              "level": 3,
+              "text": "석유제품"
+            },
+            {
+              "paragraph_index": 128,
+              "record": 686,
+              "level": 3,
+              "text": "1,294"
+            },
+            {
+              "paragraph_index": 129,
+              "record": 691,
+              "level": 3,
+              "text": "△18.5"
+            },
+            {
+              "paragraph_index": 130,
+              "record": 696,
+              "level": 3,
+              "text": "선박"
+            },
+            {
+              "paragraph_index": 131,
+              "record": 701,
+              "level": 3,
+              "text": "1,086"
+            },
+            {
+              "paragraph_index": 132,
+              "record": 706,
+              "level": 3,
+              "text": "△22.9"
+            },
+            {
+              "paragraph_index": 133,
+              "record": 711,
+              "level": 3,
+              "text": "반도체제조장비"
+            },
+            {
+              "paragraph_index": 134,
+              "record": 716,
+              "level": 3,
+              "text": "1,041"
+            },
+            {
+              "paragraph_index": 135,
+              "record": 721,
+              "level": 3,
+              "text": "13.2"
+            },
+            {
+              "paragraph_index": 136,
+              "record": 726,
+              "level": 3,
+              "text": "정밀기기"
+            },
+            {
+              "paragraph_index": 137,
+              "record": 731,
+              "level": 3,
+              "text": "718"
+            },
+            {
+              "paragraph_index": 138,
+              "record": 736,
+              "level": 3,
+              "text": "△3.8"
+            },
+            {
+              "paragraph_index": 139,
+              "record": 741,
+              "level": 3,
+              "text": "석탄"
+            },
+            {
+              "paragraph_index": 140,
+              "record": 746,
+              "level": 3,
+              "text": "1,032"
+            },
+            {
+              "paragraph_index": 141,
+              "record": 751,
+              "level": 3,
+              "text": "14.8"
+            },
+            {
+              "paragraph_index": 142,
+              "record": 756,
+              "level": 3,
+              "text": "컴퓨터주변기기"
+            },
+            {
+              "paragraph_index": 143,
+              "record": 761,
+              "level": 3,
+              "text": "427"
+            },
+            {
+              "paragraph_index": 144,
+              "record": 766,
+              "level": 3,
+              "text": "△30.2"
+            },
+            {
+              "paragraph_index": 145,
+              "record": 771,
+              "level": 3,
+              "text": "정밀기기"
+            },
+            {
+              "paragraph_index": 146,
+              "record": 776,
+              "level": 3,
+              "text": "910"
+            },
+            {
+              "paragraph_index": 147,
+              "record": 781,
+              "level": 3,
+              "text": "△2.7"
+            },
+            {
+              "paragraph_index": 148,
+              "record": 786,
+              "level": 3,
+              "text": "가전제품"
+            },
+            {
+              "paragraph_index": 149,
+              "record": 791,
+              "level": 3,
+              "text": "387"
+            },
+            {
+              "paragraph_index": 150,
+              "record": 796,
+              "level": 3,
+              "text": "△17.5"
+            }
+          ]
+        }
+      ]
+    },
+    "2018": {
+      "decompressed_bytes": 16972,
+      "records": 484,
+      "paragraphs": 81,
+      "extended_size_records": 0,
+      "OLE_stream_count": 11,
+      "section_count": 1,
+      "semiconductor_hits": [
+        {
+          "paragraph_index": 75,
+          "paragraph": {
+            "record": 447,
+            "level": 3,
+            "text": "ㅇ (주요품목) 전년 동기 대비 반도체(9.4%), 석유제품(108.6%), 승용차(88.7%) 등은 증가, 선박(△61.9%), 무선통신기기(△7.4%) 등은 감소"
+          },
+          "context": [
+            {
+              "paragraph_index": 67,
+              "record": 383,
+              "level": 5,
+              "text": "2,328"
+            },
+            {
+              "paragraph_index": 68,
+              "record": 392,
+              "level": 5,
+              "text": "77,405"
+            },
+            {
+              "paragraph_index": 69,
+              "record": 401,
+              "level": 5,
+              "text": "’18년"
+            },
+            {
+              "paragraph_index": 70,
+              "record": 406,
+              "level": 5,
+              "text": "54,617"
+            },
+            {
+              "paragraph_index": 71,
+              "record": 415,
+              "level": 5,
+              "text": "1,645"
+            },
+            {
+              "paragraph_index": 72,
+              "record": 424,
+              "level": 5,
+              "text": "56,262"
+            },
+            {
+              "paragraph_index": 73,
+              "record": 432,
+              "level": 3,
+              "text": "* ’17.10월 추석명절로 인한 조업일수[(’17)10.0일,(’18)14.5일]고려 시 일평균수출액[(’17.10.)26.5,(’18.10.)23.0억 달러] 13.1% 감소"
+            },
+            {
+              "paragraph_index": 74,
+              "record": 439,
+              "level": 3,
+              "text": "灳瑣 수출현황"
+            },
+            {
+              "paragraph_index": 75,
+              "record": 447,
+              "level": 3,
+              "text": "ㅇ (주요품목) 전년 동기 대비 반도체(9.4%), 석유제품(108.6%), 승용차(88.7%) 등은 증가, 선박(△61.9%), 무선통신기기(△7.4%) 등은 감소"
+            },
+            {
+              "paragraph_index": 76,
+              "record": 454,
+              "level": 3,
+              "text": "ㅇ (주요국가) 중국(20.6%), 미국(69.6%), EU(46.7%), 베트남(17.3%) 등은 증가, 홍콩(△19.9%), 싱가포르(△3.9%) 등은 감소"
+            },
+            {
+              "paragraph_index": 77,
+              "record": 461,
+              "level": 3,
+              "text": "수입현황"
+            },
+            {
+              "paragraph_index": 78,
+              "record": 468,
+              "level": 3,
+              "text": "ㅇ (주요품목) 전년 동기 대비 원유(58.2%), 가스(70.0%), 반도체 제조용 장비(20.1%), 승용차(6.5%) 등은 증가, 반도체(△0.3%)는 감소"
+            },
+            {
+              "paragraph_index": 79,
+              "record": 475,
+              "level": 3,
+              "text": "ㅇ (주요국가) 중국(28.5%), 중동(25.2%), 미국(87.0%), 일본(15.8%), EU(25.0%), 베트남(42.0%) 등 주요국가 대부분 증가"
+            },
+            {
+              "paragraph_index": 80,
+              "record": 482,
+              "level": 3,
+              "text": "※ 주요품목은 관세청 성질별 분류체계 기준으로 집계되며, 신고수리일 기준으로 연간 통계확정 시(2019년 2월)까지 일부 수치는 정정될 수 있습니다."
+            }
+          ]
+        },
+        {
+          "paragraph_index": 78,
+          "paragraph": {
+            "record": 468,
+            "level": 3,
+            "text": "ㅇ (주요품목) 전년 동기 대비 원유(58.2%), 가스(70.0%), 반도체 제조용 장비(20.1%), 승용차(6.5%) 등은 증가, 반도체(△0.3%)는 감소"
+          },
+          "context": [
+            {
+              "paragraph_index": 70,
+              "record": 406,
+              "level": 5,
+              "text": "54,617"
+            },
+            {
+              "paragraph_index": 71,
+              "record": 415,
+              "level": 5,
+              "text": "1,645"
+            },
+            {
+              "paragraph_index": 72,
+              "record": 424,
+              "level": 5,
+              "text": "56,262"
+            },
+            {
+              "paragraph_index": 73,
+              "record": 432,
+              "level": 3,
+              "text": "* ’17.10월 추석명절로 인한 조업일수[(’17)10.0일,(’18)14.5일]고려 시 일평균수출액[(’17.10.)26.5,(’18.10.)23.0억 달러] 13.1% 감소"
+            },
+            {
+              "paragraph_index": 74,
+              "record": 439,
+              "level": 3,
+              "text": "灳瑣 수출현황"
+            },
+            {
+              "paragraph_index": 75,
+              "record": 447,
+              "level": 3,
+              "text": "ㅇ (주요품목) 전년 동기 대비 반도체(9.4%), 석유제품(108.6%), 승용차(88.7%) 등은 증가, 선박(△61.9%), 무선통신기기(△7.4%) 등은 감소"
+            },
+            {
+              "paragraph_index": 76,
+              "record": 454,
+              "level": 3,
+              "text": "ㅇ (주요국가) 중국(20.6%), 미국(69.6%), EU(46.7%), 베트남(17.3%) 등은 증가, 홍콩(△19.9%), 싱가포르(△3.9%) 등은 감소"
+            },
+            {
+              "paragraph_index": 77,
+              "record": 461,
+              "level": 3,
+              "text": "수입현황"
+            },
+            {
+              "paragraph_index": 78,
+              "record": 468,
+              "level": 3,
+              "text": "ㅇ (주요품목) 전년 동기 대비 원유(58.2%), 가스(70.0%), 반도체 제조용 장비(20.1%), 승용차(6.5%) 등은 증가, 반도체(△0.3%)는 감소"
+            },
+            {
+              "paragraph_index": 79,
+              "record": 475,
+              "level": 3,
+              "text": "ㅇ (주요국가) 중국(28.5%), 중동(25.2%), 미국(87.0%), 일본(15.8%), EU(25.0%), 베트남(42.0%) 등 주요국가 대부분 증가"
+            },
+            {
+              "paragraph_index": 80,
+              "record": 482,
+              "level": 3,
+              "text": "※ 주요품목은 관세청 성질별 분류체계 기준으로 집계되며, 신고수리일 기준으로 연간 통계확정 시(2019년 2월)까지 일부 수치는 정정될 수 있습니다."
+            }
+          ]
+        }
+      ]
+    },
+    "2019": {
+      "decompressed_bytes": 15630,
+      "records": 410,
+      "paragraphs": 75,
+      "extended_size_records": 0,
+      "OLE_stream_count": 12,
+      "section_count": 1,
+      "semiconductor_hits": [
+        {
+          "paragraph_index": 68,
+          "paragraph": {
+            "record": 366,
+            "level": 3,
+            "text": "ㅇ (주요품목) 전년 동기 대비 무선통신기기(44.8%), 가전제품(11.7%) 등은 증가, 반도체(△28.8%), 승용차(△6.5%), 석유제품(△38.4%), 선박(△8.4%) 등은 감소"
+          },
+          "context": [
+            {
+              "paragraph_index": 60,
+              "record": 322,
+              "level": 5,
+              "text": "무역수지"
+            },
+            {
+              "paragraph_index": 61,
+              "record": 327,
+              "level": 5,
+              "text": "1,534"
+            },
+            {
+              "paragraph_index": 62,
+              "record": 332,
+              "level": 5,
+              "text": "55,958"
+            },
+            {
+              "paragraph_index": 63,
+              "record": 337,
+              "level": 5,
+              "text": "1,626"
+            },
+            {
+              "paragraph_index": 64,
+              "record": 342,
+              "level": 5,
+              "text": "1,417"
+            },
+            {
+              "paragraph_index": 65,
+              "record": 347,
+              "level": 5,
+              "text": "30,098"
+            },
+            {
+              "paragraph_index": 66,
+              "record": 351,
+              "level": 3,
+              "text": "※조업일수[(’18)14.5일,(’19)13.5일]고려 시 일평균수출액[(’18.10.)23.0,(’19.10.)19.9억 달러] 13.5% 감소"
+            },
+            {
+              "paragraph_index": 67,
+              "record": 358,
+              "level": 3,
+              "text": "灳瑣 수출현황"
+            },
+            {
+              "paragraph_index": 68,
+              "record": 366,
+              "level": 3,
+              "text": "ㅇ (주요품목) 전년 동기 대비 무선통신기기(44.8%), 가전제품(11.7%) 등은 증가, 반도체(△28.8%), 승용차(△6.5%), 석유제품(△38.4%), 선박(△8.4%) 등은 감소"
+            },
+            {
+              "paragraph_index": 69,
+              "record": 373,
+              "level": 3,
+              "text": "ㅇ (주요국가) 중동(1.5%), 싱가포르(17.7%) 등은 증가, 중국(△20.0%), 미국(△17.4%), 베트남(△2.3%), EU(△36.6%), 일본(△21.3%) 등은 감소"
+            },
+            {
+              "paragraph_index": 70,
+              "record": 380,
+              "level": 3,
+              "text": "수입현황"
+            },
+            {
+              "paragraph_index": 71,
+              "record": 387,
+              "level": 3,
+              "text": "ㅇ (주요품목) 전년 동기 대비 정보통신기기(9.5%), 승용차(32.1%) 등은 증가, 원유(△31.5%), 기계류(△15.9%), 가스(△39.1%), 석유제품(△37.0%) 등은 감소"
+            },
+            {
+              "paragraph_index": 72,
+              "record": 394,
+              "level": 3,
+              "text": "ㅇ (주요국가) 캐나다(1.5%)는 증가, 중국(△9.2%), 중동(△34.8%), 미국(△21.9%), EU(△16.4%), 일본(△30.1%) 등은 감소"
+            },
+            {
+              "paragraph_index": 73,
+              "record": 401,
+              "level": 3,
+              "text": "※ 본 통계는 단기성 통계로 조업일수 변화 등의 영향을 크게 받을 수 있음을 유의하여 주시기 바랍니다."
+            },
+            {
+              "paragraph_index": 74,
+              "record": 408,
+              "level": 3,
+              "text": "※ 주요품목은 관세청 성질별 분류체계 기준으로 집계되며, 신고수리일 기준으로 연간 통계확정 시(2020년 2월)까지 일부 수치는 정정될 수 있습니다."
+            }
+          ]
+        }
+      ]
+    },
+    "2020": {
+      "decompressed_bytes": 15736,
+      "records": 403,
+      "paragraphs": 75,
+      "extended_size_records": 0,
+      "OLE_stream_count": 11,
+      "section_count": 1,
+      "semiconductor_hits": [
+        {
+          "paragraph_index": 68,
+          "paragraph": {
+            "record": 359,
+            "level": 3,
+            "text": "ㅇ (주요품목) 전년 동기 대비 반도체(12.1%), 정밀기기(1.9%), 컴퓨터 주변기기(10.5%)등 증가, 승용차(△7.6%), 무선통신기기(△1.7%), 석유제품(△42.1%)등 감소"
+          },
+          "context": [
+            {
+              "paragraph_index": 60,
+              "record": 314,
+              "level": 5,
+              "text": "(△8.7)"
+            },
+            {
+              "paragraph_index": 61,
+              "record": 319,
+              "level": 5,
+              "text": "무역수지"
+            },
+            {
+              "paragraph_index": 62,
+              "record": 324,
+              "level": 5,
+              "text": "1,324"
+            },
+            {
+              "paragraph_index": 63,
+              "record": 329,
+              "level": 5,
+              "text": "29,669"
+            },
+            {
+              "paragraph_index": 64,
+              "record": 334,
+              "level": 5,
+              "text": "4,368"
+            },
+            {
+              "paragraph_index": 65,
+              "record": 339,
+              "level": 5,
+              "text": "463"
+            },
+            {
+              "paragraph_index": 66,
+              "record": 344,
+              "level": 5,
+              "text": "28,076"
+            },
+            {
+              "paragraph_index": 67,
+              "record": 351,
+              "level": 3,
+              "text": "灳瑣 수출현황"
+            },
+            {
+              "paragraph_index": 68,
+              "record": 359,
+              "level": 3,
+              "text": "ㅇ (주요품목) 전년 동기 대비 반도체(12.1%), 정밀기기(1.9%), 컴퓨터 주변기기(10.5%)등 증가, 승용차(△7.6%), 무선통신기기(△1.7%), 석유제품(△42.1%)등 감소"
+            },
+            {
+              "paragraph_index": 69,
+              "record": 366,
+              "level": 3,
+              "text": "ㅇ (주요국가) 베트남(0.7%), EU(13.8%), 캐나다(38.8%) 등은 증가, 중국(△4.6%), 미국(△2.3%), 일본(△17.0%) 등은 감소"
+            },
+            {
+              "paragraph_index": 70,
+              "record": 373,
+              "level": 3,
+              "text": "수입현황"
+            },
+            {
+              "paragraph_index": 71,
+              "record": 380,
+              "level": 3,
+              "text": "ㅇ (주요품목) 전년 동기 대비 반도체(28.5%), 기계류(15.9%), 정밀기기(9.8%) 등 증가, 원유(△32.7%), 가스(△17.4%), 승용차(△11.0%) 등 감소"
+            },
+            {
+              "paragraph_index": 72,
+              "record": 387,
+              "level": 3,
+              "text": "ㅇ (주요국가) 중국(3.7%), EU(17.3%), 미국(2.5%), 일본(6.3%) 등은 증가, 중동(△37.6%), 베트남(△6.4%), 호주(△6.2%) 등은 감소"
+            },
+            {
+              "paragraph_index": 73,
+              "record": 394,
+              "level": 3,
+              "text": "※ 본 통계는 단기성 통계로 조업일수 변화 등의 영향을 크게 받을 수 있음을 유의하여 주시기 바랍니다."
+            },
+            {
+              "paragraph_index": 74,
+              "record": 401,
+              "level": 3,
+              "text": "※ 주요품목은 관세청 성질별 분류체계 기준으로 집계되며, 신고수리일 기준으로 연간 통계확정 시(2021년 2월)까지 일부 수치는 정정될 수 있습니다."
+            }
+          ]
+        },
+        {
+          "paragraph_index": 71,
+          "paragraph": {
+            "record": 380,
+            "level": 3,
+            "text": "ㅇ (주요품목) 전년 동기 대비 반도체(28.5%), 기계류(15.9%), 정밀기기(9.8%) 등 증가, 원유(△32.7%), 가스(△17.4%), 승용차(△11.0%) 등 감소"
+          },
+          "context": [
+            {
+              "paragraph_index": 63,
+              "record": 329,
+              "level": 5,
+              "text": "29,669"
+            },
+            {
+              "paragraph_index": 64,
+              "record": 334,
+              "level": 5,
+              "text": "4,368"
+            },
+            {
+              "paragraph_index": 65,
+              "record": 339,
+              "level": 5,
+              "text": "463"
+            },
+            {
+              "paragraph_index": 66,
+              "record": 344,
+              "level": 5,
+              "text": "28,076"
+            },
+            {
+              "paragraph_index": 67,
+              "record": 351,
+              "level": 3,
+              "text": "灳瑣 수출현황"
+            },
+            {
+              "paragraph_index": 68,
+              "record": 359,
+              "level": 3,
+              "text": "ㅇ (주요품목) 전년 동기 대비 반도체(12.1%), 정밀기기(1.9%), 컴퓨터 주변기기(10.5%)등 증가, 승용차(△7.6%), 무선통신기기(△1.7%), 석유제품(△42.1%)등 감소"
+            },
+            {
+              "paragraph_index": 69,
+              "record": 366,
+              "level": 3,
+              "text": "ㅇ (주요국가) 베트남(0.7%), EU(13.8%), 캐나다(38.8%) 등은 증가, 중국(△4.6%), 미국(△2.3%), 일본(△17.0%) 등은 감소"
+            },
+            {
+              "paragraph_index": 70,
+              "record": 373,
+              "level": 3,
+              "text": "수입현황"
+            },
+            {
+              "paragraph_index": 71,
+              "record": 380,
+              "level": 3,
+              "text": "ㅇ (주요품목) 전년 동기 대비 반도체(28.5%), 기계류(15.9%), 정밀기기(9.8%) 등 증가, 원유(△32.7%), 가스(△17.4%), 승용차(△11.0%) 등 감소"
+            },
+            {
+              "paragraph_index": 72,
+              "record": 387,
+              "level": 3,
+              "text": "ㅇ (주요국가) 중국(3.7%), EU(17.3%), 미국(2.5%), 일본(6.3%) 등은 증가, 중동(△37.6%), 베트남(△6.4%), 호주(△6.2%) 등은 감소"
+            },
+            {
+              "paragraph_index": 73,
+              "record": 394,
+              "level": 3,
+              "text": "※ 본 통계는 단기성 통계로 조업일수 변화 등의 영향을 크게 받을 수 있음을 유의하여 주시기 바랍니다."
+            },
+            {
+              "paragraph_index": 74,
+              "record": 401,
+              "level": 3,
+              "text": "※ 주요품목은 관세청 성질별 분류체계 기준으로 집계되며, 신고수리일 기준으로 연간 통계확정 시(2021년 2월)까지 일부 수치는 정정될 수 있습니다."
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "source_HWP_reads": 3,
+  "control_HWP_reads": 2,
+  "external_GETs": 0,
+  "SOXX_outcome_reads": 0,
+  "model_fits": 0,
+  "native_accounts": 0,
+  "historical_first_public_bytes_qualified": false,
+  "full_monthly_training_panel_qualified": false
+}

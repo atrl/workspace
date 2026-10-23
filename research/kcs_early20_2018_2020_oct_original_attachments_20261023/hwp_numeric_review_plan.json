@@ -1,0 +1,26 @@
+{
+  "schema_version": 1,
+  "frozen": true,
+  "phase": "one_read_only_HWP_binary_semantic_review_for_three_captured_years",
+  "source_plan": "plan.json",
+  "source_result_sha256": "61d35568b58a3e19944a8582f2d1a8236076f838f76607adfd6bf39686d031b5",
+  "NAS_source_id": "790687ab393e72db53827e9c5929409c00ce0dc151536a9d5fdde962cd72c07a",
+  "source_HWP_hashes": {
+    "2018": "f15f03b2285ba0447c403da773e50c43ef5cf0988d2d551dc9400bfd6cd4d332",
+    "2019": "9be520a566690fbaa8d62e81fe2daf8517a885b882843386ac97dc836d82a043",
+    "2020": "0e1ce023d1f6b0c87868abc8e4194014f47ffbf73c58344632ea31e1b973551e"
+  },
+  "control_2021": "research/kcs_early20_2021_oct_original_source_20261023/source_review.json",
+  "control_2022": "research/kcs_early20_2022_oct_original_hwp_20261023/source_review.json",
+  "method": "Use olefile0.47 HWP5 PrvText plus raw-deflate BodyText/Section0. Read printed distribution date/time, period, unit, working-day caveat and provisional revision warning. Locate semiconductor export row label followed by one amount and YoY in the same compressed table region, searching both UTF-16LE byte alignments. Report all candidate token offsets and ambiguity; do not select by desired economic sign or any SOXX outcome.",
+  "control_gate": "The identical parser must recover 2021 official amount6,394/+23.9 and 2022 official amount5,573/-12.8 at prior recorded offsets. If not, stop before unknown-year interpretation.",
+  "budget": {
+    "source_HWP_reads_max": 3,
+    "control_HWP_reads_max": 2,
+    "external_GETs": 0,
+    "SOXX_outcome_reads": 0,
+    "model_fits": 0,
+    "native_accounts": 0
+  },
+  "stop": "Any HWP parse, row/unit or year identity ambiguity remains unknown. No factor/model/account; five October releases are not a full monthly panel nor proof of exact first-public bytes."
+}

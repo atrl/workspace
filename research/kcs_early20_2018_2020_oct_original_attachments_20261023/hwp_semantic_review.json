@@ -1,0 +1,18 @@
+{
+  "schema_version": 1,
+  "status": "official_2018_2020_Oct_early20_semiconductor_YoY_only_amount_not_reported_in_captured_HWP",
+  "method": "olefile 0.47 OLE BodyText/Section0 raw-deflate; Hancom HWP5 record header/paragraph text tag 67. Parser first recovered the known 2021 official HWP/PDF 6,394/+23.9 and 2022 official HWP 5,573/-12.8 as adjacent table-cell paragraphs.",
+  "years": [
+    {"year": 2018, "official_page_date": "2018-10-22", "newsId": "156299697", "semiconductor_export_yoy_percent": 9.4, "semiconductor_export_usd_million": null, "working_days_current": 14.5, "working_days_prior": 10.0, "HWP_semiconductor_occurrences": "summary export paragraph plus a separate import paragraph mentioning semiconductor equipment/semiconductor", "detailed_semiconductor_export_amount_table_in_parsed_text": false},
+    {"year": 2019, "official_page_date": "2019-10-21", "newsId": "156356469", "semiconductor_export_yoy_percent": -28.8, "semiconductor_export_usd_million": null, "working_days_current": 13.5, "working_days_prior": 14.5, "HWP_semiconductor_occurrences": "summary export paragraph only", "detailed_semiconductor_export_amount_table_in_parsed_text": false},
+    {"year": 2020, "official_page_date": "2020-10-21", "newsId": "156416374", "semiconductor_export_yoy_percent": 12.1, "semiconductor_export_usd_million": null, "working_days_current": 12.0, "working_days_prior": 13.5, "HWP_semiconductor_occurrences": "summary export paragraph and separate import paragraph", "detailed_semiconductor_export_amount_table_in_parsed_text": false}
+  ],
+  "source_nas_readback_verified": true,
+  "historical_first_public_attachment_bytes_qualified": false,
+  "full_monthly_training_panel_qualified": false,
+  "source_limit": "The parsed text in captured official 2018-2020 October HWP versions reports semiconductor YoY in prose but does not expose a product-level amount; embedded binary images were not converted or visually certified. Never reconstruct exact semiconductor amounts from later YoY or total-export figures. Working-day counts are for total exports, not semiconductor-specific daily rates.",
+  "next_source_boundary": "An early20 signal based solely on officially reported YoY might be defined only after original releases for every training month and first-availability/revision handling are qualified. A semiconductor per-working-day amount surprise cannot be built from these five October documents alone.",
+  "SOXX_outcome_reads": 0,
+  "model_fits": 0,
+  "native_accounts": 0
+}

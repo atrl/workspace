@@ -1,0 +1,60 @@
+{
+  "decision": "official_KCS_2018_2020_Oct_original_attachment_identity_mapped_source_only",
+  "GET_attempts": 6,
+  "years": [
+    {
+      "year": 2018,
+      "official_page_date": "2018-10-22",
+      "newsId": "156299697",
+      "official_page_url": "https://www.korea.kr/briefing/pressReleaseView.do?newsId=156299697",
+      "status": "source_bytes_received",
+      "page_title": "2018년 10월 1일 ∼ 10월 20일 수출입 현황",
+      "selected_attachment": {
+        "label": "181022보도자료+18년+10월+1일20일수출입현황.hwp",
+        "url": "https://www.korea.kr/common/download.do?fileId=186280964&tblKey=GMN",
+        "extension": "hwp"
+      },
+      "attachment_sha256": "f15f03b2285ba0447c403da773e50c43ef5cf0988d2d551dc9400bfd6cd4d332",
+      "attachment_bytes": 222208
+    },
+    {
+      "year": 2019,
+      "official_page_date": "2019-10-21",
+      "newsId": "156356469",
+      "official_page_url": "https://www.korea.kr/briefing/pressReleaseView.do?newsId=156356469",
+      "status": "source_bytes_received",
+      "page_title": "’19년 10월 1일 ∼ 10월 20일 수출입 현황",
+      "selected_attachment": {
+        "label": "191021+19년+10월+1일++10월+20일+수출입+현황.hwp",
+        "url": "https://www.korea.kr/common/download.do?fileId=188702772&tblKey=GMN",
+        "extension": "hwp"
+      },
+      "attachment_sha256": "9be520a566690fbaa8d62e81fe2daf8517a885b882843386ac97dc836d82a043",
+      "attachment_bytes": 279040
+    },
+    {
+      "year": 2020,
+      "official_page_date": "2020-10-21",
+      "newsId": "156416374",
+      "official_page_url": "https://www.korea.kr/briefing/pressReleaseView.do?newsId=156416374",
+      "status": "source_bytes_received",
+      "page_title": "’20년 10월 1일 ∼ 10월 20일 수출입 현황",
+      "selected_attachment": {
+        "label": "201021 20년 10월 1일  10월 20일 수출입 현황.hwp",
+        "url": "https://www.korea.kr/common/download.do?fileId=192666023&tblKey=GMN",
+        "extension": "hwp"
+      },
+      "attachment_sha256": "0e1ce023d1f6b0c87868abc8e4194014f47ffbf73c58344632ea31e1b973551e",
+      "attachment_bytes": 614912
+    }
+  ],
+  "all_three_attachment_bytes_identified": true,
+  "NAS_source_id": "790687ab393e72db53827e9c5929409c00ce0dc151536a9d5fdde962cd72c07a",
+  "NAS_readback_verified": true,
+  "historical_first_public_bytes_qualified": false,
+  "full_monthly_training_panel_qualified": false,
+  "SOXX_outcome_reads": 0,
+  "model_fits": 0,
+  "native_accounts": 0,
+  "strategy_forward_days": 0
+}

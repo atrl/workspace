@@ -1,0 +1,140 @@
+{
+  "schema_version": 1,
+  "experiment": "kcs_early20_2018_2020_oct_original_attachments_20261023",
+  "plan_sha256": "1462a61f1c74255626c694cf295005a2fe2803dbf2c1f105c619df3224f2704f",
+  "capture_utc": "2026-10-23T04:52:10.182966+00:00",
+  "receipts": [
+    {
+      "name": "2018_page.html",
+      "url": "https://www.korea.kr/briefing/pressReleaseView.do?newsId=156299697",
+      "requested_at_utc": "2026-10-23T04:51:47.871677+00:00",
+      "received_at_utc": "2026-10-23T04:51:51.159154+00:00",
+      "curl_exit_code": 0,
+      "http_status": 200,
+      "final_url": "https://www.korea.kr/briefing/pressReleaseView.do?newsId=156299697",
+      "transport_error": "",
+      "body_sha256": "8f41058152043ae6abac032e55db29d477b696c4cfb6903cb9bc9f6345e4d97e",
+      "body_bytes": 150250,
+      "headers_sha256": "ed362e1d01397a8923fd7410d8aaed1644aa3917fd826626e3f8c11fb7476f0a",
+      "headers_bytes": 375
+    },
+    {
+      "name": "2018_attachment.hwp",
+      "url": "https://www.korea.kr/common/download.do?fileId=186280964&tblKey=GMN",
+      "requested_at_utc": "2026-10-23T04:51:51.195562+00:00",
+      "received_at_utc": "2026-10-23T04:51:55.602257+00:00",
+      "curl_exit_code": 0,
+      "http_status": 200,
+      "final_url": "https://www.korea.kr/common/download.do?fileId=186280964&tblKey=GMN",
+      "transport_error": "",
+      "body_sha256": "f15f03b2285ba0447c403da773e50c43ef5cf0988d2d551dc9400bfd6cd4d332",
+      "body_bytes": 222208,
+      "headers_sha256": "85f555936f5cb37a3755c34a50876fd75625317ff9b458451a0a2616427e385e",
+      "headers_bytes": 510
+    },
+    {
+      "name": "2019_page.html",
+      "url": "https://www.korea.kr/briefing/pressReleaseView.do?newsId=156356469",
+      "requested_at_utc": "2026-10-23T04:51:55.602932+00:00",
+      "received_at_utc": "2026-10-23T04:51:58.528248+00:00",
+      "curl_exit_code": 0,
+      "http_status": 200,
+      "final_url": "https://www.korea.kr/briefing/pressReleaseView.do?newsId=156356469",
+      "transport_error": "",
+      "body_sha256": "1c38bfae1f0ba5b88e2e542914a2da8c89a8b7f9535954c550a42139bba475c1",
+      "body_bytes": 149657,
+      "headers_sha256": "456bc230e157b06fd1e1604596ad7376a3fd47522298cf69b29742ceeea92d49",
+      "headers_bytes": 375
+    },
+    {
+      "name": "2019_attachment.hwp",
+      "url": "https://www.korea.kr/common/download.do?fileId=188702772&tblKey=GMN",
+      "requested_at_utc": "2026-10-23T04:51:58.542648+00:00",
+      "received_at_utc": "2026-10-23T04:52:01.567360+00:00",
+      "curl_exit_code": 0,
+      "http_status": 200,
+      "final_url": "https://www.korea.kr/common/download.do?fileId=188702772&tblKey=GMN",
+      "transport_error": "",
+      "body_sha256": "9be520a566690fbaa8d62e81fe2daf8517a885b882843386ac97dc836d82a043",
+      "body_bytes": 279040,
+      "headers_sha256": "ee81cc6ec402f08855600a94d1b0ce223affd1d177a9a2ef3e0465ee5344d0e0",
+      "headers_bytes": 508
+    },
+    {
+      "name": "2020_page.html",
+      "url": "https://www.korea.kr/briefing/pressReleaseView.do?newsId=156416374",
+      "requested_at_utc": "2026-10-23T04:52:01.568486+00:00",
+      "received_at_utc": "2026-10-23T04:52:04.813585+00:00",
+      "curl_exit_code": 0,
+      "http_status": 200,
+      "final_url": "https://www.korea.kr/briefing/pressReleaseView.do?newsId=156416374",
+      "transport_error": "",
+      "body_sha256": "e0d7b380171bb3405f851cfa325735dfab05977796e7cbb2eb373d00da301b4e",
+      "body_bytes": 150129,
+      "headers_sha256": "37865e4f538b69d19f4b939567d277be9f3e2051fbe15947172e87696088f6f2",
+      "headers_bytes": 375
+    },
+    {
+      "name": "2020_attachment.hwp",
+      "url": "https://www.korea.kr/common/download.do?fileId=192666023&tblKey=GMN",
+      "requested_at_utc": "2026-10-23T04:52:04.841964+00:00",
+      "received_at_utc": "2026-10-23T04:52:10.179391+00:00",
+      "curl_exit_code": 0,
+      "http_status": 200,
+      "final_url": "https://www.korea.kr/common/download.do?fileId=192666023&tblKey=GMN",
+      "transport_error": "",
+      "body_sha256": "0e1ce023d1f6b0c87868abc8e4194014f47ffbf73c58344632ea31e1b973551e",
+      "body_bytes": 614912,
+      "headers_sha256": "d210bad8943352f7a34e87e11c3de19f48bce9af8b64dbb0b695852792002cb9",
+      "headers_bytes": 508
+    }
+  ],
+  "years": [
+    {
+      "year": 2018,
+      "official_page_date": "2018-10-22",
+      "newsId": "156299697",
+      "official_page_url": "https://www.korea.kr/briefing/pressReleaseView.do?newsId=156299697",
+      "status": "source_bytes_received",
+      "page_title": "2018년 10월 1일 ∼ 10월 20일 수출입 현황",
+      "selected_attachment": {
+        "label": "181022보도자료+18년+10월+1일20일수출입현황.hwp",
+        "url": "https://www.korea.kr/common/download.do?fileId=186280964&tblKey=GMN",
+        "extension": "hwp"
+      },
+      "attachment_sha256": "f15f03b2285ba0447c403da773e50c43ef5cf0988d2d551dc9400bfd6cd4d332",
+      "attachment_bytes": 222208
+    },
+    {
+      "year": 2019,
+      "official_page_date": "2019-10-21",
+      "newsId": "156356469",
+      "official_page_url": "https://www.korea.kr/briefing/pressReleaseView.do?newsId=156356469",
+      "status": "source_bytes_received",
+      "page_title": "’19년 10월 1일 ∼ 10월 20일 수출입 현황",
+      "selected_attachment": {
+        "label": "191021+19년+10월+1일++10월+20일+수출입+현황.hwp",
+        "url": "https://www.korea.kr/common/download.do?fileId=188702772&tblKey=GMN",
+        "extension": "hwp"
+      },
+      "attachment_sha256": "9be520a566690fbaa8d62e81fe2daf8517a885b882843386ac97dc836d82a043",
+      "attachment_bytes": 279040
+    },
+    {
+      "year": 2020,
+      "official_page_date": "2020-10-21",
+      "newsId": "156416374",
+      "official_page_url": "https://www.korea.kr/briefing/pressReleaseView.do?newsId=156416374",
+      "status": "source_bytes_received",
+      "page_title": "’20년 10월 1일 ∼ 10월 20일 수출입 현황",
+      "selected_attachment": {
+        "label": "201021 20년 10월 1일  10월 20일 수출입 현황.hwp",
+        "url": "https://www.korea.kr/common/download.do?fileId=192666023&tblKey=GMN",
+        "extension": "hwp"
+      },
+      "attachment_sha256": "0e1ce023d1f6b0c87868abc8e4194014f47ffbf73c58344632ea31e1b973551e",
+      "attachment_bytes": 614912
+    }
+  ],
+  "historical_first_public_bytes_qualified": false
+}

@@ -1,0 +1,118 @@
+{
+  "schema_version": "nas_market_snapshot_v1",
+  "authority": "yanxuan_nas",
+  "source_id": "790687ab393e72db53827e9c5929409c00ce0dc151536a9d5fdde962cd72c07a",
+  "as_of": "2026-10-23",
+  "ssh": {
+    "host": "rziiiii@192.168.1.3",
+    "port": 911
+  },
+  "snapshot_root": "/volume1/docker/yanxuan/data/market/us_semis/snapshots/790687ab393e72db53827e9c5929409c00ce0dc151536a9d5fdde962cd72c07a",
+  "source_manifest_path": "data/snapshots/kcs_early20_2018_2020_oct_original_attachments_20261023/source_manifest.json",
+  "verified": true,
+  "metadata": {
+    "experiment": "kcs_early20_2018_2020_oct_original_attachments_20261023",
+    "source": "Korea government KCS 2018-2020 October original attachments"
+  },
+  "objects": [
+    {
+      "local_path": "data/snapshots/kcs_early20_2018_2020_oct_original_attachments_20261023/2018_page.html.headers",
+      "snapshot_path": "data/snapshots/kcs_early20_2018_2020_oct_original_attachments_20261023/2018_page.html.headers",
+      "kind": "raw",
+      "sha256": "ed362e1d01397a8923fd7410d8aaed1644aa3917fd826626e3f8c11fb7476f0a",
+      "bytes": 375
+    },
+    {
+      "local_path": "data/snapshots/kcs_early20_2018_2020_oct_original_attachments_20261023/2019_attachment.hwp.headers",
+      "snapshot_path": "data/snapshots/kcs_early20_2018_2020_oct_original_attachments_20261023/2019_attachment.hwp.headers",
+      "kind": "raw",
+      "sha256": "ee81cc6ec402f08855600a94d1b0ce223affd1d177a9a2ef3e0465ee5344d0e0",
+      "bytes": 508
+    },
+    {
+      "local_path": "data/snapshots/kcs_early20_2018_2020_oct_original_attachments_20261023/2019_page.html.headers",
+      "snapshot_path": "data/snapshots/kcs_early20_2018_2020_oct_original_attachments_20261023/2019_page.html.headers",
+      "kind": "raw",
+      "sha256": "456bc230e157b06fd1e1604596ad7376a3fd47522298cf69b29742ceeea92d49",
+      "bytes": 375
+    },
+    {
+      "local_path": "data/snapshots/kcs_early20_2018_2020_oct_original_attachments_20261023/source_manifest.json",
+      "snapshot_path": "data/snapshots/kcs_early20_2018_2020_oct_original_attachments_20261023/source_manifest.json",
+      "kind": "raw",
+      "sha256": "790687ab393e72db53827e9c5929409c00ce0dc151536a9d5fdde962cd72c07a",
+      "bytes": 6329
+    },
+    {
+      "local_path": "data/snapshots/kcs_early20_2018_2020_oct_original_attachments_20261023/2020_attachment.hwp",
+      "snapshot_path": "data/snapshots/kcs_early20_2018_2020_oct_original_attachments_20261023/2020_attachment.hwp",
+      "kind": "raw",
+      "sha256": "0e1ce023d1f6b0c87868abc8e4194014f47ffbf73c58344632ea31e1b973551e",
+      "bytes": 614912
+    },
+    {
+      "local_path": "data/snapshots/kcs_early20_2018_2020_oct_original_attachments_20261023/2019_page.html",
+      "snapshot_path": "data/snapshots/kcs_early20_2018_2020_oct_original_attachments_20261023/2019_page.html",
+      "kind": "raw",
+      "sha256": "1c38bfae1f0ba5b88e2e542914a2da8c89a8b7f9535954c550a42139bba475c1",
+      "bytes": 149657
+    },
+    {
+      "local_path": "data/snapshots/kcs_early20_2018_2020_oct_original_attachments_20261023/2018_attachment.hwp.headers",
+      "snapshot_path": "data/snapshots/kcs_early20_2018_2020_oct_original_attachments_20261023/2018_attachment.hwp.headers",
+      "kind": "raw",
+      "sha256": "85f555936f5cb37a3755c34a50876fd75625317ff9b458451a0a2616427e385e",
+      "bytes": 510
+    },
+    {
+      "local_path": "data/snapshots/kcs_early20_2018_2020_oct_original_attachments_20261023/2020_page.html",
+      "snapshot_path": "data/snapshots/kcs_early20_2018_2020_oct_original_attachments_20261023/2020_page.html",
+      "kind": "raw",
+      "sha256": "e0d7b380171bb3405f851cfa325735dfab05977796e7cbb2eb373d00da301b4e",
+      "bytes": 150129
+    },
+    {
+      "local_path": "data/snapshots/kcs_early20_2018_2020_oct_original_attachments_20261023/2020_attachment.hwp.headers",
+      "snapshot_path": "data/snapshots/kcs_early20_2018_2020_oct_original_attachments_20261023/2020_attachment.hwp.headers",
+      "kind": "raw",
+      "sha256": "d210bad8943352f7a34e87e11c3de19f48bce9af8b64dbb0b695852792002cb9",
+      "bytes": 508
+    },
+    {
+      "local_path": "data/snapshots/kcs_early20_2018_2020_oct_original_attachments_20261023/2018_page.html",
+      "snapshot_path": "data/snapshots/kcs_early20_2018_2020_oct_original_attachments_20261023/2018_page.html",
+      "kind": "raw",
+      "sha256": "8f41058152043ae6abac032e55db29d477b696c4cfb6903cb9bc9f6345e4d97e",
+      "bytes": 150250
+    },
+    {
+      "local_path": "data/snapshots/kcs_early20_2018_2020_oct_original_attachments_20261023/capture_receipts.json",
+      "snapshot_path": "data/snapshots/kcs_early20_2018_2020_oct_original_attachments_20261023/capture_receipts.json",
+      "kind": "raw",
+      "sha256": "36efb8bd2dcdba131510f4e7c1e0f78e21c92058da2bcadb6925f6e98e9097c5",
+      "bytes": 3804
+    },
+    {
+      "local_path": "data/snapshots/kcs_early20_2018_2020_oct_original_attachments_20261023/2018_attachment.hwp",
+      "snapshot_path": "data/snapshots/kcs_early20_2018_2020_oct_original_attachments_20261023/2018_attachment.hwp",
+      "kind": "raw",
+      "sha256": "f15f03b2285ba0447c403da773e50c43ef5cf0988d2d551dc9400bfd6cd4d332",
+      "bytes": 222208
+    },
+    {
+      "local_path": "data/snapshots/kcs_early20_2018_2020_oct_original_attachments_20261023/2019_attachment.hwp",
+      "snapshot_path": "data/snapshots/kcs_early20_2018_2020_oct_original_attachments_20261023/2019_attachment.hwp",
+      "kind": "raw",
+      "sha256": "9be520a566690fbaa8d62e81fe2daf8517a885b882843386ac97dc836d82a043",
+      "bytes": 279040
+    },
+    {
+      "local_path": "data/snapshots/kcs_early20_2018_2020_oct_original_attachments_20261023/2020_page.html.headers",
+      "snapshot_path": "data/snapshots/kcs_early20_2018_2020_oct_original_attachments_20261023/2020_page.html.headers",
+      "kind": "raw",
+      "sha256": "37865e4f538b69d19f4b939567d277be9f3e2051fbe15947172e87696088f6f2",
+      "bytes": 375
+    }
+  ],
+  "verified_at": "2026-10-23T04:52:11.135222+00:00"
+}

@@ -1,0 +1,8 @@
+experiment: kcs_early20_2018_2020_oct_original_attachments_20261023
+phase: official_original_HWP_source_and_semantic_review_only
+plan: plan.json
+capture_result: result.json
+numeric_probe: hwp_numeric_probe.json
+record_parser_repair: hwp_record_repair_result.json
+semantic_review: hwp_semantic_review.json
+economic_account: none

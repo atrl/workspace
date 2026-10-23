@@ -1,0 +1,55 @@
+{
+  "schema_version": 1,
+  "experiment": "kcs_early20_2018_2020_oct_original_attachments_20261023",
+  "frozen": true,
+  "phase": "three_official_KCS_Oct_original_articles_plus_one_attachment_each",
+  "question": "Do the three newly located official 2018-2020 October1-20 KCS release pages still serve one identifiable source attachment each, so the five 2018-2022 October original-document pilot can be audited before any monthly expansion or Stage1 feature?",
+  "parent_index": {
+    "card": "research/kcs_early20_2018_2020_oct_official_index_20261023",
+    "summary_sha256": "7db19001f705f103d638fa19998b30a4faee7419eeb5973ff4ff58b49b7085ad",
+    "NAS_readback_verified": true
+  },
+  "exact_page_requests": [
+    {
+      "year": 2018,
+      "display_date": "2018-10-22",
+      "newsId": "156299697",
+      "url": "https://www.korea.kr/briefing/pressReleaseView.do?newsId=156299697"
+    },
+    {
+      "year": 2019,
+      "display_date": "2019-10-21",
+      "newsId": "156356469",
+      "url": "https://www.korea.kr/briefing/pressReleaseView.do?newsId=156356469"
+    },
+    {
+      "year": 2020,
+      "display_date": "2020-10-21",
+      "newsId": "156416374",
+      "url": "https://www.korea.kr/briefing/pressReleaseView.do?newsId=156416374"
+    }
+  ],
+  "attachment_selection": "For each verified page, select exactly one linked /common/download.do?fileId=...&tblKey=GMN attachment whose visible filename contains the same-year October1-20 export/import report; prefer .hwp/.hwpx over .pdf, otherwise PDF. If absent, duplicated, or ambiguous stop that year; do not search another URL. At most one attachment GET per year.",
+  "transport": {
+    "method": "GET",
+    "max_page_GETs": 3,
+    "max_attachment_GETs": 3,
+    "retries": 0,
+    "connect_timeout_seconds": 10,
+    "total_timeout_seconds_each": 30,
+    "max_response_bytes_each": 3000000,
+    "user_agent": "soxl-qlib-source-research"
+  },
+  "identity_gate": "Page HTTP200, exact newsId/date/KCS/title and linked report; selected attachment HTTP200 with HWP OLE, HWPX ZIP or PDF signature. Save exact bodies, response headers, UTC receipts and hashes. NAS archive/remote hash/scoped cold restore all received files before parsing. Report failures without alternate transport.",
+  "read_only_review": "After source identity/NAS, inspect file format and metadata. HWP OLE can use the already checked 2021/2022 raw-deflate token method, PDF requires visual table inspection. Do not invent a number from a page title or secondary site.",
+  "timing_boundary": "Current archived page and attachment bytes do not independently prove first-public bytes or precise U.S. decision availability. This is three October source documents, not full monthly 2018-2022 training coverage, predictive information or SOXX success.",
+  "budget": {
+    "external_GETs_max": 6,
+    "NAS_snapshots_max": 1,
+    "SOXX_outcome_reads": 0,
+    "model_fits": 0,
+    "native_accounts": 0,
+    "strategy_forward_days": 0
+  },
+  "stop": "If exact page/attachment identity or NAS fails, preserve received bytes and concrete failure; no retries or broader month search in this fixed version."
+}
