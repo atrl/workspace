@@ -1,0 +1,22 @@
+{
+  "experiment": "stage1_f696_native_source_runtime_preflight_20261023",
+  "decision": "runtime_preflight_pass_no_economic_candidate",
+  "objective_achieved": false,
+  "plan_sha256": "4671d19b0ac883b2022284ab660c2c4bc3f93489df0cb40bf0fb0d53d164f7cf",
+  "result": "result.json",
+  "new_model_fits": 0,
+  "new_native_accounts": 0,
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [],
+    "reused_native_sources": [
+      "research/stage1_nvda_guidance_receiver_20261022",
+      "research/stage1_domain_heads_20261018"
+    ]
+  },
+  "limitations": [
+    "No candidate policy, account or benchmark comparison was executed.",
+    "The corrected source frame is a preflight object and was not saved as a new allocation proposal or release."
+  ]
+}

@@ -3,6 +3,7 @@
   "reason": "The frozen plan repairs a 27baa-versus-f696 parent identity error but repeats a static composition intervention. It was not derived from a distinct decision-time feature hypothesis by comparing the exact f696 Stage1 weak intervals with good intervals and matched controls. This skips the active failure-to-feature loop.",
   "plan_preserved": "plan.json",
   "preflight_attempt": "Source loading stopped at Qlib recorder lookup with ValueError: No valid experiment has been found. The attempted source preflight did not establish 944-row f696 parity.",
+  "runtime_cause_correction": "The Qlib venv read omitted MLFLOW_ALLOW_FILE_STORE=true. With it, the sealed source Recorders and 944-row f696 parent parity pass a separate read-only preflight at research/stage1_f696_native_source_runtime_preflight_20261023/result.json. The scientific stop reason for this static-composition plan remains in force; no account was run.",
   "new_model_fits": 0,
   "new_candidate_accounts": 0,
   "new_bootstrap_attempts": 0,

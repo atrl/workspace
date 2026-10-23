@@ -1,0 +1,26 @@
+{
+  "experiment": "stage1_f696_native_source_runtime_preflight_20261023",
+  "status": "qlib_venv_file_store_runtime_and_exact_f696_source_preflight_passed",
+  "plan_sha256": "4671d19b0ac883b2022284ab660c2c4bc3f93489df0cb40bf0fb0d53d164f7cf",
+  "runtime": {
+    "qlib": "0.9.7",
+    "sklearn": "1.9.1",
+    "MLFLOW_ALLOW_FILE_STORE": "true"
+  },
+  "source_helper_receipt_sha256": "1666ead0b7de45f08968177c6e34ac763e78f79120fde7c3d55152fb0418f72c",
+  "f696_recorder_id": "6e227278b7a64eafbcf34b965e16d2b9",
+  "f696_get_recorder_by_id_and_name": true,
+  "rows": 944,
+  "raw_27baa_vs_f696_mismatch_rows": 944,
+  "raw_vs_f696_max_abs_difference": 0.451146589487877,
+  "corrected_all_five_outputs_max_abs_difference": 0.0,
+  "SOXX_and_Stage1_A_native_audit_passed": true,
+  "QLib_calendar_rows": 3966,
+  "all_signal_dates_in_Qlib_calendar": true,
+  "new_fits": 0,
+  "new_accounts": 0,
+  "new_Recorders": 0,
+  "new_bootstraps": 0,
+  "economic_result": null,
+  "stopped_static_composition_plan_reopened": false
+}

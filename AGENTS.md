@@ -25,6 +25,12 @@ cards keep their original gates. The active campaign entry is
   verify 944/944 proposal rows against the frozen A_0 source, then run the
   candidate's own-state account. The identity audit is
   `research/stage1_f696_parent_identity_audit_20261023`.
+- In `qlib_venv`, set `MLFLOW_ALLOW_FILE_STORE=true` before importing Qlib
+  workflow or reading the sealed local Recorder stores. Without it, MLflow may
+  report `No valid experiment has been found` even when the experiment ID,
+  directory and hashes are correct. The read-only runtime proof is
+  `research/stage1_f696_native_source_runtime_preflight_20261023`. This
+  fixes source loading only; it does not reopen a scientifically stopped plan.
 - Screen a Stage1-derived candidate at 0bp added slippage first, with frozen
   IBKR Tiered fees still charged and its own full funded account. Report SOXX
   wealth, available-mark drawdown, CVaR5, complete years, all contiguous 126-day
