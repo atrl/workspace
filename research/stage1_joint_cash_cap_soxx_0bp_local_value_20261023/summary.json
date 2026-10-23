@@ -36,5 +36,6 @@
     "verified": true,
     "sha256": "a823704afb3ab532d5d954ba126aac5d6528c85bacbd2c79ee4f6a9aae4d15c4",
     "scoped_restored_labels_sha256": "f5f9709885b2c7de346caf8efe4b3bb37ab90dd24a807c5c86d7bc59d7eee8c2"
-  }
+  },
+  "failure_attribution": "failure_attribution.json"
 }

@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "purpose": "Read-only matched local-label failure attribution; no feature or switch selected from realized quarters.",
+  "qlib_provider": "data/qlib/full_path_tiered_allocation_20261013",
+  "label_recorder_id": "dd91c4770a354dfe8dc275774e249020",
+  "source_frame_recorder_id": "3663a1e073f042e383dbcf54969a9bc2",
+  "qlib_calendar_sessions": 1061,
+  "formula": "Join the two native Qlib Recorder objects by identical trade_date; on mature local labels compute next-session adjusted SOXX 09:47 open / current-session adjusted SOXX 09:47 open - 1. Group only for attribution, never for a decision rule.",
+  "matched_quarters": [
+    {"quarter": "2020Q2", "mature": 55, "binding": 55, "mean_local_fee_net_advantage": 0.00068534, "mean_next_soxx_open_return": 0.006596, "mean_delta_target_beta": 0.09833},
+    {"quarter": "2021Q2", "mature": 17, "binding": 15, "mean_local_fee_net_advantage": -0.00001205, "mean_next_soxx_open_return": 0.000460, "mean_delta_target_beta": 0.08660},
+    {"quarter": "2022Q1", "mature": 59, "binding": 57, "mean_local_fee_net_advantage": -0.00007456, "mean_next_soxx_open_return": -0.001478, "mean_delta_target_beta": 0.09413},
+    {"quarter": "2022Q2", "mature": 62, "binding": 62, "mean_local_fee_net_advantage": -0.00048345, "mean_next_soxx_open_return": -0.004846, "mean_delta_target_beta": 0.10000},
+    {"quarter": "2022Q3", "mature": 64, "binding": 64, "mean_local_fee_net_advantage": -0.00005815, "mean_next_soxx_open_return": -0.000502, "mean_delta_target_beta": 0.10000},
+    {"quarter": "2022Q4", "mature": 62, "binding": 62, "mean_local_fee_net_advantage": 0.00013327, "mean_next_soxx_open_return": 0.001326, "mean_delta_target_beta": 0.10000}
+  ],
+  "binding_local_advantage_vs_next_soxx_return_correlation": {"2020": 0.9972, "2021": 0.9886, "2022": 0.9995},
+  "interpretation": "The binding intervention is nearly a one-session extra 0.10 SOXX exposure, so realized next-session SOXX direction mechanically dominates its local fee-net difference. The 2022Q2 loss is a cash-deployment market-direction loss, not evidence of an ex-ante tradable quarter switch. Quarter averages and correlations are in-sample descriptions. Historical first-receipt qualification and a frozen predictive information gate are still required for a new receiver.",
+  "new_market_requests": 0,
+  "new_model_fits": 0,
+  "new_native_accounts": 0,
+  "strategy_forward_days": 0
+}
