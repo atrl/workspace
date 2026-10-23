@@ -1,0 +1,14 @@
+{
+  "requested_at_utc": "2026-10-23T01:07:18.759285+00:00",
+  "function": "HISTORICAL_OPTIONS",
+  "symbol": "SOXX",
+  "date": "2011-10-03",
+  "HTTP_status": 200,
+  "content_type": "application/json",
+  "network_error_type": null,
+  "body_bytes": 215,
+  "body_sha256": "6c7d1922049dcee885744c064435f1e08908552ae382e670f538f765b422aa5d",
+  "raw_path": "data/snapshots/stage1_alpha_vantage_soxx_option_history_preflight_20261023/2011-10-03_body.bin",
+  "credential_in_receipt": false,
+  "request_attempts": 1
+}

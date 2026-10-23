@@ -1,0 +1,21 @@
+{
+  "decision": "existing_Alpha_Vantage_key_HISTORICAL_OPTIONS_premium_entitlement_denied",
+  "plan_sha256": "a3a109054316f719c5941e24e8f20804b2b3c26a4e229f603672d9aa9e03189b",
+  "HTTP_GET_attempts": 1,
+  "requested_date": "2011-10-03",
+  "second_date_requested": false,
+  "HTTP_status": 200,
+  "body_sha256": "6c7d1922049dcee885744c064435f1e08908552ae382e670f538f765b422aa5d",
+  "response_keys": [
+    "Information"
+  ],
+  "premium_entitlement_message_observed": true,
+  "option_chain_rows": 0,
+  "SOXX_specific_2011_history_qualified": false,
+  "IV_Delta_fields_qualified": false,
+  "first_public_clock_qualified": false,
+  "new_purchases": 0,
+  "SOXX_market_outcome_reads": 0,
+  "model_fits": 0,
+  "native_accounts": 0
+}

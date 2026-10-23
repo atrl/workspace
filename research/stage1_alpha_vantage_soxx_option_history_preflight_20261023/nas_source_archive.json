@@ -1,0 +1,12 @@
+{
+  "sha256": "8aaa7727277819edc00675a30bc8c0134b425a398d9af628b7059f4edb6c3d13",
+  "size_bytes": 1969,
+  "nas_path": "/volume1/docker/yanxuan/registry/research-artifacts/8a/aa/8aaa7727277819edc00675a30bc8c0134b425a398d9af628b7059f4edb6c3d13",
+  "members": {
+    "research/stage1_alpha_vantage_soxx_option_history_preflight_20261023/plan.json": "a3a109054316f719c5941e24e8f20804b2b3c26a4e229f603672d9aa9e03189b",
+    "research/stage1_alpha_vantage_soxx_option_history_preflight_20261023/request_receipt_1.json": "f04b23fd53777bcd543d833059458d05d990c98cc6ca57b1d134987759e41ee0",
+    "research/stage1_alpha_vantage_soxx_option_history_preflight_20261023/result.json": "1a27f785c00a65797ede9cd03b4c314166cdbe86e0a7d73be8fa79343d91063f",
+    "data/snapshots/stage1_alpha_vantage_soxx_option_history_preflight_20261023/2011-10-03_body.bin": "6c7d1922049dcee885744c064435f1e08908552ae382e670f538f765b422aa5d"
+  },
+  "remote_and_scoped_restore_verified": true
+}
