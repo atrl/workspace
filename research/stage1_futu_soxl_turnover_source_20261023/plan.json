@@ -1,0 +1,39 @@
+{
+  "experiment": "stage1_futu_soxl_turnover_source_20261023",
+  "frozen": true,
+  "phase": "SOXL_same_field_source_only_before_relative_turnover_information",
+  "parent": "Frozen complete f696 A_0 allocation plus b472 action/risk/recovery, 0bp added slippage with Tiered fees, SOXX final benchmark",
+  "motivation": "Exact f696 native-account all-window and prior-regime comparison in research/stage1_f696_window_regime_pairing_20261023/result.json shows cash and SOXL-selection losses vary within each old price-trend state. Original 39 allocation inputs omit ETF turnover. The closed SOXX-only turnover surprise is not retested; this card obtains only the missing SOXL same-field source for a distinct relative-product crowding hypothesis.",
+  "request": {
+    "api": "futu.OpenQuoteContext.request_history_kline",
+    "host": "127.0.0.1",
+    "port": 11111,
+    "code": "US.SOXL",
+    "start": "2010-03-11",
+    "end": "2026-10-09",
+    "ktype": "KLType.K_DAY",
+    "autype": "AuType.NONE",
+    "fields": "default KL_FIELD.ALL",
+    "max_count": 1000,
+    "maximum_pages": 5,
+    "purpose": "read_only_data_intake_no_broker_commands"
+  },
+  "source_gate": {
+    "same_field_as_SOXX": "turnover_rate, KLType.K_DAY, AuType.NONE, fixed serialization",
+    "Stage1_training_dates_known_min": 3000,
+    "Stage1_reused_held_dates_known_min": 900,
+    "no_duplicates": true,
+    "finite_nonnegative": true,
+    "no_fill_or_revisions_assumed": true,
+    "NAS_remote_hash_and_scoped_restore": true
+  },
+  "timing": "Only completed source signal-day daily value is potentially available before following US trade-day 09:29 ET; current retrieved history is not a proven first-public vintage.",
+  "budget": {
+    "Futu_pages_max": 5,
+    "new_model_fits": 0,
+    "new_native_accounts": 0,
+    "future_return_reads": 0,
+    "bootstrap_attempts": 0
+  },
+  "stop": "If OpenD, field, continuity, source archive, NAS restore, or calendar gate fails, record needs_data and stop without fit or account. Passing source coverage alone does not qualify historical PIT or predictive information."
+}

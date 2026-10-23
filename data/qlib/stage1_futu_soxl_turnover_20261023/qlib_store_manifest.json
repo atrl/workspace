@@ -1,0 +1,30 @@
+{
+  "as_of": "2026-10-09",
+  "audit_snapshot_hash": "7b347ebacd050b4f",
+  "calendar_end": "2026-10-09",
+  "calendar_start": "2010-03-31",
+  "feature_file_count": 1,
+  "fields": [
+    "$turnover_rate"
+  ],
+  "freq": "day",
+  "hash": "a06c20264d4458ab",
+  "instruments": [
+    "SOXL"
+  ],
+  "market": "all",
+  "max_datetime": "2026-10-09",
+  "operation": "qlib_store_build",
+  "provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/stage1_futu_soxl_turnover_20261023",
+  "region": "us",
+  "row_count": 4156,
+  "source": "Futu request_history_kline US.SOXL K_DAY AuType.NONE; raw NAS SHA256=a53917c27afbd40a704a02a84818233d88586d899dfd8a328001828fdac09307",
+  "source_api": [
+    "qlib.init",
+    "qlib.data.storage.file_storage.FileFeatureStorage",
+    "qlib.data.D.calendar",
+    "qlib.data.D.instruments",
+    "qlib.data.D.features"
+  ],
+  "status": "ok"
+}

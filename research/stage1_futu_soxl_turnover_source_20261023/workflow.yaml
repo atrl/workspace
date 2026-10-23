@@ -1,0 +1,5 @@
+experiment: stage1_futu_soxl_turnover_source_20261023
+entrypoint: stage1_futu_soxl_turnover_source_20261023.ipynb
+provider_uri: data/qlib/stage1_futu_soxl_turnover_20261023
+phase: closed_source_quality_no_fit
+qualification_override: field_semantics_correction.json

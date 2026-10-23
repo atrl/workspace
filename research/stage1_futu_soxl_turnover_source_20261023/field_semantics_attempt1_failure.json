@@ -1,0 +1,8 @@
+{
+  "status": "read_only_review_alignment_failure",
+  "error": "Saved analysis/native_turnover_rate starts 2011-01-03 while raw SOXL source starts 2010-03-31; full-length equality assertion is invalid.",
+  "mechanical_repair": "Compare the full Qlib source to raw values by date, and compare the saved 2011+ Recorder subset on its own index; leave source bytes and coverage definition unchanged.",
+  "new_Futu_requests": 0,
+  "new_fits": 0,
+  "new_accounts": 0
+}

@@ -1,0 +1,38 @@
+{
+  "experiment": "stage1_futu_soxl_turnover_source_20261023",
+  "decision": "conditional_source_coverage_pass_first_public_unknown",
+  "plan_sha256": "2a88694215d2f47bd8e8b7d9a83961b3942b624270adcefa68901310712cc121",
+  "Futu_SDK_version": "10.02.6218",
+  "raw_sha256": "dd4c533383b34de75211d3a02f5e644297065835460d23b14a57fceb275acd0d",
+  "raw_bytes": 553208,
+  "raw_NAS_archive_sha256": "a53917c27afbd40a704a02a84818233d88586d899dfd8a328001828fdac09307",
+  "Qlib_provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/stage1_futu_soxl_turnover_20261023",
+  "Qlib_provider_manifest_sha256": "fd43859848df2bc97c1c464515bd80fd80203258a0331e06fe81cfb0dd8dc2b0",
+  "Qlib_source_calendar_rows": 3964,
+  "Stage1_parent_calendar_rows": 3966,
+  "train_calendar": 3020,
+  "train_known": 3018,
+  "held_calendar": 946,
+  "held_known": 946,
+  "missing_Stage1_dates": [
+    "2012-01-13",
+    "2013-10-28"
+  ],
+  "turnover_rate_min": 0.0,
+  "turnover_rate_median": 0.16281500458717346,
+  "turnover_rate_max": 3.4522299766540527,
+  "gates": {
+    "train_support": true,
+    "held_support": true,
+    "no_duplicates": true,
+    "finite_nonnegative": true,
+    "NAS_restored": true
+  },
+  "new_market_requests": 5,
+  "new_model_fits": 0,
+  "new_native_accounts": 0,
+  "future_return_reads": 0,
+  "historical_first_public_qualified": false,
+  "recorder_id": "cc528c4f412a4336bd644f09f0a57caa",
+  "experiment_id": "773892722557884224"
+}

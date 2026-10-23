@@ -1,0 +1,45 @@
+{
+  "experiment": "stage1_futu_soxl_turnover_source_20261023",
+  "decision": "needs_source_history_turnover_rate_zero_encoded_2011_no_fit",
+  "objective_achieved": false,
+  "plan_sha256": "2a88694215d2f47bd8e8b7d9a83961b3942b624270adcefa68901310712cc121",
+  "result": "result.json",
+  "recorder_id": "cc528c4f412a4336bd644f09f0a57caa",
+  "experiment_id": "773892722557884224",
+  "NAS_evidence": {
+    "sha256": "67c881ae0d22aa279b569ffffc9eb3d56f5c5a649d47d11514f33373339d07dd",
+    "size_bytes": 341654,
+    "media_type": "application/gzip",
+    "storage_uri": "sha256/67/c8/67c881ae0d22aa279b569ffffc9eb3d56f5c5a649d47d11514f33373339d07dd",
+    "uploaded_by": "soxl-minute-research",
+    "created_at": "2026-10-23 22:46:48.919072+08",
+    "duplicate": false,
+    "nas_path": "/volume1/docker/yanxuan/registry/research-artifacts/67/c8/67c881ae0d22aa279b569ffffc9eb3d56f5c5a649d47d11514f33373339d07dd",
+    "recorder_id": "cc528c4f412a4336bd644f09f0a57caa",
+    "experiment_id": "773892722557884224",
+    "archive_root": "qlib_recorder"
+  },
+  "NAS_readback": {
+    "verified": true,
+    "sha256": "67c881ae0d22aa279b569ffffc9eb3d56f5c5a649d47d11514f33373339d07dd"
+  },
+  "new_model_fits": 0,
+  "new_native_accounts": 0,
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "inputs/raw_source_bytes",
+      "analysis/native_turnover_rate",
+      "analysis/Stage1_calendar_coverage"
+    ]
+  },
+  "limitations": [
+    "The 444 reported zero turnover_rate rows in 2010-2011 all have positive volume and traded value; 2011 training values are invalid, leaving 2766/3020 usable training dates below the 3000-date gate.",
+    "Historical first-public SOXL turnover values and revisions are not certified.",
+    "Coverage alone is not incremental prediction or SOXX excess.",
+    "No relative-turnover feature has been fit or funded."
+  ],
+  "original_numeric_coverage_decision": "conditional_source_coverage_pass_first_public_unknown",
+  "qualification_override": "field_semantics_correction.json"
+}

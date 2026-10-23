@@ -1,0 +1,29 @@
+{
+  "status": "needs_source_history_turnover_rate_zero_encoded_2011",
+  "overrides": "result.json and summary.json conditional_source_coverage_pass_first_public_unknown for usable turnover_rate",
+  "source_recorder_id": "cc528c4f412a4336bd644f09f0a57caa",
+  "source_raw_sha256": "dd4c533383b34de75211d3a02f5e644297065835460d23b14a57fceb275acd0d",
+  "source_NAS_scoped_restore_verified": true,
+  "all_source_rows": 4156,
+  "zero_rate_rows": 444,
+  "zero_rate_first": "2010-03-31",
+  "zero_rate_last": "2011-12-30",
+  "zero_rate_by_year": {
+    "2010": 192,
+    "2011": 252
+  },
+  "zero_rate_rows_with_positive_volume_and_turnover": 444,
+  "Stage1_train_rows": 3020,
+  "Stage1_train_nonzero_known": 2766,
+  "Stage1_train_required_min": 3000,
+  "Stage1_usable_coverage_gate_pass": false,
+  "Stage1_train_other_missing_dates": [
+    "2012-01-13",
+    "2013-10-28"
+  ],
+  "first_public_historical_qualified": false,
+  "future_outcome_reads": 0,
+  "new_fits": 0,
+  "new_accounts": 0,
+  "decision": "close_turnover_rate_field_before_feature_fit_no_zero_fill"
+}

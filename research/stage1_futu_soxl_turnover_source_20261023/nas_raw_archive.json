@@ -1,0 +1,19 @@
+{
+  "status": "verified",
+  "NAS_archive_sha256": "a53917c27afbd40a704a02a84818233d88586d899dfd8a328001828fdac09307",
+  "NAS_archive_bytes": 164858,
+  "NAS_path": "/volume1/docker/yanxuan/registry/research-artifacts/a5/39/a53917c27afbd40a704a02a84818233d88586d899dfd8a328001828fdac09307",
+  "source_files": [
+    {
+      "path": "data/raw/external/stage1_futu_soxl_turnover_20261023/SOXL_NONE_day.csv",
+      "bytes": 553208,
+      "sha256": "dd4c533383b34de75211d3a02f5e644297065835460d23b14a57fceb275acd0d"
+    },
+    {
+      "path": "data/raw/external/stage1_futu_soxl_turnover_20261023/request_receipt.json",
+      "bytes": 2572,
+      "sha256": "9abc6c3f7071c2cb451db001a525bff60277b48816d4421505e3fc51ac3825fd"
+    }
+  ],
+  "scoped_restore_all_member_SHA256_parity": true
+}
