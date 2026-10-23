@@ -1,0 +1,29 @@
+{
+  "schema_version": 1,
+  "experiment": "stage1_treasury_real_yield_alfred_initial_20261023",
+  "frozen": true,
+  "phase": "one_ALFRED_DFII10_initial_release_only_source_attempt",
+  "question": "Can the Federal Reserve Bank of St. Louis ALFRED public form deliver the initial-release-only daily DFII10 values for the frozen Stage1 2018-2026 span, with auditable response bytes and enough real-time metadata to qualify decision-time use?",
+  "official_form": "https://alfred.stlouisfed.org/series/downloaddata?seid=DFII10",
+  "official_series": "https://alfred.stlouisfed.org/series?seid=DFII10",
+  "parent_current_archive": "research/stage1_treasury_real_yield_source_20261023/summary.json",
+  "form_observed": "Public HTML method=post; units=lin; observation dates; file_type=4 Initial Release Only; file_format=csv Zipped CSV. This form observation does not itself prove a downloadable vintage.",
+  "exact_post": {
+    "url": "https://alfred.stlouisfed.org/series/downloaddata?seid=DFII10",
+    "fields": {
+      "form[units]": "lin",
+      "form[obs_start_date]": "2018-10-01",
+      "form[obs_end_date]": "2026-10-07",
+      "form[entered_vintage_dates]": "",
+      "form[file_type]": "4",
+      "form[file_format]": "csv",
+      "form[download_data]": ""
+    }
+  },
+  "request_policy": {"POST_attempts_max": 1, "redirect_GETs_max": 1, "retries": 0, "connect_timeout_seconds": 10, "total_timeout_seconds": 60, "max_response_bytes": 10000000, "user_agent": "soxl-qlib-source-research"},
+  "identity_gate": "Preserve exact response headers/body and receipt UTC. A successful source is HTTP200 ZIP containing a CSV whose identity is DFII10 daily levels, with real-time/initial-release semantics and >=2018-10-01..2026-10-07 observation span. Do not infer these semantics from a filename alone. If HTML, error, missing provenance or insufficient rows, archive the concrete failure and stop. No second form selection, URL substitution or retry.",
+  "source_comparison": "Only if identity passes, compare matching dates with the already NAS-backed current Treasury 10-year real yield; count differences without reading SOXX outcomes. Historical first-public clock still requires validation of ALFRED's real-time fields and the conservative Qlib lag.",
+  "NAS_backup": "Archive exact received response bytes, headers, request/receipt UTC and manifest to Yanxuan NAS, verify remote hash and scoped restore. Do not commit large raw ZIP/CSV into Git.",
+  "budget": {"source_POST_attempts": 1, "redirect_GETs_max": 1, "SOXX_outcome_reads": 0, "model_fits": 0, "native_accounts": 0, "Qlib_recorders": 0, "NAS_snapshots_max": 1},
+  "stop": "On transport, schema, semantic, NAS or identity failure, record the concrete dependency and stop this fixed version. A source pass alone does not qualify a feature or 0bp Stage1 account."
+}

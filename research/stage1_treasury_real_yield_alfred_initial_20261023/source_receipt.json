@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "experiment": "stage1_treasury_real_yield_alfred_initial_20261023",
+  "plan_sha256": "6284faa120bfb650b2178b673a5a8c1247b97170672e3b1ded3314b0ba6d678c",
+  "capture_utc": "2026-10-23T02:16:17.415998+00:00",
+  "request_receipts": [
+    {
+      "method": "POST",
+      "url": "https://alfred.stlouisfed.org/series/downloaddata?seid=DFII10",
+      "requested_at_utc": "2026-10-23T02:15:16.956153+00:00",
+      "step": "post",
+      "received_at_utc": "2026-10-23T02:16:17.414090+00:00",
+      "transport_exception": "ReadTimeout:HTTPSConnectionPool(host='alfred.stlouisfed.org', port=443): Read timed out. (read timeout=60)",
+      "body_sha256": null,
+      "body_bytes": 0
+    }
+  ],
+  "parsed": null,
+  "failure": "transport_status_or_size",
+  "initial_release_semantics_requested_by_form": true,
+  "historical_first_public_clock_qualified": false
+}

@@ -1,0 +1,10 @@
+{
+  "status": "stopped",
+  "plan_sha256": "6284faa120bfb650b2178b673a5a8c1247b97170672e3b1ded3314b0ba6d678c",
+  "POST_attempts": 1,
+  "redirect_GETs": 0,
+  "SOXX_outcome_reads": 0,
+  "model_fits": 0,
+  "native_accounts": 0,
+  "failure": "transport_status_or_size"
+}

@@ -1,0 +1,15 @@
+{
+  "decision": "needs_ALFRED_download_or_NAS",
+  "failure": "transport_status_or_size",
+  "POST_attempts": 1,
+  "redirect_GETs": 0,
+  "final_http_status": null,
+  "final_content_type": null,
+  "parsed": null,
+  "NAS_source_id": "0c1eeb955a9022ce1f769e82743d0b26e000aad67f95ea953e5000b407b0f3f3",
+  "NAS_readback_verified": true,
+  "historical_first_public_clock_qualified": false,
+  "SOXX_outcome_reads": 0,
+  "model_fits": 0,
+  "native_accounts": 0
+}

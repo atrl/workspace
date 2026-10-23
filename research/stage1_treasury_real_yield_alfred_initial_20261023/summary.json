@@ -1,0 +1,21 @@
+{
+  "experiment": "stage1_treasury_real_yield_alfred_initial_20261023",
+  "decision": "needs_ALFRED_download_or_NAS",
+  "objective_achieved": false,
+  "plan_sha256": "6284faa120bfb650b2178b673a5a8c1247b97170672e3b1ded3314b0ba6d678c",
+  "failure": "ReadTimeout after 60 seconds; no HTTP status, headers or body",
+  "source_receipt": "source_receipt.json",
+  "result": "result.json",
+  "POST_attempts": 1,
+  "redirect_GETs": 0,
+  "NAS_source_id": "0c1eeb955a9022ce1f769e82743d0b26e000aad67f95ea953e5000b407b0f3f3",
+  "NAS_readback_verified": true,
+  "SOXX_outcome_reads": 0,
+  "new_model_fits": 0,
+  "new_native_accounts": 0,
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": []
+  }
+}
