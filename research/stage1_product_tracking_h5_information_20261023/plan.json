@@ -1,0 +1,54 @@
+{
+  "experiment": "stage1_product_tracking_h5_information_20261023",
+  "frozen": true,
+  "phase": "necessary_information_before_account",
+  "parent": "complete frozen Stage1 f696 allocator plus b472 action/risk/recovery chain; 0bp IBKR Tiered own-state A_0 is attribution baseline; SOXX is final hard gate",
+  "motivation": "Original Stage1 2026Q3 lost -0.1439008280 SOXL-relative selection log; 2025 lost -0.1580060123 cash opportunity log. This screen targets selection only and does not infer a cash switch from 2026Q3.",
+  "hypothesis": "A stronger trailing SOXL product-tracking residual relative to a daily-reset 3x SOXX path predicts higher next-five-session SOXL-minus-SOXX open-return log advantage after the original Stage1 39 daily controls. Positive incremental coefficient is required.",
+  "feature": "At signal-session close t, sum over the most recent 20 completed Qlib sessions of log(1+r_SOXL_close)-log(1+3*r_SOXX_close); use only at the next-session Stage1 09:29 ET decision. No sign, lag, window, threshold or model search.",
+  "source": {
+    "provider_uri": "data/qlib/minute_information_pit_allocator_20261012/daily_prices",
+    "provider_manifest_sha256": "d80a08d479b73098053006909b5e6227b03a56ab705681742d7261088e0a7e6c",
+    "parent_card": "research/minute_information_pit_allocator_20261012",
+    "parent_summary_sha256": "61c91f958323cf51b43f4b1554eeca5687011d30771e80bc7ff02d16b6d577ca",
+    "parent_verification_manifest_sha256": "ac90270cf66164e5fb9bca62b50ab86eeab7733bd0146799c45d97937f94e82a",
+    "parent_recorder_id": "68e31a0a0fad44e7ba1d1f7d856c7a0d",
+    "parent_NAS_archive_sha256": "ee328cab292f178bf3582ef574fb411561c93b82545cd3bb90842ecd9a9a24f1",
+    "original_account_recorder_id": "6e227278b7a64eafbcf34b965e16d2b9",
+    "bootstrap_module_sha256": "02705f897e668b710a38aae514df08b86e26c8cd8951405339960355a08a5ac4"
+  },
+  "cohorts": {
+    "train_signal": ["2011-01-03", "2022-12-30"],
+    "train_label_available_before": "2023-01-01T00:00:00-05:00",
+    "reused_held_signal": ["2023-01-03", "2026-10-07"],
+    "reused_held_label_available_before": "2026-10-10T00:00:00-04:00",
+    "expected_train_mature": 3014,
+    "expected_held_mature": 940
+  },
+  "receiver": {
+    "label": "five next session open-to-open log returns of SOXL minus SOXX from saved native Stage1 daily_frame, with saved timing maturity mask",
+    "baseline": "original Stage1 39 daily features, SimpleImputer median, StandardScaler, Ridge alpha=1",
+    "candidate": "same baseline plus one product_tracking_log20 coordinate, same rows and pipeline",
+    "null": "training mean of matched mature relative label",
+    "fit_count_max": 2
+  },
+  "gate": {
+    "coefficient": "positive standardized candidate coordinate",
+    "all_held": "paired candidate-minus-baseline MSE improvement >0 and candidate-minus-train-mean improvement >0",
+    "stability": "candidate-minus-baseline paired MSE improvement >0 in both fixed chronological halves and each complete 2024 and 2025 calendar year",
+    "uncertainty": "full 944-session held calendar stationary-block bootstrap mean block 63, 2000 resamples, seed 20261023, one-sided alpha 0.025; paired candidate-minus-baseline lower bound >0",
+    "decision": "all gates required before any own-state 0bp account; failed fixed version closes without sign/window/cohort tuning"
+  },
+  "budget": {
+    "market_requests": 0,
+    "parent_Recorder_object_loads_max": 4,
+    "Qlib_D_feature_calls_max": 1,
+    "Qlib_D_calendar_calls_max": 1,
+    "DatasetH_builds_max": 1,
+    "model_fits_max": 2,
+    "bootstrap_attempts_max": 1,
+    "new_Recorders_max": 1,
+    "native_accounts": 0
+  },
+  "limitations": "Price H5 information labels are not a funded fee-adjusted account. The 2023-2026 reuse is development feedback and cannot qualify independent forward evidence. Existing raw price/dividend conventions must pass source parity before fit."
+}

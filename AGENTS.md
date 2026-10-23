@@ -38,6 +38,10 @@ cards keep their original gates. The active campaign entry is
   Judge any accepted feature on the complete native account and all regimes,
   including intervals outside the motivating failure. A failed fixed version
   stays closed. The detailed loop is `docs/research_failure_to_feature_sop.md`.
+- For the active Stage1-versus-SOXX Goal, do not initiate or use news reports,
+  press releases, article text, or scraped news-derived series as candidate
+  features. Prefer the frozen Qlib/NAS market data and existing decision-state
+  evidence when proposing the next bounded mechanism.
 - Use Yanxuan NAS as the durable backup for each campaign market snapshot,
   received original-source bytes, and large Qlib Recorder evidence. For the
   `us_semis_intraday` feed it is also the current source authority, as declared

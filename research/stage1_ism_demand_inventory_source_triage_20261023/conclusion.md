@@ -1,5 +1,7 @@
 # Stage1 新订单与客户库存：来源预检
 
+**2026-10-23 关闭更新：用户明确要求不使用新闻数据，且指出这一方向偏离 Stage1 特征优化。停止 ISM 新闻稿及同类新闻/报道数据路线；以下是已完成的来源预检历史记录，不是后续执行计划。** 曾接收的 2018–2022 年 60 份原稿和哈希清单已按原字节备份到 NAS，并经限定恢复逐项核对；归档 SHA-256 `0b7e3ed4817c569c08e99f896a88020b122daec3558f68b69bcd70da5ba31e26`，清单 SHA-256 `120aa6c32abde5536936bae30fcf5de1103ed16f31a189b01e29787014caba17`，本地收据为 `data/snapshots/stage1_ism_manufacturing_release_2018_2022_20261023/nas_archive_binding.json`。本路线没有模型拟合、账户或 SOXX 超额证据。备份仅作审计，不用于新特征。
+
 2026-10-23，来源预检；0 拟合、0 回测、0 SOXX 收益读取。完整 Stage1 A0 仍是候选母本，首个经济门仍是 0bp 附加滑点、IBKR Tiered 费用后的完整 Qlib 账户。本卡不产生因子或策略结论。
 
 ## 从失败区间提出的机制
@@ -15,7 +17,7 @@
 - [ISM 对库存子指数的说明](https://www.ismworld.org/supply-management-news-and-reports/news-publications/inside-supply-management-magazine/blog/2019-01/the-monthly-metric-rob-inventories-subindexes/) 区分客户库存与本企业原材料库存，也显示 2018 年旧文章存在；它没有提供完整 2018–2022 的逐月原始表。
 - [ISM 报告入口](https://www.ismworld.org/supply-management-news-and-reports/reports/ism-pmi-reports/) 说明制造业月报按月发布。仍需逐月原始 PDF/HTML、首次发布及后来修订/季调重算的版本链；当前搜索仅找到散点，**未认证** 2018–2022 训练期和 2023–2026 诊断期的连续覆盖。
 
-现阶段 `needs_source`：不从当前可见的晚期 PDF 或事后重算序列倒填历史，不拟合，不开 0bp 账户，也不把来源存在性写成预测能力。若获得每月原始版本和发布时间，先用 Qlib 日历把发布映射到严格晚于实际发布的 Stage1 决策时点；再在 2018–2022 冻结受控 H5 信息任务，与原 39 输入及训练均值对照，分别评估现金优势和 SOXL 相对 SOXX，完整年份/半段/区块下界均通过才准许一条完整 0bp 自身状态账户。复用 2023–2026 仅作开发诊断，独立前向仍须另取。
+预检时的来源状态为 `needs_source`；后来取得 2018–2022 的 60 篇可解析现存网页，但其中 11 篇元数据的修改时间晚于发布时间，四次跨年报告的前月新订单值与原月值不一致。不能把现存网页当成首次公开数值。用户已关闭新闻数据路线，因此不继续补持有期、不拟合、不开 0bp 账户，也不把来源存在性写成预测能力。
 
 ## 2026-10-23 补充：使用权与发布时间门
 
