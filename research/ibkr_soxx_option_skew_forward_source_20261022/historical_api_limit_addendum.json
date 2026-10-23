@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "status": "IBKR_live_option_Greeks_do_not_backfill_expired_2011_2022_SOXX_25delta_chain",
+  "checked_at_utc": "2026-10-23T01:11:01.377562+00:00",
+  "official_TWS_API_market_data_documentation": "https://www.interactivebrokers.com/docs/tws-api/doc/md/introduction",
+  "official_current_document_findings": [
+    "Unavailable historical data explicitly includes expired options and option EOD data.",
+    "includeExpired applies to expired futures, not expired option contracts.",
+    "IBKR historical option implied volatility on an underlying is not an original strike/expiry-specific put and call quote/Delta surface."
+  ],
+  "official_contract_reference": "https://ibkrcampus.com/docs/tws-api/ref/contract",
+  "official_historical_options_context": "https://www.interactivebrokers.com/campus/ibkr-quant-news/historical-options-futures-data-using-tws-api-part-ii/",
+  "existing_live_source": "research/ibkr_soxx_option_skew_forward_source_20261022/summary.json",
+  "scope": "2011-2022 expired SOXX option chains needed for historical 25delta constant-tenor feature; existing IBKR realtime three-contract readback remains valid for current fields only",
+  "source_requests": 0,
+  "model_fits": 0,
+  "native_accounts": 0,
+  "purchases": 0,
+  "next_action": "Obtain an authorized specialized historical option-chain sample with SOXX-specific 2011/2012/2017/2022 stress dates, bid/ask, IV, signed Delta, expiration, strike, quote and delivery timestamps, revisions and retention rights before any information fit."
+}
