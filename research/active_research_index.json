@@ -429,6 +429,13 @@
       "default_search": false,
       "evidence_preserved": true,
       "result": "research/stage1_tail_probability_composition_0bp_20261023/summary.json"
+    },
+    {
+      "card": "research/stage1_0946_peer_breadth_cash_h5_information_20261023",
+      "status": "not_promoted_fixed_0946_peer_breadth_cash_H5_information_failed",
+      "default_search": false,
+      "evidence_preserved": true,
+      "result": "research/stage1_0946_peer_breadth_cash_h5_information_20261023/summary.json"
     }
   ],
   "deferred_sources": {
@@ -581,5 +588,6 @@
   "latest_source_limit_Stage1_Treasury_ALFRED_graph_vintage": "research/stage1_treasury_real_yield_alfred_graph_vintage_20261023/summary.json",
   "latest_source_gate_Stage1_0945_SOXL_SOXX_cross_response": "research/stage1_0945_soxl_soxx_cross_response_source_20261023/summary.json",
   "latest_NAS_us_semis_intraday_source_readback": "research/stage1_0945_soxl_soxx_cross_response_source_20261023/nas_source_readback.json",
-  "latest_closed_information_Stage1_0945_cross_ETF_dual_H5": "research/stage1_0945_cross_response_dual_h5_information_20261023/summary.json"
+  "latest_closed_information_Stage1_0945_cross_ETF_dual_H5": "research/stage1_0945_cross_response_dual_h5_information_20261023/summary.json",
+  "latest_closed_information_Stage1_0946_peer_breadth_cash_H5": "research/stage1_0946_peer_breadth_cash_h5_information_20261023/summary.json"
 }
