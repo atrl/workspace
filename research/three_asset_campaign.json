@@ -545,7 +545,7 @@
     ]
   },
   "active_index": "research/active_research_index.json",
-  "updated_at_utc": "2026-10-23T05:08:20Z",
+  "updated_at_utc": "2026-10-23T05:26:11Z",
   "execution_totals": {
     "new_model_fits": 85,
     "new_native_accounts": 51,
@@ -589,6 +589,9 @@
     "KCS_2018_2020_Oct_early20_original_HWP_pilot": "research/kcs_early20_2018_2020_oct_original_attachments_20261023/summary.json",
     "KCS_2018_2022_Oct_early20_pilot_interpretation": "Official 2018/2019/2020 KCS Oct1-20 HWP originals and government pages NAS-backed, completing five official October release examples with 2021/2022. Hancom HWP5 record parser validated against 2021 PDF and 2022 HWP. Earlier three report semiconductor export YoY +9.4/-28.8/+12.1 in prose but no certified product amount in parsed text; 2021/2022 table amounts 6,394/5,573 USD million. Working days vary 14.5/13.5/12/13/13.5; first-public bytes and all-month training panel unqualified. Zero SOXX outcomes/fits/accounts.",
     "KCS_2022_Oct_early20_exact_URL_archive_vintage_probe": "research/kcs_early20_2022_wayback_vintage_probe_20261023/summary.json",
-    "KCS_2022_Oct_early20_archive_interpretation": "Two exact Internet Archive CDX queries for 2022 official page and HWP URL, limited to2022-2023, returned HTTP200 JSON [] and zero captures. Raw responses NAS-backed. This is not proof other URL forms or archives lack captures, but gives no independent historical source bytes; current official HWP first-public/revision identity remains unqualified. No SOXX outcomes/fits/accounts."
+    "KCS_2022_Oct_early20_archive_interpretation": "Two exact Internet Archive CDX queries for 2022 official page and HWP URL, limited to2022-2023, returned HTTP200 JSON [] and zero captures. Raw responses NAS-backed. This is not proof other URL forms or archives lack captures, but gives no independent historical source bytes; current official HWP first-public/revision identity remains unqualified. No SOXX outcomes/fits/accounts.",
+    "KCS_2023_2026Sep_early20_held_page_index": "research/kcs_early20_2023_2026_held_portal_index_20261023/summary.json",
+    "KCS_2024Sep_held_page_index_repair": "research/kcs_early20_2024_sep_held_index_transport_repair_20261023/summary.json",
+    "KCS_held_index_interpretation": "45 monthly KCS early20 official page identities for2023Jan-2026Sep: fixed first pass44/45,2024Sep TLS handshake timeout; separately frozen one-GET repair found official 2024-09-23 newsId156651567 and Qlib 45/45 with44 rows unchanged. NAS source/Recorder readbacks verified. Attachments, semiconductor YoY, historical first-public/revision and strategy forward evidence remain unqualified; zero SOXX outcomes/fits/accounts."
   }
 }
