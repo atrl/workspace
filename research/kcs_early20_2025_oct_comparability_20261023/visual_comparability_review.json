@@ -1,0 +1,38 @@
+{
+  "status": "current_2025_Oct_early20_PDF_semantics_comparable_first_public_bytes_unqualified",
+  "source_2025_PDF_sha256": "093060193d2557137ecc933584756c410506288feeb395c496586b68e659d8ef",
+  "source_2025_PDF_bytes": 1395010,
+  "pages_visually_reviewed": [1, 2, 3, 4],
+  "page_1": {
+    "title_observation_period": "2025-10-01 through 2025-10-20 provisional export/import status",
+    "printed_distribution": "2025-10-21 09:00 Korea time; distribution immediately",
+    "working_days_2024_same_period": 12.5,
+    "working_days_2025_same_period": 10.5
+  },
+  "page_4_first_export_row": {
+    "table_period": "2025-10-01 through 2025-10-20",
+    "row": "semiconductor exports",
+    "unit": "USD million, year-over-year percent",
+    "amount_USD_million": 8533,
+    "year_over_year_pct": 20.2
+  },
+  "page_3_source_caveat": "The source labels the 1-20 day statistics provisional and says some figures may be revised before annual statistics are finalized in February 2026.",
+  "pdfinfo_displayed_creation_date": "Wed Oct 22 14:18:19 2025 CST",
+  "creation_after_printed_distribution": true,
+  "current_2026_comparison": {
+    "2026_source_review": "research/kcs_early20_official_mirror_pdf_20261023/visual_semantics_review.json",
+    "2026_semiconductor_USD_million": 27516,
+    "2026_reported_year_over_year_pct": 222.5,
+    "calculated_year_over_year_pct_from_2025_current_amount": 222.46572131723897,
+    "calculated_rounded_1dp": 222.5,
+    "amount_and_yoy_concordant": true,
+    "same_period_category_and_unit": true,
+    "2026_working_days_same_period": 13.0
+  },
+  "interpretation": "Current 2025 and 2026 PDFs agree arithmetically for October 1-20 semiconductor exports. This does not establish that the currently served 2025 PDF bytes or table value were available at its printed 2025 distribution time; its PDF CreationDate is later than that time.",
+  "historical_first_public_bytes_qualified": false,
+  "strategy_forward_day_qualified": false,
+  "market_outcome_reads": 0,
+  "model_fits": 0,
+  "native_accounts": 0
+}

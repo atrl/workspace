@@ -1,0 +1,19 @@
+{
+  "experiment": "kcs_early20_2025_oct_comparability_20261023",
+  "decision": "current_2025_Oct_early20_PDF_semantics_comparable_first_public_bytes_unqualified",
+  "objective_achieved": false,
+  "plan_sha256": "c9d4e844c376d9467dd6a2b39656604272a196824bbcf5ee1d46b6a77153d183",
+  "result": "result.json",
+  "source_archive_receipt": "source_archive_receipt.json",
+  "source_NAS_sha256": "a7fb2a8d69837fabebaae357cadc3cf7e760d0b14dd6bdf897afdf8b7660a850",
+  "source_NAS_scoped_restore_verified": true,
+  "market_outcome_reads": 0,
+  "model_fits": 0,
+  "native_accounts": 0,
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": []
+  },
+  "visual_comparability_review": "visual_comparability_review.json"
+}

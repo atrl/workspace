@@ -1,0 +1,15 @@
+{
+  "source_url": "https://www.korea.kr/common/download.do?fileId=198220303&tblKey=GMN",
+  "started_at_utc": "2026-10-23T00:44:38.578028+00:00",
+  "completed_at_utc": "2026-10-23T00:44:46.680656+00:00",
+  "curl_exit": 0,
+  "http_status": "200",
+  "effective_url": "https://www.korea.kr/common/download.do?fileId=198220303&tblKey=GMN",
+  "error": null,
+  "body_path": "data/snapshots/kcs_early20_2025_oct_comparability_20261023/attachment.body",
+  "body_bytes": 1395010,
+  "body_sha256": "093060193d2557137ecc933584756c410506288feeb395c496586b68e659d8ef",
+  "headers_path": "data/snapshots/kcs_early20_2025_oct_comparability_20261023/attachment.headers",
+  "headers_bytes": 509,
+  "headers_sha256": "cce93a930b331cbdd9f699c867a561ca757ef2ca50d1ecb887295fa50c3e387b"
+}

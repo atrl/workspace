@@ -1,0 +1,40 @@
+{
+  "status": "current_2025_Oct_early20_PDF_semantics_comparable_first_public_bytes_unqualified",
+  "receipt": {
+    "source_url": "https://www.korea.kr/common/download.do?fileId=198220303&tblKey=GMN",
+    "started_at_utc": "2026-10-23T00:44:38.578028+00:00",
+    "completed_at_utc": "2026-10-23T00:44:46.680656+00:00",
+    "curl_exit": 0,
+    "http_status": "200",
+    "effective_url": "https://www.korea.kr/common/download.do?fileId=198220303&tblKey=GMN",
+    "error": null,
+    "body_path": "data/snapshots/kcs_early20_2025_oct_comparability_20261023/attachment.body",
+    "body_bytes": 1395010,
+    "body_sha256": "093060193d2557137ecc933584756c410506288feeb395c496586b68e659d8ef",
+    "headers_path": "data/snapshots/kcs_early20_2025_oct_comparability_20261023/attachment.headers",
+    "headers_bytes": 509,
+    "headers_sha256": "cce93a930b331cbdd9f699c867a561ca757ef2ca50d1ecb887295fa50c3e387b"
+  },
+  "valid_PDF": true,
+  "pdfinfo": {
+    "pages": 4,
+    "pdfinfo_exit": 0
+  },
+  "2025_semiconductor_amount_USD_million": 8533,
+  "year_over_year_reconciliation": {
+    "2026_source_review": "research/kcs_early20_official_mirror_pdf_20261023/visual_semantics_review.json",
+    "2026_semiconductor_USD_million": 27516,
+    "2026_reported_year_over_year_pct": 222.5,
+    "calculated_year_over_year_pct_from_2025_current_amount": 222.46572131723897,
+    "calculated_rounded_1dp": 222.5,
+    "amount_and_yoy_concordant": true,
+    "same_period_category_and_unit": true,
+    "2026_working_days_same_period": 13.0
+  },
+  "historical_first_public_bytes_qualified": false,
+  "strategy_forward_day_qualified": false,
+  "market_outcome_reads": 0,
+  "model_fits": 0,
+  "native_accounts": 0,
+  "visual_comparability_review": "visual_comparability_review.json"
+}

@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "experiment": "kcs_early20_2025_oct_comparability_20261023",
+  "frozen": true,
+  "phase": "one_original_2025_Oct_early20_source_comparability_capture",
+  "source_url": "https://www.korea.kr/common/download.do?fileId=198220303&tblKey=GMN",
+  "source_identity": "PDF attachment on the official government portal's Korea Customs 2025 October 1-20 provisional export release (newsId 156721247). It is a retrospective current receipt, not certified first-public 2025 bytes.",
+  "current_2026_reference": "research/kcs_early20_official_mirror_pdf_20261023/visual_semantics_review.json",
+  "current_2026_reference_sha256": "b77e0531801601d06e5d39fb57d197c74be09ce7999d074ff5dc134c178d73ea",
+  "comparison_rule": "Read visually the 2025 PDF semiconductor export row for October 1-20, in USD million. If exactly identified, compute round((27516 / 2025_amount - 1)*100, 1) and compare to the 2026 current PDF's +222.5% year-over-year. Report match or mismatch; do not adjust units or choose another row after seeing the result. Also record printed release time, the 2025 working-day count if explicit, and revision caveat.",
+  "transport": "One exact GET, 20-second timeout, no retry or substitute URL. Preserve body/header exact bytes, actual UTC request/response time, status, SHA-256 and source receipt. Archive exact response to NAS and perform scoped restore/readback.",
+  "acceptance": "Require valid official PDF, matching October 1-20 provisional semiconductor export category and unit, and an unambiguous 2025 amount. A mismatch is a concrete revision/definition issue, not a trade signal. If PDF fails, preserve the response and stop this version.",
+  "scientific_boundary": "The 2025 current PDF is retrospective and cannot prove its original 2025 release vintage. This source-only comparability check reads no SOXX outcomes, fits no model, runs no account, and counts no qualified strategy forward day.",
+  "budget": {"HTTP_GETs": 1, "retries": 0, "market_outcome_reads": 0, "model_fits": 0, "native_accounts": 0, "NAS_source_archives": 1},
+  "stop": "On transport, PDF, table identity, or NAS verification failure, preserve exact evidence and report unknown; do not refetch or substitute a different file in this fixed version."
+}
