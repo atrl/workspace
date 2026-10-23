@@ -1,0 +1,112 @@
+{
+  "decision": "official_2022_KCS_HWP_semiconductor_amount_and_yoy_binary_corrob_source_only",
+  "failure": null,
+  "GET_attempts": 2,
+  "NAS_source_id": "0b2ff286c2694b473ce3a6feb8ad55bac69fcf65791d95ba02e0e0e2ea28b762",
+  "NAS_readback_verified": true,
+  "parsed": {
+    "parser": "olefile0.47 HWP5 BodyText/Section0 raw-deflate UTF-16LE/BE token-offset audit",
+    "2021_control": {
+      "label_occurrences": 5,
+      "amount_occurrences": 2,
+      "yoy_occurrences": 4,
+      "nearby_matches": [
+        {
+          "label_offset": 17420,
+          "amount_offset": 17562,
+          "yoy_offset": 17709,
+          "amount_encoding": "utf-16be",
+          "yoy_encoding": "utf-16be"
+        },
+        {
+          "label_offset": 17420,
+          "amount_offset": 17562,
+          "yoy_offset": 17710,
+          "amount_encoding": "utf-16be",
+          "yoy_encoding": "utf-16le"
+        },
+        {
+          "label_offset": 17420,
+          "amount_offset": 17563,
+          "yoy_offset": 17709,
+          "amount_encoding": "utf-16le",
+          "yoy_encoding": "utf-16be"
+        },
+        {
+          "label_offset": 17420,
+          "amount_offset": 17563,
+          "yoy_offset": 17710,
+          "amount_encoding": "utf-16le",
+          "yoy_encoding": "utf-16le"
+        }
+      ]
+    },
+    "2022": {
+      "label_occurrences": 5,
+      "amount_occurrences": 4,
+      "yoy_occurrences": 2,
+      "nearby_matches": [
+        {
+          "label_offset": 18730,
+          "amount_offset": 18872,
+          "yoy_offset": 19022,
+          "amount_encoding": "utf-16be",
+          "yoy_encoding": "utf-16le"
+        },
+        {
+          "label_offset": 18730,
+          "amount_offset": 18873,
+          "yoy_offset": 19022,
+          "amount_encoding": "utf-16le",
+          "yoy_encoding": "utf-16le"
+        }
+      ]
+    },
+    "2022_preview_semiconductor_yoy_seen": true,
+    "2021_ole_metadata": {
+      "OLE_streams": [
+        "\u0005HwpSummaryInformation",
+        "BinData/BIN0001.jpg",
+        "BinData/BIN0002.jpg",
+        "BodyText/Section0",
+        "DocInfo",
+        "DocOptions/_LinkDoc",
+        "FileHeader",
+        "PrvImage",
+        "PrvText",
+        "Scripts/DefaultJScript",
+        "Scripts/JScriptVersion"
+      ],
+      "created": null,
+      "last_saved": null
+    },
+    "2022_ole_metadata": {
+      "OLE_streams": [
+        "\u0005HwpSummaryInformation",
+        "BinData/BIN0001.jpg",
+        "BinData/BIN0002.jpg",
+        "BinData/BIN0003.jpg",
+        "BinData/BIN0004.jpg",
+        "BodyText/Section0",
+        "DocInfo",
+        "DocOptions/_LinkDoc",
+        "FileHeader",
+        "PrvImage",
+        "PrvText",
+        "Scripts/DefaultJScript",
+        "Scripts/JScriptVersion"
+      ],
+      "created": null,
+      "last_saved": null
+    },
+    "2022_body_decompressed_bytes": 40182,
+    "2022_preview_chars": 1022,
+    "2022_expected_secondary_transcription_not_source": "5,573 USD million and -12.8%"
+  },
+  "historical_first_public_bytes_qualified": false,
+  "cross_year_training_panel_qualified": false,
+  "SOXX_outcome_reads": 0,
+  "model_fits": 0,
+  "native_accounts": 0,
+  "strategy_forward_days": 0
+}

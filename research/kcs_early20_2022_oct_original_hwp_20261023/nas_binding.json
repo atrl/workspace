@@ -1,0 +1,62 @@
+{
+  "schema_version": "nas_market_snapshot_v1",
+  "authority": "yanxuan_nas",
+  "source_id": "0b2ff286c2694b473ce3a6feb8ad55bac69fcf65791d95ba02e0e0e2ea28b762",
+  "as_of": "2026-10-23",
+  "ssh": {
+    "host": "rziiiii@192.168.1.3",
+    "port": 911
+  },
+  "snapshot_root": "/volume1/docker/yanxuan/data/market/us_semis/snapshots/0b2ff286c2694b473ce3a6feb8ad55bac69fcf65791d95ba02e0e0e2ea28b762",
+  "source_manifest_path": "data/snapshots/kcs_early20_2022_oct_original_hwp_20261023/source_manifest.json",
+  "verified": true,
+  "metadata": {
+    "experiment": "kcs_early20_2022_oct_original_hwp_20261023",
+    "source": "Korea government 2022 Oct1-20 KCS HWP original"
+  },
+  "objects": [
+    {
+      "local_path": "data/snapshots/kcs_early20_2022_oct_original_hwp_20261023/source_manifest.json",
+      "snapshot_path": "data/snapshots/kcs_early20_2022_oct_original_hwp_20261023/source_manifest.json",
+      "kind": "raw",
+      "sha256": "0b2ff286c2694b473ce3a6feb8ad55bac69fcf65791d95ba02e0e0e2ea28b762",
+      "bytes": 1642
+    },
+    {
+      "local_path": "data/snapshots/kcs_early20_2022_oct_original_hwp_20261023/2022_early20.hwp.headers",
+      "snapshot_path": "data/snapshots/kcs_early20_2022_oct_original_hwp_20261023/2022_early20.hwp.headers",
+      "kind": "raw",
+      "sha256": "99677869cbe92b43c347e6103eea3ee6cd07aec5ff33b02eda76f50e7e6dd54f",
+      "bytes": 509
+    },
+    {
+      "local_path": "data/snapshots/kcs_early20_2022_oct_original_hwp_20261023/official_index.html",
+      "snapshot_path": "data/snapshots/kcs_early20_2022_oct_original_hwp_20261023/official_index.html",
+      "kind": "raw",
+      "sha256": "2bcc333a69e88e4157142d55a5fcc09f3c020e277c461fb3a07b683d97fc3af7",
+      "bytes": 149646
+    },
+    {
+      "local_path": "data/snapshots/kcs_early20_2022_oct_original_hwp_20261023/capture_receipts.json",
+      "snapshot_path": "data/snapshots/kcs_early20_2022_oct_original_hwp_20261023/capture_receipts.json",
+      "kind": "raw",
+      "sha256": "4df0e5b730a3eb8fa31fe0c5b89eb27680d1f40af9782dc3370de7b544d70954",
+      "bytes": 1272
+    },
+    {
+      "local_path": "data/snapshots/kcs_early20_2022_oct_original_hwp_20261023/2022_early20.hwp",
+      "snapshot_path": "data/snapshots/kcs_early20_2022_oct_original_hwp_20261023/2022_early20.hwp",
+      "kind": "raw",
+      "sha256": "0719aa545c5eb25adf2d9a594bd6702e01976d822d1890dab2fac78a03f9f3a1",
+      "bytes": 332288
+    },
+    {
+      "local_path": "data/snapshots/kcs_early20_2022_oct_original_hwp_20261023/official_index.html.headers",
+      "snapshot_path": "data/snapshots/kcs_early20_2022_oct_original_hwp_20261023/official_index.html.headers",
+      "kind": "raw",
+      "sha256": "c4c14c7a84986cf408933dece8eae6e7b734dea9eaa1d2a60c529e89e243b6aa",
+      "bytes": 375
+    }
+  ],
+  "verified_at": "2026-10-23T04:38:24.155580+00:00"
+}

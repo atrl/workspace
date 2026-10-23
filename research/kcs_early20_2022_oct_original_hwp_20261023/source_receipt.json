@@ -1,0 +1,38 @@
+{
+  "schema_version": 1,
+  "experiment": "kcs_early20_2022_oct_original_hwp_20261023",
+  "plan_sha256": "54ccbdfd7f55792c35b4fa872b4dab6b5ea57394b991cfb23ecae563465cad6f",
+  "capture_utc": "2026-10-23T04:38:23.226243+00:00",
+  "receipts": [
+    {
+      "name": "official_index.html",
+      "url": "https://www.korea.kr/briefing/pressReleaseView.do?newsId=156531875",
+      "requested_at_utc": "2026-10-23T04:38:11.369522+00:00",
+      "received_at_utc": "2026-10-23T04:38:14.603004+00:00",
+      "curl_exit_code": 0,
+      "http_status": 200,
+      "final_url": "https://www.korea.kr/briefing/pressReleaseView.do?newsId=156531875",
+      "transport_error": "",
+      "body_sha256": "2bcc333a69e88e4157142d55a5fcc09f3c020e277c461fb3a07b683d97fc3af7",
+      "body_bytes": 149646,
+      "headers_sha256": "c4c14c7a84986cf408933dece8eae6e7b734dea9eaa1d2a60c529e89e243b6aa",
+      "headers_bytes": 375
+    },
+    {
+      "name": "2022_early20.hwp",
+      "url": "https://www.korea.kr/common/download.do?fileId=197006618&tblKey=GMN",
+      "requested_at_utc": "2026-10-23T04:38:14.603573+00:00",
+      "received_at_utc": "2026-10-23T04:38:23.223742+00:00",
+      "curl_exit_code": 0,
+      "http_status": 200,
+      "final_url": "https://www.korea.kr/common/download.do?fileId=197006618&tblKey=GMN",
+      "transport_error": "",
+      "body_sha256": "0719aa545c5eb25adf2d9a594bd6702e01976d822d1890dab2fac78a03f9f3a1",
+      "body_bytes": 332288,
+      "headers_sha256": "99677869cbe92b43c347e6103eea3ee6cd07aec5ff33b02eda76f50e7e6dd54f",
+      "headers_bytes": 509
+    }
+  ],
+  "failure": null,
+  "historical_first_public_bytes_qualified": false
+}

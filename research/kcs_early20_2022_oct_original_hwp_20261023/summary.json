@@ -1,0 +1,27 @@
+{
+  "experiment": "kcs_early20_2022_oct_original_hwp_20261023",
+  "decision": "official_2022_KCS_HWP_semiconductor_amount_and_yoy_binary_corrob_source_only",
+  "objective_achieved": false,
+  "plan_sha256": "54ccbdfd7f55792c35b4fa872b4dab6b5ea57394b991cfb23ecae563465cad6f",
+  "result": "result.json",
+  "source_review": "source_review.json",
+  "official_page_date": "2022-10-21",
+  "printed_distribution_time_KST": "09:00",
+  "semiconductor_export_usd_million": 5573,
+  "semiconductor_yoy_pct": -12.8,
+  "2021_same_category_export_usd_million": 6394,
+  "historical_first_public_bytes_qualified": false,
+  "full_training_panel_qualified": false,
+  "GET_attempts": 2,
+  "NAS_source_id": "0b2ff286c2694b473ce3a6feb8ad55bac69fcf65791d95ba02e0e0e2ea28b762",
+  "NAS_readback_verified": true,
+  "SOXX_outcome_reads": 0,
+  "new_model_fits": 0,
+  "new_native_accounts": 0,
+  "strategy_forward_days": 0,
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": []
+  }
+}

@@ -1,0 +1,50 @@
+{
+  "schema_version": 1,
+  "experiment": "kcs_early20_2022_oct_original_hwp_20261023",
+  "frozen": true,
+  "phase": "official_2022_Oct_1_to_20_original_page_and_HWP_source_only",
+  "question": "Can the official KCS 2022-10-21 press-release HWP establish the October 1-20 semiconductor provisional amount, YoY and same-period comparability with the already NAS-backed 2021 official HWP/PDF, without treating current attachments as proven first-public bytes?",
+  "official_index_discovery": "https://www.korea.kr/briefing/pressReleaseView.do?newsId=156531875",
+  "exact_requests": [
+    {
+      "name": "official_index.html",
+      "url": "https://www.korea.kr/briefing/pressReleaseView.do?newsId=156531875",
+      "expected": "HTML with KCS 2022.10.21 and fileId 197006618"
+    },
+    {
+      "name": "2022_early20.hwp",
+      "url": "https://www.korea.kr/common/download.do?fileId=197006618&tblKey=GMN",
+      "expected": "HWP5 OLE compound document"
+    }
+  ],
+  "transport": {
+    "method": "GET",
+    "max_GETs": 2,
+    "retries": 0,
+    "connect_timeout_seconds": 10,
+    "total_timeout_seconds_each": 30,
+    "max_response_bytes_each": 3000000,
+    "user_agent": "soxl-qlib-source-research"
+  },
+  "source_identity_gate": "Both exact URLs HTTP200; page has date/title/attachment ID, HWP has OLE compound signature. Preserve raw response bodies, headers, UTC receipt and SHA-256; NAS archive then remote/scoped restore before parsing. Stop on failure and do not substitute blog text.",
+  "HWP_read_only_method": "Use olefile 0.47 to enumerate OLE streams and read PrvText and BodyText/Section0. If compressed, zlib raw-deflate the Section0 bytes; search fixed Korean semiconductor label and numeric amount/YoY on both UTF-16LE byte alignments because HWP table cells may start at odd offsets. Validate this exact method on the already NAS-backed 2021 original HWP against its visually reviewed official PDF amount 6,394 USD million and +23.9%, then inspect 2022. Require table-nearby label, amount, YoY and unit/period; report ambiguity instead of guessing.",
+  "prior_official_2021": {
+    "card": "research/kcs_early20_2021_oct_original_source_20261023",
+    "summary_sha256": "56dd5aa807d0bdcd716d6c54fb19b8f16b359dca85dec74342bbd1cbc63dfaa4",
+    "HWP_sha256": "6a2098d5a8fcc69d0c4cf4e2c7f6496085008f6099406117d1f6107387a6f4f6",
+    "PDF_sha256": "2bd145c7fd1cba2662d0cd1abb22f02bd61e0bb79c8786f5f0a49dd1d3907aa5",
+    "visual_PDF_amount": 6394,
+    "visual_PDF_yoy_percent": 23.9
+  },
+  "secondary_only_crosscheck": "A contemporaneous 2022-10-23 unofficial transcription says 5,573 USD million and -12.8% for 2022 Oct1-20; it is not an accepted original source, label or factor input. Confirm or refute only from the official HWP.",
+  "timing_boundary": "Government page is dated 2022-10-21. Current HWP bytes, internal OLE metadata and two-day-later secondary transcription cannot prove exact first-public bytes or second; provisional values may later revise. No Stage1 information fit until a broader original-vintage panel and availability contract are qualified.",
+  "budget": {
+    "external_GETs_max": 2,
+    "NAS_snapshots_max": 1,
+    "SOXX_outcome_reads": 0,
+    "model_fits": 0,
+    "native_accounts": 0,
+    "strategy_forward_days": 0
+  },
+  "stop": "Any transport, HWP identity, NAS, table-token or 2021 control mismatch closes this fixed probe with concrete reason. One 2022 month does not become a strategy day or a qualified 2018-2022 training panel."
+}

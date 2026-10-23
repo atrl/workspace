@@ -1,0 +1,43 @@
+{
+  "schema_version": 1,
+  "status": "official_2022_KCS_Oct_early20_HWP_semiconductor_row_binary_corrob_first_public_bytes_unqualified",
+  "official_page_url": "https://www.korea.kr/briefing/pressReleaseView.do?newsId=156531875",
+  "official_page_display_date": "2022-10-21",
+  "agency": "Korea Customs Service (관세청)",
+  "HWP_fileId": "197006618",
+  "HWP_sha256": "0719aa545c5eb25adf2d9a594bd6702e01976d822d1890dab2fac78a03f9f3a1",
+  "document_distribution_time_printed_KST": "2022-10-21 09:00",
+  "document_distribution_time_UTC_if_literal": "2022-10-21 00:00",
+  "source_semantics": {
+    "period": "2022-10-01 through 2022-10-20",
+    "kind": "provisional customs trade statistic",
+    "table": "major product exports",
+    "unit": "million USD and YoY percent",
+    "semiconductor_export_usd_million": 5573,
+    "semiconductor_yoy_percent": -12.8,
+    "working_days_2022": 13.5,
+    "working_days_2021": 13.0
+  },
+  "binary_audit": {
+    "method": "olefile 0.47 BodyText/Section0 raw-deflate with UTF-16LE/BE byte alignment checks",
+    "2022_label_offset": 18730,
+    "2022_amount_offset": 18872,
+    "2022_yoy_offset": 19022,
+    "amount_token_is_ambiguous_elsewhere": "5,573 also occurs as a differently scaled annual cumulative total in the HWP preview; only the nearby semiconductor export-table occurrence is used.",
+    "2021_control": "Same method locates official 2021 HWP semiconductor export 6,394 and +23.9 near the label, matching the separately rendered original government PDF page 2."
+  },
+  "cross_year_check": {
+    "2021_export_usd_million": 6394,
+    "2022_export_usd_million": 5573,
+    "derived_yoy_percent": -12.840162652486708,
+    "reported_yoy_percent_one_decimal": -12.8,
+    "same_category_and_unit": true,
+    "working_days_differ": true
+  },
+  "timing_boundary": "The page date and printed 09:00 KST distribution time are contemporaneous document claims; today's current HWP bytes have no independently verified first-public online receipt or immutable vintage. Do not map an intraday U.S. signal until that boundary is separately qualified.",
+  "historical_first_public_bytes_qualified": false,
+  "full_2018_2022_training_panel_qualified": false,
+  "SOXX_outcome_reads": 0,
+  "model_fits": 0,
+  "native_accounts": 0
+}
