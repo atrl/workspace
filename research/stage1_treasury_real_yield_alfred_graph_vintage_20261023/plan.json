@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "experiment": "stage1_treasury_real_yield_alfred_graph_vintage_20261023",
+  "frozen": true,
+  "phase": "one_public_ALFRED_graph_asof_CSV_transport_probe",
+  "question": "Does ALFRED's public graph CSV endpoint return a DFII10 observation series bounded by a requested 2022-12-30 vintage without a form POST or account key?",
+  "parent_failed_form": "research/stage1_treasury_real_yield_alfred_initial_20261023/summary.json",
+  "official_series": "https://alfred.stlouisfed.org/series?seid=DFII10",
+  "exact_GET": "https://alfred.stlouisfed.org/graph/alfredgraph.csv?id=DFII10&vintage_date=2022-12-30",
+  "request_policy": {"GET_attempts_max": 1, "retries": 0, "redirects_max": 1, "connect_timeout_seconds": 10, "total_timeout_seconds": 35, "max_response_bytes": 2000000, "user_agent": "soxl-qlib-source-research"},
+  "identity_gate": "Require HTTP200 and CSV whose header identifies DFII10, contains dated finite observations spanning at least 2018-10-01..2022-12-28 and no observation after vintage 2022-12-30. Compare its last observation date and at least one contemporaneous value to official ALFRED page/previous Treasury current capture. A 200 current-history response ignoring vintage fails this gate. Preserve raw bytes, headers and UTC receipt regardless of outcome.",
+  "interpretation_boundary": "Even a passed as-of 2022-12-30 graph proves only one historical snapshot. It does not supply initial-release values for each 2018-2022 decision day, intraday publication clocks, 2023-2026 held vintages, a predictive factor or a Stage1 0bp account.",
+  "NAS_backup": "Publish exact response bytes, headers, request UTC and source manifest to immutable Yanxuan NAS; verify remote hash and scoped cold restore.",
+  "budget": {"GET_attempts": 1, "redirects_max": 1, "SOXX_outcome_reads": 0, "model_fits": 0, "native_accounts": 0, "Qlib_recorders": 0, "NAS_snapshots_max": 1},
+  "stop": "On transport, identity or NAS failure, record concrete reason, no retry or alternate query for this fixed version."
+}

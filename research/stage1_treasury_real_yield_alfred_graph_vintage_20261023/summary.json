@@ -1,0 +1,21 @@
+{
+  "experiment": "stage1_treasury_real_yield_alfred_graph_vintage_20261023",
+  "decision": "needs_ALFRED_graph_source_or_NAS",
+  "objective_achieved": false,
+  "plan_sha256": "37ecf4560cf692c95ea0cdd26bc57218ed1af1d9b836051aeb8d2bbefb522ede",
+  "failure": "curl (28) timeout after 35 seconds with zero response bytes and HTTP status 0",
+  "source_receipt": "source_receipt.json",
+  "result": "result.json",
+  "GET_attempts": 1,
+  "NAS_source_id": "a26b04d6e9518173e1f27c652d73cbff54c5a2467a4409ac905ac7fb5753d3ee",
+  "NAS_readback_verified": true,
+  "vintage_semantics_certified": false,
+  "SOXX_outcome_reads": 0,
+  "new_model_fits": 0,
+  "new_native_accounts": 0,
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": []
+  }
+}

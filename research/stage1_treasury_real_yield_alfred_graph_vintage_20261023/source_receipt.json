@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "experiment": "stage1_treasury_real_yield_alfred_graph_vintage_20261023",
+  "plan_sha256": "37ecf4560cf692c95ea0cdd26bc57218ed1af1d9b836051aeb8d2bbefb522ede",
+  "receipt": {
+    "requested_at_utc": "2026-10-23T02:22:02.100392+00:00",
+    "received_at_utc": "2026-10-23T02:22:37.127086+00:00",
+    "url": "https://alfred.stlouisfed.org/graph/alfredgraph.csv?id=DFII10&vintage_date=2022-12-30",
+    "curl_exit_code": 28,
+    "http_status": 0,
+    "final_url": "https://alfred.stlouisfed.org/graph/alfredgraph.csv?id=DFII10&vintage_date=2022-12-30",
+    "transport_error": "curl: (28) Operation timed out after 35003 milliseconds with 0 bytes received\n",
+    "body_sha256": null,
+    "body_bytes": 0,
+    "headers_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "headers_bytes": 0
+  },
+  "parsed": null,
+  "failure": "transport_or_http",
+  "vintage_semantics_certified": false,
+  "source_market_outcome_reads": 0
+}

@@ -1,0 +1,13 @@
+{
+  "decision": "needs_ALFRED_graph_source_or_NAS",
+  "failure": "transport_or_http",
+  "GET_attempts": 1,
+  "http_status": 0,
+  "parsed": null,
+  "NAS_source_id": "a26b04d6e9518173e1f27c652d73cbff54c5a2467a4409ac905ac7fb5753d3ee",
+  "NAS_readback_verified": true,
+  "vintage_semantics_certified": false,
+  "SOXX_outcome_reads": 0,
+  "model_fits": 0,
+  "native_accounts": 0
+}
