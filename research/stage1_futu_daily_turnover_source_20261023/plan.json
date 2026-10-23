@@ -1,0 +1,44 @@
+{
+  "experiment": "stage1_futu_daily_turnover_source_20261023",
+  "frozen": true,
+  "phase": "Futu_read_only_source_qualification_before_factor_fit",
+  "parent": "complete frozen Stage1 f696 allocation decision next US session09:29 ET, plus b472 action/risk/recovery; SOXX final0bp Tiered gate",
+  "question": "Can an explicit Futu OpenAPI US.SOXX unadjusted daily turnover-rate series cover original Stage1 2011-2022 training and reused2023-2026 calendar with stable field semantics and NAS archived request identity, without any news source?",
+  "request": {
+    "api": "futu.OpenQuoteContext.request_history_kline",
+    "host": "127.0.0.1",
+    "port": 11111,
+    "code": "US.SOXX",
+    "start": "2010-03-11",
+    "end": "2026-10-09",
+    "ktype": "KLType.K_DAY",
+    "autype": "AuType.NONE",
+    "fields": "default KL_FIELD.ALL",
+    "max_count": 1000,
+    "maximum_pages": 5,
+    "new_market_requests_max": 5,
+    "purpose": "read_only_data_intake_no_broker_commands"
+  },
+  "source_rules": {
+    "retain": "exact returned DataFrame columns/rows serialized with fixed UTF-8 CSV, each page row count and request receipt, SDK version, start/end, autype and SHA256; no fill of missing trading days",
+    "calendar": "map to exact original Stage1 Qlib signal dates; turnover_rate from completed signal-day regular daily bar is eligible only for next-day09:29 decision under stated research convention",
+    "vintage": "current retrieved historical values are not proven first-public historical vintages; no PIT/forward qualification from coverage alone",
+    "NAS": "archive received CSV and request/row manifest to Yanxuan NAS, verify remote hash and scoped restore before treating local cache disposable"
+  },
+  "numerical_gate": {
+    "training_2011_2022_known_min": 3000,
+    "reused_held_2023_2026_known_min": 900,
+    "duplicate_dates": 0,
+    "finite_nonnegative_turnover_rate": true,
+    "calendar_extra_dates_reported": true
+  },
+  "budget": {
+    "Futu_pages_max": 5,
+    "new_Qlib_Recorders_max": 1,
+    "new_model_fits": 0,
+    "new_native_accounts": 0,
+    "future_return_reads": 0,
+    "bootstrap_attempts": 0
+  },
+  "stop": "If OpenD unavailable, fields incomplete, source continuity or NAS receipt fails, mark needs_data with exact failure. Passing only allows a separately frozen Stage139-controlled information screen; no sign/window/rule selection from reused outcomes."
+}
