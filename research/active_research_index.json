@@ -463,6 +463,16 @@
       "result": "research/stage1_soxx_autocorr_cash_h5_information_20261023/summary.json",
       "recorder_id": "41aa6302cf004feca2a8fd89c0a3fc5e",
       "nas_archive_sha256": "f8951d5f796b02b5662efa9839bdcb977b1f24ab089ff3319573babf61daa910"
+    },
+    {
+      "card": "research/stage1_0945_signed_volume_cash_h5_information_20261023",
+      "status": "invalid_for_frozen_Stage1_allocator_0929_clock",
+      "default_search": false,
+      "evidence_preserved": true,
+      "result": "research/stage1_0945_signed_volume_cash_h5_information_20261023/timing_invalidation.json",
+      "recorder_id": "9623e3d4cc194fc3b0cecf81fd04d568",
+      "nas_archive_sha256": "59700540653371729398dce9332344ac99d57d751e07f6b38fed27f242a960c1",
+      "numeric_fit_is_admissible": false
     }
   ],
   "deferred_sources": {
@@ -665,5 +675,7 @@
   "latest_closed_Stage1_training_cost0_0bp": "research/stage1_training_cost_0bp_ablation_20261023/summary.json",
   "latest_closed_Stage1_product_tracking_information": "research/stage1_product_tracking_h5_information_20261023/summary.json",
   "latest_closed_Stage1_soxx_autocorr_cash_information": "research/stage1_soxx_autocorr_cash_h5_information_20261023/summary.json",
-  "latest_read_only_Stage1_training_cost0_regime_attribution": "research/stage1_training_cost0_regime_attribution_20261023/result.json"
+  "latest_read_only_Stage1_training_cost0_regime_attribution": "research/stage1_training_cost0_regime_attribution_20261023/result.json",
+  "latest_source_only_Stage1_0945_signed_volume": "research/stage1_0945_signed_volume_cash_source_20261023/summary.json",
+  "latest_invalid_Stage1_0945_signed_volume_allocator_information": "research/stage1_0945_signed_volume_cash_h5_information_20261023/timing_invalidation.json"
 }

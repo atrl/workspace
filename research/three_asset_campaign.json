@@ -268,7 +268,10 @@
     "Stage1_product_tracking_closed_information": "research/stage1_product_tracking_h5_information_20261023/summary.json",
     "Stage1_soxx_autocorr_cash_closed_information": "research/stage1_soxx_autocorr_cash_h5_information_20261023/summary.json",
     "Stage1_training_cost0_regime_attribution": "research/stage1_training_cost0_regime_attribution_20261023/result.json",
-    "Stage1_training_cost0_regime_interpretation": "Read-only exact 944-session raw-corporate Stage1 0bp account alignment shows candidate-minus-matched-B cash mean +4.69 percentage points in raw network outputs, +4.66 after smoothing, +5.02 in controlled targets and +5.00 in funded holdings. Candidate/B wealth0.668426 and candidate/SOXX0.529056. In 2025 candidate/B wealth0.8393 and +5.32pp funded cash; 2024Q3 candidate/B about1.000 despite +5.21pp cash. Only106/819 rolling126 windows beat B, 173/819 beat SOXX. Candidate total fees are lower than B; extra fees do not explain its shortfall. Own-state path differences are descriptive, not local cash causality. All years/quarters/windows in native Recorder and NAS scoped restore. Close cost-proxy route and do not select quarter switch or cost-grid rescue."
+    "Stage1_training_cost0_regime_interpretation": "Read-only exact 944-session raw-corporate Stage1 0bp account alignment shows candidate-minus-matched-B cash mean +4.69 percentage points in raw network outputs, +4.66 after smoothing, +5.02 in controlled targets and +5.00 in funded holdings. Candidate/B wealth0.668426 and candidate/SOXX0.529056. In 2025 candidate/B wealth0.8393 and +5.32pp funded cash; 2024Q3 candidate/B about1.000 despite +5.21pp cash. Only106/819 rolling126 windows beat B, 173/819 beat SOXX. Candidate total fees are lower than B; extra fees do not explain its shortfall. Own-state path differences are descriptive, not local cash causality. All years/quarters/windows in native Recorder and NAS scoped restore. Close cost-proxy route and do not select quarter switch or cost-grid rescue.",
+    "Stage1_0945_signed_volume_source_only": "research/stage1_0945_signed_volume_cash_source_20261023/summary.json",
+    "Stage1_0945_signed_volume_allocator_clock_invalidation": "research/stage1_0945_signed_volume_cash_h5_information_20261023/timing_invalidation.json",
+    "Stage1_0945_signed_volume_clock_interpretation": "Native Qlib parent timing decision_at is trade-day09:29 ET for frozen f696 allocator. Source SOXX 09:45 completed bar is exactly16 minutes later on all2007 known source days. A matched H5 cash Ridge attempt had2 fits and0 accounts but used an inadmissible 09:45 input for that upstream allocator; its coefficient/MSE are not evidence for or against valid Stage1 alpha. Source coordinate coverage/novelty remains conditional for separately frozen 09:46 b472 action task or an explicitly retimed allocator only. Historical first receipt still unqualified. Execution code now stops before fit on source-vs-parent clock mismatch; no new 0bp strategy pass."
   },
   "contract": {
     "path": "docs/three_asset_research_contract.md",
@@ -516,7 +519,9 @@
     "Stage1_training_cost0_0bp_result": "research/stage1_training_cost_0bp_ablation_20261023/summary.json",
     "Stage1_training_cost0_0bp_status": "not_promoted_fixed_Stage1_training_cost0_0bp_failed; exact Stage1 A_0 and SOXX raw-corporate controls, 3 fits/1 new 0bp Tiered account; no 2/5bp or independent forward",
     "Stage1_training_cost0_regime_attribution": "research/stage1_training_cost0_regime_attribution_20261023/result.json",
-    "Stage1_cost_route_next_boundary": "No-news constraint persists. Fixed turnover regularizer removal and 10bp training-cost-proxy removal both worsened cash; 15pct cash floor bound zero original A_0 EXECUTE days. Do not tune costs or floor on reused history. A next bounded mechanism must address raw model risky-dollar intent and distinguish 2024 cash protection from 2025 cash drag before any new complete Stage1-parent 0bp Tiered account; SOXX remains final gate."
+    "Stage1_cost_route_next_boundary": "No-news constraint persists. Fixed turnover regularizer removal and 10bp training-cost-proxy removal both worsened cash; 15pct cash floor bound zero original A_0 EXECUTE days. Do not tune costs or floor on reused history. A next bounded mechanism must address raw model risky-dollar intent and distinguish 2024 cash protection from 2025 cash drag before any new complete Stage1-parent 0bp Tiered account; SOXX remains final gate.",
+    "Stage1_0945_signed_volume_clock_audit": "research/stage1_0945_signed_volume_cash_h5_information_20261023/timing_invalidation.json",
+    "Stage1_0945_signed_volume_receiver_boundary": "Do not use same-day 09:45 minute feature in unchanged f696 allocation head decided09:29. Separate 09:46 b472 action receiver requires physical action-value label and own controls; no reuse of invalid H5 cash fit. Current source-only card does not license an allocator account."
   },
   "parallel_source_task": {
     "card": "research/korea_semiconductor_exports_korean_vintage_20261022",
@@ -581,7 +586,7 @@
     ]
   },
   "active_index": "research/active_research_index.json",
-  "updated_at_utc": "2026-10-23T13:17:07Z",
+  "updated_at_utc": "2026-10-23T13:32:04Z",
   "execution_totals": {
     "new_model_fits": 85,
     "new_native_accounts": 51,
