@@ -1,0 +1,76 @@
+{
+  "experiment": "stage1_soxx_autocorr_cash_h5_information_20261023",
+  "decision": "not_promoted_fixed_SOXX_autocorr_cash_H5_information_failed",
+  "promotion": "not_promoted_information_only",
+  "objective_achieved": false,
+  "plan_sha256": "e8f69537c9558e95037c9058c889f9cd444026a4766b3bcad782602da0cc70a6",
+  "source_provider_uri": "data/qlib/minute_information_pit_allocator_20261012/daily_prices",
+  "source_provider_manifest_sha256": "d80a08d479b73098053006909b5e6227b03a56ab705681742d7261088e0a7e6c",
+  "parent_recorder_id": "68e31a0a0fad44e7ba1d1f7d856c7a0d",
+  "recorder_id": "41aa6302cf004feca2a8fd89c0a3fc5e",
+  "experiment_id": "677454637843901306",
+  "metrics": {
+    "coefficient_standardized": 0.0007792148905888684,
+    "all_held_MSE_baseline": 0.002526266936598172,
+    "all_held_MSE_candidate": 0.002536892976685727,
+    "all_held_MSE_train_mean": 0.0023466841316487535,
+    "all_held_improvement_vs_baseline": -1.0626040087554254e-05,
+    "all_held_improvement_vs_train_mean": -0.00019020884503697286,
+    "first_half_improvement": -1.2615173183343214e-05,
+    "second_half_improvement": -8.636906991765298e-06,
+    "2024_improvement": -2.3411785915888263e-05,
+    "2025_improvement": -5.214017079480491e-06
+  },
+  "bootstrap": {
+    "paired_mean_loss_improvement": -1.0626040087554254e-05,
+    "lower_bound": -2.246001651229111e-05,
+    "upper_bound": 1.1315321688049453e-06,
+    "valid_replicates": 2000,
+    "invalid_replicates": 0,
+    "calendar_rows": 944,
+    "scored_rows": 940
+  },
+  "gates": {
+    "negative_coefficient": false,
+    "beats_baseline": false,
+    "beats_train_mean": false,
+    "both_halves": false,
+    "both_complete_years": false,
+    "positive_block_lower": false
+  },
+  "model_fits": 2,
+  "native_accounts": 0,
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "inputs/*",
+      "models/*",
+      "predictions/*",
+      "analysis/*"
+    ]
+  },
+  "limitations": [
+    "2023-2026 reuse is development feedback, not independent forward evidence.",
+    "H5 labels omit funded Tiered fees and account feedback.",
+    "No SOXL relative receiver is tested here."
+  ],
+  "NAS_evidence": {
+    "sha256": "f8951d5f796b02b5662efa9839bdcb977b1f24ab089ff3319573babf61daa910",
+    "size_bytes": 130667,
+    "media_type": "application/gzip",
+    "storage_uri": "sha256/f8/95/f8951d5f796b02b5662efa9839bdcb977b1f24ab089ff3319573babf61daa910",
+    "uploaded_by": "soxl-minute-research",
+    "created_at": "2026-10-23 20:53:27.267781+08",
+    "duplicate": false,
+    "nas_path": "/volume1/docker/yanxuan/registry/research-artifacts/f8/95/f8951d5f796b02b5662efa9839bdcb977b1f24ab089ff3319573babf61daa910",
+    "recorder_id": "41aa6302cf004feca2a8fd89c0a3fc5e",
+    "experiment_id": "677454637843901306",
+    "archive_root": "qlib_recorder"
+  },
+  "NAS_readback": {
+    "verified": true,
+    "sha256": "f8951d5f796b02b5662efa9839bdcb977b1f24ab089ff3319573babf61daa910"
+  },
+  "NAS_scoped_restore": "nas_scoped_restore.json"
+}
