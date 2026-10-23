@@ -1,0 +1,45 @@
+{
+  "experiment": "stage1_relative_dollar_volume_source_preflight_20261023",
+  "frozen": true,
+  "phase": "read_only_no_outcome_source_and_novelty_preflight",
+  "parent": "Exact f696 A_0 0bp Tiered own-state Stage1 plus b472 action/risk/recovery; SOXX final benchmark",
+  "failure_link": "research/stage1_f696_window_regime_pairing_20261023/result.json: 564 weak versus255 good 126-day windows, cash and SOXL-selection signs overlap within every prior SOXX 5/20-return regime. This source aims at a distinct SOXL-relative crowding coordinate, not an outcome-selected window switch.",
+  "source": {
+    "SOXL_card": "research/stage1_futu_soxl_turnover_source_20261023",
+    "SOXL_summary_sha256": "b8d22e684a75e1b7e6d008a2fe633b550698f722ad1c11b1ecd997c579cabaf1",
+    "SOXL_raw_sha256": "dd4c533383b34de75211d3a02f5e644297065835460d23b14a57fceb275acd0d",
+    "SOXL_NAS_raw_archive_sha256": "a53917c27afbd40a704a02a84818233d88586d899dfd8a328001828fdac09307",
+    "SOXX_card": "research/stage1_futu_daily_turnover_source_20261023",
+    "SOXX_summary_sha256": "e89a5a69d9c4b3afa5144bbe69e11b6e9cf227b1daad181c056e163e13fe6d64",
+    "SOXX_raw_sha256": "2b74835daa405b8fb1580259f30feb10629abb3045ca6f8db4e91396f3056c79",
+    "SOXX_NAS_raw_archive_sha256": "13d2984554cda99416dc5f393efa4cd7e31f487c4988a0336816dbed1aea9bd7",
+    "original39_card": "research/minute_information_pit_allocator_20261012",
+    "original39_summary_sha256": "61c91f958323cf51b43f4b1554eeca5687011d30771e80bc7ff02d16b6d577ca",
+    "original39_recorder_id": "68e31a0a0fad44e7ba1d1f7d856c7a0d",
+    "original39_experiment_id": "905520356740140469",
+    "original39_NAS_archive_sha256": "ee328cab292f178bf3582ef574fb411561c93b82545cd3bb90842ecd9a9a24f1",
+    "Stage1_daily_provider": "data/qlib/minute_information_pit_allocator_20261012/daily_prices",
+    "Stage1_daily_provider_manifest_sha256": "d80a08d479b73098053006909b5e6227b03a56ab705681742d7261088e0a7e6c"
+  },
+  "fixed_coordinate": {
+    "raw_fields": "Futu US.SOXL and US.SOXX completed K_DAY AuType.NONE close and volume; original bytes already NAS restored",
+    "proxy": "positive raw close times positive raw share volume, within each ETF; an approximation to traded value, never impute Futu turnover=0",
+    "baseline": "strictly previous 20 complete Qlib sessions median of log(proxy), requiring all 20 valid",
+    "relative_shock": "[log(SOXL proxy today)-prior20 SOXL median] minus [log(SOXX proxy today)-prior20 SOXX median]",
+    "clock": "source signal-day completed close/volume used only for following trade-day 09:29 ET allocation decision",
+    "no_fill": true,
+    "not_first_public_certified": true
+  },
+  "gates": {
+    "proxy_positive_and_finite_all_source_rows": true,
+    "SOXL_and_SOXX_actual_traded_value_when_positive_median_proxy_ratio_within_10pct": true,
+    "train_2011_2022_source_known_min_fraction": 0.95,
+    "held_2023_2026_source_known_min_fraction": 0.95,
+    "train_max_abs_spearman_original39_below": 0.8,
+    "train_abs_spearman_SOXX_only_proxy_shock_below": 0.8,
+    "train_abs_spearman_closed_SOXX_turnover_rate_surprise_below": 0.8
+  },
+  "if_source_and_novelty_pass": "Only then freeze a separate SOXL-minus-SOXX H5 matched information test with original39 and SOXX-only activity controls, fixed negative crowding sign, full/half/complete-year and block gates. No funded account until that gate passes and first-public source timing is resolved.",
+  "budget": {"new_market_requests": 0, "new_model_fits": 0, "future_return_reads": 0, "new_accounts": 0, "new_bootstraps": 0, "new_Recorders_max": 1},
+  "stop": "Any source hash/NAS, raw basis, positive proxy, native Qlib calendar, missingness, or novelty gate failure closes this fixed representation before future-return labels, fits, or account. Do not change lookback, sign, interval, or denominator to rescue it."
+}

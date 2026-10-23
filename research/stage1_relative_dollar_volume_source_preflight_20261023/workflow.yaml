@@ -1,0 +1,4 @@
+experiment: stage1_relative_dollar_volume_source_preflight_20261023
+entrypoint: stage1_relative_dollar_volume_source_preflight_20261023.ipynb
+provider_uri: data/qlib/stage1_relative_dollar_volume_20261023
+phase: source_novelty_no_fit

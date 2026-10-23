@@ -1,0 +1,44 @@
+{
+  "experiment": "stage1_relative_dollar_volume_source_preflight_20261023",
+  "decision": "conditional_source_novelty_pass_first_public_unknown",
+  "objective_achieved": false,
+  "plan_sha256": "44dbfcd39a50960fe8f1ef2a67d9d75bbd86066f363b3483a3eb33647dcd5a4b",
+  "result": "result.json",
+  "recorder_id": "bf953cf3a38f41c185401cd1da71b082",
+  "experiment_id": "483354512116012091",
+  "NAS_evidence": {
+    "sha256": "b2418504fad9b1b9844b7ea49a1708be218d3b5e0cf2976fd207cd92ed461446",
+    "size_bytes": 293419,
+    "media_type": "application/gzip",
+    "storage_uri": "sha256/b2/41/b2418504fad9b1b9844b7ea49a1708be218d3b5e0cf2976fd207cd92ed461446",
+    "uploaded_by": "soxl-minute-research",
+    "created_at": "2026-10-23 22:55:08.452403+08",
+    "duplicate": false,
+    "nas_path": "/volume1/docker/yanxuan/registry/research-artifacts/b2/41/b2418504fad9b1b9844b7ea49a1708be218d3b5e0cf2976fd207cd92ed461446",
+    "recorder_id": "bf953cf3a38f41c185401cd1da71b082",
+    "experiment_id": "483354512116012091",
+    "archive_root": "qlib_recorder"
+  },
+  "NAS_readback": {
+    "verified": true,
+    "sha256": "b2418504fad9b1b9844b7ea49a1708be218d3b5e0cf2976fd207cd92ed461446"
+  },
+  "new_model_fits": 0,
+  "new_native_accounts": 0,
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "inputs/*",
+      "analysis/relative_shock",
+      "analysis/SOXL_shock",
+      "analysis/SOXX_shock",
+      "analysis/source_pair"
+    ]
+  },
+  "limitations": [
+    "Raw close times volume approximates traded value; source field itself is zero-coded on many historical days.",
+    "Futu historical first-public values, revisions and delivery clocks remain unqualified.",
+    "No future-return label, fitted factor, funded Stage1 account or independent forward evidence."
+  ]
+}

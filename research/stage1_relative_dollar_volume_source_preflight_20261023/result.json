@@ -1,0 +1,43 @@
+{
+  "experiment": "stage1_relative_dollar_volume_source_preflight_20261023",
+  "decision": "conditional_source_novelty_pass_first_public_unknown",
+  "plan_sha256": "44dbfcd39a50960fe8f1ef2a67d9d75bbd86066f363b3483a3eb33647dcd5a4b",
+  "source_raw_sha256": {
+    "SOXL": "dd4c533383b34de75211d3a02f5e644297065835460d23b14a57fceb275acd0d",
+    "SOXX": "2b74835daa405b8fb1580259f30feb10629abb3045ca6f8db4e91396f3056c79"
+  },
+  "provider_manifest_sha256": "821d602510f333ff67071c0518a03426ffee073c1cf97d176a1227f85d22e2d6",
+  "calendar_rows": 3966,
+  "train_rows": 3020,
+  "train_known": 2958,
+  "held_rows": 946,
+  "held_known": 946,
+  "actual_traded_value_proxy_ratio_median": {
+    "SOXL": 1.0042587655253399,
+    "SOXX": 1.0013789525225665
+  },
+  "actual_traded_value_zero_with_positive_volume": {
+    "SOXL": 910,
+    "SOXX": 1408
+  },
+  "train_max_abs_spearman_original39": 0.15039335272913734,
+  "train_abs_spearman_SOXX_proxy_shock": 0.6518710808226328,
+  "train_abs_spearman_closed_SOXX_rate_surprise": 0.6520458771009846,
+  "gates": {
+    "proxy_positive_finite": true,
+    "actual_turnover_median_proxy_ratio_SOXL": true,
+    "actual_turnover_median_proxy_ratio_SOXX": true,
+    "train_support_95pct": true,
+    "held_support_95pct": true,
+    "not_redundant_original39": true,
+    "not_redundant_SOXX_proxy": true,
+    "not_redundant_old_rate": true
+  },
+  "historical_first_public_qualified": false,
+  "future_return_reads": 0,
+  "new_model_fits": 0,
+  "new_native_accounts": 0,
+  "new_market_requests": 0,
+  "recorder_id": "bf953cf3a38f41c185401cd1da71b082",
+  "experiment_id": "483354512116012091"
+}
