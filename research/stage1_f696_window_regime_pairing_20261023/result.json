@@ -1,0 +1,134 @@
+{
+  "experiment": "stage1_f696_window_regime_pairing_20261023",
+  "status": "read_only_exact_f696_window_regime_diagnostic",
+  "source_recorder_id": "2f0392615c4c4b15928b4ada6e01ecd9",
+  "source_nas_sha256": "54c6e93b4c304774c272b07312c856a9a2a255086d372066db418b5efed359c7",
+  "plan_sha256": "e8265111f2680953aff3502a97cd64132949459945071953ad0e0d9f3df1f53b",
+  "partial_endpoint_years": [
+    "2023",
+    "2026"
+  ],
+  "daily_sessions": 944,
+  "quarters": 16,
+  "years_including_partial": 4,
+  "rolling_windows": 819,
+  "daily_component_closure_max_abs": 1.0408340855860843e-17,
+  "all_by_outcome": {
+    "weak": {
+      "windows": 564,
+      "cash_negative": 536,
+      "selection_negative": 242,
+      "both_negative": 214,
+      "mean_cash_log": -0.11302686719209253,
+      "mean_selection_log": 0.013235617725119336,
+      "mean_relative_log": -0.10008283361816704,
+      "mean_cap_binding_fraction": 0.3123944613306316
+    },
+    "good": {
+      "windows": 255,
+      "cash_negative": 94,
+      "selection_negative": 70,
+      "both_negative": 0,
+      "mean_cash_log": 0.0004260265435131678,
+      "mean_selection_log": 0.06812757903067107,
+      "mean_relative_log": 0.06850095291969951,
+      "mean_cap_binding_fraction": 0.23877995642701524
+    }
+  },
+  "by_decision_time_start_state": {
+    "uptrend": {
+      "weak": {
+        "windows": 220,
+        "cash_negative": 217,
+        "selection_negative": 81,
+        "both_negative": 78,
+        "mean_cash_log": -0.10921038343868943,
+        "mean_selection_log": 0.013160024341440632,
+        "mean_relative_log": -0.09614980408196548,
+        "mean_cap_binding_fraction": 0.28733766233766234
+      },
+      "good": {
+        "windows": 126,
+        "cash_negative": 44,
+        "selection_negative": 41,
+        "both_negative": 0,
+        "mean_cash_log": 0.005668158111539341,
+        "mean_selection_log": 0.0672213246816972,
+        "mean_relative_log": 0.07279952988139728,
+        "mean_cap_binding_fraction": 0.23494583018392537
+      }
+    },
+    "rebound": {
+      "weak": {
+        "windows": 104,
+        "cash_negative": 93,
+        "selection_negative": 50,
+        "both_negative": 39,
+        "mean_cash_log": -0.11375700945184178,
+        "mean_selection_log": 0.015127515655296547,
+        "mean_relative_log": -0.09918631968419425,
+        "mean_cap_binding_fraction": 0.3171550671550672
+      },
+      "good": {
+        "windows": 32,
+        "cash_negative": 12,
+        "selection_negative": 10,
+        "both_negative": 0,
+        "mean_cash_log": -0.010309003068485048,
+        "mean_selection_log": 0.06086510904950655,
+        "mean_relative_log": 0.050561512863130834,
+        "mean_cap_binding_fraction": 0.2306547619047619
+      }
+    },
+    "pullback": {
+      "weak": {
+        "windows": 112,
+        "cash_negative": 106,
+        "selection_negative": 53,
+        "both_negative": 47,
+        "mean_cash_log": -0.10926643356007257,
+        "mean_selection_log": 0.006434263426060326,
+        "mean_relative_log": -0.10317574842999445,
+        "mean_cap_binding_fraction": 0.3037840136054422
+      },
+      "good": {
+        "windows": 51,
+        "cash_negative": 20,
+        "selection_negative": 15,
+        "both_negative": 0,
+        "mean_cash_log": 0.0051247726734801125,
+        "mean_selection_log": 0.07344025561858138,
+        "mean_relative_log": 0.07839899074245364,
+        "mean_cap_binding_fraction": 0.25054466230936817
+      }
+    },
+    "decline": {
+      "weak": {
+        "windows": 128,
+        "cash_negative": 120,
+        "selection_negative": 58,
+        "both_negative": 50,
+        "mean_cash_log": -0.12228358748522533,
+        "mean_selection_log": 0.017779561796724744,
+        "mean_relative_log": -0.10486484524451734,
+        "mean_cap_binding_fraction": 0.35912698412698413
+      },
+      "good": {
+        "windows": 46,
+        "cash_negative": 18,
+        "selection_negative": 4,
+        "both_negative": 0,
+        "mean_cash_log": -0.011674488295957814,
+        "mean_selection_log": 0.06977193949555249,
+        "mean_relative_log": 0.058232288912652155,
+        "mean_cap_binding_fraction": 0.24189095928226362
+      }
+    }
+  },
+  "new_fits": 0,
+  "new_accounts": 0,
+  "new_bootstraps": 0,
+  "new_recorders": 0,
+  "candidate_source_status": "SOXL same-field turnover source and first-public vintages unverified; no feature fit authorized",
+  "independent_validation": false
+}

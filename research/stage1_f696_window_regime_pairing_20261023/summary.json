@@ -1,0 +1,23 @@
+{
+  "experiment": "stage1_f696_window_regime_pairing_20261023",
+  "decision": "diagnostic_only_source_qualification_next",
+  "objective_achieved": false,
+  "plan_sha256": "e8265111f2680953aff3502a97cd64132949459945071953ad0e0d9f3df1f53b",
+  "result": "result.json",
+  "source_recorder_id": "2f0392615c4c4b15928b4ada6e01ecd9",
+  "source_nas_sha256": "54c6e93b4c304774c272b07312c856a9a2a255086d372066db418b5efed359c7",
+  "new_model_fits": 0,
+  "new_native_accounts": 0,
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [],
+    "reused_native_source": "research/stage1_original_0bp_signal_loss_chain_v2_20261023/qlib_recorder"
+  },
+  "limitations": [
+    "All 819 overlapping windows are development diagnostics, not independent trials.",
+    "Outcome-defined weak/good groups and future components are not decision-time features.",
+    "SOXL relative turnover source and first-public history are not yet qualified.",
+    "No 0bp candidate or 2/5bp or forward SOXX success is established."
+  ]
+}

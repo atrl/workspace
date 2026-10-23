@@ -1,0 +1,43 @@
+{
+  "experiment": "stage1_f696_window_regime_pairing_20261023",
+  "frozen": true,
+  "phase": "read_only_exact_f696_failure_to_feature_diagnostic",
+  "parent": "Exact f696 A_0 0bp Tiered own-state native account and SOXX benchmark; no 27baa proposal path",
+  "question": "Within each decision-time SOXX 5/20-session return-sign regime at the start of a 126-session window, how do all weak and good exact-f696 windows differ in cash opportunity and SOXL-relative selection components?",
+  "source": {
+    "card": "research/stage1_original_0bp_signal_loss_chain_v2_20261023",
+    "recorder_id": "2f0392615c4c4b15928b4ada6e01ecd9",
+    "experiment_id": "954993860986722516",
+    "artifact_sha256": {
+      "analysis/daily": "00660bd17990b571040b7de62ca58475175d4a6a4a1b5e94f027b4b986824855",
+      "analysis/periods": "fe3bcddd528e9413a238b4c2a94f9f52b35cf625a1d5c17a7543a9d50b5e71a7",
+      "analysis/rolling126": "12f8a16607303370c0ad4a339a3c1de00ab92a467b1490249a160084db2b7635"
+    },
+    "nas_verified_sha256": "54c6e93b4c304774c272b07312c856a9a2a255086d372066db418b5efed359c7",
+    "qlib_provider": "data/qlib/minute_information_pit_allocator_20261012/daily_prices",
+    "qlib_provider_manifest_sha256": "d80a08d479b73098053006909b5e6227b03a56ab705681742d7261088e0a7e6c",
+    "qlib_feature": "SOXX $close",
+    "decision_clock": "source signal-day close is available before following trade-day 09:29 ET allocator decision"
+  },
+  "fixed_definitions": {
+    "window_outcome": "weak iff exact-f696 relative_log_excess < 0, good iff > 0; ties retained separately",
+    "start_state": "SOXX signal-day close / close 5 Qlib sessions earlier - 1 and analogous 20; positive or zero means up",
+    "regimes": ["uptrend", "rebound", "pullback", "decline"],
+    "components": ["cash_opportunity_log", "SOXL_selection_log"],
+    "coverage": "all 944 daily sessions, all 16 quarters, all 819 overlapping 126-session windows, both partial endpoint years"
+  },
+  "hypothesis_funnel": {
+    "mechanism": "A useful new input must distinguish protective cash from cash drag and SOXL-relative gain from leveraged drag within the same prior-return-sign regime; interval labels themselves cannot become a switch.",
+    "candidate_source_only": "Previous completed-session SOXL versus SOXX relative ETF turnover anomaly may reflect leveraged-product crowding distinct from the 39 original price/volatility inputs and closed SOXX-only turnover surprise. SOXL same-field source, history, first availability, and NAS backup must be established before any information fit.",
+    "receiver_if_source_qualifies": "SOXL-minus-SOXX H5 relative head conditional on original39 and direct SOXX turnover, followed by complete f696-derived own-state account only if a separately frozen information gate passes",
+    "not_a_policy": true
+  },
+  "budget": {
+    "new_market_requests": 0,
+    "new_model_fits": 0,
+    "new_accounts": 0,
+    "new_bootstraps": 0,
+    "new_recorders": 0
+  },
+  "stop": "Stop on source hash, Qlib calendar, 944/16/819 coverage, account component closure, or next-day clock mismatch. Outcomes and overlapping windows are diagnostic; do not select a tradable threshold or report independent validation."
+}
