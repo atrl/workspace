@@ -1,0 +1,33 @@
+{
+  "experiment": "kcs_early20_2023_2026_held_original_capture_20261023",
+  "frozen": true,
+  "phase": "official_Korean_government_2023_2026_early20_held_page_and_original_attachment_capture",
+  "parent": "frozen_complete_Stage1_0bp_IBKR_Tiered",
+  "question": "Can the same official Customs Service early20 page and HWP/PDF source contract used for 2018-2022 cover every held month 2023-01 through 2026-09, without using SOXX outcomes or selecting favorable vintages?",
+  "prior_source": {
+    "training_numeric_card": "research/kcs_early20_2018_2022_semiconductor_yoy_source_20261023",
+    "training_numeric_summary_sha256": "2e5f6afb75ea9edd6a2e3f4d7bf4ddd7894de842bd1f4d07e01c85953b2d9529",
+    "training_original_card": "research/kcs_early20_2018_2022_original_capture_20261023",
+    "training_original_summary_sha256": "bb9ce4641cc2f4b7a2523f2213443b14c7e7d38d9c047c4013d4c16ae92b6298"
+  },
+  "query_contract": {
+    "months": "2023-01 through 2025-12 inclusive plus 2026-01 through 2026-09, exactly 45",
+    "list_url": "https://www.korea.kr/briefing/pressReleaseList.do",
+    "list_parameters": "startDate=YYYY-MM-20, endDate=YYYY-MM-27, srchWord=수출입, repCode=B00003, pageIndex=1 via urllib.parse.urlencode in this order",
+    "candidate_rule": "Among official-list pressReleaseView.do links with newsId, require queried month 1일~20일 or month.1-20 shorthand, 수출입 현황 and 관세청 in visible text; exactly one candidate advances. Zero/multiple remain unknown, no alternate query.",
+    "page_url_template": "https://www.korea.kr/briefing/pressReleaseView.do?newsId={newsId}",
+    "attachment_rule": "From a verified page collect unique fileId from official /common/download.do anchors with visible .hwp, .hwpx or .pdf filename; capture all at most four, no format preference or numerical version selection.",
+    "method": "GET",
+    "user_agent": "soxl-qlib-source-research",
+    "timeout_seconds_each": 20,
+    "max_list_bytes": 500000,
+    "max_page_bytes": 600000,
+    "max_attachment_bytes": 5000000,
+    "retries": 0,
+    "rate_pause_seconds": 0.1
+  },
+  "identity_gate": "List/page HTTP200 HTML; page has the same newsId and early20 import-export title context; each linked attachment HTTP200 and expected HWP OLE/HWPX ZIP/PDF magic. Store unknown dates, errors and all versions without silent omission.",
+  "retention": "Save exact list/page/attachment bytes, safe response headers, URLs, UTC receipt times and SHA under data/snapshots/kcs_early20_2023_2026_held_original_capture_20261023; one NAS archive per calendar year, remote hash and all-member cold restore. Keep 45-row status and receipts in native Qlib Recorder/NAS.",
+  "budget": {"list_GETs_max": 45, "page_GETs_max": 45, "attachment_GETs_max": 180, "NAS_source_archives_max": 4, "new_Qlib_Recorders_max": 1, "SOXX_outcome_reads": 0, "model_fits": 0, "native_accounts": 0},
+  "stop": "Each month gets one official list query and at most one selected original page GET, no retry or alternate search. The current attachments do not certify historical first-public versions. No semiconductor number extraction, Qlib factor, model fit or Stage1 account in this capture version."
+}

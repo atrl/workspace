@@ -1,0 +1,36 @@
+{
+  "months": 45,
+  "qualified_months": 44,
+  "attachment_count": 58,
+  "attachment_formats": {
+    "hwp": 30,
+    "hwpx": 14,
+    "pdf": 14
+  },
+  "multiple_attachment_months": [
+    "2025-07",
+    "2025-09",
+    "2025-10",
+    "2025-11",
+    "2025-12",
+    "2026-01",
+    "2026-02",
+    "2026-03",
+    "2026-04",
+    "2026-05",
+    "2026-06",
+    "2026-07",
+    "2026-08",
+    "2026-09"
+  ],
+  "first_HWPX_month": "2025-07",
+  "2025_08_failure": {
+    "http_status": null,
+    "error": "URLError: <urlopen error _ssl.c:993: The handshake operation timed out>",
+    "body_bytes": 0,
+    "started_utc": "2026-10-23T05:22:32.549579+00:00",
+    "ended_utc": "2026-10-23T05:22:52.554531+00:00",
+    "status": "transport_unknown"
+  },
+  "interpretation": "One exact list TLS handshake timeout leaves 2025-08 unknown; no absence-of-release claim. HWPX+PDF begins 2025-07, requiring a separately frozen dual-format numeric parser."
+}

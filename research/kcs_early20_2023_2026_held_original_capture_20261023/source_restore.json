@@ -1,0 +1,25 @@
+{
+  "status": "NAS_four_held_year_source_groups_all_members_cold_restored_exact",
+  "years": [
+    {
+      "year": 2023,
+      "sha256": "1c873ddac36872954b08ed09b4012d881aca2cc2176d416a4ee93600500973ca",
+      "files": 73
+    },
+    {
+      "year": 2024,
+      "sha256": "60a3872700ad83081a679b5a82da62a6ee2641d67972255620e32c77facfe5a7",
+      "files": 73
+    },
+    {
+      "year": 2025,
+      "sha256": "964ea3d6703d7b21af2d154ae6ff9e24b410e1ef91fef17fef00906bb3648120",
+      "files": 79
+    },
+    {
+      "year": 2026,
+      "sha256": "96ac28b021334a3bf01c964a52a82f928e86dbf331a71fb2d544783bdc398ae9",
+      "files": 73
+    }
+  ]
+}
