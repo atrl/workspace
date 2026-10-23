@@ -1,0 +1,13 @@
+{
+  "status": "read_only_current_PDF_http_metadata_vintage_audit",
+  "source_months": 60,
+  "current_byte_table_and_clock_qualified": 60,
+  "source_PDFs_with_header_Last_Modified": 59,
+  "source_PDFs_with_header_Last_Modified_after_printed_release_calendar_date": 0,
+  "one_reused_2018Jul_prior_receipt_Last_Modified": "Fri, 14 Sep 2018 14:00:03 GMT",
+  "first_public_exact_bytes_qualified": false,
+  "reason": "HTTP Last-Modified is mutable source metadata and same-release-date alignment does not prove an immutable first delivery receipt. The separately NAS-restored July2018 original was reused rather than re-fetched in this batch.",
+  "new_market_requests": 0,
+  "model_fits": 0,
+  "native_accounts": 0
+}

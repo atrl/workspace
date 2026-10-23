@@ -1,0 +1,23 @@
+{
+  "experiment": "stage1_census_mtis_2018_2022_original_source_20261023",
+  "frozen": true,
+  "phase": "official_2018_2022_monthly_original_manufacturers_ratio_source_only",
+  "parent": "frozen_complete_Stage1_f696_plus_b472_0bp_IBKR_Tiered",
+  "question": "Do all60 original Census MTIS monthly PDFs from2018Jan through2022Dec provide one uniquely identified Table1 seasonally adjusted Manufacturers preliminary inventory/sales ratio and prior revised ratio, with a printed release time mapped strictly after the 09:46 Stage1 decision?",
+  "prior_source_probe": "Three official July originals in2011/2018/2025 and the historical index were NAS cold restored. The 2018 PDF parsed a current/predecessor adjusted Manufacturers ratio1.35/1.34 with printed2018-09-14 10:00 ET release. The current2011 PDF Last-Modified is2014 and not first-public proof. Before freeze, the saved exact index HTML was read source-only and contains all60 deterministic 2018-2022 PDF hrefs; no market outcomes were read.",
+  "sources": {
+    "official_index_saved_path": "data/snapshots/stage1_census_mtis_index_transport_repair_20261023/official_index.response",
+    "official_index_sha256": "15b1601a3ff88045d1e895d95101f052ec45387e8db4ed34c8ee621485f0f5fe",
+    "official_index_NAS_sha256": "6c5fe01b46d52338a05f0e05fafab1c0fdccf8e3e4430020fc1e1fb99b6b918d",
+    "sample_card": "research/stage1_census_mtis_saved_index_size_repair_20261023",
+    "sample_summary_sha256": "3754f5a52ff6d70080df0458174a120c812e0fe8e6fd0b4a048ef89b40f3ec67",
+    "reused_2018Jul_original_path": "data/snapshots/stage1_census_mtis_manufacturer_ratio_source_pilot_20261023/2018-07.response",
+    "reused_2018Jul_original_sha256": "8ccc8db1d686e75882f718ec987b63281a423f26e9464de2ab58a7576c5f483f",
+    "reused_2018Jul_NAS_group_sha256": "79fce1f4120782f84415ffeef3e42b59066887cd9825eca9da4bf91d9f2ae119",
+    "exact_URL_rule": "https://www2.census.gov/mtis/historical/mtisYYMM.pdf, for the frozen60 months2018-01..2022-12, only when every generated URL matches an anchor href in the frozen official index. No alternate URL or search query."
+  },
+  "fixed_parse": "For each exact original PDF, require HTTP200, %PDF signature, body<=2MiB, a printed 10:00 ET release date, and exactly one Table1 Adjusted Manufacturers row with six sales/inventory amounts followed by current preliminary, prior revised and prior-year revised ratio. Save current and prior in the same release only. Do not use Total business, unadjusted, later cross-release updates or semiconductor-specific labels. Preserve Last-Modified as metadata but never infer immutable first-public bytes from it.",
+  "decision_clock": "Current reference month is normally released after the month ends at 10:00 ET. For Stage1 09:46 decisions, accept only the first native Qlib US session strictly after the printed release calendar date; same-day is unavailable.",
+  "budget": {"external_GETs_max": 59, "reused_saved_PDF_reads_max": 1, "Qlib_D_calendar_calls_max": 1, "new_Qlib_Recorders_max": 1, "external_retries": 0, "max_PDF_bytes_each": 2000000, "SOXX_outcome_reads": 0, "model_fits": 0, "native_accounts": 0},
+  "stop": "One pass across exactly60 months; never fill failed months, retry a transport error, change regex, use a different row or fit on partial coverage in this version. Preserve all raw responses/headers/errors and upload exact source archive with scoped restore. If any month fails transport, parse, release clock, source identity or NAS restore, mark that month unknown and the panel not source-qualified. A complete current-byte panel still requires historical first-public/revision audit before strategy use."
+}

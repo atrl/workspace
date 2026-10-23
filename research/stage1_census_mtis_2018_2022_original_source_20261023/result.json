@@ -1,0 +1,266 @@
+{
+  "status": "current_original_MTiS_2018_2022_source_months_unknown",
+  "plan_sha256": "041173e5e0484bb253ad429ce7914f3527666b66786ac91979a33d119fe7020d",
+  "source_months": 60,
+  "external_GETs_started": 59,
+  "saved_PDF_reads": 1,
+  "HTTP200_or_reused": 60,
+  "source_semantics_clock_qualified_months": 41,
+  "unknown_months": [
+    "2020-06",
+    "2020-07",
+    "2020-12",
+    "2021-01",
+    "2021-02",
+    "2021-03",
+    "2021-04",
+    "2021-11",
+    "2021-12",
+    "2022-01",
+    "2022-02",
+    "2022-03",
+    "2022-04",
+    "2022-05",
+    "2022-06",
+    "2022-07",
+    "2022-08",
+    "2022-09",
+    "2022-10"
+  ],
+  "unknown_reasons": [
+    {
+      "month": "2020-06",
+      "http_status": 200,
+      "transport_error": null,
+      "parse_error": null,
+      "diagnostic": {
+        "adjusted_Manufacturers_matches": 2,
+        "adjusted_chars": 7308,
+        "release_date_found": true,
+        "clock_found": true,
+        "economic_title_found": true
+      }
+    },
+    {
+      "month": "2020-07",
+      "http_status": 200,
+      "transport_error": null,
+      "parse_error": null,
+      "diagnostic": {
+        "adjusted_Manufacturers_matches": 2,
+        "adjusted_chars": 7312,
+        "release_date_found": true,
+        "clock_found": true,
+        "economic_title_found": true
+      }
+    },
+    {
+      "month": "2020-12",
+      "http_status": 200,
+      "transport_error": null,
+      "parse_error": null,
+      "diagnostic": {
+        "adjusted_Manufacturers_matches": 2,
+        "adjusted_chars": 7285,
+        "release_date_found": true,
+        "clock_found": true,
+        "economic_title_found": true
+      }
+    },
+    {
+      "month": "2021-01",
+      "http_status": 200,
+      "transport_error": null,
+      "parse_error": null,
+      "diagnostic": {
+        "adjusted_Manufacturers_matches": 2,
+        "adjusted_chars": 7282,
+        "release_date_found": true,
+        "clock_found": true,
+        "economic_title_found": true
+      }
+    },
+    {
+      "month": "2021-02",
+      "http_status": 200,
+      "transport_error": null,
+      "parse_error": null,
+      "diagnostic": {
+        "adjusted_Manufacturers_matches": 2,
+        "adjusted_chars": 7276,
+        "release_date_found": true,
+        "clock_found": true,
+        "economic_title_found": true
+      }
+    },
+    {
+      "month": "2021-03",
+      "http_status": 200,
+      "transport_error": "curl: (28) Operation timed out after 20005 milliseconds with 190535 out of 254559 bytes received\n",
+      "parse_error": null,
+      "diagnostic": null
+    },
+    {
+      "month": "2021-04",
+      "http_status": 200,
+      "transport_error": null,
+      "parse_error": null,
+      "diagnostic": {
+        "adjusted_Manufacturers_matches": 2,
+        "adjusted_chars": 7225,
+        "release_date_found": true,
+        "clock_found": true,
+        "economic_title_found": true
+      }
+    },
+    {
+      "month": "2021-11",
+      "http_status": 200,
+      "transport_error": null,
+      "parse_error": null,
+      "diagnostic": {
+        "adjusted_Manufacturers_matches": 2,
+        "adjusted_chars": 7367,
+        "release_date_found": true,
+        "clock_found": true,
+        "economic_title_found": true
+      }
+    },
+    {
+      "month": "2021-12",
+      "http_status": 200,
+      "transport_error": null,
+      "parse_error": null,
+      "diagnostic": {
+        "adjusted_Manufacturers_matches": 2,
+        "adjusted_chars": 7381,
+        "release_date_found": true,
+        "clock_found": true,
+        "economic_title_found": true
+      }
+    },
+    {
+      "month": "2022-01",
+      "http_status": 200,
+      "transport_error": null,
+      "parse_error": null,
+      "diagnostic": {
+        "adjusted_Manufacturers_matches": 2,
+        "adjusted_chars": 7373,
+        "release_date_found": true,
+        "clock_found": true,
+        "economic_title_found": true
+      }
+    },
+    {
+      "month": "2022-02",
+      "http_status": 200,
+      "transport_error": null,
+      "parse_error": null,
+      "diagnostic": {
+        "adjusted_Manufacturers_matches": 2,
+        "adjusted_chars": 7363,
+        "release_date_found": true,
+        "clock_found": true,
+        "economic_title_found": true
+      }
+    },
+    {
+      "month": "2022-03",
+      "http_status": 200,
+      "transport_error": null,
+      "parse_error": null,
+      "diagnostic": {
+        "adjusted_Manufacturers_matches": 2,
+        "adjusted_chars": 7358,
+        "release_date_found": true,
+        "clock_found": true,
+        "economic_title_found": true
+      }
+    },
+    {
+      "month": "2022-04",
+      "http_status": 200,
+      "transport_error": null,
+      "parse_error": null,
+      "diagnostic": {
+        "adjusted_Manufacturers_matches": 2,
+        "adjusted_chars": 7369,
+        "release_date_found": true,
+        "clock_found": true,
+        "economic_title_found": true
+      }
+    },
+    {
+      "month": "2022-05",
+      "http_status": 200,
+      "transport_error": null,
+      "parse_error": null,
+      "diagnostic": {
+        "adjusted_Manufacturers_matches": 2,
+        "adjusted_chars": 7351,
+        "release_date_found": true,
+        "clock_found": true,
+        "economic_title_found": true
+      }
+    },
+    {
+      "month": "2022-06",
+      "http_status": 200,
+      "transport_error": null,
+      "parse_error": null,
+      "diagnostic": {
+        "adjusted_Manufacturers_matches": 2,
+        "adjusted_chars": 7359,
+        "release_date_found": true,
+        "clock_found": true,
+        "economic_title_found": true
+      }
+    },
+    {
+      "month": "2022-07",
+      "http_status": 200,
+      "transport_error": null,
+      "parse_error": null,
+      "diagnostic": {
+        "adjusted_Manufacturers_matches": 2,
+        "adjusted_chars": 7393,
+        "release_date_found": true,
+        "clock_found": true,
+        "economic_title_found": true
+      }
+    },
+    {
+      "month": "2022-08",
+      "http_status": 200,
+      "transport_error": null,
+      "parse_error": null,
+      "diagnostic": {
+        "adjusted_Manufacturers_matches": 2,
+        "adjusted_chars": 7321,
+        "release_date_found": true,
+        "clock_found": true,
+        "economic_title_found": true
+      }
+    },
+    {
+      "month": "2022-09",
+      "http_status": 200,
+      "transport_error": "curl: (28) Operation timed out after 20011 milliseconds with 262144 out of 339771 bytes received\n",
+      "parse_error": null,
+      "diagnostic": null
+    },
+    {
+      "month": "2022-10",
+      "http_status": 200,
+      "transport_error": "curl: (28) Operation timed out after 20007 milliseconds with 217401 out of 280870 bytes received\n",
+      "parse_error": null,
+      "diagnostic": null
+    }
+  ],
+  "current_bytes_first_public_qualified": false,
+  "server_Last_Modified_after_release_date_count": 0,
+  "SOXX_outcome_reads": 0,
+  "model_fits": 0,
+  "native_accounts": 0
+}

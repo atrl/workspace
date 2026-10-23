@@ -1,0 +1,22 @@
+{
+  "experiment": "stage1_census_mtis_2018_2022_source_repair_20261023",
+  "frozen": true,
+  "phase": "saved_original_adjusted_row_case_repair_and_three_exact_transport_retries",
+  "parent": "frozen_complete_Stage1_f696_plus_b472_0bp_IBKR_Tiered",
+  "prior_fixed_version": "2018-2022 original60-month source pass: 59 new GETs plus one reused saved July2018 PDF yielded60 HTTP200-or-reused. Forty-one parsed; sixteen matched both adjusted and unadjusted Manufacturers rows because the separator capitalization changed; exactly three returned partial PDF bytes after a 20-second timeout. All original bytes/errors and Recorder were NAS cold restored. No outcomes/fits/accounts.",
+  "sources": {
+    "prior_card": "research/stage1_census_mtis_2018_2022_original_source_20261023",
+    "prior_summary_sha256": "c73ceb2622c291ed0d8c21186e7d89d68990abb9fe0cabc3a3ecba0adc318d9f",
+    "prior_result_sha256": "bdf71e15897c0e5dcf13413b316a50c18d21d53923fd9ccf6dd67553d0bff621",
+    "prior_receipts_sha256": "9bbea264a41dcbf90173b1f9e41d266485b42f0bed8a7ac49b5a64282aa0575c",
+    "prior_source_NAS_sha256": "3be204a3695cf40ca90ea18182fb273a272baacc7931b9e1dc33066a6cd4616e",
+    "prior_recorder_id": "24ad64dd9d1f4c96b281bbd9dd0fe72d",
+    "prior_experiment_id": "241675816966146999",
+    "saved_official_index_sha256": "15b1601a3ff88045d1e895d95101f052ec45387e8db4ed34c8ee621485f0f5fe",
+    "transport_months_exact": ["2021-03", "2022-09", "2022-10"],
+    "case_variant_months_exact": ["2020-06", "2020-07", "2020-12", "2021-01", "2021-02", "2021-04", "2021-11", "2021-12", "2022-01", "2022-02", "2022-03", "2022-04", "2022-05", "2022-06", "2022-07", "2022-08"]
+  },
+  "exact_repair": "For the three frozen transport months only, re-GET the identical official PDF URLs once each with max35 seconds, save separately from prior partial bodies. For every other month reuse exact NAS-restored first-pass PDF bytes, including the previously accepted41 and the16 format exceptions. Change only the Table1 Adjusted segment delimiter to case-insensitive Not Adjusted, then require exactly one Manufacturers row. Keep the same six amounts/current preliminary/prior revised/prior-year ratio parser, printed10:00 ET release date and strict-next-Qlib-session clock. Compare all41 previously accepted source fields byte-exact; any change is failure, not a revised interpretation.",
+  "budget": {"external_GETs_max": 3, "saved_PDF_reads_max": 57, "max_PDF_bytes_each": 2000000, "external_retries": 0, "Qlib_D_calendar_calls_max": 1, "prior_Recorder_object_loads_max": 1, "new_Qlib_Recorders_max": 1, "SOXX_outcome_reads": 0, "model_fits": 0, "native_accounts": 0},
+  "stop": "Any failed exact transport repeat, new ambiguity, changed accepted41 source row, timing or NAS restore leaves that month unknown and this fixed version unqualified. Do not change the monthly field, data vintage, ratio formula or signal sign. Even 60 current originals cannot prove immutable first-public historical bytes or SOXX performance."
+}

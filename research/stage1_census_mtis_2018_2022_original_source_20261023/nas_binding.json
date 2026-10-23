@@ -1,0 +1,20 @@
+{
+  "schema_version": "nas_recorder_archive_binding_v1",
+  "authority": "yanxuan_nas",
+  "source_id": "stage1_census_mtis_2018_2022_original_source_20261023",
+  "as_of": "2026-10-23",
+  "source_plan": "plan.json",
+  "evidence": {
+    "sha256": "85b83c97b09b38930818fa6c479b03402896f7cc85eb228d833168e6436f310a",
+    "size_bytes": 67514,
+    "media_type": "application/gzip",
+    "storage_uri": "sha256/85/b8/85b83c97b09b38930818fa6c479b03402896f7cc85eb228d833168e6436f310a",
+    "uploaded_by": "soxl-minute-research",
+    "created_at": "2026-10-23 15:02:52.682317+08",
+    "duplicate": false,
+    "nas_path": "/volume1/docker/yanxuan/registry/research-artifacts/85/b8/85b83c97b09b38930818fa6c479b03402896f7cc85eb228d833168e6436f310a",
+    "recorder_id": "24ad64dd9d1f4c96b281bbd9dd0fe72d",
+    "experiment_id": "241675816966146999",
+    "archive_root": "qlib_recorder"
+  }
+}
