@@ -1,0 +1,43 @@
+{
+  "schema_version": 1,
+  "reviewed_at_utc": "2026-10-23T01:36:15.820081+00:00",
+  "reviewer": "root_read_only_independent_from_execution",
+  "verdict": "CONFIRM_TRAINING_LOCAL_LABEL_ONLY_NO_PROMOTION",
+  "plan_sha256": "a913555441174acad0179731aecd8b00201b11567c4ccd4c40bfd9d7ed14fead",
+  "result_sidecar_sha256": "95d5b858643ad548ddfed4ea412e225f2121bf8e657e7bbd56759a3cba01f536",
+  "summary_sha256": "f41ad593d532d30a29ab21110f133aab55b3f25d9510827faec1ef175859891b",
+  "recorder_id": "dd91c4770a354dfe8dc275774e249020",
+  "recorder_status": "FINISHED",
+  "native_saved_result_equals_sidecar": true,
+  "native_labels_artifact_sha256": "f5f9709885b2c7de346caf8efe4b3bb37ab90dd24a807c5c86d7bc59d7eee8c2",
+  "native_saved_result_artifact_sha256": "21c5cf9c3a66856f24327ce4a41b63fb2a3d3a9a8888a8f583519a09517701aa",
+  "native_label_rows": 1061,
+  "mature_labels": 688,
+  "positive": 358,
+  "negative": 311,
+  "zero": 19,
+  "label_available_after_decision_on_all_mature": true,
+  "annual_years": [
+    2018,
+    2019,
+    2020,
+    2021,
+    2022
+  ],
+  "binding_mature": 540,
+  "nonbinding_mature": 148,
+  "year_2022_all_local_mean": -0.0001207773581229752,
+  "year_2022_nonbinding_mature": 2,
+  "source_hashes_in_plan_currently_match": true,
+  "NAS_archive_sha256": "a823704afb3ab532d5d954ba126aac5d6528c85bacbd2c79ee4f6a9aae4d15c4",
+  "NAS_scoped_readback_receipt_verified": true,
+  "model_fits": 0,
+  "new_native_accounts": 0,
+  "scientific_boundary": [
+    "A one-step same-state common-reset label does not equal a continuous funded strategy return.",
+    "Positive pooled training mean and negative 2022 mean do not authorize a fitted receiver or 2023+ account.",
+    "Nonbinding support in 2022 is only two mature rows.",
+    "The replay-level ledger and fee implementation assertions were executed in the notebook; this review read back saved outputs and pinned inputs rather than independently reimplementing every fill."
+  ],
+  "next_action": "Close this fixed label version at support gate. A materially different ex-ante mechanism or independently qualified source must be separately frozen; any later account still starts from full Stage1 at 0bp Tiered with SOXX hard gates."
+}
