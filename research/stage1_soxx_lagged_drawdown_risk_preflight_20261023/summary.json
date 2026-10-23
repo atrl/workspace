@@ -1,0 +1,47 @@
+{
+  "experiment": "stage1_soxx_lagged_drawdown_risk_preflight_20261023",
+  "decision": "closed_before_account_fixed_lagged_SOXX_drawdown_clock_cash_capacity_mismatch",
+  "objective_achieved": false,
+  "plan_sha256": "cfdf14579f160b1f3047d59e26b5941079568f53bbc84be211928f6ce5dfe7f5",
+  "result": "result.json",
+  "recorder_id": "3cee6634c9d548408df987f67882348d",
+  "experiment_id": "962277010390367699",
+  "recorder_uri": "/Users/rziiiii/dev/workspace/research/stage1_soxx_lagged_drawdown_risk_preflight_20261023/qlib_recorder",
+  "NAS_evidence": {
+    "sha256": "39a4e59acc5e5b1f0acc3a4ffe0299aa02f8800dae9f91d2af28ac517af243c1",
+    "size_bytes": 175677,
+    "media_type": "application/gzip",
+    "storage_uri": "sha256/39/a4/39a4e59acc5e5b1f0acc3a4ffe0299aa02f8800dae9f91d2af28ac517af243c1",
+    "uploaded_by": "soxl-minute-research",
+    "created_at": "2026-10-23 12:39:38.50218+08",
+    "duplicate": false,
+    "nas_path": "/volume1/docker/yanxuan/registry/research-artifacts/39/a4/39a4e59acc5e5b1f0acc3a4ffe0299aa02f8800dae9f91d2af28ac517af243c1",
+    "recorder_id": "3cee6634c9d548408df987f67882348d",
+    "experiment_id": "962277010390367699",
+    "archive_root": "qlib_recorder"
+  },
+  "NAS_readback": {
+    "sha256": "39a4e59acc5e5b1f0acc3a4ffe0299aa02f8800dae9f91d2af28ac517af243c1",
+    "verified": true
+  },
+  "new_model_fits": 0,
+  "new_native_accounts": 0,
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "inputs/*",
+      "analysis/daily",
+      "analysis/annual",
+      "analysis/quarterly",
+      "analysis/rolling126",
+      "analysis/result"
+    ]
+  },
+  "limitations": [
+    "The exogenous state/cap is recomputed on the frozen original own-history path; no funded candidate feedback is simulated.",
+    "The earlier scratch preview is disclosed and these development intervals are not independent.",
+    "Lagged Qlib split-continuous SOXX close is observable before 09:46; current-day raw-price peak is invalid across the 2024 split."
+  ],
+  "NAS_scoped_restore": "nas_scoped_restore.json"
+}

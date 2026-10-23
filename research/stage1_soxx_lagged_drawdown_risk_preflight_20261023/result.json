@@ -1,0 +1,251 @@
+{
+  "status": "read_only_lagged_SOXX_drawdown_clock_fixed_original_path_mechanism_mismatch",
+  "plan_sha256": "cfdf14579f160b1f3047d59e26b5941079568f53bbc84be211928f6ce5dfe7f5",
+  "split_basis_preview": {
+    "before_split_raw_0945": 689.4500122070312,
+    "after_split_raw_0945": 234.125,
+    "before_split_qlib_prior_close": 226.5749053955078,
+    "after_split_qlib_prior_close": 234.34539794921875
+  },
+  "all": {
+    "sessions": 944,
+    "state_differences": 356,
+    "cap_difference_gt_0p05": 253,
+    "mean_exogenous_minus_own_cap": -0.007911676709133592,
+    "cash_opportunity_log_sum": -0.6003226009036167,
+    "SOXL_selection_log_sum": 0.22593145822639604,
+    "negative_cash_days": 522,
+    "negative_cash_mean_cap_difference": -0.022558387588939147,
+    "negative_cash_days_with_higher_cap": 51
+  },
+  "annual": {
+    "2023": {
+      "sessions": 249,
+      "state_differences": 60,
+      "cap_difference_gt_0p05": 46,
+      "mean_exogenous_minus_own_cap": 0.08375046906055574,
+      "cash_opportunity_log_sum": -0.23367910383939577,
+      "SOXL_selection_log_sum": 0.02674104773987694,
+      "negative_cash_days": 132,
+      "negative_cash_mean_cap_difference": 0.06881647854906754,
+      "negative_cash_days_with_higher_cap": 18
+    },
+    "2024": {
+      "sessions": 252,
+      "state_differences": 124,
+      "cap_difference_gt_0p05": 71,
+      "mean_exogenous_minus_own_cap": -0.02886493579453987,
+      "cash_opportunity_log_sum": -0.025351344238563403,
+      "SOXL_selection_log_sum": 0.03644168338277845,
+      "negative_cash_days": 139,
+      "negative_cash_mean_cap_difference": -0.03529871825996094,
+      "negative_cash_days_with_higher_cap": 10
+    },
+    "2025": {
+      "sessions": 250,
+      "state_differences": 102,
+      "cap_difference_gt_0p05": 67,
+      "mean_exogenous_minus_own_cap": -0.0832826271242234,
+      "cash_opportunity_log_sum": -0.15800601225728084,
+      "SOXL_selection_log_sum": 0.01008123691651156,
+      "negative_cash_days": 141,
+      "negative_cash_mean_cap_difference": -0.09169013539967294,
+      "negative_cash_days_with_higher_cap": 7
+    },
+    "2026": {
+      "sessions": 193,
+      "state_differences": 70,
+      "cap_difference_gt_0p05": 69,
+      "mean_exogenous_minus_own_cap": -0.0011806684363760997,
+      "cash_opportunity_log_sum": -0.1832861405683766,
+      "SOXL_selection_log_sum": 0.15266749018722908,
+      "negative_cash_days": 110,
+      "negative_cash_mean_cap_difference": -0.027494750549224487,
+      "negative_cash_days_with_higher_cap": 16
+    }
+  },
+  "quarterly": {
+    "2023Q1": {
+      "sessions": 61,
+      "state_differences": 0,
+      "cap_difference_gt_0p05": 0,
+      "mean_exogenous_minus_own_cap": 0.0,
+      "cash_opportunity_log_sum": -0.0508134491301484,
+      "SOXL_selection_log_sum": 0.09890513657062709,
+      "negative_cash_days": 33,
+      "negative_cash_mean_cap_difference": 0.0,
+      "negative_cash_days_with_higher_cap": 0
+    },
+    "2023Q2": {
+      "sessions": 62,
+      "state_differences": 0,
+      "cap_difference_gt_0p05": 0,
+      "mean_exogenous_minus_own_cap": 0.0,
+      "cash_opportunity_log_sum": -0.09064355103672553,
+      "SOXL_selection_log_sum": -0.00117271041210632,
+      "negative_cash_days": 32,
+      "negative_cash_mean_cap_difference": 0.0,
+      "negative_cash_days_with_higher_cap": 0
+    },
+    "2023Q3": {
+      "sessions": 63,
+      "state_differences": 28,
+      "cap_difference_gt_0p05": 19,
+      "mean_exogenous_minus_own_cap": 0.1893712148101463,
+      "cash_opportunity_log_sum": 0.014122110461335125,
+      "SOXL_selection_log_sum": -0.06841580707195706,
+      "negative_cash_days": 33,
+      "negative_cash_mean_cap_difference": 0.19953634827434277,
+      "negative_cash_days_with_higher_cap": 10
+    },
+    "2023Q4": {
+      "sessions": 63,
+      "state_differences": 32,
+      "cap_difference_gt_0p05": 27,
+      "mean_exogenous_minus_own_cap": 0.14164254385776445,
+      "cash_opportunity_log_sum": -0.10634421413385697,
+      "SOXL_selection_log_sum": -0.0025755713466867267,
+      "negative_cash_days": 34,
+      "negative_cash_mean_cap_difference": 0.07350222574775302,
+      "negative_cash_days_with_higher_cap": 8
+    },
+    "2024Q1": {
+      "sessions": 61,
+      "state_differences": 26,
+      "cap_difference_gt_0p05": 14,
+      "mean_exogenous_minus_own_cap": 0.10303949052517632,
+      "cash_opportunity_log_sum": -0.10573903355634365,
+      "SOXL_selection_log_sum": 0.03592339252994708,
+      "negative_cash_days": 36,
+      "negative_cash_mean_cap_difference": 0.116593064727154,
+      "negative_cash_days_with_higher_cap": 9
+    },
+    "2024Q2": {
+      "sessions": 63,
+      "state_differences": 12,
+      "cap_difference_gt_0p05": 13,
+      "mean_exogenous_minus_own_cap": 0.006923610627002837,
+      "cash_opportunity_log_sum": -0.011920925221191805,
+      "SOXL_selection_log_sum": -0.0027667729329553634,
+      "negative_cash_days": 34,
+      "negative_cash_mean_cap_difference": -0.023609011653014968,
+      "negative_cash_days_with_higher_cap": 1
+    },
+    "2024Q3": {
+      "sessions": 64,
+      "state_differences": 26,
+      "cap_difference_gt_0p05": 21,
+      "mean_exogenous_minus_own_cap": -0.09785007199354487,
+      "cash_opportunity_log_sum": 0.0644435376762982,
+      "SOXL_selection_log_sum": 0.012208238445748431,
+      "negative_cash_days": 39,
+      "negative_cash_mean_cap_difference": -0.10408444124825347,
+      "negative_cash_days_with_higher_cap": 0
+    },
+    "2024Q4": {
+      "sessions": 64,
+      "state_differences": 60,
+      "cap_difference_gt_0p05": 23,
+      "mean_exogenous_minus_own_cap": -0.12083055631522048,
+      "cash_opportunity_log_sum": 0.027865076862673824,
+      "SOXL_selection_log_sum": -0.00892317465996171,
+      "negative_cash_days": 30,
+      "negative_cash_mean_cap_difference": -0.14139575211425734,
+      "negative_cash_days_with_higher_cap": 0
+    },
+    "2025Q1": {
+      "sessions": 60,
+      "state_differences": 43,
+      "cap_difference_gt_0p05": 16,
+      "mean_exogenous_minus_own_cap": -0.10629295496052929,
+      "cash_opportunity_log_sum": 0.07029234681248982,
+      "SOXL_selection_log_sum": -0.04584049153319798,
+      "negative_cash_days": 33,
+      "negative_cash_mean_cap_difference": -0.09208232284175498,
+      "negative_cash_days_with_higher_cap": 1
+    },
+    "2025Q2": {
+      "sessions": 62,
+      "state_differences": 23,
+      "cap_difference_gt_0p05": 26,
+      "mean_exogenous_minus_own_cap": -0.17186419304853107,
+      "cash_opportunity_log_sum": -0.114697788752773,
+      "SOXL_selection_log_sum": 0.05099046266642738,
+      "negative_cash_days": 39,
+      "negative_cash_mean_cap_difference": -0.1652741209267903,
+      "negative_cash_days_with_higher_cap": 3
+    },
+    "2025Q3": {
+      "sessions": 64,
+      "state_differences": 17,
+      "cap_difference_gt_0p05": 7,
+      "mean_exogenous_minus_own_cap": -0.0578703414418092,
+      "cash_opportunity_log_sum": -0.044719730194302636,
+      "SOXL_selection_log_sum": 0.031245493493592808,
+      "negative_cash_days": 35,
+      "negative_cash_mean_cap_difference": -0.07515539337346067,
+      "negative_cash_days_with_higher_cap": 0
+    },
+    "2025Q4": {
+      "sessions": 64,
+      "state_differences": 19,
+      "cap_difference_gt_0p05": 18,
+      "mean_exogenous_minus_own_cap": -0.0013093384709277761,
+      "cash_opportunity_log_sum": -0.06888084012269499,
+      "SOXL_selection_log_sum": -0.026314227710310636,
+      "negative_cash_days": 34,
+      "negative_cash_mean_cap_difference": -0.023925380981177184,
+      "negative_cash_days_with_higher_cap": 3
+    },
+    "2026Q1": {
+      "sessions": 61,
+      "state_differences": 3,
+      "cap_difference_gt_0p05": 10,
+      "mean_exogenous_minus_own_cap": -2.268291953002927e-06,
+      "cash_opportunity_log_sum": -0.027595723258313064,
+      "SOXL_selection_log_sum": 0.008805205611624962,
+      "negative_cash_days": 35,
+      "negative_cash_mean_cap_difference": -0.017765321095390516,
+      "negative_cash_days_with_higher_cap": 0
+    },
+    "2026Q2": {
+      "sessions": 62,
+      "state_differences": 17,
+      "cap_difference_gt_0p05": 13,
+      "mean_exogenous_minus_own_cap": -0.14333838641672986,
+      "cash_opportunity_log_sum": -0.14353537069119737,
+      "SOXL_selection_log_sum": 0.289452743369704,
+      "negative_cash_days": 39,
+      "negative_cash_mean_cap_difference": -0.16477241644482307,
+      "negative_cash_days_with_higher_cap": 0
+    },
+    "2026Q3": {
+      "sessions": 64,
+      "state_differences": 47,
+      "cap_difference_gt_0p05": 43,
+      "mean_exogenous_minus_own_cap": 0.14171045551286118,
+      "cash_opportunity_log_sum": -0.025266883772547627,
+      "SOXL_selection_log_sum": -0.14390082802460138,
+      "negative_cash_days": 34,
+      "negative_cash_mean_cap_difference": 0.12235858911115302,
+      "negative_cash_days_with_higher_cap": 16
+    },
+    "2026Q4": {
+      "sessions": 6,
+      "state_differences": 3,
+      "cap_difference_gt_0p05": 3,
+      "mean_exogenous_minus_own_cap": -0.06836997289955289,
+      "cash_opportunity_log_sum": 0.01311183715368145,
+      "SOXL_selection_log_sum": -0.0016896307694985512,
+      "negative_cash_days": 2,
+      "negative_cash_mean_cap_difference": -0.06835205525356375,
+      "negative_cash_days_with_higher_cap": 0
+    }
+  },
+  "rolling126_count": 819,
+  "original_state_and_cap_parity": "944/944 exact within1e-11",
+  "Qlib_dataset_rows": 944,
+  "new_model_fits": 0,
+  "new_native_accounts": 0,
+  "new_bootstraps": 0
+}

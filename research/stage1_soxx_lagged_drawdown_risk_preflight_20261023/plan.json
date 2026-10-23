@@ -1,0 +1,29 @@
+{
+  "experiment": "stage1_soxx_lagged_drawdown_risk_preflight_20261023",
+  "frozen": true,
+  "phase": "read_only_exogenous_SOXX_drawdown_risk_clock_mechanism_preflight",
+  "parent": "frozen_complete_Stage1_f696_plus_b472_0bp_IBKR_Tiered",
+  "question": "Would replacing the original Stage1 own-NAV drawdown input with a decision-time observable SOXX drawdown, while keeping the frozen risk state machine and own-return trailing-loss term, create more risk capacity in the broad cash-loss intervals without obviously removing the 2024 protection? This is a necessary fixed-path diagnostic, not a funded counterfactual.",
+  "prior_preview_disclosure": "Before this plan, a scratch calculation found 2025 fixed-path exogenous cap lower by about 0.083 on average and about 0.092 on the 141 cash-negative days. These observations are reused development feedback, not independent preregistration; this card locks full-history provenance and attribution and cannot be used to tune a risk clock.",
+  "sources": {
+    "parent_card": "research/stage1_domain_heads_20261018",
+    "parent_recorder_id": "6e227278b7a64eafbcf34b965e16d2b9",
+    "parent_experiment_id": "283510277269468590",
+    "parent_path_sha256": "3901f80a552b01addbc6dadc5ad677f71a175d65e5a17fe3ad1137e101c891ef",
+    "parent_frame_sha256": "e83a57eb764dc59ee8d9fad7b1a48eb6b295c6183d6c4cab2062b3aa6c66e07c",
+    "parent_raw_points_sha256": "f02e47907db51273058927d151b8cc452e358cf94dd89c7b888096ae3188b9dd",
+    "parent_recovery_spec_sha256": "4a4bb9cd5e09e0dace34615d47e25c831c58951daabace972aa7a31c93e45bda",
+    "component_card": "research/stage1_original_0bp_account_contributions_20261023",
+    "component_recorder_id": "bf012e010e3f4a5b9fd030b939ab989f",
+    "component_experiment_id": "320335441277021728",
+    "component_daily_sha256": "7de1c0a56036efdf47e2bb60a8ed5bb215aa0d9ebfc8681c249fc268e80d360e",
+    "provider_uri": "data/qlib/minute_information_pit_allocator_20261012/daily_prices",
+    "provider_manifest_sha256": "d80a08d479b73098053006909b5e6227b03a56ab705681742d7261088e0a7e6c",
+    "risk_module_sha256": "48b4a62a1c8139ecaa5d224023693bd4b1589851feab4b3a114d7188428cb013"
+  },
+  "fixed_coordinate": "At each 09:46 decision on trade date t, use SOXX Qlib split-continuous $close from signal date t-1 and its running peak starting the first 2023-01-03 signal. Do not use current-day 09:45 raw price or current-day close. Feed its drawdown through unchanged _advance_state and _base_cap with original own-NAV known-return history held fixed for a necessary signal-path comparison. The actual candidate's future own history would change; no account outcome is inferred.",
+  "source_basis_exclusion": "The saved raw 09:45 SOXX point sequence crosses the after-close 2024-03-06 three-for-one split. Naive raw-price peak drawdown is invalid; preserve the previewed failure but do not use it as a feature or rerun it as a candidate.",
+  "scope": "All 944 original Stage1 0bp Tiered trade dates, 2023/2026 partial and 2024/2025 full years, all 16 quarters and 819 contiguous 126-session windows. Recompute original state and cap with exact parity before comparing the exogenous fixed-path sequence. Join the already audited physical cash and SOXL selection components only for descriptive attribution.",
+  "budget": {"new_market_requests": 0, "new_fits": 0, "new_accounts": 0, "new_bootstraps": 0, "new_Qlib_Recorders": 1},
+  "decision_boundary": "If this source substitution lowers capacity during known broad cash-loss intervals, close this exact lagged SOXX-drawdown mechanism before a funded account. A fixed-path cap comparison is neither a causal full-path effect nor a proof that every benchmark-risk rule would fail. Do not change lag, price basis, split treatment, thresholds, clock lengths or sign based on results."
+}
