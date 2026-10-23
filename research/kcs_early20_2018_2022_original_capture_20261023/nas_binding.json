@@ -1,0 +1,20 @@
+{
+  "schema_version": "nas_recorder_archive_binding_v1",
+  "authority": "yanxuan_nas",
+  "source_id": "kcs_early20_2018_2022_original_capture_20261023",
+  "as_of": "2026-10-23",
+  "source_plan": "plan.json",
+  "evidence": {
+    "sha256": "bda4cc80a07b08dbec1ba3a5f69071bff24fb217ce7b5e71b8ffc0f97a261675",
+    "size_bytes": 82311,
+    "media_type": "application/gzip",
+    "storage_uri": "sha256/bd/a4/bda4cc80a07b08dbec1ba3a5f69071bff24fb217ce7b5e71b8ffc0f97a261675",
+    "uploaded_by": "soxl-minute-research",
+    "created_at": "2026-10-23 13:07:59.187385+08",
+    "duplicate": false,
+    "nas_path": "/volume1/docker/yanxuan/registry/research-artifacts/bd/a4/bda4cc80a07b08dbec1ba3a5f69071bff24fb217ce7b5e71b8ffc0f97a261675",
+    "recorder_id": "a02d48c6705e444bb35d1266f79e96ce",
+    "experiment_id": "769443568359337276",
+    "archive_root": "qlib_recorder"
+  }
+}

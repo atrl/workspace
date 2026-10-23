@@ -1,0 +1,46 @@
+{
+  "months": 60,
+  "attachment_count": 71,
+  "attachment_formats": {
+    "hwp": 60,
+    "pdf": 11
+  },
+  "multiple_attachment_months": [
+    "2021-03",
+    "2021-04",
+    "2021-05",
+    "2021-06",
+    "2021-07",
+    "2021-08",
+    "2021-10",
+    "2022-01",
+    "2022-02",
+    "2022-03",
+    "2022-05"
+  ],
+  "attachment_total_bytes": 25554753,
+  "October_original_anchor_exact_repeats": [
+    {
+      "year": 2021,
+      "format": "hwp",
+      "prior_original_sha256": "6a2098d5a8fcc69d0c4cf4e2c7f6496085008f6099406117d1f6107387a6f4f6",
+      "current_capture_sha256": "6a2098d5a8fcc69d0c4cf4e2c7f6496085008f6099406117d1f6107387a6f4f6",
+      "exact_equal": true
+    },
+    {
+      "year": 2021,
+      "format": "pdf",
+      "prior_original_sha256": "2bd145c7fd1cba2662d0cd1abb22f02bd61e0bb79c8786f5f0a49dd1d3907aa5",
+      "current_capture_sha256": "2bd145c7fd1cba2662d0cd1abb22f02bd61e0bb79c8786f5f0a49dd1d3907aa5",
+      "exact_equal": true
+    },
+    {
+      "year": 2022,
+      "format": "hwp",
+      "prior_original_sha256": "0719aa545c5eb25adf2d9a594bd6702e01976d822d1890dab2fac78a03f9f3a1",
+      "current_capture_sha256": "0719aa545c5eb25adf2d9a594bd6702e01976d822d1890dab2fac78a03f9f3a1",
+      "exact_equal": true
+    }
+  ],
+  "interpretation": "Identity-only; exact repeat of current 2021/2022 October bytes does not prove first-public vintage of any month."
+}

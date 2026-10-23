@@ -1,0 +1,30 @@
+{
+  "status": "NAS_five_year_original_groups_all_members_cold_restored_exact",
+  "years": [
+    {
+      "year": 2018,
+      "sha256": "c4b31304c3d3d3fa0cbac0382ca01dae6e5eae899b46371d577e78192a8de41a",
+      "files": 49
+    },
+    {
+      "year": 2019,
+      "sha256": "e18d829207799d67fec39f176105718ebe5939731caae2c16303a81ffd86a451",
+      "files": 49
+    },
+    {
+      "year": 2020,
+      "sha256": "dafe09aea8c10ede9155398eab741eda300d5077cde895750ddf17877b6af389",
+      "files": 49
+    },
+    {
+      "year": 2021,
+      "sha256": "a23df90428cd7938b4298cf55fe8180af1ac563162da97668dd2d86fa4e55aa3",
+      "files": 63
+    },
+    {
+      "year": 2022,
+      "sha256": "1da4ecd3dc704383468755d8e34aa2049117ffa46759cbb356aa57f823743c93",
+      "files": 57
+    }
+  ]
+}

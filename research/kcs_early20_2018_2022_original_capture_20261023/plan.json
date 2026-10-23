@@ -1,0 +1,39 @@
+{
+  "experiment": "kcs_early20_2018_2022_original_capture_20261023",
+  "frozen": true,
+  "phase": "official_Korean_government_2018_2022_early20_page_and_original_attachment_capture",
+  "parent": "frozen_complete_Stage1_0bp_IBKR_Tiered",
+  "question": "Do the 60 identified 2018-2022 official Customs Service early20 pages still provide readable original attachments for every month, and what file types/versions and transport gaps must be resolved before extracting a PIT semiconductor demand feature?",
+  "sources": {
+    "index_card": "research/kcs_early20_2019_title_identity_repair_20261023",
+    "index_summary_sha256": "c3a3aaaffd5f75f9218c0f0cc19171833fd98d1535a70bee5e7973526c718320",
+    "index_experiment_id": "987664624978362083",
+    "index_recorder_id": "f5383ad0165a46cb80b2bba6b9ed3f89",
+    "index_artifact_sha256": "a9e2e4e2751d0b927ba7a0b88e058e95907ed09dda7b35f370d39153b41b42d7"
+  },
+  "transport": {
+    "page_url_template": "https://www.korea.kr/briefing/pressReleaseView.do?newsId={newsId}",
+    "page_GETs": 60,
+    "attachment_link_rule": "From each received official HTML, collect unique fileId from /common/download.do anchors whose visible filename ends in .hwp, .hwpx or .pdf; prefer no file type and capture all unique eligible attachments, at most four per page. Preserve duplicates and uncertain title/body semantics as metadata; never select a numeric version here.",
+    "method": "GET",
+    "user_agent": "soxl-qlib-source-research",
+    "timeout_seconds_each": 20,
+    "max_page_bytes": 600000,
+    "max_attachment_bytes": 5000000,
+    "max_attachments_per_page": 4,
+    "retries": 0,
+    "rate_pause_seconds": 0.1
+  },
+  "identity_gate": "A page response must be HTTP200 HTML, canonical newsId, Customs Service and 1-20 import/export title context. An attachment must be linked by that exact official page with unique fileId, HTTP200 and an expected HWP OLE, HWPX ZIP or PDF signature. Unknown, failed, oversize and unexpected signatures remain unqualified; do not substitute press summaries or another month.",
+  "retention": "Save exact page/attachment bodies, safe response headers, source URLs, UTC start/end, SHA-256, byte counts and failures under data/snapshots/kcs_early20_2018_2022_original_capture_20261023. Archive one complete source group per calendar year to Yanxuan NAS, remote hash and scoped cold restore. Save complete 60-month source status in native Qlib Recorder and archive it to NAS.",
+  "budget": {
+    "page_GETs_max": 60,
+    "attachment_GETs_max": 240,
+    "NAS_source_archives_max": 5,
+    "new_Qlib_Recorders_max": 1,
+    "SOXX_outcome_reads": 0,
+    "model_fits": 0,
+    "native_accounts": 0
+  },
+  "stop": "Each month is processed once without retry. Transport, file signature, page title or attachment ambiguity remains explicit. Current bytes and displayed release dates do not prove historic first-public versions; no numeric feature, working-day adjustment, Qlib market alignment, model fit or Stage1 account is authorized in this capture."
+}

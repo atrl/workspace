@@ -1,0 +1,118 @@
+{
+  "experiment": "kcs_early20_2018_2022_original_capture_20261023",
+  "decision": "KCS_2018_2022_original_attachment_source_capture_numeric_PIT_unqualified",
+  "objective_achieved": false,
+  "plan_sha256": "d2fd0979bbcd53bada9f41cc4fdda0917e52bf6e562b788735caf744ef0942b8",
+  "result": "result.json",
+  "year_archives": [
+    {
+      "sha256": "c4b31304c3d3d3fa0cbac0382ca01dae6e5eae899b46371d577e78192a8de41a",
+      "size_bytes": 4402142,
+      "media_type": "application/gzip",
+      "storage_uri": "sha256/c4/b3/c4b31304c3d3d3fa0cbac0382ca01dae6e5eae899b46371d577e78192a8de41a",
+      "uploaded_by": "soxl-minute-research",
+      "created_at": "2026-10-23 13:07:44.557985+08",
+      "duplicate": false,
+      "year": 2018,
+      "nas_path": "/volume1/docker/yanxuan/registry/research-artifacts/c4/b3/c4b31304c3d3d3fa0cbac0382ca01dae6e5eae899b46371d577e78192a8de41a",
+      "files": 49,
+      "year_manifest_sha256": "02fa69b2ffb1c8719cfec637c910035e8d35d37bad37ed1d89e1a3c8201e088a"
+    },
+    {
+      "sha256": "e18d829207799d67fec39f176105718ebe5939731caae2c16303a81ffd86a451",
+      "size_bytes": 3223500,
+      "media_type": "application/gzip",
+      "storage_uri": "sha256/e1/8d/e18d829207799d67fec39f176105718ebe5939731caae2c16303a81ffd86a451",
+      "uploaded_by": "soxl-minute-research",
+      "created_at": "2026-10-23 13:07:47.556171+08",
+      "duplicate": false,
+      "year": 2019,
+      "nas_path": "/volume1/docker/yanxuan/registry/research-artifacts/e1/8d/e18d829207799d67fec39f176105718ebe5939731caae2c16303a81ffd86a451",
+      "files": 49,
+      "year_manifest_sha256": "bc8c804bfa1e64293ddd14c99e196a351315df30b0e2a911fbc07e17beadb6e0"
+    },
+    {
+      "sha256": "dafe09aea8c10ede9155398eab741eda300d5077cde895750ddf17877b6af389",
+      "size_bytes": 6921483,
+      "media_type": "application/gzip",
+      "storage_uri": "sha256/da/fe/dafe09aea8c10ede9155398eab741eda300d5077cde895750ddf17877b6af389",
+      "uploaded_by": "soxl-minute-research",
+      "created_at": "2026-10-23 13:07:50.024872+08",
+      "duplicate": false,
+      "year": 2020,
+      "nas_path": "/volume1/docker/yanxuan/registry/research-artifacts/da/fe/dafe09aea8c10ede9155398eab741eda300d5077cde895750ddf17877b6af389",
+      "files": 49,
+      "year_manifest_sha256": "1f8b5d0dee117d3a1b8705ca4ea028dd37b1659a4bb9bcb38f755d3a93103f15"
+    },
+    {
+      "sha256": "a23df90428cd7938b4298cf55fe8180af1ac563162da97668dd2d86fa4e55aa3",
+      "size_bytes": 5682067,
+      "media_type": "application/gzip",
+      "storage_uri": "sha256/a2/3d/a23df90428cd7938b4298cf55fe8180af1ac563162da97668dd2d86fa4e55aa3",
+      "uploaded_by": "soxl-minute-research",
+      "created_at": "2026-10-23 13:07:53.39641+08",
+      "duplicate": false,
+      "year": 2021,
+      "nas_path": "/volume1/docker/yanxuan/registry/research-artifacts/a2/3d/a23df90428cd7938b4298cf55fe8180af1ac563162da97668dd2d86fa4e55aa3",
+      "files": 63,
+      "year_manifest_sha256": "c03190e7979efe376ed72436447db87b1bfb3eabd9ab48dabf668a1c843fa7c1"
+    },
+    {
+      "sha256": "1da4ecd3dc704383468755d8e34aa2049117ffa46759cbb356aa57f823743c93",
+      "size_bytes": 5092084,
+      "media_type": "application/gzip",
+      "storage_uri": "sha256/1d/a4/1da4ecd3dc704383468755d8e34aa2049117ffa46759cbb356aa57f823743c93",
+      "uploaded_by": "soxl-minute-research",
+      "created_at": "2026-10-23 13:07:56.125112+08",
+      "duplicate": false,
+      "year": 2022,
+      "nas_path": "/volume1/docker/yanxuan/registry/research-artifacts/1d/a4/1da4ecd3dc704383468755d8e34aa2049117ffa46759cbb356aa57f823743c93",
+      "files": 57,
+      "year_manifest_sha256": "d1b1edabbb95b6e308f58c9a28186e5b99536c468d1c05579309e44db1e0752a"
+    }
+  ],
+  "source_restore": "source_restore.json",
+  "recorder_id": "a02d48c6705e444bb35d1266f79e96ce",
+  "experiment_id": "769443568359337276",
+  "recorder_uri": "/Users/rziiiii/dev/workspace/research/kcs_early20_2018_2022_original_capture_20261023/qlib_recorder",
+  "NAS_evidence": {
+    "sha256": "bda4cc80a07b08dbec1ba3a5f69071bff24fb217ce7b5e71b8ffc0f97a261675",
+    "size_bytes": 82311,
+    "media_type": "application/gzip",
+    "storage_uri": "sha256/bd/a4/bda4cc80a07b08dbec1ba3a5f69071bff24fb217ce7b5e71b8ffc0f97a261675",
+    "uploaded_by": "soxl-minute-research",
+    "created_at": "2026-10-23 13:07:59.187385+08",
+    "duplicate": false,
+    "nas_path": "/volume1/docker/yanxuan/registry/research-artifacts/bd/a4/bda4cc80a07b08dbec1ba3a5f69071bff24fb217ce7b5e71b8ffc0f97a261675",
+    "recorder_id": "a02d48c6705e444bb35d1266f79e96ce",
+    "experiment_id": "769443568359337276",
+    "archive_root": "qlib_recorder"
+  },
+  "NAS_readback": {
+    "sha256": "bda4cc80a07b08dbec1ba3a5f69071bff24fb217ce7b5e71b8ffc0f97a261675",
+    "verified": true
+  },
+  "page_GET_attempts": 60,
+  "attachment_GET_attempts": 71,
+  "months_all_linked_signatures_qualified": 60,
+  "SOXX_outcome_reads": 0,
+  "model_fits": 0,
+  "native_accounts": 0,
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "inputs/*",
+      "analysis/monthly_capture",
+      "analysis/source_receipts",
+      "analysis/result"
+    ]
+  },
+  "limitations": [
+    "Current attachments and portal dates do not prove exact historical first-public versions.",
+    "No semiconductor amount/YoY was parsed, aligned into Qlib, fit or evaluated against SOXX.",
+    "Any transport/signature gap stays unknown and needs a separately frozen repair."
+  ],
+  "NAS_scoped_restore": "nas_scoped_restore.json",
+  "source_quality": "source_quality.json"
+}
