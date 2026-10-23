@@ -1,0 +1,8 @@
+{
+  "phase": "source_parser_attempt1",
+  "status": "failed_before_xlsx_parse_and_NAS_upload",
+  "cause": "HTTP status header regex retained trailing space, exact list assertion failed",
+  "source_GETs_additional": 0,
+  "model_fits": 0,
+  "native_accounts": 0
+}

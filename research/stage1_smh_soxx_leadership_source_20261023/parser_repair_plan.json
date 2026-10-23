@@ -1,0 +1,12 @@
+{
+  "schema_version": 1,
+  "frozen": true,
+  "phase": "mechanical_header_status_strip_only",
+  "parent_failure": "parser_attempt1_failure.json",
+  "change": "Apply str.strip to parsed HTTP status lines; same source bytes, no additional GET, no change to source field or scientific hypothesis.",
+  "budget": {
+    "new_HTTP_GETs": 0,
+    "model_fits": 0,
+    "native_accounts": 0
+  }
+}

@@ -5,3 +5,5 @@
 工作簿共有 8,937 个唯一日期，其中两行非数值份额位于 Stage1 日历之外；原生 Qlib 日历的 2011–2022 训练 3,020 日和 2023–2026 复用历史 946 日，**全部有正整数份额值**。各年的交易日覆盖与变动次数见 `result.json`。覆盖充分只证明当前下载可解析，不证明值在当日已公布。2011–2026 全部相邻 Qlib 份额比均未超过 2 倍或低于 0.5 倍；[iShares 官方招募说明书](https://www.ishares.com/us/literature/prospectus/p-ishares-phlx-semiconductor-etf-3-31.pdf)记载 SOXX 于 2024-03-06 收盘后 3 比 1 拆分。两者**提示**当前工作簿历史份额经过回溯拆分标准化；尚未证明每个历史时点的原始份额、调整规则或首次公开时间。
 
 **决定：`historical_share_series_observed_PIT_and_split_semantics_unqualified`。** 不据此计算申赎因子、运行信息筛选或 0bp 账户，更不能声称超过 SOXX。后续须取得发行人原始历史发布日期/版本或明确的每日发布政策，并用原始拆分事件核对跨期比例；通过来源门后，才可另行冻结“前一已发布交易日份额变化”与原 Stage1 39 项的匹配信息门，随后仍需完整自有状态的 0bp Tiered 费用账户及合同 v2 其余门槛。
+
+本卡为对既有来源的单独复核。[较早的完整份额来源研究](../soxx_issuer_shares_source_20261022/conclusion.md)已比对多个旧版工作簿及三个历史网页存档；[固定 Stage1 份额信息检验](../stage1_issuer_share_creation_information_20261022/conclusion.md)已因预登记方向与区块下界失败而关闭。不能把本卡当作新候选重跑或翻号。

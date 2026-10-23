@@ -1,0 +1,19 @@
+{
+  "schema_version": 1,
+  "frozen": true,
+  "phase": "mechanical_cookie_jar_transport_repair",
+  "parent_attempt": "transport_attempt1.json",
+  "parent_headers_sha256": "98b8620fd3029d90278f54362ded8fe6c326d8d5ca1cf4d60397cf1882b7b043",
+  "exact_GET_url": "https://www.vaneck.com/us/en/investments/semiconductor-etf-smh/downloads/fundhistoprices/",
+  "change": "Enable curl cookie jar and cookie replay across redirects; no URL, source field, market label or model change.",
+  "budget": {
+    "new_HTTP_GET_attempts": 1,
+    "max_redirects": 5,
+    "retries": 0,
+    "fallback_urls": 0,
+    "market_outcome_reads": 0,
+    "model_fits": 0,
+    "native_accounts": 0
+  },
+  "stop": "If not HTTP 200 XLSX after <=5 redirects, close this transport version without more retries."
+}

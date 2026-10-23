@@ -18,5 +18,10 @@
     "Current workbook is a retrospective revision, not a historical first-publication archive.",
     "Share count split-adjustment semantics must be checked before creation flow calculation.",
     "Numeric coverage is source evidence only, not a Stage1 factor or SOXX performance result."
-  ]
+  ],
+  "prior_route_context": {
+    "source": "research/soxx_issuer_shares_source_20261022/summary.json",
+    "closed_information": "research/stage1_issuer_share_creation_information_20261022/summary.json",
+    "this_card_is_new_alpha_candidate": false
+  }
 }

@@ -1,0 +1,22 @@
+{
+  "experiment": "stage1_smh_soxx_leadership_source_20261023",
+  "decision": "issuer_SMH_historical_NAV_market_price_source_candidate_timing_unqualified",
+  "objective_achieved": false,
+  "plan_sha256": "3f3eacd9cb155b7b59f208179190966687884c6c80b4df6c0a55f1f4627281cc",
+  "source_audit": "source_audit.json",
+  "source_archive": "nas_source_archive.json",
+  "source_NAS_sha256": "11c83f7f5907b32f74d582c478301a91ecdf7b254828eb2f2fdce95f52c5bef0",
+  "model_fits": 0,
+  "native_accounts": 0,
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": []
+  },
+  "limitations": [
+    "Current retrospective SMH issuer workbook does not prove historical first-public delivery by Stage1 09:46.",
+    "NAV is an after-close value and market Last Trade is not an open executable quote.",
+    "Fund begins December 2011; earliest Stage1 training period cannot have SMH history."
+  ],
+  "split_control": "split_control.json"
+}

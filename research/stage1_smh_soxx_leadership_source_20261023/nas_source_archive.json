@@ -1,0 +1,14 @@
+{
+  "sha256": "11c83f7f5907b32f74d582c478301a91ecdf7b254828eb2f2fdce95f52c5bef0",
+  "size_bytes": 312731,
+  "nas_path": "/volume1/docker/yanxuan/registry/research-artifacts/11/c8/11c83f7f5907b32f74d582c478301a91ecdf7b254828eb2f2fdce95f52c5bef0",
+  "members": {
+    "data/snapshots/stage1_smh_soxx_leadership_source_20261023.xlsx": "c8b0c443f531efcae438693243745f9476d0066d245e3696f0a5097f27978084",
+    "research/stage1_smh_soxx_leadership_source_20261023/plan.json": "3f3eacd9cb155b7b59f208179190966687884c6c80b4df6c0a55f1f4627281cc",
+    "research/stage1_smh_soxx_leadership_source_20261023/repair_plan.json": "a905e5bdb16fa08087da58250695a7a34f66c3930a6c06ede608a6b1673b3076",
+    "research/stage1_smh_soxx_leadership_source_20261023/transport_attempt1.json": "2c87f4490782c544ac1eed9273b606e21752bee6185692e97ef963935d46f841",
+    "research/stage1_smh_soxx_leadership_source_20261023/transport_receipt.json": "88dc953d256b83153c3a5602f20411ef123f4e75a329a7c00ae341181da0a614",
+    "research/stage1_smh_soxx_leadership_source_20261023/source_audit.json": "3de7045246d7c19d93932abb17032b3ad25642e07d5f7da133993935c2d689b6"
+  },
+  "remote_and_scoped_restore_verified": true
+}

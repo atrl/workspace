@@ -1,0 +1,13 @@
+{
+  "plan_sha256": "3f3eacd9cb155b7b59f208179190966687884c6c80b4df6c0a55f1f4627281cc",
+  "GET_attempts": 1,
+  "curl_exit_code": 47,
+  "http_statuses_count": 51,
+  "headers_sha256": "98b8620fd3029d90278f54362ded8fe6c326d8d5ca1cf4d60397cf1882b7b043",
+  "first_redirect": "/us/en/investments/semiconductor-etf-smh/downloads/fundhistoprices/?cken=true",
+  "second_redirect": "/row/disabled-cookies/",
+  "body_saved": false,
+  "status": "transport_cookie_redirect_loop_no_source_bytes",
+  "model_fits": 0,
+  "native_accounts": 0
+}

@@ -1,0 +1,32 @@
+{
+  "schema_version": 1,
+  "frozen": true,
+  "experiment": "stage1_smh_soxx_leadership_source_20261023",
+  "phase": "source_only_VanEck_SMH_official_historical_NAV_market_price_preflight",
+  "hypothesis": "Prior-session SMH versus SOXX relative semiconductor ETF leadership may distinguish broad sector momentum from mega-cap leadership and improve frozen Stage1 cash versus SOXL-relative selection. This differs from XSD equal-weight breadth, 30-member intraday basket lead, and price-only SOXX downside beta; source observation is not an alpha claim.",
+  "receiver_if_later_qualified": "complete_original39_Stage1_prediction_before_existing_risk_action_chain",
+  "official_landing_page": "https://www.vaneck.com/us/en/investments/semiconductor-etf-smh/overview",
+  "exact_GET_url": "https://www.vaneck.com/us/en/investments/semiconductor-etf-smh/downloads/fundhistoprices/",
+  "requested_source": "Official SMH NAV & Premium/Discount History XLSX, not holdings",
+  "request_budget": {
+    "HTTP_GETs": 1,
+    "retries": 0,
+    "fallback_urls": 0,
+    "SOXX_or_SMH_future_outcome_reads": 0,
+    "model_fits": 0,
+    "native_accounts": 0
+  },
+  "fixed_checks": [
+    "HTTP status, content type, raw byte SHA256/size and workbook sheet names.",
+    "Dated SMH NAV and market price columns, positive values, duplicate dates, actual first/last dates and 2012-2022 versus 2023-2026 coverage.",
+    "Issuer states NAV is after-close; 09:46 Stage1 may use only previous published session, subject to first-delivery certification.",
+    "Split/corporate-action adjustment and current retrospective revision remain unqualified unless evidenced.",
+    "Preserve original bytes to Yanxuan NAS with remote-hash and scoped restore."
+  ],
+  "stop": "If no dated daily SMH market price or insufficient 2012-2025 coverage, close this exact source. If coverage exists but first-public timing or adjustment unresolved, retain only a source candidate; no fit or Stage1 account until separately frozen Qlib/timing/matched information gate.",
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": []
+  }
+}
