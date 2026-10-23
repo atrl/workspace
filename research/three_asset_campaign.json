@@ -537,7 +537,7 @@
     ]
   },
   "active_index": "research/active_research_index.json",
-  "updated_at_utc": "2026-10-23T04:21:41Z",
+  "updated_at_utc": "2026-10-23T04:45:01Z",
   "execution_totals": {
     "new_model_fits": 85,
     "new_native_accounts": 51,
@@ -575,6 +575,8 @@
     "KCS_early20_2025_2026_HWPX_vintage_probe": "research/kcs_early20_hwpx_vintage_probe_20261023/summary.json",
     "KCS_early20_HWPX_source_interpretation": "Official government portal 2025/2026 Oct1-20 current HWPX bytes were acquired once each and NAS archived/restored. Section XML contains semiconductor amount/YoY tokens 8,533/+20.2% and27,516/+222.5%, matching the current PDFs. HWPX content.hpf ModifiedDate converts to Oct21 07:40:04 KST 2025 and Oct21 08:30:25 KST 2026, before printed09:00 distribution. ZIP timestamps are all 1980 placeholders; CreatedDate2008 and another date2021 are template artifacts. Self-reported modified times make HWPX a stronger original-vintage candidate than the regenerated2025 PDF but do not prove these exact current bytes were public at release. No historical PIT, factor, fit, account or strategy forward day.",
     "KCS_2021_10_early20_original_page_HWP_PDF": "research/kcs_early20_2021_oct_original_source_20261023/summary.json",
-    "KCS_2021_10_early20_interpretation": "Official 2021-10-21 KCS government page plus HWP/PDF exact current bytes NAS-backed; visual PDF p2 semiconductor Oct1-20 export 6,394 USD million, +23.9% YoY, provisional and working-day sensitive. PDF metadata same-day 09:01:28 KST is plausible but not an independent first-public byte receipt. One historical month, zero SOXX outcomes/fits/accounts; not a qualified 2018-2022 panel."
+    "KCS_2021_10_early20_interpretation": "Official 2021-10-21 KCS government page plus HWP/PDF exact current bytes NAS-backed; visual PDF p2 semiconductor Oct1-20 export 6,394 USD million, +23.9% YoY, provisional and working-day sensitive. PDF metadata same-day 09:01:28 KST is plausible but not an independent first-public byte receipt. One historical month, zero SOXX outcomes/fits/accounts; not a qualified 2018-2022 panel.",
+    "KCS_2022_10_early20_original_page_HWP": "research/kcs_early20_2022_oct_original_hwp_20261023/summary.json",
+    "KCS_2021_2022_10_early20_original_comparison": "Official government current original-release attachments: 2021 PDF/HWP 6,394 USD million +23.9% and 2022 HWP 5,573 USD million -12.8%; binary HWP table row validated against 2021 visual PDF, ratio gives -12.840% rounded. 2022 HWP prints Oct21 09:00 KST distribution; working days13 vs13.5. Exact current bytes NAS-backed but historical first-public online receipt and full 2018-2022 monthly panel unqualified. Zero SOXX outcome/fits/accounts."
   }
 }
