@@ -1,0 +1,21 @@
+{
+  "experiment": "stage1_census_mtis_2023_2026_held_transport_repair_20261023",
+  "frozen": true,
+  "phase": "four_exact_failed_held_PDF_transport_repeats_only",
+  "parent": "frozen_complete_Stage1_f696_plus_b472_0bp_IBKR_Tiered",
+  "prior_fixed_version": "The frozen2023Jan-2026Jul held original-source pass had43 indexed months,42 new GETs and one reused2025Jul PDF;39 source/layout/clock months qualified. Exactly four failed from transport:2023Feb,2025Jun,2025Nov,2026Mar. No parser/row ambiguity, market outcome, fit or account.",
+  "sources": {
+    "prior_card": "research/stage1_census_mtis_2023_2026_held_original_source_20261023",
+    "prior_summary_sha256": "b44eb654c9bf9567293e1b978b20733aa527417c566d3b51f4147d60ab2e284a",
+    "prior_result_sha256": "f3cfe5dd1a816116ce61b51ee96aba6a36fb587782f5a546c4ba9fa3a285ef0d",
+    "prior_receipts_sha256": "641cc69100878553c0d9579e77e1aef6796cb40da1f60d6f211f4adf74085142",
+    "prior_source_NAS_sha256": "ddd4eb79c63db467d28f2a891f4bb5bc11a31a8d3b0476d69fc00b8fc5e785f5",
+    "prior_recorder_id": "12ac8eaa5cfb4ec58e67fa5ac8f2990f",
+    "prior_experiment_id": "803260598526047283",
+    "transport_months_exact": ["2023-02", "2025-06", "2025-11", "2026-03"],
+    "saved_official_index_sha256": "15b1601a3ff88045d1e895d95101f052ec45387e8db4ed34c8ee621485f0f5fe"
+  },
+  "exact_repair": "For the four frozen failed months only, one GET each of the identical official PDF URL with max35 seconds, preserve new raw bodies/headers/errors separately from prior partial responses. Reuse exact prior source files for all39 already qualified months; keep their source hash, current/prior ratio, release date, next Qlib session and status identical. Parse the same Table1 Adjusted Manufacturers row, case-insensitive Not Adjusted delimiter, printed10:00 ET release clock and strict-next-US-Qlib-session rule. No alternate source or month.",
+  "budget": {"external_GETs_max": 4, "saved_PDF_reads_max": 39, "max_PDF_bytes_each": 2000000, "external_retries": 0, "Qlib_D_calendar_calls_max": 1, "prior_Recorder_object_loads_max": 1, "new_Qlib_Recorders_max": 1, "SOXX_outcome_reads": 0, "model_fits": 0, "native_accounts": 0},
+  "stop": "A failed exact repeat, changed accepted39 row, source/clock/ratio ambiguity or NAS restore failure leaves that month unknown. Even43 complete current PDFs are reused development evidence, do not certify historical first-public versions or a Stage1 information effect, let alone SOXX success."
+}

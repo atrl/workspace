@@ -1,0 +1,56 @@
+{
+  "experiment": "stage1_census_mtis_2023_2026_held_original_source_20261023",
+  "decision": "current_original_MTiS_2023_2026_held_source_months_unknown",
+  "objective_achieved": false,
+  "plan_sha256": "9f88db8a904472630b0a9e2e36e373a6ff72b723064e0d06b17194df4dd147c9",
+  "result": "result.json",
+  "source_archive": "source_archive.json",
+  "source_NAS_sha256": "ddd4eb79c63db467d28f2a891f4bb5bc11a31a8d3b0476d69fc00b8fc5e785f5",
+  "source_NAS_cold_restore_verified": true,
+  "reused_2025Jul_NAS_sha256": "79fce1f4120782f84415ffeef3e42b59066887cd9825eca9da4bf91d9f2ae119",
+  "recorder_id": "12ac8eaa5cfb4ec58e67fa5ac8f2990f",
+  "experiment_id": "803260598526047283",
+  "recorder_uri": "/Users/rziiiii/dev/workspace/research/stage1_census_mtis_2023_2026_held_original_source_20261023/qlib_recorder",
+  "NAS_evidence": {
+    "sha256": "f2e3bbe467477acf392039aa9e1a8bc1f35967daea8e3a69ad20a7cbc2220794",
+    "size_bytes": 65373,
+    "media_type": "application/gzip",
+    "storage_uri": "sha256/f2/e3/f2e3bbe467477acf392039aa9e1a8bc1f35967daea8e3a69ad20a7cbc2220794",
+    "uploaded_by": "soxl-minute-research",
+    "created_at": "2026-10-23 15:24:29.887466+08",
+    "duplicate": false,
+    "nas_path": "/volume1/docker/yanxuan/registry/research-artifacts/f2/e3/f2e3bbe467477acf392039aa9e1a8bc1f35967daea8e3a69ad20a7cbc2220794",
+    "recorder_id": "12ac8eaa5cfb4ec58e67fa5ac8f2990f",
+    "experiment_id": "803260598526047283",
+    "archive_root": "qlib_recorder"
+  },
+  "NAS_readback": {
+    "sha256": "f2e3bbe467477acf392039aa9e1a8bc1f35967daea8e3a69ad20a7cbc2220794",
+    "remote_hash_verified": true
+  },
+  "qualified_months": 39,
+  "unknown_months": [
+    "2023-02",
+    "2025-06",
+    "2025-11",
+    "2026-03"
+  ],
+  "SOXX_outcome_reads": 0,
+  "model_fits": 0,
+  "native_accounts": 0,
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "inputs/*",
+      "analysis/monthly_source",
+      "analysis/unknown_reasons",
+      "analysis/result"
+    ]
+  },
+  "limitations": [
+    "Current original-PDF bytes and mutable Last-Modified metadata do not certify historical first-public vintages.",
+    "Manufacturers aggregate is not semiconductor-specific or real-price adjusted.",
+    "Held source is reused development evidence; no Stage1 information fit, complete 0bp funded account or SOXX success."
+  ]
+}

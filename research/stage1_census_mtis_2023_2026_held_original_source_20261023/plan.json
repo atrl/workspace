@@ -1,0 +1,23 @@
+{
+  "experiment": "stage1_census_mtis_2023_2026_held_original_source_20261023",
+  "frozen": true,
+  "phase": "official_2023Jan_2026Jul_monthly_original_manufacturers_ratio_held_source_only",
+  "parent": "frozen_complete_Stage1_f696_plus_b472_0bp_IBKR_Tiered",
+  "question": "Do the43 official Census MTIS original monthly PDFs from2023Jan through the latest indexed2026Jul provide the same single Table1 adjusted Manufacturers preliminary/current and revised/prior inventory-sales ratio with a printed 10:00 ET release mapped strictly after the Stage1 09:46 decision?",
+  "prior_training_disclosure": "A separately frozen2018-2022 pass and exact mechanical repair yielded60/60 current original ratio rows with NAS cold restored bytes and no SOXX outcome reads. That training source has unqualified historical immutable first-public byte identity and cannot be treated as independent validation. Before this freeze, the saved official index was read source-only and has all43 deterministic held PDF links; no market outcomes were inspected.",
+  "sources": {
+    "training_card": "research/stage1_census_mtis_2018_2022_source_repair_20261023",
+    "training_summary_sha256": "7b24b24333c3c23edc763cad2b33c639d5c65c85a7e3e17d4c88606d2198e150",
+    "official_index_saved_path": "data/snapshots/stage1_census_mtis_index_transport_repair_20261023/official_index.response",
+    "official_index_sha256": "15b1601a3ff88045d1e895d95101f052ec45387e8db4ed34c8ee621485f0f5fe",
+    "official_index_NAS_sha256": "6c5fe01b46d52338a05f0e05fafab1c0fdccf8e3e4430020fc1e1fb99b6b918d",
+    "reused_2025Jul_original_path": "data/snapshots/stage1_census_mtis_manufacturer_ratio_source_pilot_20261023/2025-07.response",
+    "reused_2025Jul_original_sha256": "9daa45ee009fa342dcdb391a51e7a65a1a69986bed14e8257b006c83b10ddd4f",
+    "reused_2025Jul_NAS_group_sha256": "79fce1f4120782f84415ffeef3e42b59066887cd9825eca9da4bf91d9f2ae119",
+    "exact_URL_rule": "https://www2.census.gov/mtis/historical/mtisYYMM.pdf for frozen2023Jan..2026Jul only, require every generated URL as exact href in saved official Census historical index before GET; no alternate URL or search query."
+  },
+  "fixed_parse": "Require exact source HTTP200 or saved reuse, %PDF signature, body<=2MiB, printed 10:00 ET release date, exactly one Table1 adjusted Manufacturers row before the case-insensitive Not Adjusted delimiter, current preliminary and same-release previous revised ratio. Do not use Total business, retail, unadjusted or semiconductor-specific labels. Current server Last-Modified is metadata only, not initial-publication proof.",
+  "decision_clock": "Any new monthly value is ineligible for same-day Stage1 09:46; map to the first native Qlib US trade session strictly after its printed10:00 ET release calendar date.",
+  "budget": {"external_GETs_max": 42, "reused_saved_PDF_reads_max": 1, "Qlib_D_calendar_calls_max": 1, "new_Qlib_Recorders_max": 1, "external_retries": 0, "max_PDF_bytes_each": 2000000, "SOXX_outcome_reads": 0, "model_fits": 0, "native_accounts": 0},
+  "stop": "One pass, no retry, fill, alternate source, row or threshold search. Preserve raw responses/headers/errors and NAS all-member restore. A failed month remains unknown and this fixed held source version incomplete. Even a complete current-byte panel remains reused development data with historical first-public vintages and predictive value unqualified, not independent forward strategy evidence."
+}

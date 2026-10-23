@@ -1,0 +1,17 @@
+{
+  "status": "NAS_MTiS_held43_selected_artifact_cold_readback",
+  "verified": true,
+  "archive_sha256": "0dec144402a9015a74d6643c3861c30c765fa43b966f83d431adc291402e6b0f",
+  "selected_artifact_sha256": "c464381b2991389edc3ccb1766c81898a63cf207970ae4b2e323e3c549e526e9",
+  "selected_artifact_bytes": 9483,
+  "native_recorder_status": "FINISHED",
+  "qualified_months": 43,
+  "late_modified_current_PDF_months": 4,
+  "late_modified_months": [
+    "2026-04",
+    "2026-05",
+    "2026-06",
+    "2026-07"
+  ],
+  "missing_Last_Modified_months": 1
+}

@@ -1,0 +1,66 @@
+{
+  "experiment": "stage1_census_mtis_2023_2026_held_transport_repair_20261023",
+  "decision": "current_original_MTiS_2023_2026_43_month_held_source_complete_PIT_pending",
+  "objective_achieved": false,
+  "plan_sha256": "770a2e14bd31d4157a8176d89db63168db52b54fc1c741eb23ab3e9f98af1db4",
+  "result": "result.json",
+  "source_archive": "source_archive.json",
+  "source_NAS_sha256": "f3711c80f4029aff9e5c7cea0f33f4963be2c49485d8a811b352e727fb978435",
+  "source_NAS_cold_restore_verified": true,
+  "prior_source_NAS_sha256": "ddd4eb79c63db467d28f2a891f4bb5bc11a31a8d3b0476d69fc00b8fc5e785f5",
+  "recorder_id": "c07bdb0103384c729db3b1de8f38bcf7",
+  "experiment_id": "152726935881169282",
+  "recorder_uri": "/Users/rziiiii/dev/workspace/research/stage1_census_mtis_2023_2026_held_transport_repair_20261023/qlib_recorder",
+  "NAS_evidence": {
+    "sha256": "0dec144402a9015a74d6643c3861c30c765fa43b966f83d431adc291402e6b0f",
+    "size_bytes": 64765,
+    "media_type": "application/gzip",
+    "storage_uri": "sha256/0d/ec/0dec144402a9015a74d6643c3861c30c765fa43b966f83d431adc291402e6b0f",
+    "uploaded_by": "soxl-minute-research",
+    "created_at": "2026-10-23 15:28:05.939856+08",
+    "duplicate": false,
+    "nas_path": "/volume1/docker/yanxuan/registry/research-artifacts/0d/ec/0dec144402a9015a74d6643c3861c30c765fa43b966f83d431adc291402e6b0f",
+    "recorder_id": "c07bdb0103384c729db3b1de8f38bcf7",
+    "experiment_id": "152726935881169282",
+    "archive_root": "qlib_recorder"
+  },
+  "NAS_readback": {
+    "status": "NAS_MTiS_held43_selected_artifact_cold_readback",
+    "verified": true,
+    "archive_sha256": "0dec144402a9015a74d6643c3861c30c765fa43b966f83d431adc291402e6b0f",
+    "selected_artifact_sha256": "c464381b2991389edc3ccb1766c81898a63cf207970ae4b2e323e3c549e526e9",
+    "selected_artifact_bytes": 9483,
+    "native_recorder_status": "FINISHED",
+    "qualified_months": 43,
+    "late_modified_current_PDF_months": 4,
+    "late_modified_months": [
+      "2026-04",
+      "2026-05",
+      "2026-06",
+      "2026-07"
+    ],
+    "missing_Last_Modified_months": 1
+  },
+  "qualified_months": 43,
+  "unknown_months": [],
+  "external_GETs": 4,
+  "SOXX_outcome_reads": 0,
+  "model_fits": 0,
+  "native_accounts": 0,
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "inputs/*",
+      "analysis/monthly_source",
+      "analysis/unknown_reasons",
+      "analysis/result"
+    ]
+  },
+  "limitations": [
+    "Current original-PDF bytes and Last-Modified do not prove historical first-public vintages.",
+    "Manufacturers is an aggregate nominal inventory/sales measure, not semiconductor-specific.",
+    "Held original PDFs are reused development evidence; no Stage1 information screen, 0bp account or SOXX success."
+  ],
+  "vintage_metadata_audit": "vintage_metadata_audit.json"
+}

@@ -1,0 +1,50 @@
+{
+  "status": "current_original_MTiS_2023_2026_held_source_months_unknown",
+  "plan_sha256": "9f88db8a904472630b0a9e2e36e373a6ff72b723064e0d06b17194df4dd147c9",
+  "source_months": 43,
+  "external_GETs_started": 42,
+  "saved_PDF_reads": 1,
+  "HTTP200_or_reused": 42,
+  "source_semantics_clock_qualified_months": 39,
+  "unknown_months": [
+    "2023-02",
+    "2025-06",
+    "2025-11",
+    "2026-03"
+  ],
+  "unknown_reasons": [
+    {
+      "month": "2023-02",
+      "http_status": 200,
+      "transport_error": "curl: (28) Operation timed out after 20004 milliseconds with 904896 out of 936014 bytes received\n",
+      "parse_error": null,
+      "diagnostic": null
+    },
+    {
+      "month": "2025-06",
+      "http_status": 0,
+      "transport_error": "curl: (28) SSL connection timeout\n",
+      "parse_error": null,
+      "diagnostic": null
+    },
+    {
+      "month": "2025-11",
+      "http_status": 200,
+      "transport_error": "curl: (28) Operation timed out after 20009 milliseconds with 524288 out of 648887 bytes received\n",
+      "parse_error": null,
+      "diagnostic": null
+    },
+    {
+      "month": "2026-03",
+      "http_status": 200,
+      "transport_error": "curl: (28) Operation timed out after 20011 milliseconds with 425984 out of 711051 bytes received\n",
+      "parse_error": null,
+      "diagnostic": null
+    }
+  ],
+  "current_bytes_first_public_qualified": false,
+  "server_Last_Modified_after_release_date_count": 4,
+  "SOXX_outcome_reads": 0,
+  "model_fits": 0,
+  "native_accounts": 0
+}

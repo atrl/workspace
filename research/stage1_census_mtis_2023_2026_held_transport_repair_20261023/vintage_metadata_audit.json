@@ -1,0 +1,14 @@
+{
+  "status": "read_only_held43_current_PDF_vintage_metadata_boundary",
+  "held_months": 43,
+  "current_original_source_clock_qualified": 43,
+  "server_Last_Modified_after_printed_release_date_months": [
+    "2026-04",
+    "2026-05",
+    "2026-06",
+    "2026-07"
+  ],
+  "late_modified_count": 4,
+  "historical_initial_public_bytes_qualified": false,
+  "interpretation": "Four current PDFs have server Last-Modified dates later than their printed release date, directly defeating an initial-byte identity claim for those months. For all other months, Last-Modified is mutable and cannot prove immutable original public bytes. All 2023-2026 market outcomes are reused development data, not independent forward."
+}
