@@ -32,6 +32,13 @@
       "2011_training_path": false
     },
     {
+      "source": "ThetaData v3 options",
+      "status": "free_EOD_access_starts_2023_06_01_paid_PRO_options_first_access_2012_06_01_no_2011_coverage",
+      "official_reference": "https://thetadata.net/docs/Articles/Getting-Started/Subscriptions.html",
+      "2011_training_path": false,
+      "source_specific_SOXX_chain_qualified": false
+    },
+    {
       "source": "ORATS direct Delayed Data API / archive",
       "status": "public_2024_SOXX_strike_chain_schema_verified_2011_2022_coverage_and_delivery_unproven",
       "evidence": "research/soxx_option_vendor_sample_preflight_20261023/orats_inquiry_draft.md",
