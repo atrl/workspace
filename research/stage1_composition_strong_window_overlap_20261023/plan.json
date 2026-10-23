@@ -1,0 +1,48 @@
+{
+  "experiment": "stage1_composition_strong_window_overlap_20261023",
+  "frozen": true,
+  "phase": "read_only_diagnostic_envelope_no_policy",
+  "question": "Across all 819 matched contiguous 126-session 0bp Tiered SOXX-relative windows, do the closed original Stage1 A_0, fixed beta-preserving composition and strong9097 reference have complementary positive-window coverage, or do failures broadly overlap?",
+  "sources": {
+    "composition": {
+      "card": "research/stage1_beta_composition_0bp_20261022",
+      "summary_sha256": "262f9a5bfe855ae94310d802505e2dcdc71de441c6b6e1bf025a7f3b4b36dc35",
+      "manifest_sha256": "f72e9737ff81fc62d18a6e1e4f91b55fb541df80b28f850a2f562e477035b9b6",
+      "recorder_id": "4cd2029dc98740349e34db8c7c6eae3e",
+      "experiment_id": "395462564842588671",
+      "NAS_archive_sha256": "276d3de7940772e0e8e6f25b21ea108cfbf7c5dbb15d1fc489544eeda5395af4",
+      "rolling_artifact": "analysis/rolling/all_windows"
+    },
+    "reference": {
+      "card": "research/stage1_domain_heads_20261018",
+      "summary_sha256": "3b51938ca56ddf45029ff5e4a01a6bbc2f1d1407458efcad7d7c68b0ef5a1d37",
+      "manifest_sha256": "e166f7718f11fa8a2280997ee757386c398f31424ffe9105a69e8ad0477988ab",
+      "recorder_id": "6e227278b7a64eafbcf34b965e16d2b9",
+      "experiment_id": "283510277269468590",
+      "NAS_archive_sha256": "f3f891d6d09d4187f12815e245b33cc9cfec4acfd4f555b734f66a59348d9884",
+      "strong_rolling_artifact": "analysis/rolling/strong9097_0",
+      "stage1_rolling_artifact": "analysis/rolling/A_active_research_replay_0"
+    }
+  },
+  "method": "Read only the three frozen native Qlib Recorder rolling windows, verify exact first_trade/last_exit row alignment and original published positive fractions; classify each window as positive/negative for every path. Report intersection, union, composition-only wins, strong-only wins, both fail and all three fail; compare counts to 574 required windows. Also summarize all 16 start-trade quarters and complete-year window start cohorts without selecting rules. Hindsight per-window union is descriptive and is not a feasible daily router or tradable upper bound.",
+  "scope": {
+    "cost": "0bp added slippage with frozen IBKR Tiered in each source account",
+    "window_sessions": 126,
+    "expected_windows": 819,
+    "required_positive_windows": 574,
+    "no_target_window_selection": true
+  },
+  "budget": {
+    "new_market_requests": 0,
+    "source_Recorder_object_loads_max": 3,
+    "new_model_fits": 0,
+    "new_native_accounts": 0,
+    "new_bootstraps": 0,
+    "new_Recorders_max": 1
+  },
+  "stops": [
+    "Any source hash/NAS/Recorder mismatch or calendar mismatch",
+    "Do not infer a daily strategy, train router or modify closed composition/reference from hindsight union",
+    "Goal remains active; this diagnostic cannot satisfy SOXX 0bp economic gate or independent forward"
+  ]
+}
