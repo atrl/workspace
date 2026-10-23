@@ -1,0 +1,38 @@
+{
+  "status": "source_freshness_advanced_release_code_identity_still_blocks_paper",
+  "observed_at_utc": "2026-10-23T13:39:33Z",
+  "prior_observed_at_utc": "2026-10-23T01:05:05.842513+00:00",
+  "prior_NAS_as_of": "2026-10-21",
+  "current_NAS_as_of": "2026-10-22",
+  "current_NAS_source_id": "4061dc1be99e2fb7f49edb5f8c8495adb21f21e6b8333628ce616b8e3f50bcb6",
+  "current_NAS_verified_at": "2026-10-23T12:07:01.569842+00:00",
+  "provider_manifest_sha256": "939bb3a4ce1a7cd29d57810196e6e65f69b8efa8e1eafe1a029c830b6bec18e5",
+  "provider_as_of": "2026-10-22",
+  "provider_calendar_end": "2026-10-22 16:00:00",
+  "2026_10_22_first_hour_Qlib_calendar_bars": 4,
+  "2026_10_22_SOXL_SOXX_Qlib_feature_rows": 8,
+  "2026_10_22_complete_flags_true": 8,
+  "2026_10_22_observed_1m_count_min": 15,
+  "2026_10_22_expected_1m_count_min": 15,
+  "current_code_hash_checks": [
+    {
+      "path": "src/workflow/stage1_open_action_value.py",
+      "current_sha256": "6459fb44b1019bd8c4555ebd6b2ba6e9dbe8241844875b23a439837040734671",
+      "sealed_sha256": "3b6cc0d1f385ff797bdcaaaa1aca599c554e9c91931861bb66777fb1d8f25359",
+      "still_mismatch": true
+    },
+    {
+      "path": "src/workflow/intraday_recovery_direct_allocation.py",
+      "current_sha256": "48b4a62a1c8139ecaa5d224023693bd4b1589851feab4b3a114d7188428cb013",
+      "sealed_sha256": "7973c6395d3232868f739f1fdc4251ce03552e6e10dd70126c8481c6d1b3c784",
+      "still_mismatch": true
+    }
+  ],
+  "release_code_mismatches": 2,
+  "paper_forward_qualified_days_added": 0,
+  "release_writes": 0,
+  "orders": 0,
+  "new_models": 0,
+  "new_accounts": 0,
+  "interpretation": "The Oct22 source freshness gap observed in the prior audit is resolved in current verified NAS and Qlib first-hour data. The two sealed release code hashes still differ, and future partial-bar semantics still require review before resealing. This does not qualify a forward strategy day or prove SOXX excess."
+}

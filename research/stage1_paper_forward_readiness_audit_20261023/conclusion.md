@@ -5,3 +5,7 @@
 当前 provider 的确声明 `$is_complete`。用 Qlib `D.calendar`/`D.features` 对 10 月 19–21 日 SOXL/SOXX 共 **6 个标的日、24 条首小时 bar** 的限定检查，完整标志全为 1；这只说明这些已完成日的过滤是空操作，**不证明将来的部分 bar 与旧 release 等价**。本轮截至 **2026-10-23T01:05:05.842513+00:00**，该 Qlib provider 日历及 NAS 最新已验证 `us_semis_intraday` 快照都只到 **10 月 21 日**，尚不足以重建 10 月 22 日首小时。数据更新何时到达需按实际后续收据确认，不能从一次观察断言调度故障。
 
 `launchctl` 有 `com.soxl.stage1.regime.paper` 登记；先前 10 月 22 日运行日志已记载 release 哈希拦截。此次没有启动、重启或更新纸面 release，也没有模型拟合、账户、订单、SOXX 成绩或合格前向日。要恢复未来观察，须分别完成：①对首小时完整性语义做独立审核并重新密封 release；②确保当次决策前可用的已验证分钟来源进入 Qlib provider；③按冻结前向计划确认双账户、时间与风险门。已有未通过的 Stage1 纸面基线即使恢复运行，也不能冒充新候选跑赢 SOXX。
+
+## 2026-10-23 只读新鲜度复核
+
+NAS 最新已验证 `us_semis_intraday` 快照及本地 Qlib 15分钟 provider 均已前进至 **10月22日**。原生 Qlib 对当日 SOXL/SOXX 首小时读回8条，完整标志8/8、每条15/15分钟。原有两份密封代码 SHA 仍不匹配，未来不完整bar的语义仍需审核；本次没有启动纸面策略、重封release、取得合格前向日或SOXX超额。详细身份与哈希见 `source_freshness_followup_20261023.json`。

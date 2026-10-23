@@ -12,5 +12,7 @@
     "policy": "slim_card_recorder_first",
     "workflow_config": "workflow.yaml",
     "recorder_only_artifacts": []
-  }
+  },
+  "source_freshness_followup": "source_freshness_followup_20261023.json",
+  "current_read_only_status": "source_freshness_advanced_release_code_identity_still_blocks_paper"
 }
