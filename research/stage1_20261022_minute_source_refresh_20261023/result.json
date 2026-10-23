@@ -1,0 +1,76 @@
+{
+  "plan_sha256": "7d30c6a6fbb1e4ca36c9e7e138739c5d68941f7f15f9f68384e5278b19e1abb1",
+  "before_source_id": "bf6d5121d6cf13fb7f694e3b439d8c54ab33f61590786967b4d3f31d129f3349",
+  "after_source_id": "bf6d5121d6cf13fb7f694e3b439d8c54ab33f61590786967b4d3f31d129f3349",
+  "after_as_of": "2026-10-22",
+  "after_verified_at": "2026-10-23T04:21:04.326162+00:00",
+  "NAS_object_count": 83,
+  "refresh_requests": [
+    {
+      "symbol": "SOXL",
+      "start": "2026-10-21",
+      "end": "2026-10-22",
+      "rows": 780
+    },
+    {
+      "symbol": "SOXL",
+      "start": "2026-10-22",
+      "end": "2026-10-22",
+      "rows": 390
+    },
+    {
+      "symbol": "SOXX",
+      "start": "2026-10-21",
+      "end": "2026-10-22",
+      "rows": 780
+    },
+    {
+      "symbol": "SOXX",
+      "start": "2026-10-22",
+      "end": "2026-10-22",
+      "rows": 390
+    }
+  ],
+  "remaining_source_anomalies": [
+    {
+      "symbol": "SOXX",
+      "date": "2020-03-16",
+      "expected_minutes": 390,
+      "due_minutes": 390,
+      "observed_minutes": 390,
+      "missing_minutes": 0,
+      "duplicate_rows": 0,
+      "invalid_rows": 1,
+      "zero_volume_rows": 14,
+      "vwap_checked_rows": 376,
+      "vwap_outside_rows": 7,
+      "first_missing_at": null,
+      "last_missing_at": null,
+      "status": "needs_data",
+      "training_eligible": false,
+      "repair_required": true
+    }
+  ],
+  "Qlib_calendar_rows": 26,
+  "Qlib_first_hour_checks": [
+    {
+      "instrument": "SOXL",
+      "first_four_rows": 4,
+      "complete_nonnull": 4,
+      "min_is_complete": 1.0,
+      "min_bar_count": 26.0
+    },
+    {
+      "instrument": "SOXX",
+      "first_four_rows": 4,
+      "complete_nonnull": 4,
+      "min_is_complete": 1.0,
+      "min_bar_count": 26.0
+    }
+  ],
+  "provider_manifest_sha256": "939bb3a4ce1a7cd29d57810196e6e65f69b8efa8e1eafe1a029c830b6bec18e5",
+  "model_fits": 0,
+  "accounts": 0,
+  "paper_release_writes": 0,
+  "orders": 0
+}

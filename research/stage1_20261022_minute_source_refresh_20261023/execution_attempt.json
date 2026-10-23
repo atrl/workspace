@@ -1,0 +1,11 @@
+{
+  "status": "source_refresh_completed_Qlib_readback_interrupted",
+  "first_notebook_code_sha256": "579adb28bfcbf82fd3b9a38ad92a582eff2d2192a1842b439b9007657ebe3318",
+  "source_refresh_calls": 1,
+  "Futu_minute_requests": 4,
+  "first_python_invocation": "qlib_venv/bin/python from stdin",
+  "failure": "Qlib D.features spawned child processes that could not reload <stdin>; parent stopped after verified NAS source publication, before result sidecar and Recorder",
+  "new_model_fits": 0,
+  "new_accounts": 0,
+  "source_requery_authorized": false
+}

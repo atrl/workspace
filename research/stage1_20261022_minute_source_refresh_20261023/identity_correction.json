@@ -1,0 +1,7 @@
+{
+  "status": "post_refresh_resume_metadata_parent_identity_correction",
+  "archived_Recorder_source_refresh_before_source_id": "bf6d5121d6cf13fb7f694e3b439d8c54ab33f61590786967b4d3f31d129f3349",
+  "actual_prior_source_id": "c7ddae9b31f9a1714d886b20625c2eec4068b9bd41801c1bac4aa7ffb5c93b6e",
+  "proof": "Frozen plan prior_NAS_source_id equals new NAS source_manifest.parent_source_id; source manifest hash equals new registered source_id. The resume script loaded current source as both before and after after the original refresh process had completed. Market bytes, Qlib calendar, checks and 0 fits/accounts unaffected. Archived Recorder remains immutable.",
+  "source_manifest_sha256": "bf6d5121d6cf13fb7f694e3b439d8c54ab33f61590786967b4d3f31d129f3349"
+}

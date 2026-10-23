@@ -1,0 +1,23 @@
+{
+  "experiment": "stage1_20261022_minute_source_refresh_20261023",
+  "frozen": true,
+  "phase": "SOXL_SOXX_closed_session_source_freshness_repair_only",
+  "as_of": "2026-10-23",
+  "session_date": "2026-10-22",
+  "prior_NAS_source_id": "c7ddae9b31f9a1714d886b20625c2eec4068b9bd41801c1bac4aa7ffb5c93b6e",
+  "prior_raw_SHA256": "4af9368923332a02acad24bd5edbc74f87333898c41ed9f6e5c41332381431b4",
+  "refresh_module_SHA256": "979a6af66db0b69545143f32bc483046831daf4ddffa9594fdb80354c27445e9",
+  "NAS_module_SHA256": "043c0428bdfd672ade124c309fbeb60ca9e2150b83619b5cd8cd663813b94e6a",
+  "preflight": "Current verified NAS snapshot and local 83 objects match exactly. XNYS coverage audit identifies 390 missing minutes each on SOXL and SOXX for Oct22; a separate preexisting invalid SOXX 2020-03-16 minute remains quarantined. No active minute refresh process at plan freeze.",
+  "method": "Use the existing refresh_published_core once with closed session 2026-10-22, start_session_date set to that date, Futu OpenD localhost port11111, NONE raw source and published-affine research plane. Verify source receipt, NAS registered current binding and selected remote objects, and native Qlib 15-minute $is_complete/$bar_count first four bars. Do not change a paper release, place orders, fit a model, or claim a qualified forward candidate day.",
+  "budget": {
+    "refresh_calls_max": 1,
+    "Futu_minute_requests_expected_max": 4,
+    "symbols": ["SOXL", "SOXX"],
+    "new_model_fits": 0,
+    "new_accounts": 0,
+    "paper_release_writes": 0,
+    "orders": 0
+  },
+  "stop": "Stop if prior NAS source identity, raw hash or local cache matching changes; preserve failed partial outputs and actual requests. A completed source refresh is data provenance only."
+}

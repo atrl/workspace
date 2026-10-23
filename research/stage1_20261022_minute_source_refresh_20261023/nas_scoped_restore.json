@@ -1,0 +1,35 @@
+{
+  "status": "NAS_source_and_Recorder_selected_objects_cold_read_exact",
+  "source_id": "bf6d5121d6cf13fb7f694e3b439d8c54ab33f61590786967b4d3f31d129f3349",
+  "source_selected": {
+    "data/raw/external/semis_minute_refresh/source_manifest.json": {
+      "sha256": "bf6d5121d6cf13fb7f694e3b439d8c54ab33f61590786967b4d3f31d129f3349",
+      "bytes": 1169
+    },
+    "data/raw/external/semis_minute_refresh/SOXL_rehab.parquet": {
+      "sha256": "0342f402196db7fe6c1e62556513fd6a2df613b02629706e3cabdea2bd817015",
+      "bytes": 17760
+    },
+    "data/raw/external/semis_minute_refresh/SOXX_rehab.parquet": {
+      "sha256": "a46e06d4c37919c1442bd54228167adc86f09cdf1b73b46eaac237d6acd4cf7c",
+      "bytes": 19186
+    }
+  },
+  "Recorder_archive_sha256": "1e4aba62fed3c925ac53652b346be32737554ddb24b39e53604e0704453f0ae7",
+  "Recorder_selected": {
+    "analysis/source_refresh": {
+      "sha256": "1cdaf344b0515e60c2cd96599427fab16a4610c49f527169e16486249a7791ed",
+      "bytes": 1269
+    },
+    "analysis/Qlib_calendar": {
+      "sha256": "932eb85171f0271202dd3e41cb6675f4e80bdd7ea80632b6f741f7ff590275bf",
+      "bytes": 653
+    },
+    "analysis/Qlib_first_hour": {
+      "sha256": "0b4bac9831628b312146b1ca0fef01425aac5b2a1feee91855531ed9d17d518f",
+      "bytes": 2008
+    }
+  },
+  "model_fits": 0,
+  "accounts": 0
+}
