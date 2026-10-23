@@ -1,0 +1,23 @@
+{
+  "experiment": "stage1_ma200_risk_release_support_20261023",
+  "frozen": true,
+  "phase": "read_only_long_trend_to_Stage1_risk_release_necessary_support",
+  "parent": "frozen_complete_Stage1_f696_plus_b472_0bp_IBKR_Tiered",
+  "question": "Does the previously used SOXX close-above-200-session-average coordinate identify the broad original Stage1 cash-loss intervals in which a risk-cap release would be needed, while leaving the 2024 cash-protection interval mostly risk-off? If it points in the opposite direction, do not spend a new funded account on a risk-on cap bypass.",
+  "prior_preview_disclosure": "Before freezing this card, one scratch cross-tab of saved original-path cash components found 2025 cash loss concentrated below the 200-session average and 2024Q3 cash protection concentrated above it. This result is development feedback, not independent preregistration or a market signal selection test.",
+  "sources": {
+    "component_card": "research/stage1_original_0bp_account_contributions_20261023",
+    "component_summary_sha256": "055cea546522037402cd7f92714ae64aef759913fa7369d40555f06df4f1c4e5",
+    "component_recorder_id": "bf012e010e3f4a5b9fd030b939ab989f",
+    "component_experiment_id": "320335441277021728",
+    "component_daily_sha256": "7de1c0a56036efdf47e2bb60a8ed5bb215aa0d9ebfc8681c249fc268e80d360e",
+    "provider_uri": "data/qlib/minute_information_pit_allocator_20261012/daily_prices",
+    "provider_manifest_sha256": "d80a08d479b73098053006909b5e6227b03a56ab705681742d7261088e0a7e6c",
+    "previous_MA200_rule_card": "research/soxl_stable_excess_frontier_20261010",
+    "previous_MA200_rule_summary_sha256": "b38c7798e309fbebb81864e1a096e25ddd3a1092b477c896e3b615b506c90cf5"
+  },
+  "coordinate": "At 09:46 on trade day t, use SOXX's split-continuous Qlib close on the original Stage1 signal date t-1. Risk-on iff that close is strictly above the trailing 200 actual Qlib sessions' mean including that already completed signal date. Require the full warmup. Never use current-day close or a retrospectively selected moving-average length.",
+  "scope": "All original 944 funded Stage1 0bp Tiered trade dates, 2023/2026 partial and 2024/2025 full years, all 16 quarters and all 819 contiguous 126-session windows. Retain every risk-on/off and positive/negative cash component row; compare 2024Q3 protection and 2025 cash drag as prior motivating intervals.",
+  "budget": {"new_external_requests": 0, "model_fits": 0, "native_accounts": 0, "new_bootstraps": 0, "new_Qlib_Recorders": 1},
+  "decision_boundary": "This is source-and-receiver alignment only. A MA200 risk-on override that misses most 2025 cash loss and falls on effective 2024 cash protection is not advanced to a full account. It cannot prove all trend rules fail, and prior standalone MA200 family remains closed. No MA length, sign, ETF, cash threshold or interval rescue."
+}

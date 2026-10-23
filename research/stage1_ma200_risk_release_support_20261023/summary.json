@@ -1,0 +1,47 @@
+{
+  "experiment": "stage1_ma200_risk_release_support_20261023",
+  "decision": "closed_before_account_MA200_risk_on_cap_release_targets_2024_protection_misses_2025_cash_loss",
+  "objective_achieved": false,
+  "plan_sha256": "b8a88b96456a20bde75ae59034912aa86147b5a28c615eb1054e4eef415c4d12",
+  "result": "result.json",
+  "recorder_id": "427867c6f2be4ff89f91373a28f376b1",
+  "experiment_id": "392794226386444846",
+  "recorder_uri": "/Users/rziiiii/dev/workspace/research/stage1_ma200_risk_release_support_20261023/qlib_recorder",
+  "NAS_evidence": {
+    "sha256": "bae30d7d6c4eeb6c461b8d4cf7946a36809573571ff62a388aa6a0d44acfc82f",
+    "size_bytes": 202856,
+    "media_type": "application/gzip",
+    "storage_uri": "sha256/ba/e3/bae30d7d6c4eeb6c461b8d4cf7946a36809573571ff62a388aa6a0d44acfc82f",
+    "uploaded_by": "soxl-minute-research",
+    "created_at": "2026-10-23 12:43:52.683644+08",
+    "duplicate": false,
+    "nas_path": "/volume1/docker/yanxuan/registry/research-artifacts/ba/e3/bae30d7d6c4eeb6c461b8d4cf7946a36809573571ff62a388aa6a0d44acfc82f",
+    "recorder_id": "427867c6f2be4ff89f91373a28f376b1",
+    "experiment_id": "392794226386444846",
+    "archive_root": "qlib_recorder"
+  },
+  "NAS_readback": {
+    "sha256": "bae30d7d6c4eeb6c461b8d4cf7946a36809573571ff62a388aa6a0d44acfc82f",
+    "verified": true
+  },
+  "new_model_fits": 0,
+  "new_native_accounts": 0,
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "inputs/*",
+      "analysis/daily",
+      "analysis/annual",
+      "analysis/quarterly",
+      "analysis/rolling126",
+      "analysis/result"
+    ]
+  },
+  "limitations": [
+    "The previously researched standalone MA200 trend family stays closed.",
+    "The previewed cash component groups are original-account development attribution, not causal strategy returns.",
+    "No Stage1 risk-on cap override, Tiered candidate account, 2/5bp or independent forward evaluation ran."
+  ],
+  "NAS_scoped_restore": "nas_scoped_restore.json"
+}

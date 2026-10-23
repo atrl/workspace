@@ -1,0 +1,32 @@
+{
+  "status": "NAS_Recorder_cold_readback_selected_MA200_support_artifacts_exact",
+  "archive_sha256": "bae30d7d6c4eeb6c461b8d4cf7946a36809573571ff62a388aa6a0d44acfc82f",
+  "archive_bytes": 202856,
+  "checked": {
+    "analysis/daily": {
+      "sha256": "841350de02077f78718daebb2b0e1c01b4023db158a76b6d8e1531d7b79f3c65",
+      "bytes": 115833
+    },
+    "analysis/annual": {
+      "sha256": "c5b01085f76c993506d402d443df86df5726b8d342e53d55ad856e8b15426a0f",
+      "bytes": 619
+    },
+    "analysis/quarterly": {
+      "sha256": "4bd49c8b1dd99999cae113a1897d7696a36e5c595c0e36b10209a64ee2a0795f",
+      "bytes": 1743
+    },
+    "analysis/rolling126": {
+      "sha256": "ba0bd7bf6efeb737c9555fab43793d82e7a7f516470be6a11418630050624970",
+      "bytes": 107722
+    },
+    "analysis/result": {
+      "sha256": "02423c196b902727859f508de17474eb05ebb8c320c7ec4ba09ff552afefc9f4",
+      "bytes": 2566
+    }
+  },
+  "native_Recorder_status": "FINISHED",
+  "daily_rows": 944,
+  "rolling126_rows": 819,
+  "new_models": 0,
+  "new_accounts": 0
+}
