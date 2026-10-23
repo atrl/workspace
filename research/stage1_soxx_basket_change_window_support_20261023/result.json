@@ -1,0 +1,217 @@
+{
+  "decision": "descriptive_membership_change_event_support_only_no_policy",
+  "plan_sha256": "beae1c34bef15f11464a7b5178a73d8a3fa30825fdb5c154302b27a6ee231ae3",
+  "original_NPORT_reports": 28,
+  "distinct_report_periods": 27,
+  "amendment_duplicates": 1,
+  "transitions": 26,
+  "transitions_with_membership_change": 11,
+  "held_change_event_dates": [
+    "2023-11-24",
+    "2024-11-27",
+    "2025-02-28",
+    "2025-11-28"
+  ],
+  "window_groups": {
+    "all": {
+      "windows": 819,
+      "with_membership_change": 439,
+      "without_membership_change": 380,
+      "cash_negative_without_change": 301,
+      "mean_cash_log_without_change": -0.0918389426962665
+    },
+    "nonwinning": {
+      "windows": 564,
+      "with_membership_change": 323,
+      "without_membership_change": 241,
+      "cash_negative_without_change": 241,
+      "mean_cash_log_without_change": -0.13080485535185232
+    },
+    "positive": {
+      "windows": 255,
+      "with_membership_change": 116,
+      "without_membership_change": 139,
+      "cash_negative_without_change": 60,
+      "mean_cash_log_without_change": -0.02427933873945946
+    }
+  },
+  "source_event_counts": [
+    {
+      "report_period": "2019-09-30",
+      "effective_signal_date": "2019-11-26",
+      "entry_count": null,
+      "exit_count": null
+    },
+    {
+      "report_period": "2019-12-31",
+      "effective_signal_date": "2020-02-28",
+      "entry_count": 0,
+      "exit_count": 0
+    },
+    {
+      "report_period": "2020-03-31",
+      "effective_signal_date": "2020-06-02",
+      "entry_count": 0,
+      "exit_count": 0
+    },
+    {
+      "report_period": "2020-06-30",
+      "effective_signal_date": "2020-08-28",
+      "entry_count": 0,
+      "exit_count": 0
+    },
+    {
+      "report_period": "2020-09-30",
+      "effective_signal_date": "2020-11-27",
+      "entry_count": 3,
+      "exit_count": 3
+    },
+    {
+      "report_period": "2020-12-31",
+      "effective_signal_date": "2021-02-26",
+      "entry_count": 1,
+      "exit_count": 1
+    },
+    {
+      "report_period": "2021-03-31",
+      "effective_signal_date": "2021-05-28",
+      "entry_count": 0,
+      "exit_count": 0
+    },
+    {
+      "report_period": "2021-06-30",
+      "effective_signal_date": "2021-08-27",
+      "entry_count": 6,
+      "exit_count": 6
+    },
+    {
+      "report_period": "2021-09-30",
+      "effective_signal_date": "2021-11-26",
+      "entry_count": 1,
+      "exit_count": 1
+    },
+    {
+      "report_period": "2021-12-31",
+      "effective_signal_date": "2022-02-28",
+      "entry_count": 1,
+      "exit_count": 1
+    },
+    {
+      "report_period": "2022-03-31",
+      "effective_signal_date": "2022-05-27",
+      "entry_count": 1,
+      "exit_count": 1
+    },
+    {
+      "report_period": "2022-06-30",
+      "effective_signal_date": "2022-08-26",
+      "entry_count": 0,
+      "exit_count": 0
+    },
+    {
+      "report_period": "2022-09-30",
+      "effective_signal_date": "2022-11-29",
+      "entry_count": 1,
+      "exit_count": 1
+    },
+    {
+      "report_period": "2022-12-31",
+      "effective_signal_date": "2023-02-27",
+      "entry_count": 0,
+      "exit_count": 0
+    },
+    {
+      "report_period": "2023-03-31",
+      "effective_signal_date": "2023-05-30",
+      "entry_count": 0,
+      "exit_count": 0
+    },
+    {
+      "report_period": "2023-06-30",
+      "effective_signal_date": "2023-08-28",
+      "entry_count": 0,
+      "exit_count": 0
+    },
+    {
+      "report_period": "2023-09-30",
+      "effective_signal_date": "2023-11-24",
+      "entry_count": 2,
+      "exit_count": 2
+    },
+    {
+      "report_period": "2023-12-31",
+      "effective_signal_date": "2024-02-28",
+      "entry_count": 0,
+      "exit_count": 0
+    },
+    {
+      "report_period": "2024-03-31",
+      "effective_signal_date": "2024-05-29",
+      "entry_count": 0,
+      "exit_count": 0
+    },
+    {
+      "report_period": "2024-06-30",
+      "effective_signal_date": "2024-08-28",
+      "entry_count": 0,
+      "exit_count": 0
+    },
+    {
+      "report_period": "2024-09-30",
+      "effective_signal_date": "2024-11-27",
+      "entry_count": 3,
+      "exit_count": 3
+    },
+    {
+      "report_period": "2024-12-31",
+      "effective_signal_date": "2025-02-28",
+      "entry_count": 1,
+      "exit_count": 1
+    },
+    {
+      "report_period": "2025-03-31",
+      "effective_signal_date": "2025-05-28",
+      "entry_count": 0,
+      "exit_count": 0
+    },
+    {
+      "report_period": "2025-06-30",
+      "effective_signal_date": "2025-08-29",
+      "entry_count": 0,
+      "exit_count": 0
+    },
+    {
+      "report_period": "2025-09-30",
+      "effective_signal_date": "2025-11-28",
+      "entry_count": 5,
+      "exit_count": 5
+    },
+    {
+      "report_period": "2025-12-31",
+      "effective_signal_date": "2026-02-26",
+      "entry_count": 0,
+      "exit_count": 0
+    },
+    {
+      "report_period": "2026-03-31",
+      "effective_signal_date": "2026-05-29",
+      "entry_count": 0,
+      "exit_count": 0
+    }
+  ],
+  "rolling_windows_overlap": true,
+  "change_event_groups_causal": false,
+  "basket_feature_qualified": false,
+  "market_requests": 0,
+  "model_fits": 0,
+  "native_accounts": 0,
+  "new_Recorders": 0,
+  "event_window_only_static_necessary_repair": {
+    "required_additional_positive_windows": 319,
+    "eligible_nonwinning_windows_with_event": 323,
+    "minimum_fraction_of_eligible_nonwinning_to_flip": 0.9876160990712074,
+    "max_positive_if_all_eligible_flip": 578,
+    "not_a_native_account": true,
+    "persistent_effect_outside_event_windows_not_bounded": true
+  }
+}

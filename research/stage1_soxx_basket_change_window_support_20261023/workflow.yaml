@@ -1,0 +1,10 @@
+experiment: stage1_soxx_basket_change_window_support_20261023
+mode: read_only_original_stage1_0bp_window_source_support
+parent: frozen_complete_Stage1_0bp_IBKR_Tiered
+source_event_recorders:
+  - research/stage1_soxx_2019_2022_nport_equity_concentration_20261023/summary.json
+  - research/stage1_soxx_2023_2026_nport_concentration_20261023/summary.json
+stage1_recorder: research/stage1_original_0bp_signal_loss_chain_v2_20261023/summary.json
+market_requests: 0
+model_fits: 0
+native_accounts: 0

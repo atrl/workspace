@@ -1,0 +1,21 @@
+{
+  "experiment": "stage1_soxx_basket_change_window_support_20261023",
+  "phase": "read_only_reported_membership_event_support_vs_original_Stage1_0bp_windows",
+  "parent": "frozen_complete_Stage1_0bp_IBKR_Tiered_native_account",
+  "question": "How often do original SOXX N-PORT disclosed membership changes occur within the matched 2023-2026 Stage1 126-session windows, and are nonwinning windows broadly represented when no new membership event was disclosed?",
+  "frozen_method": [
+    "Use original ISIN sets from the 2019-2026 N-PORT XML sources. A change event is a nonempty symmetric difference versus the immediately prior distinct report period; duplicate amendment rows with the same period and identical membership count once.",
+    "Use the source Recorder's first Qlib effective session after SEC filing as the event clock. A report-period date is never a trading signal date.",
+    "Read the existing frozen Stage1 original 0bp rolling126 Recorder. For every one of the 819 windows, count effective membership-change events whose date falls inside the window. Cross-tabulate event presence with strict positive and nonwinning SOXX-relative windows. Report unique events and overlap explicitly; do not select a strategy rule or causal effect from this retrospective comparison."
+  ],
+  "sources": {
+    "nport_identity": "research/stage1_soxx_nport_isin_identity_repair_20261023/summary.json",
+    "modern_event_recorder": "research/stage1_soxx_2023_2026_nport_concentration_20261023/summary.json",
+    "training_event_recorder": "research/stage1_soxx_2019_2022_nport_equity_concentration_20261023/summary.json",
+    "stage1_component_recorder": "research/stage1_original_0bp_signal_loss_chain_v2_20261023/summary.json",
+    "qlib_provider": "data/qlib/minute_information_pit_allocator_20261012/daily_prices"
+  },
+  "budget": {"original_XML_reads": 28, "Qlib_Recorder_object_loads": 4, "SOXX_market_requests": 0, "model_fits": 0, "native_accounts": 0, "new_Recorders": 0},
+  "stop": "Stop if original ISIN row counts, source event clocks, Stage1 window count, or Qlib calendar identity differ from the cited source cards. This is a support diagnostic, not a basket factor or performance gate.",
+  "artifact_policy": {"policy": "slim_card_recorder_first", "workflow_config": "workflow.yaml", "recorder_only_artifacts": []}
+}

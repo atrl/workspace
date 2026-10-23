@@ -1,0 +1,32 @@
+{
+  "experiment": "stage1_soxx_basket_change_window_support_20261023",
+  "decision": "reported_basket_change_pulse_deprioritized_event_window_support_too_fragile",
+  "objective_achieved": false,
+  "result": "result.json",
+  "plan_sha256": "beae1c34bef15f11464a7b5178a73d8a3fa30825fdb5c154302b27a6ee231ae3",
+  "stage1_source_recorder_id": "2f0392615c4c4b15928b4ada6e01ecd9",
+  "original_reports": 28,
+  "distinct_periods": 27,
+  "membership_change_transitions": 11,
+  "held_change_events": 4,
+  "rolling_windows": 819,
+  "nonwinning_windows": 564,
+  "nonwinning_without_change_event": 241,
+  "nonwinning_with_change_event": 323,
+  "event_only_required_flips": 319,
+  "event_only_eligible_flips": 323,
+  "event_only_required_fraction": 0.9876160990712074,
+  "market_requests": 0,
+  "model_fits": 0,
+  "native_accounts": 0,
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": []
+  },
+  "limitations": [
+    "Fixed-path overlapping-window arithmetic only; persistent post-event effects or own-state feedback are not bounded.",
+    "A reported membership change is neither executed ETF turnover nor a validated decision-time feature.",
+    "The decisive SOXX 0bp own-account, 2/5bp and independent forward gates remain unpassed."
+  ]
+}
