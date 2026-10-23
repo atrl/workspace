@@ -560,5 +560,8 @@
   "latest_read_only_Stage1_0bp_all_rolling_component_gap": "research/stage1_original_0bp_all_window_components_20261023/summary.json",
   "latest_read_only_Stage1_0bp_cash_layer_window_bound": "research/stage1_original_0bp_cash_layer_window_bound_20261023/summary.json",
   "latest_closed_source_gate_SOXX_Alpha_Vantage_historical_options": "research/stage1_alpha_vantage_soxx_option_history_preflight_20261023/summary.json",
-  "latest_source_limit_SOXX_IBKR_expired_option_history": "research/ibkr_soxx_option_skew_forward_source_20261022/historical_api_limit_addendum.json"
+  "latest_source_limit_SOXX_IBKR_expired_option_history": "research/ibkr_soxx_option_skew_forward_source_20261022/historical_api_limit_addendum.json",
+  "latest_source_gate_SOXX_ORATS_public_specific_sample": "research/stage1_orats_public_soxx_sample_20261023/summary.json",
+  "latest_option_vendor_source_path_decision": "research/soxx_option_vendor_sample_preflight_20261023/source_path_decision_20261023.json",
+  "latest_source_formula_SOXX_ORATS_public_25delta_30d": "research/stage1_orats_soxx_25delta_constructibility_20261023/summary.json"
 }

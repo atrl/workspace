@@ -1,0 +1,609 @@
+{
+  "decision": "ORATS_public_2024_SOXX_strike_chain_schema_verified_only",
+  "plan_sha256": "1be27ae71f2765bd8f031ed108a6c189d2cef02de23e421ce99297a8545b6b19",
+  "source_URL": "https://s3.amazonaws.com/assets.orats.com/ORATS_SMV_Strikes_20240103.zip",
+  "raw_ZIP_sha256": "e04a37310b0f453fedc03a000c55adfc517a119279150173916ebdc5fb514570",
+  "raw_ZIP_bytes": 66808802,
+  "members": [
+    {
+      "name": "ORATS_SMV_Strikes_20240103.csv",
+      "uncompressed_bytes": 222935113,
+      "compressed_bytes": 66808592
+    }
+  ],
+  "CSV_columns": [
+    "ticker",
+    "cOpra",
+    "pOpra",
+    "stkPx",
+    "expirDate",
+    "yte",
+    "strike",
+    "cVolu",
+    "cOi",
+    "pVolu",
+    "pOi",
+    "cBidPx",
+    "cValue",
+    "cAskPx",
+    "pBidPx",
+    "pValue",
+    "pAskPx",
+    "cBidIv",
+    "cMidIv",
+    "cAskIv",
+    "smoothSmvVol",
+    "pBidIv",
+    "pMidIv",
+    "pAskIv",
+    "iRate",
+    "divRate",
+    "residualRateData",
+    "delta",
+    "gamma",
+    "theta",
+    "vega",
+    "rho",
+    "phi",
+    "driftlessTheta",
+    "extVol",
+    "extCTheo",
+    "extPTheo",
+    "spot_px",
+    "trade_date"
+  ],
+  "CSV_rows_all_symbols": 716822,
+  "SOXX_strike_rows": 1124,
+  "SOXX_expirations": [
+    {
+      "expiry": "2024-01-19",
+      "calendar_days": 16,
+      "strike_rows": 131,
+      "call25": {
+        "valid_rows": 96,
+        "nearest": {
+          "strike": 565.0,
+          "call_delta": 0.226658,
+          "call_bid": 3.2,
+          "call_ask": 3.4,
+          "call_mid_iv": 0.22624,
+          "call_OPRA": "SOXX240119C00565000"
+        },
+        "lower": {
+          "strike": 565.0,
+          "call_delta": 0.226658,
+          "call_bid": 3.2,
+          "call_ask": 3.4,
+          "call_mid_iv": 0.22624,
+          "call_OPRA": "SOXX240119C00565000"
+        },
+        "upper": {
+          "strike": 560.0,
+          "call_delta": 0.288381,
+          "call_bid": 4.4,
+          "call_ask": 4.7,
+          "call_mid_iv": 0.22739,
+          "call_OPRA": "SOXX240119C00560000"
+        }
+      },
+      "put_minus25": {
+        "valid_rows": 76,
+        "nearest": {
+          "strike": 525.0,
+          "put_delta": -0.23470899999999995,
+          "put_bid": 4.0,
+          "put_ask": 4.2,
+          "put_mid_iv": 0.25245,
+          "put_OPRA": "SOXX240119P00525000"
+        },
+        "lower": {
+          "strike": 530.0,
+          "put_delta": -0.290798,
+          "put_bid": 5.2,
+          "put_ask": 5.4,
+          "put_mid_iv": 0.24687,
+          "put_OPRA": "SOXX240119P00530000"
+        },
+        "upper": {
+          "strike": 525.0,
+          "put_delta": -0.23470899999999995,
+          "put_bid": 4.0,
+          "put_ask": 4.2,
+          "put_mid_iv": 0.25245,
+          "put_OPRA": "SOXX240119P00525000"
+        }
+      }
+    },
+    {
+      "expiry": "2024-02-16",
+      "calendar_days": 44,
+      "strike_rows": 104,
+      "call25": {
+        "valid_rows": 96,
+        "nearest": {
+          "strike": 580.0,
+          "call_delta": 0.239598,
+          "call_bid": 6.1,
+          "call_ask": 6.4,
+          "call_mid_iv": 0.23431,
+          "call_OPRA": "SOXX240216C00580000"
+        },
+        "lower": {
+          "strike": 580.0,
+          "call_delta": 0.239598,
+          "call_bid": 6.1,
+          "call_ask": 6.4,
+          "call_mid_iv": 0.23431,
+          "call_OPRA": "SOXX240216C00580000"
+        },
+        "upper": {
+          "strike": 575.0,
+          "call_delta": 0.275406,
+          "call_bid": 7.4,
+          "call_ask": 7.7,
+          "call_mid_iv": 0.23605,
+          "call_OPRA": "SOXX240216C00575000"
+        }
+      },
+      "put_minus25": {
+        "valid_rows": 75,
+        "nearest": {
+          "strike": 515.0,
+          "put_delta": -0.24379700000000004,
+          "put_bid": 7.6,
+          "put_ask": 7.9,
+          "put_mid_iv": 0.26769,
+          "put_OPRA": "SOXX240216P00515000"
+        },
+        "lower": {
+          "strike": 520.0,
+          "put_delta": -0.27415900000000004,
+          "put_bid": 8.9,
+          "put_ask": 9.2,
+          "put_mid_iv": 0.26498,
+          "put_OPRA": "SOXX240216P00520000"
+        },
+        "upper": {
+          "strike": 515.0,
+          "put_delta": -0.24379700000000004,
+          "put_bid": 7.6,
+          "put_ask": 7.9,
+          "put_mid_iv": 0.26769,
+          "put_OPRA": "SOXX240216P00515000"
+        }
+      }
+    },
+    {
+      "expiry": "2024-03-15",
+      "calendar_days": 72,
+      "strike_rows": 108,
+      "call25": {
+        "valid_rows": 105,
+        "nearest": {
+          "strike": 595.0,
+          "call_delta": 0.238033,
+          "call_bid": 7.4,
+          "call_ask": 7.7,
+          "call_mid_iv": 0.23542,
+          "call_OPRA": "SOXX240315C00595000"
+        },
+        "lower": {
+          "strike": 595.0,
+          "call_delta": 0.238033,
+          "call_bid": 7.4,
+          "call_ask": 7.7,
+          "call_mid_iv": 0.23542,
+          "call_OPRA": "SOXX240315C00595000"
+        },
+        "upper": {
+          "strike": 590.0,
+          "call_delta": 0.264402,
+          "call_bid": 8.6,
+          "call_ask": 8.9,
+          "call_mid_iv": 0.23696,
+          "call_OPRA": "SOXX240315C00590000"
+        }
+      },
+      "put_minus25": {
+        "valid_rows": 87,
+        "nearest": {
+          "strike": 510.0,
+          "put_delta": -0.25148899999999996,
+          "put_bid": 10.6,
+          "put_ask": 10.9,
+          "put_mid_iv": 0.2737,
+          "put_OPRA": "SOXX240315P00510000"
+        },
+        "lower": {
+          "strike": 510.0,
+          "put_delta": -0.25148899999999996,
+          "put_bid": 10.6,
+          "put_ask": 10.9,
+          "put_mid_iv": 0.2737,
+          "put_OPRA": "SOXX240315P00510000"
+        },
+        "upper": {
+          "strike": 505.0,
+          "put_delta": -0.22827399999999998,
+          "put_bid": 9.4,
+          "put_ask": 9.7,
+          "put_mid_iv": 0.27655,
+          "put_OPRA": "SOXX240315P00505000"
+        }
+      }
+    },
+    {
+      "expiry": "2024-04-19",
+      "calendar_days": 107,
+      "strike_rows": 123,
+      "call25": {
+        "valid_rows": 118,
+        "nearest": {
+          "strike": 605.0,
+          "call_delta": 0.256605,
+          "call_bid": 10.1,
+          "call_ask": 10.5,
+          "call_mid_iv": 0.24022,
+          "call_OPRA": "SOXX240419C00605000"
+        },
+        "lower": {
+          "strike": 610.0,
+          "call_delta": 0.234281,
+          "call_bid": 9.1,
+          "call_ask": 9.4,
+          "call_mid_iv": 0.24011,
+          "call_OPRA": "SOXX240419C00610000"
+        },
+        "upper": {
+          "strike": 605.0,
+          "call_delta": 0.256605,
+          "call_bid": 10.1,
+          "call_ask": 10.5,
+          "call_mid_iv": 0.24022,
+          "call_OPRA": "SOXX240419C00605000"
+        }
+      },
+      "put_minus25": {
+        "valid_rows": 109,
+        "nearest": {
+          "strike": 505.0,
+          "put_delta": -0.25392400000000004,
+          "put_bid": 13.6,
+          "put_ask": 13.9,
+          "put_mid_iv": 0.27641,
+          "put_OPRA": "SOXX240419P00505000"
+        },
+        "lower": {
+          "strike": 505.0,
+          "put_delta": -0.25392400000000004,
+          "put_bid": 13.6,
+          "put_ask": 13.9,
+          "put_mid_iv": 0.27641,
+          "put_OPRA": "SOXX240419P00505000"
+        },
+        "upper": {
+          "strike": 500.0,
+          "put_delta": -0.234541,
+          "put_bid": 12.5,
+          "put_ask": 12.7,
+          "put_mid_iv": 0.27986,
+          "put_OPRA": "SOXX240419P00500000"
+        }
+      }
+    },
+    {
+      "expiry": "2024-06-21",
+      "calendar_days": 170,
+      "strike_rows": 130,
+      "call25": {
+        "valid_rows": 129,
+        "nearest": {
+          "strike": 630.0,
+          "call_delta": 0.249972,
+          "call_bid": 11.8,
+          "call_ask": 12.7,
+          "call_mid_iv": 0.24094,
+          "call_OPRA": "SOXX240621C00630000"
+        },
+        "lower": {
+          "strike": 630.0,
+          "call_delta": 0.249972,
+          "call_bid": 11.8,
+          "call_ask": 12.7,
+          "call_mid_iv": 0.24094,
+          "call_OPRA": "SOXX240621C00630000"
+        },
+        "upper": {
+          "strike": 625.0,
+          "call_delta": 0.266283,
+          "call_bid": 12.9,
+          "call_ask": 13.8,
+          "call_mid_iv": 0.24167,
+          "call_OPRA": "SOXX240621C00625000"
+        }
+      },
+      "put_minus25": {
+        "valid_rows": 126,
+        "nearest": {
+          "strike": 495.0,
+          "put_delta": -0.249892,
+          "put_bid": 16.9,
+          "put_ask": 17.5,
+          "put_mid_iv": 0.28138,
+          "put_OPRA": "SOXX240621P00495000"
+        },
+        "lower": {
+          "strike": 500.0,
+          "put_delta": -0.26556500000000005,
+          "put_bid": 18.2,
+          "put_ask": 18.8,
+          "put_mid_iv": 0.27886,
+          "put_OPRA": "SOXX240621P00500000"
+        },
+        "upper": {
+          "strike": 495.0,
+          "put_delta": -0.249892,
+          "put_bid": 16.9,
+          "put_ask": 17.5,
+          "put_mid_iv": 0.28138,
+          "put_OPRA": "SOXX240621P00495000"
+        }
+      }
+    },
+    {
+      "expiry": "2024-07-19",
+      "calendar_days": 198,
+      "strike_rows": 123,
+      "call25": {
+        "valid_rows": 106,
+        "nearest": {
+          "strike": 635.0,
+          "call_delta": 0.245718,
+          "call_bid": 12.6,
+          "call_ask": 14.1,
+          "call_mid_iv": 0.2399,
+          "call_OPRA": "SOXX240719C00635000"
+        },
+        "lower": {
+          "strike": 635.0,
+          "call_delta": 0.245718,
+          "call_bid": 12.6,
+          "call_ask": 14.1,
+          "call_mid_iv": 0.2399,
+          "call_OPRA": "SOXX240719C00635000"
+        },
+        "upper": {
+          "strike": 630.0,
+          "call_delta": 0.260525,
+          "call_bid": 10.5,
+          "call_ask": 16.3,
+          "call_mid_iv": 0.23199,
+          "call_OPRA": "SOXX240719C00630000"
+        }
+      },
+      "put_minus25": {
+        "valid_rows": 114,
+        "nearest": {
+          "strike": 495.0,
+          "put_delta": -0.25119400000000003,
+          "put_bid": 15.6,
+          "put_ask": 19.5,
+          "put_mid_iv": 0.2689,
+          "put_OPRA": "SOXX240719P00495000"
+        },
+        "lower": {
+          "strike": 495.0,
+          "put_delta": -0.25119400000000003,
+          "put_bid": 15.6,
+          "put_ask": 19.5,
+          "put_mid_iv": 0.2689,
+          "put_OPRA": "SOXX240719P00495000"
+        },
+        "upper": {
+          "strike": 490.0,
+          "put_delta": -0.237684,
+          "put_bid": 13.6,
+          "put_ask": 18.3,
+          "put_mid_iv": 0.26806,
+          "put_OPRA": "SOXX240719P00490000"
+        }
+      }
+    },
+    {
+      "expiry": "2024-09-20",
+      "calendar_days": 261,
+      "strike_rows": 130,
+      "call25": {
+        "valid_rows": 125,
+        "nearest": {
+          "strike": 660.0,
+          "call_delta": 0.243791,
+          "call_bid": 13.3,
+          "call_ask": 15.7,
+          "call_mid_iv": 0.23984,
+          "call_OPRA": "SOXX240920C00660000"
+        },
+        "lower": {
+          "strike": 660.0,
+          "call_delta": 0.243791,
+          "call_bid": 13.3,
+          "call_ask": 15.7,
+          "call_mid_iv": 0.23984,
+          "call_OPRA": "SOXX240920C00660000"
+        },
+        "upper": {
+          "strike": 655.0,
+          "call_delta": 0.256655,
+          "call_bid": 15.6,
+          "call_ask": 18.1,
+          "call_mid_iv": 0.24943,
+          "call_OPRA": "SOXX240920C00655000"
+        }
+      },
+      "put_minus25": {
+        "valid_rows": 118,
+        "nearest": {
+          "strike": 490.0,
+          "put_delta": -0.24899700000000002,
+          "put_bid": 19.9,
+          "put_ask": 23.3,
+          "put_mid_iv": 0.27886,
+          "put_OPRA": "SOXX240920P00490000"
+        },
+        "lower": {
+          "strike": 495.0,
+          "put_delta": -0.261049,
+          "put_bid": 22.3,
+          "put_ask": 24.8,
+          "put_mid_iv": 0.28089,
+          "put_OPRA": "SOXX240920P00495000"
+        },
+        "upper": {
+          "strike": 490.0,
+          "put_delta": -0.24899700000000002,
+          "put_bid": 19.9,
+          "put_ask": 23.3,
+          "put_mid_iv": 0.27886,
+          "put_OPRA": "SOXX240920P00490000"
+        }
+      }
+    },
+    {
+      "expiry": "2025-01-17",
+      "calendar_days": 380,
+      "strike_rows": 145,
+      "call25": {
+        "valid_rows": 145,
+        "nearest": {
+          "strike": 690.0,
+          "call_delta": 0.252398,
+          "call_bid": 13.6,
+          "call_ask": 19.8,
+          "call_mid_iv": 0.23225,
+          "call_OPRA": "SOXX250117C00690000"
+        },
+        "lower": {
+          "strike": 695.0,
+          "call_delta": 0.241702,
+          "call_bid": 12.1,
+          "call_ask": 17.8,
+          "call_mid_iv": 0.22657,
+          "call_OPRA": "SOXX250117C00695000"
+        },
+        "upper": {
+          "strike": 690.0,
+          "call_delta": 0.252398,
+          "call_bid": 13.6,
+          "call_ask": 19.8,
+          "call_mid_iv": 0.23225,
+          "call_OPRA": "SOXX250117C00690000"
+        }
+      },
+      "put_minus25": {
+        "valid_rows": 128,
+        "nearest": {
+          "strike": 485.0,
+          "put_delta": -0.249842,
+          "put_bid": 27.3,
+          "put_ask": 29.2,
+          "put_mid_iv": 0.28581,
+          "put_OPRA": "SOXX250117P00485000"
+        },
+        "lower": {
+          "strike": 490.0,
+          "put_delta": -0.261089,
+          "put_bid": 27.3,
+          "put_ask": 31.1,
+          "put_mid_iv": 0.28113,
+          "put_OPRA": "SOXX250117P00490000"
+        },
+        "upper": {
+          "strike": 485.0,
+          "put_delta": -0.249842,
+          "put_bid": 27.3,
+          "put_ask": 29.2,
+          "put_mid_iv": 0.28581,
+          "put_OPRA": "SOXX250117P00485000"
+        }
+      }
+    },
+    {
+      "expiry": "2026-01-16",
+      "calendar_days": 744,
+      "strike_rows": 130,
+      "call25": {
+        "valid_rows": 130,
+        "nearest": {
+          "strike": 780.0,
+          "call_delta": 0.249753,
+          "call_bid": 22.1,
+          "call_ask": 28.1,
+          "call_mid_iv": 0.2411,
+          "call_OPRA": "SOXX260116C00780000"
+        },
+        "lower": {
+          "strike": 780.0,
+          "call_delta": 0.249753,
+          "call_bid": 22.1,
+          "call_ask": 28.1,
+          "call_mid_iv": 0.2411,
+          "call_OPRA": "SOXX260116C00780000"
+        },
+        "upper": {
+          "strike": 775.0,
+          "call_delta": 0.255685,
+          "call_bid": 20.3,
+          "call_ask": 27.6,
+          "call_mid_iv": 0.23321,
+          "call_OPRA": "SOXX260116C00775000"
+        }
+      },
+      "put_minus25": {
+        "valid_rows": 124,
+        "nearest": {
+          "strike": 470.0,
+          "put_delta": -0.24899800000000005,
+          "put_bid": 40.0,
+          "put_ask": 44.2,
+          "put_mid_iv": 0.29877,
+          "put_OPRA": "SOXX260116P00470000"
+        },
+        "lower": {
+          "strike": 475.0,
+          "put_delta": -0.256092,
+          "put_bid": 39.7,
+          "put_ask": 47.0,
+          "put_mid_iv": 0.29624,
+          "put_OPRA": "SOXX260116P00475000"
+        },
+        "upper": {
+          "strike": 470.0,
+          "put_delta": -0.24899800000000005,
+          "put_bid": 40.0,
+          "put_ask": 44.2,
+          "put_mid_iv": 0.29877,
+          "put_OPRA": "SOXX260116P00470000"
+        }
+      }
+    }
+  ],
+  "SOXX_valid_call_quote_IV_Delta_rows": 1050,
+  "SOXX_valid_put_quote_IV_Delta_rows": 957,
+  "30_day_bracketing_tenors": [
+    16,
+    44
+  ],
+  "ORATS_delta_interpretation": "CSV delta is call Delta; vendor says put Delta equals call Delta minus 1.",
+  "delta_definition_source": "https://orats.com/near-eod-data",
+  "sample_date": "2024-01-03",
+  "2011_SOXX_specific_coverage_qualified": false,
+  "historical_first_delivery_qualified": false,
+  "full_calendar_missingness_qualified": false,
+  "25delta_full_history_feature_qualified": false,
+  "HEAD_requests": 1,
+  "GET_requests": 1,
+  "purchases": 0,
+  "SOXX_market_outcome_reads": 0,
+  "model_fits": 0,
+  "native_accounts": 0
+}

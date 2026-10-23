@@ -1,0 +1,56 @@
+{
+  "schema_version": 1,
+  "status": "SOXX_2011_2026_25delta_history_still_needs_specific_entitled_vendor_sample",
+  "Stage1_required_start": "2011-01-03",
+  "candidate_fixed_field": "approximately30day IV(put delta=-0.25) minus IV(call delta=+0.25), with contemporaneous bid/ask, expiration, strike, quote and delivery clocks",
+  "paths": [
+    {
+      "source": "IBKR TWS API",
+      "status": "live_SOXX_IV_Delta_verified_historical_expired_contracts_unavailable",
+      "evidence": "research/ibkr_soxx_option_skew_forward_source_20261022/historical_api_limit_addendum.json",
+      "official_reference": "https://www.interactivebrokers.com/docs/tws-api/doc/md/introduction",
+      "2011_training_path": false
+    },
+    {
+      "source": "Alpha Vantage HISTORICAL_OPTIONS existing key",
+      "status": "premium_entitlement_denied_HTTP200_information_only",
+      "evidence": "research/stage1_alpha_vantage_soxx_option_history_preflight_20261023/result.json",
+      "official_reference": "https://www.alphavantage.co/documentation/#historical-options",
+      "2011_training_path": false
+    },
+    {
+      "source": "Cboe Option Quote Intervals with Calcs",
+      "status": "product_starts_2012_and_public_sample_not_SOXX_specific",
+      "evidence": "research/soxx_option_vendor_sample_preflight_20261023/summary.json",
+      "official_reference": "https://datashop.cboe.com/option-quote-intervals",
+      "2011_training_path": false
+    },
+    {
+      "source": "Nasdaq Data Link ORATS OSMV",
+      "status": "product_starts_2013",
+      "official_reference": "https://data.nasdaq.com/databases/OSMV",
+      "2011_training_path": false
+    },
+    {
+      "source": "ORATS direct Delayed Data API / archive",
+      "status": "public_2024_SOXX_strike_chain_schema_verified_2011_2022_coverage_and_delivery_unproven",
+      "evidence": "research/soxx_option_vendor_sample_preflight_20261023/orats_inquiry_draft.md",
+      "official_reference": "https://orats.com/data-api",
+      "2011_training_path": null,
+      "public_SOXX_sample": "research/stage1_orats_public_soxx_sample_20261023/summary.json",
+      "sample_formula_preflight": "research/stage1_orats_soxx_25delta_constructibility_20261023/summary.json"
+    }
+  ],
+  "sample_acceptance": [
+    "SOXX-specific original chain for predeclared 2011, 2012, 2017, 2022 and 2024 stress/control sessions; no generic AAPL/SPX/SPY substitution.",
+    "Both 25Delta call and put brackets near30 calendar days on same dated snapshot, with bid/ask, IV, signed Delta, strike, expiration and underlying reference.",
+    "Quote timestamp and earliest vendor delivery before next Stage1 09:46 decision; revisions, split-adjusted contract identity and missingness across full train/held calendars.",
+    "Clear entitlement, raw-byte export, NAS backup and post-cancellation research retention rights."
+  ],
+  "next_external_action": "Send the drafted ORATS no-purchase sample inquiry only after explicit user authorization. Do not buy data or fit until sample/coverage/timing pass.",
+  "user_contact_authorization": "pending_reply",
+  "purchases": 0,
+  "SOXX_market_outcome_reads": 0,
+  "model_fits": 0,
+  "native_accounts": 0
+}

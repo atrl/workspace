@@ -1,0 +1,12 @@
+{
+  "sha256": "a91c6d1ba2b1f703ceabbadfb6eb67d551283e2b7cbaba12917e7d4432b353d6",
+  "size_bytes": 66828503,
+  "nas_path": "/volume1/docker/yanxuan/registry/research-artifacts/a9/1c/a91c6d1ba2b1f703ceabbadfb6eb67d551283e2b7cbaba12917e7d4432b353d6",
+  "members": {
+    "data/snapshots/stage1_orats_public_soxx_sample_20261023/ORATS_SMV_Strikes_20240103.zip": "e04a37310b0f453fedc03a000c55adfc517a119279150173916ebdc5fb514570",
+    "research/stage1_orats_public_soxx_sample_20261023/plan.json": "1be27ae71f2765bd8f031ed108a6c189d2cef02de23e421ce99297a8545b6b19",
+    "research/stage1_orats_public_soxx_sample_20261023/head_receipt.json": "5570caac82c571cd0a174a9ccd67a34eaa12a32322b992525dd514f1aff751aa",
+    "research/stage1_orats_public_soxx_sample_20261023/source_audit.json": "ff8e4d6aa17774daa88659150aca5f7b4f1f1a01504cb2dc7ae7fe185a090a3b"
+  },
+  "remote_and_scoped_restore_verified": true
+}

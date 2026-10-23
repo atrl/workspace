@@ -1,0 +1,33 @@
+{
+  "schema_version": 1,
+  "frozen": true,
+  "experiment": "stage1_orats_public_soxx_sample_20261023",
+  "phase": "source_only_free_ORATS_near_EOD_20240103_public_sample_SOXX_chain_preflight",
+  "question": "Does ORATS official publicly downloadable near-EOD sample contain a real SOXX strike-level chain with bid/ask, IV and signed Delta and enough 25Delta put/call brackets near30 days, without vendor contact or purchase?",
+  "official_source_page": "https://orats.com/university/historical-data",
+  "exact_sample_url": "https://s3.amazonaws.com/assets.orats.com/ORATS_SMV_Strikes_20240103.zip",
+  "sample_date": "2024-01-03",
+  "budget": {
+    "HEAD_requests": 1,
+    "GET_requests_max": 1,
+    "retry": 0,
+    "max_compressed_bytes": 150000000,
+    "purchases": 0,
+    "SOXX_market_outcome_reads": 0,
+    "model_fits": 0,
+    "native_accounts": 0
+  },
+  "fixed_checks": [
+    "HEAD status/Content-Length and final URL; stop without GET if sample exceeds 150MB or redirects off expected ORATS S3 sample.",
+    "After one GET, preserve exact ZIP SHA256 and member names; count SOXX strike rows and relevant columns.",
+    "For SOXX, count call and put rows with finite positive bid/ask, IV and signed Delta; check expirations around 30 calendar days and nearest brackets to call +0.25/put -0.25.",
+    "A 2024 public sample cannot prove 2011 coverage, nightly delivery timing, quote revision stability, contract-adjustment consistency, or full-calendar missingness.",
+    "Archive exact raw sample and receipt to Yanxuan NAS with remote hash and scoped restore."
+  ],
+  "stop": "No purchase, email, model, Qlib factor or account. If absent SOXX or invalid Greeks, close this sample route; if present, use it only to sharpen the vendor historical-sample request.",
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": []
+  }
+}

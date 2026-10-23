@@ -1,0 +1,28 @@
+{
+  "decision": "single_day_SOXX_25delta_30d_skew_constructible_source_only",
+  "plan_sha256": "832345da475766e1b4924685505656a86d41eaf057003528561236e145a4521a",
+  "source_audit_sha256": "ff8e4d6aa17774daa88659150aca5f7b4f1f1a01504cb2dc7ae7fe185a090a3b",
+  "sample_date": "2024-01-03",
+  "tenor_brackets_days": [
+    16,
+    44
+  ],
+  "tenor_interpolation_weight": 0.5,
+  "call_25delta_mid_IV_by_tenor": {
+    "16d": 0.2266748994702137,
+    "44d": 0.2348154591152815
+  },
+  "put_minus25delta_mid_IV_by_tenor": {
+    "16d": 0.2509287787266665,
+    "44d": 0.26713634312627627
+  },
+  "call_25delta_30d_mid_IV": 0.2307451792927476,
+  "put_minus25delta_30d_mid_IV": 0.2590325609264714,
+  "put_minus_call_30d_IV_decimal": 0.028287381633723824,
+  "put_minus_call_30d_IV_vol_percentage_points": 2.8287381633723823,
+  "source_2011_coverage_qualified": false,
+  "historical_first_delivery_qualified": false,
+  "market_outcomes_read": 0,
+  "model_fits": 0,
+  "native_accounts": 0
+}

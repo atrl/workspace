@@ -1,0 +1,35 @@
+{
+  "schema_version": 1,
+  "frozen": true,
+  "experiment": "stage1_orats_soxx_25delta_constructibility_20261023",
+  "phase": "source_only_20240103_SOXX_25delta_30calendar_day_IV_skew_formula_preflight",
+  "purpose": "Prove a deterministic 25Delta near30d formula can be calculated from one already NAS-backed authentic SOXX ORATS sample; no predictive or economic evaluation.",
+  "source": {
+    "card": "research/stage1_orats_public_soxx_sample_20261023",
+    "audit_sha256": "ff8e4d6aa17774daa88659150aca5f7b4f1f1a01504cb2dc7ae7fe185a090a3b",
+    "audit_artifact": "source_audit.json",
+    "NAS_archive_sha256": "a91c6d1ba2b1f703ceabbadfb6eb67d551283e2b7cbaba12917e7d4432b353d6"
+  },
+  "formula": {
+    "call_delta_target": 0.25,
+    "put_delta_target": -0.25,
+    "tenor_calendar_days": 30,
+    "within_expiry": "linear interpolate cMidIv at call delta +0.25 and pMidIv at put delta -0.25 using the two valid quote/IV rows whose deltas bracket each target",
+    "across_expiry": "linear interpolate each side IV between the nearest one expiry below and one above 30 calendar days",
+    "skew": "put_25delta_30d_mid_IV minus call_25delta_30d_mid_IV; IV decimal and also report vol percentage points",
+    "no_extrapolation": true
+  },
+  "budget": {
+    "external_GETs": 0,
+    "raw_ZIP_restores": 0,
+    "SOXX_future_outcome_reads": 0,
+    "model_fits": 0,
+    "native_accounts": 0
+  },
+  "stop": "Stop if any bracket/IV/quote invalid or no two tenors bracket30. A valid one-day number is not a factor history or model/account pass.",
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": []
+  }
+}

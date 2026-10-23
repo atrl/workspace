@@ -1,0 +1,20 @@
+{
+  "experiment": "stage1_orats_soxx_25delta_constructibility_20261023",
+  "decision": "single_day_SOXX_25delta_30d_skew_constructible_source_only",
+  "objective_achieved": false,
+  "plan_sha256": "832345da475766e1b4924685505656a86d41eaf057003528561236e145a4521a",
+  "result": "result.json",
+  "source_NAS_sha256": "a91c6d1ba2b1f703ceabbadfb6eb67d551283e2b7cbaba12917e7d4432b353d6",
+  "model_fits": 0,
+  "native_accounts": 0,
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": []
+  },
+  "limitations": [
+    "One 2024 sample calculation is not historical factor coverage, predictive skill or a Stage1 fee-net account.",
+    "ORATS CSV has date but not historical first delivery timestamps.",
+    "No 2011-specific chain or full-calendar missingness demonstrated."
+  ]
+}

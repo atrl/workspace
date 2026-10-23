@@ -1,0 +1,24 @@
+{
+  "experiment": "stage1_orats_public_soxx_sample_20261023",
+  "decision": "ORATS_public_2024_SOXX_strike_chain_schema_verified_only",
+  "objective_achieved": false,
+  "plan_sha256": "1be27ae71f2765bd8f031ed108a6c189d2cef02de23e421ce99297a8545b6b19",
+  "source_audit": "source_audit.json",
+  "source_archive": "nas_source_archive.json",
+  "SOXX_strike_rows": 1124,
+  "SOXX_valid_call_rows": 1050,
+  "SOXX_valid_put_rows": 957,
+  "2011_SOXX_specific_coverage_qualified": false,
+  "model_fits": 0,
+  "native_accounts": 0,
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": []
+  },
+  "limitations": [
+    "Single 2024 near-EOD sample only; 2011 SOXX history and delivery clock not proven.",
+    "The paired-strike delta column is call delta; put delta is reconstructed per vendor definition.",
+    "No historical factor, model or fee-net account."
+  ]
+}
