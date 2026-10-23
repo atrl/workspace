@@ -1,0 +1,19 @@
+{
+  "experiment": "kcs_early20_semiconductor_source_20261023",
+  "decision": "needs_source_validation",
+  "objective_achieved": false,
+  "plan_sha256": "f82e4e64b5002cb76375e277a7c2a90de4f758e8c351566be3d48b86daf10543",
+  "result": "result.json",
+  "source_receipts": "response_receipts.json",
+  "source_archive_receipt": "source_archive_receipt.json",
+  "source_NAS_sha256": "91a1a3052b13f598e26548fb88a15c95be279f17618a74f129715aab066c4db0",
+  "source_NAS_scoped_restore_verified": true,
+  "market_outcome_reads": 0,
+  "model_fits": 0,
+  "native_accounts": 0,
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": []
+  }
+}

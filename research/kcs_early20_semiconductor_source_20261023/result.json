@@ -1,0 +1,27 @@
+{
+  "status": "needs_source_validation",
+  "observation_period": "2026-10-01..2026-10-20",
+  "KCS_page_registered_date": "2026-10-21",
+  "actual_first_receipt_utc": "2026-10-23T00:34:51.196293+00:00",
+  "GETs": 4,
+  "page_checks": {
+    "KCS_article": {
+      "oct_1_20": false,
+      "registered_oct21": false,
+      "semiconductor_275_hundred_million_usd": false
+    },
+    "government_portal_mirror": {
+      "oct_1_20": true,
+      "registered_oct21": true,
+      "semiconductor_275_hundred_million_usd": true
+    }
+  },
+  "KCS_PDF_valid_header": false,
+  "semiconductor_amount_hundred_million_USD_visible": null,
+  "historical_first_public_bytes_qualified": false,
+  "strategy_forward_day_qualified": false,
+  "market_outcome_reads": 0,
+  "model_fits": 0,
+  "native_accounts": 0,
+  "interpretation": "Exact current official source bytes observed after the registered release and before the frozen full-month November capture; this is a source-only prior baseline, not a qualified historical signal or SOXX result."
+}

@@ -1,0 +1,19 @@
+{
+  "schema_version": 1,
+  "experiment": "kcs_early20_semiconductor_source_20261023",
+  "frozen": true,
+  "phase": "one_source_only_2026_10_early20_current_receipt",
+  "hypothesis": "The separately published Korean Customs 1-20 day semiconductor export provisional figure may provide a decision-time baseline for the later national full-month release. The difference could be a distinct demand-surprise coordinate, but this card only captures its source before the full-month release.",
+  "source_urls": {
+    "KCS_article": "https://customs.go.kr/kcs/na/ntt/selectNttInfo.do?bbsId=1362&mi=2891&nttSn=10180465&nttSnUrl=3b279b0d8ae0387ac138c4741fb65b67",
+    "KCS_PDF": "https://customs.go.kr/common/nttFileDownload.do?fileKey=8e52ff3b420933f48fead4e199333669",
+    "government_portal_mirror": "https://m.korea.kr/briefing/pressReleaseView.do?newsId=156785926",
+    "KCS_previous_year_article": "https://www.customs.go.kr/kcs/na/ntt/selectNttInfo.do?nttSn=10152103&nttSnUrl=ee3c10253555db2b7ab2f1359e843fd6"
+  },
+  "known_visible_identity": "KCS page registered 2026-10-21 for observation 2026-10-01..2026-10-20; page visibly states semiconductor exports 275 hundred-million USD. This is discovery only until exact captured bytes are verified. 2025 page is a comparison identity, not a historical first-public certification.",
+  "transport": "One exact GET per frozen URL, one response body and headers per request, 20 second timeout, no retries. Record actual UTC start/end, HTTP status, final URL, headers, byte length and SHA-256 even on HTTP errors. Preserve any received body.",
+  "acceptance": "Require current KCS article and government mirror both identify the same 1-20 October 2026 observation, KCS registration date, and semiconductor amount. PDF must be valid PDF bytes for later table review; do not infer its numeric cells from filename. Report response mismatch or unknown. Current receipt cannot retroactively establish first-public October 21 bytes or historical coverage.",
+  "scientific_boundary": "No market outcome, SOXX price, fitted model, strategy account, order, subscription, or qualified strategy forward day. Existing frozen November 1 Korean full-month publication plan remains separate; do not fetch that future release in this phase.",
+  "budget": {"HTTP_GETs_total": 4, "retry_GETs": 0, "market_outcome_reads": 0, "model_fits": 0, "native_accounts": 0, "NAS_source_archives": 1},
+  "stop": "If transport fails, retain exact response/error and stop interpretation of that source. Do not substitute a different URL or refetch. If NAS receipt or scoped readback fails, preserve local bytes and report the gap."
+}

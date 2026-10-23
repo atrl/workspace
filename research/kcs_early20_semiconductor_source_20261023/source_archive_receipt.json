@@ -1,0 +1,28 @@
+{
+  "status": "uploaded_exact_source_bundle",
+  "archive_sha256": "91a1a3052b13f598e26548fb88a15c95be279f17618a74f129715aab066c4db0",
+  "archive_bytes": 41586,
+  "entries": {
+    "data/snapshots/kcs_early20_semiconductor_source_20261023/KCS_PDF.body": "19b843cc92cb12aa314bb3c3913b2feeb852e85969bf06cb9d096931bfda34ba",
+    "data/snapshots/kcs_early20_semiconductor_source_20261023/KCS_PDF.headers": "a0775241a84c7e9b3b3415c8beab65d290967b0fb6bf8df82960eaa011b220ce",
+    "data/snapshots/kcs_early20_semiconductor_source_20261023/KCS_article.body": "19b843cc92cb12aa314bb3c3913b2feeb852e85969bf06cb9d096931bfda34ba",
+    "data/snapshots/kcs_early20_semiconductor_source_20261023/KCS_article.headers": "a86d36c6bc361663203cce7fb1219a1ba8c2c329e5a8ab2678bc80bd0f7fdaa5",
+    "data/snapshots/kcs_early20_semiconductor_source_20261023/KCS_previous_year_article.headers": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "data/snapshots/kcs_early20_semiconductor_source_20261023/government_portal_mirror.body": "2e325e024bc7cd1c7ed53bd8adca9ef3eda266c11339fd48ecf89bac867926ab",
+    "data/snapshots/kcs_early20_semiconductor_source_20261023/government_portal_mirror.headers": "3199a0a2eddc897b48a654970b67fe842e24372a801ef2f4d7a803abe471b1d3",
+    "research/kcs_early20_semiconductor_source_20261023/plan.json": "f82e4e64b5002cb76375e277a7c2a90de4f758e8c351566be3d48b86daf10543",
+    "research/kcs_early20_semiconductor_source_20261023/response_receipts.json": "4c736b4b4d9f85c6307163b98a42536a52c7662bc07573d10b87b723dfdf843a"
+  },
+  "nas_artifact": {
+    "sha256": "91a1a3052b13f598e26548fb88a15c95be279f17618a74f129715aab066c4db0",
+    "size_bytes": 41586,
+    "media_type": "application/gzip",
+    "storage_uri": "sha256/91/a1/91a1a3052b13f598e26548fb88a15c95be279f17618a74f129715aab066c4db0",
+    "uploaded_by": "soxl-minute-research",
+    "created_at": "2026-10-23 08:35:05.23538+08",
+    "duplicate": false
+  },
+  "nas_path": "/volume1/docker/yanxuan/registry/research-artifacts/91/a1/91a1a3052b13f598e26548fb88a15c95be279f17618a74f129715aab066c4db0",
+  "remote_hash_verified": true,
+  "scoped_restore_verified": true
+}
