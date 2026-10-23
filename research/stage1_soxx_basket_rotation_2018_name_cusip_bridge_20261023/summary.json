@@ -1,0 +1,16 @@
+{
+  "experiment": "stage1_soxx_basket_rotation_2018_name_cusip_bridge_20261023",
+  "decision": "failed_pre_result_wrong_first_NPORT_period",
+  "objective_achieved": false,
+  "plan_sha256": "f27c7b4a71c1c648b67dbc5c88567a96fff4081bdc07090124cbad4bb7e490bf",
+  "failure": "failure.json",
+  "source_Recorder_load_attempts": 1,
+  "market_outcome_reads": 0,
+  "model_fits": 0,
+  "native_accounts": 0,
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": []
+  }
+}

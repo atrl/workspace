@@ -1,0 +1,14 @@
+{
+  "status": "failed_before_identity_result",
+  "plan_sha256": "f27c7b4a71c1c648b67dbc5c88567a96fff4081bdc07090124cbad4bb7e490bf",
+  "code_cell_sha256": "ee44a27c7d288734ed56f423dbe2c010331153b1f47b648d2d202acf5404c08b",
+  "failed_assertion": "expected first N-PORT report period 2018-12-31",
+  "actual_first_NPORT_period_from_pinned_original_XML_plan": "2019-09-30",
+  "reason": "The 2018-12 and 2019-03 original reports are legacy forms in a separate source result, not first N-PORT.",
+  "source_Recorder_object_load_attempts": 1,
+  "external_HTTP_GETs": 0,
+  "market_outcome_reads": 0,
+  "model_fits": 0,
+  "native_accounts": 0,
+  "next_action": "Freeze a separate source-period repair using last 2019-03 legacy original result and first 2019-09 N-PORT, preserving gap and no implied adjacent quarter."
+}

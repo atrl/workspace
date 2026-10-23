@@ -1,0 +1,35 @@
+{
+  "schema_version": 1,
+  "frozen": true,
+  "experiment": "stage1_soxx_basket_rotation_2018_name_cusip_bridge_20261023",
+  "phase": "source_only_Sep2018_legacy_name_to_first_NPORT_CUSIP_bridge",
+  "question": "Can the last original-name SOXX 2018-09 basket be matched conservatively to the first original N-PORT basket and stable CUSIPs, allowing a later full-period basket-rotation mechanism distinct from closed static concentration?",
+  "sources": {
+    "legacy_2018_Sep_result": "research/stage1_soxx_2018_sep_concentration_20261023/result.json",
+    "legacy_result_sha256": "aa6bc271cbebbf4ea62f252793970faedb628696c4145b6004ccce5e5f418b65",
+    "modern_card": "research/stage1_soxx_2019_2022_nport_equity_concentration_20261023",
+    "modern_summary_sha256": "533a680456b0e7b33b36f27a75498a6aed6a5e1b3cf2ded79821e978830819e0",
+    "modern_member_rows_artifact_sha256": "ab8e0aac17715b82eaa6ccda5c167380ec127981b91910644b48dd69c0b98b2b",
+    "legacy_footnote_repair_result_sha256": "d4fdfe581f68330a5bc56edfd5a5a2429917f9e08889ba99aaa84a2efa8e5c4d"
+  },
+  "method": [
+    "Load the saved original 2018-09 30-row result and exactly one Qlib Recorder member_rows object from the earliest original N-PORT report.",
+    "Apply the frozen footnote-and-punctuation normalization from the 2011-2018 syntax repair, preserving Class A/B; no fuzzy matching, CUSIP invention or reweighting.",
+    "Report exact name intersection, matched unique original CUSIPs, placeholders and unmatched original names on both sides.",
+    "Modern N-PORT 2019-2022 per-row CUSIP availability is reported separately; no market outcomes read."
+  ],
+  "budget": {
+    "source_Recorder_object_loads": 1,
+    "legacy_result_loads": 1,
+    "external_HTTP_GETs": 0,
+    "market_outcome_reads": 0,
+    "model_fits": 0,
+    "native_accounts": 0
+  },
+  "stop": "If report periods or source hashes mismatch, stop. Any unmatched/placeholder identity remains unknown; source bridge alone does not authorize a weighted turnover factor, Qlib information fit or 0bp account.",
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": []
+  }
+}
