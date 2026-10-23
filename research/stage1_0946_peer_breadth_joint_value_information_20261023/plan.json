@@ -1,0 +1,70 @@
+{
+  "experiment": "stage1_0946_peer_breadth_joint_value_information_20261023",
+  "frozen": true,
+  "phase": "conditional_0946_joint_cash_cap_local_fee_net_value_information",
+  "parent": "Frozen complete f696 allocator plus b472 action/risk/recovery remains the only later 2023+ economic parent; this card uses the saved original-architecture 2018-2022 0bp Tiered OOF reference as a training scaffold only",
+  "hypothesis": "At the 09:46 ET opening action decision, a larger fraction of AMD/NVDA/SMH rising from the completed 09:35 open to the completed 09:45 bar indicates broad semiconductor participation and higher next-session fee-net value of deploying up to 0.10 cash into SOXX with the already frozen own-cap rule. The added standardized coefficient must be positive after same-day SOXX/SOXL early-return controls.",
+  "distinctness": "The previously closed peer-breadth screens used either next-day 09:29 H5 allocation prediction or 10:32 beta0.6 recovery/HOLD value. This fixed receiver instead predicts the already saved 09:46 joint cash-plus-cap-release physical local net value; it does not change the old feature definition, add news, or reuse those failed labels.",
+  "source": {
+    "local_label_card": "research/stage1_joint_cash_cap_soxx_0bp_local_value_20261023",
+    "local_label_summary_sha256": "c065da30e80dc08cdb67670d94e6ef24411020363d8727e762bfbb7069e7a4eb",
+    "local_label_recorder_id": "dd91c4770a354dfe8dc275774e249020",
+    "local_label_experiment_id": "576312232090536744",
+    "local_label_NAS_sha256": "a823704afb3ab532d5d954ba126aac5d6528c85bacbd2c79ee4f6a9aae4d15c4",
+    "local_label_artifact_sha256": "f5f9709885b2c7de346caf8efe4b3bb37ab90dd24a807c5c86d7bc59d7eee8c2",
+    "training_reference_card": "research/stage1_signed_volume_0bp_action_label_source_20261023",
+    "training_reference_summary_sha256": "ce6652a6323ec9bd11a8ce8de89239cba167a53bedb50e471080006a1a89f476",
+    "training_reference_recorder_id": "3663a1e073f042e383dbcf54969a9bc2",
+    "training_reference_experiment_id": "194705746221035167",
+    "training_reference_NAS_sha256": "73e1f3d1bdb567a9906e34a5216052ab9ab22e36ff9f06d5aac8a7d083b425eb",
+    "training_frame_artifact_sha256": "fc81f9342955aa17dc584a6587f325af39fc3731490f32a486e8fb121a095d6d",
+    "training_path_artifact_sha256": "eb6403c99304be47572635ae3a71494ddd5ce9a96c7e3e361cf5c38f76ffa4e5",
+    "peer_card": "research/stage1_0946_peer_breadth_source_20261023",
+    "peer_summary_sha256": "8021f11bf536663af0e89cba75a29dc838ff074b8e5c8d172165a46fcf07ab99",
+    "peer_recorder_id": "e7312100d7274be7aca700754c900f0a",
+    "peer_experiment_id": "196089799793003852",
+    "peer_NAS_sha256": "3947e13dfd1decd685992063a2d13cad3144cef2b9ec831df6c9cdcc5e373120",
+    "peer_daily_artifact_sha256": "bc4e09a33737230422065cc4835a3e646c215b163e7a1127497dbbaed1f742a2",
+    "original39_parent_summary_sha256": "61c91f958323cf51b43f4b1554eeca5687011d30771e80bc7ff02d16b6d577ca",
+    "provider_uri": "data/qlib/minute_information_pit_allocator_20261012/daily_prices",
+    "provider_manifest_sha256": "d80a08d479b73098053006909b5e6227b03a56ab705681742d7261088e0a7e6c",
+    "bootstrap_module_sha256": "02705f897e668b710a38aae514df08b86e26c8cd8951405339960355a08a5ac4"
+  },
+  "receiver": {
+    "label": "saved joint_local_fee_net_advantage, mature only next session 09:49 ET; candidate and control arms share original predecision cash/quantities/fee state and common next target reset",
+    "calendar": "all 1061 original OOF opening decisions, with ineligible and terminal unknown retained for block resampling",
+    "train_trade_dates": ["2018-10-15", "2020-12-31"],
+    "train_label_available_before": "2021-01-01T00:00:00-05:00",
+    "evaluation_trade_dates": ["2021-01-01", "2022-12-30"],
+    "evaluation_label_available_before": "2023-01-01T00:00:00-05:00",
+    "expected_train_mature_eligible": 358,
+    "expected_eval_mature_eligible": 329,
+    "minimum_eval_2021": 70,
+    "minimum_eval_2022": 240,
+    "baseline": "original39 prior-session Stage1 inputs plus own-state portfolio_drawdown/current_beta_cap/risk_state/raw_beta/projected_cash/delta_target_beta and same-day 09:45 SOXX/SOXL early returns; SimpleImputer median, StandardScaler, Ridge alpha=1",
+    "candidate": "same baseline plus one peer_positive_fraction_3 at same trade-day 09:45",
+    "null": "matched training local-value mean",
+    "same_rows": true
+  },
+  "source_gate": {
+    "peer_known_on_all_1061_training_reference_dates": true,
+    "peer_assumed_0945_before_open_action_0946": true,
+    "predecision_baseline_fields_finite_or_training_only_imputed": true,
+    "train_max_abs_spearman_added_vs_baseline_below": 0.8,
+    "source_first_receipt_historical_qualified": false
+  },
+  "information_gate": {
+    "positive_added_standardized_coefficient": true,
+    "candidate_MSE_better_than_baseline_and_training_mean_full_eval": true,
+    "paired_MSE_improvement_positive_in_2021_and_2022": true,
+    "candidate_rank_Spearman_positive_in_2021_and_2022": true,
+    "paired_full_503_day_calendar_stationary_block_lower_positive": {
+      "mean_block": 63,
+      "resamples": 10000,
+      "seed": 20261023,
+      "one_sided_alpha": 0.0007575757575757576
+    }
+  },
+  "budget": {"new_market_requests": 0, "source_Recorder_object_loads_max": 5, "DatasetH_builds_max": 1, "new_model_fits_max": 2, "bootstrap_attempts_max": 1, "new_Recorders_max": 1, "new_native_accounts": 0},
+  "stop": "Any source hash, 1061-date join, 09:45<09:46 availability, original local-label maturity/support, baseline-only matched rows or numeric gate failure stops. A fixed information failure closes this exact peer breadth/local-value receiver without switching year, peer basket, sign, action delta, risk cap or fee. An information pass still needs qualified historical/live first receipt and a separately frozen full f696 own-state 0bp Tiered account before SOXX v2 claims."
+}

@@ -1,0 +1,9 @@
+{
+  "status": "corrected_before_any_fit_or_new_recorder",
+  "original_expected_train_mature_eligible": 359,
+  "correct_expected_train_mature_eligible": 358,
+  "reason": "The source card's 2020 trade-year mature count includes one label whose next-session 09:49 availability is in 2021. The frozen train cutoff 2021-01-01 excludes it. No local-value numbers, model scores or 2021-2022 evaluation outcomes were read to make this correction.",
+  "unchanged": ["source bytes", "train/evaluation calendar", "receiver inputs", "positive coefficient sign", "model", "bootstrap", "fees", "action delta", "budgets"],
+  "new_model_fits": 0,
+  "new_accounts": 0
+}

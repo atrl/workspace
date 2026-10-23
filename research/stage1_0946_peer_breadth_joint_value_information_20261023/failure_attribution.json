@@ -1,0 +1,80 @@
+{
+  "status": "read_only_fixed_0946_peer_joint_value_failure_attribution",
+  "recorder_id": "d669125c8ef446aa8ba6e29fcd11c1ed",
+  "scored_rows": 329,
+  "annual": [
+    {
+      "year": 2021,
+      "count": 82,
+      "mean": 2.3301522753195488e-07,
+      "sum": 1.91072486576203e-05
+    },
+    {
+      "year": 2022,
+      "count": 247,
+      "mean": -4.255510579668753e-07,
+      "sum": -0.00010511111131781821
+    }
+  ],
+  "quarterly": [
+    {
+      "quarter": "2021Q1",
+      "count": 39,
+      "mean": 3.4233703877083813e-07,
+      "sum": 1.3351144512062688e-05
+    },
+    {
+      "quarter": "2021Q2",
+      "count": 17,
+      "mean": 1.5071059198204206e-07,
+      "sum": 2.562080063694715e-06
+    },
+    {
+      "quarter": "2021Q3",
+      "count": 5,
+      "mean": 8.687197343584352e-07,
+      "sum": 4.343598671792176e-06
+    },
+    {
+      "quarter": "2021Q4",
+      "count": 21,
+      "mean": -5.47416471394893e-08,
+      "sum": -1.1495745899292752e-06
+    },
+    {
+      "quarter": "2022Q1",
+      "count": 59,
+      "mean": -3.1891839160508597e-07,
+      "sum": -1.8816185104700072e-05
+    },
+    {
+      "quarter": "2022Q2",
+      "count": 62,
+      "mean": 6.753093119021025e-08,
+      "sum": 4.186917733793035e-06
+    },
+    {
+      "quarter": "2022Q3",
+      "count": 64,
+      "mean": -6.446554042941366e-07,
+      "sum": -4.125794587482474e-05
+    },
+    {
+      "quarter": "2022Q4",
+      "count": 62,
+      "mean": -7.939338398723616e-07,
+      "sum": -4.922389807208642e-05
+    }
+  ],
+  "failed_gates": [
+    "positive_coefficient",
+    "beats_baseline",
+    "beats_train_mean",
+    "both_eval_years",
+    "positive_block_lower"
+  ],
+  "new_fits": 0,
+  "new_accounts": 0,
+  "new_bootstraps": 0,
+  "history_reused_not_independent": true
+}
