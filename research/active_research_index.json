@@ -436,6 +436,33 @@
       "default_search": false,
       "evidence_preserved": true,
       "result": "research/stage1_0946_peer_breadth_cash_h5_information_20261023/summary.json"
+    },
+    {
+      "card": "research/stage1_training_cost_0bp_ablation_20261023",
+      "status": "not_promoted_fixed_Stage1_training_cost0_0bp_failed",
+      "default_search": false,
+      "evidence_preserved": true,
+      "result": "research/stage1_training_cost_0bp_ablation_20261023/summary.json",
+      "recorder_id": "4a8a2447ea274fe082397a1ff5c4a8b3",
+      "nas_archive_sha256": "ceb98abc95612c4d1399c0637ff646159a3aa87b3e95866565a7f66be5551c87"
+    },
+    {
+      "card": "research/stage1_product_tracking_h5_information_20261023",
+      "status": "not_promoted_fixed_product_tracking_H5_information_failed",
+      "default_search": false,
+      "evidence_preserved": true,
+      "result": "research/stage1_product_tracking_h5_information_20261023/summary.json",
+      "recorder_id": "6c50d3adc96b42eba6be0cba098d78fb",
+      "nas_archive_sha256": "70338233b468c68a825a6189ec02b96c521a6f6f42cdb8b19665f73426133b79"
+    },
+    {
+      "card": "research/stage1_soxx_autocorr_cash_h5_information_20261023",
+      "status": "not_promoted_fixed_SOXX_autocorr_cash_H5_information_failed",
+      "default_search": false,
+      "evidence_preserved": true,
+      "result": "research/stage1_soxx_autocorr_cash_h5_information_20261023/summary.json",
+      "recorder_id": "41aa6302cf004feca2a8fd89c0a3fc5e",
+      "nas_archive_sha256": "f8951d5f796b02b5662efa9839bdcb977b1f24ab089ff3319573babf61daa910"
     }
   ],
   "deferred_sources": {
@@ -634,5 +661,8 @@
   "latest_source_sample_Stage1_Census_MTiS_manufacturers_ratio": "research/stage1_census_mtis_saved_index_size_repair_20261023/summary.json",
   "latest_training_source_Stage1_Census_MTiS_2018_2022_manufacturers_ratio": "research/stage1_census_mtis_2018_2022_source_repair_20261023/summary.json",
   "latest_held_source_Stage1_Census_MTiS_2023_2026_manufacturers_ratio": "research/stage1_census_mtis_2023_2026_held_transport_repair_20261023/summary.json",
-  "latest_closed_preflight_Stage1_Census_MTiS_H63_cash_delta": "research/stage1_census_mtis_h63_cash_necessary_information_20261023/summary.json"
+  "latest_closed_preflight_Stage1_Census_MTiS_H63_cash_delta": "research/stage1_census_mtis_h63_cash_necessary_information_20261023/summary.json",
+  "latest_closed_Stage1_training_cost0_0bp": "research/stage1_training_cost_0bp_ablation_20261023/summary.json",
+  "latest_closed_Stage1_product_tracking_information": "research/stage1_product_tracking_h5_information_20261023/summary.json",
+  "latest_closed_Stage1_soxx_autocorr_cash_information": "research/stage1_soxx_autocorr_cash_h5_information_20261023/summary.json"
 }
