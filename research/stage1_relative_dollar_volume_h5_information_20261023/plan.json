@@ -1,0 +1,58 @@
+{
+  "experiment": "stage1_relative_dollar_volume_h5_information_20261023",
+  "frozen": true,
+  "phase": "conditional_information_screen_before_any_Stage1_account",
+  "parent": "Exact frozen f696 A_0 allocation plus b472 action/risk/recovery, 0bp Tiered own-state account as attribution baseline, SOXX final hard benchmark",
+  "hypothesis": "A higher previous completed-session SOXL-minus-SOXX dollar-volume proxy surprise reflects leveraged ETF crowding and predicts lower next-five-session SOXL-minus-SOXX open-return advantage after the original39 allocation inputs and SOXX-only activity shock. The candidate standardized coefficient must be negative.",
+  "source": {
+    "coordinate_card": "research/stage1_relative_dollar_volume_source_preflight_20261023",
+    "coordinate_summary_sha256": "b78b11d4ceb3d714e5218f41c5bfc0b03fed7cf2d2239e82d80717ffaa993604",
+    "coordinate_result_sha256": "97c958a35c0dec1d9ee0a34a2192079f0ab495bbcdefc5f451e9e3d04bb6840f",
+    "coordinate_recorder_id": "bf953cf3a38f41c185401cd1da71b082",
+    "coordinate_experiment_id": "483354512116012091",
+    "coordinate_NAS_sha256": "b2418504fad9b1b9844b7ea49a1708be218d3b5e0cf2976fd207cd92ed461446",
+    "coordinate_provider_uri": "data/qlib/stage1_relative_dollar_volume_20261023",
+    "coordinate_provider_manifest_sha256": "821d602510f333ff67071c0518a03426ffee073c1cf97d176a1227f85d22e2d6",
+    "coordinate_module_sha256": "54bcf1b313f7390109bafc02b88b3ee4d03f8599bedacc799c50234fccb9a1a1",
+    "parent_card": "research/minute_information_pit_allocator_20261012",
+    "parent_summary_sha256": "61c91f958323cf51b43f4b1554eeca5687011d30771e80bc7ff02d16b6d577ca",
+    "parent_verification_manifest_sha256": "ac90270cf66164e5fb9bca62b50ab86eeab7733bd0146799c45d97937f94e82a",
+    "parent_recorder_id": "68e31a0a0fad44e7ba1d1f7d856c7a0d",
+    "parent_experiment_id": "905520356740140469",
+    "parent_NAS_sha256": "ee328cab292f178bf3582ef574fb411561c93b82545cd3bb90842ecd9a9a24f1",
+    "parent_provider_uri": "data/qlib/minute_information_pit_allocator_20261012/daily_prices",
+    "parent_provider_manifest_sha256": "d80a08d479b73098053006909b5e6227b03a56ab705681742d7261088e0a7e6c",
+    "bootstrap_module_sha256": "02705f897e668b710a38aae514df08b86e26c8cd8951405339960355a08a5ac4"
+  },
+  "receiver": {
+    "target": "sum of five saved next open-to-open SOXL log returns minus identical SOXX log returns; only labels mature by frozen cutoff",
+    "train_signals": ["2011-01-03", "2022-12-30"],
+    "train_label_available_before": "2023-01-01T00:00:00-05:00",
+    "reused_held_signals": ["2023-01-03", "2026-10-07"],
+    "held_label_available_before": "2026-10-10T00:00:00-04:00",
+    "common_rows": "Require source relative shock known and mature label; identical train/evaluation rows for all three receivers, no imputation of the source feature",
+    "training_mean_null": "mean of matched training relative labels",
+    "baseline_original39": "SimpleImputer median, StandardScaler, Ridge alpha=1 on saved original39 inputs",
+    "activity_control": "same original39 plus SOXX-only dollar-volume proxy shock20",
+    "candidate": "same activity control plus SOXL-minus-SOXX dollar-volume proxy shock20",
+    "max_model_fits": 3
+  },
+  "gates": {
+    "source_train_known_min": 2900,
+    "source_held_mature_known_min": 930,
+    "candidate_standardized_relative_coefficient_negative": true,
+    "candidate_vs_activity_control_MSE_improvement_positive": true,
+    "candidate_vs_original39_and_train_mean_MSE_improvement_positive": true,
+    "candidate_vs_activity_control_both_chronological_halves_positive": true,
+    "candidate_vs_activity_control_complete_2024_and_2025_positive": true,
+    "candidate_vs_activity_control_stationary_block_lower_positive": {
+      "calendar_rows": 944,
+      "mean_block": 63,
+      "resamples": 2000,
+      "seed": 20261023,
+      "one_sided_alpha": 0.025
+    }
+  },
+  "budget": {"new_market_requests": 0, "source_Recorder_object_loads_max": 5, "DatasetH_builds_max": 1, "model_fits_max": 3, "bootstrap_attempts_max": 1, "new_Recorders_max": 1, "new_native_accounts": 0},
+  "limits": "Current Futu historical data do not certify first-public vintages or revisions. This is conditional reused-history development feedback; even an information pass cannot authorize an account until source timing is qualified. A failed fixed version closes without sign, lookback, cohort, model or year tuning."
+}

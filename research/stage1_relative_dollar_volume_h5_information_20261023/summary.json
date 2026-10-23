@@ -1,0 +1,87 @@
+{
+  "experiment": "stage1_relative_dollar_volume_h5_information_20261023",
+  "decision": "not_promoted_fixed_relative_dollar_volume_H5_information_failed",
+  "promotion": "not_promoted_information_only",
+  "objective_achieved": false,
+  "plan_sha256": "d19dcbe5089570ef2b10eb8b92365f3c2a116e948788a450ff206cc053d0dd62",
+  "source_recorder_id": "bf953cf3a38f41c185401cd1da71b082",
+  "parent_recorder_id": "68e31a0a0fad44e7ba1d1f7d856c7a0d",
+  "recorder_id": "976bc63dd6ce4c1ca7a419c59a99c045",
+  "experiment_id": "115913237863301142",
+  "preflight": {
+    "status": "matched_Qlib_source_and_label_maturity_passed",
+    "train_mature_full": 3014,
+    "held_mature_full": 940,
+    "train_matched_source_known": 2952,
+    "held_matched_source_known": 940,
+    "source_Recorder_object_loads": 5,
+    "DatasetH_builds": 1,
+    "historical_first_public_qualified": false
+  },
+  "metrics": {
+    "standardized_relative_coefficient": -0.004061139083678515,
+    "MSE_original39": 0.011044220829987919,
+    "MSE_activity_control": 0.011032286826379944,
+    "MSE_candidate": 0.011019421782539543,
+    "MSE_train_mean": 0.009821258309631471,
+    "improvement_vs_activity": 1.2865043840400322e-05,
+    "improvement_vs_original39": 2.4799047448377527e-05,
+    "improvement_vs_train_mean": -0.0011981634729080733,
+    "first_half_vs_activity": 3.5375430026564135e-05,
+    "second_half_vs_activity": -9.645342345763488e-06,
+    "2024_vs_activity": 4.6942123786485394e-05,
+    "2025_vs_activity": 2.497752240257608e-05
+  },
+  "bootstrap": {
+    "paired_mean_loss_improvement": 1.286504384040032e-05,
+    "lower_bound": -4.0607199078688646e-05,
+    "upper_bound": 5.5696312442240195e-05,
+    "valid_replicates": 2000,
+    "invalid_replicates": 0,
+    "calendar_rows": 944,
+    "scored_rows": 940
+  },
+  "gates": {
+    "negative_coefficient": true,
+    "beats_activity": true,
+    "beats_original39": true,
+    "beats_train_mean": false,
+    "both_halves": false,
+    "both_complete_years": true,
+    "positive_block_lower": false
+  },
+  "model_fits": 3,
+  "native_accounts": 0,
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "inputs/*",
+      "models/*",
+      "predictions/*",
+      "analysis/*"
+    ]
+  },
+  "limitations": [
+    "Historical first-public Futu close and volume vintages are unqualified.",
+    "2023-2026 reuse is development feedback, not independent forward evidence.",
+    "H5 price labels omit funded Tiered fees and own-state account feedback."
+  ],
+  "NAS_evidence": {
+    "sha256": "a1d64126e3fb0301458a3d0fa06a96d46b96a6ee5638991b3b1037d92488414f",
+    "size_bytes": 153154,
+    "media_type": "application/gzip",
+    "storage_uri": "sha256/a1/d6/a1d64126e3fb0301458a3d0fa06a96d46b96a6ee5638991b3b1037d92488414f",
+    "uploaded_by": "soxl-minute-research",
+    "created_at": "2026-10-23 22:59:06.704546+08",
+    "duplicate": false,
+    "nas_path": "/volume1/docker/yanxuan/registry/research-artifacts/a1/d6/a1d64126e3fb0301458a3d0fa06a96d46b96a6ee5638991b3b1037d92488414f",
+    "recorder_id": "976bc63dd6ce4c1ca7a419c59a99c045",
+    "experiment_id": "115913237863301142",
+    "archive_root": "qlib_recorder"
+  },
+  "NAS_readback": {
+    "verified": true,
+    "sha256": "a1d64126e3fb0301458a3d0fa06a96d46b96a6ee5638991b3b1037d92488414f"
+  }
+}
