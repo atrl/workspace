@@ -1,0 +1,9 @@
+{
+  "schema_version": 1,
+  "frozen_before_additional_read": true,
+  "original_review_plan": "independent_review_plan.json",
+  "reason": "The initial three-object Qlib read confirmed Recorder FINISHED, NAS artifact hashes, saved gate dict and 819 rolling rows, but the check printed schemas rather than asserting native result equality and the exact positive-window count. Complete those two specified assertions once without any fitting or replay.",
+  "additional_budget": {"Qlib_Recorder_object_loads_max": 2, "new_model_fits": 0, "new_native_accounts": 0, "new_bootstraps": 0, "new_market_requests": 0},
+  "exact_checks": ["Native analysis/result equals analysis_result.json", "Native analysis/rolling126 has 819 rows and 369 strictly positive SOXX-relative wealth windows"],
+  "stop": "If either differs, withhold review confirmation and report the concrete mismatch."
+}

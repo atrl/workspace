@@ -1,0 +1,10 @@
+{
+  "schema_version": 1,
+  "frozen": true,
+  "role": "read_only_result_reviewer_distinct_from_account_execution",
+  "scope": "One focused audit of the fixed Stage1-derived common-return-dedup 0bp own-state result against saved native Qlib Recorder and NAS scoped restore. Do not retrain, replay, change the mask, fees, years, risk rules or gates.",
+  "sources": ["plan.json", "summary.json", "analysis_result.json", "run_state.json", "nas_scoped_restore.json", "qlib_recorder/393525215581674229/a42f11bdd1484bde86d4dbb1e4855af3/artifacts/analysis/result", "qlib_recorder/393525215581674229/a42f11bdd1484bde86d4dbb1e4855af3/artifacts/analysis/gates", "qlib_recorder/393525215581674229/a42f11bdd1484bde86d4dbb1e4855af3/artifacts/analysis/rolling126"],
+  "checks": "Plan hash and Recorder FINISHED; selected native artifact SHA-256 matches NAS cold readback receipt; saved result/gates agree with sidecars; candidate 944 sessions, SOXX wealth, sampled drawdown, CVaR, two complete years, all 819 rolling windows and corrected block lower satisfy or fail the frozen v2 first screen exactly as reported.",
+  "budget": {"Qlib_Recorder_object_loads_max": 3, "new_model_fits": 0, "new_native_accounts": 0, "new_bootstraps": 0, "new_market_requests": 0},
+  "decision_boundary": "If any identity or metric discrepancy appears, report the concrete disagreement and withhold confirmation. A sound failed 0bp gate closes this version; remaining 2/5bp, full-minute and independent-forward gates cannot rescue it."
+}

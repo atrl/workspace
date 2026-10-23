@@ -1,0 +1,52 @@
+{
+  "schema_version": 1,
+  "reviewed_at_utc": "2026-10-23T03:55:05+00:00",
+  "reviewer": "root_read_only_distinct_from_account_execution",
+  "verdict": "CONFIRM_NOT_PROMOTED_FIXED_0BP_ACCOUNT",
+  "plan_sha256": "d33c5ea855bd06fb8a41911b6bace14b8ab0a0a0911db7325f5b730c96399d14",
+  "summary_sha256": "31069b6c16600384eab765606d78ff4a582a94142a33b488f95ff1f5aa82c827",
+  "analysis_result_sha256": "c4aa3f18cc9e6fd57b711f16d0c0d21d586f278e805ebfbc86334efbc6048514",
+  "recorder_id": "a42f11bdd1484bde86d4dbb1e4855af3",
+  "experiment_id": "393525215581674229",
+  "recorder_status": "FINISHED",
+  "NAS_archive_sha256": "cd98ce324cb0c19b393bafc149ad727c6c55bd7860d8f915eae3cf2d43c0f86d",
+  "NAS_selected_artifact_hashes_match": true,
+  "native_saved_result_matches_sidecar_except_post_save_status_field": true,
+  "post_save_status_field": "source_Recorder_status_after_repair=FINISHED",
+  "native_saved_gates_match_sidecar": true,
+  "native_rolling126_rows": 819,
+  "native_rolling126_strict_positive": 369,
+  "first_screen": {
+    "SOXX_relative_wealth": 0.9614726395822718,
+    "sampled_MaxDD_pct": -28.81039746032282,
+    "CVaR5_pct": -4.712155261961044,
+    "SOXX_CVaR5_pct": -4.90478329004924,
+    "complete_positive_years": 1,
+    "complete_years": 2,
+    "rolling_positive_windows": 369,
+    "rolling_windows": 819,
+    "rolling_required": 574,
+    "rolling_shortfall": 205,
+    "paired_block_lower": -0.0007488395009833209,
+    "gates": {
+      "SOXX_wealth": false,
+      "close_and_available_point_MaxDD": true,
+      "CVaR5_no_worse_SOXX": true,
+      "minimum_two_complete_years": true,
+      "complete_years_70pct": false,
+      "rolling126_70pct": false,
+      "SOXX_block_lower_positive": false
+    }
+  },
+  "matched_model_attribution": "C versus matched B fee-net relative wealth 1.377269; this improvement does not satisfy the final SOXX wealth, annual, rolling or corrected-lower hard gates.",
+  "not_yet_eligible_for": [
+    "2bp/5bp promotion paths",
+    "fresh full-minute drawdown qualification",
+    "qualified independent forward strategy days"
+  ],
+  "scientific_boundary": "The fixed common-return-dedup version is closed. No seed, mask-strength, cost, year or threshold rescue on reused history. A new materially distinct decision-time mechanism must start from complete Stage1 and face a full own-state 0bp Tiered SOXX account.",
+  "new_model_fits": 0,
+  "new_native_accounts": 0,
+  "new_bootstraps": 0,
+  "new_market_requests": 0
+}

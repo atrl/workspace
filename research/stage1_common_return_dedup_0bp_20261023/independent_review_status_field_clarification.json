@@ -1,0 +1,10 @@
+{
+  "schema_version": 1,
+  "frozen_before_additional_read": true,
+  "parent_review_plan": "independent_review_plan.json",
+  "first_readback_addendum": "independent_review_readback_addendum.json",
+  "observed_difference": "The native analysis/result was saved before analysis_result.json gained source_Recorder_status_after_repair='FINISHED'; the notebook appends that transport/status field after R.save_objects, with no economic metric recomputation.",
+  "exact_recheck": "Read native analysis/result and rolling126 once each. Compare native result to sidecar after removing only source_Recorder_status_after_repair; assert that field equals the independent Recorder status FINISHED. Recompute 819 and 369 strictly-positive (>1+1e-8) rolling windows from native rolling126.",
+  "additional_budget": {"Qlib_Recorder_object_loads_max": 2, "new_model_fits": 0, "new_native_accounts": 0, "new_bootstraps": 0, "new_market_requests": 0},
+  "stop": "Any other difference or rolling count mismatch withholds review confirmation. Preserve both saved artifacts; do not mutate frozen account evidence."
+}
