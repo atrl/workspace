@@ -1,0 +1,11 @@
+{
+  "status": "parser_attempt1_failed_before_Recorder_load",
+  "plan_sha256": "8e8b33132cbb45fa5faf93e862fee857094f0723348d732ec1683a86fd9f446e",
+  "old_code_cell_sha256": "a084c38e2ea7b2fa961527a6b50bef7def340679aeac717ac09a7ad2b32f8952",
+  "cause": "Legacy 2019 transition result uses report_period, not report_date.",
+  "legacy_result_load_attempts": 1,
+  "source_Recorder_object_load_attempts": 0,
+  "market_outcome_reads": 0,
+  "model_fits": 0,
+  "native_accounts": 0
+}

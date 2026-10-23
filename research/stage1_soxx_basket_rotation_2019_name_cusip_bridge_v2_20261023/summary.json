@@ -1,0 +1,25 @@
+{
+  "experiment": "stage1_soxx_basket_rotation_2019_name_cusip_bridge_v2_20261023",
+  "decision": "last_legacy_2019Mar_to_first_NPORT_2019Sep_identity_bridge_partial",
+  "objective_achieved": false,
+  "plan_sha256": "8e8b33132cbb45fa5faf93e862fee857094f0723348d732ec1683a86fd9f446e",
+  "result": "result.json",
+  "source_recorder_id": "7f2b90c01f3c4820a6173a113018adf3",
+  "source_NAS_sha256": "720ed1ed5437451dd39a2b3ce324c4f503062177339bde861561a8050feb2393",
+  "market_outcome_reads": 0,
+  "model_fits": 0,
+  "native_accounts": 0,
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": []
+  },
+  "limitations": [
+    "2019-03 to2019-09 is a six-month source gap, not adjacent-report turnover.",
+    "Exact matched names/CUSIPs do not solve all legacy legal aliases or modern placeholders.",
+    "No full-period signal, outcome read or funded Stage1 account."
+  ],
+  "parser_attempt1_failure": "parser_attempt1_failure.json",
+  "mechanical_parser_repair": "parser_repair_plan.json",
+  "legacy_result_reads_total": 2
+}

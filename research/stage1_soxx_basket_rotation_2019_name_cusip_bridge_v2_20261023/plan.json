@@ -1,0 +1,42 @@
+{
+  "schema_version": 1,
+  "frozen": true,
+  "experiment": "stage1_soxx_basket_rotation_2019_name_cusip_bridge_v2_20261023",
+  "phase": "source_only_last_Mar2019_legacy_name_to_first_Sep2019_NPORT_CUSIP_bridge",
+  "parent_failed_v1": {
+    "card": "research/stage1_soxx_basket_rotation_2018_name_cusip_bridge_20261023",
+    "failure_sha256": "a27a466103b30bebc8e311930b452e94b4e12a493202b504071feea7bbd0ccdd"
+  },
+  "sources": {
+    "legacy_2019_transition_result": "research/stage1_soxx_2019_transition_concentration_20261023/repair_result.json",
+    "legacy_result_sha256": "e263c8d7fc3c2a9331a204dbceac553a5fba2f654fc599fffeb09b13f9d10262",
+    "modern_card": "research/stage1_soxx_2019_2022_nport_equity_concentration_20261023",
+    "modern_summary_sha256": "533a680456b0e7b33b36f27a75498a6aed6a5e1b3cf2ded79821e978830819e0",
+    "modern_member_rows_artifact_sha256": "ab8e0aac17715b82eaa6ccda5c167380ec127981b91910644b48dd69c0b98b2b",
+    "legacy_footnote_repair_result_sha256": "d4fdfe581f68330a5bc56edfd5a5a2429917f9e08889ba99aaa84a2efa8e5c4d"
+  },
+  "required_periods": {
+    "last_legacy": "2019-03-31",
+    "first_NPORT": "2019-09-30",
+    "missing_intervening_report": "2019-06-30"
+  },
+  "method": [
+    "Use only last original legacy 2019-03 equity table and first original N-PORT 2019-09 member rows from native Recorder; do not mislabel as adjacent quarters.",
+    "Apply exact frozen source footnote/punctuation normalization, preserving Class A/B; report exact name intersection, unique original CUSIPs, placeholders and unmatched names.",
+    "Keep 2019-06 as explicit missing bridge period, not imputed; no turnover or market result."
+  ],
+  "budget": {
+    "source_Recorder_object_loads": 1,
+    "legacy_result_loads": 1,
+    "external_HTTP_GETs": 0,
+    "market_outcome_reads": 0,
+    "model_fits": 0,
+    "native_accounts": 0
+  },
+  "stop": "Source identity match is necessary but not sufficient. Missing2019Jun and unmatched or placeholder names block a continuous turnover factor until original source is qualified.",
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": []
+  }
+}

@@ -1,0 +1,214 @@
+{
+  "decision": "last_legacy_2019Mar_to_first_NPORT_2019Sep_identity_bridge_partial",
+  "plan_sha256": "8e8b33132cbb45fa5faf93e862fee857094f0723348d732ec1683a86fd9f446e",
+  "legacy_accession": "0001193125-19-167652",
+  "legacy_period": "2019-03-31",
+  "modern_first_period": "2019-09-30",
+  "missing_intervening_period": "2019-06-30",
+  "modern_report_count": 13,
+  "modern_member_rows": 390,
+  "modern_identifier_status_counts": {
+    "original_unique_CUSIP": 357,
+    "placeholder_CUSIP_name_only": 33
+  },
+  "legacy_rows": 30,
+  "modern_first_rows": 30,
+  "normalization_counts": {
+    "terminal_parenthesized_removed": 12,
+    "terminal_bare_lowercase_removed": 0
+  },
+  "exact_normalized_name_overlap": 24,
+  "matched_unique_CUSIP": 22,
+  "matched_placeholder_or_unknown_CUSIP": 2,
+  "legacy_only_names": [
+    "asml holding nv nys",
+    "cypress semiconductor corp",
+    "kla-tencor corp",
+    "mellanox technologies ltd",
+    "silicon motion technology corp adr",
+    "taiwan semiconductor manufacturing co ltd adr"
+  ],
+  "modern_only_names": [
+    "asml holding nv",
+    "cabot microelectronics corp",
+    "cirrus logic inc",
+    "kla corp",
+    "semtech corp",
+    "tsmc"
+  ],
+  "matched_original_identity_rows": [
+    {
+      "normalized_security": "advanced micro devices inc",
+      "legacy_original_name": "Advanced Micro Devices Inc. (a)(b)",
+      "NPORT_original_name": "Advanced Micro Devices Inc",
+      "NPORT_cusip": "007903107",
+      "NPORT_identifier_status": "original_unique_CUSIP"
+    },
+    {
+      "normalized_security": "analog devices inc",
+      "legacy_original_name": "Analog Devices Inc.",
+      "NPORT_original_name": "Analog Devices Inc",
+      "NPORT_cusip": "032654105",
+      "NPORT_identifier_status": "original_unique_CUSIP"
+    },
+    {
+      "normalized_security": "applied materials inc",
+      "legacy_original_name": "Applied Materials Inc.",
+      "NPORT_original_name": "Applied Materials Inc",
+      "NPORT_cusip": "038222105",
+      "NPORT_identifier_status": "original_unique_CUSIP"
+    },
+    {
+      "normalized_security": "broadcom inc",
+      "legacy_original_name": "Broadcom Inc.",
+      "NPORT_original_name": "Broadcom Inc",
+      "NPORT_cusip": "11135F101",
+      "NPORT_identifier_status": "original_unique_CUSIP"
+    },
+    {
+      "normalized_security": "cree inc",
+      "legacy_original_name": "Cree Inc. (a)",
+      "NPORT_original_name": "Cree Inc",
+      "NPORT_cusip": "225447101",
+      "NPORT_identifier_status": "original_unique_CUSIP"
+    },
+    {
+      "normalized_security": "entegris inc",
+      "legacy_original_name": "Entegris Inc.",
+      "NPORT_original_name": "Entegris Inc",
+      "NPORT_cusip": "29362U104",
+      "NPORT_identifier_status": "original_unique_CUSIP"
+    },
+    {
+      "normalized_security": "intel corp",
+      "legacy_original_name": "Intel Corp.",
+      "NPORT_original_name": "Intel Corp",
+      "NPORT_cusip": "458140100",
+      "NPORT_identifier_status": "original_unique_CUSIP"
+    },
+    {
+      "normalized_security": "lam research corp",
+      "legacy_original_name": "Lam Research Corp.",
+      "NPORT_original_name": "Lam Research Corp",
+      "NPORT_cusip": "512807108",
+      "NPORT_identifier_status": "original_unique_CUSIP"
+    },
+    {
+      "normalized_security": "marvell technology group ltd",
+      "legacy_original_name": "Marvell Technology Group Ltd.",
+      "NPORT_original_name": "Marvell Technology Group Ltd",
+      "NPORT_cusip": "000000000",
+      "NPORT_identifier_status": "placeholder_CUSIP_name_only"
+    },
+    {
+      "normalized_security": "maxim integrated products inc",
+      "legacy_original_name": "Maxim Integrated Products Inc.",
+      "NPORT_original_name": "Maxim Integrated Products Inc",
+      "NPORT_cusip": "57772K101",
+      "NPORT_identifier_status": "original_unique_CUSIP"
+    },
+    {
+      "normalized_security": "microchip technology inc",
+      "legacy_original_name": "Microchip Technology Inc.",
+      "NPORT_original_name": "Microchip Technology Inc",
+      "NPORT_cusip": "595017104",
+      "NPORT_identifier_status": "original_unique_CUSIP"
+    },
+    {
+      "normalized_security": "micron technology inc",
+      "legacy_original_name": "Micron Technology Inc. (a)(b)",
+      "NPORT_original_name": "Micron Technology Inc",
+      "NPORT_cusip": "595112103",
+      "NPORT_identifier_status": "original_unique_CUSIP"
+    },
+    {
+      "normalized_security": "mks instruments inc",
+      "legacy_original_name": "MKS Instruments Inc.",
+      "NPORT_original_name": "MKS Instruments Inc",
+      "NPORT_cusip": "55306N104",
+      "NPORT_identifier_status": "original_unique_CUSIP"
+    },
+    {
+      "normalized_security": "monolithic power systems inc",
+      "legacy_original_name": "Monolithic Power Systems Inc.",
+      "NPORT_original_name": "Monolithic Power Systems Inc",
+      "NPORT_cusip": "609839105",
+      "NPORT_identifier_status": "original_unique_CUSIP"
+    },
+    {
+      "normalized_security": "nvidia corp",
+      "legacy_original_name": "NVIDIA Corp.",
+      "NPORT_original_name": "NVIDIA Corp",
+      "NPORT_cusip": "67066G104",
+      "NPORT_identifier_status": "original_unique_CUSIP"
+    },
+    {
+      "normalized_security": "nxp semiconductors nv",
+      "legacy_original_name": "NXP Semiconductors NV",
+      "NPORT_original_name": "NXP Semiconductors NV",
+      "NPORT_cusip": "000000000",
+      "NPORT_identifier_status": "placeholder_CUSIP_name_only"
+    },
+    {
+      "normalized_security": "on semiconductor corp",
+      "legacy_original_name": "ON Semiconductor Corp. (a)(b)",
+      "NPORT_original_name": "ON Semiconductor Corp",
+      "NPORT_cusip": "682189105",
+      "NPORT_identifier_status": "original_unique_CUSIP"
+    },
+    {
+      "normalized_security": "qorvo inc",
+      "legacy_original_name": "Qorvo Inc. (a)",
+      "NPORT_original_name": "Qorvo Inc",
+      "NPORT_cusip": "74736K101",
+      "NPORT_identifier_status": "original_unique_CUSIP"
+    },
+    {
+      "normalized_security": "qualcomm inc",
+      "legacy_original_name": "QUALCOMM Inc.",
+      "NPORT_original_name": "QUALCOMM Inc",
+      "NPORT_cusip": "747525103",
+      "NPORT_identifier_status": "original_unique_CUSIP"
+    },
+    {
+      "normalized_security": "silicon laboratories inc",
+      "legacy_original_name": "Silicon Laboratories Inc. (a)(b)",
+      "NPORT_original_name": "Silicon Laboratories Inc",
+      "NPORT_cusip": "826919102",
+      "NPORT_identifier_status": "original_unique_CUSIP"
+    },
+    {
+      "normalized_security": "skyworks solutions inc",
+      "legacy_original_name": "Skyworks Solutions Inc.",
+      "NPORT_original_name": "Skyworks Solutions Inc",
+      "NPORT_cusip": "83088M102",
+      "NPORT_identifier_status": "original_unique_CUSIP"
+    },
+    {
+      "normalized_security": "teradyne inc",
+      "legacy_original_name": "Teradyne Inc.",
+      "NPORT_original_name": "Teradyne Inc",
+      "NPORT_cusip": "880770102",
+      "NPORT_identifier_status": "original_unique_CUSIP"
+    },
+    {
+      "normalized_security": "texas instruments inc",
+      "legacy_original_name": "Texas Instruments Inc.",
+      "NPORT_original_name": "Texas Instruments Inc",
+      "NPORT_cusip": "882508104",
+      "NPORT_identifier_status": "original_unique_CUSIP"
+    },
+    {
+      "normalized_security": "xilinx inc",
+      "legacy_original_name": "Xilinx Inc.",
+      "NPORT_original_name": "Xilinx Inc",
+      "NPORT_cusip": "983919101",
+      "NPORT_identifier_status": "original_unique_CUSIP"
+    }
+  ],
+  "complete_2011_2026_security_identity_bridge_qualified": false,
+  "weighted_turnover_feature_qualified": false,
+  "market_outcome_reads": 0,
+  "model_fits": 0,
+  "native_accounts": 0
+}

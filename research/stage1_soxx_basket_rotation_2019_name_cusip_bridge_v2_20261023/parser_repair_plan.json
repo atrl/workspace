@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "frozen": true,
+  "parent_plan_sha256": "8e8b33132cbb45fa5faf93e862fee857094f0723348d732ec1683a86fd9f446e",
+  "parent_failure": "parser_attempt1_failure.json",
+  "change": "Use the actual report_period field for exact frozen 2019-03 source selection and output. No source, cohort, formula, threshold, outcome, account or market request changes.",
+  "budget_accounting": {
+    "legacy_result_load_attempts_total_max": 2,
+    "new_source_Recorder_load_attempts_max": 1,
+    "market_outcome_reads": 0,
+    "model_fits": 0,
+    "native_accounts": 0
+  }
+}
