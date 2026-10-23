@@ -1,0 +1,11 @@
+{
+  "status": "three_sample_current_bytes_vintage_boundary",
+  "2011_07_PDF_Last_Modified": "Tue, 16 Sep 2014 11:48:30 GMT",
+  "2018_07_PDF_Last_Modified": "Fri, 14 Sep 2018 14:00:03 GMT",
+  "2025_07_PDF_Last_Modified": "Tue, 16 Sep 2025 14:15:24 GMT",
+  "2011_first_public_byte_qualified": false,
+  "2018_first_public_byte_qualified": false,
+  "2025_first_public_byte_qualified": false,
+  "interpretation": "2011 Last-Modified is three years after printed release; its current bytes cannot certify first publication. 2018 metadata falls at printed release minute and 2025 about15 minutes later, which is suggestive but still a mutable server attribute. All months require separate first-public/revision review before using a historical factor.",
+  "same_release_table_semantics": "Adjusted Manufacturers current value is preliminary (p); previous month is revised (r). This is total U.S. manufacturers, not semiconductor customer inventory."
+}

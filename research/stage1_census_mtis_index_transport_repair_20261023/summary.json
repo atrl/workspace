@@ -1,0 +1,51 @@
+{
+  "experiment": "stage1_census_mtis_index_transport_repair_20261023",
+  "decision": "index_transport_or_saved_PDF_layout_unqualified",
+  "objective_achieved": false,
+  "plan_sha256": "3052217c38b596723e0b1b0bfff801ed4f6e3b872c6e81b02a16607bcb3c5712",
+  "result": "result.json",
+  "source_archive": "source_archive.json",
+  "source_NAS_sha256": "6c5fe01b46d52338a05f0e05fafab1c0fdccf8e3e4430020fc1e1fb99b6b918d",
+  "source_NAS_cold_restore_verified": true,
+  "recorder_id": "5746ff5f0dbe46d8a95ba668c15ace73",
+  "experiment_id": "559934371387262188",
+  "recorder_uri": "/Users/rziiiii/dev/workspace/research/stage1_census_mtis_index_transport_repair_20261023/qlib_recorder",
+  "NAS_evidence": {
+    "sha256": "770f4e1b51720c1949c0e1045aaf0cc75cb65468f7a2fd91f9d2ceb6b25cd1f6",
+    "size_bytes": 61407,
+    "media_type": "application/gzip",
+    "storage_uri": "sha256/77/0f/770f4e1b51720c1949c0e1045aaf0cc75cb65468f7a2fd91f9d2ceb6b25cd1f6",
+    "uploaded_by": "soxl-minute-research",
+    "created_at": "2026-10-23 14:43:27.08735+08",
+    "duplicate": false,
+    "nas_path": "/volume1/docker/yanxuan/registry/research-artifacts/77/0f/770f4e1b51720c1949c0e1045aaf0cc75cb65468f7a2fd91f9d2ceb6b25cd1f6",
+    "recorder_id": "5746ff5f0dbe46d8a95ba668c15ace73",
+    "experiment_id": "559934371387262188",
+    "archive_root": "qlib_recorder"
+  },
+  "NAS_readback": {
+    "sha256": "770f4e1b51720c1949c0e1045aaf0cc75cb65468f7a2fd91f9d2ceb6b25cd1f6",
+    "remote_hash_verified": true
+  },
+  "index_HTTP_status": "200",
+  "qualified_samples": 0,
+  "GETs_started": 1,
+  "SOXX_outcome_reads": 0,
+  "model_fits": 0,
+  "native_accounts": 0,
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "inputs/*",
+      "analysis/*"
+    ]
+  },
+  "limitations": [
+    "Current 2011 PDF Last-Modified is2014 and does not qualify first-public 2011 byte vintage.",
+    "Manufacturers aggregate is not semiconductor-specific and three samples are not a full historical panel.",
+    "No Stage1 information test, funded account or SOXX success."
+  ],
+  "size_cap_failure": "size_cap_failure.json",
+  "downstream_saved_byte_repair": "research/stage1_census_mtis_saved_index_size_repair_20261023/summary.json"
+}

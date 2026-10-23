@@ -1,0 +1,16 @@
+{
+  "sha256": "6c5fe01b46d52338a05f0e05fafab1c0fdccf8e3e4430020fc1e1fb99b6b918d",
+  "size_bytes": 32339,
+  "media_type": "application/gzip",
+  "storage_uri": "sha256/6c/5f/6c5fe01b46d52338a05f0e05fafab1c0fdccf8e3e4430020fc1e1fb99b6b918d",
+  "uploaded_by": "soxl-minute-research",
+  "created_at": "2026-10-23 14:43:25.279904+08",
+  "duplicate": false,
+  "nas_path": "/volume1/docker/yanxuan/registry/research-artifacts/6c/5f/6c5fe01b46d52338a05f0e05fafab1c0fdccf8e3e4430020fc1e1fb99b6b918d",
+  "files": {
+    "data/snapshots/stage1_census_mtis_index_transport_repair_20261023/official_index.headers": "1cf01c209a86eea1efdd118273acbfb6c9f956ea36002b3c991084cf32483fa6",
+    "data/snapshots/stage1_census_mtis_index_transport_repair_20261023/official_index.response": "15b1601a3ff88045d1e895d95101f052ec45387e8db4ed34c8ee621485f0f5fe",
+    "data/snapshots/stage1_census_mtis_index_transport_repair_20261023/receipt.json": "1baf7a0eb7f79c6465aad1a4af79f8655f9837ddf586e81bd24f2b22a3c080ab"
+  },
+  "cold_restore_verified": true
+}

@@ -1,0 +1,13 @@
+{
+  "status": "frozen_four_GET_pilot_incomplete_on_official_index_HTTP500",
+  "index_url": "https://www.census.gov/mtis/historic_releases.html",
+  "index_response": "HTTPError 500, no accepted body",
+  "PDF_GETs": 3,
+  "PDF_HTTP200_and_magic_present": 3,
+  "reason_no_PDF_value_acceptance": "The frozen plan required exact index links before parsing the received original PDFs; the index request failed, so all three cases remained unknown rather than silently bypassing that gate.",
+  "received_PDF_NAS_archive_sha256": "79fce1f4120782f84415ffeef3e42b59066887cd9825eca9da4bf91d9f2ae119",
+  "vintage_boundary": "The July2011 PDF current server Last-Modified is 2014-09-16, later than its printed 2011 release; this current byte identity is not first-public proof. July2018 Last-Modified equals its printed release date and 10:00 EDT minute, but metadata alone remains indirect.",
+  "SOXX_outcome_reads": 0,
+  "model_fits": 0,
+  "native_accounts": 0
+}

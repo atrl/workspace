@@ -1,0 +1,55 @@
+{
+  "status": "three_year_Census_MTiS_source_pilot_incomplete",
+  "plan_sha256": "df7a1cb74be2dee3104509c24ffb9fab8df7cdf2bf03b6f760a99ba2c364d7c3",
+  "GETs_started": 4,
+  "cases": [
+    {
+      "economic_month": "2011-07",
+      "url": "https://www2.census.gov/mtis/historical/mtis1107.pdf",
+      "index_link_exact": false,
+      "PDF_SHA256": "2588bb8d39b2cb2e33151025cd9fd408ca641c035efdcbc7a00e5df07a6c9d73",
+      "PDF_bytes": 61620,
+      "PDF_signature_ok": false,
+      "printed_release_date": null,
+      "printed_release_time_ET": null,
+      "first_Qlib_trade_strictly_after_release": null,
+      "manufacturers_adjusted_current_ratio_preliminary": null,
+      "manufacturers_adjusted_previous_ratio_revised": null,
+      "status": "unknown"
+    },
+    {
+      "economic_month": "2018-07",
+      "url": "https://www2.census.gov/mtis/historical/mtis1807.pdf",
+      "index_link_exact": false,
+      "PDF_SHA256": "8ccc8db1d686e75882f718ec987b63281a423f26e9464de2ab58a7576c5f483f",
+      "PDF_bytes": 198413,
+      "PDF_signature_ok": false,
+      "printed_release_date": null,
+      "printed_release_time_ET": null,
+      "first_Qlib_trade_strictly_after_release": null,
+      "manufacturers_adjusted_current_ratio_preliminary": null,
+      "manufacturers_adjusted_previous_ratio_revised": null,
+      "status": "unknown"
+    },
+    {
+      "economic_month": "2025-07",
+      "url": "https://www2.census.gov/mtis/historical/mtis2507.pdf",
+      "index_link_exact": false,
+      "PDF_SHA256": "9daa45ee009fa342dcdb391a51e7a65a1a69986bed14e8257b006c83b10ddd4f",
+      "PDF_bytes": 649675,
+      "PDF_signature_ok": false,
+      "printed_release_date": null,
+      "printed_release_time_ET": null,
+      "first_Qlib_trade_strictly_after_release": null,
+      "manufacturers_adjusted_current_ratio_preliminary": null,
+      "manufacturers_adjusted_previous_ratio_revised": null,
+      "status": "unknown"
+    }
+  ],
+  "qualified_cases": 0,
+  "full_monthly_panel_qualified": false,
+  "semiconductor_specific": false,
+  "SOXX_outcome_reads": 0,
+  "model_fits": 0,
+  "native_accounts": 0
+}

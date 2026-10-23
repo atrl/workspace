@@ -1,0 +1,60 @@
+{
+  "status": "three_saved_original_MTiS_samples_semantics_and_clock_qualified",
+  "plan_sha256": "867d4f7b541f2e7961ec8c8e65d72b10488c5ab00ec0b1353d6fd9e3c8a8be6a",
+  "saved_index_sha256": "15b1601a3ff88045d1e895d95101f052ec45387e8db4ed34c8ee621485f0f5fe",
+  "exact_links": {
+    "2011-07": true,
+    "2018-07": true,
+    "2025-07": true
+  },
+  "cases": [
+    {
+      "economic_month": "2011-07",
+      "PDF_sha256": "2588bb8d39b2cb2e33151025cd9fd408ca641c035efdcbc7a00e5df07a6c9d73",
+      "index_link_exact": true,
+      "PDF_magic": true,
+      "printed_release_date": "2011-09-14",
+      "printed_release_time_ET": "10:00",
+      "first_Qlib_trade_after_release": "2011-09-15",
+      "manufacturers_adjusted_current_preliminary_ratio": 1.32,
+      "manufacturers_adjusted_previous_revised_ratio": 1.33,
+      "status": "original_sample_semantics_and_clock_qualified",
+      "same_release_prior_year_ratio": 1.32
+    },
+    {
+      "economic_month": "2018-07",
+      "PDF_sha256": "8ccc8db1d686e75882f718ec987b63281a423f26e9464de2ab58a7576c5f483f",
+      "index_link_exact": true,
+      "PDF_magic": true,
+      "printed_release_date": "2018-09-14",
+      "printed_release_time_ET": "10:00",
+      "first_Qlib_trade_after_release": "2018-09-17",
+      "manufacturers_adjusted_current_preliminary_ratio": 1.35,
+      "manufacturers_adjusted_previous_revised_ratio": 1.34,
+      "status": "original_sample_semantics_and_clock_qualified",
+      "same_release_prior_year_ratio": 1.38
+    },
+    {
+      "economic_month": "2025-07",
+      "PDF_sha256": "9daa45ee009fa342dcdb391a51e7a65a1a69986bed14e8257b006c83b10ddd4f",
+      "index_link_exact": true,
+      "PDF_magic": true,
+      "printed_release_date": "2025-09-16",
+      "printed_release_time_ET": "10:00",
+      "first_Qlib_trade_after_release": "2025-09-17",
+      "manufacturers_adjusted_current_preliminary_ratio": 1.56,
+      "manufacturers_adjusted_previous_revised_ratio": 1.57,
+      "status": "original_sample_semantics_and_clock_qualified",
+      "same_release_prior_year_ratio": 1.57
+    }
+  ],
+  "saved_index_reads": 1,
+  "saved_PDF_reads": 3,
+  "external_GETs": 0,
+  "2011_first_public_byte_vintage_qualified": false,
+  "full_2011_2026_panel_qualified": false,
+  "semiconductor_specific": false,
+  "SOXX_outcome_reads": 0,
+  "model_fits": 0,
+  "native_accounts": 0
+}

@@ -1,0 +1,20 @@
+{
+  "experiment": "stage1_census_mtis_manufacturer_ratio_source_pilot_20261023",
+  "frozen": true,
+  "phase": "three_year_original_release_source_semantics_and_clock_pilot_only",
+  "parent": "frozen_complete_Stage1_f696_plus_b472_0bp_IBKR_Tiered",
+  "economic_question": "Can an original, release-timed U.S. manufacturers aggregate inventory-to-sales ratio be reconstructed as a broad inventory-cycle coordinate for the Stage1 cash decision without confusing it with semiconductor-specific orders or ISM customer inventories?",
+  "prior_public_probe": "Before freeze, official Census historical index listed monthly original PDFs back to2011. Web-read July2018 and July2022 reports showed a Manufacturers adjusted inventory/sales ratio in Table1, explicitly separate from Total business and from preliminary/revised prior columns; July2018 front page says release at10:00 EDT Sep14. July2011 and July2025 pages were opened but not parsed. No local source bytes or SOXX outcomes were read.",
+  "sources": {
+    "official_index_url": "https://www.census.gov/mtis/historic_releases.html",
+    "frozen_original_PDFs": [
+      {"economic_month": "2011-07", "url": "https://www2.census.gov/mtis/historical/mtis1107.pdf"},
+      {"economic_month": "2018-07", "url": "https://www2.census.gov/mtis/historical/mtis1807.pdf"},
+      {"economic_month": "2025-07", "url": "https://www2.census.gov/mtis/historical/mtis2507.pdf"}
+    ]
+  },
+  "fixed_semantics": "Read only the original release's Table1 seasonally adjusted Manufacturers row: current preliminary manufacturers inventory/sales ratio, previous revised ratio, and on-document 10:00 Eastern release date. Do not use Total business, Retailers, Merchant wholesalers, unadjusted rows, revised later files, or an inferred semiconductor-specific measure. Record ratio and units exactly; do not fit or select sign from outcomes.",
+  "clock": "For a Stage1 09:46 ET decision, a Census 10:00 ET release is unavailable same day. Map any accepted sample to the first native Qlib US session strictly after the printed release calendar date. Pilot samples do not define a 2011-2026 panel.",
+  "budget": {"external_GETs_max": 4, "source_index_GETs_max": 1, "PDF_GETs_max": 3, "max_index_bytes": 700000, "max_PDF_bytes_each": 2000000, "retries": 0, "Qlib_D_calendar_calls_max": 1, "new_Qlib_Recorders_max": 1, "SOXX_outcome_reads": 0, "model_fits": 0, "native_accounts": 0},
+  "stop": "Any index-link, PDF signature, release clock, Table1 adjusted Manufacturers ratio or NAS source-restore failure leaves the fixed pilot unqualified. Passing three samples establishes only source feasibility; full original monthly/revision coverage, first-public bytes, a separately frozen Stage1 receiver and a full 0bp SOXX account remain necessary."
+}

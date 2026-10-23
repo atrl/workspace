@@ -1,0 +1,17 @@
+{
+  "sha256": "79fce1f4120782f84415ffeef3e42b59066887cd9825eca9da4bf91d9f2ae119",
+  "size_bytes": 855305,
+  "media_type": "application/gzip",
+  "storage_uri": "sha256/79/fc/79fce1f4120782f84415ffeef3e42b59066887cd9825eca9da4bf91d9f2ae119",
+  "uploaded_by": "soxl-minute-research",
+  "created_at": "2026-10-23 14:40:01.870882+08",
+  "duplicate": false,
+  "nas_path": "/volume1/docker/yanxuan/registry/research-artifacts/79/fc/79fce1f4120782f84415ffeef3e42b59066887cd9825eca9da4bf91d9f2ae119",
+  "files": {
+    "data/snapshots/stage1_census_mtis_manufacturer_ratio_source_pilot_20261023/2011-07.response": "2588bb8d39b2cb2e33151025cd9fd408ca641c035efdcbc7a00e5df07a6c9d73",
+    "data/snapshots/stage1_census_mtis_manufacturer_ratio_source_pilot_20261023/2018-07.response": "8ccc8db1d686e75882f718ec987b63281a423f26e9464de2ab58a7576c5f483f",
+    "data/snapshots/stage1_census_mtis_manufacturer_ratio_source_pilot_20261023/2025-07.response": "9daa45ee009fa342dcdb391a51e7a65a1a69986bed14e8257b006c83b10ddd4f",
+    "data/snapshots/stage1_census_mtis_manufacturer_ratio_source_pilot_20261023/response_receipts.json": "6fef261e6f574600a3a74fd183c137df37c461582ab93eff3c48f7dd90a25a04"
+  },
+  "cold_restore_verified": true
+}

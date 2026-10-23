@@ -1,0 +1,29 @@
+{
+  "experiment": "stage1_census_mtis_saved_index_size_repair_20261023",
+  "frozen": true,
+  "phase": "saved_original_index_body_size_scope_repair_then_three_PDF_semantics_only",
+  "parent": "frozen_complete_Stage1_f696_plus_b472_0bp_IBKR_Tiered",
+  "prior_fixed_failures": [
+    "Original MTIS pilot: official index GET HTTP500, three exact PDFs received and NAS restored, no values accepted.",
+    "One index transport repair: HTTP200 and 900648-byte exact body NAS restored, but the frozen700000-byte cap stopped parsing; no PDFs reread."
+  ],
+  "sources": {
+    "index_card": "research/stage1_census_mtis_index_transport_repair_20261023",
+    "index_summary_sha256": "028959337c9a8c267d208dbe0a6355142568256b15a8e7ca54419ced6d6ebfee",
+    "index_result_sha256": "1fe2cf6dac07d09e200dbcda35790f3fcbea66342e1d5045d16e11391e6b8f78",
+    "exact_saved_index_path": "data/snapshots/stage1_census_mtis_index_transport_repair_20261023/official_index.response",
+    "exact_saved_index_sha256": "15b1601a3ff88045d1e895d95101f052ec45387e8db4ed34c8ee621485f0f5fe",
+    "exact_saved_index_bytes": 900648,
+    "saved_index_NAS_archive_sha256": "6c5fe01b46d52338a05f0e05fafab1c0fdccf8e3e4430020fc1e1fb99b6b918d",
+    "PDF_card": "research/stage1_census_mtis_manufacturer_ratio_source_pilot_20261023",
+    "saved_PDF_NAS_archive_sha256": "79fce1f4120782f84415ffeef3e42b59066887cd9825eca9da4bf91d9f2ae119",
+    "saved_PDF_SHA256": {
+      "2011-07": "2588bb8d39b2cb2e33151025cd9fd408ca641c035efdcbc7a00e5df07a6c9d73",
+      "2018-07": "8ccc8db1d686e75882f718ec987b63281a423f26e9464de2ab58a7576c5f483f",
+      "2025-07": "9daa45ee009fa342dcdb391a51e7a65a1a69986bed14e8257b006c83b10ddd4f"
+    }
+  },
+  "exact_repair": "Accept only the already archived 900648-byte index SHA as under a new 950000-byte saved-body ceiling, then require the same three exact official PDF hrefs. Use only the three already saved original PDF bytes and the same frozen Table1 seasonally adjusted Manufacturers current preliminary/prior revised inventory-sales ratio and printed 10:00 ET release date. Map to first native Qlib US session strictly after release date; no URL, row, sign, value, month or market-outcome search.",
+  "budget": {"external_GETs": 0, "saved_index_reads_max": 1, "saved_PDF_reads_max": 3, "Qlib_D_calendar_calls_max": 1, "new_Qlib_Recorders_max": 1, "SOXX_outcome_reads": 0, "model_fits": 0, "native_accounts": 0},
+  "stop": "Any index/PDF hash, exact href, release-time or adjusted Manufacturers row failure remains unknown. The 2011 current PDF Last-Modified in2014 is not original first-public proof. Passing three samples only advances source feasibility, not a full panel or Stage1 strategy."
+}

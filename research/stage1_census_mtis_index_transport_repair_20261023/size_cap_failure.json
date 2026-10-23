@@ -1,0 +1,14 @@
+{
+  "status": "index_HTTP200_but_frozen_size_cap_exceeded",
+  "frozen_index_max_bytes": 700000,
+  "actual_index_bytes": 900648,
+  "actual_index_sha256": "15b1601a3ff88045d1e895d95101f052ec45387e8db4ed34c8ee621485f0f5fe",
+  "exact_frozen_PDF_links_observed_in_saved_body": 3,
+  "source_index_NAS_sha256": "6c5fe01b46d52338a05f0e05fafab1c0fdccf8e3e4430020fc1e1fb99b6b918d",
+  "saved_PDF_reads": 0,
+  "new_GETs_after_index": 0,
+  "SOXX_outcome_reads": 0,
+  "model_fits": 0,
+  "native_accounts": 0,
+  "decision": "Preserve this fixed failure. A separate frozen saved-byte-only size-scope repair may accept the exact archived 900648-byte index body without another network request."
+}

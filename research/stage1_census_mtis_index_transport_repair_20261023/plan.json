@@ -1,0 +1,22 @@
+{
+  "experiment": "stage1_census_mtis_index_transport_repair_20261023",
+  "frozen": true,
+  "phase": "one_exact_official_index_HTTP_transport_repair_then_saved_PDF_semantics_only",
+  "parent": "frozen_complete_Stage1_f696_plus_b472_0bp_IBKR_Tiered",
+  "prior_failure": "The first frozen 4-GET pilot received three original Census MTIS PDFs with exact NAS-restored bytes, but urllib GET of the official historical index returned HTTP500 and so no PDF values were accepted.",
+  "sources": {
+    "prior_card": "research/stage1_census_mtis_manufacturer_ratio_source_pilot_20261023",
+    "prior_summary_sha256": "ef647478df8abaf11bdc4940906dc6e5ce9baee11f0b194cdaaf2a195482d3da",
+    "prior_result_sha256": "25c9cd36fb1478ff7b9144bd80c4dc66a184192590c040ac07aff7adf815b760",
+    "prior_receipts_sha256": "6fef261e6f574600a3a74fd183c137df37c461582ab93eff3c48f7dd90a25a04",
+    "index_url": "https://www.census.gov/mtis/historic_releases.html",
+    "saved_PDF_SHA256": {
+      "2011-07": "2588bb8d39b2cb2e33151025cd9fd408ca641c035efdcbc7a00e5df07a6c9d73",
+      "2018-07": "8ccc8db1d686e75882f718ec987b63281a423f26e9464de2ab58a7576c5f483f",
+      "2025-07": "9daa45ee009fa342dcdb391a51e7a65a1a69986bed14e8257b006c83b10ddd4f"
+    }
+  },
+  "transport": "One curl HTTP/1.1 GET of the same exact index URL, fixed browser-like user agent, 20-second maximum, no retry. Preserve exact body, response headers, error, UTC times and hashes even on failure. Do not re-fetch any PDF. If the index returns HTTP200 and exact links to all three frozen PDFs, use only the prior saved PDF bytes to parse printed release date/time and Table1 adjusted Manufacturers current preliminary and prior revised inventory/sales ratio. Map only first Qlib US session strictly after printed release date; 09:46 same-day is too early for 10:00 ET release.",
+  "budget": {"external_GETs_max": 1, "saved_PDF_reads_max": 3, "Qlib_D_calendar_calls_max": 1, "new_Qlib_Recorders_max": 1, "SOXX_outcome_reads": 0, "model_fits": 0, "native_accounts": 0},
+  "stop": "If the one index request fails or any exact link is missing, record transport unknown and stop. If an original PDF row/date parse fails, record that precise source-layout gap without alternate file/row/format search. Do not treat2011 current bytes or any server Last-Modified as immutable initial-publication evidence. No full historical panel, factor or SOXX account in this version."
+}

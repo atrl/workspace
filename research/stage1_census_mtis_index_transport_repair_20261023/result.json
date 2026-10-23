@@ -1,0 +1,26 @@
+{
+  "status": "index_transport_or_saved_PDF_layout_unqualified",
+  "plan_sha256": "3052217c38b596723e0b1b0bfff801ed4f6e3b872c6e81b02a16607bcb3c5712",
+  "index_receipt": {
+    "url": "https://www.census.gov/mtis/historic_releases.html",
+    "started_utc": "2026-10-23T06:43:09.487744+00:00",
+    "ended_utc": "2026-10-23T06:43:24.656103+00:00",
+    "curl_exit": 0,
+    "http_status": "200",
+    "effective_url": "https://www.census.gov/mtis/historic_releases.html",
+    "error": null,
+    "body_bytes": 900648,
+    "body_sha256": "15b1601a3ff88045d1e895d95101f052ec45387e8db4ed34c8ee621485f0f5fe",
+    "headers_bytes": 1567,
+    "headers_sha256": "1cf01c209a86eea1efdd118273acbfb6c9f956ea36002b3c991084cf32483fa6"
+  },
+  "saved_PDF_case_results": [],
+  "index_exact_link_count": 0,
+  "GETs_started": 1,
+  "saved_PDF_reads": 0,
+  "2011_current_bytes_first_public_qualified": false,
+  "full_monthly_panel_qualified": false,
+  "SOXX_outcome_reads": 0,
+  "model_fits": 0,
+  "native_accounts": 0
+}

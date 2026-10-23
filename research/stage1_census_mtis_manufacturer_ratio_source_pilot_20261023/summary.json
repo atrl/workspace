@@ -1,0 +1,49 @@
+{
+  "experiment": "stage1_census_mtis_manufacturer_ratio_source_pilot_20261023",
+  "decision": "three_year_Census_MTiS_source_pilot_incomplete",
+  "objective_achieved": false,
+  "plan_sha256": "df7a1cb74be2dee3104509c24ffb9fab8df7cdf2bf03b6f760a99ba2c364d7c3",
+  "result": "result.json",
+  "source_evidence": "source_evidence.json",
+  "source_NAS_sha256": "79fce1f4120782f84415ffeef3e42b59066887cd9825eca9da4bf91d9f2ae119",
+  "source_NAS_cold_restore_verified": true,
+  "recorder_id": "004171211df1415aa35f6cf84e1c1c3a",
+  "experiment_id": "611275637883843576",
+  "recorder_uri": "/Users/rziiiii/dev/workspace/research/stage1_census_mtis_manufacturer_ratio_source_pilot_20261023/qlib_recorder",
+  "NAS_evidence": {
+    "sha256": "21ac6d96d6a3dbf9a807464ac4b1df1f98ba5464751ede4678bbe4ce8535348a",
+    "size_bytes": 60405,
+    "media_type": "application/gzip",
+    "storage_uri": "sha256/21/ac/21ac6d96d6a3dbf9a807464ac4b1df1f98ba5464751ede4678bbe4ce8535348a",
+    "uploaded_by": "soxl-minute-research",
+    "created_at": "2026-10-23 14:40:03.765962+08",
+    "duplicate": false,
+    "nas_path": "/volume1/docker/yanxuan/registry/research-artifacts/21/ac/21ac6d96d6a3dbf9a807464ac4b1df1f98ba5464751ede4678bbe4ce8535348a",
+    "recorder_id": "004171211df1415aa35f6cf84e1c1c3a",
+    "experiment_id": "611275637883843576",
+    "archive_root": "qlib_recorder"
+  },
+  "NAS_readback": {
+    "sha256": "21ac6d96d6a3dbf9a807464ac4b1df1f98ba5464751ede4678bbe4ce8535348a",
+    "remote_hash_verified": true
+  },
+  "qualified_cases": 0,
+  "SOXX_outcome_reads": 0,
+  "model_fits": 0,
+  "native_accounts": 0,
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "inputs/*",
+      "analysis/*"
+    ]
+  },
+  "limitations": [
+    "Manufacturers is a total sector aggregate, not semiconductor or customer inventories.",
+    "Three original sample PDFs do not certify full 2011-2026 coverage, value revisions or prediction information.",
+    "No Stage1 factor, 0bp funded account or SOXX success."
+  ],
+  "attempt1_failure": "attempt1_failure.json",
+  "downstream_saved_byte_repair": "research/stage1_census_mtis_saved_index_size_repair_20261023/summary.json"
+}
