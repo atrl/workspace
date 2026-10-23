@@ -1,0 +1,42 @@
+{
+  "schema_version": 1,
+  "frozen": true,
+  "experiment": "stage1_soxx_share_original_split_control_20261023",
+  "phase": "source_only_original_2011_share_count_vs_current_workbook_split_control",
+  "question": "Does one original accepted SEC SOXX 2011-01-31 shares-outstanding line agree with the current issuer workbook after the documented 2024 three-for-one split, and does it establish a tradable historical daily publication clock?",
+  "sources": {
+    "SEC_original": "data/snapshots/stage1_soxx_legacy_basket_history_20261023/2011_semiannual_bodies/0001193125-11-093502_dncsrs.htm",
+    "SEC_sha256": "09c2622698fd8ab36065a640c6c5159eea3251883705e486f0b191dfc5c0fcdf",
+    "SEC_accession": "0001193125-11-093502",
+    "SEC_report_date": "2011-01-31",
+    "SEC_accepted_at_utc": "2011-04-11T20:08:56.000Z",
+    "SEC_NAS_archive_sha256": "89052e9471992b27fb14abf007a2a4fbed6b03631b3e125c5269c33b74f17dc2",
+    "SEC_prior_source_result": "research/stage1_soxx_2011_reported_concentration_source_20261023/source_result.json",
+    "issuer_workbook": "data/snapshots/stage1_soxx_official_premium_discount_source_20261023/fund_download.bin",
+    "issuer_workbook_sha256": "74265a678335a4fb5aac42cb854a60ecd3afc57b8d5ffd1005ed5ccadd5e07b7",
+    "issuer_workbook_NAS_sha256": "a75d8e98023daa4e3fb5d78dd1f7a9c1e9c67194b5fb6215aa5be2bc14620a2c",
+    "issuer_workbook_NAS_receipt": "research/stage1_soxx_official_premium_discount_source_20261023/nas_source_archive.json",
+    "official_split_reference": "https://www.ishares.com/us/literature/prospectus/p-ishares-phlx-semiconductor-etf-3-31.pdf",
+    "official_split": "2024-03-06 close three-for-one"
+  },
+  "checks": [
+    "Exact original SEC accession/accepted report body and issuer workbook raw identity hashes.",
+    "Find unique 2011 SOXX statements-of-assets table with fund heading and Shares outstanding row; select SOXX middle column by heading, not positional guess.",
+    "Find exact 2011-01-31 Shares Outstanding workbook row and compute current-workbook divided by original SEC reported count.",
+    "Report whether ratio equals announced 3-for-one split; do not assume this one control certifies every history date or first-public workbook vintage."
+  ],
+  "budget": {
+    "external_HTTP_GETs": 0,
+    "SEC_original_raw_reads": 1,
+    "issuer_workbook_raw_reads": 1,
+    "SOXX_market_outcome_reads": 0,
+    "model_fits": 0,
+    "native_accounts": 0
+  },
+  "stop": "Source-only. No creation-flow factor, model or account irrespective of ratio. A control mismatch remains an unresolved vintage/definition issue, not permission to rescale or select another date.",
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": []
+  }
+}

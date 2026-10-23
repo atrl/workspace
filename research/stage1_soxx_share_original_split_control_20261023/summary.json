@@ -1,0 +1,18 @@
+{
+  "experiment": "stage1_soxx_share_original_split_control_20261023",
+  "decision": "original_SEC_2011_share_count_vs_current_workbook_split_control",
+  "objective_achieved": false,
+  "plan_sha256": "47678ce8bf88488cce60321f55c8a6b601135be0fff9a1701ca8df8ea84e7b3e",
+  "result": "result.json",
+  "model_fits": 0,
+  "native_accounts": 0,
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": []
+  },
+  "limitations": [
+    "One original quarterly report date and one current workbook value cannot prove full-history revisions or daily first-public times.",
+    "No Stage1 feature or account was run."
+  ]
+}

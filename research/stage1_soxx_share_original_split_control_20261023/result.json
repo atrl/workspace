@@ -1,0 +1,20 @@
+{
+  "decision": "original_SEC_2011_share_count_vs_current_workbook_split_control",
+  "plan_sha256": "47678ce8bf88488cce60321f55c8a6b601135be0fff9a1701ca8df8ea84e7b3e",
+  "SEC_accession": "0001193125-11-093502",
+  "SEC_accepted_at_utc": "2011-04-11T20:08:56.000Z",
+  "SEC_report_date": "2011-01-31",
+  "SEC_fund_header": "iShares PHLX\u00a0SOX Semiconductor Sector\u00a0Index\u00a0Fund",
+  "SEC_original_shares_outstanding": 3750000,
+  "issuer_current_workbook_shares_on_same_date": 11250000,
+  "current_to_original_ratio": 3.0,
+  "announced_2024_split_ratio": 3.0,
+  "ratio_matches_announced_split": true,
+  "source_NAS_prior_verified": true,
+  "first_public_workbook_clock_qualified": false,
+  "full_history_adjustment_qualified": false,
+  "creation_flow_feature_qualified": false,
+  "SOXX_market_outcome_reads": 0,
+  "model_fits": 0,
+  "native_accounts": 0
+}
