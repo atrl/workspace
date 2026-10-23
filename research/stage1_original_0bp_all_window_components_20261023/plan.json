@@ -1,0 +1,41 @@
+{
+  "schema_version": 1,
+  "frozen": true,
+  "experiment": "stage1_original_0bp_all_window_components_20261023",
+  "phase": "read_only_original_Stage1_0bp_all_819_rolling126_component_mechanism_triage",
+  "parent": "frozen_complete_Stage1_SOXL_SOXX_CASH_100k_0bp_IBKR_Tiered",
+  "question": "Across every original Stage1 0bp 126-session window, how often do cash opportunity and SOXL relative selection jointly or separately account for SOXX shortfalls, and what direct additive component corrections would be necessary for the 70pct rolling gate?",
+  "sources": {
+    "component_card": "research/stage1_original_0bp_signal_loss_chain_v2_20261023",
+    "component_summary_sha256": "898089b008f1f6f50016ddbbd2fc082f77423464ed8613c54dbdd5fbbae1dc3a",
+    "recorder_id": "2f0392615c4c4b15928b4ada6e01ecd9",
+    "experiment_id": "954993860986722516",
+    "rolling_artifact": "analysis/rolling126",
+    "rolling_artifact_sha256": "12f8a16607303370c0ad4a339a3c1de00ab92a467b1490249a160084db2b7635",
+    "daily_artifact": "analysis/daily",
+    "daily_artifact_sha256": "00660bd17990b571040b7de62ca58475175d4a6a4a1b5e94f027b4b986824855",
+    "NAS_archive_sha256": "54c6e93b4c304774c272b07312c856a9a2a255086d372066db418b5efed359c7"
+  },
+  "fixed_report": [
+    "All 819 windows and strict positive relative log excess count, versus ceil(70pct*819).",
+    "For negative windows, count cash<0 versus >=0 crossed with selection<0 versus >=0; same for positive windows.",
+    "Report full/all negative/all positive median and total cash, selection, fees/residual, cap binding and ending beta as descriptive, not thresholds.",
+    "Static additive component thought experiments: replace only negative cash contributions by zero, only negative selection contributions by zero, and both; count resulting positive windows. These are not legal or causal account replays and cannot certify strategy feasibility.",
+    "Report required uniform additive 126-session log-excess lift to make the 574th ranked window positive; this is a descriptive gap, not a per-trade target.",
+    "Report window overlap and do not treat 819 as independent tests."
+  ],
+  "budget": {
+    "external_market_requests": 0,
+    "source_Recorder_object_loads": 2,
+    "new_model_fits": 0,
+    "new_native_accounts": 0,
+    "new_bootstraps": 0,
+    "new_Qlib_Recorders": 0
+  },
+  "stop": "One readback and one descriptive report only. Do not choose dates, regimes, action thresholds, model features or account rules from outcome-ranked windows.",
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": []
+  }
+}

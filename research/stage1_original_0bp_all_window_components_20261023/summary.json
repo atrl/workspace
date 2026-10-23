@@ -1,0 +1,21 @@
+{
+  "experiment": "stage1_original_0bp_all_window_components_20261023",
+  "decision": "descriptive_all_819_Stage1_0bp_window_component_gap_no_policy",
+  "objective_achieved": false,
+  "plan_sha256": "f52438ab827fd482a965d6c4a317d0cae11ff6c5e54c9837d9e68181d9ed0917",
+  "result": "result.json",
+  "source_recorder_id": "2f0392615c4c4b15928b4ada6e01ecd9",
+  "source_NAS_sha256": "54c6e93b4c304774c272b07312c856a9a2a255086d372066db418b5efed359c7",
+  "new_model_fits": 0,
+  "new_native_accounts": 0,
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": []
+  },
+  "limitations": [
+    "819 windows overlap heavily and are not independent trials.",
+    "Direct additive component repair freezes original account path; actual actions alter risk state, fees and subsequent positions.",
+    "Only retrospective attribution; no new valid factor or SOXX hard-gate pass."
+  ]
+}

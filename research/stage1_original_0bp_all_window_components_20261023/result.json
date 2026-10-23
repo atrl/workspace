@@ -1,0 +1,68 @@
+{
+  "decision": "descriptive_all_819_Stage1_0bp_window_component_gap_no_policy",
+  "plan_sha256": "f52438ab827fd482a965d6c4a317d0cae11ff6c5e54c9837d9e68181d9ed0917",
+  "source_recorder_id": "2f0392615c4c4b15928b4ada6e01ecd9",
+  "full_sessions": 944,
+  "rolling126_windows": 819,
+  "rolling70pct_required_strict_positive_windows": 574,
+  "original_strict_positive_windows": 255,
+  "original_positive_fraction": 0.31135531135531136,
+  "additional_positive_windows_needed": 319,
+  "negative_window_component_quadrants": {
+    "cash_negative_selection_negative": 214,
+    "cash_negative_selection_nonnegative": 322,
+    "cash_nonnegative_selection_negative": 28,
+    "cash_nonnegative_selection_nonnegative": 0
+  },
+  "positive_window_component_quadrants": {
+    "cash_negative_selection_negative": 0,
+    "cash_negative_selection_nonnegative": 94,
+    "cash_nonnegative_selection_negative": 70,
+    "cash_nonnegative_selection_nonnegative": 91
+  },
+  "descriptive": {
+    "all": {
+      "windows": 819,
+      "median_relative_log_excess": -0.055307212484741256,
+      "mean_cash_opportunity_log": -0.07770270613888196,
+      "mean_SOXL_selection_log": 0.0303265214283131,
+      "mean_fee_log": -0.0013421172328890755,
+      "mean_timing_residual_log": 0.001124925672245686,
+      "mean_cap_binding_fraction": 0.289474194236099,
+      "mean_ending_beta": 0.8204030653813501
+    },
+    "negative_or_zero": {
+      "windows": 564,
+      "median_relative_log_excess": -0.09449275058068388,
+      "mean_cash_opportunity_log": -0.11302686719209253,
+      "mean_SOXL_selection_log": 0.013235617725119336,
+      "mean_fee_log": -0.0014917874783671886,
+      "mean_timing_residual_log": 0.0012002033271733474,
+      "mean_cap_binding_fraction": 0.3123944613306316,
+      "mean_ending_beta": 0.8440940042675286
+    },
+    "strict_positive": {
+      "windows": 255,
+      "median_relative_log_excess": 0.07441918371687159,
+      "mean_cash_opportunity_log": 0.0004260265435131678,
+      "mean_SOXL_selection_log": 0.06812757903067107,
+      "mean_fee_log": -0.0010110818664198376,
+      "mean_timing_residual_log": 0.0009584292119350933,
+      "mean_cap_binding_fraction": 0.23877995642701524,
+      "mean_ending_beta": 0.768004282903685
+    }
+  },
+  "static_direct_component_repair_positive_windows": {
+    "cash_negative_to_zero_only": 576,
+    "selection_negative_to_zero_only": 282,
+    "both_negative_to_zero": 622
+  },
+  "uniform_126_window_log_lift_infimum_for_70pct": 0.10545448823186483,
+  "windows_overlap": true,
+  "static_repairs_are_native_accounts": false,
+  "causal_policy_inference": false,
+  "market_requests": 0,
+  "model_fits": 0,
+  "native_accounts": 0,
+  "bootstraps": 0
+}
