@@ -220,7 +220,7 @@
   },
   "current_task": {
     "card": "research/three_asset_campaign.json",
-    "phase": "Stage1_0bp_goal_active_original39_dual_receiver_information_failed_new_source_or_account_value_mechanism_needed",
+    "phase": "Stage1_0bp_goal_active_EXECUTE_cash_allocation_and_risk_projection_mechanism_needed",
     "implementation_executor": null,
     "independent_reviewer": null,
     "execution_authorized": false,
@@ -434,7 +434,9 @@
     "Stage1_Treasury_ALFRED_graph_vintage": "research/stage1_treasury_real_yield_alfred_graph_vintage_20261023/summary.json",
     "Stage1_Treasury_vintage_dependency": "Public ALFRED DFII10 initial-release POST timed out after60s without response; separately frozen 2022-12-30 graph CSV GET timed out after35s with zero bytes. Both failure receipts NAS-backed; current Treasury CSV stays retrospective/PIT-unqualified. Do not retry these fixed transports or fit a Stage1 rate feature from current values.",
     "Stage1_0946_peer_breadth_cash_H5_information": "research/stage1_0946_peer_breadth_cash_h5_information_20261023/summary.json",
-    "Stage1_0946_peer_breadth_cash_H5_interpretation": "Fixed original39-plus-one opening peer breadth cash-minus-SOXX H5 information screen closed: 1055 train/940 reused held mature labels; candidate coefficient negative, but candidate MSE0.002589231 versus training-mean0.002343479, corrected lower negative and 2024 original39 increment negative. Two fits/two bootstraps, no 0bp account. Historical 09:45 bar first-receipt remains unqualified. Do not tune this fixed source/target."
+    "Stage1_0946_peer_breadth_cash_H5_interpretation": "Fixed original39-plus-one opening peer breadth cash-minus-SOXX H5 information screen closed: 1055 train/940 reused held mature labels; candidate coefficient negative, but candidate MSE0.002589231 versus training-mean0.002343479, corrected lower negative and 2024 original39 increment negative. Two fits/two bootstraps, no 0bp account. Historical 09:45 bar first-receipt remains unqualified. Do not tune this fixed source/target.",
+    "Stage1_0bp_HOLD_cash_bound": "research/stage1_original_0bp_hold_cash_bound_20261023/summary.json",
+    "Stage1_0bp_HOLD_cash_bound_interpretation": "Full 944-session original Stage1 0bp Tiered account: HOLD147 days contributes cash opportunity -0.148127 log, EXECUTE797 contributes -0.452195. Even direct erasure of every negative HOLD-day cash component on the frozen path raises SOXX-positive rolling126 windows only 255->450/819 versus574 required. This is not a causal account impossibility theorem; it deprioritizes action-HOLD-only rescue and points to EXECUTE target/risk cash decisions across binding and nonbinding days."
   },
   "parallel_source_task": {
     "card": "research/korea_semiconductor_exports_korean_vintage_20261022",
@@ -499,7 +501,7 @@
     ]
   },
   "active_index": "research/active_research_index.json",
-  "updated_at_utc": "2026-10-23T02:51:15Z",
+  "updated_at_utc": "2026-10-23T03:06:12Z",
   "execution_totals": {
     "new_model_fits": 85,
     "new_native_accounts": 51,
