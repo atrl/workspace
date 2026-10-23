@@ -1,0 +1,5 @@
+experiment: stage1_common_failure_component_map_20261023
+plan: plan.json
+sources: frozen Qlib rolling-component Recorders
+new_fits: 0
+new_native_accounts: 0

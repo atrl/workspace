@@ -1,0 +1,14 @@
+{
+  "status": "verified",
+  "recorder_id": "dd3ea5a0357d4ab1bc7e08303719cf82",
+  "windows": 819,
+  "common_failures": 327,
+  "component_groups": 22,
+  "NAS_archive_sha256": "a920b406ef7b88b5f9325fff8334c733a3a86c02929b75696f4e9bf888664ed2",
+  "scoped_members": [
+    "analysis/result",
+    "analysis/all_windows",
+    "analysis/all_groups"
+  ],
+  "all_member_sha256_parity": true
+}

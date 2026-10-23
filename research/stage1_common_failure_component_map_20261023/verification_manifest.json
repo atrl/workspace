@@ -1,0 +1,47 @@
+{
+  "recorder_id": "dd3ea5a0357d4ab1bc7e08303719cf82",
+  "experiment_id": "415125652919600457",
+  "plan_sha256": "47265c28c850e851b5ceca7e752efa19e884a8995db21dc3598ea630b9cd46e1",
+  "entries": [
+    {
+      "path": "qlib_recorder/415125652919600457/dd3ea5a0357d4ab1bc7e08303719cf82/artifacts/analysis/all_groups",
+      "sha256": "8323eb04ec34db735709990f76ab8ba3e208e15927272d9ec2479a3716850c44",
+      "bytes": 5422
+    },
+    {
+      "path": "qlib_recorder/415125652919600457/dd3ea5a0357d4ab1bc7e08303719cf82/artifacts/analysis/all_windows",
+      "sha256": "c4643c69689515f8ddf7f99954c69be5f959af598a68cd6d2ef6ceb82d0304d2",
+      "bytes": 84694
+    },
+    {
+      "path": "qlib_recorder/415125652919600457/dd3ea5a0357d4ab1bc7e08303719cf82/artifacts/analysis/result",
+      "sha256": "3c6decec5dc06c4dde6ce1d146da78b6265238a34e62f8b60ee0e19d7ebc4bde",
+      "bytes": 1269
+    },
+    {
+      "path": "qlib_recorder/415125652919600457/dd3ea5a0357d4ab1bc7e08303719cf82/artifacts/code_cached.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "qlib_recorder/415125652919600457/dd3ea5a0357d4ab1bc7e08303719cf82/artifacts/code_diff.txt",
+      "sha256": "2aad452421714b6ceaec94285ae57399e707529fd50e48e12bc268cf2fce1e4c",
+      "bytes": 436844
+    },
+    {
+      "path": "qlib_recorder/415125652919600457/dd3ea5a0357d4ab1bc7e08303719cf82/artifacts/code_status.txt",
+      "sha256": "042620f6a15a02b0945738bfc5593efb8944bab1d10da981513c15e94922c341",
+      "bytes": 66386
+    },
+    {
+      "path": "qlib_recorder/415125652919600457/dd3ea5a0357d4ab1bc7e08303719cf82/artifacts/inputs/plan",
+      "sha256": "34fd06a2eb4966c987fcd796d83dbddcaf08bfb4eace933fe92a1db5d89f8221",
+      "bytes": 2958
+    },
+    {
+      "path": "qlib_recorder/415125652919600457/dd3ea5a0357d4ab1bc7e08303719cf82/artifacts/inputs/source_identities",
+      "sha256": "eaf9ad61bf3a8bc3b5036a4d9e3de0286c703a84fcbf2903de0778f1144b76d1",
+      "bytes": 1029
+    }
+  ]
+}

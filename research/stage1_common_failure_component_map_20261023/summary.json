@@ -1,0 +1,42 @@
+{
+  "experiment": "stage1_common_failure_component_map_20261023",
+  "decision": "descriptive_common_window_cash_selection_attribution_no_policy",
+  "objective_achieved": false,
+  "plan_sha256": "47265c28c850e851b5ceca7e752efa19e884a8995db21dc3598ea630b9cd46e1",
+  "result": "result.json",
+  "recorder_id": "dd3ea5a0357d4ab1bc7e08303719cf82",
+  "experiment_id": "415125652919600457",
+  "new_fits": 0,
+  "new_native_accounts": 0,
+  "NAS_evidence": {
+    "sha256": "a920b406ef7b88b5f9325fff8334c733a3a86c02929b75696f4e9bf888664ed2",
+    "size_bytes": 121969,
+    "media_type": "application/gzip",
+    "storage_uri": "sha256/a9/20/a920b406ef7b88b5f9325fff8334c733a3a86c02929b75696f4e9bf888664ed2",
+    "uploaded_by": "soxl-minute-research",
+    "created_at": "2026-10-23 22:13:52.423102+08",
+    "duplicate": false,
+    "nas_path": "/volume1/docker/yanxuan/registry/research-artifacts/a9/20/a920b406ef7b88b5f9325fff8334c733a3a86c02929b75696f4e9bf888664ed2",
+    "recorder_id": "dd3ea5a0357d4ab1bc7e08303719cf82",
+    "experiment_id": "415125652919600457",
+    "archive_root": "qlib_recorder"
+  },
+  "NAS_readback": {
+    "verified": true,
+    "sha256": "a920b406ef7b88b5f9325fff8334c733a3a86c02929b75696f4e9bf888664ed2"
+  },
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "inputs/*",
+      "analysis/all_windows",
+      "analysis/all_groups"
+    ]
+  },
+  "limitations": [
+    "819 overlapping windows are not independent trials; cash and selection are descriptive physical account components, not causal policy effects.",
+    "Reused 2023-2026 market outcomes are development attribution, not independent forward evidence."
+  ],
+  "NAS_scoped_restore": "nas_scoped_restore.json"
+}
