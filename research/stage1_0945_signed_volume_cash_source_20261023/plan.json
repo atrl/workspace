@@ -1,0 +1,56 @@
+{
+  "experiment": "stage1_0945_signed_volume_cash_source_20261023",
+  "frozen": true,
+  "phase": "source_timing_and_novelty_preflight_before_any_label_or_fit",
+  "parent": "complete frozen Stage1 f696 allocation plus b472 action/risk/recovery, own-state 0bp Tiered A_0; SOXX final hard gate",
+  "hypothesis": "Within the completed 09:31-09:45 SOXX minute prefix, volume-weighted signed price participation can distinguish broad buying from weak rebound at the next Stage1 09:46 allocation decision. Positive pressure would predict lower subsequent cash-minus-SOXX value, but no economic label is read in this card.",
+  "source": {
+    "provider_uri": "data/qlib/minute_information_pit_allocator_20261012/core_1min",
+    "manifest_sha256": "e2d97bd4dc00cdb231f7aa926799efcbc6f0d613ca197fbe04e86db1f074bf4e",
+    "nas_source_id": "18f1fb3f17907932ddd13881aea9199369181a92c9b6c77395d0b255100c68c3",
+    "instruments": [
+      "SOXX"
+    ],
+    "fields": [
+      "$close",
+      "$volume",
+      "$price_valid"
+    ],
+    "calendar_freq": "1min",
+    "as_of": "2026-10-09"
+  },
+  "coordinate": "For each US session with exactly fifteen right-labelled SOXX bars 09:31..09:45 NY, require finite positive close, finite nonnegative volume, price_valid==1 and no duplicate/missing minute. Compute sum over 09:32..09:45 of sign(close_t-close_(t-1))*volume_t divided by sum volume_t over those fourteen bars. Zero-volume denominator and any invalid bar retain unknown, never zero-filled. Assumed known only after 09:45 bar completion at 09:46 research clock.",
+  "cohorts": {
+    "train_start": "2018-10-12",
+    "train_end": "2022-12-30",
+    "held_start": "2023-01-03",
+    "held_end": "2026-10-09",
+    "minimum_train_known": 1000,
+    "minimum_held_known": 900
+  },
+  "novelty_controls": [
+    "same-prefix SOXX 09:31-to-09:45 return",
+    "same-prefix unsigned total volume"
+  ],
+  "source_gate": {
+    "coverage": "both cohort minima and all unknown dates explicitly retained",
+    "range": "all finite pressure in [-1,1]",
+    "nonduplicate": "absolute train Spearman with same-prefix return <0.80",
+    "no_hindsight": "no SOXX future return, fee account, label, fit or bootstrap reads"
+  },
+  "difference_from_closed_routes": "This is 09:46 allocation prefix participation, not the failed 10:31 first-hour recovery local-value receiver, prior-day 09:29 allocation proposal, opening gap/return alone, or ETF peer breadth. If numerical/semantic novelty fails, close before fitting.",
+  "budget": {
+    "new_market_requests": 0,
+    "Qlib_D_calendar_calls_max": 1,
+    "Qlib_D_feature_calls_max": 1,
+    "DatasetH_builds": 0,
+    "model_fits": 0,
+    "native_accounts": 0,
+    "new_Recorders_max": 1
+  },
+  "limitations": [
+    "Historical first receipt/bar finality is a research timing convention, not certified live PIT.",
+    "Reuse 2023-2026 only as development diagnostic, not independent forward.",
+    "Passing source/novelty support would allow a separately frozen matched information receiver only; not a 0bp account."
+  ]
+}
