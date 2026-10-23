@@ -1,0 +1,71 @@
+{
+  "original_xml_files": 28,
+  "original_xml_sha256": {
+    "0001752724-20-038669.xml": "ca61d60001cf3ec4eaabecad09b4a51655fe07ef917d0b946ef2e52438cf1bd4",
+    "0001752724-20-112013.xml": "0543fea92ecbdf2a6342ad5acede276f79c116a3d9af1a6c8787c7bc5b9df8a7",
+    "0001752724-20-176975.xml": "c901df92fdedd6500bd9904af5bec5f7d05e8e25939396da2f8c8e25629bc69e",
+    "0001752724-20-247778.xml": "7ad3b348a5711d46eb04849334f2f2f78003a545ebe1620d48b97b829e6c2387",
+    "0001752724-21-040706.xml": "b589d98b79c4a0bc1e8f3a105330eed58d6b1e8620d263f84e3631e6afd7e7da",
+    "0001752724-21-116396.xml": "1587b82078471a918eb0f6a85f7046a376238e5fa3f24fa0e9178053618833a5",
+    "0001752724-21-186189.xml": "c6ca63fc0af4830f1b820c44bdb3b307d829937bcb717b406e84fdaf510bde8f",
+    "0001752724-21-255817.xml": "718e651a358b8595b058d6ff74e14085293e9cc60f9860f5950e2e0263c575c4",
+    "0001752724-22-046342.xml": "152f21fa26f944c56518308951ccefd7aa78e20fdb6a8678ee693cc2d7930a0e",
+    "0001752724-22-122864.xml": "86e91dfcbfe5a0ff09340deccbb8e754386495974b5abfe2864f074e0ee44c4e",
+    "0001752724-22-193694.xml": "a04e5192f680d6d72806e89c2b1439e6faee6478b4faf6ab55f89b0f89271bbc",
+    "0001752724-22-268670.xml": "869d6e6597307b4ece7a22870665f3ec3a6da90554142fab1e2fdf8608da069f",
+    "primary_doc.xml": "951d162d4e996b74a7e1818e13c4c118c348320a95e54a72a4158a20c88d0e73",
+    "0001752724-23-039255.XML.xml": "3b57c888aaae46335ca344aa33ee7bf5d0ad405b5be09252e831fb9f0639f9f8",
+    "0001752724-23-123226.XML.xml": "d7daf3a2079d6e3b1c62fa65d785a172900b919806001db80fc7d0e196cc0986",
+    "0001752724-23-191474.XML.xml": "796bad16f55796c2ba78da20575ee8c6f5990687c2b5d04b477d14aa76ef080c",
+    "0001752724-23-264274.XML.xml": "97f9c3ac0b14ce7d9e2380665ad225866013dfb817fc722fc20deee4e10028db",
+    "0001752724-24-043112.XML.xml": "e249627944d96a2e0d4ec7ba66298cac40b6dfac0d0f2a425317c0171434d4e2",
+    "0001752724-24-123330.XML.xml": "11068710a8ce7c033eb66691751d0aeaa9fd86f7387833cc013f1a0fb1f31bc6",
+    "0001752724-24-194376.XML.xml": "98db46844c7aa7789542cf0ce314fe2966713dff047cd0c3b69c869a46b6f4c6",
+    "0001752724-24-269906.XML.xml": "973dc6fd2502e1aa0ef8d4eacddd3edcfda09c275a2d8335b39b3cf46d587dc0",
+    "0001752724-25-043848.XML.xml": "886fe6167027b8778e8df912264cfe393cf23be414b32a1dc2a71d42419721e5",
+    "0001752724-25-119804.XML.xml": "4f246020f54ed1437a4ab910068a00d54ef183204c439eb1b9f510497e4bcf1f",
+    "0001752724-25-210398.XML.xml": "17f4dd0357f3f97c758889ce4bc0a35d9c2091b62f4db549604ca5028d40ec9d",
+    "0002071691-25-007653.XML.xml": "18b46f7f48d62ffe21d01cf8ac8df62c96f1aa97a44984fbb90c6afff29ae9ff",
+    "0002071691-26-004253.XML.xml": "b7b0f869457b978e523bb02e2ddd558abfc33bf731f20dd47a314a9deb16da25",
+    "0002071691-26-012504.XML.xml": "445ee0734292d799ceba26bb0a95af272ef1eb03898ec4939b0164deef3c79b7",
+    "0002071691-26-015796.XML.xml": "6b884f242db23c0f31de65b5728c774ca1f29514ed47fb4eced6741685fdeff5"
+  },
+  "equity_shares_rows": 840,
+  "placeholder_cusip_rows": 71,
+  "placeholder_all_original_isin": true,
+  "placeholder_distinct_isins": 5,
+  "placeholder_isin_issuer_examples": [
+    [
+      "ASML Holding NV",
+      "USN070592100",
+      "724500Y6DUVHQD6OXN27"
+    ],
+    [
+      "Credo Technology Group Holding Ltd.",
+      "KYG254571055",
+      "N/A"
+    ],
+    [
+      "Marvell Technology Group Ltd",
+      "BMG5876H1051",
+      "8DF36O58U3QIHUCGZB18"
+    ],
+    [
+      "NXP Semiconductors NV",
+      "NL0009538784",
+      "724500M9BY5293JDF951"
+    ],
+    [
+      "Nova Ltd.",
+      "IL0010845571",
+      "529900B2DSWE5V3SC292"
+    ]
+  ],
+  "per_report_isin_collisions": [],
+  "conflicting_nonplaceholder_cusip_per_isin": {},
+  "legacy_identity_qualified": false,
+  "market_outcome_reads": 0,
+  "model_fits": 0,
+  "native_accounts": 0,
+  "nport_security_identity_qualified": true
+}

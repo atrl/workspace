@@ -1,0 +1,32 @@
+{
+  "experiment": "stage1_soxx_nport_isin_identity_repair_20261023",
+  "decision": "NPORT_original_ISIN_placeholder_identity_qualified_legacy_bridge_pending",
+  "objective_achieved": false,
+  "plan_sha256": "9121bc87cf52d07d571ded924c38320ca0032e043b2f95359d6557101d2302ce",
+  "source_xml_files": 28,
+  "equity_rows": 840,
+  "placeholder_rows": 71,
+  "distinct_placeholder_isins": 5,
+  "NPORT_identity_gate_passed": true,
+  "legacy_identity_qualified": false,
+  "market_outcome_reads": 0,
+  "model_fits": 0,
+  "native_accounts": 0,
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": []
+  },
+  "source_backup": {
+    "2019_specimen_raw_NAS_archive_sha256": "4a5fc73692fcf3b3d43171a2dc156f98c2bb753c53d5ab0e07595ea193503308",
+    "2020_2022_raw_NAS_archive_sha256": "a5834ee5d13a560409aca89f6e56d2abc36e099b7dc937e67d67af3697f30641",
+    "2023_2026_raw_NAS_archive_sha256": "650e7aae26f43392f7fe0c44f52ac963ad92b6a3170b1f1c7c084134cca5b455",
+    "new_original_bytes": 0,
+    "basis": "Prior source-card NAS scoped restore evidence; original XML SHA-256 listed in this card result.json."
+  },
+  "limitations": [
+    "Original ISIN resolves N-PORT placeholder CUSIP rows only, not old-format 2011-2019 legal identity.",
+    "Reported membership changes are not executed fund turnover and no predictive information was tested.",
+    "No Stage1 0bp Tiered own-account result or qualified forward evidence."
+  ]
+}

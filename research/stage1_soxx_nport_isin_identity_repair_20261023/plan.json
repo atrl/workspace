@@ -1,0 +1,12 @@
+{
+  "question": "Do original 2019-2026 SOXX N-PORT equity rows with placeholder CUSIP have a stable, unambiguous original security identifier?",
+  "scope": "Source identity only; 13 previously audited 2019-2022 N-PORT reports plus 15 2023-2026 N-PORT reports. No Stage1 outcomes, model fits, thresholds, or accounts.",
+  "frozen_rule": "For original N-PORT common-stock rows, read original ISIN and LEI; treat 000000000, N/A, and blank CUSIP as placeholders. Accept ISIN identity only if present on every placeholder, unique within each report, and free of conflicting nonplaceholder CUSIP mappings across these reports. LEI is issuer context, not a substitute security identifier. Do not use name aliases to resolve legacy report transitions.",
+  "input_roots": [
+    "data/snapshots/stage1_soxx_2019_nport_source_specimen_20261023",
+    "data/snapshots/stage1_soxx_2019_2022_nport_original_xml_20261023",
+    "data/snapshots/stage1_soxx_2023_2026_nport_original_source_20261023"
+  ],
+  "decision_gate": "All placeholder rows have original nonempty ISIN and no report-level ISIN collision or cross-report ISIN to conflicting nonplaceholder CUSIP mapping. Pass qualifies only N-PORT security identity, not full 2011-2026 legacy identity, turnover, predictive information, or performance.",
+  "prior_exploratory_reads_disclosed": "Before freezing this audit, read the local original XML structures and counted placeholder rows in 2019-2022 and 2023-2026. No market outcomes or fit were read. This confirmatory source-only audit is therefore descriptive, not independent validation."
+}

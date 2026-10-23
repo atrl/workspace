@@ -1,0 +1,9 @@
+experiment: stage1_soxx_nport_isin_identity_repair_20261023
+mode: original_source_identity_audit
+inputs:
+  - data/snapshots/stage1_soxx_2019_nport_source_specimen_20261023/*.xml
+  - data/snapshots/stage1_soxx_2019_2022_nport_original_xml_20261023/*.xml
+  - data/snapshots/stage1_soxx_2023_2026_nport_original_source_20261023/*.xml
+market_outcome_reads: 0
+model_fits: 0
+native_accounts: 0
