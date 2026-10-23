@@ -38,6 +38,11 @@ cards keep their original gates. The active campaign entry is
   Separate cash opportunity cost, SOXL-relative selection, execution cost, and
   risk-state feedback. Compare bad intervals with good intervals and matched
   controls; do not choose a tradable switch or threshold from hindsight groups.
+- Correcting a prior experiment's parent identity is an audit repair, not a new
+  economic hypothesis. Do not automatically rerun a static composition, cap,
+  bypass, or other old intervention on f696 merely because its earlier account
+  used 27baa. First show which exact f696 failure interval and matched control
+  motivate a distinct decision-time feature and receiver.
 - Convert a repeatable failure mechanism into one falsifiable feature hypothesis.
   Check what Stage1 already receives and what closed experiments already tested;
   verify source identity, first availability, missingness, and label maturity.
