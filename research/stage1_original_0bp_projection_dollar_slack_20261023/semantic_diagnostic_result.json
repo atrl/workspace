@@ -1,0 +1,164 @@
+{
+  "decision": "saved_target_semantics_diagnostic_only",
+  "source_recorder_id": "6e227278b7a64eafbcf34b965e16d2b9",
+  "target_rows": 944,
+  "target_columns": [
+    "signal_date",
+    "trade_date",
+    "decision_at",
+    "known_equity",
+    "known_drawdown",
+    "execute_open_target",
+    "soxl_weight",
+    "soxx_weight",
+    "cash_weight"
+  ],
+  "replay_columns": [
+    "signal_date",
+    "trade_date",
+    "exit_date",
+    "turnover",
+    "fees",
+    "broker_and_external_fees_usd",
+    "slippage_reserve_usd",
+    "portfolio_drawdown",
+    "monitored_drawdown",
+    "risk_state",
+    "risk_clock",
+    "current_beta_cap",
+    "execute_open_target",
+    "recovery_action",
+    "strategy_return",
+    "equity",
+    "native_expected_nav",
+    "ending_soxl_quantity",
+    "ending_soxx_quantity",
+    "ending_cash",
+    "ending_spendable_cash",
+    "ending_receivable",
+    "ending_soxl_weight",
+    "ending_soxx_weight",
+    "ending_cash_weight"
+  ],
+  "execute_sessions": 797,
+  "max_abs_simplex_error": 2.220446049250313e-16,
+  "min_cash": 0.20907182515506367,
+  "max_beta_minus_cap": 1.1102230246251565e-16,
+  "min_ceiling_minus_target_risk": -0.013912837970400216,
+  "checks": {
+    "simplex": {
+      "failed_rows": 0,
+      "failed_EXECUTE_rows": 0,
+      "failed_HOLD_rows": 0,
+      "dates": [],
+      "examples": []
+    },
+    "cash_floor": {
+      "failed_rows": 0,
+      "failed_EXECUTE_rows": 0,
+      "failed_HOLD_rows": 0,
+      "dates": [],
+      "examples": []
+    },
+    "beta_cap": {
+      "failed_rows": 0,
+      "failed_EXECUTE_rows": 0,
+      "failed_HOLD_rows": 0,
+      "dates": [],
+      "examples": []
+    },
+    "risky_dollar_ceiling": {
+      "failed_rows": 18,
+      "failed_EXECUTE_rows": 0,
+      "failed_HOLD_rows": 18,
+      "dates": [
+        "2023-01-18",
+        "2023-06-14",
+        "2023-10-10",
+        "2023-10-11",
+        "2023-12-29",
+        "2024-11-13",
+        "2024-12-02",
+        "2025-06-11",
+        "2025-07-01",
+        "2025-07-02",
+        "2025-07-03",
+        "2025-07-07",
+        "2025-07-15",
+        "2025-07-16",
+        "2025-07-17",
+        "2025-12-10",
+        "2025-12-11",
+        "2026-06-03"
+      ],
+      "examples": [
+        {
+          "signal_date": "2023-01-18",
+          "execute": false,
+          "raw_risk": 0.7145363817343944,
+          "cap": 1.314530201646776,
+          "target_soxl": 0.28285283932992716,
+          "target_soxx": 0.44559638037486743,
+          "target_cash": 0.27155078029520535,
+          "target_beta": 1.294154898364649,
+          "ceiling": 0.7145363817343944
+        },
+        {
+          "signal_date": "2023-06-14",
+          "execute": false,
+          "raw_risk": 0.6547236943786117,
+          "cap": 1.238404929188458,
+          "target_soxl": 0.29042831464326707,
+          "target_soxx": 0.3652198203001562,
+          "target_cash": 0.3443518650565767,
+          "target_beta": 1.2365047642299574,
+          "ceiling": 0.6547236943786117
+        },
+        {
+          "signal_date": "2023-10-10",
+          "execute": false,
+          "raw_risk": 0.6959281175822667,
+          "cap": 1.2666248911410165,
+          "target_soxl": 0.273596307757539,
+          "target_soxx": 0.432271098569675,
+          "target_cash": 0.294132593672786,
+          "target_beta": 1.253060021842292,
+          "ceiling": 0.6959281175822667
+        },
+        {
+          "signal_date": "2023-10-11",
+          "execute": false,
+          "raw_risk": 0.6981675644032292,
+          "cap": 1.2747024909308438,
+          "target_soxl": 0.277633973028632,
+          "target_soxx": 0.431411814936951,
+          "target_cash": 0.29095421203441696,
+          "target_beta": 1.264313734022847,
+          "ceiling": 0.6981675644032292
+        },
+        {
+          "signal_date": "2023-12-29",
+          "execute": false,
+          "raw_risk": 0.6896323255839354,
+          "cap": 1.2480143581053371,
+          "target_soxl": 0.26361207374114864,
+          "target_soxx": 0.431717334040981,
+          "target_cash": 0.30467059221787035,
+          "target_beta": 1.2225535552644269,
+          "ceiling": 0.6896323255839354
+        }
+      ]
+    },
+    "negative_weight": {
+      "failed_rows": 0,
+      "failed_EXECUTE_rows": 0,
+      "failed_HOLD_rows": 0,
+      "dates": [],
+      "examples": []
+    }
+  },
+  "source_reads": 2,
+  "SOXX_outcome_reads": 0,
+  "new_model_fits": 0,
+  "new_native_accounts": 0
+}

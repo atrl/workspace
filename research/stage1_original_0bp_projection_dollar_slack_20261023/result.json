@@ -1,0 +1,282 @@
+{
+  "decision": "read_only_projection_risky_dollar_ceiling_saturated_no_geometry_rescue",
+  "plan_sha256": "72297b1bd4917c982e808e6298fd7b6f9b81aa9419a13a98183ddf57de7284c9",
+  "source_stage1_recorder_id": "6e227278b7a64eafbcf34b965e16d2b9",
+  "source_daily_recorder_id": "2f0392615c4c4b15928b4ada6e01ecd9",
+  "sessions": 944,
+  "EXECUTE_sessions": 797,
+  "HOLD_sessions": 147,
+  "cap_binding_sessions": 288,
+  "maximum_abs_EXECUTE_risky_dollar_slack": 1.1102230246251565e-16,
+  "HOLD_carried_target_above_raw_ceiling_sessions": 18,
+  "execute_scope_repair_plan_sha256": "5c28a3ece3a88729a27ea1f4153bd3df4c5633364bf9590185370ce65246a351",
+  "positive_slack_EXECUTE_sessions": 0,
+  "constraint_rows": [
+    {
+      "constraint": "raw_risk",
+      "EXECUTE_sessions": 600,
+      "binding_sessions": 64,
+      "nonbinding_sessions": 536,
+      "cash_opportunity_log": -0.295864133733216,
+      "paired_log_excess": -0.10863028194564148,
+      "mean_target_cash": 0.4334635652899861
+    },
+    {
+      "constraint": "beta_cap",
+      "EXECUTE_sessions": 197,
+      "binding_sessions": 197,
+      "nonbinding_sessions": 0,
+      "cash_opportunity_log": -0.1563311980497054,
+      "paired_log_excess": -0.15671204316279844,
+      "mean_target_cash": 0.6510670065873282
+    },
+    {
+      "constraint": "cash_floor",
+      "EXECUTE_sessions": 0,
+      "binding_sessions": 0,
+      "nonbinding_sessions": 0,
+      "cash_opportunity_log": 0.0,
+      "paired_log_excess": 0.0,
+      "mean_target_cash": null
+    },
+    {
+      "constraint": "tie",
+      "EXECUTE_sessions": 0,
+      "binding_sessions": 0,
+      "nonbinding_sessions": 0,
+      "cash_opportunity_log": 0.0,
+      "paired_log_excess": 0.0,
+      "mean_target_cash": null
+    }
+  ],
+  "annual": [
+    {
+      "period": "2023",
+      "sessions": 249,
+      "EXECUTE_sessions": 200,
+      "EXECUTE_raw_risk_limited": 160,
+      "EXECUTE_beta_cap_limited": 40,
+      "EXECUTE_cash_floor_limited": 0,
+      "EXECUTE_ties": 0,
+      "cash_opportunity_log": -0.23367910383939577
+    },
+    {
+      "period": "2024",
+      "sessions": 252,
+      "EXECUTE_sessions": 220,
+      "EXECUTE_raw_risk_limited": 188,
+      "EXECUTE_beta_cap_limited": 32,
+      "EXECUTE_cash_floor_limited": 0,
+      "EXECUTE_ties": 0,
+      "cash_opportunity_log": -0.025351344238563403
+    },
+    {
+      "period": "2025",
+      "sessions": 250,
+      "EXECUTE_sessions": 206,
+      "EXECUTE_raw_risk_limited": 150,
+      "EXECUTE_beta_cap_limited": 56,
+      "EXECUTE_cash_floor_limited": 0,
+      "EXECUTE_ties": 0,
+      "cash_opportunity_log": -0.15800601225728084
+    },
+    {
+      "period": "2026",
+      "sessions": 193,
+      "EXECUTE_sessions": 171,
+      "EXECUTE_raw_risk_limited": 102,
+      "EXECUTE_beta_cap_limited": 69,
+      "EXECUTE_cash_floor_limited": 0,
+      "EXECUTE_ties": 0,
+      "cash_opportunity_log": -0.1832861405683766
+    }
+  ],
+  "quarters": [
+    {
+      "period": "2023Q1",
+      "sessions": 61,
+      "EXECUTE_sessions": 55,
+      "EXECUTE_raw_risk_limited": 52,
+      "EXECUTE_beta_cap_limited": 3,
+      "EXECUTE_cash_floor_limited": 0,
+      "EXECUTE_ties": 0,
+      "cash_opportunity_log": -0.0508134491301484
+    },
+    {
+      "period": "2023Q2",
+      "sessions": 62,
+      "EXECUTE_sessions": 56,
+      "EXECUTE_raw_risk_limited": 54,
+      "EXECUTE_beta_cap_limited": 2,
+      "EXECUTE_cash_floor_limited": 0,
+      "EXECUTE_ties": 0,
+      "cash_opportunity_log": -0.09064355103672553
+    },
+    {
+      "period": "2023Q3",
+      "sessions": 63,
+      "EXECUTE_sessions": 51,
+      "EXECUTE_raw_risk_limited": 34,
+      "EXECUTE_beta_cap_limited": 17,
+      "EXECUTE_cash_floor_limited": 0,
+      "EXECUTE_ties": 0,
+      "cash_opportunity_log": 0.014122110461335125
+    },
+    {
+      "period": "2023Q4",
+      "sessions": 63,
+      "EXECUTE_sessions": 38,
+      "EXECUTE_raw_risk_limited": 20,
+      "EXECUTE_beta_cap_limited": 18,
+      "EXECUTE_cash_floor_limited": 0,
+      "EXECUTE_ties": 0,
+      "cash_opportunity_log": -0.10634421413385697
+    },
+    {
+      "period": "2024Q1",
+      "sessions": 61,
+      "EXECUTE_sessions": 54,
+      "EXECUTE_raw_risk_limited": 44,
+      "EXECUTE_beta_cap_limited": 10,
+      "EXECUTE_cash_floor_limited": 0,
+      "EXECUTE_ties": 0,
+      "cash_opportunity_log": -0.10573903355634365
+    },
+    {
+      "period": "2024Q2",
+      "sessions": 63,
+      "EXECUTE_sessions": 49,
+      "EXECUTE_raw_risk_limited": 37,
+      "EXECUTE_beta_cap_limited": 12,
+      "EXECUTE_cash_floor_limited": 0,
+      "EXECUTE_ties": 0,
+      "cash_opportunity_log": -0.011920925221191805
+    },
+    {
+      "period": "2024Q3",
+      "sessions": 64,
+      "EXECUTE_sessions": 63,
+      "EXECUTE_raw_risk_limited": 53,
+      "EXECUTE_beta_cap_limited": 10,
+      "EXECUTE_cash_floor_limited": 0,
+      "EXECUTE_ties": 0,
+      "cash_opportunity_log": 0.0644435376762982
+    },
+    {
+      "period": "2024Q4",
+      "sessions": 64,
+      "EXECUTE_sessions": 54,
+      "EXECUTE_raw_risk_limited": 54,
+      "EXECUTE_beta_cap_limited": 0,
+      "EXECUTE_cash_floor_limited": 0,
+      "EXECUTE_ties": 0,
+      "cash_opportunity_log": 0.027865076862673824
+    },
+    {
+      "period": "2025Q1",
+      "sessions": 60,
+      "EXECUTE_sessions": 50,
+      "EXECUTE_raw_risk_limited": 40,
+      "EXECUTE_beta_cap_limited": 10,
+      "EXECUTE_cash_floor_limited": 0,
+      "EXECUTE_ties": 0,
+      "cash_opportunity_log": 0.07029234681248982
+    },
+    {
+      "period": "2025Q2",
+      "sessions": 62,
+      "EXECUTE_sessions": 54,
+      "EXECUTE_raw_risk_limited": 28,
+      "EXECUTE_beta_cap_limited": 26,
+      "EXECUTE_cash_floor_limited": 0,
+      "EXECUTE_ties": 0,
+      "cash_opportunity_log": -0.114697788752773
+    },
+    {
+      "period": "2025Q3",
+      "sessions": 64,
+      "EXECUTE_sessions": 45,
+      "EXECUTE_raw_risk_limited": 40,
+      "EXECUTE_beta_cap_limited": 5,
+      "EXECUTE_cash_floor_limited": 0,
+      "EXECUTE_ties": 0,
+      "cash_opportunity_log": -0.044719730194302636
+    },
+    {
+      "period": "2025Q4",
+      "sessions": 64,
+      "EXECUTE_sessions": 57,
+      "EXECUTE_raw_risk_limited": 42,
+      "EXECUTE_beta_cap_limited": 15,
+      "EXECUTE_cash_floor_limited": 0,
+      "EXECUTE_ties": 0,
+      "cash_opportunity_log": -0.06888084012269499
+    },
+    {
+      "period": "2026Q1",
+      "sessions": 61,
+      "EXECUTE_sessions": 51,
+      "EXECUTE_raw_risk_limited": 35,
+      "EXECUTE_beta_cap_limited": 16,
+      "EXECUTE_cash_floor_limited": 0,
+      "EXECUTE_ties": 0,
+      "cash_opportunity_log": -0.027595723258313064
+    },
+    {
+      "period": "2026Q2",
+      "sessions": 62,
+      "EXECUTE_sessions": 56,
+      "EXECUTE_raw_risk_limited": 51,
+      "EXECUTE_beta_cap_limited": 5,
+      "EXECUTE_cash_floor_limited": 0,
+      "EXECUTE_ties": 0,
+      "cash_opportunity_log": -0.14353537069119737
+    },
+    {
+      "period": "2026Q3",
+      "sessions": 64,
+      "EXECUTE_sessions": 61,
+      "EXECUTE_raw_risk_limited": 15,
+      "EXECUTE_beta_cap_limited": 46,
+      "EXECUTE_cash_floor_limited": 0,
+      "EXECUTE_ties": 0,
+      "cash_opportunity_log": -0.025266883772547627
+    },
+    {
+      "period": "2026Q4",
+      "sessions": 6,
+      "EXECUTE_sessions": 3,
+      "EXECUTE_raw_risk_limited": 1,
+      "EXECUTE_beta_cap_limited": 2,
+      "EXECUTE_cash_floor_limited": 0,
+      "EXECUTE_ties": 0,
+      "cash_opportunity_log": 0.01311183715368145
+    }
+  ],
+  "rolling126_windows": 819,
+  "original_positive_windows": 255,
+  "nonwinning_window_cash_components": {
+    "raw_risk": {
+      "nonwinning_windows_with_negative_component": 486,
+      "mean_component_all_windows": -0.043138501813930065
+    },
+    "beta_cap": {
+      "nonwinning_windows_with_negative_component": 461,
+      "mean_component_all_windows": -0.02230357677935797
+    },
+    "cash_floor": {
+      "nonwinning_windows_with_negative_component": 0,
+      "mean_component_all_windows": 0.0
+    },
+    "tie": {
+      "nonwinning_windows_with_negative_component": 0,
+      "mean_component_all_windows": 0.0
+    }
+  },
+  "theorem_boundary": "Under nonnegative SOXL/SOXX and beta=3*SOXL+SOXX, risky dollars<=beta cap; preserving raw risky-dollar intent and 15pct cash floor gives risky dollars<=min(raw risk, cap, .85). Saved Stage1 targets attain this bound. Changing raw intent or cap is a new allocator/risk policy.",
+  "new_market_requests": 0,
+  "new_model_fits": 0,
+  "new_native_accounts": 0,
+  "new_bootstraps": 0,
+  "new_Qlib_Recorders": 0
+}

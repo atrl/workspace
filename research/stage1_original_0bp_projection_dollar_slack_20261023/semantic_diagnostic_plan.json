@@ -1,0 +1,11 @@
+{
+  "schema_version": 1,
+  "frozen": true,
+  "phase": "one_target_semantics_diagnostic_after_pre_result_assertion",
+  "parent_plan": "plan.json",
+  "failure": "attempt1_failure.json",
+  "source": "Reuse the exact hash-pinned original Stage1 Qlib frame and path. Do not read SOXX outcomes, change dates or run an account.",
+  "report": "Count and list exact failing dates and magnitudes separately for target simplex, cash floor, target beta versus same-row cap, raw-risk/cap/floor ceiling slack, and EXECUTE versus HOLD. Inspect target and replay column definitions. Do not calculate economic improvement or select a variant.",
+  "budget": {"additional_stage1_Recorder_loads_max": 2, "new_market_requests": 0, "new_model_fits": 0, "new_native_accounts": 0, "new_Qlib_Recorders": 0},
+  "stop": "If saved target semantics differ from the hypothesized legal projected target, close the original geometry question and state the narrower verifiable boundary."
+}

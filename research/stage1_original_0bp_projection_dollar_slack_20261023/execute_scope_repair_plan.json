@@ -1,0 +1,12 @@
+{
+  "schema_version": 1,
+  "frozen": true,
+  "phase": "one_mechanical_EXECUTE_target_scope_repair",
+  "parent_plan": "plan.json",
+  "failed_attempt": "attempt1_failure.json",
+  "semantic_diagnostic": "semantic_diagnostic_result.json",
+  "source_code_semantics": "src/backtest/stage1_domain_heads_raw.py:132-141 saves desired projected target only when execute_open_target is true; otherwise it saves current pretrade holdings in targets.",
+  "repair": "Apply the projected-risky-dollar ceiling equality assertion only to EXECUTE rows; keep all 944 rows for Qlib calendar, annual/quarter and rolling cash accounting. Keep HOLD separate and report its 18 raw-intent ceiling violations as carried-position semantics, not illegal targets. Do not change raw risk, cap, 0.85 cash floor, categories, outcomes or window definitions.",
+  "budget": {"additional_stage1_Recorder_loads_max": 2, "additional_daily_Recorder_loads_max": 1, "new_market_requests": 0, "new_model_fits": 0, "new_native_accounts": 0, "new_Qlib_Recorders": 0},
+  "stop": "If any EXECUTE target has positive material ceiling slack or illegal simplex/cap/cash weights, report it rather than altering the projection geometry. Do not turn categories into a trading switch."
+}

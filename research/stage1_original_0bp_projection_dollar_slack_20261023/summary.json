@@ -1,0 +1,29 @@
+{
+  "experiment": "stage1_original_0bp_projection_dollar_slack_20261023",
+  "decision": "read_only_projection_risky_dollar_ceiling_saturated_no_geometry_rescue",
+  "objective_achieved": false,
+  "plan_sha256": "72297b1bd4917c982e808e6298fd7b6f9b81aa9419a13a98183ddf57de7284c9",
+  "result": "result.json",
+  "attempt1_failure": "attempt1_failure.json",
+  "semantic_diagnostic": "semantic_diagnostic_result.json",
+  "execute_scope_repair_plan": "execute_scope_repair_plan.json",
+  "source_stage1_recorder_id": "6e227278b7a64eafbcf34b965e16d2b9",
+  "source_daily_recorder_id": "2f0392615c4c4b15928b4ada6e01ecd9",
+  "source_Stage1_NAS_sha256": "f3f891d6d09d4187f12815e245b33cc9cfec4acfd4f555b734f66a59348d9884",
+  "source_Stage1_NAS_cold_readback_verified": true,
+  "source_daily_NAS_sha256": "54c6e93b4c304774c272b07312c856a9a2a255086d372066db418b5efed359c7",
+  "source_daily_NAS_readback_verified": true,
+  "EXECUTE_sessions": 797,
+  "HOLD_sessions": 147,
+  "maximum_abs_EXECUTE_risky_dollar_slack": 1.1102230246251565e-16,
+  "positive_slack_EXECUTE_sessions": 0,
+  "HOLD_carried_target_above_raw_ceiling_sessions": 18,
+  "new_model_fits": 0,
+  "new_native_accounts": 0,
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": []
+  },
+  "limitation": "Only current Stage1 raw risky-dollar intent, beta cap and 15pct cash floor are held fixed; changing either first two is a new policy."
+}

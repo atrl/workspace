@@ -1,0 +1,9 @@
+{
+  "schema_version": 1,
+  "status": "stopped_before_result",
+  "failed_assertion": "Saved path.targets jointly satisfy unit simplex, 15% cash floor, target beta <= current same-row cap, and nonnegative projected risky-dollar slack.",
+  "execution_boundary": "Qlib source hashes, NAS receipts, 944 exact Qlib dates and three source Recorder object loads passed before the assertion. No result sidecar, model fit, account, bootstrap or new Recorder was produced.",
+  "interpretation": "The plan may have conflated saved target semantics, actual execution state or same-row cap. Inspect which inequality and dates failed before deciding whether the hypothesis is valid; do not drop rows or weaken a gate post hoc.",
+  "new_model_fits": 0,
+  "new_native_accounts": 0
+}

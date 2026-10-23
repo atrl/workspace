@@ -1,0 +1,10 @@
+experiment: stage1_original_0bp_projection_dollar_slack_20261023
+phase: read_only_native_qlib_projection_semantics
+provider_uri: data/qlib/minute_information_pit_allocator_20261012/daily_prices
+stage1_recorder: research/stage1_domain_heads_20261018
+cash_component_recorder: research/stage1_original_0bp_signal_loss_chain_v2_20261023
+plan: plan.json
+semantic_diagnostic: semantic_diagnostic_result.json
+execute_scope_repair: execute_scope_repair_plan.json
+result: result.json
+new_economic_account: none

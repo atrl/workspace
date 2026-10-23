@@ -1,0 +1,50 @@
+{
+  "schema_version": 1,
+  "experiment": "stage1_original_0bp_projection_dollar_slack_20261023",
+  "frozen": true,
+  "phase": "read_only_full_Stage1_0bp_projected_target_risk_dollar_slack",
+  "question": "Does the original Stage1 09:46 legal target leave any risky-dollar capacity unused under unchanged upstream raw risky-dollar intent, own-state nominal-beta cap and 15% cash floor; which constraint is tight on cap-binding EXECUTE days?",
+  "source": {
+    "stage1_card": "research/stage1_domain_heads_20261018",
+    "stage1_summary_sha256": "3b51938ca56ddf45029ff5e4a01a6bbc2f1d1407458efcad7d7c68b0ef5a1d37",
+    "stage1_recorder_id": "6e227278b7a64eafbcf34b965e16d2b9",
+    "stage1_experiment_id": "283510277269468590",
+    "stage1_frame_sha256": "e83a57eb764dc59ee8d9fad7b1a48eb6b295c6183d6c4cab2062b3aa6c66e07c",
+    "stage1_path_sha256": "3901f80a552b01addbc6dadc5ad677f71a175d65e5a17fe3ad1137e101c891ef",
+    "stage1_NAS_sha256": "f3f891d6d09d4187f12815e245b33cc9cfec4acfd4f555b734f66a59348d9884",
+    "daily_card": "research/stage1_original_0bp_signal_loss_chain_v2_20261023",
+    "daily_summary_sha256": "898089b008f1f6f50016ddbbd2fc082f77423464ed8613c54dbdd5fbbae1dc3a",
+    "daily_recorder_id": "2f0392615c4c4b15928b4ada6e01ecd9",
+    "daily_experiment_id": "954993860986722516",
+    "daily_artifact_sha256": "00660bd17990b571040b7de62ca58475175d4a6a4a1b5e94f027b4b986824855",
+    "daily_NAS_sha256": "54c6e93b4c304774c272b07312c856a9a2a255086d372066db418b5efed359c7",
+    "provider_uri": "data/qlib/minute_information_pit_allocator_20261012/daily_prices"
+  },
+  "fixed_geometry": {
+    "raw_risk": "frame.soxl_weight + frame.soxx_weight",
+    "raw_nominal_beta": "3*frame.soxl_weight + frame.soxx_weight",
+    "cap": "path.replay.current_beta_cap from own-state 0bp account",
+    "target_risk": "path.targets.soxl_weight + path.targets.soxx_weight",
+    "legal_risky_dollar_ceiling": "min(raw_risk, cap, 0.85) under nonnegative weights, beta=3*SOXL+SOXX and 15% cash floor",
+    "slack": "ceiling - target_risk; require >=-1e-10",
+    "constraint_categories": "strict raw-risk limited, strict beta-cap-dollar limited, strict cash-floor limited, or ties at 1e-9; preserve cap-binding raw_beta>cap separately",
+    "boundary": "This theorem applies only if candidate preserves raw risky-dollar intent as an upper bound and the own-state cap; changing either is a distinct allocator/risk policy and requires its own 0bp account."
+  },
+  "report": [
+    "All 944 original signal days and 797 EXECUTE days; source hashes, source NAS verification, exact Qlib calendar and target legality.",
+    "Annual/quarter strict constraint counts and cash opportunity log by EXECUTE category, plus HOLD separated.",
+    "All contiguous 126-session windows: count negative original SOXX windows with raw-risk- and cap-dollar-limited negative cash contributions, without selecting trading thresholds.",
+    "Maximum target risky-dollar slack and number of materially positive-slack EXECUTE days; no model or account."
+  ],
+  "budget": {
+    "preflight_path_Recorder_schema_loads_already_done": 1,
+    "stage1_Recorder_object_loads_max": 2,
+    "daily_Recorder_object_loads_max": 1,
+    "new_market_requests": 0,
+    "new_model_fits": 0,
+    "new_native_accounts": 0,
+    "new_bootstraps": 0,
+    "new_Qlib_Recorders": 0
+  },
+  "stop": "Any source hash/NAS, 944-day Qlib calendar, target simplex, cap, cash floor, or source component closure mismatch stops. Do not alter projection or fit a rule from observed returns."
+}
