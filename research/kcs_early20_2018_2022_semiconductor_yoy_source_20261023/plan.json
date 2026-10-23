@@ -1,0 +1,25 @@
+{
+  "experiment": "kcs_early20_2018_2022_semiconductor_yoy_source_20261023",
+  "frozen": true,
+  "phase": "official_HWP_export_semiconductor_reported_YoY_numeric_source_only",
+  "parent": "frozen_complete_Stage1_0bp_IBKR_Tiered",
+  "question": "Can each of the 60 NAS-backed 2018-2022 official HWP originals supply exactly one reported semiconductor export YoY percentage from the export-products prose, excluding the import-products row and table-header amount cells, with independent HWP preview corroboration where the preview reaches the row?",
+  "prior_preview_disclosure": "Before freezing, one parser probe over the 60 captured HWP files found exactly one BodyText export-region semiconductor percent each; 59 PrvText previews also reached and agreed, while 2022-09 preview ended before the semiconductor text. The probe read source bytes only, no SOXX outcome. This is development feedback, not independent original-vintage proof.",
+  "sources": {
+    "capture_card": "research/kcs_early20_2018_2022_original_capture_20261023",
+    "capture_summary_sha256": "bb9ce4641cc2f4b7a2523f2213443b14c7e7d38d9c047c4013d4c16ae92b6298",
+    "source_quality_sha256": "31f72e0e035a4d3e4457400f2a153a133f966b5be1905b38ed67d1407bde0d50",
+    "snapshot_root": "data/snapshots/kcs_early20_2018_2022_original_capture_20261023",
+    "year_manifest_sha256": {
+      "2018": "02fa69b2ffb1c8719cfec637c910035e8d35d37bad37ed1d89e1a3c8201e088a",
+      "2019": "bc8c804bfa1e64293ddd14c99e196a351315df30b0e2a911fbc07e17beadb6e0",
+      "2020": "1f8b5d0dee117d3a1b8705ca4ea028dd37b1659a4bb9bcb38f755d3a93103f15",
+      "2021": "c03190e7979efe376ed72436447db87b1bfb3eabd9ab48dabf668a1c843fa7c1",
+      "2022": "d1b1edabbb95b6e308f58c9a28186e5b99536c468d1c05579309e44db1e0752a"
+    }
+  },
+  "parser": "For each month select the sole official .hwp attachment from that month. Verify captured body SHA and HWP OLE magic. With olefile 0.47 read BodyText/Section0, raw-deflate decompress; locate UTF-16LE bytes for 수출현황 then next 수입현황, and only within this span find UTF-16LE 반도체 labels. Decode 130 bytes from each label offset; accept exactly one anchored 반도체(<signed number>%) prose token. △/▽/▼/−/- mean negative, ▲/+ positive. Do not search a different row when a month fails. Independently read PrvText UTF-16LE, restrict to its export-to-import span; require exactly one matching number for all months except frozen 2022-09 whose preview ends before the label. Preserve all offsets, raw tokens, file hashes and metadata.",
+  "meaning": "Reported first-20-day semiconductor export YoY, unadjusted for differing Korean working days. It is neither an absolute USD amount, an economic surprise nor a same-day tradable SOXX signal. Current HWP bytes and portal dates do not certify historical first-public versions.",
+  "budget": {"external_GETs": 0, "HWP_source_reads": 60, "new_Qlib_Recorders_max": 1, "SOXX_outcome_reads": 0, "model_fits": 0, "native_accounts": 0},
+  "stop": "Any OLE/deflate error, missing/duplicate export-prose token, unexpected preview disagreement, source hash or NAS receipt failure stops source qualification. Do not fill failed months, change token rule or infer working-day-adjusted surprise. 2023-2026 original monthly source and first-public timing remain missing before any Stage1 information screen."
+}

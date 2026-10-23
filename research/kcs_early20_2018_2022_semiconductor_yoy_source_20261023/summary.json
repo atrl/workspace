@@ -1,0 +1,48 @@
+{
+  "experiment": "kcs_early20_2018_2022_semiconductor_yoy_source_20261023",
+  "decision": "KCS_2018_2022_early20_reported_semiconductor_YoY_source_numeric_complete_held_and_PIT_pending",
+  "objective_achieved": false,
+  "plan_sha256": "3bbe9d1beb90c5f1e3c53adc8e67cfaa1468b56197c92a7407498d0ed3557a80",
+  "result": "result.json",
+  "recorder_id": "e700f88dcb824ab88c4d1d0e13fc3fa0",
+  "experiment_id": "129326686292267810",
+  "recorder_uri": "/Users/rziiiii/dev/workspace/research/kcs_early20_2018_2022_semiconductor_yoy_source_20261023/qlib_recorder",
+  "NAS_evidence": {
+    "sha256": "0b7dfd3a7eb4da857a9efcdcb868a9c1a8d5090202013a5d13aba65fb1ba54cb",
+    "size_bytes": 69103,
+    "media_type": "application/gzip",
+    "storage_uri": "sha256/0b/7d/0b7dfd3a7eb4da857a9efcdcb868a9c1a8d5090202013a5d13aba65fb1ba54cb",
+    "uploaded_by": "soxl-minute-research",
+    "created_at": "2026-10-23 13:13:18.936803+08",
+    "duplicate": false,
+    "nas_path": "/volume1/docker/yanxuan/registry/research-artifacts/0b/7d/0b7dfd3a7eb4da857a9efcdcb868a9c1a8d5090202013a5d13aba65fb1ba54cb",
+    "recorder_id": "e700f88dcb824ab88c4d1d0e13fc3fa0",
+    "experiment_id": "129326686292267810",
+    "archive_root": "qlib_recorder"
+  },
+  "NAS_readback": {
+    "sha256": "0b7dfd3a7eb4da857a9efcdcb868a9c1a8d5090202013a5d13aba65fb1ba54cb",
+    "verified": true
+  },
+  "monthly_rows": 60,
+  "preview_corroborated": 59,
+  "SOXX_outcome_reads": 0,
+  "model_fits": 0,
+  "native_accounts": 0,
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "inputs/*",
+      "analysis/monthly_reported_YoY",
+      "analysis/source_offsets_and_preview",
+      "analysis/result"
+    ]
+  },
+  "limitations": [
+    "Reported raw YoY is working-day sensitive and not a demand surprise.",
+    "Current official HWP bytes and metadata do not certify historic first-public versions.",
+    "No 2023-2026 held numeric panel, US-session Qlib factor, SOXX result or strategy account."
+  ],
+  "NAS_scoped_restore": "nas_scoped_restore.json"
+}
