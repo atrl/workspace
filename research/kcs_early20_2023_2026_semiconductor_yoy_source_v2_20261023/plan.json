@@ -1,0 +1,47 @@
+{
+  "experiment": "kcs_early20_2023_2026_semiconductor_yoy_source_v2_20261023",
+  "frozen": true,
+  "phase": "official_held_HWP_HWPX_PDF_export_semiconductor_reported_YoY_numeric_source_only",
+  "parent": "frozen_complete_Stage1_0bp_IBKR_Tiered",
+  "question": "Can the 45 NAS-backed 2023-2026 official early20 originals produce one comparable reported semiconductor export YoY per month across the HWP-to-HWPX format change, without selecting PDF/HWPX values by SOXX outcomes?",
+  "prior_preview_disclosure": "V1 stopped after seven HWP reads because its preview expectation wrongly treated 2023-Jul/Aug/Sep as truncated. Its already fixed number grammar permits trailing down arrows, and a source-only audit of all30 HWP previews under that grammar found one value each. V2 changes only the preview expectation and support count; all source IDs, numbers, signs, periods, model/account budgets and parsing rule remain fixed. Historical independence is not restored.",
+  "sources": {
+    "held_capture_card": "research/kcs_early20_2023_2026_held_original_capture_20261023",
+    "held_capture_summary_sha256": "8f46a275636301e32ef70651e2969445c83a8059d39d3827676c2d398fab887c",
+    "August_repair_card": "research/kcs_early20_2025_aug_transport_repair_20261023",
+    "August_repair_summary_sha256": "fb8b078c65ef51313ed0bcff3f48b16446adaa5e91ff7e0c03abc404710f5755",
+    "training_numeric_card": "research/kcs_early20_2018_2022_semiconductor_yoy_source_20261023",
+    "training_numeric_summary_sha256": "2e5f6afb75ea9edd6a2e3f4d7bf4ddd7894de842bd1f4d07e01c85953b2d9529",
+    "snapshot_root": "data/snapshots/kcs_early20_2023_2026_held_original_capture_20261023",
+    "year_manifest_sha256": {
+      "2023": "f6710b739a108e6175a659b338738a97483dba75aad6539c891ee054fce5e2b7",
+      "2024": "135b9798e5be8c1f44053bd592c92564551f6e183f6ae6b2cce94c5fa7046f25",
+      "2025": "26357c83388792740706cd8df1e3200be6ae3b01fb038138161822eb9fb04e2b",
+      "2026": "eaba12958d93c6ae9f3b8a1d0cc59731da0a4a49898f4ac8bf1a8f2405e793b6"
+    },
+    "August_repair_manifest": "data/snapshots/kcs_early20_2025_aug_transport_repair_20261023/repair_manifest.json",
+    "August_repair_manifest_sha256": "243cb64bf46cf2f9a7179dd56a48a75c0d6db0b001c5205b2efbeefb077581ff"
+  },
+  "parser": "For30 HWP months, use olefile0.47 BodyText/Section0 raw-deflate; UTF-16LE byte-search 수출현황 to next 수입현황, decode from each 반도체 byte offset, require one anchored signed percent token allowing a trailing ↑ or ↓ inside parentheses. HWP PrvText must match in all30 months under the already-fixed trailing-arrow grammar; no preview-truncated exception. For15 HWPX months, use Contents/section0.xml hp:t text in document order, same export/import span and signed-percent token; independently extract all PDF page text with pypdf6.20.1 and require its export prose token to agree. 2025-Aug source comes solely from its repaired exact page, not the prior zero-byte list. Preserve all file hashes, offsets, preview/PDF checks and metadata.",
+  "meaning": "Reported first-20-day Korean semiconductor export YoY is provisional and sensitive to working days. It is not an adjusted demand surprise or SOXX return prediction. Current bytes, HWPX ModifiedDate and portal dates do not prove historical first-public versions.",
+  "budget": {
+    "external_GETs": 0,
+    "HWP_reads": 30,
+    "HWPX_reads": 15,
+    "PDF_reads": 15,
+    "new_Qlib_Recorders_max": 1,
+    "SOXX_outcome_reads": 0,
+    "model_fits": 0,
+    "native_accounts": 0
+  },
+  "stop": "Any pinned source hash, OLE/ZIP/XML/PDF parse, missing/duplicate export token or required HWP preview/PDF disagreement stops qualification. Do not fill a failed month, change value sign or use price outcomes. A 45-month numeric source still needs release-time/Qlib mapping and a frozen original Stage1 information gate before any 0bp funded account.",
+  "version": 2,
+  "predecessor": {
+    "card": "research/kcs_early20_2023_2026_semiconductor_yoy_source_20261023",
+    "plan_sha256": "762b06e801ec48baebb5bfe3e286ca911fafc51556b242567f43d9c7c95377f6",
+    "failure_sha256": "199f2dbedf8118e9b70678634f7c8b5408743dd1359fd008b5c9969248f7369c",
+    "actual_HWP_reads": 7,
+    "new_model_fits": 0,
+    "new_native_accounts": 0
+  }
+}

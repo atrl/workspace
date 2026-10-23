@@ -1,0 +1,23 @@
+{
+  "status": "same_original_45_month_source_values_no_independent_market_validation",
+  "other_card": "research/kcs_early20_2023_2026_held_semiconductor_yoy_20261023",
+  "other_recorder_id": "d69965350aab443ea7f6c0882f3dc2e0",
+  "other_experiment_id": "572506438445073331",
+  "other_monthly_artifact_sha256": "dd2bf44c189df274b88bad8e121a7bd266c9c869012098a51f56443accebc909",
+  "this_recorder_id": "7b60cdf8611d4df69354779db6765573",
+  "this_monthly_artifact_sha256": "43194d70d52f9e67135c519bf65f1e76ea5491bcbbc7e1f66d19681821352df2",
+  "rows": 45,
+  "shared_fields_identical": [
+    "period",
+    "reported_semiconductor_export_yoy_pct",
+    "raw_token",
+    "source_format",
+    "source_sha256",
+    "source_bytes"
+  ],
+  "max_abs_numeric_difference": 0.0,
+  "interpretation": "Independent execution on exactly the same official current bytes is a duplicate source readback, not independent market evidence and not a second candidate. This run consumed 30 HWP,15 HWPX,15 PDF reads and one native Recorder, zero fits/accounts.",
+  "other_NAS_archive_sha256": "c479b8309d8f625fc6e9c7052774d0e86edc7506ede51577abead9f4a267dc71",
+  "other_card_Git_delivery_at_readback": "uncommitted_local_card",
+  "authoritative_downstream_numeric_entry": "research/kcs_early20_2023_2026_semiconductor_yoy_source_v2_20261023/summary.json"
+}

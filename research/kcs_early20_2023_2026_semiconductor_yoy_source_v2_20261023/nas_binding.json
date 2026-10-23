@@ -1,0 +1,20 @@
+{
+  "schema_version": "nas_recorder_archive_binding_v1",
+  "authority": "yanxuan_nas",
+  "source_id": "kcs_early20_2023_2026_semiconductor_yoy_source_v2_20261023",
+  "as_of": "2026-10-23",
+  "source_plan": "plan.json",
+  "evidence": {
+    "sha256": "fafe4058d3363c0f346c3be31075e2464eaef2fbbe00d041f0fbeb0c43751cbb",
+    "size_bytes": 69810,
+    "media_type": "application/gzip",
+    "storage_uri": "sha256/fa/fe/fafe4058d3363c0f346c3be31075e2464eaef2fbbe00d041f0fbeb0c43751cbb",
+    "uploaded_by": "soxl-minute-research",
+    "created_at": "2026-10-23 13:38:04.122659+08",
+    "duplicate": false,
+    "nas_path": "/volume1/docker/yanxuan/registry/research-artifacts/fa/fe/fafe4058d3363c0f346c3be31075e2464eaef2fbbe00d041f0fbeb0c43751cbb",
+    "recorder_id": "7b60cdf8611d4df69354779db6765573",
+    "experiment_id": "154092877606764020",
+    "archive_root": "qlib_recorder"
+  }
+}

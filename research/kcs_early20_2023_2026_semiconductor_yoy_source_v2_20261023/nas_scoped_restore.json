@@ -1,0 +1,25 @@
+{
+  "status": "NAS_Recorder_cold_readback_selected_KCS_held_numeric_artifacts_exact",
+  "archive_sha256": "fafe4058d3363c0f346c3be31075e2464eaef2fbbe00d041f0fbeb0c43751cbb",
+  "archive_bytes": 69810,
+  "checked": {
+    "analysis/monthly_reported_YoY": {
+      "sha256": "43194d70d52f9e67135c519bf65f1e76ea5491bcbbc7e1f66d19681821352df2",
+      "bytes": 6998
+    },
+    "analysis/source_offsets_and_crosschecks": {
+      "sha256": "7a3713cba5cebd383e489a72fc0644cf058e99af9325241f05802ebd14ccb7b8",
+      "bytes": 15316
+    },
+    "analysis/result": {
+      "sha256": "d32a230076673513c67d691b71751475ffc59654664ba210fc40a368e5b90b26",
+      "bytes": 524
+    }
+  },
+  "native_Recorder_status": "FINISHED",
+  "monthly_rows": 45,
+  "HWP_preview_agree": 30,
+  "HWPX_PDF_agree": 15,
+  "new_fits": 0,
+  "new_accounts": 0
+}
