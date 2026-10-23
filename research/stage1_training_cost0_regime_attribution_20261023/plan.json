@@ -1,0 +1,65 @@
+{
+  "experiment": "stage1_training_cost0_regime_attribution_20261023",
+  "frozen": true,
+  "phase": "closed_version_failure_attribution_only",
+  "question": "On the exact 944-session frozen Stage1 training-cost0 0bp raw-corporate Tiered candidate, where did the extra raw cash intent become actual cash and SOXX/B_0 net shortfall across all years, quarters and 126-session windows?",
+  "sources": {
+    "candidate": {
+      "card": "research/stage1_training_cost_0bp_ablation_20261023",
+      "summary_sha256": "553c589595b80e183bf2749bbd643146fa62eee847b3751b8ae4009ecb02088d",
+      "recorder_id": "4a8a2447ea274fe082397a1ff5c4a8b3",
+      "experiment_id": "460050190338860029",
+      "nas_archive_sha256": "ceb98abc95612c4d1399c0637ff646159a3aa87b3e95866565a7f66be5551c87",
+      "artifacts": [
+        "analysis/ensembles",
+        "analysis/smoothed_targets",
+        "native/candidate_cost0_0",
+        "analysis/rolling126"
+      ]
+    },
+    "control": {
+      "card": "research/stage1_domain_heads_20261018",
+      "summary_sha256": "3b51938ca56ddf45029ff5e4a01a6bbc2f1d1407458efcad7d7c68b0ef5a1d37",
+      "recorder_id": "6e227278b7a64eafbcf34b965e16d2b9",
+      "experiment_id": "283510277269468590",
+      "nas_archive_sha256": "f3f891d6d09d4187f12815e245b33cc9cfec4acfd4f555b734f66a59348d9884",
+      "artifacts": [
+        "native/A_active_research_replay_0",
+        "native/B_shared_0"
+      ]
+    },
+    "benchmark": {
+      "card": "research/frozen_policy_raw_cashbook_20261015",
+      "summary_sha256": "86aadee052f678ea70ced12ccf27406281d0fd6b8f8d36a1e6aa1d7a86efc492",
+      "recorder_id": "55b4223a73d44fee89c86608edf8f58c",
+      "nas_archive_sha256": "cb4d3c04e805a7c09010d30338f0d12f3bf42a5fa1ceaa40428f0dc5bbfc3869",
+      "artifact": "native/raw_SOXX_0"
+    }
+  },
+  "fixed_periods": {
+    "full": "all 944",
+    "years": "every year including 2023/2026 partial endpoints; complete 2024/2025 separate",
+    "quarters": "every trade-date quarter",
+    "windows": "all 819 contiguous 126-session windows",
+    "named_descriptive_examples": [
+      "2024Q3",
+      "2025 full year",
+      "2023-08-01..2024-01-31 worst original126",
+      "2024-10-03..2025-04-07 best original126"
+    ]
+  },
+  "method": "Align by exact saved signal/trade/exit dates; raw ensemble cash by signal_date, smoothed target cash by signal_date, funded ending cash/beta/cap/fees/net return by trade_date. Compare candidate-minus-B_0 daily paired log return and cash at each layer; candidate-minus-SOXX and A_0 contextual. Sum daily log intervals, report all years/quarters/windows and physical account fee/state fields. Descriptive account-path differences are not causal local-action effects.",
+  "budget": {
+    "new_market_requests": 0,
+    "new_model_fits": 0,
+    "new_native_accounts": 0,
+    "new_bootstraps": 0,
+    "source_Recorder_object_loads_max": 8,
+    "new_Qlib_Recorders_max": 1
+  },
+  "stops": [
+    "Any source summary/NAS/Recorder/hash mismatch",
+    "Any calendar mismatch, missing raw/target/account row, failed native book, or component alignment failure",
+    "Do not select trading threshold, year, window or sign from these reused outcomes. No cost sweep or new 2/5bp paths."
+  ]
+}
