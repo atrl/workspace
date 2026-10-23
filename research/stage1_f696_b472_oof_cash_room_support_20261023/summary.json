@@ -1,0 +1,60 @@
+{
+  "experiment": "stage1_f696_b472_oof_cash_room_support_20261023",
+  "decision": "fixed_f696_b472_development_source_support_failed",
+  "objective_achieved": false,
+  "plan_sha256": "88c70353b3e70546dd9464843d6a0589f7db1e55a4092f2b527a08bffb8b0a8c",
+  "result": "result.json",
+  "source_recorder_ids": [
+    "f696f656b3d44e868588e09a5d97c905",
+    "b472a458fc9042b4905094fddeaebd33"
+  ],
+  "source_CSV_Git_tracked_SHA_verified": true,
+  "source_legacy_full_Recorder_NAS_scoped_restore_verified": true,
+  "recorder_id": "45c6708c35f2421eaeca75d66cbce6b5",
+  "experiment_id": "879769726506886081",
+  "recorder_uri": "/Users/rziiiii/dev/workspace/research/stage1_f696_b472_oof_cash_room_support_20261023/qlib_recorder",
+  "NAS_evidence": {
+    "sha256": "d90b952caef439cdaef8b4eaef518664cb32a94717ee81eab0ffef678218f102",
+    "size_bytes": 96153,
+    "media_type": "application/gzip",
+    "storage_uri": "sha256/d9/0b/d90b952caef439cdaef8b4eaef518664cb32a94717ee81eab0ffef678218f102",
+    "uploaded_by": "soxl-minute-research",
+    "created_at": "2026-10-23 14:17:54.257463+08",
+    "duplicate": false,
+    "nas_path": "/volume1/docker/yanxuan/registry/research-artifacts/d9/0b/d90b952caef439cdaef8b4eaef518664cb32a94717ee81eab0ffef678218f102",
+    "recorder_id": "45c6708c35f2421eaeca75d66cbce6b5",
+    "experiment_id": "879769726506886081",
+    "archive_root": "qlib_recorder"
+  },
+  "NAS_readback": {
+    "status": "NAS_f696_b472_source_support_selected_artifact_cold_readback",
+    "verified": true,
+    "archive_sha256": "d90b952caef439cdaef8b4eaef518664cb32a94717ee81eab0ffef678218f102",
+    "selected_artifact_sha256": "eaab8c2081a905a23ddfe5abc2dfe5843db3d4dfdc40f1e45ef2fa2d9bcb587d",
+    "selected_artifact_bytes": 87128,
+    "native_recorder_status": "FINISHED",
+    "source_rows": 1756,
+    "projected_eligible": 25
+  },
+  "projected_eligible": 25,
+  "support_gate_pass": false,
+  "future_label_columns_loaded": 0,
+  "model_fits": 0,
+  "native_accounts": 0,
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "inputs/*",
+      "analysis/source_support",
+      "analysis/result"
+    ]
+  },
+  "limitations": [
+    "Full legacy f696 and b472 Recorder roots were subsequently NAS archived and all-member cold restored; their original outputs remain Git tracked and unchanged.",
+    "No OOF b472 action decision or funded execution was tested.",
+    "No local profit label, full Stage1 0bp SOXX account or independent forward evidence."
+  ],
+  "source_recorder_NAS_receipts": "source_recorder_nas_receipts.json",
+  "failure_attribution": "failure_attribution.json"
+}

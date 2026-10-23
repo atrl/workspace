@@ -1,0 +1,20 @@
+{
+  "f696_allocation": {
+    "archive_sha256": "0181ead658210e8c5b9a8bef82dcdbd653f6bf9edbfe988beceb242e8b8ffc7c",
+    "archive_bytes": 682005,
+    "nas_path": "/volume1/docker/yanxuan/registry/research-artifacts/01/81/0181ead658210e8c5b9a8bef82dcdbd653f6bf9edbfe988beceb242e8b8ffc7c",
+    "file_count": 29,
+    "all_member_cold_restore_verified": true,
+    "source_root": "research/pit_constituent_auxiliary_training_allocation_retrained_20260928/qlib_recorder/188464491611747257/f696f656b3d44e868588e09a5d97c905",
+    "selected_source_CSV_sha256": "f532c84b5c3c05d181092044aa1bc6223e26e774d81a26f3bfa181828bdf342e"
+  },
+  "b472_action": {
+    "archive_sha256": "820edaed58bde936cdc15621e2babf57b3ad3b7f3353aee12bdef6521b1907d6",
+    "archive_bytes": 958937,
+    "nas_path": "/volume1/docker/yanxuan/registry/research-artifacts/82/0e/820edaed58bde936cdc15621e2babf57b3ad3b7f3353aee12bdef6521b1907d6",
+    "file_count": 30,
+    "all_member_cold_restore_verified": true,
+    "source_root": "research/stage1_open_action_value_net_fees_20260928/qlib_recorder/466758183726921937/b472a458fc9042b4905094fddeaebd33",
+    "selected_source_CSV_sha256": "72f4328b5e2a99cfb5ad274cb01d90fd8a25f6d009792bfe50fc6adaae76f507"
+  }
+}

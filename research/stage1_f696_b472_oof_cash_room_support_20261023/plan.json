@@ -1,0 +1,26 @@
+{
+  "experiment": "stage1_f696_b472_oof_cash_room_support_20261023",
+  "frozen": true,
+  "phase": "frozen_parent_lineage_and_upstream_cash_action_source_support_only",
+  "parent": "f696f656 allocation family development walk-forward predictions plus b472a458 predecision action training state; final economics still require complete frozen Stage1 f696+b472 own-state 0bp Tiered account",
+  "reason": "The prior 2018-2022 0bp signed-volume action-label reference was explicitly an always-open, no-recovery training scaffold and yielded zero beta headroom. It cannot by itself characterize the frozen parent's development allocation path. Recheck the identical fixed +0.10 SOXX / -0.10 cash source geometry on the actual f696 walk-forward allocation predictions paired to b472's saved predecision risk cap.",
+  "sources": {
+    "allocation_card": "research/pit_constituent_auxiliary_training_allocation_retrained_20260928",
+    "allocation_summary_sha256": "df3113363977c60cb1538e4e1f39445aa9a8f14aa3e723d7f73fcd532d62ab42",
+    "allocation_experiment_id": "188464491611747257",
+    "allocation_recorder_id": "f696f656b3d44e868588e09a5d97c905",
+    "allocation_predictions_artifact_sha256": "f532c84b5c3c05d181092044aa1bc6223e26e774d81a26f3bfa181828bdf342e",
+    "action_card": "research/stage1_open_action_value_net_fees_20260928",
+    "action_summary_sha256": "f6549f17979c5e2d92f2bfd474e99a3c7c74c4df13c35f20dcb8dbf9551d7219",
+    "action_experiment_id": "466758183726921937",
+    "action_recorder_id": "b472a458fc9042b4905094fddeaebd33",
+    "action_training_frame_artifact_sha256": "72f4328b5e2a99cfb5ad274cb01d90fd8a25f6d009792bfe50fc6adaae76f507",
+    "prior_scaffold_support_summary_sha256": "29c0310b9b89ef81c3d6253f56fa84a9e257d2ee58e2b94389921a92b7b9e5c1",
+    "projector_module_sha256": "48b4a62a1c8139ecaa5d224023693bd4b1589851feab4b3a114d7188428cb013",
+    "Qlib_provider_uri": "data/qlib/soxl"
+  },
+  "fixed_rule": "Use only f696 development_walk_forward 2016-2022 predictions and the identical 1756 b472 training-frame signal dates. Verify all three raw allocation weights match exactly and reproduce b472 saved targets with unchanged project_legal_weights. For a source-only +0.10 SOXX / -0.10 cash arm, require raw cash >=0.25 and raw nominal beta=3*SOXL+SOXX at least0.10 below b472 saved current_beta_cap, then require candidate projected target to equal saved control target +[0,+0.10,-0.10] within1e-9. Do not use b472 future execute_advantage, portfolio-return or label fields, and do not infer predicted EXECUTE or funded fill from this training frame.",
+  "support_gate": "Keep the previous frozen support floor: at least100 eligible dates overall and at least3 calendar years with at least20 eligible dates each. No sign, year, threshold or source selection after seeing support.",
+  "budget": {"external_requests": 0, "Qlib_D_calendar_calls_max": 1, "source_Recorder_artifact_downloads_max": 2, "new_Qlib_Recorders_max": 1, "future_label_columns_loaded": 0, "model_fits": 0, "native_accounts": 0, "bootstraps": 0},
+  "stop": "Stop on Recorder/status/artifact hash, Git tracked source identity, 1756 one-to-one date, exact weight, calendar or cap/source support mismatch. If support fails, close this fixed source arm; do not lower0.10 or pick2017. These legacy Recorder CSVs are Git tracked, but no scoped NAS receipt for their entire old Recorder directories was identified; retain them locally and report that backup boundary. No claim of full closed-loop OOF action, SOXX success or independent validation."
+}

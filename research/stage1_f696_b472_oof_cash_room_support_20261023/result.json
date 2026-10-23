@@ -1,0 +1,65 @@
+{
+  "decision": "fixed_f696_b472_development_source_support_failed",
+  "plan_sha256": "88c70353b3e70546dd9464843d6a0589f7db1e55a4092f2b527a08bffb8b0a8c",
+  "source_allocation_recorder_id": "f696f656b3d44e868588e09a5d97c905",
+  "source_action_recorder_id": "b472a458fc9042b4905094fddeaebd33",
+  "sessions": 1756,
+  "exact_raw_allocation_match_rows": 1756,
+  "max_saved_target_projection_error": 2.220446049250313e-16,
+  "raw_cash_ge_025": 1092,
+  "beta_slack_ge_010": 25,
+  "source_ok": 25,
+  "projected_exact_plus_010_SOXX": 25,
+  "years_with_at_least20": 1,
+  "support_gate_pass": false,
+  "annual": [
+    {
+      "year": 2016,
+      "rows": 252,
+      "source_ok": 0,
+      "projected_exact_plus_010_SOXX": 0
+    },
+    {
+      "year": 2017,
+      "rows": 251,
+      "source_ok": 23,
+      "projected_exact_plus_010_SOXX": 23
+    },
+    {
+      "year": 2018,
+      "rows": 251,
+      "source_ok": 2,
+      "projected_exact_plus_010_SOXX": 2
+    },
+    {
+      "year": 2019,
+      "rows": 252,
+      "source_ok": 0,
+      "projected_exact_plus_010_SOXX": 0
+    },
+    {
+      "year": 2020,
+      "rows": 253,
+      "source_ok": 0,
+      "projected_exact_plus_010_SOXX": 0
+    },
+    {
+      "year": 2021,
+      "rows": 252,
+      "source_ok": 0,
+      "projected_exact_plus_010_SOXX": 0
+    },
+    {
+      "year": 2022,
+      "rows": 245,
+      "source_ok": 0,
+      "projected_exact_plus_010_SOXX": 0
+    }
+  ],
+  "source_legacy_recorder_NAS_scoped_restore_verified": false,
+  "source_CSV_Git_tracked_and_SHA_verified": true,
+  "future_label_columns_loaded": 0,
+  "model_fits": 0,
+  "native_accounts": 0,
+  "limitation": "This is a walk-forward allocation and predecision risk-state source audit, not an OOF b472 action decision, funded whole-share settlement, local outcome label or closed-loop candidate account."
+}

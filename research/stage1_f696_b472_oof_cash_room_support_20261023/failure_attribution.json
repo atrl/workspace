@@ -1,0 +1,31 @@
+{
+  "status": "read_only_f696_b472_walk_forward_cash_room_support_failure",
+  "development_signal_dates": 1756,
+  "raw_weight_parity_rows": 1756,
+  "max_saved_projection_error": 2.220446049250313e-16,
+  "raw_cash_at_least25pct": 1092,
+  "beta_slack_at_least010": 25,
+  "exact_legal_projected_plus010_SOXX": 25,
+  "eligible_years": {
+    "2017": 23,
+    "2018": 2
+  },
+  "zero_eligible_years": [
+    2016,
+    2019,
+    2020,
+    2021,
+    2022
+  ],
+  "held_complete_Stage1_context": {
+    "raw_risk_limited_EXECUTE": 600,
+    "among_these_nominal_beta_nonbinding": 536,
+    "cash_opportunity_log_raw_risk_limited": -0.295864133733216
+  },
+  "source_lineage": "f696 Recorder development_walk_forward predictions matched b472 action_value_training_frame source weights exactly; unlike the separate 2018-2022 always-open/no-recovery signed-volume label scaffold, this is the frozen allocation family development path plus b472 saved predecision risk state. It is still not a full OOF b472 action or own-state account.",
+  "interpretation": "Under the unchanged beta cap, the fixed +0.10 SOXX upstream cash arm lacks broad learning support even on the more relevant parent lineage: only25 dates and23 concentrated in2017. This does not imply the 2023-2026 full Stage1 policy has no nonbinding cash decisions or that every alternate policy is impossible. Do not lower the arm size or train on year2017 alone; the fixed source version closes before future label, fit or account.",
+  "source_full_legacy_Recorder_NAS_cold_restored": true,
+  "future_label_columns_loaded": 0,
+  "new_fits": 0,
+  "new_accounts": 0
+}
