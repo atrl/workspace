@@ -1,0 +1,80 @@
+{
+  "experiment": "stage1_f696_parent_identity_audit_20261023",
+  "frozen": true,
+  "phase": "source_parent_identity_correction_before_new_account",
+  "question": "Did three later 0bp cards labelled complete frozen f696 Stage1 use the exact f696 frozen_current five-output proposal as their policy input, or the different raw cashbook frame returned by prepare_account_sources?",
+  "sources": {
+    "raw": {
+      "card": "research/frozen_policy_raw_cashbook_20261015",
+      "summary_sha256": "86aadee052f678ea70ced12ccf27406281d0fd6b8f8d36a1e6aa1d7a86efc492",
+      "recorder_id": "55b4223a73d44fee89c86608edf8f58c",
+      "experiment_id": "413118628718065841",
+      "NAS_archive_sha256": "cb4d3c04e805a7c09010d30338f0d12f3bf42a5fa1ceaa40428f0dc5bbfc3869",
+      "artifacts": [
+        "inputs/frame"
+      ]
+    },
+    "f696_A": {
+      "card": "research/stage1_domain_heads_20261018",
+      "summary_sha256": "3b51938ca56ddf45029ff5e4a01a6bbc2f1d1407458efcad7d7c68b0ef5a1d37",
+      "recorder_id": "6e227278b7a64eafbcf34b965e16d2b9",
+      "experiment_id": "283510277269468590",
+      "NAS_archive_sha256": "f3f891d6d09d4187f12815e245b33cc9cfec4acfd4f555b734f66a59348d9884",
+      "artifacts": [
+        "inputs/frame"
+      ]
+    },
+    "action": {
+      "card": "research/stage1_minute_information_comparison_20261012",
+      "summary_sha256": "ccdb6337cdf812606e27ef0446e550e07b634c75e703ef8f010e96be8591bc4a",
+      "recorder_id": "9d671fcfb1aa467bb8a9fd83971fb015",
+      "experiment_id": "948959188821794065",
+      "NAS_archive_sha256": "2540d2ed5459785dcf04016b20342fc73fade653e2600025f5b9aaf889d7e250",
+      "artifacts": [
+        "inputs/source_targets"
+      ]
+    },
+    "composition": {
+      "card": "research/stage1_beta_composition_0bp_20261022",
+      "summary_sha256": "262f9a5bfe855ae94310d802505e2dcdc71de441c6b6e1bf025a7f3b4b36dc35",
+      "recorder_id": "4cd2029dc98740349e34db8c7c6eae3e",
+      "experiment_id": "395462564842588671",
+      "NAS_archive_sha256": "276d3de7940772e0e8e6f25b21ea108cfbf7c5dbb15d1fc489544eeda5395af4",
+      "artifacts": [
+        "analysis/composition_audit"
+      ]
+    }
+  },
+  "affected_cards": [
+    "research/stage1_beta_composition_0bp_20261022",
+    "research/stage1_tail_probability_composition_0bp_20261023",
+    "research/stage1_dynamic_risk_bypass_0bp_20261023"
+  ],
+  "code_paths": [
+    "src/workflow/stage1_nvda_guidance_receiver.py",
+    "src/workflow/stage1_beta_composition_0bp.py",
+    "research/stage1_tail_probability_composition_0bp_20261023/stage1_tail_probability_composition_0bp_20261023.ipynb",
+    "research/stage1_dynamic_risk_bypass_0bp_20261023/stage1_dynamic_risk_bypass_0bp_20261023.ipynb",
+    "src/workflow/stage1_domain_heads.py"
+  ],
+  "checks": [
+    "Exact944 signal/trade/exit date tuple parity",
+    "Five soxl/soxx/cash/tail/alpha output differences raw cashbook versus A and raw versus action frozen_current",
+    "A source frame versus action frozen_current numerical parity",
+    "Composition code passes helper account[frame] without applying helper source_targets; tail and bypass notebooks same",
+    "Classify numerical accounts as preserved alternative-proposal paths if parent differs; do not relabel returns as f696 intervention"
+  ],
+  "budget": {
+    "source_Recorder_object_loads_max": 4,
+    "new_market_requests": 0,
+    "new_fits": 0,
+    "new_native_accounts": 0,
+    "new_bootstraps": 0,
+    "new_Recorders_max": 1
+  },
+  "stops": [
+    "Any source summary/NAS/hash/date mismatch",
+    "No retuning or replay under this audit; a corrected f696 composition requires a separately frozen own-state0bp experiment",
+    "Do not delete historical accounts or rewrite their numeric metrics; append scope correction"
+  ]
+}
