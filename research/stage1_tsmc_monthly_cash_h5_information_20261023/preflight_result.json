@@ -1,0 +1,15 @@
+{
+  "status": "pinned_original39_TSMC_source_and_H5_cash_cohorts_matched",
+  "plan_sha256": "9d9d736445cdc5a38f7559d38e4a6b34d29b171b215a38eff7a634f186b757e4",
+  "train_calendar": 1757,
+  "train_mature": 1751,
+  "held_calendar": 944,
+  "held_scored": 936,
+  "held_unknown_tail": 8,
+  "train_source_events": 84,
+  "held_source_events": 45,
+  "max_abs_train_original39_feature_Spearman": 0.14403519524094655,
+  "source_Recorder_object_loads": 4,
+  "model_fits": 0,
+  "native_accounts": 0
+}

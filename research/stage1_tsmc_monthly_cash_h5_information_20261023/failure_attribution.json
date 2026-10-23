@@ -1,0 +1,133 @@
+{
+  "status": "read_only_fixed_information_failure_attribution",
+  "source_monthly_train_events": 84,
+  "source_monthly_held_events_through_2026_09_25": 45,
+  "held_calendar_rows": 944,
+  "scored_rows": 936,
+  "unknown_tail_rows": 8,
+  "annual": [
+    {
+      "year": 2023,
+      "complete": false,
+      "rows": 250,
+      "mean_gain_vs_baseline": -2.1873771053724655e-05,
+      "mean_gain_vs_train_mean": -0.0002985102005000269
+    },
+    {
+      "year": 2024,
+      "complete": true,
+      "rows": 252,
+      "mean_gain_vs_baseline": 3.733730747685214e-05,
+      "mean_gain_vs_train_mean": -2.9469297598426254e-05
+    },
+    {
+      "year": 2025,
+      "complete": true,
+      "rows": 250,
+      "mean_gain_vs_baseline": 3.1103093069729044e-05,
+      "mean_gain_vs_train_mean": -0.00030025092198830814
+    },
+    {
+      "year": 2026,
+      "complete": false,
+      "rows": 184,
+      "mean_gain_vs_baseline": -1.7675138121580995e-05,
+      "mean_gain_vs_train_mean": -0.00045476710086022124
+    }
+  ],
+  "quarters": [
+    {
+      "quarter": "2023Q1",
+      "rows": 62,
+      "mean_gain_vs_baseline": 1.851822860286232e-05,
+      "mean_gain_vs_train_mean": 0.00017734288798588324
+    },
+    {
+      "quarter": "2023Q2",
+      "rows": 62,
+      "mean_gain_vs_baseline": -5.0711845378681415e-05,
+      "mean_gain_vs_train_mean": -0.0006476466995595938
+    },
+    {
+      "quarter": "2023Q3",
+      "rows": 63,
+      "mean_gain_vs_baseline": -1.1118025225779876e-05,
+      "mean_gain_vs_train_mean": -0.00036012003875890403
+    },
+    {
+      "quarter": "2023Q4",
+      "rows": 63,
+      "mean_gain_vs_baseline": -4.4000046573115026e-05,
+      "mean_gain_vs_train_mean": -0.0003616055772321545
+    },
+    {
+      "quarter": "2024Q1",
+      "rows": 61,
+      "mean_gain_vs_baseline": 0.00010746527433966711,
+      "mean_gain_vs_train_mean": -0.0007666100643072549
+    },
+    {
+      "quarter": "2024Q2",
+      "rows": 63,
+      "mean_gain_vs_baseline": -7.222952945969495e-05,
+      "mean_gain_vs_train_mean": 3.4283708728807252e-06
+    },
+    {
+      "quarter": "2024Q3",
+      "rows": 64,
+      "mean_gain_vs_baseline": 7.887218515379212e-05,
+      "mean_gain_vs_train_mean": 0.0005714489704735314
+    },
+    {
+      "quarter": "2024Q4",
+      "rows": 64,
+      "mean_gain_vs_baseline": 3.68165664932052e-05,
+      "mean_gain_vs_train_mean": 3.981608519752551e-05
+    },
+    {
+      "quarter": "2025Q1",
+      "rows": 60,
+      "mean_gain_vs_baseline": -7.528114017594046e-05,
+      "mean_gain_vs_train_mean": -1.1892609548484799e-05
+    },
+    {
+      "quarter": "2025Q2",
+      "rows": 62,
+      "mean_gain_vs_baseline": 0.00017437499775109437,
+      "mean_gain_vs_train_mean": -0.0007889253155616402
+    },
+    {
+      "quarter": "2025Q3",
+      "rows": 64,
+      "mean_gain_vs_baseline": -4.3007676185847986e-05,
+      "mean_gain_vs_train_mean": -0.00017703101528346982
+    },
+    {
+      "quarter": "2025Q4",
+      "rows": 64,
+      "mean_gain_vs_baseline": 6.615442333304857e-05,
+      "mean_gain_vs_train_mean": -0.0002204034278313154
+    },
+    {
+      "quarter": "2026Q1",
+      "rows": 61,
+      "mean_gain_vs_baseline": 2.332469086584888e-05,
+      "mean_gain_vs_train_mean": 7.008675352956095e-05
+    },
+    {
+      "quarter": "2026Q2",
+      "rows": 62,
+      "mean_gain_vs_baseline": 8.197144676859482e-05,
+      "mean_gain_vs_train_mean": -0.0012959809676439263
+    },
+    {
+      "quarter": "2026Q3",
+      "rows": 61,
+      "mean_gain_vs_baseline": -0.00015995510257115676,
+      "mean_gain_vs_train_mean": -0.00012461669720754883
+    }
+  ],
+  "interpretation": "Point improvement relative to original39 baseline is small and not corrected-significant. Added coefficient has opposite expected sign, candidate worse than train mean. Quarterly differences are development attribution only and do not define a trading switch.",
+  "new_fits": 0,
+  "new_accounts": 0
+}

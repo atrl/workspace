@@ -1,0 +1,166 @@
+{
+  "experiment": "stage1_tsmc_monthly_cash_h5_information_20261023",
+  "decision": "not_promoted_fixed_TSMC_monthly_cash_H5_information_failed",
+  "objective_achieved": false,
+  "plan_sha256": "9d9d736445cdc5a38f7559d38e4a6b34d29b171b215a38eff7a634f186b757e4",
+  "preflight": {
+    "status": "pinned_original39_TSMC_source_and_H5_cash_cohorts_matched",
+    "plan_sha256": "9d9d736445cdc5a38f7559d38e4a6b34d29b171b215a38eff7a634f186b757e4",
+    "train_calendar": 1757,
+    "train_mature": 1751,
+    "held_calendar": 944,
+    "held_scored": 936,
+    "held_unknown_tail": 8,
+    "train_source_events": 84,
+    "held_source_events": 45,
+    "max_abs_train_original39_feature_Spearman": 0.14403519524094655,
+    "source_Recorder_object_loads": 4,
+    "model_fits": 0,
+    "native_accounts": 0
+  },
+  "metrics": {
+    "candidate_MSE": 0.0025999012517039623,
+    "baseline_MSE": 0.0026089441006075915,
+    "train_mean_MSE": 0.0023426430357048516,
+    "added_standardized_coefficient": 0.0037716553696486984,
+    "comparators": {
+      "baseline": {
+        "full_mean_gain": 9.042848903629206e-06,
+        "halves": [
+          {
+            "first_date": "2023-01-03",
+            "last_date": "2024-11-15",
+            "calendar_rows": 472,
+            "scored_rows": 472,
+            "mean_gain": 6.21949523398301e-06
+          },
+          {
+            "first_date": "2024-11-18",
+            "last_date": "2026-10-07",
+            "calendar_rows": 472,
+            "scored_rows": 464,
+            "mean_gain": 1.1914881084821032e-05
+          }
+        ],
+        "complete_years": [
+          {
+            "year": 2024,
+            "rows": 252,
+            "mean_gain": 3.733730747685214e-05
+          },
+          {
+            "year": 2025,
+            "rows": 250,
+            "mean_gain": 3.1103093069729044e-05
+          }
+        ],
+        "bootstrap": {
+          "paired_mean_loss_improvement": 9.04284890362921e-06,
+          "lower_bound": -5.515401670781467e-05,
+          "upper_bound": 7.478784561518619e-05,
+          "valid_replicates": 10000,
+          "invalid_replicates": 0,
+          "calendar_rows": 944,
+          "scored_rows": 936
+        }
+      },
+      "train_mean": {
+        "full_mean_gain": -0.00025725821599911097,
+        "halves": [
+          {
+            "first_date": "2023-01-03",
+            "last_date": "2024-11-15",
+            "calendar_rows": 472,
+            "scored_rows": 472,
+            "mean_gain": -0.00016966359412131128
+          },
+          {
+            "first_date": "2024-11-18",
+            "last_date": "2026-10-07",
+            "calendar_rows": 472,
+            "scored_rows": 464,
+            "mean_gain": -0.0003463630899782521
+          }
+        ],
+        "complete_years": [
+          {
+            "year": 2024,
+            "rows": 252,
+            "mean_gain": -2.9469297598426254e-05
+          },
+          {
+            "year": 2025,
+            "rows": 250,
+            "mean_gain": -0.00030025092198830814
+          }
+        ],
+        "bootstrap": {
+          "paired_mean_loss_improvement": -0.00025725821599911097,
+          "lower_bound": -0.0005402590992102163,
+          "upper_bound": 8.178694920792266e-05,
+          "valid_replicates": 10000,
+          "invalid_replicates": 0,
+          "calendar_rows": 944,
+          "scored_rows": 936
+        }
+      }
+    }
+  },
+  "gates": {
+    "coefficient_negative": false,
+    "baseline": {
+      "full_positive": true,
+      "both_halves_positive": true,
+      "both_2024_2025_positive": true,
+      "corrected_lower_positive": false
+    },
+    "train_mean": {
+      "full_positive": false,
+      "both_halves_positive": false,
+      "both_2024_2025_positive": false,
+      "corrected_lower_positive": false
+    }
+  },
+  "information_gate_pass": false,
+  "new_model_fits": 2,
+  "new_bootstraps": 2,
+  "new_native_accounts": 0,
+  "historical_independence": false,
+  "recorder_id": "6ffc6344cbb84600b608da12f1640844",
+  "experiment_id": "396375723708856349",
+  "recorder_uri": "/Users/rziiiii/dev/workspace/research/stage1_tsmc_monthly_cash_h5_information_20261023/qlib_recorder",
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "inputs/*",
+      "models/*",
+      "predictions/*",
+      "analysis/*"
+    ]
+  },
+  "limitations": [
+    "Conservative SEC acceptance-next-US-session is later than possible issuer first press release.",
+    "Eight held tail sessions are unknown in the fixed TSMC provider; all 944 calendar dates remain in bootstrap.",
+    "Information MSE does not prove a funded Stage1 SOXX excess or independent forward validation."
+  ],
+  "NAS_evidence": {
+    "sha256": "c3c14673b6785ae8dfa36369187d21e741f50501c609b691d25a7b50c13c5b1b",
+    "size_bytes": 1538270,
+    "media_type": "application/gzip",
+    "storage_uri": "sha256/c3/c1/c3c14673b6785ae8dfa36369187d21e741f50501c609b691d25a7b50c13c5b1b",
+    "uploaded_by": "soxl-minute-research",
+    "created_at": "2026-10-23 12:32:19.364062+08",
+    "duplicate": false,
+    "nas_path": "/volume1/docker/yanxuan/registry/research-artifacts/c3/c1/c3c14673b6785ae8dfa36369187d21e741f50501c609b691d25a7b50c13c5b1b",
+    "recorder_id": "6ffc6344cbb84600b608da12f1640844",
+    "experiment_id": "396375723708856349",
+    "archive_root": "qlib_recorder"
+  },
+  "NAS_readback": {
+    "sha256": "c3c14673b6785ae8dfa36369187d21e741f50501c609b691d25a7b50c13c5b1b",
+    "verified": true
+  },
+  "NAS_scoped_restore": "nas_scoped_restore.json",
+  "failure_attribution": "failure_attribution.json"
+}

@@ -1,0 +1,20 @@
+{
+  "schema_version": "nas_recorder_archive_binding_v1",
+  "authority": "yanxuan_nas",
+  "source_id": "stage1_tsmc_monthly_cash_h5_information_20261023",
+  "as_of": "2026-10-23",
+  "source_plan": "plan.json",
+  "evidence": {
+    "sha256": "c3c14673b6785ae8dfa36369187d21e741f50501c609b691d25a7b50c13c5b1b",
+    "size_bytes": 1538270,
+    "media_type": "application/gzip",
+    "storage_uri": "sha256/c3/c1/c3c14673b6785ae8dfa36369187d21e741f50501c609b691d25a7b50c13c5b1b",
+    "uploaded_by": "soxl-minute-research",
+    "created_at": "2026-10-23 12:32:19.364062+08",
+    "duplicate": false,
+    "nas_path": "/volume1/docker/yanxuan/registry/research-artifacts/c3/c1/c3c14673b6785ae8dfa36369187d21e741f50501c609b691d25a7b50c13c5b1b",
+    "recorder_id": "6ffc6344cbb84600b608da12f1640844",
+    "experiment_id": "396375723708856349",
+    "archive_root": "qlib_recorder"
+  }
+}
