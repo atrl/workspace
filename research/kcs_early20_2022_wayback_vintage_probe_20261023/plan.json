@@ -1,0 +1,44 @@
+{
+  "schema_version": 1,
+  "experiment": "kcs_early20_2022_wayback_vintage_probe_20261023",
+  "frozen": true,
+  "phase": "two_exact_Internet_Archive_CDX_capture_index_queries",
+  "question": "Do independently timestamped 2022-2023 Internet Archive captures exist for the verified 2022-10-21 KCS original page or its fixed HWP attachment URL, potentially allowing a first-public-vintage comparison?",
+  "source_control": {
+    "card": "research/kcs_early20_2022_oct_original_hwp_20261023",
+    "summary_sha256": "01072c8a2b9bc473d085a2cf0dc51da86a90fab954ac79439aef7db48d2ba77f",
+    "HWP_current_sha256": "0719aa545c5eb25adf2d9a594bd6702e01976d822d1890dab2fac78a03f9f3a1"
+  },
+  "official_CDX_documentation": "https://github.com/internetarchive/wayback/blob/master/wayback-cdx-server/README.md",
+  "exact_requests": [
+    {
+      "name": "official_page",
+      "target_url": "https://www.korea.kr/briefing/pressReleaseView.do?newsId=156531875",
+      "url": "https://web.archive.org/cdx/search/cdx?url=https%3A%2F%2Fwww.korea.kr%2Fbriefing%2FpressReleaseView.do%3FnewsId%3D156531875&from=2022&to=2023&output=json&filter=statuscode%3A200"
+    },
+    {
+      "name": "official_HWP",
+      "target_url": "https://www.korea.kr/common/download.do?fileId=197006618&tblKey=GMN",
+      "url": "https://web.archive.org/cdx/search/cdx?url=https%3A%2F%2Fwww.korea.kr%2Fcommon%2Fdownload.do%3FfileId%3D197006618%26tblKey%3DGMN&from=2022&to=2023&output=json&filter=statuscode%3A200"
+    }
+  ],
+  "transport": {
+    "method": "GET",
+    "max_GETs": 2,
+    "retries": 0,
+    "connect_timeout_seconds": 10,
+    "total_timeout_seconds_each": 25,
+    "max_response_bytes_each": 1000000,
+    "user_agent": "soxl-qlib-source-research"
+  },
+  "identity_gate": "Each HTTP200 JSON response must be a CDX table header with timestamp, original, statuscode, digest and zero or more capture rows. Preserve exact response bytes, headers, UTC receipt/hash and NAS remote/scoped restore, including errors. Rows must target the exact official URL and timestamp 2022-2023; a CDX index row alone is not the archived document content.",
+  "next_if_found": "Freeze one exact archived snapshot URL and retrieve it separately; compare original source identity, numeric cells and exact bytes against NAS-backed current HWP. Do not infer PIT from a capture-index row alone.",
+  "budget": {
+    "GET_attempts_max": 2,
+    "NAS_snapshots_max": 1,
+    "SOXX_outcome_reads": 0,
+    "model_fits": 0,
+    "native_accounts": 0
+  },
+  "stop": "No retry, URL wildcard, nearest-year expansion or substitute third-party text if no capture or transport failure. Source-only, not a factor or Stage1 account."
+}

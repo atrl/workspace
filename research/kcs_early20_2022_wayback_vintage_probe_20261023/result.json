@@ -1,0 +1,26 @@
+{
+  "decision": "Internet_Archive_CDX_2022_KCS_exact_URL_vintage_probe_source_only",
+  "GET_attempts": 2,
+  "results": [
+    {
+      "name": "official_page",
+      "target_url": "https://www.korea.kr/briefing/pressReleaseView.do?newsId=156531875",
+      "status": "CDX_schema_failure",
+      "captures": [],
+      "reason": "AssertionError:"
+    },
+    {
+      "name": "official_HWP",
+      "target_url": "https://www.korea.kr/common/download.do?fileId=197006618&tblKey=GMN",
+      "status": "CDX_schema_failure",
+      "captures": [],
+      "reason": "AssertionError:"
+    }
+  ],
+  "NAS_source_id": "87de55658b78ca1db63283c4bbdd45150224b81c1a626a117ce5c7df3b461a68",
+  "NAS_readback_verified": true,
+  "historical_first_public_bytes_qualified": false,
+  "SOXX_outcome_reads": 0,
+  "model_fits": 0,
+  "native_accounts": 0
+}

@@ -1,0 +1,11 @@
+{
+  "schema_version": 1,
+  "frozen": true,
+  "phase": "one_saved_response_empty_JSON_interpretation_repair_no_refetch",
+  "parent_plan": "plan.json",
+  "parent_result": "result.json",
+  "observed": "Both exact CDX GETs returned HTTP200 application/json body [] of 3 bytes. The first parser treated [] as missing header and labeled a schema failure.",
+  "repair": "Verify both NAS-pinned response SHA-256 and literal [] once, then report zero returned captures for the two exact URLs within 2022-2023. Preserve original capture result and raw source manifest; do not change URL, date range, query canonicalization or issue another GET.",
+  "budget": {"new_GETs": 0, "new_NAS_archives": 0, "SOXX_outcome_reads": 0, "model_fits": 0, "native_accounts": 0},
+  "limit": "Zero returned CDX rows for this fixed exact query is not proof no archive snapshot exists under another canonical URL, date range or archive service. It supplies no historical original bytes."
+}

@@ -1,0 +1,6 @@
+experiment: kcs_early20_2022_wayback_vintage_probe_20261023
+phase: read_only_archival_vintage_index_probe
+plan: plan.json
+capture: result.json
+interpretation_repair: empty_array_interpretation.json
+economic_account: none

@@ -1,0 +1,22 @@
+{
+  "experiment": "kcs_early20_2022_wayback_vintage_probe_20261023",
+  "decision": "exact_2022_2023_CDX_queries_returned_zero_captures_no_vintage_bytes",
+  "objective_achieved": false,
+  "plan_sha256": "11a53cd2ab546aef2c046828d064e148d8b111fe0f645439d8c70c639c76e28e",
+  "original_capture_result": "result.json",
+  "empty_array_interpretation": "empty_array_interpretation.json",
+  "exact_CDX_URLs_queried": 2,
+  "returned_captures": 0,
+  "GET_attempts": 2,
+  "NAS_source_id": "87de55658b78ca1db63283c4bbdd45150224b81c1a626a117ce5c7df3b461a68",
+  "NAS_readback_verified": true,
+  "historical_first_public_bytes_qualified": false,
+  "SOXX_outcome_reads": 0,
+  "new_model_fits": 0,
+  "new_native_accounts": 0,
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": []
+  }
+}
