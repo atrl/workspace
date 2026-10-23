@@ -1,0 +1,52 @@
+{
+  "experiment": "stage1_nvda_sector_relative_lead_h5_information_20261023",
+  "frozen": true,
+  "phase": "conditional_single_constituent_leadership_SOXL_relative_H5_information",
+  "parent": "Exact frozen f696 A_0 allocation plus b472 action/risk/recovery; SOXX final 0bp Tiered own-state performance hard gate",
+  "hypothesis": "Strong prior20 NVDA-versus-SOXX leadership marks narrow sector advance and fragility; it predicts lower next-five-session SOXL-minus-SOXX open-return advantage after the original39 price/volatility controls. Added standardized coefficient must be negative.",
+  "source": {
+    "feature_card": "research/stage1_nvda_sector_relative_lead_source_20261023",
+    "feature_summary_sha256": "a79a7278adc56f3a7bb11c6f4adad1b8aa5882e62bec3a47dad740bf11c72c06",
+    "feature_result_sha256": "5d54e00c3a7e74c6d725d495f63c48063ae3c3369443e9de0fd2af55cda0d5cf",
+    "feature_recorder_id": "0d8cebe535424f5eb36fbb30a8ffc466",
+    "feature_experiment_id": "336674445236657879",
+    "feature_NAS_sha256": "070c917669a8ff4b748e53d005f8d689da777b80dfa2308b6a35f41fdf9e6feb",
+    "feature_module_sha256": "6af93792f685326a4ca64f51769e05605c01249d8c02384d278e94ac0f6839c4",
+    "feature_provider_uri": "data/qlib/stage1_nvda_sector_relative_lead_20261023",
+    "feature_provider_manifest_sha256": "ee5a9c605fd94a8f08d35a2a3184c186738e3f4749ae6399a11f036d919a5380",
+    "parent_card": "research/minute_information_pit_allocator_20261012",
+    "parent_summary_sha256": "61c91f958323cf51b43f4b1554eeca5687011d30771e80bc7ff02d16b6d577ca",
+    "parent_recorder_id": "68e31a0a0fad44e7ba1d1f7d856c7a0d",
+    "parent_experiment_id": "905520356740140469",
+    "parent_NAS_sha256": "ee328cab292f178bf3582ef574fb411561c93b82545cd3bb90842ecd9a9a24f1",
+    "bootstrap_module_sha256": "02705f897e668b710a38aae514df08b86e26c8cd8951405339960355a08a5ac4"
+  },
+  "receiver": {
+    "label": "sum five saved next open-to-open SOXL log returns minus same SOXX sum, mature at fifth saved return_available_at",
+    "train_signals": ["2011-01-03", "2022-12-30"],
+    "train_label_available_before": "2023-01-01T00:00:00-05:00",
+    "reused_held_signals": ["2023-01-03", "2026-10-07"],
+    "held_label_available_before": "2026-10-10T00:00:00-04:00",
+    "expected_train_mature": 3014,
+    "expected_held_mature": 940,
+    "matched_rows": "Original39 and original39-plus-one same source-known mature dates, no imputation of NVDA coordinate",
+    "baseline": "SimpleImputer median, StandardScaler, Ridge alpha=1 on exact original39",
+    "candidate": "same baseline plus NVDA_minus_SOXX_log_momentum20",
+    "null": "matched training relative-label mean"
+  },
+  "gate": {
+    "negative_standardized_added_coefficient": true,
+    "candidate_beats_original39_and_training_mean_full_held_MSE": true,
+    "candidate_minus_original39_paired_improvement_positive_both_chronological_halves": true,
+    "candidate_minus_original39_paired_improvement_positive_complete_2024_and_2025": true,
+    "candidate_minus_original39_full_calendar_stationary_block_lower_positive": {
+      "calendar_rows": 944,
+      "mean_block": 63,
+      "resamples": 2000,
+      "seed": 20261023,
+      "one_sided_alpha": 0.025
+    }
+  },
+  "budget": {"market_requests": 0, "source_Recorder_object_loads_max": 4, "DatasetH_builds_max": 1, "model_fits_max": 2, "bootstrap_attempts_max": 1, "new_Recorders_max": 1, "native_accounts": 0},
+  "limits": "Current Yahoo-derived early Qlib and retrospective Futu peer history do not certify first-public vintages. This is conditional development feedback on reused2023-2026 history; even a passing information gate cannot authorize a funded account until source timing is qualified. Failure closes the fixed sign/window/receiver version."
+}

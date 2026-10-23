@@ -1,0 +1,82 @@
+{
+  "experiment": "stage1_nvda_sector_relative_lead_h5_information_20261023",
+  "decision": "not_promoted_fixed_NVDA_sector_relative_lead_H5_information_failed",
+  "promotion": "not_promoted_information_only",
+  "objective_achieved": false,
+  "plan_sha256": "56be28d4fb6d8897cfc34c387e90fce31fc146f605ad2eeef5ce6f782d40c3e0",
+  "source_recorder_id": "0d8cebe535424f5eb36fbb30a8ffc466",
+  "parent_recorder_id": "68e31a0a0fad44e7ba1d1f7d856c7a0d",
+  "recorder_id": "11c2083a53104bdc822c65e6a0f77317",
+  "experiment_id": "892663628675252284",
+  "preflight": {
+    "status": "matched_Qlib_source_and_relative_label_maturity_passed",
+    "train_mature": 3014,
+    "held_mature": 940,
+    "source_Recorder_object_loads": 4,
+    "DatasetH_builds": 1,
+    "historical_first_public_qualified": false
+  },
+  "metrics": {
+    "standardized_NVDA_lead_coefficient": 0.0023107235246888447,
+    "MSE_baseline": 0.011053668538613615,
+    "MSE_candidate": 0.011061340571590821,
+    "MSE_train_mean": 0.009816160572319597,
+    "improvement_vs_baseline": -7.672032977207059e-06,
+    "improvement_vs_train_mean": -0.0012451799992712251,
+    "first_half_improvement": 3.590387500411371e-05,
+    "second_half_improvement": -5.124794095852783e-05,
+    "2024_improvement": 7.256841739272076e-05,
+    "2025_improvement": -2.771615883031494e-05
+  },
+  "bootstrap": {
+    "paired_mean_loss_improvement": -7.672032977207059e-06,
+    "lower_bound": -7.208278062885979e-05,
+    "upper_bound": 5.232227904854233e-05,
+    "valid_replicates": 2000,
+    "invalid_replicates": 0,
+    "calendar_rows": 944,
+    "scored_rows": 940
+  },
+  "gates": {
+    "negative_coefficient": false,
+    "beats_original39": false,
+    "beats_train_mean": false,
+    "both_halves": false,
+    "both_complete_years": false,
+    "positive_block_lower": false
+  },
+  "model_fits": 2,
+  "native_accounts": 0,
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "inputs/*",
+      "models/*",
+      "predictions/*",
+      "analysis/*"
+    ]
+  },
+  "limitations": [
+    "Early Yahoo Qlib and later Futu peer histories are retrospective, not proven first-public vintages.",
+    "NVDA relative price leadership is not actual SOXX holdings contribution.",
+    "H5 price labels omit funded Tiered fees and own-state account feedback."
+  ],
+  "NAS_evidence": {
+    "sha256": "e00065bcd4c946c01fb097085a0581ff45e1a9899b1f6d24a905cbcba5dece70",
+    "size_bytes": 137924,
+    "media_type": "application/gzip",
+    "storage_uri": "sha256/e0/00/e00065bcd4c946c01fb097085a0581ff45e1a9899b1f6d24a905cbcba5dece70",
+    "uploaded_by": "soxl-minute-research",
+    "created_at": "2026-10-23 23:50:46.502549+08",
+    "duplicate": false,
+    "nas_path": "/volume1/docker/yanxuan/registry/research-artifacts/e0/00/e00065bcd4c946c01fb097085a0581ff45e1a9899b1f6d24a905cbcba5dece70",
+    "recorder_id": "11c2083a53104bdc822c65e6a0f77317",
+    "experiment_id": "892663628675252284",
+    "archive_root": "qlib_recorder"
+  },
+  "NAS_readback": {
+    "verified": true,
+    "sha256": "e00065bcd4c946c01fb097085a0581ff45e1a9899b1f6d24a905cbcba5dece70"
+  }
+}
