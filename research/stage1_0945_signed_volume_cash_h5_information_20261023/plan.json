@@ -1,0 +1,55 @@
+{
+  "experiment": "stage1_0945_signed_volume_cash_h5_information_20261023",
+  "frozen": true,
+  "phase": "matched_incremental_cash_information_before_full_account",
+  "parent": "complete frozen Stage1 f696 allocation plus b472 action/risk/recovery; use exact A_0 0bp raw-share Tiered account for attribution and SOXX for final gate",
+  "hypothesis": "At the Stage1 09:46 ET allocation decision, positive SOXX 09:31-09:45 signed-volume pressure predicts lower next-five-session cash-minus-SOXX open-return log advantage beyond original Stage1 daily inputs and the same completed prefix's price return and unsigned volume. Added standardized coefficient must be negative.",
+  "source": {
+    "feature_card": "research/stage1_0945_signed_volume_cash_source_20261023",
+    "feature_summary_sha256": "a6f043a7a6574418a1d498c505b87ea035cd9040acbc2d209602527eaae51f6d",
+    "feature_recorder_id": "d6b2e08632e64135b26949265aa69b25",
+    "feature_NAS_sha256": "792d4b72a4cf34191075822f328785d26aa6e2b43eb88af79a1f5f797aba5391",
+    "parent_card": "research/minute_information_pit_allocator_20261012",
+    "parent_summary_sha256": "61c91f958323cf51b43f4b1554eeca5687011d30771e80bc7ff02d16b6d577ca",
+    "parent_verification_manifest_sha256": "ac90270cf66164e5fb9bca62b50ab86eeab7733bd0146799c45d97937f94e82a",
+    "parent_recorder_id": "68e31a0a0fad44e7ba1d1f7d856c7a0d",
+    "parent_NAS_sha256": "ee328cab292f178bf3582ef574fb411561c93b82545cd3bb90842ecd9a9a24f1",
+    "provider_uri": "data/qlib/minute_information_pit_allocator_20261012/core_1min",
+    "bootstrap_module_sha256": "02705f897e668b710a38aae514df08b86e26c8cd8951405339960355a08a5ac4"
+  },
+  "alignment": "Native Stage1 row signal_date t has trade_date t+1 at 09:47. Same-day minute feature is indexed by that trade_date, source_last_bar 09:45 < decision_at 09:46 < fill 09:47. Never align it to signal_date t or use fill bar. Unknown 2020-03-16 remains missing in all source numeric controls and candidate.",
+  "receiver": {
+    "label": "cash-minus-SOXX next-five-session open-to-open log return from saved Stage1 daily_frame and return_available_at maturity mask",
+    "baseline": "original Stage1 39 daily inputs plus 09:31-09:45 SOXX return, log1p unsigned signed-bar volume, and source-known indicator; SimpleImputer median, StandardScaler, Ridge alpha=1",
+    "candidate": "same baseline and matched rows plus one SOXX 09:31-09:45 signed-volume pressure",
+    "null": "same training cohort mature cash-minus-SOXX label mean"
+  },
+  "cohorts": {
+    "train_trade_start": "2018-10-12",
+    "train_trade_end": "2022-12-30",
+    "train_label_available_before": "2023-01-01T00:00:00-05:00",
+    "held_trade_start": "2023-01-03",
+    "held_trade_end": "2026-10-09",
+    "held_label_available_before": "2026-10-10T00:00:00-04:00",
+    "minimum_train_mature": 1000,
+    "minimum_held_mature": 900
+  },
+  "gate": {
+    "coefficient": "negative added standardized coefficient",
+    "all_held": "candidate beats matched baseline and training mean on H5 MSE",
+    "stability": "candidate-minus-baseline MSE improvement positive in both chronological held halves and complete 2024 and 2025 years",
+    "uncertainty": "full held calendar, stationary block mean63, 2000 resamples, seed20261023, one-sided alpha0.025/30, lower bound positive",
+    "decision": "all gates required before freezing any complete own-state Stage1-parent 0bp Tiered account; failed fixed version closes with no sign/prefix/window/receiver tuning"
+  },
+  "budget": {
+    "new_market_requests": 0,
+    "source_Recorder_object_loads_max": 4,
+    "Qlib_D_calendar_calls_max": 1,
+    "DatasetH_builds_max": 1,
+    "model_fits_max": 2,
+    "bootstrap_attempts_max": 1,
+    "new_Recorders_max": 1,
+    "native_accounts": 0
+  },
+  "limitations": "Historical 09:45 bar finality/first receipt remains an assumption. Reused 2023-2026 history is development feedback, not independent forward. H5 price information is not a fee-adjusted funded account."
+}
