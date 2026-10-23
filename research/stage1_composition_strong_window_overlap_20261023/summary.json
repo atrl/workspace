@@ -1,0 +1,42 @@
+{
+  "experiment": "stage1_composition_strong_window_overlap_20261023",
+  "decision": "read_only_window_coverage_overlap_no_strategy",
+  "objective_achieved": false,
+  "plan_sha256": "b6a90bd15a89f3daac403c159ec06b6e576b23caf02709bdedeaa819f66e3fbf",
+  "result": "result.json",
+  "recorder_id": "b957dc08a73740b3b5b721e77483d34b",
+  "experiment_id": "986568774567978544",
+  "new_fits": 0,
+  "new_native_accounts": 0,
+  "NAS_evidence": {
+    "sha256": "fa43e319f7fbd6e86e3781d634d6dacc70d7a842bf955c71d0718e4e2de4f973",
+    "size_bytes": 88667,
+    "media_type": "application/gzip",
+    "storage_uri": "sha256/fa/43/fa43e319f7fbd6e86e3781d634d6dacc70d7a842bf955c71d0718e4e2de4f973",
+    "uploaded_by": "soxl-minute-research",
+    "created_at": "2026-10-23 21:45:46.851973+08",
+    "duplicate": false,
+    "nas_path": "/volume1/docker/yanxuan/registry/research-artifacts/fa/43/fa43e319f7fbd6e86e3781d634d6dacc70d7a842bf955c71d0718e4e2de4f973",
+    "recorder_id": "b957dc08a73740b3b5b721e77483d34b",
+    "experiment_id": "986568774567978544",
+    "archive_root": "qlib_recorder"
+  },
+  "NAS_readback": {
+    "verified": true,
+    "sha256": "fa43e319f7fbd6e86e3781d634d6dacc70d7a842bf955c71d0718e4e2de4f973"
+  },
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "inputs/*",
+      "analysis/all_windows",
+      "analysis/period_groups"
+    ]
+  },
+  "limitations": [
+    "Union selects whole historical windows with hindsight; it is not a feasible daily switching policy or a universal upper bound on combined-account returns.",
+    "2023-2026 is reused development history, not independent forward evidence."
+  ],
+  "NAS_scoped_restore": "nas_scoped_restore.json"
+}

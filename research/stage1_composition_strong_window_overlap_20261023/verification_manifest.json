@@ -1,0 +1,47 @@
+{
+  "recorder_id": "b957dc08a73740b3b5b721e77483d34b",
+  "experiment_id": "986568774567978544",
+  "plan_sha256": "b6a90bd15a89f3daac403c159ec06b6e576b23caf02709bdedeaa819f66e3fbf",
+  "entries": [
+    {
+      "path": "qlib_recorder/986568774567978544/b957dc08a73740b3b5b721e77483d34b/artifacts/analysis/all_windows",
+      "sha256": "9d4539c18258288595e4dfdd92c39a04008b15b0b4987f43c3109096f71ae844",
+      "bytes": 42099
+    },
+    {
+      "path": "qlib_recorder/986568774567978544/b957dc08a73740b3b5b721e77483d34b/artifacts/analysis/period_groups",
+      "sha256": "b2e3404163cb51e37d9cb5ef05fd53506e780ec9111b3d6df607dc17e3f49fb3",
+      "bytes": 1920
+    },
+    {
+      "path": "qlib_recorder/986568774567978544/b957dc08a73740b3b5b721e77483d34b/artifacts/analysis/result",
+      "sha256": "de2fe6f1ab460924b0dc97eb933e44edd0a84aa60ffae4b4c5056c3a975f2866",
+      "bytes": 757
+    },
+    {
+      "path": "qlib_recorder/986568774567978544/b957dc08a73740b3b5b721e77483d34b/artifacts/code_cached.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "qlib_recorder/986568774567978544/b957dc08a73740b3b5b721e77483d34b/artifacts/code_diff.txt",
+      "sha256": "2aad452421714b6ceaec94285ae57399e707529fd50e48e12bc268cf2fce1e4c",
+      "bytes": 436844
+    },
+    {
+      "path": "qlib_recorder/986568774567978544/b957dc08a73740b3b5b721e77483d34b/artifacts/code_status.txt",
+      "sha256": "7f91250b839815d58397ae0c30827049e62d8d83e71ffafb3a5828f2e8abee56",
+      "bytes": 66365
+    },
+    {
+      "path": "qlib_recorder/986568774567978544/b957dc08a73740b3b5b721e77483d34b/artifacts/inputs/plan",
+      "sha256": "f308e47555e945789eaae3977c0768a565df0fa1547180b8b7f7f30d2264a14d",
+      "bytes": 2544
+    },
+    {
+      "path": "qlib_recorder/986568774567978544/b957dc08a73740b3b5b721e77483d34b/artifacts/inputs/source_identities",
+      "sha256": "c05f746a67e21451b85940c532a839559e6de1df34c37aeb4f88446618f0caf1",
+      "bytes": 937
+    }
+  ]
+}

@@ -1,0 +1,25 @@
+{
+  "decision": "read_only_window_coverage_overlap_no_strategy",
+  "plan_sha256": "b6a90bd15a89f3daac403c159ec06b6e576b23caf02709bdedeaa819f66e3fbf",
+  "windows": 819,
+  "required_positive_windows": 574,
+  "counts": {
+    "composition_positive": 458,
+    "strong9097_positive": 481,
+    "stage1_A0_positive": 255,
+    "composition_or_strong_positive": 492,
+    "composition_or_strong_or_A_positive": 496,
+    "composition_only_positive": 11,
+    "strong_only_positive": 34,
+    "composition_and_strong_negative": 327,
+    "all_three_negative": 323
+  },
+  "source_Recorder_object_loads": 3,
+  "new_market_requests": 0,
+  "new_fits": 0,
+  "new_accounts": 0,
+  "new_bootstraps": 0,
+  "scope_limit": "Union selects whole historical windows with hindsight; it is not a feasible daily switching policy or a universal upper bound on combined-account returns.",
+  "recorder_id": "b957dc08a73740b3b5b721e77483d34b",
+  "experiment_id": "986568774567978544"
+}

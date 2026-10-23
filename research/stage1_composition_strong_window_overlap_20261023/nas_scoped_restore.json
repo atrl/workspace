@@ -1,0 +1,13 @@
+{
+  "status": "verified",
+  "recorder_id": "b957dc08a73740b3b5b721e77483d34b",
+  "windows": 819,
+  "composition_or_strong_positive": 492,
+  "NAS_archive_sha256": "fa43e319f7fbd6e86e3781d634d6dacc70d7a842bf955c71d0718e4e2de4f973",
+  "scoped_members": [
+    "analysis/result",
+    "analysis/all_windows",
+    "analysis/period_groups"
+  ],
+  "all_member_sha256_parity": true
+}

@@ -1,0 +1,5 @@
+experiment: stage1_composition_strong_window_overlap_20261023
+plan: plan.json
+sources: frozen Qlib rolling-window Recorders
+new_fits: 0
+new_native_accounts: 0
