@@ -1,0 +1,56 @@
+{
+  "TIP_legacy": {
+    "received_at_utc": "2026-10-23T03:01:53.308581+00:00",
+    "status_code": 200,
+    "bytes": 462,
+    "sha256": "68f525365cb18520ec3a7858ca07a3cfa409911543cdda16350de7e4d655b48c",
+    "response_path": "data/snapshots/stage1_tip_ief_issuer_market_proxy_source_20261023/TIP_legacy_cdx.response",
+    "error": null,
+    "json_rows": 3,
+    "sample_first": [
+      "com,ishares)/us/239467/fund-download.dl",
+      "20150305122953",
+      "http://www.ishares.com:80/us/239467/fund-download.dl"
+    ],
+    "sample_last": [
+      "com,ishares)/us/239467/fund-download.dl",
+      "20160915224225",
+      "https://www.ishares.com/us/239467/fund-download.dl"
+    ]
+  },
+  "IEF_legacy": {
+    "received_at_utc": "2026-10-23T03:01:54.154294+00:00",
+    "status_code": 200,
+    "bytes": 462,
+    "sha256": "03573e22cf1c814ec5c714b0149de311a8ec85eed9aecfad0f8906092f99f7c0",
+    "response_path": "data/snapshots/stage1_tip_ief_issuer_market_proxy_source_20261023/IEF_legacy_cdx.response",
+    "error": null,
+    "json_rows": 3,
+    "sample_first": [
+      "com,ishares)/us/239456/fund-download.dl",
+      "20150309061115",
+      "http://www.ishares.com:80/us/239456/fund-download.dl"
+    ],
+    "sample_last": [
+      "com,ishares)/us/239456/fund-download.dl",
+      "20160323194503",
+      "https://www.ishares.com/us/239456/fund-download.dl"
+    ]
+  },
+  "TIP_product": {
+    "received_at_utc": "2026-10-23T03:01:57.294278+00:00",
+    "status_code": null,
+    "bytes": 0,
+    "sha256": null,
+    "response_path": null,
+    "error": "ReadTimeout: HTTPSConnectionPool(host='web.archive.org', port=443): Read timed out. (read timeout=5)"
+  },
+  "IEF_product": {
+    "received_at_utc": "2026-10-23T03:02:02.313033+00:00",
+    "status_code": null,
+    "bytes": 0,
+    "sha256": null,
+    "response_path": null,
+    "error": "ReadTimeout: HTTPSConnectionPool(host='web.archive.org', port=443): Read timed out. (read timeout=20)"
+  }
+}

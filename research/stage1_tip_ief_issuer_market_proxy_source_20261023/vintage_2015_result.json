@@ -1,0 +1,106 @@
+{
+  "status": "frozen_2015_legacy_syntax_repaired_in_memory_source_comparison",
+  "plan_sha256": "95146c6459872565a6ac292216daba858e4bdca7186acd0789ea3e55c4c12b68",
+  "parse_repair_plan_sha256": "99b9cbb393c8a50c070ff9be29108ada5036f443bc64649291fa3802bb5af8d4",
+  "sources": {
+    "TIP": {
+      "wayback_timestamp": "20150305122953",
+      "raw_sha256": "edd0253d521dc703164a4f9626209b9ab7e3e111ebbf5460f1092dbc00b7acd0",
+      "raw_bytes": 1176004,
+      "style_close_replacements_in_memory": 1,
+      "bare_ampersands_escaped_in_memory": 0,
+      "header": [
+        "As Of",
+        "Index Level",
+        "NAV per Share",
+        "Ex-Dividends"
+      ],
+      "historical_rows": 2832,
+      "first_date": "2003-12-04",
+      "last_date": "2015-03-04",
+      "overlap_rows": 2832,
+      "nav_mismatch_count": 0,
+      "nav_mismatch_dates": [],
+      "ex_dividend_mismatch_count": 0,
+      "ex_dividend_mismatch_examples": []
+    },
+    "IEF": {
+      "wayback_timestamp": "20150309061115",
+      "raw_sha256": "3697687285ef623b240e683756794609912688628d988a0051b378926a1ed861",
+      "raw_bytes": 1274009,
+      "style_close_replacements_in_memory": 1,
+      "bare_ampersands_escaped_in_memory": 0,
+      "header": [
+        "As Of",
+        "Index Level",
+        "NAV per Share",
+        "Ex-Dividends"
+      ],
+      "historical_rows": 3179,
+      "first_date": "2002-07-22",
+      "last_date": "2015-03-06",
+      "overlap_rows": 3179,
+      "nav_mismatch_count": 0,
+      "nav_mismatch_dates": [],
+      "ex_dividend_mismatch_count": 37,
+      "ex_dividend_mismatch_examples": [
+        [
+          "2002-09-03",
+          "0.29",
+          "0.289974"
+        ],
+        [
+          "2002-10-01",
+          "0.2579",
+          "0.257889"
+        ],
+        [
+          "2002-11-01",
+          "0.2946",
+          "0.294645"
+        ],
+        [
+          "2002-12-02",
+          "0.5204",
+          "0.520384"
+        ],
+        [
+          "2002-12-31",
+          "0.4164",
+          "0.416421"
+        ],
+        [
+          "2003-02-03",
+          "0.2777",
+          "0.277735"
+        ],
+        [
+          "2003-03-03",
+          "0.2401",
+          "0.240134"
+        ],
+        [
+          "2003-04-01",
+          "0.2487",
+          "0.248666"
+        ],
+        [
+          "2003-05-01",
+          "0.3418",
+          "0.341751"
+        ],
+        [
+          "2003-06-02",
+          "0.2442",
+          "0.244234"
+        ]
+      ]
+    }
+  },
+  "historical_first_public_qualified": false,
+  "full_2011_2022_revision_qualified": false,
+  "Qlib_calls": 0,
+  "SOXX_outcome_reads": 0,
+  "model_fits": 0,
+  "native_accounts": 0
+}

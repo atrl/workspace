@@ -1,0 +1,27 @@
+{
+  "source_bundle_sha256": "93cdfd11abba141ea5f7b1ab80a094b2e90332ac749298b5f386c351495baa4c",
+  "source_bundle_bytes": 103761,
+  "artifact": {
+    "sha256": "93cdfd11abba141ea5f7b1ab80a094b2e90332ac749298b5f386c351495baa4c",
+    "size_bytes": 103761,
+    "media_type": "application/gzip",
+    "storage_uri": "sha256/93/cd/93cdfd11abba141ea5f7b1ab80a094b2e90332ac749298b5f386c351495baa4c",
+    "uploaded_by": "soxl-minute-research",
+    "created_at": "2026-10-23 11:05:34.17616+08",
+    "duplicate": false,
+    "nas_path": "/volume1/docker/yanxuan/registry/research-artifacts/93/cd/93cdfd11abba141ea5f7b1ab80a094b2e90332ac749298b5f386c351495baa4c"
+  },
+  "remote_hash_verified": true,
+  "cold_archive_hash_verified": true,
+  "scoped_original_bytes_verified": true,
+  "original_files": {
+    "data/snapshots/stage1_tip_ief_issuer_market_proxy_source_20261023/TIP_2015_vintage.response": {
+      "sha256": "edd0253d521dc703164a4f9626209b9ab7e3e111ebbf5460f1092dbc00b7acd0",
+      "bytes": 1176004
+    },
+    "data/snapshots/stage1_tip_ief_issuer_market_proxy_source_20261023/IEF_2015_vintage.response": {
+      "sha256": "3697687285ef623b240e683756794609912688628d988a0051b378926a1ed861",
+      "bytes": 1274009
+    }
+  }
+}

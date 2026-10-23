@@ -1,0 +1,34 @@
+{
+  "TIP": {
+    "url": "https://www.blackrock.com/varnish-api/blk-one01-product-data/product-data/api/v1/get-fund-document?appType=PRODUCT_PAGE&appSubType=ISHARES&targetSite=us-ishares&locale=en_US&portfolioId=239467&component=fundDownload&userType=individual",
+    "received_at_utc": "2026-10-23T02:58:00.346468+00:00",
+    "status_code": 200,
+    "headers": {
+      "Content-Type": "application/vnd.ms-excel",
+      "Content-Length": "2414579",
+      "Date": "Fri, 23 Oct 2026 02:58:01 GMT",
+      "ETag": "W/\"11aab105\"",
+      "Cache-Control": "no-cache, no-store, max-age=0, must-revalidate"
+    },
+    "bytes": 2414579,
+    "sha256": "c40a6ac9c3fc0e2e78c691db2e02c0c56d68b4b92427febacf7c235d91c8d02c",
+    "raw_path": "data/snapshots/stage1_tip_ief_issuer_market_proxy_source_20261023/TIP_fund_download.response",
+    "transport_error": null
+  },
+  "IEF": {
+    "url": "https://www.blackrock.com/varnish-api/blk-one01-product-data/product-data/api/v1/get-fund-document?appType=PRODUCT_PAGE&appSubType=ISHARES&targetSite=us-ishares&locale=en_US&portfolioId=239456&component=fundDownload&userType=individual",
+    "received_at_utc": "2026-10-23T02:58:27.658320+00:00",
+    "status_code": 200,
+    "headers": {
+      "Content-Type": "application/vnd.ms-excel",
+      "Content-Length": "2486439",
+      "Date": "Fri, 23 Oct 2026 02:58:29 GMT",
+      "ETag": "W/\"df47dafe\"",
+      "Cache-Control": "no-cache, no-store, max-age=0, must-revalidate"
+    },
+    "bytes": 2486439,
+    "sha256": "67435fc619ec02312e624e4e206dca07ff948c9b91db2cc4ad749b24835f3b93",
+    "raw_path": "data/snapshots/stage1_tip_ief_issuer_market_proxy_source_20261023/IEF_fund_download.response",
+    "transport_error": null
+  }
+}

@@ -1,0 +1,9 @@
+experiment: stage1_tip_ief_issuer_market_proxy_source_20261023
+mode: official_issuer_original_workbook_source_only
+parent: frozen_complete_Stage1_0bp_IBKR_Tiered
+source_workbooks:
+  - data/snapshots/stage1_tip_ief_issuer_market_proxy_source_20261023/TIP_fund_download.response
+  - data/snapshots/stage1_tip_ief_issuer_market_proxy_source_20261023/IEF_fund_download.response
+SOXX_outcome_reads: 0
+model_fits: 0
+native_accounts: 0

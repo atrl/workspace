@@ -1,0 +1,22 @@
+{
+  "experiment": "stage1_tip_ief_issuer_market_proxy_source_20261023",
+  "phase": "official_issuer_original_download_source_only",
+  "parent": "frozen_complete_Stage1_0bp_IBKR_Tiered",
+  "question": "Can original issuer daily TIP and IEF NAV/distribution records cover the frozen Stage1 training and reused evaluation dates as a market-priced inflation-sensitive versus nominal Treasury proxy, without pretending that the spread is a 10-year real-yield observation?",
+  "official_pages": {
+    "TIP": "https://www.ishares.com/us/products/239467/ishares-tips-bond-etf",
+    "IEF": "https://www.ishares.com/us/products/239456/ishares-7-10-year-treasury-bond-etf"
+  },
+  "fixed_downloads": {
+    "TIP": "https://www.blackrock.com/varnish-api/blk-one01-product-data/product-data/api/v1/get-fund-document?appType=PRODUCT_PAGE&appSubType=ISHARES&targetSite=us-ishares&locale=en_US&portfolioId=239467&component=fundDownload&userType=individual",
+    "IEF": "https://www.blackrock.com/varnish-api/blk-one01-product-data/product-data/api/v1/get-fund-document?appType=PRODUCT_PAGE&appSubType=ISHARES&targetSite=us-ishares&locale=en_US&portfolioId=239456&component=fundDownload&userType=individual"
+  },
+  "frozen_checks": [
+    "One GET per URL, save exact response body, HTTP headers and receive clock. Stop if either is not a nonempty issuer workbook.",
+    "Inspect only source schema, date uniqueness, NAV positivity, ex-dividend semantics and original 2011-2026 coverage. Compute no return, yield proxy, correlation, label, fit or account in this source phase.",
+    "Archive the exact original responses and hashes to Yanxuan NAS, verify remote hash and scoped restore. A current 2026 workbook is retrospective; historical first-public revisions and decision-time availability remain unqualified."
+  ],
+  "budget": {"HTTP_GETs_max": 2, "Qlib_calls": 0, "SOXX_outcome_reads": 0, "model_fits": 0, "native_accounts": 0},
+  "stop": "On source/transport/schema/coverage failure, keep the bytes and failure receipt without retry or alternate URL. Any later coordinate and matched Stage1 information gate require a separate frozen plan; no strong-reference substitution or 0bp account follows from this intake.",
+  "artifact_policy": {"policy": "slim_card_recorder_first", "workflow_config": "workflow.yaml", "recorder_only_artifacts": []}
+}

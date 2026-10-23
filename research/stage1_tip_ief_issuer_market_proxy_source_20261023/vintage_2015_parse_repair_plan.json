@@ -1,0 +1,7 @@
+{
+  "trigger": "Both fixed 2015 Wayback captures returned nonempty issuer SpreadsheetML, but strict XML parsing stopped at an unprefixed </Style> closing tag at line 16 before any Historical values were compared.",
+  "mechanical_repair": "Preserve original response bytes and SHA-256. In memory only, replace the exact legacy </Style> token with </ss:Style> and escape bare ampersands using the same narrow rule as the existing SOXX issuer parser. This mirrors the recorded 2015 SOXX issuer workbook syntax issue; it does not change dates, values or source files.",
+  "checks": ["Exactly one Historical worksheet per file", "Read original headers and date range before deciding whether NAV and Ex-Dividends fields are comparable", "Compare only overlapping original dates if both fields are present; never fill missing fields or infer first-public timing"],
+  "budget": {"new_GETs": 0, "in_memory_parse_attempts": 2, "Qlib_calls": 0, "model_fits": 0, "native_accounts": 0},
+  "stop": "Any second syntax/schema ambiguity stops this fixed repair. Do not edit original archived bytes."
+}

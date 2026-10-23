@@ -1,0 +1,7 @@
+{
+  "phase": "source_only_IEF_2015_ex_dividend_mismatch_triage",
+  "trigger": "Frozen 2015 IEF workbook comparison found 37 Ex-Dividends numeric mismatches despite 3,179/3,179 exact NAV matches; TIP NAV and dividend strings match all 2,832 overlapping rows.",
+  "fixed_check": "Using only the two already archived IEF original bytes, list mismatch counts by observation year, first/last mismatch, maximum absolute amount difference and whether any mismatch falls in the Stage1 2011-2015 training overlap. Preserve the old and current decimal strings; do not round either source or infer first-public timing.",
+  "budget": {"new_GETs": 0, "source_file_reads": 2, "Qlib_calls": 0, "model_fits": 0, "native_accounts": 0},
+  "stop": "This is source precision attribution only. No return, factor, information fit or account."
+}

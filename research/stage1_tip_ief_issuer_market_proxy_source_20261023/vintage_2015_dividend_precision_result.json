@@ -1,0 +1,50 @@
+{
+  "plan_sha256": "b16bbf7a790b021df367b2cd738cafb5e794b98ab3e5492bf5805374c104cdbc",
+  "mismatch_count": 37,
+  "by_year": {
+    "2002": 5,
+    "2003": 11,
+    "2004": 12,
+    "2005": 9
+  },
+  "first_mismatch": "2002-09-03",
+  "last_mismatch": "2005-10-03",
+  "maximum_absolute_decimal_difference": "0.00005",
+  "Stage1_2011_2015_mismatch_count": 0,
+  "sample_last_five": [
+    {
+      "date": "2005-06-01",
+      "old": "0.2636",
+      "current": "0.263566",
+      "current_minus_old": "-0.000034"
+    },
+    {
+      "date": "2005-07-01",
+      "old": "0.2635",
+      "current": "0.263511",
+      "current_minus_old": "0.000011"
+    },
+    {
+      "date": "2005-08-01",
+      "old": "0.2706",
+      "current": "0.270574",
+      "current_minus_old": "-0.000026"
+    },
+    {
+      "date": "2005-09-01",
+      "old": "0.2744",
+      "current": "0.274393",
+      "current_minus_old": "-0.000007"
+    },
+    {
+      "date": "2005-10-03",
+      "old": "0.2772",
+      "current": "0.277188",
+      "current_minus_old": "-0.000012"
+    }
+  ],
+  "new_GETs": 0,
+  "Qlib_calls": 0,
+  "model_fits": 0,
+  "native_accounts": 0
+}

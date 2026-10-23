@@ -1,0 +1,20 @@
+{
+  "TIP": {
+    "received_at_utc": "2026-10-23T03:03:05.875639+00:00",
+    "status_code": 200,
+    "content_type": "application/vnd.ms-excel;charset=UTF-8",
+    "bytes": 1176004,
+    "sha256": "edd0253d521dc703164a4f9626209b9ab7e3e111ebbf5460f1092dbc00b7acd0",
+    "raw_path": "data/snapshots/stage1_tip_ief_issuer_market_proxy_source_20261023/TIP_2015_vintage.response",
+    "error": null
+  },
+  "IEF": {
+    "received_at_utc": "2026-10-23T03:03:10.443267+00:00",
+    "status_code": 200,
+    "content_type": "application/vnd.ms-excel;charset=UTF-8",
+    "bytes": 1274009,
+    "sha256": "3697687285ef623b240e683756794609912688628d988a0051b378926a1ed861",
+    "raw_path": "data/snapshots/stage1_tip_ief_issuer_market_proxy_source_20261023/IEF_2015_vintage.response",
+    "error": null
+  }
+}

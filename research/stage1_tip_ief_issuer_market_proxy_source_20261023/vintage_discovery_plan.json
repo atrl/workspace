@@ -1,0 +1,13 @@
+{
+  "phase": "historical_issuer_workbook_vintage_discovery_only",
+  "trigger": "Current original TIP/IEF issuer workbooks have full 2011-2026 retrospective dates, but historical publication/revision versions remain unknown.",
+  "queries": {
+    "TIP_legacy": "https://web.archive.org/cdx/search/cdx?url=www.ishares.com/us/239467/fund-download.dl&output=json&filter=statuscode:200&collapse=timestamp:4&from=2011&to=2023",
+    "IEF_legacy": "https://web.archive.org/cdx/search/cdx?url=www.ishares.com/us/239456/fund-download.dl&output=json&filter=statuscode:200&collapse=timestamp:4&from=2011&to=2023",
+    "TIP_product": "https://web.archive.org/cdx/search/cdx?url=www.ishares.com/us/products/239467/*&output=json&filter=statuscode:200&filter=original:.*(xls%7Cfund).*&collapse=timestamp:4&from=2018&to=2023",
+    "IEF_product": "https://web.archive.org/cdx/search/cdx?url=www.ishares.com/us/products/239456/*&output=json&filter=statuscode:200&filter=original:.*(xls%7Cfund).*&collapse=timestamp:4&from=2018&to=2023"
+  },
+  "budget": {"CDX_GETs_max": 4, "archived_workbook_body_GETs": 0, "Qlib_calls": 0, "model_fits": 0, "native_accounts": 0},
+  "selection": "Report available capture metadata only. If any captures exist, freeze exact timestamp/URL samples before reading historical workbook bodies. Do not claim 2011-2022 first-public coverage from a CDX listing.",
+  "stop": "One request per URL; preserve HTTP errors/timeouts without retry or changing query terms in this fixed version."
+}

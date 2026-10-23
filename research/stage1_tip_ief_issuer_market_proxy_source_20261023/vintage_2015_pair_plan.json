@@ -1,0 +1,25 @@
+{
+  "phase": "frozen_2015_issuer_workbook_pair_original_vintage_comparison",
+  "selection": "The first 2015 TIP and IEF successful application/vnd.ms-excel captures in the fixed legacy CDX result, within four calendar days of one another. Selected before any archived body read.",
+  "samples": {
+    "TIP": {
+      "wayback_timestamp": "20150305122953",
+      "original_url": "http://www.ishares.com:80/us/239467/fund-download.dl",
+      "replay_url": "https://web.archive.org/web/20150305122953id_/http://www.ishares.com:80/us/239467/fund-download.dl",
+      "cdx_digest": "VY3EADR7TV7YS4Q5ZDLPMHBTDX6NXOJO"
+    },
+    "IEF": {
+      "wayback_timestamp": "20150309061115",
+      "original_url": "http://www.ishares.com:80/us/239456/fund-download.dl",
+      "replay_url": "https://web.archive.org/web/20150309061115id_/http://www.ishares.com:80/us/239456/fund-download.dl",
+      "cdx_digest": "EIEC4C5FIHFKUIDBSOYD5QF57NYZIL2M"
+    }
+  },
+  "checks": [
+    "One GET per replay URL, save exact response body/status/headers/receive clock and hash. Require original workbook schema and observed date range; preserve failure if unavailable.",
+    "On dates that exist in both the 2015 capture and today's original issuer workbook, compare unadjusted NAV and Ex-Dividends exact strings/decimal values. Do not infer unseen first-public days, distribution reinvestment, or PIT from one capture.",
+    "Archive received old source bytes to Yanxuan NAS with remote hash and scoped cold restore before considering a feature."
+  ],
+  "budget": {"archived_workbook_GETs_max": 2, "Qlib_calls": 0, "SOXX_outcome_reads": 0, "model_fits": 0, "native_accounts": 0},
+  "stop": "No alternate Wayback timestamp, product path, retry or later vintage if either fixed body request fails. No feature fit/account from this source-only check."
+}
