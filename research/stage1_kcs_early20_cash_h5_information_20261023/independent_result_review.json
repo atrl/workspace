@@ -1,0 +1,26 @@
+{
+  "schema_version": 1,
+  "reviewed_at_utc": "2026-10-23T05:53:36.192833+00:00",
+  "verdict": "CONFIRM_CLOSED_FIXED_KCS_CASH_H5_INFORMATION_GATE_FAILED",
+  "plan_sha256": "9a8b1ddd32033b7f1edaf7acefd98c175ec424b21a674752a39acf2679ce01ee",
+  "executor_recorder_id": "79c39de340004cada3cf59a51d636f44",
+  "executor_experiment_id": "564079071798705800",
+  "native_Recorder_status": "FINISHED",
+  "NAS_selected_scored_SHA256_match": true,
+  "native_held_calendar_rows": 944,
+  "native_mature_scored_rows": 940,
+  "recomputed_MSE": {
+    "candidate": 0.0035966944519219913,
+    "baseline": 0.0028764807008228232,
+    "train_mean": 0.002352528213351511
+  },
+  "added_coefficient_expected_negative_actual": 0.00703258765943854,
+  "baseline_full_gain": -0.0007202137510991683,
+  "baseline_2024_gain": -0.00025155397750403253,
+  "baseline_2025_gain": -0.0004534263862393312,
+  "baseline_corrected_lower": -0.002701946469763069,
+  "source_historical_first_public_byte_vintage_qualified": false,
+  "new_model_fits_by_review": 0,
+  "new_native_accounts_by_review": 0,
+  "review_limit": "Existing held market history is reused development feedback; failed information gate prevents a new funded Stage1 0bp account and does not prove the entire KCS family useless."
+}
