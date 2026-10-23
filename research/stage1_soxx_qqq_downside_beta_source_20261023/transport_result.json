@@ -1,0 +1,26 @@
+{
+  "plan_sha256": "4d1aeecd3009bf1bd6e94894781572ec04899462920731a970bc1265e4ce0dc2",
+  "GETs_consumed": 1,
+  "retries": 0,
+  "attempt": {
+    "requested_at_utc": "2026-10-22T23:58:10.782714+00:00",
+    "host": "https://query1.finance.yahoo.com",
+    "path": "/v8/finance/chart/QQQ",
+    "query": {
+      "period1": 1293840000,
+      "period2": 1792627200,
+      "interval": "1d",
+      "events": "div,splits",
+      "includeAdjustedClose": "true"
+    },
+    "http_status": 200,
+    "body_bytes": 437993,
+    "body_sha256": "022f5a0de56b619133ae6a1450b25046512e8cdb35fe490b51635e190c1fbb8d",
+    "headers": {
+      "Date": "Thu, 22 Oct 2026 23:58:10 GMT",
+      "Content-Type": "application/json;charset=utf-8"
+    },
+    "chart_error": null,
+    "chart_results": 1
+  }
+}

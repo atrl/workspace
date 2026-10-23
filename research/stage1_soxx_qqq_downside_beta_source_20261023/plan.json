@@ -1,0 +1,59 @@
+{
+  "schema_version": 1,
+  "frozen": true,
+  "experiment": "stage1_soxx_qqq_downside_beta_source_20261023",
+  "phase": "source_only_cross_market_downside_coupling_novelty_preflight",
+  "mechanism": "SOXX losses may become more sensitive to broad Nasdaq technology downside when sector downside beta rises beyond its ordinary market beta; this is a risk-receiver hypothesis, not a standalone direction forecast or a risk-cap switch. Distinct from existing SOXL-vs-SOXX downside beta and original39 cross-breadth/dispersion coordinates.",
+  "sources": {
+    "SOXX_Yahoo_card": "research/stage1_soxx_nav_yahoo_raw_close_source_20261023",
+    "SOXX_Yahoo_summary_sha256": "50d3ca34ad897af6d111625d2cb811776fe0ab0ca9f0f00d4c74080636c35fdd",
+    "SOXX_Yahoo_raw": "data/snapshots/stage1_soxx_nav_yahoo_raw_close_source_20261023/chart.json",
+    "SOXX_Yahoo_raw_sha256": "77614413e200534835363d09c064082f0955cc294e97b25e5e0f23557b33fa19",
+    "SOXX_Yahoo_NAS_sha256": "9fb1e79a87937e5162c8e9a3a00980c8b253c8ce9e8ad9d3d247d9bde05985b8",
+    "original39_card": "research/minute_information_pit_allocator_20261012",
+    "original39_summary_sha256": "61c91f958323cf51b43f4b1554eeca5687011d30771e80bc7ff02d16b6d577ca",
+    "original39_recorder_id": "68e31a0a0fad44e7ba1d1f7d856c7a0d",
+    "original39_experiment_id": "905520356740140469",
+    "original39_features_artifact_sha256": "482d6a908ae95230143dc08014732c3247d22ccb1560f8509f6ac564a4d647ec",
+    "Qlib_calendar_provider": "data/qlib/minute_information_pit_allocator_20261012/daily_prices",
+    "Qlib_config_sha256": "951024d796cc625b695938e64589cd23808c5b048ac816c11f001fb0719742a2"
+  },
+  "exact_GET": {
+    "host": "https://query1.finance.yahoo.com",
+    "path": "/v8/finance/chart/QQQ",
+    "query": {
+      "period1": 1293840000,
+      "period2": 1792627200,
+      "interval": "1d",
+      "events": "div,splits",
+      "includeAdjustedClose": "true"
+    }
+  },
+  "coordinate": "At each signal-date 09:46 use last 60 completed prior Qlib sessions of SOXX and QQQ raw quote-close simple returns. Beta_all=cov(SOXX,QQQ)/var(QQQ) on 60 returns. Beta_down is the same slope only on QQQ<0 days within those 60, requiring >=15 negative days. Coordinate=Beta_down-Beta_all. No current signal-day close, thresholds or sign chosen from future returns.",
+  "source_checks": [
+    "QQQ exact symbol/USD/New York daily quote-close, positive valid OHLC, unique sessions and events",
+    "SOXX same existing Yahoo raw quote-close source, no adjusted-close substitution",
+    "Qlib calendar coverage and 60-return warmup/negative-day support for original Stage1 train 2011-2022 and held 2023-2026",
+    "max absolute Pearson against frozen original39 on training known intersection, no label or held outcome read",
+    "current revised histories and historical first receipt unqualified"
+  ],
+  "budget": {
+    "external_GETs": 1,
+    "retries": 0,
+    "fallback_hosts": 0,
+    "original39_Recorder_loads": 1,
+    "new_model_fits": 0,
+    "new_native_accounts": 0,
+    "future_outcome_reads": 0,
+    "new_Qlib_Recorders": 1
+  },
+  "stop": "If full 2018-2022 plus held support, source hashes, or source clocks fail, stop before information fit. High correlation signals redundancy but does not automatically residualize. A source pass only permits a separately frozen original-tail-label incremental screen; no account or SOXX success.",
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "inputs/*",
+      "analysis/*"
+    ]
+  }
+}

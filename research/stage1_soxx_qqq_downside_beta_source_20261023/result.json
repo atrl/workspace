@@ -1,0 +1,37 @@
+{
+  "decision": "conditional_cross_market_downside_beta_source_map_complete_novelty_descriptive_no_outcomes",
+  "plan_sha256": "4d1aeecd3009bf1bd6e94894781572ec04899462920731a970bc1265e4ce0dc2",
+  "QQQ_raw_rows": 3974,
+  "SOXX_raw_rows": 3974,
+  "QQQ_events_in_response": {
+    "dividends": 65
+  },
+  "SOXX_events_in_response": {
+    "dividends": 64,
+    "splits": 1
+  },
+  "Qlib_calendar_rows": 3966,
+  "missing_QQQ_dates": 0,
+  "missing_SOXX_dates": 0,
+  "train_rows": 3020,
+  "train_known_coordinate_rows": 2959,
+  "held_rows": 946,
+  "held_known_coordinate_rows": 946,
+  "2018_2022_all_known": true,
+  "coordinate_all_known_summary": {
+    "median": 0.012780861002338106,
+    "p05": -0.2715327576557154,
+    "p95": 0.4400867695508247
+  },
+  "min_negative_QQQ_days_on_known": 17,
+  "max_abs_original39_training_Pearson": {
+    "feature": "range_pos_252",
+    "absolute_value": 0.323765933362613,
+    "signed_value": 0.323765933362613,
+    "paired_rows": 2959
+  },
+  "historical_first_receipt_qualified": false,
+  "new_model_fits": 0,
+  "new_native_accounts": 0,
+  "future_outcome_reads": 0
+}

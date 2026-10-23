@@ -1,0 +1,12 @@
+{
+  "status": "QQQ_daily_source_NAS_scoped_restore_verified",
+  "sha256": "660c408b16ddc50afec61948fbee175903a15380843281f953630cc446c3eb04",
+  "size_bytes": 115926,
+  "nas_path": "/volume1/docker/yanxuan/registry/research-artifacts/66/0c/660c408b16ddc50afec61948fbee175903a15380843281f953630cc446c3eb04",
+  "members": {
+    "research/stage1_soxx_qqq_downside_beta_source_20261023/plan.json": "4d1aeecd3009bf1bd6e94894781572ec04899462920731a970bc1265e4ce0dc2",
+    "research/stage1_soxx_qqq_downside_beta_source_20261023/transport_result.json": "4a424fe696e0b9e43487db74087c5e571dc15dae062334f5237e8fb0612bebbe",
+    "data/snapshots/stage1_soxx_qqq_downside_beta_source_20261023/QQQ_chart.json": "022f5a0de56b619133ae6a1450b25046512e8cdb35fe490b51635e190c1fbb8d"
+  },
+  "verified": true
+}

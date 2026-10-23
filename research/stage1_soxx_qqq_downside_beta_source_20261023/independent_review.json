@@ -1,0 +1,14 @@
+{
+  "verdict": "CONFIRM_SOURCE_ONLY_CONDITIONAL_INFORMATION_ELIGIBLE",
+  "review_scope": "read_only_frozen_source_60_previous_session_formula_training_novelty_Qlib_NAS",
+  "confirmed": [
+    "Frozen QQQ, SOXX, original39 and Qlib provider hashes match; exactly one QQQ GET and zero retries.",
+    "Both Yahoo quote-close sources have 3974 rows and 3966 native Qlib calendar sessions match.",
+    "Independent raw-close recalculation reproduces every saved 60 prior-session downside beta minus full beta coordinate.",
+    "Train has 2959 of 3020 known dates after 61-day warmup; held has 946 of 946, and all 2018-2022 dates are known.",
+    "Known windows have at least 17 negative QQQ sessions; original39 maximum absolute training Pearson is 0.3237659334 with range_pos_252 on 2959 rows.",
+    "Native Recorder is FINISHED and source plus Recorder NAS remote hashes and scoped contents match.",
+    "No future outcome, fit or account ran."
+  ],
+  "limit": "Current revised Yahoo history and first-receipt timing are not historically PIT qualified. Only a separately frozen conditional tail-risk information screen is eligible."
+}

@@ -1,0 +1,43 @@
+{
+  "experiment": "stage1_soxx_qqq_downside_beta_source_20261023",
+  "decision": "conditional_cross_market_downside_beta_source_map_complete_novelty_descriptive_no_outcomes",
+  "objective_achieved": false,
+  "plan_sha256": "4d1aeecd3009bf1bd6e94894781572ec04899462920731a970bc1265e4ce0dc2",
+  "source_archive": "nas_source_archive.json",
+  "recorder_id": "e357303114444af79ae34c41f4b58e41",
+  "experiment_id": "107662550415421774",
+  "recorder_uri": "/Users/rziiiii/dev/workspace/research/stage1_soxx_qqq_downside_beta_source_20261023/qlib_recorder",
+  "result": "result.json",
+  "new_model_fits": 0,
+  "new_native_accounts": 0,
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "inputs/*",
+      "analysis/*"
+    ]
+  },
+  "limitations": [
+    "Yahoo current revised close histories are not certified historical first receipts or price vintages.",
+    "A distinct formula and training correlation do not imply incremental future tail-risk information.",
+    "No tail label, fit, account or SOXX economic gate was read."
+  ],
+  "nas_evidence": {
+    "sha256": "9628994993e30700c35e5b49e35318a2d29f443e676bcce94dbefa1a154ac878",
+    "size_bytes": 279852,
+    "media_type": "application/gzip",
+    "storage_uri": "sha256/96/28/9628994993e30700c35e5b49e35318a2d29f443e676bcce94dbefa1a154ac878",
+    "uploaded_by": "soxl-minute-research",
+    "created_at": "2026-10-23 07:59:13.895183+08",
+    "duplicate": false,
+    "nas_path": "/volume1/docker/yanxuan/registry/research-artifacts/96/28/9628994993e30700c35e5b49e35318a2d29f443e676bcce94dbefa1a154ac878",
+    "recorder_id": "e357303114444af79ae34c41f4b58e41",
+    "experiment_id": "107662550415421774",
+    "archive_root": "qlib_recorder"
+  },
+  "nas_readback": {
+    "verified": true,
+    "sha256": "9628994993e30700c35e5b49e35318a2d29f443e676bcce94dbefa1a154ac878"
+  }
+}
