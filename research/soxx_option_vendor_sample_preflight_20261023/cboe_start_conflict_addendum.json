@@ -1,0 +1,37 @@
+{
+  "schema_version": 1,
+  "status": "Cboe_official_historical_start_conflict_2011_SOXX_unresolved",
+  "checked_at_utc": "2026-10-23T01:23:32.108489+00:00",
+  "product_pages": [
+    {
+      "name": "Option Quote Intervals",
+      "url": "https://datashop.cboe.com/option-quote-intervals",
+      "stated_historical_start": "January 2012",
+      "with_calcs": "IV and Delta add-on documented"
+    },
+    {
+      "name": "Option EOD Summary",
+      "url": "https://datashop.cboe.com/option-eod-summary",
+      "stated_historical_start": "January 2012",
+      "with_calcs": "15:45 IV and Delta add-on documented"
+    }
+  ],
+  "official_FAQ": {
+    "url": "https://datashop.cboe.com/faqs",
+    "Option_Quotes_start": "January 2010",
+    "Option_EOD_Summary_start": "January 2010",
+    "delivery": "Typical next-day SFTP upload 00:05-03:00 Eastern, with possible delays past market open per FAQ"
+  },
+  "interpretation": "The generic FAQ and current product pages conflict. Neither page proves that an entitled SOXX-specific 2011 quote and Greeks file can be delivered, or explains whether pre-2012 legacy files use the same schema/calcs. Do not label this vendor excluded or source qualified.",
+  "needed_vendor_response": [
+    "Whether SOXX 2011-01-04 and stress 2011 sessions are in Option Quotes or EOD Summary and which product/legacy route supplies them.",
+    "Whether 2011 bid/ask, expiration, strike, root and optional IV/Delta are available with original quote and delivery times.",
+    "A no-purchase SOXX-specific original sample, exact historical cost, license/NAS backup and revision policy."
+  ],
+  "new_purchase": false,
+  "contact_sent": false,
+  "SOXX_market_outcome_reads": 0,
+  "model_fits": 0,
+  "native_accounts": 0,
+  "unsent_inquiry_draft": "research/soxx_option_vendor_sample_preflight_20261023/cboe_inquiry_draft.md"
+}

@@ -9,3 +9,5 @@ Option Quotes 样本含五个内层 CSV 变体；带 Calcs 的表头有报价时
 公开采购页的只读报价观察见 `live_vendor_quote_observation.json`：2012-01-04 单日 SOXX、含 IV/Greeks 的 Cboe EOD 与 390 分钟报价分别显示 **10 美元**小计，但页面价格不保证该日实际交付完整 SOXX 合约链。另一条 [ORATS Delayed Data API](https://orats.com/data-api) 当前显示 **199 美元/月、20,000 请求**和 2007 年起的一般历史；[ORATS 近收盘历史档案](https://orats.com/near-eod-data)为一次性 **599 美元**、约 **500 GB**、14 天下载窗口，99 美元/月的 FTP 服务仅含购买后新数据。已有公开单日 SOXX 样本，仍未证明 2011–2022 全期 SOXX 覆盖、原始送达时间及 NAS 归档许可。未加入购物车、联络供应商或购买。
 
 已准备 [ORATS 询样草稿](orats_inquiry_draft.md)，六个抽样日期均在冻结 Stage1 Qlib 交易日历内。发送给供应商需要用户明确授权；截至本卡更新，询样仍未发送。
+
+**2026-10-23 来源更正：** [Cboe 官方 FAQ](https://datashop.cboe.com/faqs)把 Option Quotes 和 Option EOD Summary 的总体起点列为2010年1月，但两个现售[Option Quotes](https://datashop.cboe.com/option-quote-intervals)、[EOD Summary](https://datashop.cboe.com/option-eod-summary)产品页写2012年1月。不能据产品页断言Cboe无2011数据，也不能据FAQ断言2011 SOXX及IV/Delta可交付；具体冲突与询样问题见 `cboe_start_conflict_addendum.json`。旧卡对“2011缺口未证明可填”的决定不变。
