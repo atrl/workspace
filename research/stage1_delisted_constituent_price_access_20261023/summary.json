@@ -13,5 +13,6 @@
     "workflow_config": "workflow.yaml",
     "recorder_only_artifacts": []
   },
-  "ticker_reuse_guard": "ticker_reuse_guard_20261023.json"
+  "ticker_reuse_guard": "ticker_reuse_guard_20261023.json",
+  "NAS_feed_scope_audit": "nas_scope_audit_20261023.json"
 }
