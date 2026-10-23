@@ -237,7 +237,9 @@
       "result": "research/stage1_beta_composition_0bp_20261022/summary.json",
       "failure_attribution": "research/stage1_beta_composition_attribution_20261022/failure_attribution.json",
       "recorder_id": "4cd2029dc98740349e34db8c7c6eae3e",
-      "nas_archive_sha256": "276d3de7940772e0e8e6f25b21ea108cfbf7c5dbb15d1fc489544eeda5395af4"
+      "nas_archive_sha256": "276d3de7940772e0e8e6f25b21ea108cfbf7c5dbb15d1fc489544eeda5395af4",
+      "f696_parent_valid": false,
+      "scope_correction": "research/stage1_f696_parent_identity_audit_20261023/result.json"
     },
     {
       "card": "research/stage1_issuer_share_creation_information_20261022",
@@ -365,7 +367,9 @@
       "status": "not_promoted_fixed_Stage1_0bp_whole_risk_layer_ablation",
       "default_search": false,
       "evidence_preserved": true,
-      "result": "research/stage1_dynamic_risk_bypass_0bp_20261023/summary.json"
+      "result": "research/stage1_dynamic_risk_bypass_0bp_20261023/summary.json",
+      "f696_parent_valid": false,
+      "scope_correction": "research/stage1_f696_parent_identity_audit_20261023/result.json"
     },
     {
       "card": "research/stage1_cap_gap_cash_information_20261023",
@@ -428,7 +432,9 @@
       "status": "not_promoted_fixed_Stage1_tail_probability_composition_0bp",
       "default_search": false,
       "evidence_preserved": true,
-      "result": "research/stage1_tail_probability_composition_0bp_20261023/summary.json"
+      "result": "research/stage1_tail_probability_composition_0bp_20261023/summary.json",
+      "f696_parent_valid": false,
+      "scope_correction": "research/stage1_f696_parent_identity_audit_20261023/result.json"
     },
     {
       "card": "research/stage1_0946_peer_breadth_cash_h5_information_20261023",
@@ -696,5 +702,6 @@
   "latest_prefit_dedup_Stage1_Futu_raw_signed_turnover": "research/stage1_futu_daily_turnover_source_20261023/representation_preflight.json",
   "latest_closed_prefit_Stage1_Futu_turnover_surprise": "research/stage1_futu_turnover_surprise_preflight_20261023/summary.json",
   "latest_read_only_Stage1_paper_release_semantics_review": "research/stage1_paper_forward_readiness_audit_20261023/release_reseal_semantics_review_20261023.json",
-  "latest_read_only_Stage1_common_failure_cash_selection_components": "research/stage1_common_failure_component_map_20261023/result.json"
+  "latest_read_only_Stage1_common_failure_cash_selection_components": "research/stage1_common_failure_component_map_20261023/result.json",
+  "latest_invalid_f696_parent_claim_audit": "research/stage1_f696_parent_identity_audit_20261023/result.json"
 }
