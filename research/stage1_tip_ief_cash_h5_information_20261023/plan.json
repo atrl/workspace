@@ -1,0 +1,39 @@
+{
+  "experiment": "stage1_tip_ief_cash_h5_information_20261023",
+  "frozen": true,
+  "execution_authorized_by_active_Goal": true,
+  "phase": "conditional_retrospective_original39_plus_one_TIP_IEF_market_spread_cash_H5_information",
+  "parent": "frozen_complete_Stage1_f696_plus_b472_0bp_IBKR_Tiered",
+  "hypothesis": "A larger TIP-minus-IEF five-session NAV-plus-distribution total-return spread ending two Qlib sessions before the Stage1 decision marks inflation-sensitive bond outperformance and higher semiconductor discount-rate pressure, so the added standardized coefficient for next-H5 cash-over-SOXX log advantage should be positive.",
+  "sources": {
+    "feature_card": "research/stage1_tip_ief_market_spread_qlib_map_20261023",
+    "feature_summary_sha256": "c97a7fa65179d5ea81b6e98cba15e3c6b64c9d851335374d0a632b2bcdd80ff8",
+    "feature_recorder_id": "88e1e6c4213a4fb59b5a90985213c453",
+    "feature_experiment_id": "283492540310725322",
+    "feature_artifact_sha256": "8971f79f8769cd5f348c63e0aa6279bbadb3c9de91a17bf7df28490012e67bf4",
+    "original39_dataset_card": "research/stage1_dual_task_39_information_20261023",
+    "original39_summary_sha256": "e3a22a8f050b90d6f0a7ea96df0b4499bc387376f0c26abf2bb8ee2b501ad136",
+    "original39_recorder_id": "a4bbc11f5c764ac38ff2f682eadd0e1d",
+    "original39_experiment_id": "666721299406485975",
+    "original39_dataset_sha256": "3bc64249f92a922d9edace380e7eecfdeeb52e3a9e611e004bb8e74982aa9b12",
+    "bootstrap_module_sha256": "02705f897e668b710a38aae514df08b86e26c8cd8951405339960355a08a5ac4"
+  },
+  "cohorts": {
+    "train_signal": ["2011-01-03", "2022-12-30"],
+    "held_reused": ["2023-01-03", "2026-10-07"],
+    "held_halves": [["2023-01-03", "2024-12-31"], ["2025-01-02", "2026-10-07"]],
+    "complete_held_years": [2024, 2025],
+    "expected_train_mature_rows": 3014,
+    "expected_held_mature_rows": 940,
+    "full_held_calendar_rows": 944,
+    "historical_independence": false
+  },
+  "model": "Fit exactly one SimpleImputer(median)->StandardScaler->Ridge(alpha=1) original39 matched control and one same39-plus-TIP/IEF coordinate candidate on identical mature source-known training rows. Also freeze the training-mean target forecast as a no-fit second control. No hyperparameter, sign, duration, lag or horizon search.",
+  "information_gate": {
+    "added_standardized_coefficient_positive": true,
+    "paired_candidate_vs_each_of_original39_and_train_mean": ["full held MSE improvement positive", "both fixed held halves positive", "complete 2024 and 2025 positive", "full-calendar corrected stationary-bootstrap lower bound positive"],
+    "bootstrap": {"mean_block_sessions": 63, "draws_each": 10000, "seed": 20261023, "one_sided_alpha_each": 0.00078125, "family_denominator": 32}
+  },
+  "budget": {"market_requests": 0, "source_Recorder_object_loads": 2, "DatasetH_builds": 0, "model_fit_attempts_max": 2, "bootstrap_attempts_max": 2, "new_writable_Qlib_Recorders_max": 1, "native_accounts": 0},
+  "stop": "Stop before fitting if source/dataset hashes, date identity, label maturity or full 3014/940 support fail. A failed fixed information gate closes this TIP/IEF coordinate/version without sign, window, lag, duration or ETF substitution on reused history. Passing is still only conditional retrospective feedback; 2016-2022 original vintages, daily first-public clocks, distribution semantics and then a separate full Stage1-parent 0bp Tiered own-state account are required before any performance claim, followed by 2/5bp and independent forward evidence."
+}
