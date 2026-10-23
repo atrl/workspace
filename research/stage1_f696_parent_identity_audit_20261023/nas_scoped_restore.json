@@ -1,0 +1,14 @@
+{
+  "status": "verified",
+  "recorder_id": "b004519bf44c4adf8690132ff3e4a6d9",
+  "proposal_days": 944,
+  "mismatched_days": 944,
+  "NAS_archive_sha256": "82d1dacede8ec769ca1bb24b44e0f9abc684158bbace89507ceaf5cf0447cbe0",
+  "scoped_members": [
+    "analysis/result",
+    "analysis/output_differences"
+  ],
+  "all_member_sha256_parity": true,
+  "new_fits": 0,
+  "new_accounts": 0
+}

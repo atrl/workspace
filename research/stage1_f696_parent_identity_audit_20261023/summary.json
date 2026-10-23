@@ -1,0 +1,41 @@
+{
+  "experiment": "stage1_f696_parent_identity_audit_20261023",
+  "decision": "invalid_f696_parent_identity_for_three_closed_accounts",
+  "objective_achieved": false,
+  "plan_sha256": "60368c9a40fefd700eb7d02e45144454960152c62be7b7cdd86ab09dfce57cf2",
+  "result": "result.json",
+  "recorder_id": "b004519bf44c4adf8690132ff3e4a6d9",
+  "experiment_id": "142777601278167832",
+  "new_fits": 0,
+  "new_native_accounts": 0,
+  "NAS_evidence": {
+    "sha256": "82d1dacede8ec769ca1bb24b44e0f9abc684158bbace89507ceaf5cf0447cbe0",
+    "size_bytes": 96729,
+    "media_type": "application/gzip",
+    "storage_uri": "sha256/82/d1/82d1dacede8ec769ca1bb24b44e0f9abc684158bbace89507ceaf5cf0447cbe0",
+    "uploaded_by": "soxl-minute-research",
+    "created_at": "2026-10-23 22:24:42.806169+08",
+    "duplicate": false,
+    "nas_path": "/volume1/docker/yanxuan/registry/research-artifacts/82/d1/82d1dacede8ec769ca1bb24b44e0f9abc684158bbace89507ceaf5cf0447cbe0",
+    "recorder_id": "b004519bf44c4adf8690132ff3e4a6d9",
+    "experiment_id": "142777601278167832",
+    "archive_root": "qlib_recorder"
+  },
+  "NAS_readback": {
+    "verified": true,
+    "sha256": "82d1dacede8ec769ca1bb24b44e0f9abc684158bbace89507ceaf5cf0447cbe0"
+  },
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "inputs/*",
+      "analysis/output_differences"
+    ]
+  },
+  "limitations": [
+    "Account metrics of affected cards are preserved, but their parent description is invalid.",
+    "No repaired strategy or SOXX economic result is created by this audit."
+  ],
+  "NAS_scoped_restore": "nas_scoped_restore.json"
+}

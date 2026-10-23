@@ -1,0 +1,53 @@
+{
+  "decision": "invalid_f696_parent_identity_for_three_closed_accounts",
+  "plan_sha256": "60368c9a40fefd700eb7d02e45144454960152c62be7b7cdd86ab09dfce57cf2",
+  "calendar_rows": 944,
+  "raw_cashbook_source_contract": "Reuse27baa smoothedpre-controller allocationproposals fromanalysis/targets and9097 sourceframe proposals. Model/NVDAformula/features/scalers/EMAoperator+proposalpath unchanged. ThisisolatesACCOUNTING/executionimpact; do not rederivefeatures onrawsplitprices. RecomputeALL accountdependent riskstate/cap/opening/recovery decisions fromeachNEWownrawNAV/history. Neverreuseoldrequestedtargets/HOLD/orders/quantities/cash/riskpath.",
+  "raw_frame_vs_f696_A_mismatch_rows_gt1e8": 944,
+  "max_abs_output_differences": {
+    "soxl_weight": 0.2312431522055387,
+    "soxx_weight": 0.26884472414510285,
+    "cash_weight": 0.451146589487877,
+    "tail_probability": 0.07358375191688538,
+    "alpha_probability": 0.05193084478378296
+  },
+  "mean_raw_cash": 0.33219369280478206,
+  "mean_f696_A_cash": 0.4075048680036581,
+  "A_vs_frozen_current_max_abs_error": 0.0,
+  "largest_difference_trade_date": "2024-01-10",
+  "largest_difference_raw_outputs": {
+    "soxl_weight": 0.2913004166092511,
+    "soxx_weight": 0.42313726286041276,
+    "cash_weight": 0.28556232053033614,
+    "tail_probability": 0.14071756601333618,
+    "alpha_probability": 0.49912571907043457
+  },
+  "largest_difference_f696_A_outputs": {
+    "soxl_weight": 0.06391053922083059,
+    "soxx_weight": 0.19938055076095623,
+    "cash_weight": 0.7367089100182131,
+    "tail_probability": 0.12580657005310059,
+    "alpha_probability": 0.5046865940093994
+  },
+  "composition_open_transform_rows": 919,
+  "affected_cards": [
+    "research/stage1_beta_composition_0bp_20261022",
+    "research/stage1_tail_probability_composition_0bp_20261023",
+    "research/stage1_dynamic_risk_bypass_0bp_20261023"
+  ],
+  "code_sha256": {
+    "src/workflow/stage1_nvda_guidance_receiver.py": "062fbcfde9673e756169f65c2c3e7737703c901eaeb01f89aa10df0e26fa948b",
+    "src/workflow/stage1_beta_composition_0bp.py": "f96db7c1d5eca6c4e51752dd3fbe007647b9d22eeb2f5589d0070daa85d3f649",
+    "research/stage1_tail_probability_composition_0bp_20261023/stage1_tail_probability_composition_0bp_20261023.ipynb": "d7dee32c54f2e3385b952b5ada43e98b12948df29106abf9d4f84e1efa517c59",
+    "research/stage1_dynamic_risk_bypass_0bp_20261023/stage1_dynamic_risk_bypass_0bp_20261023.ipynb": "692a30ca398e4bc295509950f6073f64b46c7e4aac41ab2d85bb40a465e650f7",
+    "src/workflow/stage1_domain_heads.py": "5b4305c0c1311a52e0a7de87257bd2de03b5be34084ee7709859a9defe88b04a"
+  },
+  "source_Recorder_object_loads": 4,
+  "new_market_requests": 0,
+  "new_fits": 0,
+  "new_accounts": 0,
+  "market_outcome_reads": 0,
+  "interpretation": "Raw cashbook frame is the 27baa proposal; the exact frozen f696 A proposal is source_targets.frozen_current. Three later cards replayed helper account[frame] without substituting those five outputs. Their numerical accounts remain real but are not interventions on f696 A_0. Corrected f696 variants need separate frozen own-state 0bp accounts.",
+  "recorder_id": "b004519bf44c4adf8690132ff3e4a6d9",
+  "experiment_id": "142777601278167832"
+}

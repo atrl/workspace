@@ -18,6 +18,13 @@ cards keep their original gates. The active campaign entry is
   action, risk, and recovery chain. Reuse its matching Qlib source and native
   account as the attribution baseline; keep SOXX as the final benchmark. Do not
   silently switch the parent to a different allocator or a strong reference.
+- `stage1_nvda_guidance_receiver.prepare_account_sources` returns the raw
+  cashbook frame containing **27baa** allocation proposals. It does not replace
+  them with f696 outputs. For an f696-parent experiment, explicitly align and
+  substitute all five saved `inputs/source_targets["frozen_current"]` outputs,
+  verify 944/944 proposal rows against the frozen A_0 source, then run the
+  candidate's own-state account. The identity audit is
+  `research/stage1_f696_parent_identity_audit_20261023`.
 - Screen a Stage1-derived candidate at 0bp added slippage first, with frozen
   IBKR Tiered fees still charged and its own full funded account. Report SOXX
   wealth, available-mark drawdown, CVaR5, complete years, all contiguous 126-day
