@@ -52,5 +52,14 @@
   "purchases": 0,
   "SOXX_market_outcome_reads": 0,
   "model_fits": 0,
-  "native_accounts": 0
+  "native_accounts": 0,
+  "official_public_sample_page_audit": {
+    "checked_at_utc": "2026-10-23T01:21:00.383043+00:00",
+    "official_page": "https://orats.com/university/historical-data",
+    "explicit_near_EOD_sample": "ORATS_SMV_Strikes_20240103.zip; verified 1124 SOXX rows in separate source card",
+    "explicit_one_minute_sample": "Five files with all symbols omitted except AAPL, per issuer page",
+    "explicit_2011_SOXX_sample_link_on_page": false,
+    "scope": "Only the issuer page and bounded official-site search were checked. This does not prove no 2011 SOXX data exists or that another authorized source could not provide it.",
+    "next_action": "Request exact 2011/2012 SOXX sample or date-level coverage from vendor after explicit user authorization; no URL guessing or purchase."
+  }
 }
