@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "status": "logical_parser_reads_two_physical_validation_reads_more_than_declared",
+  "plan_budget_key": "source_raw_reads",
+  "declared": 2,
+  "run_state_reported": 2,
+  "interpretation": "The two reported reads count unique source objects parsed (SEC index and body). The executable notebook also rereads each local file for initial digest verification, result digests, tar archival, scoped NAS restore comparison and final member hash receipt. These repeated hash/archive reads do not refetch external source or inspect market outcomes.",
+  "minimum_physical_local_file_reads_per_object": 6,
+  "physical_local_file_reads_total_minimum": 12,
+  "HTTP_GETs": 2,
+  "market_outcome_reads": 0,
+  "model_fits": 0,
+  "native_accounts": 0,
+  "scientific_values_changed": false
+}

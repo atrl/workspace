@@ -1,0 +1,27 @@
+{
+  "attempts": [
+    {
+      "kind": "index",
+      "URL": "https://www.sec.gov/Archives/edgar/data/1100663/0001752724-19-108721-index.htm",
+      "requested_at_utc": "2026-10-23T01:59:27.624310+00:00",
+      "HTTP_status": 200,
+      "content_type": "text/html; charset=UTF-8",
+      "error_type": null,
+      "body_bytes": 8267,
+      "body_sha256": "69ea74c8a79fbbd06bd36e6fe84347392c7b99835b0f508289a9bb93b7c1da7c",
+      "raw_path": "data/snapshots/stage1_soxx_2019_june_original_part_f_source_20261023/index.html.response"
+    },
+    {
+      "kind": "body",
+      "URL": "https://www.sec.gov/Archives/edgar/data/1100663/000175272419108721/NPORT_8256748838153481.htm",
+      "requested_at_utc": "2026-10-23T01:59:31.106434+00:00",
+      "HTTP_status": 200,
+      "content_type": "text/html",
+      "error_type": null,
+      "body_bytes": 60692,
+      "body_sha256": "bfd0fff288a73856d7905c5ef49612c8b64bbbf495f20cb501de3f41cdb0cbe5",
+      "raw_path": "data/snapshots/stage1_soxx_2019_june_original_part_f_source_20261023/body.html.response"
+    }
+  ],
+  "GETs_consumed": 2
+}

@@ -1,0 +1,46 @@
+{
+  "schema_version": 1,
+  "frozen": true,
+  "experiment": "stage1_soxx_2019_june_original_part_f_source_20261023",
+  "phase": "source_only_original_SEC_2019Jun_SOXX_NPORT_EX_PartF_30_equity_bridge",
+  "question": "Does the exact public SEC NPORT-EX for SOXX 2019-06-30 provide a 30-equity basket at a filing-available clock, closing the legacy-to-public-NPORT source gap without backfilling by report date?",
+  "source": {
+    "SEC_CIK": "0001100663",
+    "series": "S000004354",
+    "class": "C000012084",
+    "accession": "0001752724-19-108721",
+    "report_period": "2019-06-30",
+    "filed_date": "2019-08-26",
+    "accepted_ET": "2019-08-26 13:39:47",
+    "form": "NPORT-EX",
+    "index_url": "https://www.sec.gov/Archives/edgar/data/1100663/0001752724-19-108721-index.htm",
+    "body_url": "https://www.sec.gov/Archives/edgar/data/1100663/000175272419108721/NPORT_8256748838153481.htm",
+    "SEC_user_agent": "SOXL research codex@openai.com",
+    "public_transition_guidance": "https://www.sec.gov/rules-regulations/staff-guidance/investment-company-reporting-modernization-frequently-asked-questions",
+    "parent_sidecar_007_source": "research/stage1_soxx_2019_june_nport_ex_index_source_20261023",
+    "calendar_provider": "data/qlib/minute_information_pit_allocator_20261012/daily_prices",
+    "calendar_qlib_yaml_sha256": "951024d796cc625b695938e64589cd23808c5b048ac816c11f001fb0719742a2"
+  },
+  "fixed_checks": [
+    "Exactly two HTTPS GETs, index then body, with raw SHA/size/status and no retry or alternate URL.",
+    "Index must identify same accession, form, report period, SOXX series/class and accepted clock.",
+    "Body must identify iShares PHLX Semiconductor ETF June30 2019 and exactly30 common-stock security/share/value rows with positive values and exact printed total $1,473,254,424 closure; exclude short-term funds and continuation totals.",
+    "Map acceptance to strictly next real Qlib trading session; do not use June30 report date to backfill.",
+    "Archive index/body and source receipt to NAS with remote hash and scoped restore before treating local bytes as disposable."
+  ],
+  "budget": {
+    "new_HTTP_GETs": 2,
+    "retries": 0,
+    "source_raw_reads": 2,
+    "D_calendar_calls": 1,
+    "market_outcome_reads": 0,
+    "model_fits": 0,
+    "native_accounts": 0
+  },
+  "stop": "On transport or source identity failure, preserve exact response and stop. Source-only success does not qualify legal issuer bridge, turnover factor or 0bp account.",
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": []
+  }
+}

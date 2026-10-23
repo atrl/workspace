@@ -1,0 +1,13 @@
+{
+  "sha256": "0531795250d4def59d7263f861ca083725642b0b057b41cdb40f3cc1e696af72",
+  "size_bytes": 10477,
+  "nas_path": "/volume1/docker/yanxuan/registry/research-artifacts/05/31/0531795250d4def59d7263f861ca083725642b0b057b41cdb40f3cc1e696af72",
+  "members": {
+    "research/stage1_soxx_2019_june_original_part_f_source_20261023/plan.json": "558eca020f3b881ac6223502f4079263105658d46acb812aeb27f84ce0eeed3f",
+    "research/stage1_soxx_2019_june_original_part_f_source_20261023/transport_receipts.json": "21b5b9fe0d6674a1a7c0dfc5f749947039cb8b8c32aea3d0e43b3e61542d59eb",
+    "research/stage1_soxx_2019_june_original_part_f_source_20261023/result.json": "cb3941fa4bcfed87cd5227fba8965aec6b996b7b718aaf60cb9a0296552c5e8e",
+    "data/snapshots/stage1_soxx_2019_june_original_part_f_source_20261023/index.html.response": "69ea74c8a79fbbd06bd36e6fe84347392c7b99835b0f508289a9bb93b7c1da7c",
+    "data/snapshots/stage1_soxx_2019_june_original_part_f_source_20261023/body.html.response": "bfd0fff288a73856d7905c5ef49612c8b64bbbf495f20cb501de3f41cdb0cbe5"
+  },
+  "remote_and_scoped_restore_verified": true
+}

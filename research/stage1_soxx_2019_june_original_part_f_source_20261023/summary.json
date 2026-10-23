@@ -1,0 +1,25 @@
+{
+  "experiment": "stage1_soxx_2019_june_original_part_f_source_20261023",
+  "decision": "original_SOXX_2019Jun_public_PartF_30_equity_source_qualified",
+  "objective_achieved": false,
+  "plan_sha256": "558eca020f3b881ac6223502f4079263105658d46acb812aeb27f84ce0eeed3f",
+  "result": "result.json",
+  "source_archive": "nas_source_archive.json",
+  "report_period": "2019-06-30",
+  "first_conservative_Qlib_signal_date": "2019-08-27",
+  "source_NAS_sha256": "0531795250d4def59d7263f861ca083725642b0b057b41cdb40f3cc1e696af72",
+  "SOXX_market_outcome_reads": 0,
+  "model_fits": 0,
+  "native_accounts": 0,
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": []
+  },
+  "limitations": [
+    "Public Part F first becomes available after SEC filing, not on June report date.",
+    "This 30-equity source closes one period gap but does not certify full 2011-2026 legal issuer identity or turnover factor.",
+    "No market outcome, fit or funded Stage1 account."
+  ],
+  "budget_accounting_addendum": "budget_accounting_addendum.json"
+}
