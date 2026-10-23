@@ -1,0 +1,22 @@
+{
+  "status": "adjacent_screen_signal_date_alignment_review",
+  "parent_timing_recorder_id": "68e31a0a0fad44e7ba1d1f7d856c7a0d",
+  "parent_timing_artifact_sha256": "66e3292d7f47ac6981f2e488ed198d1109f340f2c3a4bf2a5f538fa41465764e",
+  "peer_breadth": {
+    "source_recorder_id": "e7312100d7274be7aca700754c900f0a",
+    "source_dates_mapped_to_parent_signal_index": 2006,
+    "available_before_next_parent_decision": 2006,
+    "late": 0,
+    "info_notebook_mapping": "mapped.set_index(trade_date).reindex(frame.index)"
+  },
+  "cross_response": {
+    "source_0945_dates_mapped_to_parent_signal_index": 2006,
+    "source_bar_before_next_parent_decision": 2006,
+    "late": 0,
+    "info_notebook_mapping": "coordinate.reindex(train_dates/held_dates from original39 DatasetH signal index)"
+  },
+  "boundary": "Unlike the invalid same-trade-day mapping in this card, the two adjacent screens map prior signal-day 09:45 sources to the next trade-day 09:29 allocator decision. Their conditional numerical conclusions are not invalidated by this clock finding; source first receipt remains unqualified. Wording that calls 09:46 the frozen f696 allocation clock is inaccurate.",
+  "performance_outcome_reads": 0,
+  "new_fits": 0,
+  "new_accounts": 0
+}
