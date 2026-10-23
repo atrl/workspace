@@ -1,0 +1,9 @@
+# Stage1 09:45 SOXX 方向加权成交量来源与去重门
+
+冻结完整 Stage1 09:46 配置时钟，只用 NAS 来源的 Qlib SOXX 09:31–09:45 已完成分钟价量。逐日保留缺失和无效掩码，0 未来收益读取、0 模型拟合、0 账户。
+
+训练 1061/1062 日已知，复用持有期 946/946 日已知。训练期与同前缀开盘收益 Spearman 0.6780，与无符号成交量 -0.0127。四项来源/去重门 4/4；决定 `conditional_source_and_novelty_pass_no_information_or_account`。无效原因 {'invalid_close_volume_or_price_flag': 1}。
+
+数值存在与低相关不能证明未来现金优势、完整 0bp SOXX 超额或历史首收；若来源门通过，仍须另冻匹配信息任务和后续自身状态 Tiered 账户。Recorder `d6b2e08632e64135b26949265aa69b25`，NAS SHA `792d4b72a4cf34191075822f328785d26aa6e2b43eb88af79a1f5f797aba5391`。
+
+唯一未知日为 2020-03-16，完整15条时间戳存在但价格有效性标记未通过；保留 unknown，不补零。

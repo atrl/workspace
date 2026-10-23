@@ -1,0 +1,13 @@
+{
+  "status": "verified",
+  "recorder_id": "d6b2e08632e64135b26949265aa69b25",
+  "source_days": 2008,
+  "known_days": 2007,
+  "unknown_date": "2020-03-16",
+  "NAS_archive_sha256": "792d4b72a4cf34191075822f328785d26aa6e2b43eb88af79a1f5f797aba5391",
+  "scoped_members": [
+    "analysis/result",
+    "analysis/daily_source"
+  ],
+  "all_member_SHA256_parity": true
+}

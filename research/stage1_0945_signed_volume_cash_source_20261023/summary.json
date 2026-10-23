@@ -1,0 +1,43 @@
+{
+  "experiment": "stage1_0945_signed_volume_cash_source_20261023",
+  "decision": "conditional_source_and_novelty_pass_no_information_or_account",
+  "objective_achieved": false,
+  "plan_sha256": "cc8a282639089f55a6d162daf6f6f11279c90da0cab567e8a27a34ae016f9793",
+  "result": "result.json",
+  "recorder_id": "d6b2e08632e64135b26949265aa69b25",
+  "experiment_id": "782187461377978304",
+  "NAS_evidence": {
+    "sha256": "792d4b72a4cf34191075822f328785d26aa6e2b43eb88af79a1f5f797aba5391",
+    "size_bytes": 132312,
+    "media_type": "application/gzip",
+    "storage_uri": "sha256/79/2d/792d4b72a4cf34191075822f328785d26aa6e2b43eb88af79a1f5f797aba5391",
+    "uploaded_by": "soxl-minute-research",
+    "created_at": "2026-10-23 21:20:50.651812+08",
+    "duplicate": false,
+    "nas_path": "/volume1/docker/yanxuan/registry/research-artifacts/79/2d/792d4b72a4cf34191075822f328785d26aa6e2b43eb88af79a1f5f797aba5391",
+    "recorder_id": "d6b2e08632e64135b26949265aa69b25",
+    "experiment_id": "782187461377978304",
+    "archive_root": "qlib_recorder"
+  },
+  "NAS_readback": {
+    "verified": true,
+    "sha256": "792d4b72a4cf34191075822f328785d26aa6e2b43eb88af79a1f5f797aba5391"
+  },
+  "model_fits": 0,
+  "native_accounts": 0,
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "inputs/*",
+      "analysis/daily_source",
+      "analysis/result"
+    ]
+  },
+  "limitations": [
+    "Historical first receipt/bar finality is a research timing convention, not certified live PIT.",
+    "Reuse 2023-2026 only as development diagnostic, not independent forward.",
+    "Passing source/novelty support would allow a separately frozen matched information receiver only; not a 0bp account."
+  ],
+  "NAS_scoped_restore": "nas_scoped_restore.json"
+}

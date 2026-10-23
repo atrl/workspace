@@ -1,0 +1,4 @@
+experiment: stage1_0945_signed_volume_cash_source_20261023
+plan: plan.json
+provider_uri: data/qlib/minute_information_pit_allocator_20261012/core_1min
+phase: source_only_no_fit_no_account
