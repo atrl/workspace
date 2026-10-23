@@ -1,0 +1,7 @@
+experiment: stage1_original_0bp_hold_cash_bound_20261023
+phase: read_only_native_qlib_account_attribution
+provider_uri: data/qlib/minute_information_pit_allocator_20261012/daily_prices
+source_recorder: research/stage1_original_0bp_signal_loss_chain_v2_20261023
+plan: plan.json
+result: result.json
+new_economic_account: none

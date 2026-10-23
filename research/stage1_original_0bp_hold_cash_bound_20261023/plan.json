@@ -1,0 +1,35 @@
+{
+  "schema_version": 1,
+  "experiment": "stage1_original_0bp_hold_cash_bound_20261023",
+  "frozen": true,
+  "phase": "read_only_full_944_hold_vs_execute_cash_opportunity_bound",
+  "question": "Can improvement restricted to original Stage1 opening HOLD days plausibly close the SOXX rolling126 stability shortfall, even under an optimistic direct fixed-path cash-component erasure?",
+  "source": {
+    "card": "research/stage1_original_0bp_signal_loss_chain_v2_20261023",
+    "summary_sha256": "898089b008f1f6f50016ddbbd2fc082f77423464ed8613c54dbdd5fbbae1dc3a",
+    "recorder_id": "2f0392615c4c4b15928b4ada6e01ecd9",
+    "experiment_id": "954993860986722516",
+    "daily_artifact": "analysis/daily",
+    "daily_sha256": "00660bd17990b571040b7de62ca58475175d4a6a4a1b5e94f027b4b986824855",
+    "nas_archive_sha256": "54c6e93b4c304774c272b07312c856a9a2a255086d372066db418b5efed359c7",
+    "nas_readback_verified": true,
+    "provider_uri": "data/qlib/minute_information_pit_allocator_20261012/daily_prices"
+  },
+  "fixed_analysis": [
+    "Retain all 944 matched sessions and exactly 819 contiguous126 Qlib windows.",
+    "For original open_execute true/false and cap_binding true/false, sum cash opportunity, selection, fees/residual and paired SOXX log excess; report all years/quarters including partial2023 and2026.",
+    "For each HOLD day only, define optimistic direct repair=max(0,-cash_opportunity_log); keep original selection, fees, state, holdings and all other days fixed. Count all rolling windows whose original paired log excess plus rolling repair is strictly positive.",
+    "Report number of nonwinning windows with no HOLD day and their cash component; compare to contract minimum574.",
+    "No decision-time HOLD switch, no source feature or threshold inferred from hindsight."
+  ],
+  "budget": {
+    "preflight_schema_Recorder_loads_already_done": 1,
+    "new_source_Recorder_loads_max": 1,
+    "new_market_requests": 0,
+    "new_model_fits": 0,
+    "new_native_accounts": 0,
+    "new_bootstraps": 0,
+    "new_Qlib_Recorders": 0
+  },
+  "stop": "Any source hash/NAS/date/calendar or 944/819 closure mismatch stops. Fixed-path optimistic bound is not a feasible counterfactual account and cannot prove a live action rule."
+}

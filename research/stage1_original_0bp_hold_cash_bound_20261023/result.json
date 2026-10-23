@@ -1,0 +1,223 @@
+{
+  "decision": "read_only_Stage1_HOLD_cash_direct_repair_bound_no_policy",
+  "plan_sha256": "b0a33fb8812d513137ef47997a295d288951aef371c0ca22801e9be0631e63ec",
+  "source_recorder_id": "2f0392615c4c4b15928b4ada6e01ecd9",
+  "sessions": 944,
+  "HOLD_sessions": 147,
+  "EXECUTE_sessions": 797,
+  "cap_binding_sessions": 288,
+  "component_closure_max_abs": 1.0408340855860843e-17,
+  "cohorts": [
+    {
+      "cohort": "HOLD",
+      "sessions": 147,
+      "cash_opportunity_log": -0.1481272691206953,
+      "SOXL_selection_log": 0.035241128534510585,
+      "Stage1_direct_fees_log": 0.0,
+      "timing_and_benchmark_residual_log": 0.001360197668904476,
+      "paired_log_excess": -0.11152594291728024
+    },
+    {
+      "cohort": "EXECUTE",
+      "sessions": 797,
+      "cash_opportunity_log": -0.45219533178292143,
+      "SOXL_selection_log": 0.19069032969188554,
+      "Stage1_direct_fees_log": -0.010264807879909828,
+      "timing_and_benchmark_residual_log": 0.006427484862505793,
+      "paired_log_excess": -0.26534232510843986
+    },
+    {
+      "cohort": "HOLD_binding",
+      "sessions": 27,
+      "cash_opportunity_log": -0.065002577954135,
+      "SOXL_selection_log": 0.0,
+      "Stage1_direct_fees_log": 0.0,
+      "timing_and_benchmark_residual_log": 0.00033244229573896924,
+      "paired_log_excess": -0.06467013565839602
+    },
+    {
+      "cohort": "HOLD_nonbinding",
+      "sessions": 120,
+      "cash_opportunity_log": -0.08312469116656031,
+      "SOXL_selection_log": 0.03524112853451059,
+      "Stage1_direct_fees_log": 0.0,
+      "timing_and_benchmark_residual_log": 0.0010277553731655067,
+      "paired_log_excess": -0.04685580725888419
+    },
+    {
+      "cohort": "EXECUTE_binding",
+      "sessions": 261,
+      "cash_opportunity_log": -0.22200564569556833,
+      "SOXL_selection_log": 0.002075066289623572,
+      "Stage1_direct_fees_log": -0.0040971663063662555,
+      "timing_and_benchmark_residual_log": 0.00341422771869011,
+      "paired_log_excess": -0.22061351799362086
+    },
+    {
+      "cohort": "EXECUTE_nonbinding",
+      "sessions": 536,
+      "cash_opportunity_log": -0.23018968608735307,
+      "SOXL_selection_log": 0.18861526340226195,
+      "Stage1_direct_fees_log": -0.006167641573543573,
+      "timing_and_benchmark_residual_log": 0.0030132571438156843,
+      "paired_log_excess": -0.04472880711481908
+    }
+  ],
+  "years": [
+    {
+      "period": "2023",
+      "sessions": 249,
+      "HOLD_sessions": 49,
+      "cash_opportunity_log": -0.23367910383939577,
+      "paired_log_excess": -0.21022914772178447
+    },
+    {
+      "period": "2024",
+      "sessions": 252,
+      "HOLD_sessions": 32,
+      "cash_opportunity_log": -0.025351344238563403,
+      "paired_log_excess": 0.009739193498322307
+    },
+    {
+      "period": "2025",
+      "sessions": 250,
+      "HOLD_sessions": 44,
+      "cash_opportunity_log": -0.15800601225728084,
+      "paired_log_excess": -0.1480102316761928
+    },
+    {
+      "period": "2026",
+      "sessions": 193,
+      "HOLD_sessions": 22,
+      "cash_opportunity_log": -0.1832861405683766,
+      "paired_log_excess": -0.02836808212606505
+    }
+  ],
+  "quarters": [
+    {
+      "period": "2023Q1",
+      "sessions": 61,
+      "HOLD_sessions": 6,
+      "cash_opportunity_log": -0.0508134491301484,
+      "paired_log_excess": 0.04691337085651285
+    },
+    {
+      "period": "2023Q2",
+      "sessions": 62,
+      "HOLD_sessions": 6,
+      "cash_opportunity_log": -0.09064355103672553,
+      "paired_log_excess": -0.09245511568301265
+    },
+    {
+      "period": "2023Q3",
+      "sessions": 63,
+      "HOLD_sessions": 12,
+      "cash_opportunity_log": 0.014122110461335125,
+      "paired_log_excess": -0.05533825391473713
+    },
+    {
+      "period": "2023Q4",
+      "sessions": 63,
+      "HOLD_sessions": 25,
+      "cash_opportunity_log": -0.10634421413385697,
+      "paired_log_excess": -0.10934914898054757
+    },
+    {
+      "period": "2024Q1",
+      "sessions": 61,
+      "HOLD_sessions": 7,
+      "cash_opportunity_log": -0.10573903355634365,
+      "paired_log_excess": -0.06976027575143216
+    },
+    {
+      "period": "2024Q2",
+      "sessions": 63,
+      "HOLD_sessions": 14,
+      "cash_opportunity_log": -0.011920925221191805,
+      "paired_log_excess": -0.014876382373094438
+    },
+    {
+      "period": "2024Q3",
+      "sessions": 64,
+      "HOLD_sessions": 1,
+      "cash_opportunity_log": 0.0644435376762982,
+      "paired_log_excess": 0.0759732332619843
+    },
+    {
+      "period": "2024Q4",
+      "sessions": 64,
+      "HOLD_sessions": 10,
+      "cash_opportunity_log": 0.027865076862673824,
+      "paired_log_excess": 0.018402618360864625
+    },
+    {
+      "period": "2025Q1",
+      "sessions": 60,
+      "HOLD_sessions": 10,
+      "cash_opportunity_log": 0.07029234681248982,
+      "paired_log_excess": 0.022750369205876832
+    },
+    {
+      "period": "2025Q2",
+      "sessions": 62,
+      "HOLD_sessions": 8,
+      "cash_opportunity_log": -0.114697788752773,
+      "paired_log_excess": -0.06298248329039251
+    },
+    {
+      "period": "2025Q3",
+      "sessions": 64,
+      "HOLD_sessions": 19,
+      "cash_opportunity_log": -0.044719730194302636,
+      "paired_log_excess": -0.013205728900091696
+    },
+    {
+      "period": "2025Q4",
+      "sessions": 64,
+      "HOLD_sessions": 7,
+      "cash_opportunity_log": -0.06888084012269499,
+      "paired_log_excess": -0.09457238869158549
+    },
+    {
+      "period": "2026Q1",
+      "sessions": 61,
+      "HOLD_sessions": 10,
+      "cash_opportunity_log": -0.027595723258313064,
+      "paired_log_excess": -0.01888062031297706
+    },
+    {
+      "period": "2026Q2",
+      "sessions": 62,
+      "HOLD_sessions": 6,
+      "cash_opportunity_log": -0.14353537069119737,
+      "paired_log_excess": 0.14884418313315176
+    },
+    {
+      "period": "2026Q3",
+      "sessions": 64,
+      "HOLD_sessions": 3,
+      "cash_opportunity_log": -0.025266883772547627,
+      "paired_log_excess": -0.1697243998790678
+    },
+    {
+      "period": "2026Q4",
+      "sessions": 6,
+      "HOLD_sessions": 3,
+      "cash_opportunity_log": 0.01311183715368145,
+      "paired_log_excess": 0.011392754932828006
+    }
+  ],
+  "rolling126_windows": 819,
+  "original_positive_windows": 255,
+  "required_positive_windows": 574,
+  "HOLD_only_optimistic_direct_repair_positive_windows": 450,
+  "HOLD_only_optimistic_direct_repair_shortfall": 124,
+  "nonwinning_windows_without_HOLD": 0,
+  "optimistic_repair_total_log": 0.497267212777447,
+  "fixed_path_not_causal_account": true,
+  "new_market_requests": 0,
+  "new_model_fits": 0,
+  "new_native_accounts": 0,
+  "new_bootstraps": 0,
+  "new_Qlib_Recorders": 0
+}

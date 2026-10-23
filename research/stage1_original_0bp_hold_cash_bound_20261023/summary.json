@@ -1,0 +1,24 @@
+{
+  "experiment": "stage1_original_0bp_hold_cash_bound_20261023",
+  "decision": "read_only_Stage1_HOLD_cash_direct_repair_bound_no_policy",
+  "objective_achieved": false,
+  "plan_sha256": "b0a33fb8812d513137ef47997a295d288951aef371c0ca22801e9be0631e63ec",
+  "result": "result.json",
+  "source_recorder_id": "2f0392615c4c4b15928b4ada6e01ecd9",
+  "source_NAS_sha256": "54c6e93b4c304774c272b07312c856a9a2a255086d372066db418b5efed359c7",
+  "source_NAS_readback_verified": true,
+  "sessions": 944,
+  "HOLD_sessions": 147,
+  "EXECUTE_sessions": 797,
+  "original_positive_126_windows": 255,
+  "HOLD_only_optimistic_positive_126_windows": 450,
+  "required_positive_126_windows": 574,
+  "new_model_fits": 0,
+  "new_native_accounts": 0,
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": []
+  },
+  "limitation": "Read-only fixed-path component erasure, not a feasible causal policy or own-state account."
+}
