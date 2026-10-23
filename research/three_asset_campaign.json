@@ -523,7 +523,9 @@
     "Stage1_training_cost0_regime_attribution": "research/stage1_training_cost0_regime_attribution_20261023/result.json",
     "Stage1_cost_route_next_boundary": "No-news constraint persists. Fixed turnover regularizer removal and 10bp training-cost-proxy removal both worsened cash; 15pct cash floor bound zero original A_0 EXECUTE days. Do not tune costs or floor on reused history. A next bounded mechanism must address raw model risky-dollar intent and distinguish 2024 cash protection from 2025 cash drag before any new complete Stage1-parent 0bp Tiered account; SOXX remains final gate.",
     "Stage1_0945_signed_volume_clock_audit": "research/stage1_0945_signed_volume_cash_h5_information_20261023/timing_invalidation.json",
-    "Stage1_0945_signed_volume_receiver_boundary": "Do not use same-day 09:45 minute feature in unchanged f696 allocation head decided09:29. Separate 09:46 b472 action receiver requires physical action-value label and own controls; no reuse of invalid H5 cash fit. Current source-only card does not license an allocator account."
+    "Stage1_0945_signed_volume_receiver_boundary": "Do not use same-day 09:45 minute feature in unchanged f696 allocation head decided09:29. Separate 09:46 b472 action receiver requires physical action-value label and own controls; no reuse of invalid H5 cash fit. Current source-only card does not license an allocator account.",
+    "paper_forward_source_freshness_followup": "research/stage1_paper_forward_readiness_audit_20261023/source_freshness_followup_20261023.json",
+    "paper_forward_current_boundary": "At 2026-10-23T13:39:33Z verified NAS us_semis_intraday and local Qlib 15min provider both reached Oct22; SOXL/SOXX first-hour bars8/8 complete. Two sealed release code hashes still mismatch; future partial-bar semantics unreviewed. No release write, paper run, qualified forward day or SOXX success. This is an independent infrastructure prerequisite, not the 0bp candidate result."
   },
   "parallel_source_task": {
     "card": "research/korea_semiconductor_exports_korean_vintage_20261022",
@@ -588,7 +590,7 @@
     ]
   },
   "active_index": "research/active_research_index.json",
-  "updated_at_utc": "2026-10-23T13:35:49Z",
+  "updated_at_utc": "2026-10-23T13:40:22Z",
   "execution_totals": {
     "new_model_fits": 85,
     "new_native_accounts": 51,

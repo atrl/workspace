@@ -678,5 +678,6 @@
   "latest_read_only_Stage1_training_cost0_regime_attribution": "research/stage1_training_cost0_regime_attribution_20261023/result.json",
   "latest_source_only_Stage1_0945_signed_volume": "research/stage1_0945_signed_volume_cash_source_20261023/summary.json",
   "latest_invalid_Stage1_0945_signed_volume_allocator_information": "research/stage1_0945_signed_volume_cash_h5_information_20261023/timing_invalidation.json",
-  "latest_read_only_Stage1_0945_adjacent_clock_review": "research/stage1_0945_signed_volume_cash_h5_information_20261023/adjacent_clock_review.json"
+  "latest_read_only_Stage1_0945_adjacent_clock_review": "research/stage1_0945_signed_volume_cash_h5_information_20261023/adjacent_clock_review.json",
+  "latest_read_only_Stage1_paper_forward_source_freshness": "research/stage1_paper_forward_readiness_audit_20261023/source_freshness_followup_20261023.json"
 }
