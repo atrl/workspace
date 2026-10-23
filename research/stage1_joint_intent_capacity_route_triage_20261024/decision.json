@@ -1,0 +1,42 @@
+{
+  "status": "no_eligible_joint_intent_capacity_economic_candidate_from_reviewed_sources",
+  "objective_achieved": false,
+  "parent": "exact frozen f696 A_0 plus b472 action/risk/recovery, 0bp added slippage with IBKR Tiered fees, SOXX final hard gate",
+  "evidence": [
+    {
+      "card": "research/stage1_original_0bp_cash_layer_window_bound_20261023",
+      "finding": "Frozen path wins255/819 rolling126 windows. Optimistically erasing negative cap-binding cash contribution alone reaches321, nonbinding alone420, both588; contract requires574. This is accounting, not a policy upper bound."
+    },
+    {
+      "card": "research/stage1_cap_release_value_information_20261023",
+      "finding": "Original39 plus own-state beta gap/risk state failed cross-year 0bp Tiered cap-release local-value MSE and corrected block gates; fixed version closed."
+    },
+    {
+      "card": "research/stage1_alpha_tail_cap_release_information_20261023",
+      "finding": "Alpha probability times one-minus-tail probability failed added sign, matched local-value MSE and block gates; fixed version closed."
+    },
+    {
+      "card": "research/stage1_cboe_term_cap_local_value_information_20261023",
+      "finding": "Prior-session VIX9D/VIX3M term ratio matched sign but failed cap-release local-value MSE, yearly rank and corrected block gates; first-public source unqualified."
+    },
+    {
+      "card": "research/stage1_joint_cash_cap_soxx_0bp_local_value_20261023",
+      "finding": "Fixed 0bp Tiered one-step joint cash/cap deployment has688 mature training-scaffold labels, but 2022 mean local value is negative and the one-step reset is not a continuous Stage1 policy."
+    },
+    {
+      "card": "research/stage1_0946_peer_breadth_joint_value_information_20261023",
+      "finding": "Fresh 09:45 AMD/NVDA/SMH breadth added to original39, own-state and early SOXX/SOXL returns failed positive sign, matched local-value MSE, 2022 and block gates; only1/6 fixed information gates passed."
+    },
+    {
+      "card": "research/stage1_f696_beta_composition_0bp_corrected_20261023",
+      "finding": "Exact-parent static composition retest was stopped before an account because correcting a 27baa parent error did not supply a new failure-derived decision-time feature. Runtime now works, scientific stop remains."
+    }
+  ],
+  "scope": "These named cards and the current locally visible campaign index. This is not a proof that no possible model or source can beat SOXX, and does not reclassify historical fixed cards.",
+  "specific_next_dependency": "A distinct, decision-time source or receiver that differentiates useful cash protection from cash drag while controlling SOXL-relative selection and own-state risk capacity. Before a new full 0bp account, verify source identity, first availability, training/held coverage, labels, and freeze the economic path. Existing historical SOXX option-chain and old constituent-price routes lack those sources; do not contact vendors or buy data without user authorization.",
+  "risk_state_only_composition_decision": "do_not_freeze_or_run: risk_state is endogenous to the same funded path; a risk_state-gated version of the stopped beta-preserving composition has no independently supported value signal, and cannot be justified by hindsight binding quarters alone.",
+  "new_market_requests": 0,
+  "new_fits": 0,
+  "new_accounts": 0,
+  "new_bootstraps": 0
+}

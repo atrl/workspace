@@ -1,0 +1,18 @@
+{
+  "experiment": "stage1_joint_intent_capacity_route_triage_20261024",
+  "decision": "no_eligible_joint_intent_capacity_economic_candidate_from_reviewed_sources",
+  "objective_achieved": false,
+  "decision_file": "decision.json",
+  "reviewed_named_cards": 7,
+  "new_model_fits": 0,
+  "new_native_accounts": 0,
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": []
+  },
+  "limitations": [
+    "These named cards and the current locally visible campaign index. This is not a proof that no possible model or source can beat SOXX, and does not reclassify historical fixed cards.",
+    "No new Qlib numerical output, market source, fitted candidate or account was created."
+  ]
+}
