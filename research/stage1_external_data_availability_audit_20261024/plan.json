@@ -1,0 +1,8 @@
+{
+  "experiment": "stage1_external_data_availability_audit_20261024",
+  "frozen": true,
+  "phase": "read_only_scoped_existing_entitlement_and_file_discovery",
+  "question": "Is a currently accessible original-history source already available for SOXX option skew or survivorship-free old SOXX constituent prices, without vendor contact, purchase or news data?",
+  "scope": "Named local environment variables and data-tree filenames; the pinned current Yanxuan NAS us_semis_intraday snapshot scope; metadata-only Google Drive filename search using CRSP, Sharadar, ORATS, SOXX options, SOXX, Xilinx and delisted. Do not read or download unrelated Drive document bodies. This is not an all-NAS, all-Drive or all-credential absence proof.",
+  "budget": {"market_requests": 0, "broker_requests": 0, "vendor_messages": 0, "purchases": 0, "model_fits": 0, "accounts": 0}
+}

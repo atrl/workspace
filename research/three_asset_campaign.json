@@ -2,6 +2,7 @@
   "schema_version": 2,
   "campaign": "three_asset_stable_excess_20261015",
   "objective_achieved": false,
+  "latest_external_data_availability_audit": "research/stage1_external_data_availability_audit_20261024/decision.json",
   "latest_joint_intent_capacity_route_triage": "research/stage1_joint_intent_capacity_route_triage_20261024/decision.json",
   "latest_0bp_candidate_queue_audit": "research/stage1_0bp_candidate_queue_audit_20261023/result.json",
   "latest_NVDA_SOXX_single_leader_source": "research/stage1_nvda_sector_relative_lead_source_20261023/summary.json",

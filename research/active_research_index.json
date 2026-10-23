@@ -1,6 +1,7 @@
 {
   "schema_version": 1,
   "scope": "three_asset_continuous_campaign_only_not_repository_inventory",
+  "latest_external_data_availability_audit": "research/stage1_external_data_availability_audit_20261024/decision.json",
   "latest_joint_intent_capacity_route_triage": "research/stage1_joint_intent_capacity_route_triage_20261024/decision.json",
   "latest_0bp_candidate_queue_audit": "research/stage1_0bp_candidate_queue_audit_20261023/result.json",
   "latest_conditional_source_Stage1_NVDA_SOXX_single_leader": "research/stage1_nvda_sector_relative_lead_source_20261023/summary.json",

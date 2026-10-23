@@ -1,0 +1,18 @@
+{
+  "experiment": "stage1_external_data_availability_audit_20261024",
+  "decision": "no_qualified_existing_external_history_found_in_scoped_search",
+  "objective_achieved": false,
+  "plan_sha256": "40d5d972106bd179ad682342d8f588a719cdd8ed94e5e3a51e730a3f545ff03d",
+  "decision_file": "decision.json",
+  "new_model_fits": 0,
+  "new_native_accounts": 0,
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": []
+  },
+  "limitations": [
+    "Named local environment variables and data-tree filenames; the pinned current Yanxuan NAS us_semis_intraday snapshot scope; metadata-only Google Drive filename search using CRSP, Sharadar, ORATS, SOXX options, SOXX, Xilinx and delisted. Do not read or download unrelated Drive document bodies. This is not an all-NAS, all-Drive or all-credential absence proof.",
+    "Read-only metadata discovery does not qualify or disprove every inaccessible data source."
+  ]
+}
