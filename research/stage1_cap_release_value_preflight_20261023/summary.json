@@ -1,0 +1,26 @@
+{
+  "experiment": "stage1_cap_release_value_preflight_20261023",
+  "decision": "source_support_only_no_label_fit_or_account",
+  "objective_achieved": false,
+  "plan_sha256": "527902853b83f2c26e28665bb6e76f0b98b603bc4d2c57d1177b4bf6664ece50",
+  "formula_repair_plan_sha256": "1c3012b3afe6ec9b02f4d8d2971c24cd2acd0141c16a6d343df5aac1dc9cc8e6",
+  "invalid_2x_result_sha256": "a49679521dc6c9232871823f2ccdca0f4132acca58c82f9e661db50f80437459",
+  "result": "result.json",
+  "source_recorder_id": "3663a1e073f042e383dbcf54969a9bc2",
+  "source_experiment_id": "194705746221035167",
+  "source_NAS_sha256": "73e1f3d1bdb567a9906e34a5216052ab9ab22e36ff9f06d5aac8a7d083b425eb",
+  "source_NAS_readback_verified": true,
+  "budget_used": {
+    "new_market_requests": 0,
+    "new_model_fits": 0,
+    "new_native_accounts": 0,
+    "new_labels": 0,
+    "new_bootstraps": 0
+  },
+  "source_recorder_reads": 2,
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": []
+  }
+}

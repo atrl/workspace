@@ -1,0 +1,25 @@
+{
+  "schema_version": 1,
+  "experiment": "stage1_cap_release_value_preflight_20261023",
+  "frozen": true,
+  "phase": "source_and_support_only_before_action_value_design",
+  "hypothesis": "The value of a short, funded SOXX cap release at the original Stage1 opening decision may differ from a generic five-session SOXX cash-return forecast. Check whether the saved original-architecture OOF training reference contains enough predecision cap-binding, cash-funded cases before defining any local label or receiver.",
+  "parent": "Frozen f696 allocator plus b472 action/risk/recovery Stage1. Final economic account, if ever justified, must reuse the complete parent and use its own 0bp Tiered-funded state with SOXX as hard gate.",
+  "source": {
+    "training_card": "research/stage1_signed_volume_0bp_action_label_source_20261023",
+    "training_summary_sha256": "ce6652a6323ec9bd11a8ce8de89239cba167a53bedb50e471080006a1a89f476",
+    "training_recorder_id": "3663a1e073f042e383dbcf54969a9bc2",
+    "training_experiment_id": "194705746221035167",
+    "provider_uri": "data/qlib/full_path_tiered_allocation_20261013",
+    "held_risk_gap_summary": "research/stage1_risk_projection_gap_20261023/summary.json",
+    "held_risk_gap_summary_sha256": "63471ea5f7128b441a1b0ef6a22a364990c2b047d8c70590dcb68f204b1f1a9f",
+    "held_loss_chain_summary": "research/stage1_original_0bp_signal_loss_chain_v2_20261023/summary.json",
+    "held_loss_chain_summary_sha256": "898089b008f1f6f50016ddbbd2fc082f77423464ed8613c54dbdd5fbbae1dc3a",
+    "closed_h5_dual_receiver_summary": "research/stage1_dual_task_39_information_20261023/summary.json",
+    "closed_h5_dual_receiver_summary_sha256": "e3a22a8f050b90d6f0a7ea96df0b4499bc387376f0c26abf2bb8ee2b501ad136"
+  },
+  "support_definition": "For each saved 2018-2022 OOF signal/trade row, raw nominal beta=2*source SOXL weight+source SOXX weight. A structural candidate requires finite raw beta, saved own-state current beta cap, and source cash weight, raw beta exceeding cap, and both excess and source cash weight >=0.10 of NAV. This is a predecision source support count, not an executable 0.10-beta trade or return label.",
+  "calendar": "Qlib D.calendar day for the training trade dates; exact same-order 1061 rows required.",
+  "budget": {"new_market_requests": 0, "new_model_fits": 0, "new_native_accounts": 0, "new_labels": 0, "new_bootstraps": 0, "source_recorder_reads": 2},
+  "stop": "Stop if summary hashes/NAS readback identity, Qlib calendar, row alignment, finite support inputs, or source decision clock fail. Do not read future returns, form a response, select thresholds from held outcomes, fit, or run an account. If support exists, separately freeze physical same-state fee-net local label and receiver before further execution."
+}

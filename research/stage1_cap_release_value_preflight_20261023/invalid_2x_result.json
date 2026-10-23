@@ -1,0 +1,49 @@
+{
+  "decision": "source_support_only_no_label_fit_or_account",
+  "source_recorder_id": "3663a1e073f042e383dbcf54969a9bc2",
+  "provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/full_path_tiered_allocation_20261013",
+  "sessions": 1061,
+  "qlib_calendar_same_order": true,
+  "source_feature_clock_precedes_decision": true,
+  "finite_support_inputs": true,
+  "cap_binding_rows": 519,
+  "structural_010_rows": 517,
+  "annual": [
+    {
+      "year": 2018,
+      "rows": 53,
+      "cap_binding_rows": 18,
+      "structural_010_rows": 18
+    },
+    {
+      "year": 2019,
+      "rows": 252,
+      "cap_binding_rows": 33,
+      "structural_010_rows": 32
+    },
+    {
+      "year": 2020,
+      "rows": 253,
+      "cap_binding_rows": 171,
+      "structural_010_rows": 171
+    },
+    {
+      "year": 2021,
+      "rows": 252,
+      "cap_binding_rows": 53,
+      "structural_010_rows": 52
+    },
+    {
+      "year": 2022,
+      "rows": 251,
+      "cap_binding_rows": 244,
+      "structural_010_rows": 244
+    }
+  ],
+  "new_market_requests": 0,
+  "new_model_fits": 0,
+  "new_native_accounts": 0,
+  "new_labels": 0,
+  "new_bootstraps": 0,
+  "interpretation": "Structural source support only. The saved OOF training reference is 2018-2022 and not the frozen 2023+ f696+b472 held own-state account. Raw source weights and cap do not prove a funded 0.10-beta SOXX order can execute or improve full-account wealth. A physical fee-net same-state label and receiver require a separate frozen plan."
+}

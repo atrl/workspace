@@ -1,0 +1,12 @@
+{
+  "schema_version": 1,
+  "frozen": true,
+  "phase": "mechanical_3x_SOXL_beta_formula_repair_only",
+  "original_plan_sha256": "527902853b83f2c26e28665bb6e76f0b98b603bc4d2c57d1177b4bf6664ece50",
+  "invalid_2x_result_sha256": "a49679521dc6c9232871823f2ccdca0f4132acca58c82f9e661db50f80437459",
+  "invalid_notebook_sha256": "2daf790519868877ac999ba3c28de17bca5cca7ac0590fafb4e09894110ef9e4",
+  "reason": "The source preflight used 2*SOXL_weight+SOXX_weight although SOXL is 3x. The repo's original Stage1 action workflow uses 3.0*SOXL_weight+SOXX_weight in raw_effective_beta. Original support counts are invalid.",
+  "correct_formula": "raw_nominal_beta=3*source_soxl_weight+source_soxx_weight",
+  "scope": "Preserve original plan and invalid result. Recompute the same finite, Qlib-calendar-aligned, predecision source support counts once with only this formula correction. No new response, return, label, fit, bootstrap or account.",
+  "budget": {"new_market_requests": 0, "new_model_fits": 0, "new_native_accounts": 0, "new_labels": 0, "new_bootstraps": 0, "corrected_source_recorder_reads": 2}
+}
