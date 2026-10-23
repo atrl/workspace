@@ -1,0 +1,81 @@
+{
+  "experiment": "stage1_f696_beta_composition_0bp_corrected_20261023",
+  "frozen": true,
+  "execution_authorized_by_active_Goal": true,
+  "phase": "exact_f696_parent_identity_repair_and_one_own_state_0bp_account",
+  "parent": "Frozen complete f696f656 allocator plus b472a458 action/risk/recovery. Exact original A_0 native book and same SOXX raw-corporate account are paired benchmarks. Raw cashbook helper frame is 27baa and must be overwritten with frozen_current five outputs before any replay.",
+  "identity_audit": {
+    "path": "research/stage1_f696_parent_identity_audit_20261023/result.json",
+    "sha256": "87be4ba26efd62e5a43cc4bd0240b85d3c85db8e97b2b675dc6173cf0c04f195",
+    "audit_recorder_id": "b004519bf44c4adf8690132ff3e4a6d9"
+  },
+  "account_source_helper": "research/stage1_nvda_guidance_receiver_20261022",
+  "account_source_receipt_sha256": "1666ead0b7de45f08968177c6e34ac763e78f79120fde7c3d55152fb0418f72c",
+  "source_f696": {
+    "card": "research/stage1_domain_heads_20261018",
+    "summary_sha256": "3b51938ca56ddf45029ff5e4a01a6bbc2f1d1407458efcad7d7c68b0ef5a1d37",
+    "recorder_id": "6e227278b7a64eafbcf34b965e16d2b9",
+    "experiment_id": "283510277269468590",
+    "frozen_A_frame_artifact_sha256": "e83a57eb764dc59ee8d9fad7b1a48eb6b295c6183d6c4cab2062b3aa6c66e07c"
+  },
+  "code_identities": {
+    "src/workflow/stage1_nvda_guidance_receiver.py": "062fbcfde9673e756169f65c2c3e7737703c901eaeb01f89aa10df0e26fa948b",
+    "src/workflow/stage1_beta_composition_0bp.py": "f96db7c1d5eca6c4e51752dd3fbe007647b9d22eeb2f5589d0070daa85d3f649",
+    "src/model/nominal_beta_composition.py": "718cef532ebb9b009da84abfb64abdf1d0eaf23c7ac453243109e85abfdae258",
+    "src/backtest/stage1_domain_heads_raw.py": "9d188c23d6eb668aaaa268aa520f0fcd03d4a20316f55331d31056bdc614cb88",
+    "src/backtest/native_raw_corporate.py": "1e15ec3b05fac80a79b8ac9f24d10beb92e7e6573611d8c27471ff42354fdd75",
+    "src/workflow/stage1_domain_heads.py": "5b4305c0c1311a52e0a7de87257bd2de03b5be34084ee7709859a9defe88b04a"
+  },
+  "provider_uri": "data/qlib/stage1_domain_heads_20261018",
+  "provider_manifest_sha256": "b9b00a50e86cf26f254d169c886f981b6e90a9daafc3612e3c7ef7c6479b8083",
+  "source_outputs": [
+    "soxl_weight",
+    "soxx_weight",
+    "cash_weight",
+    "tail_probability",
+    "alpha_probability"
+  ],
+  "required_parent_parity": {
+    "rows": 944,
+    "calendar": "same signal/trade/exit dates as exact A_0",
+    "all_five_output_max_abs_error": 0.0,
+    "after_substitution_check_against_original_A_frame": true
+  },
+  "transform": "Reuse exactly AuditedComposition: delta=min(projected SOXL,projected CASH/2), after=(SOXL-delta,SOXX+3delta,CASH-2delta); nominal beta conserved. Apply only after original own-state risk projection at open/recovery target calls; no change to HOLD, controller, b472 action or recovery model.",
+  "economics": {
+    "initial_cash_usd": 100000,
+    "slippage_bps_now": [
+      0
+    ],
+    "IBKR_Tiered_frozen_from_helper": true,
+    "own_state_raw_corporate_actions": true,
+    "SOXX_benchmark": "exact raw_SOXX_0 same dates/currency/fees",
+    "Stage1_increment": "exact Stage1_A 0bp same source"
+  },
+  "hard_screen_0bp": {
+    "SOXX_terminal_net_wealth": ">1+1e-8",
+    "available_drawdown_30pct": "close and sampled raw points <=30%",
+    "CVaR5_no_worse_SOXX": true,
+    "complete_years_70pct": true,
+    "rolling_126_70pct": true,
+    "paired_stationary_bootstrap": {
+      "mean_block": 63,
+      "draws": 10000,
+      "seed": 20261014,
+      "one_sided_alpha": 0.0016666666666666668
+    }
+  },
+  "budget": {
+    "new_model_fits": 0,
+    "new_path_attempts_max": 1,
+    "new_native_accounts_max": 1,
+    "new_bootstrap_attempts_max": 1,
+    "new_Recorders_max": 1,
+    "market_requests": 0
+  },
+  "stops": [
+    "Any source/plan/hash, 944-row exact f696 five-output parity, account calendar/fee/price, transform beta/simplex, or native Qlib audit failure",
+    "If 0bp SOXX economic gate fails, close fixed corrected version; do not tune composition proportion/cash/cap/threshold/window/seed",
+    "2/5bp and independent forward remain separate contract v2 requirements only after 0bp pass; no production or broker orders"
+  ]
+}
