@@ -1,0 +1,11 @@
+{
+  "status": "needs_explicit_ISM_rights_for_bulk_original_archive_and_derived_time_series",
+  "official_terms_url": "https://www.ismworld.org/supply-management-news-and-reports/reports/ism-pmi-reports/pmi/september/",
+  "official_terms_section": "ISM PMI Content",
+  "read_at_utc_date": "2026-10-23",
+  "terms_scope": "The official manufacturing report page covers Manufacturing and Services PMI report content. It allows individual access/display for personal noncommercial use, while stating that copying, archiving, uploading and deriving time-series variables require an express exception or written permission.",
+  "publication_clock": "The same official page says the manufacturing report is posted after 10:00 ET on the first business day, with January's report on the second business day. This is after Stage1's 09:46 ET opening decision; same-session use is invalid even if rights were resolved.",
+  "project_implication": "The proposed 2018-2026 original-PDF/HTML NAS archive and Qlib New Orders/Customers Inventories historical panel cannot proceed from public display access alone. Existing source triage found only scattered original PDFs and no complete 2018-2022 monthly first-public-vintage panel.",
+  "user_boundary": "User declined supplier contact. No permission request, purchase, download, original-byte archive, numeric panel, model fit or account was made in this rights audit.",
+  "decision": "hold_ISM_fixed_source_proposal_needs_rights_and_complete_original_coverage; continue unrelated public-source mechanisms"
+}
