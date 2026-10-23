@@ -1,0 +1,252 @@
+{
+  "annual": [
+    {
+      "period": "2023",
+      "sessions": 249,
+      "total_cash_opportunity_log": -0.16143570195264337,
+      "components": {
+        "raw_risk": -0.0634528883747974,
+        "beta_cap": -0.09809811969708507,
+        "cash_floor": 0.0,
+        "tie": 0.0,
+        "HOLD": 0.00011530611923911763
+      }
+    },
+    {
+      "period": "2024",
+      "sessions": 252,
+      "total_cash_opportunity_log": 0.05192570942291781,
+      "components": {
+        "raw_risk": -0.034122288529302776,
+        "beta_cap": 0.08025041607322388,
+        "cash_floor": 0.0,
+        "tie": 0.0,
+        "HOLD": 0.005797581878996755
+      }
+    },
+    {
+      "period": "2025",
+      "sessions": 250,
+      "total_cash_opportunity_log": -0.1055552432424009,
+      "components": {
+        "raw_risk": 0.016652549513357352,
+        "beta_cap": -0.16493199758834393,
+        "cash_floor": 0.0,
+        "tie": 0.0,
+        "HOLD": 0.04272420483258562
+      }
+    },
+    {
+      "period": "2026",
+      "sessions": 193,
+      "total_cash_opportunity_log": -0.1874927813213758,
+      "components": {
+        "raw_risk": -0.10063143003860922,
+        "beta_cap": -0.06550820284274309,
+        "cash_floor": 0.0,
+        "tie": 0.0,
+        "HOLD": -0.021353148440023513
+      }
+    }
+  ],
+  "quarters": [
+    {
+      "period": "2023Q1",
+      "sessions": 61,
+      "total_cash_opportunity_log": -0.047225549068883294,
+      "components": {
+        "raw_risk": -0.01846015809887161,
+        "beta_cap": -0.016587724484605538,
+        "cash_floor": 0.0,
+        "tie": 0.0,
+        "HOLD": -0.012177666485406146
+      }
+    },
+    {
+      "period": "2023Q2",
+      "sessions": 62,
+      "total_cash_opportunity_log": -0.0556302180241248,
+      "components": {
+        "raw_risk": -0.01949894209296255,
+        "beta_cap": -0.03871203556049698,
+        "cash_floor": 0.0,
+        "tie": 0.0,
+        "HOLD": 0.0025807596293347178
+      }
+    },
+    {
+      "period": "2023Q3",
+      "sessions": 63,
+      "total_cash_opportunity_log": 0.021738202052167397,
+      "components": {
+        "raw_risk": 0.007172103073761805,
+        "beta_cap": 0.017559777770679855,
+        "cash_floor": 0.0,
+        "tie": 0.0,
+        "HOLD": -0.0029936787922742562
+      }
+    },
+    {
+      "period": "2023Q4",
+      "sessions": 63,
+      "total_cash_opportunity_log": -0.08031813691180265,
+      "components": {
+        "raw_risk": -0.03266589125672503,
+        "beta_cap": -0.060358137422662425,
+        "cash_floor": 0.0,
+        "tie": 0.0,
+        "HOLD": 0.012705891767584805
+      }
+    },
+    {
+      "period": "2024Q1",
+      "sessions": 61,
+      "total_cash_opportunity_log": -0.059798295884274044,
+      "components": {
+        "raw_risk": -0.019164999232557156,
+        "beta_cap": -0.03567439488562178,
+        "cash_floor": 0.0,
+        "tie": 0.0,
+        "HOLD": -0.004958901766095094
+      }
+    },
+    {
+      "period": "2024Q2",
+      "sessions": 63,
+      "total_cash_opportunity_log": -0.009013777829989229,
+      "components": {
+        "raw_risk": 0.0061827934008200115,
+        "beta_cap": -0.009259772919904026,
+        "cash_floor": 0.0,
+        "tie": 0.0,
+        "HOLD": -0.005936798310905224
+      }
+    },
+    {
+      "period": "2024Q3",
+      "sessions": 64,
+      "total_cash_opportunity_log": 0.09000156557719245,
+      "components": {
+        "raw_risk": -0.08187124067370977,
+        "beta_cap": 0.12245060208881865,
+        "cash_floor": 0.0,
+        "tie": 0.0,
+        "HOLD": 0.04942220416208356
+      }
+    },
+    {
+      "period": "2024Q4",
+      "sessions": 64,
+      "total_cash_opportunity_log": 0.03073621755998865,
+      "components": {
+        "raw_risk": 0.060731157976144104,
+        "beta_cap": 0.0027339817899310432,
+        "cash_floor": 0.0,
+        "tie": 0.0,
+        "HOLD": -0.03272892220608649
+      }
+    },
+    {
+      "period": "2025Q1",
+      "sessions": 60,
+      "total_cash_opportunity_log": 0.05039091449372675,
+      "components": {
+        "raw_risk": 0.0730060719418282,
+        "beta_cap": 0.008206655367725305,
+        "cash_floor": 0.0,
+        "tie": 0.0,
+        "HOLD": -0.03082181281582676
+      }
+    },
+    {
+      "period": "2025Q2",
+      "sessions": 62,
+      "total_cash_opportunity_log": -0.08752928401725105,
+      "components": {
+        "raw_risk": -0.0239737676951026,
+        "beta_cap": -0.13125862506113284,
+        "cash_floor": 0.0,
+        "tie": 0.0,
+        "HOLD": 0.06770310873898436
+      }
+    },
+    {
+      "period": "2025Q3",
+      "sessions": 64,
+      "total_cash_opportunity_log": -0.03848808829105178,
+      "components": {
+        "raw_risk": -0.00833303139609374,
+        "beta_cap": -0.030864799083440052,
+        "cash_floor": 0.0,
+        "tie": 0.0,
+        "HOLD": 0.0007097421884820123
+      }
+    },
+    {
+      "period": "2025Q4",
+      "sessions": 64,
+      "total_cash_opportunity_log": -0.02992878542782479,
+      "components": {
+        "raw_risk": -0.024046723337274492,
+        "beta_cap": -0.01101522881149633,
+        "cash_floor": 0.0,
+        "tie": 0.0,
+        "HOLD": 0.00513316672094603
+      }
+    },
+    {
+      "period": "2026Q1",
+      "sessions": 61,
+      "total_cash_opportunity_log": -0.026154015649970986,
+      "components": {
+        "raw_risk": -0.013504135842302397,
+        "beta_cap": -0.00888520835577494,
+        "cash_floor": 0.0,
+        "tie": 0.0,
+        "HOLD": -0.0037646714518936534
+      }
+    },
+    {
+      "period": "2026Q2",
+      "sessions": 62,
+      "total_cash_opportunity_log": -0.15673044346582424,
+      "components": {
+        "raw_risk": -0.09212497689930457,
+        "beta_cap": -0.07068293558952785,
+        "cash_floor": 0.0,
+        "tie": 0.0,
+        "HOLD": 0.0060774690230082275
+      }
+    },
+    {
+      "period": "2026Q3",
+      "sessions": 64,
+      "total_cash_opportunity_log": -0.016023381955485694,
+      "components": {
+        "raw_risk": 0.004997682702997754,
+        "beta_cap": 0.0035092440469099437,
+        "cash_floor": 0.0,
+        "tie": 0.0,
+        "HOLD": -0.02453030870539335
+      }
+    },
+    {
+      "period": "2026Q4",
+      "sessions": 6,
+      "total_cash_opportunity_log": 0.011415059749905053,
+      "components": {
+        "raw_risk": 0.0,
+        "beta_cap": 0.010550697055649792,
+        "cash_floor": 0.0,
+        "tie": 0.0,
+        "HOLD": 0.0008643626942552631
+      }
+    }
+  ],
+  "repair_plan_sha256": "8a09b54510f6b3d3063569cad5013298d4e7136d316d69bd6f8379cfc26f752a",
+  "source_plan_sha256": "55f37d233fd9d3644143bf05722abf3e7d189a33a94acc80afdbf11a3d5c767e",
+  "Qlib_Recorder_object_loads": 3,
+  "model_fits": 0,
+  "native_accounts": 0,
+  "bootstraps": 0
+}

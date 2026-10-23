@@ -1,0 +1,78 @@
+{
+  "experiment": "stage1_dedup_0bp_projection_constraint_attribution_20261023",
+  "decision": "read_only_dedup_C_risky_dollar_ceiling_binding_layer_attributed_no_policy",
+  "objective_achieved": false,
+  "plan_sha256": "55f37d233fd9d3644143bf05722abf3e7d189a33a94acc80afdbf11a3d5c767e",
+  "result": "result.json",
+  "period_cash_component_result": "period_cash_component_result.json",
+  "source_recorder_id": "a42f11bdd1484bde86d4dbb1e4855af3",
+  "sessions": 944,
+  "EXECUTE_sessions": 822,
+  "HOLD_sessions": 122,
+  "constraint_rows": [
+    {
+      "constraint": "raw_risk",
+      "EXECUTE_sessions": 578,
+      "raw_beta_binding_sessions": 65,
+      "cash_opportunity_log": -0.18155405742935204,
+      "mean_target_cash": 0.293619928800824
+    },
+    {
+      "constraint": "beta_cap",
+      "EXECUTE_sessions": 244,
+      "raw_beta_binding_sessions": 244,
+      "cash_opportunity_log": -0.24828790405494816,
+      "mean_target_cash": 0.6242444766293875
+    },
+    {
+      "constraint": "cash_floor",
+      "EXECUTE_sessions": 0,
+      "raw_beta_binding_sessions": 0,
+      "cash_opportunity_log": 0.0,
+      "mean_target_cash": null
+    },
+    {
+      "constraint": "tie",
+      "EXECUTE_sessions": 0,
+      "raw_beta_binding_sessions": 0,
+      "cash_opportunity_log": 0.0,
+      "mean_target_cash": null
+    }
+  ],
+  "positive_slack_EXECUTE_sessions": 0,
+  "maximum_abs_EXECUTE_risky_dollar_slack": 1.1102230246251565e-16,
+  "2024_beta_cap_cash_log": 0.08025041607322388,
+  "2025_beta_cap_cash_log": -0.16493199758834393,
+  "2025_raw_risk_cash_log": 0.016652549513357352,
+  "2025_HOLD_cash_log": 0.04272420483258562,
+  "nonwinning_window_cash_components": {
+    "raw_risk": {
+      "nonwinning_negative_component_windows": 336,
+      "nonwinning_mean_component_log": -0.010487261267431963
+    },
+    "beta_cap": {
+      "nonwinning_negative_component_windows": 412,
+      "nonwinning_mean_component_log": -0.06966328817725966
+    },
+    "cash_floor": {
+      "nonwinning_negative_component_windows": 0,
+      "nonwinning_mean_component_log": 0.0
+    },
+    "tie": {
+      "nonwinning_negative_component_windows": 0,
+      "nonwinning_mean_component_log": 0.0
+    }
+  },
+  "model_fits": 0,
+  "native_accounts": 0,
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": []
+  },
+  "limitations": [
+    "Only existing own-state target and cash accounting are described; a positive beta-cap cash loss is not a causal gain from releasing a cap.",
+    "The 2024/2025 difference is an observed historical contrast, not a tradable year switch.",
+    "No new source feature, fit, 0bp winning account or independent forward evidence."
+  ]
+}

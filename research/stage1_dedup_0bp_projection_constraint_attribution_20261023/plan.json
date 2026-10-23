@@ -1,0 +1,28 @@
+{
+  "experiment": "stage1_dedup_0bp_projection_constraint_attribution_20261023",
+  "phase": "read_only_dedup_C_0bp_EXECUTE_risky_dollar_binding_source",
+  "question": "After the fixed common-return deduplication increased risky allocation, which remaining decision layer constrains risky dollars and causes saved cash opportunity loss on C's own-state 0bp Tiered account: raw model risky-dollar intent, own-state beta cap, or the 15% cash floor?",
+  "sources": {
+    "dedup_account_card": "research/stage1_common_return_dedup_0bp_20261023",
+    "dedup_summary_sha256": "31069b6c16600384eab765606d78ff4a582a94142a33b488f95ff1f5aa82c827",
+    "dedup_recorder_id": "a42f11bdd1484bde86d4dbb1e4855af3",
+    "dedup_experiment_id": "393525215581674229",
+    "dedup_NAS_sha256": "cd98ce324cb0c19b393bafc149ad727c6c55bd7860d8f915eae3cf2d43c0f86d",
+    "raw_target_artifact_sha256": "510deb8893abec9fd9dc48d7315298ca853c1a0e6951bfc279face7735d34587",
+    "own_path_artifact_sha256": "46efc0fa20bae533ba89af5836d8d3b91d031f9c862559540efaf1e249a13c8d",
+    "attribution_card": "research/stage1_common_return_dedup_0bp_failure_attribution_20261023",
+    "attribution_summary_sha256": "2961578d9a3ce07ec6e23729032c15445bbbbc44c6ee7a52ca393ee355409a65",
+    "daily_artifact_sha256": "b10f1f8d026b69d52014d77c2af9d0d85bbc52fbf5dfc6f6c11f9471de1721a1",
+    "original_A_projection_context": "research/stage1_original_0bp_projection_dollar_slack_20261023/result.json",
+    "original_A_projection_context_sha256": "46f5a4d847bc2f1af878a996ac40b0505a62c17eceb879e4c0bf4ebb390a891e"
+  },
+  "frozen_geometry": "On each EXECUTE decision, raw risky-dollar intent r=raw SOXL+SOXX and raw nominal beta=3*SOXL+SOXX; own-state cap is saved replay.current_beta_cap. With nonnegative weights and a 15% cash floor, legal risky-dollar ceiling=min(r,cap,0.85). Compare saved controlled target risky dollars to this ceiling only on EXECUTE. HOLD carries prior positions, not a new projection; report HOLD separately.",
+  "fixed_report": [
+    "Require exact 944 signal-date alignment across raw proposal, own path/replay/targets and saved daily physical cash components, including all 797/147 style EXECUTE/HOLD counts as observed for C.",
+    "Count strict raw-intent-, beta-cap-, cash-floor-limited or tied EXECUTE sessions at epsilon1e-9; report summed cash opportunity log by category and every complete/partial year, quarter and all 819 contiguous 126-session windows. Keep raw-beta>cap distinct from which constraint limits risky dollars.",
+    "Report positive risky-dollar slack on EXECUTE. Do not alter raw allocation, cap, cash floor or draw a causal rescue from observed categories. Compare original A source categories only as descriptive context."
+  ],
+  "budget": {"Qlib_Recorder_object_loads": 3, "market_requests": 0, "model_fits": 0, "native_accounts": 0, "bootstraps": 0, "new_Recorders": 0},
+  "stop": "Stop on source hash, date, target simplex, beta/cash legality or component closure mismatch. A fixed-path binding analysis cannot authorize a rule or reopen the failed C account.",
+  "artifact_policy": {"policy": "slim_card_recorder_first", "workflow_config": "workflow.yaml", "recorder_only_artifacts": []}
+}

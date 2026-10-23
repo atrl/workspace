@@ -1,0 +1,8 @@
+{
+  "trigger": "The first successful fixed readback reported annual/quarter constraint counts and total cash, plus full-path category cash; the frozen report also requires annual/quarter cash split by category.",
+  "original_plan_sha256": "55f37d233fd9d3644143bf05722abf3e7d189a33a94acc80afdbf11a3d5c767e",
+  "original_result_sha256": "11bd01d32043d3240ea6e22777b3fc335f724503999915dda2a795d7b4345d58",
+  "fixed_repair": "Read the same pinned target/path/physical-daily Qlib Recorder objects once more. Reuse the original four frozen EXECUTE categories and HOLD mask, aggregate saved cash_opportunity_log by complete/partial year and quarter, and require each period to close to the original total. Do not change any account, threshold, group or source value.",
+  "physical_budget_addendum": {"Qlib_Recorder_object_loads": 3, "new_market_requests": 0, "model_fits": 0, "native_accounts": 0, "bootstraps": 0},
+  "stop": "Stop on original result/hash/date/category or cash closure mismatch. This is missing-report-field delivery repair, not new policy analysis."
+}
