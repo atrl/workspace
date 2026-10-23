@@ -1,0 +1,68 @@
+{
+  "decision": "physical_open_eligibility_only_no_outcome_label",
+  "source_recorder_id": "3663a1e073f042e383dbcf54969a9bc2",
+  "sessions": 1061,
+  "minimum_cash_weight": 0.15,
+  "maximum_soxl_weight": 0.3,
+  "cap_release_beta": 0.1,
+  "max_control_target_parity_error": 0.0,
+  "max_reference_ledger_parity_error_usd": 0.0,
+  "source_gap_010_rows": 541,
+  "control_execute_and_gap_rows": 541,
+  "projected_target_changed_rows": 541,
+  "whole_share_changed_rows": 541,
+  "funded_cash_floor_executable_rows": 541,
+  "annual": [
+    {
+      "year": 2018,
+      "sessions": 53,
+      "source_gap_010": 18,
+      "control_execute_and_gap": 18,
+      "projected_target_changed": 18,
+      "whole_share_changed": 18,
+      "funded_cash_floor_executable": 18
+    },
+    {
+      "year": 2019,
+      "sessions": 252,
+      "source_gap_010": 39,
+      "control_execute_and_gap": 39,
+      "projected_target_changed": 39,
+      "whole_share_changed": 39,
+      "funded_cash_floor_executable": 39
+    },
+    {
+      "year": 2020,
+      "sessions": 253,
+      "source_gap_010": 182,
+      "control_execute_and_gap": 182,
+      "projected_target_changed": 182,
+      "whole_share_changed": 182,
+      "funded_cash_floor_executable": 182
+    },
+    {
+      "year": 2021,
+      "sessions": 252,
+      "source_gap_010": 56,
+      "control_execute_and_gap": 56,
+      "projected_target_changed": 56,
+      "whole_share_changed": 56,
+      "funded_cash_floor_executable": 56
+    },
+    {
+      "year": 2022,
+      "sessions": 251,
+      "source_gap_010": 246,
+      "control_execute_and_gap": 246,
+      "projected_target_changed": 246,
+      "whole_share_changed": 246,
+      "funded_cash_floor_executable": 246
+    }
+  ],
+  "new_market_requests": 0,
+  "new_model_fits": 0,
+  "new_native_accounts": 0,
+  "future_return_labels": 0,
+  "new_bootstraps": 0,
+  "limitation": "Candidate feasibility uses realized 09:47 source execution marks and is not a prediction-time eligibility mask. This checks one opening order only, not reset, outcome, risk feedback or complete policy. 2018-2022 training reference is not frozen 2023+ Stage1 full parent."
+}

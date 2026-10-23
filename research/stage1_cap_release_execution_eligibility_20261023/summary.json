@@ -1,0 +1,17 @@
+{
+  "experiment": "stage1_cap_release_execution_eligibility_20261023",
+  "decision": "physical_open_eligibility_only_no_outcome_label",
+  "objective_achieved": false,
+  "plan_sha256": "5bdd059b83479e28b85c3c1ec762167e61e51dbb59b6e6461262d325ca926b5d",
+  "result": "result.json",
+  "source_recorder_id": "3663a1e073f042e383dbcf54969a9bc2",
+  "source_NAS_sha256": "73e1f3d1bdb567a9906e34a5216052ab9ab22e36ff9f06d5aac8a7d083b425eb",
+  "source_NAS_readback_verified": true,
+  "model_fits": 0,
+  "native_accounts": 0,
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": []
+  }
+}

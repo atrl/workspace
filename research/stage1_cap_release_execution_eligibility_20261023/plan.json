@@ -1,0 +1,26 @@
+{
+  "schema_version": 1,
+  "experiment": "stage1_cap_release_execution_eligibility_20261023",
+  "frozen": true,
+  "phase": "physical_open_order_eligibility_only_no_outcome_label",
+  "hypothesis": "Among source-level cap-binding Stage1 OOF training dates, some risk-cap releases may change the projected opening target and produce an affordable, legal whole-share order under the original 0bp Tiered ledger. Verify that support before freezing a fee-net local value receiver.",
+  "parent": "Frozen Stage1 f696 allocator plus b472 action/risk/recovery for any later held account. The 2018-2022 OOF reference here is training scaffolding only.",
+  "sources": {
+    "source_card": "research/stage1_signed_volume_0bp_action_label_source_20261023",
+    "source_summary_sha256": "ce6652a6323ec9bd11a8ce8de89239cba167a53bedb50e471080006a1a89f476",
+    "source_recorder_id": "3663a1e073f042e383dbcf54969a9bc2",
+    "source_experiment_id": "194705746221035167",
+    "source_plan_sha256": "4d7758b38566c35b47b046bd57f631a0301736042ab2110f2249d7cd51ec9209",
+    "training_tariff_plan": "research/full_history_recovery_20261015/plan.json",
+    "training_tariff_plan_sha256": "053147267377f575b4508806dfe925cfaf804ba0d3f816994eb2ed4b7a64a668",
+    "previous_source_preflight": "research/stage1_cap_release_value_preflight_20261023/summary.json",
+    "previous_source_preflight_sha256": "6e918961241f8169988117575a5a1d06dbdcb5210ed2748851e7c40913b62009",
+    "projector_module_sha256": "48b4a62a1c8139ecaa5d224023693bd4b1589851feab4b3a114d7188428cb013",
+    "tiered_module_sha256": "4e47234c1aef8c9ea4fd26389cdbaa23d3affd75bd7c105bf3192939f3781c35",
+    "replay_module_sha256": "28565c7897974aceb03ceaf21b1a29e97470f4afcb2a9c7b1bdb770494905529"
+  },
+  "intervention": "At the saved 09:46 decision, where raw 3x-SOXL-plus-SOXX beta exceeds saved own-state cap by at least 0.10, project the same raw Stage1 target once with cap+0.10 using the unchanged project_legal_weights, 15% minimum cash and 30% maximum SOXL. The control is the saved projected Stage1 target and its saved EXECUTE/HOLD decision. Require control EXECUTE, candidate target differs, candidate funded whole-share settlement changes holdings, and post-fee candidate cash weight remains at least 15%. No year or return-based threshold search.",
+  "readback": "Read exact native Qlib source Recorder frame, targets, baseline path and action plan; verify Qlib D.calendar same-order 1061 dates, source hashes/NAS readback, same-day saved projected target parity and baseline raw quantities/cash parity. Clone the fee state before each candidate order; advance only the original control fee ledger.",
+  "budget": {"new_market_requests": 0, "new_model_fits": 0, "new_native_accounts": 0, "future_return_labels": 0, "new_bootstraps": 0, "native_source_recorder_reads": 4, "baseline_ledger_readback_passes": 1, "candidate_same_open_settlements": 541},
+  "stop": "If source hash, native calendar, saved projection, reference ledger, funding, or fee identity fails, record the concrete error and stop. Only count executable source support by year. No next-day price, net value label, fit or held account in this phase."
+}
