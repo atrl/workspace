@@ -1,0 +1,42 @@
+{
+  "status": "not_promoted_fixed_NVDA_lead_cash_H5_rank_failed",
+  "plan_sha256": "348f03bda48f3ac4de83b82dca5942009a3bbb31404a57b647fd1f3008f0af9a",
+  "lead_recorder_id": "0d8cebe535424f5eb36fbb30a8ffc466",
+  "label_recorder_id": "a4bbc11f5c764ac38ff2f682eadd0e1d",
+  "full_calendar_rows": 503,
+  "mature_scored_rows": 497,
+  "full_Spearman": -0.0074699068878877626,
+  "annual": {
+    "2021": {
+      "rows": 252,
+      "Spearman": 0.033837171547201
+    },
+    "2022": {
+      "rows": 245,
+      "Spearman": 0.012631682021069126
+    }
+  },
+  "bootstrap": {
+    "valid_replicates": 10000,
+    "mean_block_sessions": 63,
+    "one_sided_alpha": 0.00078125,
+    "upper_bound": 0.26178672738772657
+  },
+  "gates": {
+    "full_negative": true,
+    "both_years_negative": false,
+    "block_upper_below_zero": false
+  },
+  "historical_first_public_qualified": false,
+  "new_market_GETs": 0,
+  "new_model_fits": 0,
+  "new_native_accounts": 0,
+  "new_bootstraps": 1,
+  "SOXX_strategy_success": false,
+  "independent_validation": false,
+  "limits": [
+    "The H5 cash-over-SOXX price label is a necessary gross information target, not a funded Tiered account",
+    "NVDA relative price lead is not NVDA's SOXX constituent contribution and historical first-public price vintages remain unknown",
+    "The 2021-2022 time slice is reused development feedback, not independent strategy evidence"
+  ]
+}

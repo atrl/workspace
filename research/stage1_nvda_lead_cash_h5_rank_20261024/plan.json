@@ -1,0 +1,41 @@
+{
+  "experiment": "stage1_nvda_lead_cash_h5_rank_20261024",
+  "frozen": true,
+  "phase": "necessary_rank_information_on_new_cash_receiver",
+  "parent": "Exact f696 allocator plus b472 action/risk/recovery remains the later economic parent; this card reads only the saved original39 Qlib H5 cash-advantage label and prior-close NVDA leadership source",
+  "hypothesis": "A stronger previous-20-session NVDA-minus-SOXX price lead signals semiconductor leadership that makes holding cash less valuable than SOXX over the next five open-to-open sessions. For cash_advantage_H5 (positive means cash beats SOXX), the frozen association sign is negative.",
+  "distinctness": "The closed NVDA leadership H5 screen used the SOXL-minus-SOXX relative-selection receiver and predicted fragility with a negative candidate coefficient. This separate necessary screen asks whether the same already-qualified numeric source contains cash-opportunity information; it does not rerun the failed relative receiver, switch the ETF, sign, horizon or source definition.",
+  "sources": {
+    "lead_card": "research/stage1_nvda_sector_relative_lead_source_20261023",
+    "lead_summary_sha256": "a79a7278adc56f3a7bb11c6f4adad1b8aa5882e62bec3a47dad740bf11c72c06",
+    "lead_experiment_id": "336674445236657879",
+    "lead_recorder_id": "0d8cebe535424f5eb36fbb30a8ffc466",
+    "lead_artifact_sha256": "f9d5c0af286401427e3f9b4dbea36c98c25000f10913c259941db8d757ff947f",
+    "lead_NAS_sha256": "070c917669a8ff4b748e53d005f8d689da777b80dfa2308b6a35f41fdf9e6feb",
+    "lead_NAS_size_bytes": 123393,
+    "dataset_card": "research/stage1_dual_task_39_information_20261023",
+    "dataset_summary_sha256": "e3a22a8f050b90d6f0a7ea96df0b4499bc387376f0c26abf2bb8ee2b501ad136",
+    "dataset_experiment_id": "666721299406485975",
+    "dataset_recorder_id": "a4bbc11f5c764ac38ff2f682eadd0e1d",
+    "dataset_artifact_sha256": "3bc64249f92a922d9edace380e7eecfdeeb52e3a9e611e004bb8e74982aa9b12",
+    "dataset_NAS_sha256": "5ebda191e82d5262b92f7c196dcaca036c22ae8a8f14e30ded63ce4b07b32f66",
+    "dataset_NAS_size_bytes": 1579665,
+    "qlib_provider": "data/qlib/minute_information_pit_allocator_20261012/daily_prices",
+    "provider_manifest_sha256": "d80a08d479b73098053006909b5e6227b03a56ab705681742d7261088e0a7e6c"
+  },
+  "receiver": {
+    "feature": "Saved source analysis/lead on each signal date; source has low original39 training correlation but historical Yahoo/Futu first-public price vintages remain unqualified",
+    "label": "Saved original39 DatasetH label cash_advantage_H5, with maturity mask. Do not derive a new target or use future 2023+ outcomes.",
+    "evaluation_calendar": "All native Qlib signal dates 2021-01-01 through 2022-12-30, including right-edge immature/unknown rows in the 503-date resampling calendar",
+    "minimum_scored": 495,
+    "annual_minimums": {"2021": 250, "2022": 245}
+  },
+  "necessary_gate": {
+    "full_Spearman_negative": true,
+    "both_2021_and_2022_Spearman_negative": true,
+    "stationary_block_upper_below_zero": {"mean_block_sessions": 63, "replicates": 10000, "seed": 20261024, "one_sided_alpha": 0.00078125, "minimum_valid_replicates": 9500}
+  },
+  "budget": {"Qlib_calendar_reads": 1, "source_Recorder_object_reads": 2, "DatasetH_prepare_reads": 1, "new_market_GETs": 0, "new_model_fits": 0, "new_native_accounts": 0, "new_bootstraps": 1, "new_Recorders": 0},
+  "stop": "On source hash/NAS, calendar, first-available/maturity support or any necessary rank gate failure, close this fixed NVDA-lead/cash-H5 receiver before incremental fit or account. No sign reversal, horizon/year selection or alternate-price-source rescue.",
+  "scientific_boundary": "A rank pass would only permit a separately frozen incremental original39 control test, then exact f696-own-state 0bp Tiered account if accepted. Reused historical rows and unqualified first-public prices cannot count as independent or promotion evidence."
+}

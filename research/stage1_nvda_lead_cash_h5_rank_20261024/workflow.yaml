@@ -1,0 +1,7 @@
+experiment: stage1_nvda_lead_cash_h5_rank_20261024
+entrypoint: stage1_nvda_lead_cash_h5_rank_20261024.ipynb
+phase: frozen_necessary_rank_information
+source_recorder_ids:
+  lead: 0d8cebe535424f5eb36fbb30a8ffc466
+  labels: a4bbc11f5c764ac38ff2f682eadd0e1d
+artifact_policy: slim_card_recorder_first

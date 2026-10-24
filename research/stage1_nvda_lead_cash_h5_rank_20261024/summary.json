@@ -1,0 +1,30 @@
+{
+  "experiment": "stage1_nvda_lead_cash_h5_rank_20261024",
+  "decision": "not_promoted_fixed_NVDA_lead_cash_H5_rank_failed",
+  "objective_achieved": false,
+  "plan_sha256": "348f03bda48f3ac4de83b82dca5942009a3bbb31404a57b647fd1f3008f0af9a",
+  "result": "result.json",
+  "lead_recorder_id": "0d8cebe535424f5eb36fbb30a8ffc466",
+  "label_recorder_id": "a4bbc11f5c764ac38ff2f682eadd0e1d",
+  "mature_scored_rows": 497,
+  "historical_first_public_qualified": false,
+  "new_model_fits": 0,
+  "new_native_accounts": 0,
+  "independent_forward_days": 0,
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [],
+    "reused_native_sources": [
+      "research/stage1_nvda_sector_relative_lead_source_20261023/qlib_recorder",
+      "research/stage1_dual_task_39_information_20261023/qlib_recorder"
+    ]
+  },
+  "limitations": [
+    "The H5 cash-over-SOXX price label is a necessary gross information target, not a funded Tiered account",
+    "NVDA relative price lead is not NVDA's SOXX constituent contribution and historical first-public price vintages remain unknown",
+    "The 2021-2022 time slice is reused development feedback, not independent strategy evidence",
+    "Both complete evaluation-year point signs contradicted the fixed negative cash-opportunity hypothesis; no sign reversal or year selection is permitted",
+    "No incremental model or complete Stage1 0bp account was executed"
+  ]
+}
