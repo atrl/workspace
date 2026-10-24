@@ -7,3 +7,5 @@
 按来源门决定 `source_only_needs_historical_daily_SOXL_AUM_shares_and_first_public_vintages`。没有日级基金规模与申赎份额，就不能把前卡的尾盘SOXL−3×SOXX价格残差冒充实际杠杆ETF再平衡需求，也不能重开已失败的固定局部信息门。若后续发现官方历史接口，需新来源计划核对覆盖、单位/拆分、修订及在下一Stage1决策前的可用时间，再冻结不同的因子与经济接收器。
 
 首次执行在HTTP调用前因状态变量类型错误停止，`attempt1_preflight_failure.json`记录0 GET；机械修复后仅完成1次官方请求，没有追加预算或备用站点。SOXX稳定净超额、2/5bp和独立前向均未达到。
+
+**已归档页面内嵌数据补审（零新请求）：** `__NEXT_DATA__`有140条当前基金记录，其中仅一条SOXL，交易日期2026-10-22；该SOXL记录没有AUM、份额数或净流入字段。四个“Daily Fund Holdings”锚点的原始`href`均为`#`，产品字段也没有直接历史CSV链接。详见[embedded_page_audit_result.json](embedded_page_audit_result.json)。这不排除另有官方动态接口，但该接口尚未获得或认证。
