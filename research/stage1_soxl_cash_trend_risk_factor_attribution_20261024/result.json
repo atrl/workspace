@@ -1,0 +1,753 @@
+{
+  "status": "read_only_original39_trend_vol_SOXL_cash_factor_attribution_no_policy",
+  "plan_sha256": "90dd8e71875dc6e76e6753d5d80366937ce0d809c8f535f11d1a2aaf80e4b32e",
+  "source_recorder_ids": {
+    "factor": "68e31a0a0fad44e7ba1d1f7d856c7a0d",
+    "labels": "a4bbc11f5c764ac38ff2f682eadd0e1d",
+    "f696": "6e227278b7a64eafbcf34b965e16d2b9",
+    "account": "2f0392615c4c4b15928b4ada6e01ecd9"
+  },
+  "train_rank": {
+    "sessions": 3014,
+    "mature": 3014,
+    "unknown": 0,
+    "positive": 1697,
+    "negative": 1317,
+    "auc": {
+      "primary": 0.4861806689996059,
+      "trend": 0.48632765221935714,
+      "negative_vol": 0.49023266302721
+    },
+    "spearman": {
+      "primary": -0.05938724168822476,
+      "trend": -0.050296078948336785,
+      "negative_vol": -0.05408721275331473
+    }
+  },
+  "held_full": {
+    "sessions": 944,
+    "mature": 940,
+    "unknown": 4,
+    "positive": 539,
+    "negative": 401,
+    "auc": {
+      "primary": 0.4992296623931821,
+      "trend": 0.4966803769796288,
+      "negative_vol": 0.49662485715211035,
+      "f696_intent": 0.46799513276178756
+    },
+    "spearman": {
+      "primary": 0.022754405802593664,
+      "trend": 0.02700381584955513,
+      "negative_vol": -0.01747541058687135,
+      "f696_intent": -0.02346385923161014
+    }
+  },
+  "halves": [
+    {
+      "start": "2023-01-03",
+      "end": "2024-12-31",
+      "sessions": 502,
+      "mature": 502,
+      "unknown": 0,
+      "positive": 278,
+      "negative": 224,
+      "auc": {
+        "primary": 0.4493191161356629,
+        "trend": 0.4400372559095581,
+        "negative_vol": 0.47952530832476875,
+        "f696_intent": 0.42617869989722507
+      },
+      "spearman": {
+        "primary": -0.050265907003288854,
+        "trend": -0.06640639024834223,
+        "negative_vol": -0.02052266404910471,
+        "f696_intent": -0.10869349828931556
+      }
+    },
+    {
+      "start": "2025-01-02",
+      "end": "2026-10-07",
+      "sessions": 442,
+      "mature": 438,
+      "unknown": 4,
+      "positive": 261,
+      "negative": 177,
+      "auc": {
+        "primary": 0.5460744204169101,
+        "trend": 0.5432387384462194,
+        "negative_vol": 0.5225447539883541,
+        "f696_intent": 0.4985605125873975
+      },
+      "spearman": {
+        "primary": 0.07708050939770313,
+        "trend": 0.0941198421454644,
+        "negative_vol": -0.01569798191857654,
+        "f696_intent": 0.032956672118946574
+      }
+    }
+  ],
+  "annual": [
+    {
+      "year": 2023,
+      "partial_endpoint": true,
+      "sessions": 249,
+      "mature": 249,
+      "unknown": 0,
+      "positive": 134,
+      "negative": 115,
+      "auc": {
+        "primary": 0.427579493835172,
+        "trend": 0.43134328358208956,
+        "negative_vol": 0.5051914341336794,
+        "f696_intent": 0.3761194029850746
+      },
+      "spearman": {
+        "primary": -0.11051846094053634,
+        "trend": -0.10651457442673921,
+        "negative_vol": -0.014670034978624173,
+        "f696_intent": -0.2522005441119316
+      }
+    },
+    {
+      "year": 2024,
+      "partial_endpoint": false,
+      "sessions": 252,
+      "mature": 252,
+      "unknown": 0,
+      "positive": 143,
+      "negative": 109,
+      "auc": {
+        "primary": 0.4718034259318663,
+        "trend": 0.44928466029383457,
+        "negative_vol": 0.4734714826457946,
+        "f696_intent": 0.4870725604670559
+      },
+      "spearman": {
+        "primary": -0.019856579704145963,
+        "trend": -0.04298484586030057,
+        "negative_vol": -0.025180662630861834,
+        "f696_intent": 0.009417627813609107
+      }
+    },
+    {
+      "year": 2025,
+      "partial_endpoint": false,
+      "sessions": 250,
+      "mature": 250,
+      "unknown": 0,
+      "positive": 152,
+      "negative": 98,
+      "auc": {
+        "primary": 0.4980531686358754,
+        "trend": 0.5181928034371643,
+        "negative_vol": 0.493890977443609,
+        "f696_intent": 0.5007384532760473
+      },
+      "spearman": {
+        "primary": -0.032572553160850566,
+        "trend": 0.027247923966783466,
+        "negative_vol": -0.03260941775068401,
+        "f696_intent": 0.03862756204099265
+      }
+    },
+    {
+      "year": 2026,
+      "partial_endpoint": true,
+      "sessions": 193,
+      "mature": 189,
+      "unknown": 4,
+      "positive": 110,
+      "negative": 79,
+      "auc": {
+        "primary": 0.6107019562715765,
+        "trend": 0.5706559263521288,
+        "negative_vol": 0.5947065592635213,
+        "f696_intent": 0.5070195627157652
+      },
+      "spearman": {
+        "primary": 0.21225403935370343,
+        "trend": 0.14427736006683375,
+        "negative_vol": 0.1619332017988233,
+        "f696_intent": -0.0346611208873247
+      }
+    }
+  ],
+  "quarter": [
+    {
+      "year": 2023,
+      "quarter": 1,
+      "sessions": 61,
+      "mature": 61,
+      "unknown": 0,
+      "positive": 36,
+      "negative": 25,
+      "auc": {
+        "primary": 0.3011111111111111,
+        "trend": 0.30000000000000004,
+        "negative_vol": 0.648888888888889,
+        "f696_intent": 0.6177777777777778
+      },
+      "spearman": {
+        "primary": -0.26419883659439447,
+        "trend": -0.28651507139079846,
+        "negative_vol": 0.253358011634056,
+        "f696_intent": 0.3871496562665256
+      }
+    },
+    {
+      "year": 2023,
+      "quarter": 2,
+      "sessions": 62,
+      "mature": 62,
+      "unknown": 0,
+      "positive": 35,
+      "negative": 27,
+      "auc": {
+        "primary": 0.5206349206349206,
+        "trend": 0.48994708994708996,
+        "negative_vol": 0.5365079365079365,
+        "f696_intent": 0.32063492063492066
+      },
+      "spearman": {
+        "primary": 0.063282213996122,
+        "trend": -0.020825463977235528,
+        "negative_vol": 0.09445745511319283,
+        "f696_intent": -0.37065296769157163
+      }
+    },
+    {
+      "year": 2023,
+      "quarter": 3,
+      "sessions": 63,
+      "mature": 63,
+      "unknown": 0,
+      "positive": 25,
+      "negative": 38,
+      "auc": {
+        "primary": 0.45473684210526316,
+        "trend": 0.42,
+        "negative_vol": 0.5442105263157895,
+        "f696_intent": 0.36526315789473685
+      },
+      "spearman": {
+        "primary": -0.1391609062980031,
+        "trend": -0.18879608294930875,
+        "negative_vol": 0.0038882488479262674,
+        "f696_intent": -0.39530529953917054
+      }
+    },
+    {
+      "year": 2023,
+      "quarter": 4,
+      "sessions": 63,
+      "mature": 63,
+      "unknown": 0,
+      "positive": 38,
+      "negative": 25,
+      "auc": {
+        "primary": 0.3031578947368421,
+        "trend": 0.3326315789473685,
+        "negative_vol": 0.4010526315789473,
+        "f696_intent": 0.09052631578947368
+      },
+      "spearman": {
+        "primary": -0.3971774193548387,
+        "trend": -0.3416858678955453,
+        "negative_vol": -0.24212749615975424,
+        "f696_intent": -0.8238767281105991
+      }
+    },
+    {
+      "year": 2024,
+      "quarter": 1,
+      "sessions": 61,
+      "mature": 61,
+      "unknown": 0,
+      "positive": 42,
+      "negative": 19,
+      "auc": {
+        "primary": 0.38220551378446116,
+        "trend": 0.2593984962406015,
+        "negative_vol": 0.6829573934837093,
+        "f696_intent": 0.1942355889724311
+      },
+      "spearman": {
+        "primary": -0.22966684294024323,
+        "trend": -0.43892120571126386,
+        "negative_vol": 0.3685880486515071,
+        "f696_intent": -0.5344262295081967
+      }
+    },
+    {
+      "year": 2024,
+      "quarter": 2,
+      "sessions": 63,
+      "mature": 63,
+      "unknown": 0,
+      "positive": 37,
+      "negative": 26,
+      "auc": {
+        "primary": 0.4241164241164242,
+        "trend": 0.4594594594594595,
+        "negative_vol": 0.3004158004158004,
+        "f696_intent": 0.41995841995842
+      },
+      "spearman": {
+        "primary": -0.12106374807987712,
+        "trend": -0.04061059907834102,
+        "negative_vol": -0.337173579109063,
+        "f696_intent": -0.18250768049155147
+      }
+    },
+    {
+      "year": 2024,
+      "quarter": 3,
+      "sessions": 64,
+      "mature": 64,
+      "unknown": 0,
+      "positive": 32,
+      "negative": 32,
+      "auc": {
+        "primary": 0.337890625,
+        "trend": 0.322265625,
+        "negative_vol": 0.34375,
+        "f696_intent": 0.4599609375
+      },
+      "spearman": {
+        "primary": -0.26460622710622705,
+        "trend": -0.24427655677655677,
+        "negative_vol": -0.31492673992673986,
+        "f696_intent": -0.10293040293040293
+      }
+    },
+    {
+      "year": 2024,
+      "quarter": 4,
+      "sessions": 64,
+      "mature": 64,
+      "unknown": 0,
+      "positive": 32,
+      "negative": 32,
+      "auc": {
+        "primary": 0.3681640625,
+        "trend": 0.3564453125,
+        "negative_vol": 0.4521484375,
+        "f696_intent": 0.4580078125
+      },
+      "spearman": {
+        "primary": -0.15013736263736263,
+        "trend": -0.1357142857142857,
+        "negative_vol": -0.12124542124542123,
+        "f696_intent": -0.0700091575091575
+      }
+    },
+    {
+      "year": 2025,
+      "quarter": 1,
+      "sessions": 60,
+      "mature": 60,
+      "unknown": 0,
+      "positive": 26,
+      "negative": 34,
+      "auc": {
+        "primary": 0.49321266968325794,
+        "trend": 0.5452488687782806,
+        "negative_vol": 0.3733031674208145,
+        "f696_intent": 0.29977375565610864
+      },
+      "spearman": {
+        "primary": 0.01278132814670742,
+        "trend": 0.07224228952486804,
+        "negative_vol": -0.13359266462906366,
+        "f696_intent": -0.38343984440122264
+      }
+    },
+    {
+      "year": 2025,
+      "quarter": 2,
+      "sessions": 62,
+      "mature": 62,
+      "unknown": 0,
+      "positive": 47,
+      "negative": 15,
+      "auc": {
+        "primary": 0.41843971631205673,
+        "trend": 0.4482269503546099,
+        "negative_vol": 0.5829787234042553,
+        "f696_intent": 0.44964539007092197
+      },
+      "spearman": {
+        "primary": -0.3495505023796933,
+        "trend": -0.21638840623504824,
+        "negative_vol": -0.15267809926720557,
+        "f696_intent": -0.2177482309687492
+      }
+    },
+    {
+      "year": 2025,
+      "quarter": 3,
+      "sessions": 64,
+      "mature": 64,
+      "unknown": 0,
+      "positive": 41,
+      "negative": 23,
+      "auc": {
+        "primary": 0.4496288441145281,
+        "trend": 0.41675503711558853,
+        "negative_vol": 0.5079533404029692,
+        "f696_intent": 0.45705196182396607
+      },
+      "spearman": {
+        "primary": -0.10663919413919414,
+        "trend": -0.1552197802197802,
+        "negative_vol": 0.025503663003663,
+        "f696_intent": -0.06978021978021978
+      }
+    },
+    {
+      "year": 2025,
+      "quarter": 4,
+      "sessions": 64,
+      "mature": 64,
+      "unknown": 0,
+      "positive": 38,
+      "negative": 26,
+      "auc": {
+        "primary": 0.381578947368421,
+        "trend": 0.35425101214574894,
+        "negative_vol": 0.48582995951417,
+        "f696_intent": 0.4493927125506073
+      },
+      "spearman": {
+        "primary": -0.2269688644688645,
+        "trend": -0.2678571428571428,
+        "negative_vol": -0.07504578754578754,
+        "f696_intent": -0.053754578754578744
+      }
+    },
+    {
+      "year": 2026,
+      "quarter": 1,
+      "sessions": 61,
+      "mature": 61,
+      "unknown": 0,
+      "positive": 35,
+      "negative": 26,
+      "auc": {
+        "primary": 0.567032967032967,
+        "trend": 0.5527472527472528,
+        "negative_vol": 0.5703296703296703,
+        "f696_intent": 0.4065934065934066
+      },
+      "spearman": {
+        "primary": 0.03595980962453728,
+        "trend": 0.010100475938656792,
+        "negative_vol": 0.11623479640401903,
+        "f696_intent": -0.16668429402432572
+      }
+    },
+    {
+      "year": 2026,
+      "quarter": 2,
+      "sessions": 62,
+      "mature": 62,
+      "unknown": 0,
+      "positive": 43,
+      "negative": 19,
+      "auc": {
+        "primary": 0.5569155446756426,
+        "trend": 0.48225214198286415,
+        "negative_vol": 0.7086903304773562,
+        "f696_intent": 0.828641370869033
+      },
+      "spearman": {
+        "primary": 0.016645262018080635,
+        "trend": -0.1492029916144141,
+        "negative_vol": 0.35403288761300394,
+        "f696_intent": 0.6032837249124928
+      }
+    },
+    {
+      "year": 2026,
+      "quarter": 3,
+      "sessions": 64,
+      "mature": 64,
+      "unknown": 0,
+      "positive": 31,
+      "negative": 33,
+      "auc": {
+        "primary": 0.5630498533724341,
+        "trend": 0.43597262952101656,
+        "negative_vol": 0.6080156402737048,
+        "f696_intent": 0.3812316715542522
+      },
+      "spearman": {
+        "primary": 0.20178571428571426,
+        "trend": -0.09432234432234432,
+        "negative_vol": 0.37000915750915747,
+        "f696_intent": -0.29624542124542125
+      }
+    },
+    {
+      "year": 2026,
+      "quarter": 4,
+      "sessions": 6,
+      "mature": 2,
+      "unknown": 4,
+      "positive": 1,
+      "negative": 1,
+      "auc": {
+        "primary": 0.0,
+        "trend": 0.0,
+        "negative_vol": 1.0,
+        "f696_intent": 0.0
+      },
+      "spearman": {
+        "primary": null,
+        "trend": null,
+        "negative_vol": null,
+        "f696_intent": null
+      }
+    }
+  ],
+  "rolling126_windows": 819,
+  "rolling_summary": {
+    "good": {
+      "windows": 255,
+      "mean_auc": {
+        "primary": 0.477897514716134,
+        "trend": 0.46582302556580574,
+        "negative_vol": 0.46358674457151017,
+        "f696_intent": 0.4855636577553605
+      },
+      "fraction_auc_above_half": {
+        "primary": 0.3333333333333333,
+        "trend": 0.36470588235294116,
+        "negative_vol": 0.2,
+        "f696_intent": 0.43529411764705883
+      }
+    },
+    "weak": {
+      "windows": 564,
+      "mean_auc": {
+        "primary": 0.46014595463387076,
+        "trend": 0.4580120401497589,
+        "negative_vol": 0.4874018541162123,
+        "f696_intent": 0.36706989570299464
+      },
+      "fraction_auc_above_half": {
+        "primary": 0.23581560283687944,
+        "trend": 0.23049645390070922,
+        "negative_vol": 0.44148936170212766,
+        "f696_intent": 0.15602836879432624
+      }
+    }
+  },
+  "matched_state_year_cells": 12,
+  "matched_weak_minus_good_auc": {
+    "primary": -0.023563145809251076,
+    "trend": -0.013464460309616786,
+    "negative_vol": 0.005841843253540275,
+    "f696_intent": -0.03563099810487807
+  },
+  "cells": [
+    {
+      "start_state": "decline",
+      "year": 2023,
+      "weak_windows": 52,
+      "good_windows": 0,
+      "matched": false
+    },
+    {
+      "start_state": "decline",
+      "year": 2024,
+      "weak_windows": 27,
+      "good_windows": 33,
+      "matched": true,
+      "weak_minus_good_auc": {
+        "primary": -0.027469046977859513,
+        "trend": 0.04627050501628749,
+        "negative_vol": -0.04489067342031139,
+        "f696_intent": -0.0674994085179903
+      }
+    },
+    {
+      "start_state": "decline",
+      "year": 2025,
+      "weak_windows": 42,
+      "good_windows": 6,
+      "matched": true,
+      "weak_minus_good_auc": {
+        "primary": -0.08649009725758117,
+        "trend": -0.05301308947075822,
+        "negative_vol": 0.030581039648061747,
+        "f696_intent": 0.034865482191946684
+      }
+    },
+    {
+      "start_state": "decline",
+      "year": 2026,
+      "weak_windows": 7,
+      "good_windows": 7,
+      "matched": true,
+      "weak_minus_good_auc": {
+        "primary": 0.010185587707425281,
+        "trend": -0.006286224936417728,
+        "negative_vol": 0.04512277175584156,
+        "f696_intent": -0.013408524637635422
+      }
+    },
+    {
+      "start_state": "pullback",
+      "year": 2023,
+      "weak_windows": 54,
+      "good_windows": 0,
+      "matched": false
+    },
+    {
+      "start_state": "pullback",
+      "year": 2024,
+      "weak_windows": 16,
+      "good_windows": 32,
+      "matched": true,
+      "weak_minus_good_auc": {
+        "primary": -0.009871654686092246,
+        "trend": 0.010663396329372965,
+        "negative_vol": -0.0064319739320845,
+        "f696_intent": -0.0483095298641375
+      }
+    },
+    {
+      "start_state": "pullback",
+      "year": 2025,
+      "weak_windows": 38,
+      "good_windows": 17,
+      "matched": true,
+      "weak_minus_good_auc": {
+        "primary": -0.04237985821346835,
+        "trend": -0.08622728945800351,
+        "negative_vol": 0.047520524537357556,
+        "f696_intent": -0.022156479245947103
+      }
+    },
+    {
+      "start_state": "pullback",
+      "year": 2026,
+      "weak_windows": 4,
+      "good_windows": 2,
+      "matched": true,
+      "weak_minus_good_auc": {
+        "primary": -0.02398273395329298,
+        "trend": 0.012556239938410485,
+        "negative_vol": -0.06937649562204362,
+        "f696_intent": -0.05348717753103349
+      }
+    },
+    {
+      "start_state": "rebound",
+      "year": 2023,
+      "weak_windows": 49,
+      "good_windows": 0,
+      "matched": false
+    },
+    {
+      "start_state": "rebound",
+      "year": 2024,
+      "weak_windows": 22,
+      "good_windows": 21,
+      "matched": true,
+      "weak_minus_good_auc": {
+        "primary": -0.025954771588219183,
+        "trend": 0.004226054977782778,
+        "negative_vol": -0.02798092360037918,
+        "f696_intent": -0.042459428857028636
+      }
+    },
+    {
+      "start_state": "rebound",
+      "year": 2025,
+      "weak_windows": 28,
+      "good_windows": 6,
+      "matched": true,
+      "weak_minus_good_auc": {
+        "primary": -0.09792207886791321,
+        "trend": -0.06170278100745541,
+        "negative_vol": -0.003356770046200719,
+        "f696_intent": 0.004943680261940975
+      }
+    },
+    {
+      "start_state": "rebound",
+      "year": 2026,
+      "weak_windows": 5,
+      "good_windows": 5,
+      "matched": true,
+      "weak_minus_good_auc": {
+        "primary": 7.296707128712221e-05,
+        "trend": -0.008082367193714468,
+        "negative_vol": 0.01959917813351708,
+        "f696_intent": -0.023522204978725703
+      }
+    },
+    {
+      "start_state": "uptrend",
+      "year": 2023,
+      "weak_windows": 94,
+      "good_windows": 0,
+      "matched": false
+    },
+    {
+      "start_state": "uptrend",
+      "year": 2024,
+      "weak_windows": 22,
+      "good_windows": 79,
+      "matched": true,
+      "weak_minus_good_auc": {
+        "primary": 0.02867830073901778,
+        "trend": 0.07286687881225828,
+        "negative_vol": 0.0033968312761537556,
+        "f696_intent": -0.04298051757969479
+      }
+    },
+    {
+      "start_state": "uptrend",
+      "year": 2025,
+      "weak_windows": 85,
+      "good_windows": 28,
+      "matched": true,
+      "weak_minus_good_auc": {
+        "primary": -0.059465570684537006,
+        "trend": -0.10572189709894941,
+        "negative_vol": 0.031199047208512687,
+        "f696_intent": -0.0500079460455361
+      }
+    },
+    {
+      "start_state": "uptrend",
+      "year": 2026,
+      "weak_windows": 19,
+      "good_windows": 19,
+      "matched": true,
+      "weak_minus_good_auc": {
+        "primary": 0.00709962169436007,
+        "trend": -0.016200330870147606,
+        "negative_vol": 0.03874332247991785,
+        "f696_intent": 0.0009512078029586535
+      }
+    }
+  ],
+  "feature_source_first_availability": "saved signal-day original39 inputs before next-session f696 09:29 ET decision",
+  "new_market_GETs": 0,
+  "new_model_fits": 0,
+  "new_native_accounts": 0,
+  "new_bootstraps": 0,
+  "new_Recorders": 0,
+  "independent_validation": false,
+  "SOXX_goal_achieved": false,
+  "limits": [
+    "Original 39 inputs and 2023-2026 H5 labels have been repeatedly reused; rank attribution is descriptive and not independent",
+    "H5 gross-price margin is not fee-net own-state account value",
+    "Overlapping rolling windows are not independent trials and cannot select a trade switch"
+  ]
+}

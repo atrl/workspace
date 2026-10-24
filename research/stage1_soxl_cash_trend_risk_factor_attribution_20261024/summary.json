@@ -1,0 +1,40 @@
+{
+  "experiment": "stage1_soxl_cash_trend_risk_factor_attribution_20261024",
+  "decision": "not_promoted_fixed_original39_trend_vol_pairwise_rank_failed",
+  "objective_achieved": false,
+  "plan_sha256": "90dd8e71875dc6e76e6753d5d80366937ce0d809c8f535f11d1a2aaf80e4b32e",
+  "source_recorder_ids": {
+    "factor": "68e31a0a0fad44e7ba1d1f7d856c7a0d",
+    "labels": "a4bbc11f5c764ac38ff2f682eadd0e1d",
+    "f696": "6e227278b7a64eafbcf34b965e16d2b9",
+    "account": "2f0392615c4c4b15928b4ada6e01ecd9"
+  },
+  "train_primary_auc": 0.4861806689996059,
+  "held_primary_auc": 0.4992296623931821,
+  "held_f696_control_auc": 0.46799513276178756,
+  "complete_year_primary_auc": {
+    "2024": 0.4718034259318663,
+    "2025": 0.4980531686358754
+  },
+  "rolling126_weak_primary_auc": 0.46014595463387076,
+  "rolling126_good_primary_auc": 0.477897514716134,
+  "new_model_fits": 0,
+  "new_native_accounts": 0,
+  "independent_forward_qualified_days": 0,
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "source recorders inputs/features",
+      "source recorders inputs/timing",
+      "source recorders inputs/dataset",
+      "source recorders inputs/frame",
+      "source recorders analysis/rolling126"
+    ]
+  },
+  "limitations": [
+    "Original 39 inputs and 2023-2026 H5 labels have been repeatedly reused; rank attribution is descriptive and not independent",
+    "H5 gross-price margin is not fee-net own-state account value",
+    "Overlapping rolling windows are not independent trials and cannot select a trade switch"
+  ]
+}

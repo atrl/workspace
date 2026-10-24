@@ -1,0 +1,9 @@
+experiment: stage1_soxl_cash_trend_risk_factor_attribution_20261024
+notebook: stage1_soxl_cash_trend_risk_factor_attribution_20261024.ipynb
+phase: read_only_original39_factor_pairwise_rank_and_interval_attribution
+artifact_policy: slim_card_recorder_first
+source_recorders:
+  factor: 68e31a0a0fad44e7ba1d1f7d856c7a0d
+  labels: a4bbc11f5c764ac38ff2f682eadd0e1d
+  f696: 6e227278b7a64eafbcf34b965e16d2b9
+  account: 2f0392615c4c4b15928b4ada6e01ecd9
