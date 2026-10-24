@@ -1,0 +1,9 @@
+experiment: stage1_joint_soxx_bridge_0bp_20261024
+entrypoint: stage1_joint_soxx_bridge_0bp_20261024.ipynb
+phase: frozen_one_full_0bp_native_account
+artifact_policy: slim_card_recorder_first
+recorder_only_artifacts:
+  - inputs/*
+  - paths/*
+  - native/*
+  - analysis/*

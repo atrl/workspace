@@ -1,0 +1,8 @@
+{
+  "status": "read_only_source_calendar_identity_repair",
+  "preserved_initial_plan": "failure_attribution_plan_initial.json",
+  "initial_plan_sha256": "e2a909b039db9054328ecf6ff7f872281720c0e98ed2e78d50260cb7dfb33ab3",
+  "attempt1_failure": "The notebook asserted that D.calendar over 2023-01-03 through 2026-10-07 had 944 rows. This execution provider starts its trade calendar on 2023-01-04 and returned 943 dates; source-account signal dates and execution trade dates are different coordinate sets. Execution stopped before loading the candidate or A0 Recorder objects.",
+  "repair": "Use native D.calendar only to validate the 944 account trade dates. Compare prediction index to the sealed native account signal_date column, not to the provider trade-date calendar. No model or account replay.",
+  "unchanged": ["account and model source SHA", "one completed 0bp account", "prediction positivity threshold 0", "label support definition", "full economic gates and frozen decision"]
+}

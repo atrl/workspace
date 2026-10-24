@@ -1,0 +1,22 @@
+{
+  "status": "exact_f696_parent_and_joint_model_full_calendar_mapping_pass",
+  "plan_sha256": "78a95ce590407b54f303777d5cc85981dfb93728cd0d26d59d627760cee8efcc",
+  "source_model_recorder_id": "58fcd8723e32488292311e564077eeaa",
+  "source_account_receipt_sha256": "1666ead0b7de45f08968177c6e34ac763e78f79120fde7c3d55152fb0418f72c",
+  "f696_five_output_max_abs": {
+    "soxl_weight": 0.0,
+    "soxx_weight": 0.0,
+    "cash_weight": 0.0,
+    "tail_probability": 0.0,
+    "alpha_probability": 0.0
+  },
+  "sessions": 944,
+  "source_points": 3778,
+  "trigger_days": 0,
+  "cash_transfer_days": 0,
+  "SOXL_transfer_days": 0,
+  "mean_cash_transfer": 0.0,
+  "mean_SOXL_transfer": 0.0,
+  "new_model_fits": 0,
+  "new_native_accounts": 0
+}

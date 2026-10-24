@@ -1,0 +1,26 @@
+{
+  "schema_version": 1,
+  "frozen": true,
+  "phase": "read_only_minimum_fixed_account_failure_attribution",
+  "question": "Did the direct joint-margin information model produce any actionable positive score on 944 exact-f696 dates, how frequent are positive joint H5 labels in train and reused held rows, and is the candidate native authority literally equal to A0 after zero triggers?",
+  "sources": {
+    "account_plan_sha256": "78a95ce590407b54f303777d5cc85981dfb93728cd0d26d59d627760cee8efcc",
+    "account_preflight_sha256": "5dcd10d3dce30c0ec17d1f4088ff522d3d09bbf62ee194b04527e8c6b137bbe6",
+    "account_result_sha256": "059a3aadcf9ce7b9feec87ccba5c31123939a6cd11ea56bf3fddcf6cd59953bf",
+    "account_experiment_id": "871369558956731742",
+    "account_recorder_id": "10dc77183f0a4bc78af68950f5a00446",
+    "account_prediction_sha256": "c4330614fb164a146247f75eeca3b067d64b1e277a35dcff1c1c7a279e56a9fd",
+    "account_native_sha256": "b67a89af2a73c95903832a488882358e6b88e8e13788a2a5104667dca9212f39",
+    "A0_card": "research/stage1_domain_heads_20261018",
+    "A0_experiment_id": "283510277269468590",
+    "A0_recorder_id": "6e227278b7a64eafbcf34b965e16d2b9",
+    "A0_native_sha256": "ce59dcab49559c7d07b98de85a75ccb7516561b5a317c110ad1dfe474ce45678",
+    "information_card": "research/stage1_original39_joint_soxx_bridge_information_20261024",
+    "information_dataset_sha256": "5f8acfc8f44d47002f85231b9be6c07c9629aec273264c4ccdb7cc6f45816a11",
+    "provider": "data/qlib/stage1_domain_heads_20261018",
+    "provider_manifest_sha256": "b9b00a50e86cf26f254d169c886f981b6e90a9daafc3612e3c7ef7c6479b8083"
+  },
+  "fixed_outputs": ["prediction min/max/median, positive count by full/partial year", "joint label positive support on mature 2011-2022 train and reused 2023-2026 held rows, including complete years", "944-row Qlib native authority exact parity and total fee/NAV/return difference versus f696 A0", "no threshold or transfer-size rescue"],
+  "budget": {"new_market_requests": 0, "new_model_fits": 0, "new_native_accounts": 0, "new_bootstraps": 0, "new_Recorders": 0},
+  "stop": "Stop if hashes, Qlib calendar or mature label identities fail. Do not re-execute the fixed candidate account or refit the model."
+}

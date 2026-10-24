@@ -1,0 +1,62 @@
+{
+  "experiment": "stage1_joint_soxx_bridge_0bp_20261024",
+  "decision": "not_promoted_fixed_joint_SOXX_bridge_0bp_no_action",
+  "objective_achieved": false,
+  "plan_sha256": "78a95ce590407b54f303777d5cc85981dfb93728cd0d26d59d627760cee8efcc",
+  "preflight": "preflight_result.json",
+  "result": "result.json",
+  "failure_attribution": "failure_attribution.json",
+  "failure_attribution_plan": "failure_attribution_plan.json",
+  "recorder_id": "10dc77183f0a4bc78af68950f5a00446",
+  "experiment_id": "871369558956731742",
+  "new_model_fits": 0,
+  "new_native_accounts": 1,
+  "independent_forward_days": 0,
+  "historical_0bp_gate_pass": false,
+  "gates": {
+    "SOXX_terminal_net_wealth": false,
+    "available_drawdown_30pct": true,
+    "CVaR5_no_worse_SOXX": true,
+    "complete_years_70pct": false,
+    "rolling_126_70pct": false,
+    "SOXX_paired_lower_positive": false,
+    "full_minute_risk_qualified": false,
+    "independent_forward_qualified": false
+  },
+  "SOXX_relative_wealth": 0.6860064369263443,
+  "rolling126_positive_fraction": 0.31135531135531136,
+  "trigger_days": 0,
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "inputs/*",
+      "predictions/*",
+      "paths/*",
+      "native/*",
+      "analysis/*"
+    ],
+    "recorder_delivery": "NAS content-addressed archive with scoped metrics/gates readback",
+    "local_recorder_git_tracked": false
+  },
+  "NAS_evidence": {
+    "sha256": "c2f76bbdce10eb2445931d77e07c14363fc24bf767507faac6d6e002f42d4bc6",
+    "size_bytes": 1612166,
+    "media_type": "application/gzip",
+    "storage_uri": "sha256/c2/f7/c2f76bbdce10eb2445931d77e07c14363fc24bf767507faac6d6e002f42d4bc6",
+    "uploaded_by": "soxl-minute-research",
+    "created_at": "2026-10-24 17:30:12.131581+08",
+    "duplicate": false,
+    "nas_path": "/volume1/docker/yanxuan/registry/research-artifacts/c2/f7/c2f76bbdce10eb2445931d77e07c14363fc24bf767507faac6d6e002f42d4bc6",
+    "recorder_id": "10dc77183f0a4bc78af68950f5a00446",
+    "experiment_id": "871369558956731742",
+    "archive_root": "qlib_recorder"
+  },
+  "NAS_readback_verified": true,
+  "limitations": [
+    "The direct H5 joint-margin MSE gate passed but its trained predictions were negative on all944 funded decisions, so the frozen positive-only transfer never acted",
+    "All22 comparable native numeric authority columns and dates equal the original f696 A0 path; this is an actual no-action full-account failure, not a factor efficacy result",
+    "Available-point drawdown/CVaR diagnostic passes do not compensate for SOXX wealth, complete-year, rolling126, corrected lower, full-minute and forward failures",
+    "Fixed mapping closed without score threshold, transfer fraction, year or cost rescue"
+  ]
+}

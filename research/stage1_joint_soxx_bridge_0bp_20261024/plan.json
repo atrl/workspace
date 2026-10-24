@@ -1,0 +1,60 @@
+{
+  "experiment": "stage1_joint_soxx_bridge_0bp_20261024",
+  "frozen": true,
+  "execution_authorized_by_active_Goal": true,
+  "phase": "one_exact_f696_parent_own_state_0bp_Tiered_full_account",
+  "hypothesis": "A positive frozen direct original39 forecast of SOXX's minimum next-H5 advantage over cash and SOXL identifies dates when the original f696 cash and/or leveraged-SOXL proposal should be partly rotated into SOXX. The original b472 opening action, risk projection, recovery, share accounting and fees remain active on the candidate's own path.",
+  "source": {
+    "information_card": "research/stage1_original39_joint_soxx_bridge_information_20261024",
+    "information_plan_sha256": "c508fac456f2e37dc8bbd992317a9349fefd34aaa0099a7ac1cb50ca61d9dd97",
+    "information_result_sha256": "921f775b739f5b6d07806147b8255af4e1e83b46f5ae42f1750a277c1abc7baf",
+    "information_summary_sha256": "445057fa3fb255421d659a88dec28450e5f4aa2906772b7c141f716dab6ec92a",
+    "information_experiment_id": "335127282133153935",
+    "information_recorder_id": "58fcd8723e32488292311e564077eeaa",
+    "model_artifact_sha256": "8c2158163e892837d35a35f42ef2d481fefd7640d59ceec1246916b7a629c820",
+    "dataset_artifact_sha256": "5f8acfc8f44d47002f85231b9be6c07c9629aec273264c4ccdb7cc6f45816a11",
+    "information_NAS_sha256": "6674c048528f0ae4a5c904af452f3a354d063682c42a1d53b388b7e6dcd43444",
+    "information_NAS_size_bytes": 833683,
+    "account_source_helper": "research/stage1_nvda_guidance_receiver_20261022",
+    "account_source_receipt_sha256": "1666ead0b7de45f08968177c6e34ac763e78f79120fde7c3d55152fb0418f72c",
+    "exact_f696_card": "research/stage1_domain_heads_20261018",
+    "exact_f696_summary_sha256": "3b51938ca56ddf45029ff5e4a01a6bbc2f1d1407458efcad7d7c68b0ef5a1d37",
+    "exact_f696_experiment_id": "283510277269468590",
+    "exact_f696_recorder_id": "6e227278b7a64eafbcf34b965e16d2b9",
+    "exact_f696_frame_sha256": "e83a57eb764dc59ee8d9fad7b1a48eb6b295c6183d6c4cab2062b3aa6c66e07c",
+    "provider_uri": "data/qlib/stage1_domain_heads_20261018",
+    "provider_manifest_sha256": "b9b00a50e86cf26f254d169c886f981b6e90a9daafc3612e3c7ef7c6479b8083",
+    "original_timing_artifact": "research/minute_information_pit_allocator_20261012/qlib_recorder/905520356740140469/68e31a0a0fad44e7ba1d1f7d856c7a0d/artifacts/inputs/timing",
+    "original_timing_sha256": "66e3292d7f47ac6981f2e488ed198d1109f340f2c3a4bf2a5f538fa41465764e",
+    "code_sha256": {
+      "src/backtest/stage1_domain_heads_raw.py": "9d188c23d6eb668aaaa268aa520f0fcd03d4a20316f55331d31056bdc614cb88",
+      "src/backtest/native_raw_corporate.py": "1e15ec3b05fac80a79b8ac9f24d10beb92e7e6573611d8c27471ff42354fdd75",
+      "src/workflow/stage1_rolling126_shortfall.py": "8b4ed8a19c51cb7e4d5ce7daf67fff4fda83dd02dcb5bb95eaac09cc8c806f41",
+      "src/workflow/stage1_nvda_guidance_receiver.py": "062fbcfde9673e756169f65c2c3e7737703c901eaeb01f89aa10df0e26fa948b"
+    }
+  },
+  "parent_identity": "prepare_account_sources returns the 27baa raw cashbook. Before candidate change, align and replace all five output columns by saved action inputs/source_targets frozen_current and prove exact944/944 equality to sealed f696 A0 inputs/frame. Never replay 27baa proposals as f696.",
+  "fixed_mapping": {
+    "decision_clock": "Only original39 signal-date features known before next trade-day09:29 ET enter the saved information model; no held H5 labels or same-day09:45 bars enter allocation.",
+    "trigger": "direct joint-margin model prediction >0; equality or negative leaves all five f696 outputs unchanged",
+    "cash_to_SOXX": "on trigger, min(0.10,max(0,f696_cash_weight-0.15)); never create a new negative cash balance",
+    "SOXL_to_SOXX": "on trigger, min(0.10,f696_SOXL_weight)",
+    "SOXX_new": "f696_SOXX_weight + both transfers",
+    "probabilities": "f696 tail_probability and alpha_probability remain exactly saved",
+    "risk_and_action": "Apply the modified proposal before the existing b472 open-action and own-state risk projection. Do not use a postprojection target_transform, force a HOLD to trade, reuse old cap/risk path or alter the 10:32 recovery classifier.",
+    "selection_and_budget": "No held-outcome threshold, transfer fraction, sign, cost or window tuning. One candidate own-state full history account only."
+  },
+  "economics": {"initial_cash_usd": 100000, "added_slippage_bps": 0, "fees": "frozen IBKR Pro Tiered raw-share projection still charged", "assets": ["SOXL", "SOXX", "CASH"], "sessions": 944, "price_marks": 3778},
+  "hard_screen_0bp": {
+    "net_SOXX_relative_wealth": ">1+1e-8",
+    "available_close_and_sampled_drawdown": "<=30%; full-minute risk separate",
+    "CVaR5": "no worse than matching SOXX",
+    "complete_annual": "both complete2024 and2025 years positive",
+    "all_contiguous_126_session_windows": ">=70% positive net SOXX excess",
+    "paired_stationary_bootstrap": {"mean_block": 63, "draws": 10000, "seed": 20261014, "one_sided_alpha": 0.0013157894736842105, "lower_positive": true},
+    "historical_independence": false
+  },
+  "budget": {"new_market_requests": 0, "new_model_fits": 0, "new_candidate_native_accounts": 1, "new_bootstrap_runs": 1, "new_writable_qlib_recorders": 1, "NAS_archive_PUT_max": 1, "NAS_scoped_readback_max": 1},
+  "stop": "Source/model/plan/hash, f696 five-output944-row parent parity, feature decision time, target simplex or calendar failure stops before the account. Once run_state records the single native attempt, never silently retry. If any 0bp hard gate fails, close this exact mapping after minimal attribution; do not change transfer size, floor, score sign, year or risk threshold. A 0bp historical pass is not SOXX Goal success; it needs independent review, separate2/5bp and qualified forward evidence.",
+  "scientific_boundary": "The joint H5 model only passed an information gate against a weak two-head control and tiny mean-forecast margin. The complete native own-state account is the first economic test; reused2023-2026 market data remain development feedback."
+}

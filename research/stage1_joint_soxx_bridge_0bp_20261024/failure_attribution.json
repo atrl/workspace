@@ -1,0 +1,108 @@
+{
+  "status": "fixed_account_no_trigger_exact_A0_path_failure_attribution",
+  "plan_sha256": "bc3bd97f4a7c7d3640e24654a3526b138866e45ddd5dedc98c0dde10fd7a8fca",
+  "account_result_sha256": "059a3aadcf9ce7b9feec87ccba5c31123939a6cd11ea56bf3fddcf6cd59953bf",
+  "predictions": {
+    "rows": 944,
+    "minimum": -0.11708031676302125,
+    "median": -0.03885942399782488,
+    "maximum": -0.003223862498271328,
+    "positive_count": 0
+  },
+  "joint_target": {
+    "train_mature": 3014,
+    "train_positive": 79,
+    "held_mature": 940,
+    "held_positive": 33,
+    "train_by_year": {
+      "2011": {
+        "mature_rows": 252,
+        "positive_joint_margin_rows": 8
+      },
+      "2012": {
+        "mature_rows": 250,
+        "positive_joint_margin_rows": 4
+      },
+      "2013": {
+        "mature_rows": 252,
+        "positive_joint_margin_rows": 8
+      },
+      "2014": {
+        "mature_rows": 252,
+        "positive_joint_margin_rows": 4
+      },
+      "2015": {
+        "mature_rows": 252,
+        "positive_joint_margin_rows": 10
+      },
+      "2016": {
+        "mature_rows": 252,
+        "positive_joint_margin_rows": 6
+      },
+      "2017": {
+        "mature_rows": 251,
+        "positive_joint_margin_rows": 5
+      },
+      "2018": {
+        "mature_rows": 251,
+        "positive_joint_margin_rows": 11
+      },
+      "2019": {
+        "mature_rows": 252,
+        "positive_joint_margin_rows": 2
+      },
+      "2020": {
+        "mature_rows": 253,
+        "positive_joint_margin_rows": 6
+      },
+      "2021": {
+        "mature_rows": 252,
+        "positive_joint_margin_rows": 6
+      },
+      "2022": {
+        "mature_rows": 245,
+        "positive_joint_margin_rows": 9
+      }
+    },
+    "held_by_year": {
+      "2023": {
+        "mature_rows": 250,
+        "positive_joint_margin_rows": 9,
+        "positive_model_prediction_rows": 0,
+        "prediction_max": -0.020429142176188412
+      },
+      "2024": {
+        "mature_rows": 252,
+        "positive_joint_margin_rows": 8,
+        "positive_model_prediction_rows": 0,
+        "prediction_max": -0.020340781622929738
+      },
+      "2025": {
+        "mature_rows": 250,
+        "positive_joint_margin_rows": 8,
+        "positive_model_prediction_rows": 0,
+        "prediction_max": -0.009575821234783566
+      },
+      "2026": {
+        "mature_rows": 188,
+        "positive_joint_margin_rows": 8,
+        "positive_model_prediction_rows": 0,
+        "prediction_max": -0.003223862498271328
+      }
+    }
+  },
+  "native_authority_parity": {
+    "same_columns": true,
+    "date_columns_equal": true,
+    "numeric_columns_compared": 22,
+    "max_abs_numeric_difference": 0.0
+  },
+  "new_market_requests": 0,
+  "new_model_fits": 0,
+  "new_native_accounts": 0,
+  "new_bootstraps": 0,
+  "new_Recorders": 0,
+  "scientific_decision": "not_promoted_fixed_joint_SOXX_bridge_0bp_no_action",
+  "threshold_or_transfer_recalibrated": false,
+  "next_action": "Close this exact prediction>0 and10%/10% transfer version. Information MSE gains without actionable positive predictions did not change f696. A materially different decision-time source/receiver is required; do not lower the score threshold on reused held history."
+}
