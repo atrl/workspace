@@ -1,0 +1,7 @@
+experiment: stage1_f696_cash_to_soxl_legal_headroom_20261024
+notebook: stage1_f696_cash_to_soxl_legal_headroom_20261024.ipynb
+phase: read_only_exact_f696_SOXL_cash_action_feasibility
+artifact_policy: slim_card_recorder_first
+source_recorders:
+  original_f696_A0: 6e227278b7a64eafbcf34b965e16d2b9
+  original_0bp_window_account: 2f0392615c4c4b15928b4ada6e01ecd9

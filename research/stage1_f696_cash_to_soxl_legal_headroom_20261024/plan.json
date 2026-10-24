@@ -1,0 +1,35 @@
+{
+  "experiment": "stage1_f696_cash_to_soxl_legal_headroom_20261024",
+  "frozen": true,
+  "phase": "read_only_exact_f696_SOXL_cash_action_feasibility",
+  "question": "On the exact original f696 Stage1 0bp funded path, does an opening cash-to-SOXL action with at most0.10 additional beta have legal capacity under the original SOXL30%, cash15%, and own-state beta limits on both binding and nonbinding days, including weak SOXX-relative windows?",
+  "sources": {
+    "A0_card": "research/stage1_domain_heads_20261018",
+    "A0_summary_sha256": "3b51938ca56ddf45029ff5e4a01a6bbc2f1d1407458efcad7d7c68b0ef5a1d37",
+    "A0_experiment_id": "283510277269468590",
+    "A0_recorder_id": "6e227278b7a64eafbcf34b965e16d2b9",
+    "A0_native_sha256": "ce59dcab49559c7d07b98de85a75ccb7516561b5a317c110ad1dfe474ce45678",
+    "A0_frame_sha256": "e83a57eb764dc59ee8d9fad7b1a48eb6b295c6183d6c4cab2062b3aa6c66e07c",
+    "A0_recovery_spec_sha256": "4a4bb9cd5e09e0dace34615d47e25c831c58951daabace972aa7a31c93e45bda",
+    "A0_NAS_sha256": "f3f891d6d09d4187f12815e245b33cc9cfec4acfd4f555b734f66a59348d9884",
+    "A0_readback": "research/stage1_domain_heads_20261018/readback_verification.json",
+    "account_card": "research/stage1_original_0bp_signal_loss_chain_v2_20261023",
+    "account_summary_sha256": "898089b008f1f6f50016ddbbd2fc082f77423464ed8613c54dbdd5fbbae1dc3a",
+    "account_experiment_id": "954993860986722516",
+    "account_recorder_id": "2f0392615c4c4b15928b4ada6e01ecd9",
+    "account_rolling_sha256": "12f8a16607303370c0ad4a339a3c1de00ab92a467b1490249a160084db2b7635",
+    "account_NAS_sha256": "54c6e93b4c304774c272b07312c856a9a2a255086d372066db418b5efed359c7",
+    "provider": "data/qlib/stage1_domain_heads_20261018",
+    "provider_manifest_sha256": "b9b00a50e86cf26f254d169c886f981b6e90a9daafc3612e3c7ef7c6479b8083"
+  },
+  "fixed_action_geometry": {
+    "clock": "Saved f696 09:29 allocation enters b472 09:46 opening controller. Only original EXECUTE days can receive an incremental opening target; original HOLD days stay in the denominator but have zero candidate action.",
+    "binding": "raw_beta=3*original f696 raw SOXL weight+raw SOXX weight exceeds saved own-state current_beta_cap by>1e-9.",
+    "beta_ceiling": "saved cap+0.10 on binding days; saved cap otherwise. This is a diagnostic upper envelope, not a new policy approval.",
+    "legal_delta_beta": "max(0,min(0.10,max(0,ceiling-base_projected_beta),3*max(0,projected_cash-0.15),3*max(0,0.30-projected_SOXL))). candidate=[projected_SOXL+delta_beta/3,projected_SOXX,projected_cash-delta_beta/3]. Require funded weights sum1, SOXL<=0.30, cash>=0.15 and beta<=ceiling. Do not ignore whole-share or fee effects if a future economic account is run.",
+    "scope": "Report all944 trading sessions, both partial endpoint years and complete2024/2025, all16 quarters and all819 contiguous126-session original SOXX-relative windows. Break out EXECUTE/HOLD, binding/nonbinding, feasible delta_beta>1e-10, zero headroom causes and mean/max beta transfer; compare weak/good windows descriptively without selecting thresholds.",
+    "decision": "This is only legal target headroom. If nonbinding actions have negligible support, this single SOXL opening receiver cannot address both cash layers shown in the original fixed-account bound; redirect to a distinct allocation-intent and risk-capacity mechanism before fitting, not an illegal max-weight bypass. Feasible headroom does not prove fee-net local or full-account SOXX value."
+  },
+  "budget": {"Qlib_calendar_reads": 1, "source_Recorder_object_reads": 4, "new_market_GETs": 0, "new_model_fits": 0, "new_native_accounts": 0, "new_bootstraps": 0, "new_Recorders": 0},
+  "stop": "Stop on any source SHA/NAS/readback, Qlib calendar, 944 f696 dates, 797 EXECUTE/147 HOLD, 819 windows, original projected-target legality, or candidate weight/funding/beta disagreement. No outcome-based action threshold."
+}

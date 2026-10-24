@@ -1,0 +1,58 @@
+{
+  "experiment": "stage1_f696_cash_to_soxl_legal_headroom_20261024",
+  "decision": "read_only_exact_f696_SOXL_opening_action_cannot_cover_both_cash_layers_no_policy",
+  "objective_achieved": false,
+  "plan_sha256": "98fcb3db69b4f53e35cc16e55ce1332200b374013869c48e60a1b94132ae213b",
+  "source_recorder_ids": {
+    "A0": "6e227278b7a64eafbcf34b965e16d2b9",
+    "account": "2f0392615c4c4b15928b4ada6e01ecd9"
+  },
+  "all_days": {
+    "sessions": 944,
+    "execute": 797,
+    "HOLD": 147,
+    "binding_execute": 261,
+    "nonbinding_execute": 536,
+    "feasible": 285,
+    "binding_feasible": 261,
+    "nonbinding_feasible": 24,
+    "zero_SOXL_headroom_execute": 53,
+    "zero_cash_headroom_execute": 0,
+    "zero_beta_headroom_execute": 459,
+    "mean_delta_beta_execute": 0.034489951152054464,
+    "max_delta_beta": 0.1
+  },
+  "rolling126_summary": {
+    "good": {
+      "windows": 255,
+      "mean_feasible": 34.4078431372549,
+      "mean_binding_feasible": 28.701960784313727,
+      "mean_nonbinding_feasible": 5.705882352941177,
+      "zero_nonbinding_feasible_windows": 124
+    },
+    "weak": {
+      "windows": 564,
+      "mean_feasible": 37.35992907801418,
+      "mean_binding_feasible": 34.783687943262414,
+      "mean_nonbinding_feasible": 2.576241134751773,
+      "zero_nonbinding_feasible_windows": 468
+    }
+  },
+  "new_model_fits": 0,
+  "new_native_accounts": 0,
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "source native/A_active_research_replay_0",
+      "source inputs/frame",
+      "source inputs/recovery_spec",
+      "source analysis/rolling126"
+    ]
+  },
+  "limitations": [
+    "Legal target headroom is not a filled whole-share trade, fee-net local value or funded own-state account",
+    "Binding cap+0.10 is a diagnostic upper envelope, not an approved permanent risk policy",
+    "Weak/good original-account windows are hindsight and overlap heavily"
+  ]
+}
