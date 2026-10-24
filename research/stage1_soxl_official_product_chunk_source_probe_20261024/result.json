@@ -1,0 +1,77 @@
+{
+  "status": "official_product_script_no_qualified_historical_AUM_source",
+  "plan_sha256": "452461d2cfce03588dcf1592152cc23116f57f86b1e70b990de142acb3d7d9d8",
+  "source_page_sha256": "d41f550ab6397b2b0ae0a713ec633d85d54f7017daeea2f555eafd35a5a422fa",
+  "official_script_receipt": {
+    "url": "https://www.direxion.com/_next/static/chunks/pages/product/%5Bslug%5D-ccfedf85c8a6929a.js",
+    "requested_at_utc": "2026-10-24T10:53:23.292215+00:00",
+    "received_at_utc": "2026-10-24T10:53:24.270555+00:00",
+    "http_status": 200,
+    "content_type": "application/javascript; charset=UTF-8",
+    "response_date": "Sat, 24 Oct 2026 10:53:23 GMT",
+    "cache_control": "public, max-age=31536000, immutable",
+    "last_modified": "Fri, 23 Oct 2026 02:39:42 GMT",
+    "bytes": 64769,
+    "sha256": "71029289df7c16c23eb19d17caab45684ffd447298e8d03de67c6c1f1f75ed07",
+    "relative_path": "data/snapshots/stage1_soxl_official_product_chunk_source_probe_20261024/product_chunk.js",
+    "error": null
+  },
+  "keyword_contexts": {
+    "holdings": {
+      "count": 26,
+      "examples": [
+        "ize:var(--font-size-2);}}\"),ProductDetailPage_DocumentsDownloads=function(e){var n=e.dailyHoldings,t=e.title,r=e.items;return(0,y.BX)(eN,{children:[t&&(0,y.tZ)(G.X6,{border:!1,Tag:\"h3\",size:\"h5\",children:t}),(0,y.BX)(eM,",
+        "lick:function(e){e.preventDefault(),n()},children:[(0,y.BX)(\"span\",{children:[\"Daily Fund Holdings \",(0,y.tZ)(\"i\",{children:\"(csv)\"})]}),(0,y.tZ)(\"span\",{children:(0,y.tZ)(Icon_IconDownload,{})})]})}):null]})]})},eL=(0,o",
+        ":1;}}\"),ProductDetailPage_QuarterlyTables=function(e){var n=e.targetIndex,t=e.endOfQuarterHoldingsDate,r=e.endOfQuarterBondStatisticsDate,i=e.viewAllIndexComponent,a=e.showDailyHoldingsComponent,o=e.indexTopTenHoldings,l"
+      ]
+    },
+    "download": {
+      "count": 11,
+      "examples": [
+        "n:[(0,y.tZ)(\"span\",{children:\"+\"}),\" Expand\"]})})})]})})})})]})]},e.Ticker)})})},Icon_IconDownload=function(e){var n=e.fill;return(0,y.BX)(\"svg\",{fill:\"none\",xmlns:\"http://www.w3.org/2000/svg\",viewBox:\"2.67 1.33 10.67 13",
+        "ion:none;i{font-style:italic;font-size:var(--font-size-2);}}\"),ProductDetailPage_DocumentsDownloads=function(e){var n=e.dailyHoldings,t=e.title,r=e.items;return(0,y.BX)(eN,{children:[t&&(0,y.tZ)(G.X6,{border:!1,Tag:\"h3\",",
+        ":void 0]}),(0,y.tZ)(\"span\",{children:a?(0,y.tZ)(Icon_IconExternal,{}):i?(0,y.tZ)(Icon_IconDownload,{}):null})]})},n)}),n?(0,y.tZ)(eX,{children:(0,y.BX)(\"a\",{href:\"#\",onClick:function(e){e.preventDefault(),n()},children:["
+      ]
+    },
+    "aum": {
+      "count": 0,
+      "examples": []
+    },
+    "shares": {
+      "count": 0,
+      "examples": []
+    },
+    "history": {
+      "count": 1,
+      "examples": [
+        "rguments[1]:\"\";a(e),d(n);var t=location.href.replace(/#.*/,\"\");\"\"!==e&&(t+=\"#\".concat(e)),history.replaceState(null,document.title,t)},modalTicker:l}),eZ=ey.modalState,ek=ey.modalTicker,ew=ey.updateModal,ex=null===(Z=em."
+      ]
+    },
+    "historical": {
+      "count": 0,
+      "examples": []
+    },
+    "flow": {
+      "count": 3,
+      "examples": [
+        "d4t7\"})(\"position:relative;@media only screen and (max-width: \",(0,g.hO)(\"1069px\"),\"){overflow:auto;}@media only screen and (min-width: \",(0,g.hO)(\"1070px\"),\"){.table-header--sticky{position:sticky;inset-block-start:-\",(",
+        "-top:1px solid #cccccc;padding-top:var(--spacing-2);padding-bottom:var(--spacing-2);a{overflow-wrap:break-word;word-wrap:break-word;}}.ai-market-insights-sources{display:block;margin-top:var(--spacing-1);font-size:var(--",
+        ")(\"display:none;\",k.mq[2],\"{display:block;}\"),np=(0,o.Z)(\"div\",{target:\"e1haqpfd2\"})(\"overflow-x:auto;table{tr:not(:first-of-type){td{border-block-start:\",(0,g.hO)(\"1px\"),\" solid var(--grayscale-gray-3);}}td{padding:var("
+      ]
+    }
+  },
+  "url_like_strings": [
+    "http://www.w3.org/2000/svg"
+  ],
+  "api_like_paths": [],
+  "historical_daily_SOXL_AUM_shares_qualified": false,
+  "historical_first_public_vintages_qualified": false,
+  "network_GETs": 1,
+  "market_outcome_reads": 0,
+  "model_fits": 0,
+  "accounts": 0,
+  "vendor_contacted": false,
+  "limitation": "Only one archived-page-selected product chunk was fetched and read as text. Shared scripts or official dynamic endpoints may exist but were not requested; source-code strings are not historical source receipts.",
+  "daily_holdings_click_mode": "show-daily-holdings modal callback",
+  "source_scope_note": "The downloaded product page chunk wires a modal callback; it does not itself expose a daily historical AUM/shares URL. Imported shared chunks were outside this frozen one-request scope."
+}

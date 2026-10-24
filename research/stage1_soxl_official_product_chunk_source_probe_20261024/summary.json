@@ -1,0 +1,28 @@
+{
+  "experiment": "stage1_soxl_official_product_chunk_source_probe_20261024",
+  "decision": "source_only_product_chunk_no_daily_historical_AUM_shares_endpoint_in_scope",
+  "objective_achieved": false,
+  "plan_sha256": "452461d2cfce03588dcf1592152cc23116f57f86b1e70b990de142acb3d7d9d8",
+  "script_http_status": 200,
+  "script_bytes": 64769,
+  "script_sha256": "71029289df7c16c23eb19d17caab45684ffd447298e8d03de67c6c1f1f75ed07",
+  "daily_holdings_click_mode": "show-daily-holdings modal callback",
+  "historical_daily_SOXL_AUM_shares_qualified": false,
+  "nas_evidence": {
+    "sha256": "cfb0fbd9e74d1f2e84064785c4f2d3122e1d4a2e7e51120a35bc2730403e3ae8",
+    "size_bytes": 17385,
+    "nas_path": "/volume1/docker/yanxuan/registry/research-artifacts/cf/b0/cfb0fbd9e74d1f2e84064785c4f2d3122e1d4a2e7e51120a35bc2730403e3ae8",
+    "remote_hash_verified": true,
+    "scoped_readback_verified": true
+  },
+  "new_model_fits": 0,
+  "new_native_accounts": 0,
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": []
+  },
+  "limitations": [
+    "Only one archived-page-selected product chunk was fetched and read as text. Shared scripts or official dynamic endpoints may exist but were not requested; source-code strings are not historical source receipts."
+  ]
+}
