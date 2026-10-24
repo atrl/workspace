@@ -1,0 +1,9 @@
+experiment: stage1_soxl_local_action_max_weight_legality_audit_20261024
+notebook: stage1_soxl_local_action_max_weight_legality_audit_20261024.ipynb
+phase: read_only_original_training_SOXL_action_legal_limit_repair_audit
+artifact_policy: slim_card_recorder_first
+source_recorders:
+  original_reference: 3663a1e073f042e383dbcf54969a9bc2
+  SOXL_local_labels: 9f4753640e9247a18adff4cab4bb57f8
+  SOXX_local_labels: dd91c4770a354dfe8dc275774e249020
+  QQQ_factor: e357303114444af79ae34c41f4b58e41

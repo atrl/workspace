@@ -1,0 +1,495 @@
+{
+  "status": "audit_invalid_SOXL_max_weight_nonbinding_labels_preserved_legal_binding_only",
+  "plan_sha256": "b62e590b3d8cd5893a583ee555b5befb3b602dc2db49a412fa4690f94fec3eb1",
+  "source_recorder_ids": {
+    "reference": "3663a1e073f042e383dbcf54969a9bc2",
+    "SOXL": "9f4753640e9247a18adff4cab4bb57f8",
+    "SOXX": "dd91c4770a354dfe8dc275774e249020",
+    "QQQ": "e357303114444af79ae34c41f4b58e41"
+  },
+  "maximum_soxl_weight": 0.3,
+  "full_sessions": 1061,
+  "old_eligible": 689,
+  "old_mature": 688,
+  "invalid_eligible": 148,
+  "invalid_mature": 148,
+  "legal_eligible": 541,
+  "legal_mature": 540,
+  "max_old_candidate_soxl": 0.3113382068329176,
+  "annual": [
+    {
+      "year": 2018,
+      "sessions": 53,
+      "old_eligible": 19,
+      "old_mature": 19,
+      "invalid_eligible": 1,
+      "invalid_mature": 1,
+      "legal_mature": 18,
+      "legal_mean": 7.437912238219676e-05,
+      "legal_positive": 10
+    },
+    {
+      "year": 2019,
+      "sessions": 252,
+      "old_eligible": 138,
+      "old_mature": 138,
+      "invalid_eligible": 99,
+      "invalid_mature": 99,
+      "legal_mature": 39,
+      "legal_mean": 3.776308039511284e-06,
+      "legal_positive": 18
+    },
+    {
+      "year": 2020,
+      "sessions": 253,
+      "old_eligible": 202,
+      "old_mature": 202,
+      "invalid_eligible": 20,
+      "invalid_mature": 20,
+      "legal_mature": 182,
+      "legal_mean": 0.000211583014775244,
+      "legal_positive": 106
+    },
+    {
+      "year": 2021,
+      "sessions": 252,
+      "old_eligible": 82,
+      "old_mature": 82,
+      "invalid_eligible": 26,
+      "invalid_mature": 26,
+      "legal_mature": 56,
+      "legal_mean": 0.0004954020858114291,
+      "legal_positive": 33
+    },
+    {
+      "year": 2022,
+      "sessions": 251,
+      "old_eligible": 248,
+      "old_mature": 247,
+      "invalid_eligible": 2,
+      "invalid_mature": 2,
+      "legal_mature": 245,
+      "legal_mean": -0.00016301961900291737,
+      "legal_positive": 111
+    }
+  ],
+  "quarter": [
+    {
+      "year": 2018,
+      "quarter": 4,
+      "sessions": 53,
+      "old_eligible": 19,
+      "old_mature": 19,
+      "invalid_eligible": 1,
+      "invalid_mature": 1,
+      "legal_mature": 18,
+      "legal_mean": 7.437912238219676e-05,
+      "legal_positive": 10
+    },
+    {
+      "year": 2019,
+      "quarter": 1,
+      "sessions": 61,
+      "old_eligible": 31,
+      "old_mature": 31,
+      "invalid_eligible": 26,
+      "invalid_mature": 26,
+      "legal_mature": 5,
+      "legal_mean": 0.0007522899547712328,
+      "legal_positive": 3
+    },
+    {
+      "year": 2019,
+      "quarter": 2,
+      "sessions": 63,
+      "old_eligible": 35,
+      "old_mature": 35,
+      "invalid_eligible": 18,
+      "invalid_mature": 18,
+      "legal_mature": 17,
+      "legal_mean": -0.0004067101242895186,
+      "legal_positive": 6
+    },
+    {
+      "year": 2019,
+      "quarter": 3,
+      "sessions": 64,
+      "old_eligible": 32,
+      "old_mature": 32,
+      "invalid_eligible": 15,
+      "invalid_mature": 15,
+      "legal_mature": 17,
+      "legal_mean": 0.00019411166780038765,
+      "legal_positive": 9
+    },
+    {
+      "year": 2019,
+      "quarter": 4,
+      "sessions": 64,
+      "old_eligible": 40,
+      "old_mature": 40,
+      "invalid_eligible": 40,
+      "invalid_mature": 40,
+      "legal_mature": 0,
+      "legal_mean": null,
+      "legal_positive": 0
+    },
+    {
+      "year": 2020,
+      "quarter": 1,
+      "sessions": 62,
+      "old_eligible": 28,
+      "old_mature": 28,
+      "invalid_eligible": 0,
+      "invalid_mature": 0,
+      "legal_mature": 28,
+      "legal_mean": -0.0009863411321031793,
+      "legal_positive": 10
+    },
+    {
+      "year": 2020,
+      "quarter": 2,
+      "sessions": 63,
+      "old_eligible": 55,
+      "old_mature": 55,
+      "invalid_eligible": 0,
+      "invalid_mature": 0,
+      "legal_mature": 55,
+      "legal_mean": 0.0006528413820432653,
+      "legal_positive": 32
+    },
+    {
+      "year": 2020,
+      "quarter": 3,
+      "sessions": 64,
+      "old_eligible": 60,
+      "old_mature": 60,
+      "invalid_eligible": 12,
+      "invalid_mature": 12,
+      "legal_mature": 48,
+      "legal_mean": 0.00034734972513365885,
+      "legal_positive": 32
+    },
+    {
+      "year": 2020,
+      "quarter": 4,
+      "sessions": 64,
+      "old_eligible": 59,
+      "old_mature": 59,
+      "invalid_eligible": 8,
+      "invalid_mature": 8,
+      "legal_mature": 51,
+      "legal_mean": 0.0002656195601801611,
+      "legal_positive": 32
+    },
+    {
+      "year": 2021,
+      "quarter": 1,
+      "sessions": 61,
+      "old_eligible": 39,
+      "old_mature": 39,
+      "invalid_eligible": 17,
+      "invalid_mature": 17,
+      "legal_mature": 22,
+      "legal_mean": 0.00043238386095416424,
+      "legal_positive": 13
+    },
+    {
+      "year": 2021,
+      "quarter": 2,
+      "sessions": 63,
+      "old_eligible": 17,
+      "old_mature": 17,
+      "invalid_eligible": 2,
+      "invalid_mature": 2,
+      "legal_mature": 15,
+      "legal_mean": 1.3940400554102663e-05,
+      "legal_positive": 8
+    },
+    {
+      "year": 2021,
+      "quarter": 3,
+      "sessions": 64,
+      "old_eligible": 5,
+      "old_mature": 5,
+      "invalid_eligible": 0,
+      "invalid_mature": 0,
+      "legal_mature": 5,
+      "legal_mean": 0.000923580148881014,
+      "legal_positive": 4
+    },
+    {
+      "year": 2021,
+      "quarter": 4,
+      "sessions": 64,
+      "old_eligible": 21,
+      "old_mature": 21,
+      "invalid_eligible": 7,
+      "invalid_mature": 7,
+      "legal_mature": 14,
+      "legal_mean": 0.000957361793695129,
+      "legal_positive": 8
+    },
+    {
+      "year": 2022,
+      "quarter": 1,
+      "sessions": 62,
+      "old_eligible": 59,
+      "old_mature": 59,
+      "invalid_eligible": 2,
+      "invalid_mature": 2,
+      "legal_mature": 57,
+      "legal_mean": -8.779691573631849e-05,
+      "legal_positive": 26
+    },
+    {
+      "year": 2022,
+      "quarter": 2,
+      "sessions": 62,
+      "old_eligible": 62,
+      "old_mature": 62,
+      "invalid_eligible": 0,
+      "invalid_mature": 0,
+      "legal_mature": 62,
+      "legal_mean": -0.0005408550499422778,
+      "legal_positive": 27
+    },
+    {
+      "year": 2022,
+      "quarter": 3,
+      "sessions": 64,
+      "old_eligible": 64,
+      "old_mature": 64,
+      "invalid_eligible": 0,
+      "invalid_mature": 0,
+      "legal_mature": 64,
+      "legal_mean": -0.00010149917027315976,
+      "legal_positive": 31
+    },
+    {
+      "year": 2022,
+      "quarter": 4,
+      "sessions": 63,
+      "old_eligible": 63,
+      "old_mature": 62,
+      "invalid_eligible": 0,
+      "invalid_mature": 0,
+      "legal_mature": 62,
+      "legal_mean": 8.215447637352991e-05,
+      "legal_positive": 27
+    }
+  ],
+  "by_binding": {
+    "false": {
+      "sessions": 520,
+      "old_eligible": 148,
+      "old_mature": 148,
+      "invalid_eligible": 148,
+      "invalid_mature": 148,
+      "legal_mature": 0,
+      "legal_mean": null,
+      "legal_positive": 0
+    },
+    "true": {
+      "sessions": 541,
+      "old_eligible": 541,
+      "old_mature": 540,
+      "invalid_eligible": 0,
+      "invalid_mature": 0,
+      "legal_mature": 540,
+      "legal_mean": 5.147577602822252e-05,
+      "legal_positive": 278
+    }
+  },
+  "legal_local_mean": 5.147577602822252e-05,
+  "legal_SOXX_comparison": {
+    "matched_legal_mature": 540,
+    "SOXL_mean": 5.147577602822252e-05,
+    "SOXX_mean": 9.534886586010744e-05,
+    "SOXL_minus_SOXX_mean": -4.387308983188489e-05,
+    "correlation": 0.9950319510903469
+  },
+  "legal_risk_state_overlap": {
+    "cells": [
+      {
+        "risk_state": 0,
+        "earlier": 26,
+        "later": 10,
+        "earlier_mean": 0.0003811699403450967,
+        "later_mean": -0.002155503358650466,
+        "matched": true
+      },
+      {
+        "risk_state": 1,
+        "earlier": 48,
+        "later": 40,
+        "earlier_mean": 0.0006269042230564539,
+        "later_mean": 4.768193368443481e-05,
+        "matched": true
+      },
+      {
+        "risk_state": 2,
+        "earlier": 116,
+        "later": 100,
+        "earlier_mean": 3.756842998215085e-05,
+        "later_mean": -1.765221484123792e-05,
+        "matched": true
+      },
+      {
+        "risk_state": 3,
+        "earlier": 48,
+        "later": 95,
+        "earlier_mean": 0.0004560597179358883,
+        "later_mean": -0.0001950192519206704,
+        "matched": true
+      }
+    ],
+    "matched_cells": 4,
+    "matched_2022": 245,
+    "full_2022_legal": 245
+  },
+  "corrected_necessary_ranks": {
+    "drawdown_score": {
+      "full": {
+        "mature": 540,
+        "positive": 278,
+        "negative": 261,
+        "zero": 1,
+        "auc": 0.5218997216020287,
+        "spearman": 0.013373616964850133
+      },
+      "complete_years": [
+        {
+          "year": 2020,
+          "mature": 182,
+          "positive": 106,
+          "negative": 76,
+          "zero": 0,
+          "auc": 0.4189424031777557,
+          "spearman": -0.2568160034875006
+        },
+        {
+          "year": 2021,
+          "mature": 56,
+          "positive": 33,
+          "negative": 23,
+          "zero": 0,
+          "auc": 0.5480895915678524,
+          "spearman": 0.06903622693096377
+        },
+        {
+          "year": 2022,
+          "mature": 245,
+          "positive": 111,
+          "negative": 133,
+          "zero": 1,
+          "auc": 0.4551920341394025,
+          "spearman": -0.09922643187622911
+        }
+      ],
+      "binding_eras": [
+        {
+          "era": "2020_2021",
+          "mature": 238,
+          "positive": 139,
+          "negative": 99,
+          "zero": 0,
+          "auc": 0.44953128406365805,
+          "spearman": -0.13691101142538475
+        },
+        {
+          "era": "2022",
+          "mature": 245,
+          "positive": 111,
+          "negative": 133,
+          "zero": 1,
+          "auc": 0.4551920341394025,
+          "spearman": -0.09922643187622911
+        }
+      ],
+      "original_gates_on_legal_subset": {
+        "each_2020_2022_auc_above_half": false,
+        "each_2020_2022_spearman_positive": false,
+        "binding_era_spearman_positive": false
+      },
+      "necessary_gate_pass": false
+    },
+    "QQQ_score": {
+      "full": {
+        "mature": 540,
+        "positive": 278,
+        "negative": 261,
+        "zero": 1,
+        "auc": 0.4784448303426225,
+        "spearman": -0.0333478509871433
+      },
+      "complete_years": [
+        {
+          "year": 2020,
+          "mature": 182,
+          "positive": 106,
+          "negative": 76,
+          "zero": 0,
+          "auc": 0.5218470705064548,
+          "spearman": 0.08041654930523692
+        },
+        {
+          "year": 2021,
+          "mature": 56,
+          "positive": 33,
+          "negative": 23,
+          "zero": 0,
+          "auc": 0.5046113306982873,
+          "spearman": -0.030485304169514702
+        },
+        {
+          "year": 2022,
+          "mature": 245,
+          "positive": 111,
+          "negative": 133,
+          "zero": 1,
+          "auc": 0.4705005757637336,
+          "spearman": -0.07756407641025224
+        }
+      ],
+      "binding_eras": [
+        {
+          "era": "2020_2021",
+          "mature": 238,
+          "positive": 139,
+          "negative": 99,
+          "zero": 0,
+          "auc": 0.5091199767458761,
+          "spearman": 0.02959847145256069
+        },
+        {
+          "era": "2022",
+          "mature": 245,
+          "positive": 111,
+          "negative": 133,
+          "zero": 1,
+          "auc": 0.4705005757637336,
+          "spearman": -0.07756407641025224
+        }
+      ],
+      "original_gates_on_legal_subset": {
+        "each_2020_2022_auc_above_half": false,
+        "each_2020_2022_spearman_positive": false,
+        "binding_era_spearman_positive": false
+      },
+      "necessary_gate_pass": false
+    }
+  },
+  "new_market_GETs": 0,
+  "new_model_fits": 0,
+  "new_native_accounts": 0,
+  "new_label_passes": 0,
+  "new_bootstraps": 0,
+  "new_Recorders": 0,
+  "SOXX_goal_achieved": false,
+  "limits": [
+    "Original fee-net labels on illegal candidate targets remain in frozen Recorder but are not legal action evidence",
+    "Masking invalid labels is an audit of the old candidate, not a new capped target or replay",
+    "Binding-only local labels are training history and not a full exact-f696 own-state strategy or independent forward validation"
+  ]
+}

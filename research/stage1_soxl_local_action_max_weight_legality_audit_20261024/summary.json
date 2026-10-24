@@ -1,0 +1,51 @@
+{
+  "experiment": "stage1_soxl_local_action_max_weight_legality_audit_20261024",
+  "decision": "invalid_148_nonbinding_SOXL_local_labels_legal_binding_540_reaudit",
+  "objective_achieved": false,
+  "plan_sha256": "b62e590b3d8cd5893a583ee555b5befb3b602dc2db49a412fa4690f94fec3eb1",
+  "source_recorder_ids": {
+    "reference": "3663a1e073f042e383dbcf54969a9bc2",
+    "SOXL": "9f4753640e9247a18adff4cab4bb57f8",
+    "SOXX": "dd91c4770a354dfe8dc275774e249020",
+    "QQQ": "e357303114444af79ae34c41f4b58e41"
+  },
+  "invalid_mature": 148,
+  "legal_mature": 540,
+  "legal_local_mean": 5.147577602822252e-05,
+  "legal_SOXX_comparison": {
+    "matched_legal_mature": 540,
+    "SOXL_mean": 5.147577602822252e-05,
+    "SOXX_mean": 9.534886586010744e-05,
+    "SOXL_minus_SOXX_mean": -4.387308983188489e-05,
+    "correlation": 0.9950319510903469
+  },
+  "corrected_necessary_gates": {
+    "drawdown_score": {
+      "each_2020_2022_auc_above_half": false,
+      "each_2020_2022_spearman_positive": false,
+      "binding_era_spearman_positive": false
+    },
+    "QQQ_score": {
+      "each_2020_2022_auc_above_half": false,
+      "each_2020_2022_spearman_positive": false,
+      "binding_era_spearman_positive": false
+    }
+  },
+  "new_model_fits": 0,
+  "new_native_accounts": 0,
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "source paths/reference_0",
+      "source inputs/action_plan",
+      "source analysis/labels",
+      "source analysis/source_frame"
+    ]
+  },
+  "limitations": [
+    "Original fee-net labels on illegal candidate targets remain in frozen Recorder but are not legal action evidence",
+    "Masking invalid labels is an audit of the old candidate, not a new capped target or replay",
+    "Binding-only local labels are training history and not a full exact-f696 own-state strategy or independent forward validation"
+  ]
+}

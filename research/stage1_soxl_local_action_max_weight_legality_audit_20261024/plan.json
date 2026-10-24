@@ -1,0 +1,40 @@
+{
+  "experiment": "stage1_soxl_local_action_max_weight_legality_audit_20261024",
+  "frozen": true,
+  "phase": "read_only_original_training_SOXL_action_legal_limit_repair_audit",
+  "trigger": "A scoped preflight found148 of689 eligible candidate SOXL targets exceed the original Stage1 maximum_soxl_weight=0.30; all148 are nonbinding. Preserve original local label Recorder bytes and audit validity before any further economic interpretation.",
+  "sources": {
+    "reference_card": "research/stage1_signed_volume_0bp_action_label_source_20261023",
+    "reference_summary_sha256": "ce6652a6323ec9bd11a8ce8de89239cba167a53bedb50e471080006a1a89f476",
+    "reference_experiment_id": "194705746221035167",
+    "reference_recorder_id": "3663a1e073f042e383dbcf54969a9bc2",
+    "reference_path_sha256": "eb6403c99304be47572635ae3a71494ddd5ce9a96c7e3e361cf5c38f76ffa4e5",
+    "reference_action_plan_sha256": "b3fddcc9f1ad9735ab4ef260bfec7792aca572adbde2ad6a78511d8c5d8fb103",
+    "SOXL_card": "research/stage1_joint_cash_cap_soxl_0bp_local_value_20261024",
+    "SOXL_summary_sha256": "d4c5c7b29f7edce9302278f7e901ce6fdf1206bd239ca863a00167bcff5032a4",
+    "SOXL_experiment_id": "598502564044048354",
+    "SOXL_recorder_id": "9f4753640e9247a18adff4cab4bb57f8",
+    "SOXL_labels_sha256": "b9e145b0c7e8488ee70a6acc11bd203897eae5e45f2b59459845d2382ae53a41",
+    "SOXL_NAS_sha256": "15f713a01daa410cafae50955e4f6abab5f0baab6fd70a246b00745755ccc5e1",
+    "SOXX_card": "research/stage1_joint_cash_cap_soxx_0bp_local_value_20261023",
+    "SOXX_summary_sha256": "c065da30e80dc08cdb67670d94e6ef24411020363d8727e762bfbb7069e7a4eb",
+    "SOXX_experiment_id": "576312232090536744",
+    "SOXX_recorder_id": "dd91c4770a354dfe8dc275774e249020",
+    "SOXX_labels_sha256": "f5f9709885b2c7de346caf8efe4b3bb37ab90dd24a807c5c86d7bc59d7eee8c2",
+    "QQQ_card": "research/stage1_soxx_qqq_downside_beta_source_20261023",
+    "QQQ_summary_sha256": "1110091e2bfd906c4d624bf791d422372056cef64f5ba9590b50ee5d776d0322",
+    "QQQ_experiment_id": "107662550415421774",
+    "QQQ_recorder_id": "e357303114444af79ae34c41f4b58e41",
+    "QQQ_frame_sha256": "f23954e857f94311fb35c71e111818f664717f54daa928bdb9a70173d4c1a083",
+    "provider": "data/qlib/full_path_tiered_allocation_20261013",
+    "provider_manifest_sha256": "3a3d6f4e248d6016ea25a140587abb65fba0d8a346e45da402414095df772223"
+  },
+  "fixed_audit": {
+    "legal_definition": "candidate_SOXL_weight=original projected SOXL weight+saved delta_SOXL_weight; require <= original action_plan recovery_spec maximum_soxl_weight=0.30+1e-10, in addition to already checked funding/beta. A breach makes that old local label economically invalid; preserve it but exclude from legal-subset summaries. Do not cap and pretend the old fee-net label is the corrected action.",
+    "support": "Report all1061 sessions,689 old eligible,688 old mature, breach counts by year, binding flag and label maturity; verify original projected targets obey0.30. Recompute legal-only mature annual, quarter, binding strata and matched old SOXX local comparison. No new action replay or label construction.",
+    "downstream": "For the previously fixed negative drawdown and negative QQQ downside-beta ranks, recompute only their original AUC/Spearman formula on the legal mature subset, by full period, complete2020/2021/2022 and binding2020-2021/2022. Evaluate the original necessary-gate conditions without changing sign, thresholds or training/held periods. Report which prior all688 metrics were invalid; retain native source Recorders unchanged.",
+    "decision": "If illegal labels exist, supersede their use and annotate the original SOXL local, risk-overlap, drawdown-rank and QQQ-rank conclusions. Legal binding-only evidence may remain descriptive but cannot promote the original fixed action or supply independent forward validation."
+  },
+  "budget": {"Qlib_calendar_reads": 1, "source_Recorder_object_reads": 5, "new_market_GETs": 0, "new_model_fits": 0, "new_native_accounts": 0, "new_label_passes": 0, "new_bootstraps": 0, "new_Recorders": 0},
+  "stop": "Stop on any pinned source hash, NAS/readback, Qlib calendar, 1061-row identity, max-weight semantics, or action/label alignment disagreement. Never overwrite the original Recorder or reinterpret an illegal branch as legal."
+}
