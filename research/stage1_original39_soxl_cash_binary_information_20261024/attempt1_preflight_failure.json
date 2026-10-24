@@ -1,0 +1,9 @@
+{
+  "status": "failed_before_model_fit",
+  "reason": "tz-aware label_available_at compared directly with tz-naive held signal date",
+  "repair": "Normalize both sides to UTC and require last train maturity strictly before first held signal date; no model, gate, source or budget change",
+  "new_fit_attempts": 0,
+  "new_model_fits": 0,
+  "new_Qlib_Recorders": 0,
+  "new_native_accounts": 0
+}

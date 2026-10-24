@@ -1,0 +1,52 @@
+{
+  "experiment": "stage1_original39_soxl_cash_binary_information_20261024",
+  "decision": "not_promoted_fixed_original39_SOXL_cash_binary_information_failed",
+  "objective_achieved": false,
+  "plan_sha256": "d889a83aa6c18e7f519b3d2888ac1d4fc6e7058f08e6796a7cb7ac6ec89a3476",
+  "result": "result.json",
+  "recorder_id": "aac3f60c499b43449131b98b51f412b8",
+  "experiment_id": "795395294764483407",
+  "recorder_uri": "/Users/rziiiii/dev/workspace/research/stage1_original39_soxl_cash_binary_information_20261024/qlib_recorder",
+  "source_recorder_ids": {
+    "labels": "a4bbc11f5c764ac38ff2f682eadd0e1d",
+    "f696": "6e227278b7a64eafbcf34b965e16d2b9"
+  },
+  "information_pass": false,
+  "gates": {
+    "full_auc_above_random_and_control_plus_0p02": false,
+    "partial2023_auc_above_random": true,
+    "both_complete_years_auc_above_random": false,
+    "both_halves_auc_above_random": false,
+    "full_brier_below_train_prior": false,
+    "corrected_auc_improvement_lower_positive": false
+  },
+  "new_model_fits": 1,
+  "new_native_accounts": 0,
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "inputs/dataset",
+      "models/binary_SOXL_cash",
+      "predictions/held",
+      "analysis/bootstrap_replicates"
+    ]
+  },
+  "nas_evidence": {
+    "sha256": "6a8761dfe8b4b223b88264d60a8041a7db2134c3360564efed1b4d5a46177569",
+    "size_bytes": 801327,
+    "media_type": "application/gzip",
+    "storage_uri": "sha256/6a/87/6a8761dfe8b4b223b88264d60a8041a7db2134c3360564efed1b4d5a46177569",
+    "uploaded_by": "soxl-minute-research",
+    "created_at": "2026-10-24 18:26:12.057642+08",
+    "duplicate": false,
+    "nas_path": "/volume1/docker/yanxuan/registry/research-artifacts/6a/87/6a8761dfe8b4b223b88264d60a8041a7db2134c3360564efed1b4d5a46177569",
+    "recorder_id": "aac3f60c499b43449131b98b51f412b8",
+    "experiment_id": "795395294764483407",
+    "archive_root": "qlib_recorder"
+  },
+  "nas_readback": {
+    "verified": true,
+    "sha256": "6a8761dfe8b4b223b88264d60a8041a7db2134c3360564efed1b4d5a46177569"
+  }
+}

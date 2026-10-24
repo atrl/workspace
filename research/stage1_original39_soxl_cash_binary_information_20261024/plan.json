@@ -1,0 +1,35 @@
+{
+  "experiment": "stage1_original39_soxl_cash_binary_information_20261024",
+  "frozen": true,
+  "phase": "one_direct_pairwise_original39_binary_information_screen",
+  "hypothesis": "The original Stage1 decision-available 39 market inputs can classify whether SOXL will beat cash over the next H5 gross open-price window more reliably than the frozen f696 SOXL-minus-cash proposal ranking. Direct sign classification is a different receiver from the closed pair of separate cash-vs-SOXX and SOXL-vs-SOXX Ridge magnitude heads and the rare SOXX-over-both Ridge margin.",
+  "sources": {
+    "dataset_card": "research/stage1_dual_task_39_information_20261023",
+    "dataset_summary_sha256": "e3a22a8f050b90d6f0a7ea96df0b4499bc387376f0c26abf2bb8ee2b501ad136",
+    "dataset_experiment_id": "666721299406485975",
+    "dataset_recorder_id": "a4bbc11f5c764ac38ff2f682eadd0e1d",
+    "dataset_artifact_sha256": "3bc64249f92a922d9edace380e7eecfdeeb52e3a9e611e004bb8e74982aa9b12",
+    "dataset_NAS_sha256": "5ebda191e82d5262b92f7c196dcaca036c22ae8a8f14e30ded63ce4b07b32f66",
+    "f696_card": "research/stage1_domain_heads_20261018",
+    "f696_summary_sha256": "3b51938ca56ddf45029ff5e4a01a6bbc2f1d1407458efcad7d7c68b0ef5a1d37",
+    "f696_experiment_id": "283510277269468590",
+    "f696_recorder_id": "6e227278b7a64eafbcf34b965e16d2b9",
+    "f696_frame_sha256": "e83a57eb764dc59ee8d9fad7b1a48eb6b295c6183d6c4cab2062b3aa6c66e07c",
+    "f696_NAS_sha256": "f3f891d6d09d4187f12815e245b33cc9cfec4acfd4f555b734f66a59348d9884",
+    "f696_readback": "research/stage1_domain_heads_20261018/readback_verification.json",
+    "provider": "data/qlib/minute_information_pit_allocator_20261012/daily_prices",
+    "provider_manifest_sha256": "d80a08d479b73098053006909b5e6227b03a56ab705681742d7261088e0a7e6c",
+    "prior_pairwise_rank_result": "research/stage1_f696_pairwise_intent_rank_20261024/result.json",
+    "prior_pairwise_rank_result_sha256": "31a113dad824484f3e3f1b0e436ecbdbe9099997f27a5f97a387d6ac36f7716a"
+  },
+  "fixed_receiver": {
+    "cohorts": "Native Qlib DatasetH train2011-2022 with3014 mature labels, reused held2023-2026 with940 mature labels and last4 of944 held source dates unknown. No calendar pruning, year selection, label fill or historical re-split.",
+    "target": "y=1 if SOXL_relative_H5-cash_advantage_H5>1e-12, y=0 if < -1e-12; exact ties excluded from fit/score and counted. Both gross-price labels share the original source's five-open horizon and availability time.",
+    "model": "Exactly one scikit-learn Pipeline(SimpleImputer(strategy=median),StandardScaler(),LogisticRegression(C=1.0,solver=lbfgs,max_iter=2000,random_state=71)); fit once on all mature 2011-2022 original39 Qlib features. No hyperparameter search, class weighting, post-fit calibration or threshold action.",
+    "controls": "Frozen f696 predecision soxl_weight-cash_weight for ROC AUC on identical held dates; training positive prevalence as constant probability for Brier loss. The f696 score is not treated as calibrated probability.",
+    "information_gates": "Require full held AUC>0.5 and >f696 control AUC by0.02; AUC>0.5 in partial2023, complete2024/2025 and both fixed halves; full held Brier less than training-prevalence constant Brier; paired candidate-minus-f696 AUC improvement one-sided stationary63-session block10000-draw2.5th percentile>0 on full944 held calendar with last4 unknown omitted per draw. Every gate required. Report partial2026, all16 quarters, score support and missingness even when failed.",
+    "interpretation": "This is a reused-history gross H5 information screen only. A pass could permit one separately frozen mapping that alters f696 allocation intent and own-state risk capacity before a complete0bp Tiered account; it is not economic success, 2/5bp success, qualified forward or proof of source publication timing. A failed fixed version closes without flipping labels, reducing thresholds or retraining on held history."
+  },
+  "budget": {"new_market_GETs": 0, "Qlib_calendar_reads": 1, "source_Recorder_object_reads": 2, "DatasetH_prepare_reads": 2, "new_model_fit_attempts": 1, "new_bootstraps": 1, "new_native_accounts": 0, "new_Qlib_Recorders": 1, "NAS_recorder_archives": 1},
+  "stop": "Stop before fit if source SHA/NAS/readback, 3014/940 labels,39 feature order, maturity clock,944 f696 dates, or Qlib calendar disagree. Once fit attempted, never restart it after an observation timeout; record exact failure and stop fixed version if execution terminal."
+}

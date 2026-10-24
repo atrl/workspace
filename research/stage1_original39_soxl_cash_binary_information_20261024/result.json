@@ -1,0 +1,371 @@
+{
+  "decision": "not_promoted_fixed_original39_SOXL_cash_binary_information_failed",
+  "plan_sha256": "d889a83aa6c18e7f519b3d2888ac1d4fc6e7058f08e6796a7cb7ac6ec89a3476",
+  "train_mature_rows": 3014,
+  "train_ties": 0,
+  "train_positive": 1697,
+  "train_prior": 0.5630391506303916,
+  "held_source_rows": 944,
+  "held_mature_rows": 940,
+  "held_ties": 0,
+  "last_four_unknown": 4,
+  "feature_count": 39,
+  "train_feature_nonfinite": 163,
+  "held_feature_nonfinite": 0,
+  "full": {
+    "rows": 940,
+    "positive": 539,
+    "auc": 0.47076187083312127,
+    "control_auc": 0.46799513276178756,
+    "brier": 0.2717825414393622,
+    "prior_brier": 0.2447192506962501,
+    "prob_min_max": [
+      0.14301071915641142,
+      0.8576813068801505
+    ]
+  },
+  "annual": [
+    {
+      "year": 2023,
+      "partial_endpoint": true,
+      "rows": 250,
+      "positive": 134,
+      "auc": 0.5006433350488935,
+      "control_auc": 0.3757076685537828,
+      "brier": 0.2562967842835673,
+      "prior_brier": 0.249435115666813,
+      "prob_min_max": [
+        0.19099392784600464,
+        0.7706735717221009
+      ]
+    },
+    {
+      "year": 2024,
+      "partial_endpoint": false,
+      "rows": 252,
+      "positive": 144,
+      "auc": 0.5423739711934156,
+      "control_auc": 0.48662551440329216,
+      "brier": 0.2535846074736216,
+      "prior_brier": 0.2449683415650024,
+      "prob_min_max": [
+        0.2456061189262893,
+        0.7332492566824051
+      ]
+    },
+    {
+      "year": 2025,
+      "partial_endpoint": false,
+      "rows": 250,
+      "positive": 152,
+      "auc": 0.40601503759398505,
+      "control_auc": 0.5067132116004297,
+      "brier": 0.2828680367424623,
+      "prior_brier": 0.2403574779760366,
+      "prob_min_max": [
+        0.20595304307615134,
+        0.8576813068801505
+      ]
+    },
+    {
+      "year": 2026,
+      "partial_endpoint": true,
+      "rows": 188,
+      "positive": 109,
+      "auc": 0.42863778887469517,
+      "control_auc": 0.5054000696783184,
+      "brier": 0.30202692879329995,
+      "prior_brier": 0.2439144955818196,
+      "prob_min_max": [
+        0.14301071915641142,
+        0.8527124356167387
+      ]
+    }
+  ],
+  "quarter": [
+    {
+      "year": 2023,
+      "quarter": 1,
+      "rows": 62,
+      "positive": 36,
+      "auc": 0.7094017094017094,
+      "control_auc": 0.6121794871794872,
+      "brier": 0.21945629937370226,
+      "prior_brier": 0.24380632957181544,
+      "prob_min_max": [
+        0.3910458847815273,
+        0.7706735717221009
+      ]
+    },
+    {
+      "year": 2023,
+      "quarter": 2,
+      "rows": 62,
+      "positive": 35,
+      "auc": 0.4222222222222222,
+      "control_auc": 0.32910052910052917,
+      "brier": 0.28623485318062686,
+      "prior_brier": 0.2458398505598926,
+      "prob_min_max": [
+        0.19099392784600464,
+        0.6293898053843302
+      ]
+    },
+    {
+      "year": 2023,
+      "quarter": 3,
+      "rows": 63,
+      "positive": 25,
+      "auc": 0.30000000000000004,
+      "control_auc": 0.3463157894736842,
+      "brier": 0.28153397666404467,
+      "prior_brier": 0.26698201321371057,
+      "prob_min_max": [
+        0.41073137063833143,
+        0.6594100780803606
+      ]
+    },
+    {
+      "year": 2023,
+      "quarter": 4,
+      "rows": 63,
+      "positive": 38,
+      "auc": 0.6221052631578947,
+      "control_auc": 0.09473684210526315,
+      "brier": 0.23785244575696188,
+      "prior_brier": 0.24096585581069183,
+      "prob_min_max": [
+        0.2913353376095448,
+        0.6128755524702612
+      ]
+    },
+    {
+      "year": 2024,
+      "quarter": 1,
+      "rows": 61,
+      "positive": 42,
+      "auc": 0.4473684210526316,
+      "control_auc": 0.1942355889724311,
+      "brier": 0.2742327559456376,
+      "prior_brier": 0.23020507443844698,
+      "prob_min_max": [
+        0.33750995438229175,
+        0.600696205618875
+      ]
+    },
+    {
+      "year": 2024,
+      "quarter": 2,
+      "rows": 63,
+      "positive": 38,
+      "auc": 0.5936842105263157,
+      "control_auc": 0.4094736842105263,
+      "brier": 0.23522076847978457,
+      "prior_brier": 0.24096585581069183,
+      "prob_min_max": [
+        0.40494367729013253,
+        0.7259470372560349
+      ]
+    },
+    {
+      "year": 2024,
+      "quarter": 3,
+      "rows": 64,
+      "positive": 31,
+      "auc": 0.5004887585532747,
+      "control_auc": 0.4838709677419355,
+      "brier": 0.2585282733192603,
+      "prior_brier": 0.2559439079694009,
+      "prob_min_max": [
+        0.2456061189262893,
+        0.7332492566824051
+      ]
+    },
+    {
+      "year": 2024,
+      "quarter": 4,
+      "rows": 64,
+      "positive": 33,
+      "auc": 0.6001955034213099,
+      "control_auc": 0.4359726295210167,
+      "brier": 0.24703757912515106,
+      "prior_brier": 0.25200396105500145,
+      "prob_min_max": [
+        0.3567464515611176,
+        0.5840372518178041
+      ]
+    },
+    {
+      "year": 2025,
+      "quarter": 1,
+      "rows": 60,
+      "positive": 25,
+      "auc": 0.424,
+      "control_auc": 0.30514285714285716,
+      "brier": 0.2719558939143003,
+      "prior_brier": 0.26448045961726646,
+      "prob_min_max": [
+        0.35766063118831615,
+        0.7115585895059895
+      ]
+    },
+    {
+      "year": 2025,
+      "quarter": 2,
+      "rows": 62,
+      "positive": 48,
+      "auc": 0.29910714285714285,
+      "control_auc": 0.44791666666666674,
+      "brier": 0.3574092273115669,
+      "prior_brier": 0.21940407771488968,
+      "prob_min_max": [
+        0.20595304307615134,
+        0.8576813068801505
+      ]
+    },
+    {
+      "year": 2025,
+      "quarter": 3,
+      "rows": 64,
+      "positive": 41,
+      "auc": 0.41887592788971373,
+      "control_auc": 0.4464475079533404,
+      "brier": 0.2532689088288971,
+      "prior_brier": 0.23624417339740356,
+      "prob_min_max": [
+        0.3620519874371041,
+        0.6390778101050316
+      ]
+    },
+    {
+      "year": 2025,
+      "quarter": 4,
+      "rows": 64,
+      "positive": 38,
+      "auc": 0.5668016194331984,
+      "control_auc": 0.4726720647773279,
+      "brier": 0.2504855201936095,
+      "prior_brier": 0.24215409376900277,
+      "prob_min_max": [
+        0.32797104109791503,
+        0.8042700808312597
+      ]
+    },
+    {
+      "year": 2026,
+      "quarter": 1,
+      "rows": 61,
+      "positive": 35,
+      "auc": 0.4032967032967033,
+      "control_auc": 0.41098901098901097,
+      "brier": 0.2769022338966404,
+      "prior_brier": 0.24467307622247128,
+      "prob_min_max": [
+        0.40236559562128055,
+        0.841177818161957
+      ]
+    },
+    {
+      "year": 2026,
+      "quarter": 2,
+      "rows": 62,
+      "positive": 42,
+      "auc": 0.5,
+      "control_auc": 0.8273809523809524,
+      "brier": 0.3047534218680791,
+      "prior_brier": 0.23160520364335258,
+      "prob_min_max": [
+        0.17978038379821576,
+        0.8527124356167387
+      ]
+    },
+    {
+      "year": 2026,
+      "quarter": 3,
+      "rows": 64,
+      "positive": 32,
+      "auc": 0.2744140625,
+      "control_auc": 0.369140625,
+      "brier": 0.32648227796525797,
+      "prior_brier": 0.2539739345122012,
+      "prob_min_max": [
+        0.14301071915641142,
+        0.7039892649314932
+      ]
+    },
+    {
+      "year": 2026,
+      "quarter": 4,
+      "rows": 1,
+      "positive": 0,
+      "auc": null,
+      "control_auc": null,
+      "brier": 0.10044839984791051,
+      "prior_brier": 0.31701308514259274,
+      "prob_min_max": [
+        0.31693595543565345,
+        0.31693595543565345
+      ]
+    }
+  ],
+  "halves": [
+    {
+      "start": "2023-01-03",
+      "end": "2024-12-31",
+      "rows": 502,
+      "positive": 278,
+      "auc": 0.5240075796505652,
+      "control_auc": 0.42617869989722507,
+      "brier": 0.2549352931359452,
+      "prior_brier": 0.2471928306595296,
+      "prob_min_max": [
+        0.19099392784600464,
+        0.7706735717221009
+      ]
+    },
+    {
+      "start": "2025-01-02",
+      "end": "2026-10-07",
+      "rows": 438,
+      "positive": 261,
+      "auc": 0.41736476394571076,
+      "control_auc": 0.4985605125873975,
+      "brier": 0.2910914881250136,
+      "prior_brier": 0.2418842343913042,
+      "prob_min_max": [
+        0.14301071915641142,
+        0.8576813068801505
+      ]
+    }
+  ],
+  "bootstrap": {
+    "draws": 10000,
+    "valid": 10000,
+    "calendar_rows": 944,
+    "scored_rows": 940,
+    "mean_auc_improvement": 0.0027667380713337075,
+    "lower_2p5": -0.07290218539938847,
+    "upper_97p5": 0.09594465360046929
+  },
+  "gates": {
+    "full_auc_above_random_and_control_plus_0p02": false,
+    "partial2023_auc_above_random": true,
+    "both_complete_years_auc_above_random": false,
+    "both_halves_auc_above_random": false,
+    "full_brier_below_train_prior": false,
+    "corrected_auc_improvement_lower_positive": false
+  },
+  "information_pass": false,
+  "new_market_GETs": 0,
+  "new_model_fits": 1,
+  "new_bootstraps": 1,
+  "new_native_accounts": 0,
+  "new_Qlib_Recorders": 1,
+  "independent_validation": false,
+  "SOXX_goal_achieved": false,
+  "limits": [
+    "H5 gross open-price binary labels omit Tiered fees and own-state risk feedback",
+    "2023-2026 held market history has been reused repeatedly and is not independent validation",
+    "No prediction threshold, allocation/cap mapping or complete f696 account is tested"
+  ]
+}
