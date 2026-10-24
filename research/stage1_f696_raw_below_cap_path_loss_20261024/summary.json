@@ -1,0 +1,131 @@
+{
+  "experiment": "stage1_f696_raw_below_cap_path_loss_20261024",
+  "decision": "descriptive_raw_below_cap_smoothing_group_mixed_components_no_policy",
+  "objective_achieved": false,
+  "plan_sha256": "271e9f3bc923dadd9818949bc2dd757e32ea61f3dbfa2aa2f3d7cbca756a266f",
+  "source_recorder_ids": {
+    "action": "9d671fcfb1aa467bb8a9fd83971fb015",
+    "A0": "6e227278b7a64eafbcf34b965e16d2b9",
+    "account": "2f0392615c4c4b15928b4ada6e01ecd9"
+  },
+  "full_sessions": 944,
+  "primary_days": 459,
+  "raw_below_days": 216,
+  "raw_high_days": 243,
+  "daily_component_max_closure_error": 1.0408340855860843e-17,
+  "all_groups": {
+    "raw_below_accepted_cap": {
+      "days": 216,
+      "paired_log_excess_sum": -0.01623131102991044,
+      "paired_log_excess_mean": -7.514495847180759e-05,
+      "cash_opportunity_log_sum": -0.11801449899031513,
+      "cash_opportunity_log_mean": -0.000546363421251459,
+      "SOXL_selection_log_sum": 0.10191118542780478,
+      "SOXL_selection_log_mean": 0.00047181104364724433,
+      "Stage1_direct_fees_log_sum": -0.0025550361017769576,
+      "Stage1_direct_fees_log_mean": -1.1828870841559989e-05,
+      "timing_and_benchmark_residual_log_sum": 0.0024270386343768283,
+      "timing_and_benchmark_residual_log_mean": 1.1236289973966797e-05,
+      "paired_log_excess_positive_days": 103,
+      "paired_log_excess_negative_days": 113,
+      "cash_opportunity_log_positive_days": 100,
+      "cash_opportunity_log_negative_days": 116,
+      "SOXL_selection_log_positive_days": 113,
+      "SOXL_selection_log_negative_days": 103
+    },
+    "raw_high_accepted_cap": {
+      "days": 243,
+      "paired_log_excess_sum": -0.10073520262270075,
+      "paired_log_excess_mean": -0.00041454815894115536,
+      "cash_opportunity_log_sum": -0.046652940659438785,
+      "cash_opportunity_log_mean": -0.00019198741012114727,
+      "SOXL_selection_log_sum": -0.051124429106842374,
+      "SOXL_selection_log_mean": -0.0002103885971474995,
+      "Stage1_direct_fees_log_sum": -0.002866861276423521,
+      "Stage1_direct_fees_log_mean": -1.1797783030549469e-05,
+      "timing_and_benchmark_residual_log_sum": -9.09715799961264e-05,
+      "timing_and_benchmark_residual_log_mean": -3.7436864195936786e-07,
+      "paired_log_excess_positive_days": 109,
+      "paired_log_excess_negative_days": 134,
+      "cash_opportunity_log_positive_days": 119,
+      "cash_opportunity_log_negative_days": 124,
+      "SOXL_selection_log_positive_days": 119,
+      "SOXL_selection_log_negative_days": 124
+    },
+    "other_execute": {
+      "days": 338,
+      "paired_log_excess_sum": -0.14837581145582868,
+      "paired_log_excess_mean": -0.000438981690697718,
+      "cash_opportunity_log_sum": -0.28752789213316754,
+      "cash_opportunity_log_mean": -0.0008506742370803773,
+      "SOXL_selection_log_sum": 0.13990357337092305,
+      "SOXL_selection_log_mean": 0.0004139158975471096,
+      "Stage1_direct_fees_log_sum": -0.004842910501709348,
+      "Stage1_direct_fees_log_mean": -1.432813757902174e-05,
+      "timing_and_benchmark_residual_log_sum": 0.004091417808125092,
+      "timing_and_benchmark_residual_log_mean": 1.2104786414571279e-05,
+      "paired_log_excess_positive_days": 148,
+      "paired_log_excess_negative_days": 190,
+      "cash_opportunity_log_positive_days": 137,
+      "cash_opportunity_log_negative_days": 201,
+      "SOXL_selection_log_positive_days": 82,
+      "SOXL_selection_log_negative_days": 58
+    },
+    "HOLD": {
+      "days": 147,
+      "paired_log_excess_sum": -0.11152594291728024,
+      "paired_log_excess_mean": -0.0007586798837910221,
+      "cash_opportunity_log_sum": -0.1481272691206953,
+      "cash_opportunity_log_mean": -0.001007668497419696,
+      "SOXL_selection_log_sum": 0.035241128534510585,
+      "SOXL_selection_log_mean": 0.00023973556826197676,
+      "Stage1_direct_fees_log_sum": 0.0,
+      "Stage1_direct_fees_log_mean": 0.0,
+      "timing_and_benchmark_residual_log_sum": 0.001360197668904476,
+      "timing_and_benchmark_residual_log_mean": 9.253045366697115e-06,
+      "paired_log_excess_positive_days": 72,
+      "paired_log_excess_negative_days": 75,
+      "cash_opportunity_log_positive_days": 66,
+      "cash_opportunity_log_negative_days": 81,
+      "SOXL_selection_log_positive_days": 69,
+      "SOXL_selection_log_negative_days": 51
+    }
+  },
+  "rolling126_summary": {
+    "good": {
+      "windows": 255,
+      "mean_raw_below_days": 36.6,
+      "mean_raw_high_days": 30.83137254901961,
+      "mean_raw_below_cash_sum": -0.019620824182067363,
+      "mean_raw_below_SOXL_sum": 0.01742625780259856,
+      "mean_raw_below_excess_sum": -0.0022739553206908834
+    },
+    "weak": {
+      "windows": 564,
+      "mean_raw_below_days": 26.55141843971631,
+      "mean_raw_high_days": 33.41843971631206,
+      "mean_raw_below_cash_sum": -0.025385725649509135,
+      "mean_raw_below_SOXL_sum": 0.022196829434963917,
+      "mean_raw_below_excess_sum": -0.003070879331347203
+    }
+  },
+  "new_model_fits": 0,
+  "new_native_accounts": 0,
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "source inputs/raw_predictions",
+      "source inputs/source_targets",
+      "source inputs/frame",
+      "source native/A_active_research_replay_0",
+      "source analysis/daily",
+      "source analysis/rolling126"
+    ]
+  },
+  "limitations": [
+    "Frozen-path cash/SOXL attribution is not the counterfactual impact of shortening EMA/HOLD",
+    "Group membership uses predecision source weights and same-day own-state cap but weak/good windows use future performance",
+    "Overlapping windows and reused history cannot select a tradable switch"
+  ]
+}

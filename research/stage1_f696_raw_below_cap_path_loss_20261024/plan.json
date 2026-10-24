@@ -1,0 +1,42 @@
+{
+  "experiment": "stage1_f696_raw_below_cap_path_loss_20261024",
+  "frozen": true,
+  "phase": "read_only_accepted_cap_saturation_group_account_component_attribution",
+  "question": "On the exact f696 funded 0bp Tiered path, when the raw model beta is below own-state cap but EMA/HOLD accepts a cap-saturated target, are the realized SOXX-relative cash and SOXL-selection components consistently harmful, or do they vary across complete years and good/weak rolling windows?",
+  "sources": {
+    "trace_plan": "research/stage1_f696_beta_saturation_layer_trace_20261024/plan.json",
+    "trace_plan_sha256": "9261bd15725e74b4cf6833a4b92720305bb31c3affdab78137961fa31cf3df0b",
+    "trace_summary_sha256": "1ec63d0768a975f2d5f4aaa47676c233a770718017d0c19a49a2cce5e8c8f6a1",
+    "action_card": "research/stage1_minute_information_comparison_20261012",
+    "action_summary_sha256": "ccdb6337cdf812606e27ef0446e550e07b634c75e703ef8f010e96be8591bc4a",
+    "action_experiment_id": "948959188821794065",
+    "action_recorder_id": "9d671fcfb1aa467bb8a9fd83971fb015",
+    "raw_predictions_sha256": "63c3097b24bd6e2534b31c6d1ae691f1e0e959d0ae2afcc6940e5d427f6fffa9",
+    "source_targets_sha256": "5841299fcc37e8a01f09644072125d4d0aac5ecfaa5ba26fa26d5a41c78c7e42",
+    "action_NAS_sha256": "2540d2ed5459785dcf04016b20342fc73fade653e2600025f5b9aaf889d7e250",
+    "A0_card": "research/stage1_domain_heads_20261018",
+    "A0_summary_sha256": "3b51938ca56ddf45029ff5e4a01a6bbc2f1d1407458efcad7d7c68b0ef5a1d37",
+    "A0_experiment_id": "283510277269468590",
+    "A0_recorder_id": "6e227278b7a64eafbcf34b965e16d2b9",
+    "A0_frame_sha256": "e83a57eb764dc59ee8d9fad7b1a48eb6b295c6183d6c4cab2062b3aa6c66e07c",
+    "A0_native_sha256": "ce59dcab49559c7d07b98de85a75ccb7516561b5a317c110ad1dfe474ce45678",
+    "A0_NAS_sha256": "f3f891d6d09d4187f12815e245b33cc9cfec4acfd4f555b734f66a59348d9884",
+    "account_card": "research/stage1_original_0bp_signal_loss_chain_v2_20261023",
+    "account_summary_sha256": "898089b008f1f6f50016ddbbd2fc082f77423464ed8613c54dbdd5fbbae1dc3a",
+    "account_experiment_id": "954993860986722516",
+    "account_recorder_id": "2f0392615c4c4b15928b4ada6e01ecd9",
+    "account_daily_sha256": "00660bd17990b571040b7de62ca58475175d4a6a4a1b5e94f027b4b986824855",
+    "account_rolling_sha256": "12f8a16607303370c0ad4a339a3c1de00ab92a467b1490249a160084db2b7635",
+    "account_NAS_sha256": "54c6e93b4c304774c272b07312c856a9a2a255086d372066db418b5efed359c7",
+    "provider": "data/qlib/minute_information_pit_allocator_20261012/daily_prices",
+    "provider_manifest_sha256": "d80a08d479b73098053006909b5e6227b03a56ab705681742d7261088e0a7e6c"
+  },
+  "fixed_attribution": {
+    "group": "Original EXECUTE and accepted beta<=cap+1e-9 and projected beta at cap within1e-10. Split into raw_model_beta<cap-1e-10 (the216 lag-looking days) versus raw_model_beta>=cap-1e-10 (the243 raw-high days); retain other EXECUTE and HOLD groups.",
+    "account_components": "Use exact saved native account daily paired_log_excess, cash_opportunity_log, SOXL_selection_log, Stage1_direct_fees_log and timing_and_benchmark_residual_log. Require daily closure then report group full, annual and quarter sums/means and sign counts. These are realized frozen-path components, not effects of replacing EMA/HOLD.",
+    "windows": "Retain all819 contiguous126-session windows; within each, count raw-below and raw-high saturated days and sum their saved components, then compare original SOXX-relative weak/good windows descriptively. Report2023/2026 partial endpoints and complete2024/2025.",
+    "decision": "A raw-below group with mixed component signs or stronger presence in original good windows cannot support a blanket fast-smoothing rule. Any proposed conditional receiver still needs a decision-time factor, frozen economic action and complete own-state0bp account."
+  },
+  "budget": {"Qlib_calendar_reads": 1, "source_Recorder_object_reads": 6, "new_market_GETs": 0, "new_model_fits": 0, "new_native_accounts": 0, "new_bootstraps": 0, "new_Recorders": 0},
+  "stop": "Stop on pinned SHA/NAS/readback, exact944 source and account dates,459/216/243 group counts, daily component closure,819 windows or Qlib calendar mismatch. No new smoothing rule or sign/window selection."
+}

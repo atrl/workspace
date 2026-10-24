@@ -1,0 +1,8 @@
+experiment: stage1_f696_raw_below_cap_path_loss_20261024
+notebook: stage1_f696_raw_below_cap_path_loss_20261024.ipynb
+phase: read_only_accepted_cap_saturation_group_account_component_attribution
+artifact_policy: slim_card_recorder_first
+source_recorders:
+  raw_and_accepted: 9d671fcfb1aa467bb8a9fd83971fb015
+  f696_A0: 6e227278b7a64eafbcf34b965e16d2b9
+  original_0bp_account: 2f0392615c4c4b15928b4ada6e01ecd9
