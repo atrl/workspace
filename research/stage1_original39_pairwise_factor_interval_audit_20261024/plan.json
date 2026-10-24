@@ -1,0 +1,41 @@
+{
+  "experiment": "stage1_original39_pairwise_factor_interval_audit_20261024",
+  "frozen": true,
+  "phase": "read_only_train_selected_original39_SOXL_cash_factor_interval_diagnostic",
+  "question": "Do any original39 decision-time coordinates retain a stable directional relationship with future H5 SOXL-over-cash gross price margin across complete2024/2025 years and the exact f696 good/weak rolling126 windows, despite the failed direct pairwise Logistic and Ridge receivers?",
+  "sources": {
+    "dataset_card": "research/stage1_dual_task_39_information_20261023",
+    "dataset_summary_sha256": "e3a22a8f050b90d6f0a7ea96df0b4499bc387376f0c26abf2bb8ee2b501ad136",
+    "dataset_experiment_id": "666721299406485975",
+    "dataset_recorder_id": "a4bbc11f5c764ac38ff2f682eadd0e1d",
+    "dataset_artifact_sha256": "3bc64249f92a922d9edace380e7eecfdeeb52e3a9e611e004bb8e74982aa9b12",
+    "dataset_NAS_sha256": "5ebda191e82d5262b92f7c196dcaca036c22ae8a8f14e30ded63ce4b07b32f66",
+    "original39_card": "research/minute_information_pit_allocator_20261012",
+    "original39_summary_sha256": "61c91f958323cf51b43f4b1554eeca5687011d30771e80bc7ff02d16b6d577ca",
+    "f696_card": "research/stage1_domain_heads_20261018",
+    "f696_summary_sha256": "3b51938ca56ddf45029ff5e4a01a6bbc2f1d1407458efcad7d7c68b0ef5a1d37",
+    "f696_experiment_id": "283510277269468590",
+    "f696_recorder_id": "6e227278b7a64eafbcf34b965e16d2b9",
+    "f696_frame_sha256": "e83a57eb764dc59ee8d9fad7b1a48eb6b295c6183d6c4cab2062b3aa6c66e07c",
+    "f696_NAS_sha256": "f3f891d6d09d4187f12815e245b33cc9cfec4acfd4f555b734f66a59348d9884",
+    "account_card": "research/stage1_original_0bp_signal_loss_chain_v2_20261023",
+    "account_summary_sha256": "898089b008f1f6f50016ddbbd2fc082f77423464ed8613c54dbdd5fbbae1dc3a",
+    "account_experiment_id": "954993860986722516",
+    "account_recorder_id": "2f0392615c4c4b15928b4ada6e01ecd9",
+    "account_rolling_sha256": "12f8a16607303370c0ad4a339a3c1de00ab92a467b1490249a160084db2b7635",
+    "account_NAS_sha256": "54c6e93b4c304774c272b07312c856a9a2a255086d372066db418b5efed359c7",
+    "regime_plan": "research/stage1_f696_window_regime_pairing_20261023/plan.json",
+    "regime_plan_sha256": "e8265111f2680953aff3502a97cd64132949459945071953ad0e0d9f3df1f53b",
+    "provider": "data/qlib/minute_information_pit_allocator_20261012/daily_prices",
+    "provider_manifest_sha256": "d80a08d479b73098053006909b5e6227b03a56ab705681742d7261088e0a7e6c"
+  },
+  "fixed_diagnostic": {
+    "target": "Same-date saved native Qlib DatasetH H5 gross-price margin SOXL_relative_H5 minus cash_advantage_H5; require both labels mature, preserve last4 f696 held dates as unknown. This is future descriptive, not decision-time input.",
+    "train_selection": "On 3014 mature 2011-2022 rows calculate pairwise complete-case Spearman for each of the original39 feature columns versus continuous target. Report all39, then select exactly the five largest absolute training correlations, ties by feature name. Freeze each selected factor's train sign before reading held-year/window correlations; no held-based replacement or sign flip.",
+    "held_reporting": "For all39 report full held correlation and each partial2023/2026 and complete2024/2025 year. For the five train-selected factors also report all16 quarters and all819 contiguous original-account126-day window correlations and finite counts, retaining122-126 mature labels per window.",
+    "matched_windows": "Weak/good windows are defined only by original f696 own-state SOXX relative_log_excess. Match first-trade-year and the prior signal-day SOXX5/20-session return-sign state. In every cell containing both outcomes report five selected factors' weak-minus-good mean window correlations, weighted by smaller group count; show 2023 unmatched cells. Never select a switch from future outcomes.",
+    "interpretation": "Training rank is descriptive multiple-comparison screening, not an information gate. A stable factor requires a new mechanism, source/timing check, matched control and frozen economic receiver before any model or full0bp account. Reused held history is not independent validation."
+  },
+  "budget": {"Qlib_day_calendar_reads": 1, "Qlib_feature_reads": 1, "source_Recorder_object_reads": 3, "DatasetH_prepare_reads": 2, "new_market_GETs": 0, "new_model_fits": 0, "new_native_accounts": 0, "new_bootstraps": 0, "new_Recorders": 0},
+  "stop": "Stop on source SHA/NAS/readback, original39 order,3014/940 mature labels,944 f696 dates,819 windows, Qlib calendar, finite target or matched-state disagreement. No factor is promoted from reused history."
+}

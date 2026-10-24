@@ -1,0 +1,8 @@
+experiment: stage1_original39_pairwise_factor_interval_audit_20261024
+notebook: stage1_original39_pairwise_factor_interval_audit_20261024.ipynb
+phase: read_only_train_selected_original39_SOXL_cash_factor_interval_diagnostic
+artifact_policy: slim_card_recorder_first
+source_recorders:
+  original39_dataset: a4bbc11f5c764ac38ff2f682eadd0e1d
+  exact_f696: 6e227278b7a64eafbcf34b965e16d2b9
+  original_0bp_account: 2f0392615c4c4b15928b4ada6e01ecd9

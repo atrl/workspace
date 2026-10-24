@@ -1,0 +1,40 @@
+{
+  "experiment": "stage1_original39_pairwise_factor_interval_audit_20261024",
+  "decision": "descriptive_original39_pairwise_train_rank_small_effect_no_policy",
+  "objective_achieved": false,
+  "plan_sha256": "6779e2e5e0b7cbd6c667013ee981723f4387f10a92ba4bf21152303025dc8109",
+  "source_recorder_ids": {
+    "dataset": "a4bbc11f5c764ac38ff2f682eadd0e1d",
+    "f696": "6e227278b7a64eafbcf34b965e16d2b9",
+    "account": "2f0392615c4c4b15928b4ada6e01ecd9"
+  },
+  "train_mature_rows": 3014,
+  "held_mature_rows": 940,
+  "selected_top5": [
+    "cross_vol_breadth_high",
+    "soxl_ret3",
+    "soxx_trend60",
+    "soxx_ret3",
+    "soxx_drawdown60"
+  ],
+  "rolling126_windows": 819,
+  "rolling126_gzip_path": "rolling126.json.gz",
+  "rolling126_gzip_sha256": "d4993d9c7a4b9c93fe27694fa551c3b4e903b47c07e2e48517968b11436e61a7",
+  "matched_state_year_cells": 12,
+  "new_model_fits": 0,
+  "new_native_accounts": 0,
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "source inputs/dataset",
+      "source inputs/frame",
+      "source analysis/rolling126"
+    ]
+  },
+  "limitations": [
+    "39 training correlations are a multiple-comparison descriptive screen, not a new fitted factor or causal importance",
+    "H5 gross-price future margins are unavailable at Stage1 decision time",
+    "Repeated held market history and overlapping weak/good windows are not independent validation or a policy threshold"
+  ]
+}
