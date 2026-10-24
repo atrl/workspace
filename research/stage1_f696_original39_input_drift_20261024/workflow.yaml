@@ -1,0 +1,7 @@
+experiment: stage1_f696_original39_input_drift_20261024
+entrypoint: stage1_f696_original39_input_drift_20261024.ipynb
+phase: frozen_read_only_diagnostic
+source_recorder_ids:
+  features: 68e31a0a0fad44e7ba1d1f7d856c7a0d
+  account: 2f0392615c4c4b15928b4ada6e01ecd9
+artifact_policy: slim_card_recorder_first

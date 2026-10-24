@@ -1,0 +1,57 @@
+{
+  "experiment": "stage1_f696_original39_input_drift_20261024",
+  "decision": "descriptive_2026_input_shift_not_sufficient_to_explain_exact_f696_weak_intervals",
+  "objective_achieved": false,
+  "plan_sha256": "80e3173d76d326e1022f78931147a2e80cee7da8f0a0b9f638188cc5f8b3acde",
+  "result": "result.json",
+  "features_recorder_id": "68e31a0a0fad44e7ba1d1f7d856c7a0d",
+  "account_recorder_id": "2f0392615c4c4b15928b4ada6e01ecd9",
+  "source_NAS_sha256": "ee328cab292f178bf3582ef574fb411561c93b82545cd3bb90842ecd9a9a24f1",
+  "account_NAS_sha256": "54c6e93b4c304774c272b07312c856a9a2a255086d372066db418b5efed359c7",
+  "train_sessions": 3020,
+  "held_sessions": 944,
+  "rolling126_windows": 819,
+  "matched_state_year_cells": 12,
+  "annual_outside_summary": {
+    "2023": {
+      "features_outside_train_1_99_over_10pct": 0,
+      "median_outside_fraction": 0.012,
+      "minimum_held_feature_coverage": 250
+    },
+    "2024": {
+      "features_outside_train_1_99_over_10pct": 1,
+      "median_outside_fraction": 0.027777777777777776,
+      "minimum_held_feature_coverage": 252
+    },
+    "2025": {
+      "features_outside_train_1_99_over_10pct": 4,
+      "median_outside_fraction": 0.056,
+      "minimum_held_feature_coverage": 250
+    },
+    "2026": {
+      "features_outside_train_1_99_over_10pct": 20,
+      "median_outside_fraction": 0.125,
+      "minimum_held_feature_coverage": 192
+    }
+  },
+  "new_model_fits": 0,
+  "new_native_accounts": 0,
+  "independent_forward_days": 0,
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [],
+    "reused_native_sources": [
+      "research/minute_information_pit_allocator_20261012/qlib_recorder",
+      "research/stage1_original_0bp_signal_loss_chain_v2_20261023/qlib_recorder"
+    ]
+  },
+  "limitations": [
+    "All 39 feature drift statistics are descriptive and not ranked for selection",
+    "Weak/good groups use future returns and 126-session windows overlap",
+    "Four 2023 state-year cells have no good window for matched comparison",
+    "Feature distribution shift does not prove causal importance or incremental predictive value",
+    "No individual feature or threshold is selected from the reused held outcomes",
+    "The original model mapping from 39 inputs to five f696 outputs is not identified by distribution statistics"
+  ]
+}

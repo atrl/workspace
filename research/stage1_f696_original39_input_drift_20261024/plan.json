@@ -1,0 +1,42 @@
+{
+  "experiment": "stage1_f696_original39_input_drift_20261024",
+  "frozen": true,
+  "phase": "read_only_original39_input_distribution_and_matched_interval_diagnostic",
+  "question": "Did the original Stage1 39-input families shift between training and the exact f696 evaluation path, and are predecision input-shift magnitudes different between weak and good windows matched by prior SOXX trend signs and first-trade year?",
+  "sources": {
+    "features_card": "research/minute_information_pit_allocator_20261012",
+    "features_summary_sha256": "61c91f958323cf51b43f4b1554eeca5687011d30771e80bc7ff02d16b6d577ca",
+    "features_experiment_id": "905520356740140469",
+    "features_recorder_id": "68e31a0a0fad44e7ba1d1f7d856c7a0d",
+    "features_artifact_sha256": "482d6a908ae95230143dc08014732c3247d22ccb1560f8509f6ac564a4d647ec",
+    "timing_artifact_sha256": "66e3292d7f47ac6981f2e488ed198d1109f340f2c3a4bf2a5f538fa41465764e",
+    "features_nas_archive_sha256": "ee328cab292f178bf3582ef574fb411561c93b82545cd3bb90842ecd9a9a24f1",
+    "features_nas_size_bytes": 25284463,
+    "features_nas_readback_sha256": "fad9abb3f59a2079487a5334b400baafe746e91a8eb76dff7a8f2babbfdfbae8",
+    "account_card": "research/stage1_original_0bp_signal_loss_chain_v2_20261023",
+    "account_summary_sha256": "898089b008f1f6f50016ddbbd2fc082f77423464ed8613c54dbdd5fbbae1dc3a",
+    "account_experiment_id": "954993860986722516",
+    "account_recorder_id": "2f0392615c4c4b15928b4ada6e01ecd9",
+    "account_daily_sha256": "00660bd17990b571040b7de62ca58475175d4a6a4a1b5e94f027b4b986824855",
+    "account_rolling126_sha256": "12f8a16607303370c0ad4a339a3c1de00ab92a467b1490249a160084db2b7635",
+    "account_nas_sha256": "54c6e93b4c304774c272b07312c856a9a2a255086d372066db418b5efed359c7",
+    "account_nas_size_bytes": 292154,
+    "provider": "data/qlib/minute_information_pit_allocator_20261012/daily_prices",
+    "provider_manifest_sha256": "d80a08d479b73098053006909b5e6227b03a56ab705681742d7261088e0a7e6c"
+  },
+  "fixed_scope": {
+    "input_order": "Exactly the 39 original_features in the pinned source summary, no later minute-derived extra columns",
+    "train": "Qlib signal dates 2011-01-03 through 2022-12-30; use training finite median and standard deviation for each feature",
+    "held": "Exactly 944 f696 signal dates; retain partial 2023/2026 and complete 2024/2025",
+    "families_by_original_feature_index": {"trend_relative_breadth": [0, 22], "volatility_risk": [23, 31], "tracking_structure": [32, 38]},
+    "feature_drift": "Per held year and each original feature report finite coverage, held median minus training median divided by training standard deviation, and fraction outside training finite 1st/99th percentile; report all 39 without ranking or selection",
+    "family_magnitude": "Per day mean absolute (feature minus training median)/training standard deviation across finite family members; require all family members finite for a day",
+    "window_outcome": "Exact f696 rolling126 paired log excess below/above zero, diagnostic only",
+    "window_start_state": "Before first-trade 09:29, prior signal-day Qlib SOXX 5/20-session close-return signs",
+    "matched_cell": "Start state x first-trade year; compare only cells with both weak and good windows, weighting each cell by the smaller group count",
+    "unmatched_2023": "Preserve all 2023 windows and report separately; never infer a within-year contrast where no good window exists"
+  },
+  "budget": {"new_market_requests": 0, "new_model_fits": 0, "new_native_accounts": 0, "new_bootstraps": 0, "new_recorders": 0},
+  "interpretation": "Feature drift and outcome-defined overlapping-window contrasts are descriptive reused-history evidence. They do not show causal importance, incremental predictive information, a tradable threshold, or SOXX strategy success. A separate frozen information and complete own-state 0bp account gate is required for any proposed factor change.",
+  "stop": "Stop on source SHA/NAS receipt, Qlib calendar, feature order, training/held coverage, 944/819 account support, or signal-before-decision timing mismatch."
+}
