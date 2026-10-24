@@ -1,0 +1,29 @@
+{
+  "schema_version": 1,
+  "status": "exact_later_vintage_archived_and_remote_hash_verified",
+  "target_trade_date": "2026-10-23",
+  "phase": "later",
+  "member_sha256": {
+    "research/cboe_total_options_activity_source_20261022/multiday_forward_observations/2026-10-23/later.json": "12d8f430bd64472759a916584d2e7d781d2400b11ab687df6033c633ebab5aa9",
+    "data/snapshots/cboe_total_options_activity_source_20261022/multiday_forward/2026-10-23/later/soxx.csv": "18ea6496e5e5645c74a520c51a6efa0cc99d9ee34cf57e1a835679fb63954322",
+    "data/snapshots/cboe_total_options_activity_source_20261022/multiday_forward/2026-10-23/later/soxl.csv": "c28eeff69af27cac4f5f835031071f0e921270ddd49107d3438fe0690e5bccaf"
+  },
+  "nas_evidence": {
+    "sha256": "eb23351a5b3656412dea0930cbcc10f889b4698e48faeb68bfbc4d74c2e74abc",
+    "size_bytes": 1412,
+    "media_type": "application/gzip",
+    "storage_uri": "sha256/eb/23/eb23351a5b3656412dea0930cbcc10f889b4698e48faeb68bfbc4d74c2e74abc",
+    "uploaded_by": "soxl-minute-research",
+    "created_at": "2026-10-24 20:50:05.14852+08",
+    "duplicate": false
+  },
+  "nas_path": "/volume1/docker/yanxuan/registry/research-artifacts/eb/23/eb23351a5b3656412dea0930cbcc10f889b4698e48faeb68bfbc4d74c2e74abc",
+  "remote_sha256": "eb23351a5b3656412dea0930cbcc10f889b4698e48faeb68bfbc4d74c2e74abc",
+  "earlier_same_date_receipt": "absent_missed_window",
+  "predecessor_earlier_receipt": "absent_missed_window",
+  "source_GETs": 2,
+  "model_fits": 0,
+  "accounts": 0,
+  "market_outcome_reads": 0,
+  "qualified_strategy_days": 0
+}
