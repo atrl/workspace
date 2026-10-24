@@ -1,0 +1,26 @@
+{
+  "experiment": "stage1_f696_static_oracle_effect_size_20261024",
+  "decision": "descriptive_per_day_hindsight_oracle_bound_not_a_factor_or_account",
+  "objective_achieved": false,
+  "plan_sha256": "25a5fc0952dd2dccbe9888a2a271db2f5f256960ad53ffb48486da977f95d8fe",
+  "result": "result.json",
+  "source_recorder_id": "2f0392615c4c4b15928b4ada6e01ecd9",
+  "sessions": 944,
+  "rolling126_windows": 819,
+  "new_model_fits": 0,
+  "new_native_accounts": 0,
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [],
+    "reused_native_source": "research/stage1_original_0bp_signal_loss_chain_v2_20261023/qlib_recorder"
+  },
+  "limitations": [
+    "Outcome-known erasure of only negative daily components is a perfect hindsight oracle, not a decision-time feature",
+    "The old account path, holdings, own-state risk feedback, direct fees and NAV are held fixed; this is not a new native account",
+    "Available/full-minute drawdown, CVaR5, corrected block lower, 2/5bp and forward evidence are not evaluated",
+    "All 819 rolling windows overlap and cannot be treated as independent trials",
+    "The per-day negative-loss erasure is stronger than the earlier per-window net-component erasure and the fractions are not comparable",
+    "Passing only wealth/year/window accounting under hindsight does not establish any v2 strategy gate as met"
+  ]
+}

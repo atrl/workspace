@@ -1,0 +1,5 @@
+experiment: stage1_f696_static_oracle_effect_size_20261024
+entrypoint: stage1_f696_static_oracle_effect_size_20261024.ipynb
+phase: frozen_read_only_accounting_bound
+source_recorder_id: 2f0392615c4c4b15928b4ada6e01ecd9
+artifact_policy: slim_card_recorder_first

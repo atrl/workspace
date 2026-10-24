@@ -1,0 +1,142 @@
+{
+  "status": "read_only_static_oracle_effect_size_no_policy",
+  "plan_sha256": "25a5fc0952dd2dccbe9888a2a271db2f5f256960ad53ffb48486da977f95d8fe",
+  "source_recorder_id": "2f0392615c4c4b15928b4ada6e01ecd9",
+  "sessions": 944,
+  "complete_years": [
+    "2024",
+    "2025"
+  ],
+  "partial_years": [
+    "2023",
+    "2026"
+  ],
+  "quarters": 16,
+  "rolling126_windows": 819,
+  "daily_component_closure_max_abs": 1.0408340855860843e-17,
+  "source_rolling_sum_max_abs": 9.71445146547012e-17,
+  "original_full_relative_wealth": 0.6860064369263443,
+  "original_positive_rolling126": 255,
+  "required_positive_rolling126": 574,
+  "routes": [
+    {
+      "route": "cash_only",
+      "full_base_log": -0.37686826802572004,
+      "erasable_negative_log": 4.261026775310702,
+      "wealth_break_even_fraction_infimum": 0.08844541184518603,
+      "annual": [
+        {
+          "year": 2024,
+          "base_log": 0.009739193498322307,
+          "erasable_negative_log": 1.0374962897712905,
+          "break_even_fraction_infimum": 0.0
+        },
+        {
+          "year": 2025,
+          "base_log": -0.1480102316761928,
+          "erasable_negative_log": 1.2687262100188088,
+          "break_even_fraction_infimum": 0.11666049814955627
+        }
+      ],
+      "annual_break_even_fraction_infimum": 0.11666049814955627,
+      "rolling574_break_even_fraction_infimum": 0.22774891591120097,
+      "joint_reported_gate_fraction_infimum": 0.22774891591120097,
+      "feasible_at_or_below_full_erasure": true,
+      "full_erasure_static": {
+        "full_relative_wealth": 48.626006807890406,
+        "complete_year_positive": 2,
+        "positive_rolling126": 819
+      },
+      "just_above_infimum_static": {
+        "fraction_just_above_infimum": 0.227748915911201,
+        "full_relative_wealth": 1.8104509551179166,
+        "complete_year_positive": 2,
+        "positive_rolling126": 574
+      }
+    },
+    {
+      "route": "selection_only",
+      "full_base_log": -0.37686826802572004,
+      "erasable_negative_log": 2.178371275081709,
+      "wealth_break_even_fraction_infimum": 0.17300460777127355,
+      "annual": [
+        {
+          "year": 2024,
+          "base_log": 0.009739193498322307,
+          "erasable_negative_log": 0.4645951753067372,
+          "break_even_fraction_infimum": 0.0
+        },
+        {
+          "year": 2025,
+          "base_log": -0.1480102316761928,
+          "erasable_negative_log": 0.4970389733970275,
+          "break_even_fraction_infimum": 0.29778395578240574
+        }
+      ],
+      "annual_break_even_fraction_infimum": 0.29778395578240574,
+      "rolling574_break_even_fraction_infimum": 0.3354156043797136,
+      "joint_reported_gate_fraction_infimum": 0.3354156043797136,
+      "feasible_at_or_below_full_erasure": true,
+      "full_erasure_static": {
+        "full_relative_wealth": 6.058746963831114,
+        "complete_year_positive": 2,
+        "positive_rolling126": 796
+      },
+      "just_above_infimum_static": {
+        "fraction_just_above_infimum": 0.3354156043797137,
+        "full_relative_wealth": 1.4244580844383676,
+        "complete_year_positive": 2,
+        "positive_rolling126": 574
+      }
+    },
+    {
+      "route": "cash_and_selection",
+      "full_base_log": -0.37686826802572004,
+      "erasable_negative_log": 6.439398050392411,
+      "wealth_break_even_fraction_infimum": 0.05852538778880955,
+      "annual": [
+        {
+          "year": 2024,
+          "base_log": 0.009739193498322307,
+          "erasable_negative_log": 1.5020914650780277,
+          "break_even_fraction_infimum": 0.0
+        },
+        {
+          "year": 2025,
+          "base_log": -0.1480102316761928,
+          "erasable_negative_log": 1.7657651834158363,
+          "break_even_fraction_infimum": 0.08382214864485552
+        }
+      ],
+      "annual_break_even_fraction_infimum": 0.08382214864485552,
+      "rolling574_break_even_fraction_infimum": 0.13437817932211732,
+      "joint_reported_gate_fraction_infimum": 0.13437817932211732,
+      "feasible_at_or_below_full_erasure": true,
+      "full_erasure_static": {
+        "full_relative_wealth": 429.46050540072315,
+        "complete_year_positive": 2,
+        "positive_rolling126": 819
+      },
+      "just_above_infimum_static": {
+        "fraction_just_above_infimum": 0.13437817932211735,
+        "full_relative_wealth": 1.6297820886166678,
+        "complete_year_positive": 2,
+        "positive_rolling126": 574
+      }
+    }
+  ],
+  "new_market_requests": 0,
+  "new_model_fits": 0,
+  "new_native_accounts": 0,
+  "new_bootstraps": 0,
+  "new_recorders": 0,
+  "policy_inference": false,
+  "independent_validation": false,
+  "SOXX_goal_achieved": false,
+  "limits": [
+    "Outcome-known erasure of only negative daily components is a perfect hindsight oracle, not a decision-time feature",
+    "The old account path, holdings, own-state risk feedback, direct fees and NAV are held fixed; this is not a new native account",
+    "Available/full-minute drawdown, CVaR5, corrected block lower, 2/5bp and forward evidence are not evaluated",
+    "All 819 rolling windows overlap and cannot be treated as independent trials"
+  ]
+}

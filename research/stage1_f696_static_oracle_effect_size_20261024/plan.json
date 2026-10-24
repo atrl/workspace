@@ -1,0 +1,32 @@
+{
+  "experiment": "stage1_f696_static_oracle_effect_size_20261024",
+  "frozen": true,
+  "phase": "read_only_exact_f696_0bp_component_effect_size_bound",
+  "question": "On the frozen exact f696 A0 0bp Tiered account path, what uniform fraction of all negative cash and/or SOXL-relative selection log contributions would have to be erased by a perfect hindsight oracle to clear SOXX wealth, both complete-year and 70% rolling126 positivity gates?",
+  "source": {
+    "card": "research/stage1_original_0bp_signal_loss_chain_v2_20261023",
+    "summary_sha256": "898089b008f1f6f50016ddbbd2fc082f77423464ed8613c54dbdd5fbbae1dc3a",
+    "experiment_id": "954993860986722516",
+    "recorder_id": "2f0392615c4c4b15928b4ada6e01ecd9",
+    "artifact_sha256": {
+      "analysis/daily": "00660bd17990b571040b7de62ca58475175d4a6a4a1b5e94f027b4b986824855",
+      "analysis/rolling126": "12f8a16607303370c0ad4a339a3c1de00ab92a467b1490249a160084db2b7635",
+      "analysis/periods": "fe3bcddd528e9413a238b4c2a94f9f52b35cf625a1d5c17a7543a9d50b5e71a7"
+    },
+    "nas_sha256": "54c6e93b4c304774c272b07312c856a9a2a255086d372066db418b5efed359c7",
+    "nas_size_bytes": 292154,
+    "provider": "data/qlib/minute_information_pit_allocator_20261012/daily_prices",
+    "provider_manifest_sha256": "d80a08d479b73098053006909b5e6227b03a56ab705681742d7261088e0a7e6c"
+  },
+  "method": {
+    "population": "All944 daily exact-f696 Tiered sessions, both partial endpoint years, complete2024/2025, 16quarters and all819 overlapping contiguous126-session windows",
+    "components": {"cash": "max(0,-daily cash_opportunity_log)", "selection": "max(0,-daily SOXL_selection_log)", "both": "sum of cash and selection nonnegative erasures"},
+    "static_oracle": "For each route, add the same fraction f in [0,1] of its outcome-known negative component erasure to the original daily paired log excess; freeze all original proposals, holdings, risk state, fees, timing and NAV path. Positive protective components are never removed.",
+    "gates_audited": ["full fee-net relative wealth >1", "both complete2024 and2025 years positive", "at least574/819 contiguous126 windows positive"],
+    "threshold": "Compute the infimum f from full-log, two annual and the574th ordered window break-even ratio; evaluate at the next floating value above f to respect strict positivity. Report if f>1 or no capacity.",
+    "excluded_gates": ["available/full-minute drawdown", "CVaR5", "corrected paired block lower", "2/5bp paths", "independent forward evidence"],
+    "interpretation": "These are perfect hindsight fixed-path necessary accounting effect sizes, not a feasible factor, own-state counterfactual or proof that a particular policy can attain them."
+  },
+  "budget": {"new_market_requests": 0, "new_model_fits": 0, "new_native_accounts": 0, "new_bootstraps": 0, "new_recorders": 0},
+  "stop": "Stop on source SHA/NAS/Qlib calendar, 944/16/819 coverage, daily component closure or source rolling sums mismatch. No factor sign, threshold or trading rule chosen from the oracle."
+}
