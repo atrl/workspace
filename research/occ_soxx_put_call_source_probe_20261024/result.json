@@ -1,0 +1,39 @@
+{
+  "status": "fixed_old_date_OCC_source_query_failed",
+  "decision": "fixed_old_date_OCC_source_query_failed",
+  "plan_sha256": "fd710adfc438a01337b0eb30393373e07eee1cc21a802ff0256577766eb97ff3",
+  "source_receipt": "source_receipt.json",
+  "source_gate_pass": false,
+  "NAS_readback_verified": true,
+  "NAS_error": null,
+  "NAS_evidence": {
+    "sha256": "ce8c3136308eec415717b3472303b15b21ba411293583cc73f19dcc834044f88",
+    "size_bytes": 59757,
+    "media_type": "application/gzip",
+    "storage_uri": "sha256/ce/8c/ce8c3136308eec415717b3472303b15b21ba411293583cc73f19dcc834044f88",
+    "uploaded_by": "soxl-minute-research",
+    "created_at": "2026-10-24 17:11:14.30741+08",
+    "duplicate": false,
+    "nas_path": "/volume1/docker/yanxuan/registry/research-artifacts/ce/8c/ce8c3136308eec415717b3472303b15b21ba411293583cc73f19dcc834044f88",
+    "recorder_id": "2533eb1378104aaab3f8a7e428693a05",
+    "experiment_id": "590621474088119714",
+    "archive_root": "qlib_recorder"
+  },
+  "recorder_id": "2533eb1378104aaab3f8a7e428693a05",
+  "experiment_id": "590621474088119714",
+  "response_sha256": {
+    "call": "1a8e216ba41f75fccdf638f788a882a66cc1087d7b7838155afe5a26a8d1f485",
+    "put": "1a8e216ba41f75fccdf638f788a882a66cc1087d7b7838155afe5a26a8d1f485"
+  },
+  "HTTP_GETs": 2,
+  "SOXX_outcome_reads": 0,
+  "model_fits": 0,
+  "native_accounts": 0,
+  "historical_first_public_qualified": false,
+  "historical_2011_2022_coverage_qualified": false,
+  "option_IV_skew_qualified": false,
+  "independent_forward_days": 0,
+  "next_action": "If both old-date sides are real and NAS verified, freeze a separate sparse-date coverage/revision pilot before any factor. Otherwise close these exact URLs and preserve the concrete response/transport dependency.",
+  "exact_origin_error_text": "Report date cannot be prior to  2 years\r\n",
+  "origin_age_gate": "public OCC Volume Query refuses requested 2019 report date because it is older than two years"
+}

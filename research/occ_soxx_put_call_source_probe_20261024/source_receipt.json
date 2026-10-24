@@ -1,0 +1,61 @@
+{
+  "plan_sha256": "fd710adfc438a01337b0eb30393373e07eee1cc21a802ff0256577766eb97ff3",
+  "HTTP_GET_attempts": 2,
+  "records": [
+    {
+      "kind": "call",
+      "requested_url": "https://marketdata.theocc.com/volume-query?reportDate=20190531&format=csv&volumeQueryType=O&symbolType=U&symbol=SOXX&reportType=D&accountType=ALL&productKind=ALL&porc=C",
+      "final_url": "https://marketdata.theocc.com/volume-query?reportDate=20190531&format=csv&volumeQueryType=O&symbolType=U&symbol=SOXX&reportType=D&accountType=ALL&productKind=ALL&porc=C",
+      "requested_at_utc": "2026-10-24T09:11:11.575485+00:00",
+      "received_at_utc": "2026-10-24T09:11:12.406331+00:00",
+      "http_status": 200,
+      "selected_headers": {
+        "Date": "Sat, 24 Oct 2026 09:11:12 GMT",
+        "Last-Modified": null,
+        "Content-Type": "application/octet-stream",
+        "Content-Disposition": "attachment; filename=volume-query.txt",
+        "Cache-Control": null,
+        "Content-Encoding": null
+      },
+      "response_path": "data/snapshots/occ_soxx_put_call_source_probe_20261024/call.response",
+      "response_bytes": 41,
+      "response_sha256": "1a8e216ba41f75fccdf638f788a882a66cc1087d7b7838155afe5a26a8d1f485",
+      "response_is_complete": true,
+      "transport_error": null,
+      "decode_error": null,
+      "record_layout_rows": 0,
+      "SOXX_expected_side_date_rows": 0,
+      "SOXX_expected_side_contracts": 0
+    },
+    {
+      "kind": "put",
+      "requested_url": "https://marketdata.theocc.com/volume-query?reportDate=20190531&format=csv&volumeQueryType=O&symbolType=U&symbol=SOXX&reportType=D&accountType=ALL&productKind=ALL&porc=P",
+      "final_url": "https://marketdata.theocc.com/volume-query?reportDate=20190531&format=csv&volumeQueryType=O&symbolType=U&symbol=SOXX&reportType=D&accountType=ALL&productKind=ALL&porc=P",
+      "requested_at_utc": "2026-10-24T09:11:12.406683+00:00",
+      "received_at_utc": "2026-10-24T09:11:13.196457+00:00",
+      "http_status": 200,
+      "selected_headers": {
+        "Date": "Sat, 24 Oct 2026 09:11:13 GMT",
+        "Last-Modified": null,
+        "Content-Type": "application/octet-stream",
+        "Content-Disposition": "attachment; filename=volume-query.txt",
+        "Cache-Control": null,
+        "Content-Encoding": null
+      },
+      "response_path": "data/snapshots/occ_soxx_put_call_source_probe_20261024/put.response",
+      "response_bytes": 41,
+      "response_sha256": "1a8e216ba41f75fccdf638f788a882a66cc1087d7b7838155afe5a26a8d1f485",
+      "response_is_complete": true,
+      "transport_error": null,
+      "decode_error": null,
+      "record_layout_rows": 0,
+      "SOXX_expected_side_date_rows": 0,
+      "SOXX_expected_side_contracts": 0
+    }
+  ],
+  "historical_first_public_qualified": false,
+  "historical_revision_qualified": false,
+  "SOXX_outcome_reads": 0,
+  "model_fits": 0,
+  "native_accounts": 0
+}

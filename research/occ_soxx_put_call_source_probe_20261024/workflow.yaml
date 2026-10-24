@@ -1,0 +1,6 @@
+experiment: occ_soxx_put_call_source_probe_20261024
+entrypoint: occ_soxx_put_call_source_probe_20261024.ipynb
+phase: frozen_source_only_probe
+artifact_policy: slim_card_recorder_first
+recorder_only_artifacts:
+  - sources/*

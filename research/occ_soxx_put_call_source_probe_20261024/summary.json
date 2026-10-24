@@ -1,0 +1,50 @@
+{
+  "experiment": "occ_soxx_put_call_source_probe_20261024",
+  "decision": "fixed_old_date_OCC_source_query_failed_two_year_public_age_gate",
+  "objective_achieved": false,
+  "plan_sha256": "fd710adfc438a01337b0eb30393373e07eee1cc21a802ff0256577766eb97ff3",
+  "result": "result.json",
+  "source_receipt": "source_receipt.json",
+  "exact_response_paths": [
+    "data/snapshots/occ_soxx_put_call_source_probe_20261024/call.response",
+    "data/snapshots/occ_soxx_put_call_source_probe_20261024/put.response"
+  ],
+  "HTTP_GETs": 2,
+  "source_gate_pass": false,
+  "origin_age_gate": "public OCC Volume Query refuses requested 2019 report date because it is older than two years",
+  "historical_2011_2022_coverage_qualified": false,
+  "historical_first_public_qualified": false,
+  "model_fits": 0,
+  "native_accounts": 0,
+  "recorder_id": "2533eb1378104aaab3f8a7e428693a05",
+  "experiment_id": "590621474088119714",
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "sources/*"
+    ],
+    "exact_small_raw_files": "data/snapshots/occ_soxx_put_call_source_probe_20261024/*.response",
+    "recorder_delivery": "NAS content-addressed archive with verified scoped raw-body readback",
+    "local_recorder_git_tracked": false
+  },
+  "NAS_evidence": {
+    "sha256": "ce8c3136308eec415717b3472303b15b21ba411293583cc73f19dcc834044f88",
+    "size_bytes": 59757,
+    "media_type": "application/gzip",
+    "storage_uri": "sha256/ce/8c/ce8c3136308eec415717b3472303b15b21ba411293583cc73f19dcc834044f88",
+    "uploaded_by": "soxl-minute-research",
+    "created_at": "2026-10-24 17:11:14.30741+08",
+    "duplicate": false,
+    "nas_path": "/volume1/docker/yanxuan/registry/research-artifacts/ce/8c/ce8c3136308eec415717b3472303b15b21ba411293583cc73f19dcc834044f88",
+    "recorder_id": "2533eb1378104aaab3f8a7e428693a05",
+    "experiment_id": "590621474088119714",
+    "archive_root": "qlib_recorder"
+  },
+  "NAS_readback_verified": true,
+  "limitations": [
+    "Both HTTP200 bodies are a 41-byte source age rejection, not CSV or positive SOXX option volume",
+    "Only the two exact frozen old-date call/put URLs were tested; no inference that all public or licensed OCC routes lack history",
+    "Neither first-public PIT, IV/Delta skew, an information fit, funded Stage1 account nor independent forward evidence follows"
+  ]
+}

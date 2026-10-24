@@ -3,6 +3,8 @@
   "campaign": "three_asset_stable_excess_20261015",
   "objective_achieved": false,
   "latest_external_data_availability_audit": "research/stage1_external_data_availability_audit_20261024/decision.json",
+  "latest_OCC_public_SOXX_put_call_old_date_probe": "research/occ_soxx_put_call_source_probe_20261024/result.json",
+  "OCC_public_volume_query_history_limit": "Two frozen read-only public OCC Volume Query GETs for SOXX-underlying calls and puts on2019-05-31 each returned HTTP200 with exact41-byte body 'Report date cannot be prior to  2 years'. No historical CSV rows or 2011-2022 public coverage established; raw responses SHA-pinned in local snapshots and NAS Recorder scoped restored. This closes only the exact old-date public batch URLs, not all licensed archives. User declined vendor contact; zero purchase, fits, accounts or SOXX forward strategy days.",
   "latest_joint_intent_capacity_route_triage": "research/stage1_joint_intent_capacity_route_triage_20261024/decision.json",
   "latest_0bp_candidate_queue_audit": "research/stage1_0bp_candidate_queue_audit_20261023/result.json",
   "latest_NVDA_SOXX_single_leader_source": "research/stage1_nvda_sector_relative_lead_source_20261023/summary.json",
