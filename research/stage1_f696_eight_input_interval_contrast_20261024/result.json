@@ -1,0 +1,323 @@
+{
+  "status": "read_only_eight_original_input_matched_interval_contrast_no_factor_selected",
+  "plan_sha256": "36cbf1178108d8601c302346e37963c58dca591475ddcc9af97b323c0a230635",
+  "input_recorder_id": "68e31a0a0fad44e7ba1d1f7d856c7a0d",
+  "account_recorder_id": "2f0392615c4c4b15928b4ada6e01ecd9",
+  "train_sessions": 3020,
+  "held_sessions": 944,
+  "rolling126_windows": 819,
+  "quarters": 16,
+  "matched_state_year_cells": 12,
+  "unmatched_2023_cells": 4,
+  "fixed_inputs": [
+    "soxx_ret20",
+    "soxx_ret60",
+    "soxx_vol20",
+    "soxx_drawdown60",
+    "relative_momentum20",
+    "levered_decay_20",
+    "cross_breadth_pos_20",
+    "vix"
+  ],
+  "weighted_weak_minus_good_train_sd": {
+    "soxx_ret20": -0.12629309609560482,
+    "soxx_ret60": -0.2014229587922275,
+    "soxx_vol20": -0.06916635445660207,
+    "soxx_drawdown60": -0.030237234266285027,
+    "relative_momentum20": -0.19338074869504387,
+    "levered_decay_20": -0.3501151290139385,
+    "cross_breadth_pos_20": 0.07761592962053619,
+    "vix": 0.012360839061173861
+  },
+  "cell_signs": {
+    "soxx_ret20": {
+      "positive_cells": 4,
+      "negative_cells": 8
+    },
+    "soxx_ret60": {
+      "positive_cells": 3,
+      "negative_cells": 9
+    },
+    "soxx_vol20": {
+      "positive_cells": 6,
+      "negative_cells": 6
+    },
+    "soxx_drawdown60": {
+      "positive_cells": 5,
+      "negative_cells": 7
+    },
+    "relative_momentum20": {
+      "positive_cells": 4,
+      "negative_cells": 8
+    },
+    "levered_decay_20": {
+      "positive_cells": 3,
+      "negative_cells": 9
+    },
+    "cross_breadth_pos_20": {
+      "positive_cells": 8,
+      "negative_cells": 4
+    },
+    "vix": {
+      "positive_cells": 6,
+      "negative_cells": 6
+    }
+  },
+  "unmatched_2023_weak_window_mean_train_sd": {
+    "soxx_ret20": 0.254362528900163,
+    "soxx_ret60": 0.5219608865607165,
+    "soxx_vol20": 0.4340839506222773,
+    "soxx_drawdown60": -0.2542703106651781,
+    "relative_momentum20": 0.27332298476925226,
+    "levered_decay_20": -0.17422350763227215,
+    "cross_breadth_pos_20": -0.6590019781877394,
+    "vix": -0.1208146739866047
+  },
+  "cells": [
+    {
+      "start_state": "decline",
+      "year": 2023,
+      "weak_windows": 52,
+      "good_windows": 0,
+      "matched": false
+    },
+    {
+      "start_state": "decline",
+      "year": 2024,
+      "weak_windows": 27,
+      "good_windows": 33,
+      "matched": true,
+      "weak_minus_good": {
+        "soxx_ret20": -0.06958124798518939,
+        "soxx_ret60": -0.4770923937901974,
+        "soxx_vol20": 0.22531912457992354,
+        "soxx_drawdown60": -0.15831504756998638,
+        "relative_momentum20": -0.07206933265525511,
+        "levered_decay_20": -0.02446584717904665,
+        "cross_breadth_pos_20": -0.26613695029540296,
+        "vix": 0.3403207714105947
+      }
+    },
+    {
+      "start_state": "decline",
+      "year": 2025,
+      "weak_windows": 42,
+      "good_windows": 6,
+      "matched": true,
+      "weak_minus_good": {
+        "soxx_ret20": -0.7242632007502703,
+        "soxx_ret60": -0.9863659317052118,
+        "soxx_vol20": 0.01040683414348198,
+        "soxx_drawdown60": -0.5712873569044382,
+        "relative_momentum20": -0.9649550813261327,
+        "levered_decay_20": -1.3022127786805127,
+        "cross_breadth_pos_20": 0.3359730456062272,
+        "vix": 0.06635230133674386
+      }
+    },
+    {
+      "start_state": "decline",
+      "year": 2026,
+      "weak_windows": 7,
+      "good_windows": 7,
+      "matched": true,
+      "weak_minus_good": {
+        "soxx_ret20": -0.0019186840454902265,
+        "soxx_ret60": -0.2326941975349346,
+        "soxx_vol20": 0.10594768408152211,
+        "soxx_drawdown60": -0.26389334633002715,
+        "relative_momentum20": -0.024290957015501657,
+        "levered_decay_20": -0.11200573694769123,
+        "cross_breadth_pos_20": 0.10799133736938304,
+        "vix": -0.14544066721734747
+      }
+    },
+    {
+      "start_state": "pullback",
+      "year": 2023,
+      "weak_windows": 54,
+      "good_windows": 0,
+      "matched": false
+    },
+    {
+      "start_state": "pullback",
+      "year": 2024,
+      "weak_windows": 16,
+      "good_windows": 32,
+      "matched": true,
+      "weak_minus_good": {
+        "soxx_ret20": 0.399755330515274,
+        "soxx_ret60": 0.19653686539556506,
+        "soxx_vol20": -0.12874725510507634,
+        "soxx_drawdown60": 0.27302225716099626,
+        "relative_momentum20": 0.3926739349673284,
+        "levered_decay_20": 0.02076524315771877,
+        "cross_breadth_pos_20": 0.16101320219201287,
+        "vix": -0.04352433583368624
+      }
+    },
+    {
+      "start_state": "pullback",
+      "year": 2025,
+      "weak_windows": 38,
+      "good_windows": 17,
+      "matched": true,
+      "weak_minus_good": {
+        "soxx_ret20": -0.4548465566098591,
+        "soxx_ret60": -0.2272933191843689,
+        "soxx_vol20": -0.4669163668287668,
+        "soxx_drawdown60": 0.13181165728466077,
+        "relative_momentum20": -0.664301622207762,
+        "levered_decay_20": -1.0975135225633035,
+        "cross_breadth_pos_20": 0.3940844630060347,
+        "vix": -0.1867728003206804
+      }
+    },
+    {
+      "start_state": "pullback",
+      "year": 2026,
+      "weak_windows": 4,
+      "good_windows": 2,
+      "matched": true,
+      "weak_minus_good": {
+        "soxx_ret20": 0.0756281439532116,
+        "soxx_ret60": 0.30254301224891034,
+        "soxx_vol20": -0.15621431448401646,
+        "soxx_drawdown60": 0.3575821618271884,
+        "relative_momentum20": 0.1024031500047975,
+        "levered_decay_20": 0.14196644212099685,
+        "cross_breadth_pos_20": -0.17206082521179455,
+        "vix": 0.0784744182435374
+      }
+    },
+    {
+      "start_state": "rebound",
+      "year": 2023,
+      "weak_windows": 49,
+      "good_windows": 0,
+      "matched": false
+    },
+    {
+      "start_state": "rebound",
+      "year": 2024,
+      "weak_windows": 22,
+      "good_windows": 21,
+      "matched": true,
+      "weak_minus_good": {
+        "soxx_ret20": -0.03575353443065993,
+        "soxx_ret60": -0.2154287535233187,
+        "soxx_vol20": 0.2000325214560985,
+        "soxx_drawdown60": -0.1513982517967296,
+        "relative_momentum20": -0.053181284438116316,
+        "levered_decay_20": -0.0932664454799772,
+        "cross_breadth_pos_20": -0.1499228444953643,
+        "vix": 0.1635971521849855
+      }
+    },
+    {
+      "start_state": "rebound",
+      "year": 2025,
+      "weak_windows": 28,
+      "good_windows": 6,
+      "matched": true,
+      "weak_minus_good": {
+        "soxx_ret20": -0.6323236675229479,
+        "soxx_ret60": -0.749980641113758,
+        "soxx_vol20": -0.1964880185472082,
+        "soxx_drawdown60": -0.34388665012847586,
+        "relative_momentum20": -0.8492073479419743,
+        "levered_decay_20": -1.1667085796446406,
+        "cross_breadth_pos_20": 0.3122883789281957,
+        "vix": 0.005254072435569523
+      }
+    },
+    {
+      "start_state": "rebound",
+      "year": 2026,
+      "weak_windows": 5,
+      "good_windows": 5,
+      "matched": true,
+      "weak_minus_good": {
+        "soxx_ret20": 0.023148713954195932,
+        "soxx_ret60": -0.06888211971188118,
+        "soxx_vol20": 0.004536293601896002,
+        "soxx_drawdown60": -0.03260539468799628,
+        "relative_momentum20": 0.020511253473017743,
+        "levered_decay_20": -0.010426635642163451,
+        "cross_breadth_pos_20": 0.019556640273276082,
+        "vix": -0.02974402850304117
+      }
+    },
+    {
+      "start_state": "uptrend",
+      "year": 2023,
+      "weak_windows": 94,
+      "good_windows": 0,
+      "matched": false
+    },
+    {
+      "start_state": "uptrend",
+      "year": 2024,
+      "weak_windows": 22,
+      "good_windows": 79,
+      "matched": true,
+      "weak_minus_good": {
+        "soxx_ret20": 0.3417144584548274,
+        "soxx_ret60": 0.1632639665906007,
+        "soxx_vol20": -0.009209719615608458,
+        "soxx_drawdown60": 0.20652084752100142,
+        "relative_momentum20": 0.35998071006939575,
+        "levered_decay_20": 0.13424389636926154,
+        "cross_breadth_pos_20": -0.07456434778836629,
+        "vix": 0.10466448538224753
+      }
+    },
+    {
+      "start_state": "uptrend",
+      "year": 2025,
+      "weak_windows": 85,
+      "good_windows": 28,
+      "matched": true,
+      "weak_minus_good": {
+        "soxx_ret20": -0.3936394794665961,
+        "soxx_ret60": -0.17919771144720897,
+        "soxx_vol20": -0.6582480109940839,
+        "soxx_drawdown60": 0.27187345867264107,
+        "relative_momentum20": -0.5558413894941444,
+        "levered_decay_20": -0.8529145162225721,
+        "cross_breadth_pos_20": 0.4098187492342882,
+        "vix": -0.23120977565416936
+      }
+    },
+    {
+      "start_state": "uptrend",
+      "year": 2026,
+      "weak_windows": 19,
+      "good_windows": 19,
+      "matched": true,
+      "weak_minus_good": {
+        "soxx_ret20": -0.3616642810905488,
+        "soxx_ret60": -0.21650282431858958,
+        "soxx_vol20": 0.35990080196633056,
+        "soxx_drawdown60": -0.5182522799559519,
+        "relative_momentum20": -0.39843980030152015,
+        "levered_decay_20": -0.23061021830657352,
+        "cross_breadth_pos_20": 0.025534479603530724,
+        "vix": -0.09608913666266466
+      }
+    }
+  ],
+  "new_market_requests": 0,
+  "new_model_fits": 0,
+  "new_native_accounts": 0,
+  "new_bootstraps": 0,
+  "new_recorders": 0,
+  "factor_selected": false,
+  "policy_inference": false,
+  "independent_validation": false,
+  "limits": [
+    "Weak/good groups use future overlapping window outcomes and cannot define a trading switch",
+    "2023 has no same-year good interval control",
+    "Eight old input differences do not prove the model ignored them or that a new interaction improves SOXX net wealth"
+  ]
+}

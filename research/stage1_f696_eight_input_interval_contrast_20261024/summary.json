@@ -1,0 +1,32 @@
+{
+  "experiment": "stage1_f696_eight_input_interval_contrast_20261024",
+  "decision": "descriptive_existing_trend_inputs_do_not_separate_2023_all_weak_from_later_matched_windows",
+  "objective_achieved": false,
+  "plan_sha256": "36cbf1178108d8601c302346e37963c58dca591475ddcc9af97b323c0a230635",
+  "result": "result.json",
+  "input_recorder_id": "68e31a0a0fad44e7ba1d1f7d856c7a0d",
+  "account_recorder_id": "2f0392615c4c4b15928b4ada6e01ecd9",
+  "train_sessions": 3020,
+  "held_sessions": 944,
+  "rolling126_windows": 819,
+  "matched_state_year_cells": 12,
+  "new_model_fits": 0,
+  "new_native_accounts": 0,
+  "independent_forward_days": 0,
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [],
+    "reused_native_sources": [
+      "research/minute_information_pit_allocator_20261012/qlib_recorder",
+      "research/stage1_original_0bp_signal_loss_chain_v2_20261023/qlib_recorder"
+    ]
+  },
+  "limitations": [
+    "Weak/good groups use future overlapping window outcomes and cannot define a trading switch",
+    "2023 has no same-year good interval control",
+    "Eight old input differences do not prove the model ignored them or that a new interaction improves SOXX net wealth",
+    "Preselected eight existing inputs were compared on future-defined reused windows; no single input or threshold was selected for a new policy",
+    "The fixed MA200, broad-rebound and original39 receiver routes remain closed; this diagnostic does not reopen them"
+  ]
+}

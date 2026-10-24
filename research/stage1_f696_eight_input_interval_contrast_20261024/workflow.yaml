@@ -1,0 +1,7 @@
+experiment: stage1_f696_eight_input_interval_contrast_20261024
+entrypoint: stage1_f696_eight_input_interval_contrast_20261024.ipynb
+phase: frozen_read_only_diagnostic
+source_cards:
+  inputs: research/stage1_f696_original39_input_drift_20261024
+  intervals: research/stage1_f696_factor_interval_delivery_20261024
+artifact_policy: slim_card_recorder_first

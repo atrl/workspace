@@ -1,0 +1,28 @@
+{
+  "experiment": "stage1_f696_eight_input_interval_contrast_20261024",
+  "frozen": true,
+  "phase": "read_only_preselected_original_input_interval_contrast",
+  "question": "Within matched prior-SOXX-trend and first-trade-year weak/good exact-f696 126-session windows, which of eight economically preselected existing Stage1 inputs differ in level, and is any difference consistent enough to motivate a separate training-only information hypothesis?",
+  "dependencies": {
+    "input_drift_card": "research/stage1_f696_original39_input_drift_20261024",
+    "input_drift_plan_sha256": "80e3173d76d326e1022f78931147a2e80cee7da8f0a0b9f638188cc5f8b3acde",
+    "input_drift_result_sha256": "80c577127eb15a71e4f06b60816cbfe1c5f399b488462e4d19d4884658f2ffb9",
+    "interval_card": "research/stage1_f696_factor_interval_delivery_20261024",
+    "interval_plan_sha256": "9b0cb3993820c077a3cae252611f414277e3121717682ec4474c0fd97aed94b9",
+    "interval_result_sha256": "1ffb49e04008e104b730f6acc91b495af20285b68901c8b64a51fa15122a6c19",
+    "account_rolling_sha256": "12f8a16607303370c0ad4a339a3c1de00ab92a467b1490249a160084db2b7635",
+    "account_periods_sha256": "fe3bcddd528e9413a238b4c2a94f9f52b35cf625a1d5c17a7543a9d50b5e71a7"
+  },
+  "fixed_inputs": ["soxx_ret20", "soxx_ret60", "soxx_vol20", "soxx_drawdown60", "relative_momentum20", "levered_decay_20", "cross_breadth_pos_20", "vix"],
+  "method": {
+    "authority": "Use only the drift-card-pinned original39 Qlib Recorder feature frame and exact-f696 0bp Tiered daily/rolling126 account; verify exact source SHA/NAS and native Qlib day calendar",
+    "normalization": "For each fixed input, subtract its 2011-2022 finite training median and divide by its finite training standard deviation, both computed before held history",
+    "window_statistic": "Mean normalized value across each of all819 contiguous126-session windows, using the exact944 signal dates; preserve every weak/good label from the original SOXX paired log excess",
+    "matched_control": "Prior signal-day SOXX 5/20-session return-sign state crossed with first-trade calendar year; retain all16 cells and compare only cells with weak and good windows, weighted by smaller group count",
+    "report": "For all eight fixed inputs in their listed order report per-cell weak-minus-good mean, weighted descriptive contrast and number of positive/negative cells. Also report 2023 unmatched means separately. No input is selected or converted to a threshold from these outcomes.",
+    "coverage": "944 exact-f696 sessions, 16quarters,819 windows, 2023/2026 partial and 2024/2025 complete years",
+    "stop": "Stop on source hash/NAS, Qlib calendar, feature order, 3020 training rows,944/819 coverage, component closure or any nonfinite required input."
+  },
+  "budget": {"new_market_requests": 0, "new_model_fits": 0, "new_native_accounts": 0, "new_bootstraps": 0, "new_recorders": 0},
+  "scientific_boundary": "These eight retrospective comparisons are descriptive development feedback, not an independent feature screen. A proposed interaction or receiver must be frozen using training history and judged on matched information and a new own-state 0bp Tiered account before any SOXX success claim."
+}
