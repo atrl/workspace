@@ -1,0 +1,255 @@
+{
+  "status": "read_only_smoothing_interval_cash_gap_attribution_no_policy",
+  "plan_sha256": "86560d607974e68f90dd885597127839e54f602eebab87f75ee2ccf9bb73c11d",
+  "source_target_f696_max_abs": {
+    "soxl_weight": 0.0,
+    "soxx_weight": 0.0,
+    "cash_weight": 0.0,
+    "tail_probability": 0.0,
+    "alpha_probability": 0.0
+  },
+  "sessions": 944,
+  "rolling126_windows": 819,
+  "weak_windows": 564,
+  "good_windows": 255,
+  "annual": [
+    {
+      "year": 2023,
+      "sessions": 250,
+      "partial_endpoint": true,
+      "raw_cash": 0.3720442542238977,
+      "accepted_cash": 0.3727750350982734,
+      "accepted_minus_raw_cash": 0.0007307808743756859
+    },
+    {
+      "year": 2024,
+      "sessions": 252,
+      "partial_endpoint": false,
+      "raw_cash": 0.5021799924734336,
+      "accepted_cash": 0.49939516130998995,
+      "accepted_minus_raw_cash": -0.0027848311634436572
+    },
+    {
+      "year": 2025,
+      "sessions": 250,
+      "partial_endpoint": false,
+      "raw_cash": 0.41008627790376406,
+      "accepted_cash": 0.41341247651248697,
+      "accepted_minus_raw_cash": 0.0033261986087229447
+    },
+    {
+      "year": 2026,
+      "sessions": 192,
+      "partial_endpoint": true,
+      "raw_cash": 0.32787481287286063,
+      "accepted_cash": 0.32442779605544614,
+      "accepted_minus_raw_cash": -0.003447016817414491
+    }
+  ],
+  "matched_state_year_cells": 12,
+  "matched_weak_minus_good": {
+    "raw_cash": 0.02549326033717679,
+    "accepted_cash": 0.027536160940432933,
+    "accepted_minus_raw_cash": 0.0020429006032561606
+  },
+  "matched_signs": {
+    "raw_cash": {
+      "positive_cells": 9,
+      "negative_cells": 3
+    },
+    "accepted_cash": {
+      "positive_cells": 9,
+      "negative_cells": 3
+    },
+    "accepted_minus_raw_cash": {
+      "positive_cells": 9,
+      "negative_cells": 3
+    }
+  },
+  "cells": [
+    {
+      "start_state": "decline",
+      "year": 2023,
+      "weak_windows": 52,
+      "good_windows": 0,
+      "matched": false
+    },
+    {
+      "start_state": "decline",
+      "year": 2024,
+      "weak_windows": 27,
+      "good_windows": 33,
+      "matched": true,
+      "weak_minus_good": {
+        "raw_cash": 0.07951938593511021,
+        "accepted_cash": 0.08372478742348366,
+        "accepted_minus_raw_cash": 0.004205401488373521
+      }
+    },
+    {
+      "start_state": "decline",
+      "year": 2025,
+      "weak_windows": 42,
+      "good_windows": 6,
+      "matched": true,
+      "weak_minus_good": {
+        "raw_cash": 0.11057384277652677,
+        "accepted_cash": 0.1140333415651163,
+        "accepted_minus_raw_cash": 0.003459498788589541
+      }
+    },
+    {
+      "start_state": "decline",
+      "year": 2026,
+      "weak_windows": 7,
+      "good_windows": 7,
+      "matched": true,
+      "weak_minus_good": {
+        "raw_cash": 0.051103916124344284,
+        "accepted_cash": 0.049572075487125666,
+        "accepted_minus_raw_cash": -0.001531840637218681
+      }
+    },
+    {
+      "start_state": "pullback",
+      "year": 2023,
+      "weak_windows": 54,
+      "good_windows": 0,
+      "matched": false
+    },
+    {
+      "start_state": "pullback",
+      "year": 2024,
+      "weak_windows": 16,
+      "good_windows": 32,
+      "matched": true,
+      "weak_minus_good": {
+        "raw_cash": -0.008542346498823794,
+        "accepted_cash": -0.00803534487178037,
+        "accepted_minus_raw_cash": 0.0005070016270434985
+      }
+    },
+    {
+      "start_state": "pullback",
+      "year": 2025,
+      "weak_windows": 38,
+      "good_windows": 17,
+      "matched": true,
+      "weak_minus_good": {
+        "raw_cash": 0.026782503402302926,
+        "accepted_cash": 0.02910060605324949,
+        "accepted_minus_raw_cash": 0.0023181026509466775
+      }
+    },
+    {
+      "start_state": "pullback",
+      "year": 2026,
+      "weak_windows": 4,
+      "good_windows": 2,
+      "matched": true,
+      "weak_minus_good": {
+        "raw_cash": -0.00578352210443106,
+        "accepted_cash": -0.0064405163500810825,
+        "accepted_minus_raw_cash": -0.000656994245650131
+      }
+    },
+    {
+      "start_state": "rebound",
+      "year": 2023,
+      "weak_windows": 49,
+      "good_windows": 0,
+      "matched": false
+    },
+    {
+      "start_state": "rebound",
+      "year": 2024,
+      "weak_windows": 22,
+      "good_windows": 21,
+      "matched": true,
+      "weak_minus_good": {
+        "raw_cash": 0.03943489330613614,
+        "accepted_cash": 0.041682139024363796,
+        "accepted_minus_raw_cash": 0.002247245718227696
+      }
+    },
+    {
+      "start_state": "rebound",
+      "year": 2025,
+      "weak_windows": 28,
+      "good_windows": 6,
+      "matched": true,
+      "weak_minus_good": {
+        "raw_cash": 0.06309354134049089,
+        "accepted_cash": 0.06634796518759006,
+        "accepted_minus_raw_cash": 0.0032544238470992148
+      }
+    },
+    {
+      "start_state": "rebound",
+      "year": 2026,
+      "weak_windows": 5,
+      "good_windows": 5,
+      "matched": true,
+      "weak_minus_good": {
+        "raw_cash": 0.019192392767793276,
+        "accepted_cash": 0.019261043009731804,
+        "accepted_minus_raw_cash": 6.865024193843453e-05
+      }
+    },
+    {
+      "start_state": "uptrend",
+      "year": 2023,
+      "weak_windows": 94,
+      "good_windows": 0,
+      "matched": false
+    },
+    {
+      "start_state": "uptrend",
+      "year": 2024,
+      "weak_windows": 22,
+      "good_windows": 79,
+      "matched": true,
+      "weak_minus_good": {
+        "raw_cash": -0.04871544361114105,
+        "accepted_cash": -0.04475517821075092,
+        "accepted_minus_raw_cash": 0.0039602654003901465
+      }
+    },
+    {
+      "start_state": "uptrend",
+      "year": 2025,
+      "weak_windows": 85,
+      "good_windows": 28,
+      "matched": true,
+      "weak_minus_good": {
+        "raw_cash": 0.008920742928790248,
+        "accepted_cash": 0.01052475381274609,
+        "accepted_minus_raw_cash": 0.0016040108839557362
+      }
+    },
+    {
+      "start_state": "uptrend",
+      "year": 2026,
+      "weak_windows": 19,
+      "good_windows": 19,
+      "matched": true,
+      "weak_minus_good": {
+        "raw_cash": 0.027940260318140342,
+        "accepted_cash": 0.02744892753782935,
+        "accepted_minus_raw_cash": -0.0004913327803110251
+      }
+    }
+  ],
+  "new_market_requests": 0,
+  "new_model_fits": 0,
+  "new_native_accounts": 0,
+  "new_bootstraps": 0,
+  "new_recorders": 0,
+  "policy_inference": false,
+  "independent_validation": false,
+  "limits": [
+    "The raw-to-accepted contrast is a proposal-coordinate difference, not a funded-account intervention",
+    "126-session windows overlap heavily and future outcomes define weak/good groups",
+    "2023 contains no good window in any state-year cell; no within-year matched effect there"
+  ]
+}

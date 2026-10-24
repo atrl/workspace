@@ -1,0 +1,28 @@
+{
+  "experiment": "stage1_f696_smoothing_interval_attribution_20261024",
+  "frozen": true,
+  "phase": "read_only_raw_vs_accepted_cash_interval_attribution",
+  "question": "Within matched prior-trend/year weak and good exact-f696 126-session windows, does the frozen EMA/HOLD transform add enough cash to explain the observed weak-window cash proposal gap?",
+  "dependencies": {
+    "bridge_card": "research/stage1_f696_raw_to_target_bridge_20261024",
+    "bridge_plan_sha256": "1ded3cea3e68e85d685d5dc0633cce86897c0a13088b341ed01780de8812e4ab",
+    "bridge_result_sha256": "ab7166a565866df892ee9467626a4d12b2cf82295f453cd856c7e21a5d8222dd",
+    "interval_card": "research/stage1_f696_factor_interval_delivery_20261024",
+    "interval_plan_sha256": "9b0cb3993820c077a3cae252611f414277e3121717682ec4474c0fd97aed94b9",
+    "interval_result_sha256": "1ffb49e04008e104b730f6acc91b495af20285b68901c8b64a51fa15122a6c19",
+    "account_rolling_sha256": "12f8a16607303370c0ad4a339a3c1de00ab92a467b1490249a160084db2b7635",
+    "account_periods_sha256": "fe3bcddd528e9413a238b4c2a94f9f52b35cf625a1d5c17a7543a9d50b5e71a7"
+  },
+  "method": {
+    "source": "Only the bridge-pinned action inputs/raw_predictions frozen_current and inputs/source_targets frozen_current, f696 inputs/frame and exact original Stage1 0bp Tiered analysis/daily and rolling126 Recorder objects",
+    "identity": "On all944 signal dates, accepted cash and other four outputs equal f696 proposal; source bridge identity result is verified before looking at weak/good intervals",
+    "daily_coordinate": "raw cash, accepted cash, accepted-minus-raw cash; no account counterfactual",
+    "window_outcome": "Exact f696 rolling126 paired log excess below/above zero, diagnostic only",
+    "matched_cell": "Prior signal-day Qlib SOXX 5/20-session return-sign state x window first-trade year; keep cells containing both outcomes and weight by the smaller group count",
+    "coverage": "All944 days, 16 source quarters, 819 overlapping126-session windows; preserve2023/2026 partial endpoints and report 2023 unmatched state-year cells",
+    "measure": "Weak-minus-good mean raw cash, accepted cash, and accepted-minus-raw cash, per matched cell and pooled descriptive weighting; report annual mean delta and sign counts",
+    "stop": "Stop if source hashes/NAS, 944/819 coverage, Qlib calendar or exact target/f696 identity fail. Do not infer that replacing EMA/HOLD produces the frozen-path component return or full account value."
+  },
+  "budget": {"new_market_requests": 0, "new_model_fits": 0, "new_native_accounts": 0, "new_bootstraps": 0, "new_recorders": 0},
+  "scientific_boundary": "Postmodel coordinate differences and outcome-defined overlapping windows do not certify a tradable switch or causal performance gain. A changed transform would need a separately frozen full own-state 0bp Tiered account and all SOXX gates."
+}

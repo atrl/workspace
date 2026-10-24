@@ -1,0 +1,30 @@
+{
+  "experiment": "stage1_f696_smoothing_interval_attribution_20261024",
+  "decision": "descriptive_raw_allocator_cash_gap_dominates_postmodel_smoothing_gap_no_policy",
+  "objective_achieved": false,
+  "plan_sha256": "86560d607974e68f90dd885597127839e54f602eebab87f75ee2ccf9bb73c11d",
+  "result": "result.json",
+  "sessions": 944,
+  "rolling126_windows": 819,
+  "matched_state_year_cells": 12,
+  "new_model_fits": 0,
+  "new_native_accounts": 0,
+  "independent_forward_days": 0,
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [],
+    "reused_native_sources": [
+      "research/stage1_minute_information_comparison_20261012/qlib_recorder",
+      "research/stage1_domain_heads_20261018/qlib_recorder",
+      "research/stage1_original_0bp_signal_loss_chain_v2_20261023/qlib_recorder"
+    ]
+  },
+  "limitations": [
+    "The raw-to-accepted contrast is a proposal-coordinate difference, not a funded-account intervention",
+    "126-session windows overlap heavily and future outcomes define weak/good groups",
+    "2023 contains no good window in any state-year cell; no within-year matched effect there",
+    "The 0.00204 accepted-minus-raw matched contrast is not a causal estimate of changing smoothing",
+    "No factor, policy, fitted model or own-state account was evaluated"
+  ]
+}
