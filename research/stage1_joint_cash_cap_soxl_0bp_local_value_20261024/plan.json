@@ -1,0 +1,28 @@
+{
+  "schema_version": 1,
+  "experiment": "stage1_joint_cash_cap_soxl_0bp_local_value_20261024",
+  "frozen": true,
+  "phase": "one_training_only_SOXL_cash_and_cap_same_state_label_pass",
+  "hypothesis": "The exact f696 allocation-intent rank is poor for SOXL versus cash, while both cap-binding and nonbinding cash drag matter. A fee-net local cash-to-SOXL action with the same 0.10-beta envelope as the earlier cash-to-SOXX training label may have conditionally learnable value at the existing 09:46 opening receiver.",
+  "parent_boundary": "Use the verified original-architecture 2018-2022 0bp Tiered OOF account only as a training local-label scaffold. Any 2023+ economic candidate must begin with exact f696 allocator outputs substituted 944/944 into the complete b472 action/risk/recovery Stage1 and run an own-state 0bp Tiered account versus SOXX, then separate 2/5bp and qualified forward evidence.",
+  "sources": {
+    "prior_joint_plan": "research/stage1_joint_cash_cap_soxx_0bp_local_value_20261023/plan.json",
+    "prior_joint_plan_sha256": "a913555441174acad0179731aecd8b00201b11567c4ccd4c40bfd9d7ed14fead",
+    "prior_joint_summary_sha256": "c065da30e80dc08cdb67670d94e6ef24411020363d8727e762bfbb7069e7a4eb",
+    "training_reference_card": "research/stage1_signed_volume_0bp_action_label_source_20261023",
+    "training_reference_summary_sha256": "ce6652a6323ec9bd11a8ce8de89239cba167a53bedb50e471080006a1a89f476",
+    "training_reference_experiment_id": "194705746221035167",
+    "training_reference_recorder_id": "3663a1e073f042e383dbcf54969a9bc2",
+    "fee_plan": "research/full_history_recovery_20261015/plan.json",
+    "fee_plan_sha256": "053147267377f575b4508806dfe925cfaf804ba0d3f816994eb2ed4b7a64a668",
+    "fee_module_sha256": "4e47234c1aef8c9ea4fd26389cdbaa23d3affd75bd7c105bf3192939f3781c35",
+    "provider": "data/qlib/full_path_tiered_allocation_20261013",
+    "provider_manifest_sha256": "3a3d6f4e248d6016ea25a140587abb65fba0d8a346e45da402414095df772223"
+  },
+  "intervention": "At saved EXECUTE opening decisions only, start from original projected [SOXL,SOXX,CASH]. raw_beta=3*raw_SOXL+raw_SOXX; base_beta=3*projected_SOXL+projected_SOXX. Binding when raw_beta>own_state_cap; beta ceiling=cap+0.10 when binding, otherwise cap. delta_beta=min(0.10,3*max(0,projected_CASH-0.15),max(0,ceiling-base_beta)); candidate=[projected_SOXL+delta_beta/3,projected_SOXX,projected_CASH-delta_beta/3]. No SOXX change, shorting, leverage, outcome-selected threshold, or change to the frozen baseline path.",
+  "paired_label": "At saved 09:46 state clone original cash, raw-share holdings and Tiered monthly fee counters. Control executes the original projected target; candidate executes the fixed SOXL target. Both pay frozen Tiered fees at 0bp added slippage on original 09:47 raw/adjusted marks, then separately reset at next Qlib session 09:47 to the identical saved next original target. Label=(candidate NAV-control NAV)/prebranch NAV, mature at next session 09:49. Restore original control ledger for the next day; never propagate candidate positions or risk.",
+  "validation": "Verify source hashes, NAS receipt/readback, native Qlib 1061-day calendar, predecision clocks, exact original control ledger, legal candidate funding and beta, whole raw-share execution, fee counters and finite next-reset NAV. Preserve all1061 rows with ineligible/end unknown and report all years, quarters, cap-binding strata and SOXL versus SOXX local-value comparison only on matched mature rows. No 2023+ outcome read, fit or full candidate account.",
+  "decision_rule": "This fixed pass only establishes training support and local economics. If year or binding-layer support is inadequate or fee-net local value changes sign across full 2020-2022 years, stop this version before fitting. A positive average or individual quarter alone never advances the candidate.",
+  "budget": {"new_market_requests": 0, "new_model_fits": 0, "new_native_accounts": 0, "label_passes": 1, "new_Qlib_recorders": 1, "new_bootstraps": 0, "NAS_recorder_archives": 1},
+  "stop": "Any source identity, provider manifest, original ledger parity, funding, missing next reset, NAS archive or scoped readback failure stops this version. Do not change beta size, cash floor, cap rule, asset, sign, fee or horizon after seeing outcomes."
+}

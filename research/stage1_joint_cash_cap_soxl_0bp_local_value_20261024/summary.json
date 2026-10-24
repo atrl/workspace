@@ -1,0 +1,50 @@
+{
+  "experiment": "stage1_joint_cash_cap_soxl_0bp_local_value_20261024",
+  "decision": "training_only_SOXL_cash_cap_local_value_no_fit_or_account",
+  "objective_achieved": false,
+  "plan_sha256": "a7f51a157f98192edc9dfec832c0e34231d0fdc58c10ffd8bc826c2d61b6d2a0",
+  "result": "result.json",
+  "recorder_id": "9f4753640e9247a18adff4cab4bb57f8",
+  "experiment_id": "598502564044048354",
+  "recorder_uri": "/Users/rziiiii/dev/workspace/research/stage1_joint_cash_cap_soxl_0bp_local_value_20261024/qlib_recorder",
+  "source_recorder_id": "3663a1e073f042e383dbcf54969a9bc2",
+  "new_model_fits": 0,
+  "new_native_accounts": 0,
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "analysis/labels",
+      "analysis/annual",
+      "analysis/quarter",
+      "analysis/result"
+    ]
+  },
+  "nas_evidence": {
+    "sha256": "15f713a01daa410cafae50955e4f6abab5f0baab6fd70a246b00745755ccc5e1",
+    "size_bytes": 90782,
+    "media_type": "application/gzip",
+    "storage_uri": "sha256/15/f7/15f713a01daa410cafae50955e4f6abab5f0baab6fd70a246b00745755ccc5e1",
+    "uploaded_by": "soxl-minute-research",
+    "created_at": "2026-10-24 17:52:08.592189+08",
+    "duplicate": false,
+    "nas_path": "/volume1/docker/yanxuan/registry/research-artifacts/15/f7/15f713a01daa410cafae50955e4f6abab5f0baab6fd70a246b00745755ccc5e1",
+    "recorder_id": "9f4753640e9247a18adff4cab4bb57f8",
+    "experiment_id": "598502564044048354",
+    "archive_root": "qlib_recorder"
+  },
+  "nas_readback": {
+    "verified": true,
+    "sha256": "15f713a01daa410cafae50955e4f6abab5f0baab6fd70a246b00745755ccc5e1",
+    "scoped_restored_labels_sha256": "b9e145b0c7e8488ee70a6acc11bd203897eae5e45f2b59459845d2382ae53a41"
+  },
+  "scientific_decision": "not_promoted_fixed_SOXL_joint_local_value_2022_negative_and_nonbinding_support_2",
+  "stop_gate": {
+    "2020_mean": 0.00019662442935676125,
+    "2021_mean": 0.0003584963077191619,
+    "2022_mean": -0.0001637842708000178,
+    "2022_nonbinding_mature": 2,
+    "new_model_fits": 0,
+    "new_native_accounts": 0
+  }
+}
