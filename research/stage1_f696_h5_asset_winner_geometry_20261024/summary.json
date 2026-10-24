@@ -1,0 +1,33 @@
+{
+  "experiment": "stage1_f696_h5_asset_winner_geometry_20261024",
+  "decision": "descriptive_pairwise_SOXL_vs_cash_receiver_priority_no_policy",
+  "objective_achieved": false,
+  "plan_sha256": "1d100d18ee5f15792a38d87b1b32a17f9350a8a02a498e735dc0815bf43e03bc",
+  "result": "result.json",
+  "attempt1_preflight_failure": "attempt1_preflight_failure.json",
+  "label_recorder_id": "a4bbc11f5c764ac38ff2f682eadd0e1d",
+  "f696_recorder_id": "6e227278b7a64eafbcf34b965e16d2b9",
+  "account_recorder_id": "2f0392615c4c4b15928b4ada6e01ecd9",
+  "train_mature_rows": 3014,
+  "held_mature_rows": 940,
+  "rolling126_windows": 819,
+  "new_model_fits": 0,
+  "new_native_accounts": 0,
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [],
+    "reused_native_sources": [
+      "research/stage1_dual_task_39_information_20261023/qlib_recorder",
+      "research/stage1_domain_heads_20261018/qlib_recorder",
+      "research/stage1_original_0bp_signal_loss_chain_v2_20261023/qlib_recorder"
+    ]
+  },
+  "limitations": [
+    "H5 winners are outcome-defined and overlapping, not observable at the f696 or b472 decision clock",
+    "Saved f696 weights are proposals before candidate-specific own-state risk, fees and share execution",
+    "A future winner mix cannot be used to select a threshold or prove a fee-net SOXX account",
+    "SOXL-versus-cash H5 label support is descriptive; whether original39 inputs can forecast it incrementally is untested here",
+    "No first-public market-source or independent forward qualification is added"
+  ]
+}

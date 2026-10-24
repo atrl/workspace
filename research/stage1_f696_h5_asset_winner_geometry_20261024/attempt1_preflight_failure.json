@@ -1,0 +1,9 @@
+{
+  "status": "stopped_before_all_source_reads",
+  "cause": "Notebook asserted all budget values were zero, including the planned positive Qlib calendar/feature/Recorder read caps. It failed at cell line12 before Qlib initialization or Recorder reads.",
+  "repair": "Check only new_market_GETs, model fits, native accounts, bootstrap and new Recorder counts are zero; frozen source, labels and analysis method unchanged.",
+  "source_Recorder_object_reads": 0,
+  "Qlib_reads": 0,
+  "new_model_fits": 0,
+  "new_native_accounts": 0
+}

@@ -1,0 +1,647 @@
+{
+  "status": "read_only_f696_H5_three_asset_future_winner_geometry_no_policy",
+  "plan_sha256": "1d100d18ee5f15792a38d87b1b32a17f9350a8a02a498e735dc0815bf43e03bc",
+  "label_recorder_id": "a4bbc11f5c764ac38ff2f682eadd0e1d",
+  "f696_recorder_id": "6e227278b7a64eafbcf34b965e16d2b9",
+  "account_recorder_id": "2f0392615c4c4b15928b4ada6e01ecd9",
+  "train_mature_rows": 3014,
+  "train_future_SOXX_joint_winner": 79,
+  "held_mature_rows": 940,
+  "held_future_SOXX_joint_winner": 33,
+  "full_f696_sessions": 944,
+  "rolling126_windows": 819,
+  "rolling_mature_min_max": [
+    122,
+    126
+  ],
+  "annual": [
+    {
+      "year": 2023,
+      "partial_endpoint": true,
+      "sessions": 249,
+      "mature_winners": 249,
+      "unknown": 0,
+      "winner_counts": {
+        "CASH": 110,
+        "SOXX": 9,
+        "SOXL": 130,
+        "TIE": 0
+      },
+      "SOXX_beats_cash_rows": 139,
+      "SOXX_beats_SOXL_rows": 119,
+      "mean_f696_cash_weight": 0.37302566706888474,
+      "mean_f696_cash_by_future_winner": {
+        "CASH": 0.3427123297093048,
+        "SOXX": 0.3307330002958076,
+        "SOXL": 0.401603367918973
+      }
+    },
+    {
+      "year": 2024,
+      "partial_endpoint": false,
+      "sessions": 252,
+      "mature_winners": 252,
+      "unknown": 0,
+      "winner_counts": {
+        "CASH": 106,
+        "SOXX": 8,
+        "SOXL": 138,
+        "TIE": 0
+      },
+      "SOXX_beats_cash_rows": 146,
+      "SOXX_beats_SOXL_rows": 114,
+      "mean_f696_cash_weight": 0.49697808467771093,
+      "mean_f696_cash_by_future_winner": {
+        "CASH": 0.49717956443163586,
+        "SOXX": 0.49358337914347383,
+        "SOXL": 0.49702011939044904
+      }
+    },
+    {
+      "year": 2025,
+      "partial_endpoint": false,
+      "sessions": 250,
+      "mature_winners": 250,
+      "unknown": 0,
+      "winner_counts": {
+        "CASH": 91,
+        "SOXX": 8,
+        "SOXL": 151,
+        "TIE": 0
+      },
+      "SOXX_beats_cash_rows": 159,
+      "SOXX_beats_SOXL_rows": 99,
+      "mean_f696_cash_weight": 0.4161464366638335,
+      "mean_f696_cash_by_future_winner": {
+        "CASH": 0.4095476325060942,
+        "SOXX": 0.4888540651530356,
+        "SOXL": 0.41627113964688406
+      }
+    },
+    {
+      "year": 2026,
+      "partial_endpoint": true,
+      "sessions": 193,
+      "mature_winners": 189,
+      "unknown": 4,
+      "winner_counts": {
+        "CASH": 72,
+        "SOXX": 8,
+        "SOXL": 109,
+        "TIE": 0
+      },
+      "SOXX_beats_cash_rows": 117,
+      "SOXX_beats_SOXL_rows": 80,
+      "mean_f696_cash_weight": 0.3239695222308778,
+      "mean_f696_cash_by_future_winner": {
+        "CASH": 0.30177114625129975,
+        "SOXX": 0.27924558483103223,
+        "SOXL": 0.3301484407534732
+      }
+    }
+  ],
+  "quarter": [
+    {
+      "year": 2023,
+      "quarter": 1,
+      "sessions": 61,
+      "mature_winners": 61,
+      "unknown": 0,
+      "winner_counts": {
+        "CASH": 22,
+        "SOXX": 4,
+        "SOXL": 35,
+        "TIE": 0
+      },
+      "SOXX_beats_cash_rows": 39,
+      "SOXX_beats_SOXL_rows": 26,
+      "mean_f696_cash_weight": 0.27829561946279247,
+      "mean_f696_cash_by_future_winner": {
+        "CASH": 0.30173071215832975,
+        "SOXX": 0.26111394953895345,
+        "SOXL": 0.26552860918832205
+      }
+    },
+    {
+      "year": 2023,
+      "quarter": 2,
+      "sessions": 62,
+      "mature_winners": 62,
+      "unknown": 0,
+      "winner_counts": {
+        "CASH": 27,
+        "SOXX": 1,
+        "SOXL": 34,
+        "TIE": 0
+      },
+      "SOXX_beats_cash_rows": 35,
+      "SOXX_beats_SOXL_rows": 28,
+      "mean_f696_cash_weight": 0.5121987610602231,
+      "mean_f696_cash_by_future_winner": {
+        "CASH": 0.4574749850910256,
+        "SOXX": 0.673706201886523,
+        "SOXL": 0.550905658423224
+      }
+    },
+    {
+      "year": 2023,
+      "quarter": 3,
+      "sessions": 63,
+      "mature_winners": 63,
+      "unknown": 0,
+      "winner_counts": {
+        "CASH": 38,
+        "SOXX": 2,
+        "SOXL": 23,
+        "TIE": 0
+      },
+      "SOXX_beats_cash_rows": 25,
+      "SOXX_beats_SOXL_rows": 40,
+      "mean_f696_cash_weight": 0.32717767588873164,
+      "mean_f696_cash_by_future_winner": {
+        "CASH": 0.31664427054899896,
+        "SOXX": 0.3036785841458916,
+        "SOXL": 0.3466240926885367
+      }
+    },
+    {
+      "year": 2023,
+      "quarter": 4,
+      "sessions": 63,
+      "mature_winners": 63,
+      "unknown": 0,
+      "winner_counts": {
+        "CASH": 23,
+        "SOXX": 2,
+        "SOXL": 38,
+        "TIE": 0
+      },
+      "SOXX_beats_cash_rows": 40,
+      "SOXX_beats_SOXL_rows": 25,
+      "mean_f696_cash_weight": 0.37363240549520693,
+      "mean_f696_cash_by_future_winner": {
+        "CASH": 0.2902597270530706,
+        "SOXX": 0.3255389171640741,
+        "SOXL": 0.4266260523591911
+      }
+    },
+    {
+      "year": 2024,
+      "quarter": 1,
+      "sessions": 61,
+      "mature_winners": 61,
+      "unknown": 0,
+      "winner_counts": {
+        "CASH": 19,
+        "SOXX": 0,
+        "SOXL": 42,
+        "TIE": 0
+      },
+      "SOXX_beats_cash_rows": 42,
+      "SOXX_beats_SOXL_rows": 19,
+      "mean_f696_cash_weight": 0.38968608094551654,
+      "mean_f696_cash_by_future_winner": {
+        "CASH": 0.33736831621978286,
+        "SOXX": null,
+        "SOXL": 0.41335364117858664
+      }
+    },
+    {
+      "year": 2024,
+      "quarter": 2,
+      "sessions": 63,
+      "mature_winners": 63,
+      "unknown": 0,
+      "winner_counts": {
+        "CASH": 25,
+        "SOXX": 2,
+        "SOXL": 36,
+        "TIE": 0
+      },
+      "SOXX_beats_cash_rows": 38,
+      "SOXX_beats_SOXL_rows": 27,
+      "mean_f696_cash_weight": 0.31488803093821327,
+      "mean_f696_cash_by_future_winner": {
+        "CASH": 0.2805371557454809,
+        "SOXX": 0.3850218781055043,
+        "SOXL": 0.33484648053498356
+      }
+    },
+    {
+      "year": 2024,
+      "quarter": 3,
+      "sessions": 64,
+      "mature_winners": 64,
+      "unknown": 0,
+      "winner_counts": {
+        "CASH": 30,
+        "SOXX": 4,
+        "SOXL": 30,
+        "TIE": 0
+      },
+      "SOXX_beats_cash_rows": 34,
+      "SOXX_beats_SOXL_rows": 34,
+      "mean_f696_cash_weight": 0.5553616254383233,
+      "mean_f696_cash_by_future_winner": {
+        "CASH": 0.5469753026151872,
+        "SOXX": 0.48412062830502006,
+        "SOXL": 0.5732467478792335
+      }
+    },
+    {
+      "year": 2024,
+      "quarter": 4,
+      "sessions": 64,
+      "mature_winners": 64,
+      "unknown": 0,
+      "winner_counts": {
+        "CASH": 32,
+        "SOXX": 2,
+        "SOXL": 30,
+        "TIE": 0
+      },
+      "SOXX_beats_cash_rows": 32,
+      "SOXX_beats_SOXL_rows": 34,
+      "mean_f696_cash_weight": 0.7201021316241643,
+      "mean_f696_cash_by_future_winner": {
+        "CASH": 0.7146358702964027,
+        "SOXX": 0.621070381858351,
+        "SOXL": 0.7325349270248307
+      }
+    },
+    {
+      "year": 2025,
+      "quarter": 1,
+      "sessions": 60,
+      "mature_winners": 60,
+      "unknown": 0,
+      "winner_counts": {
+        "CASH": 32,
+        "SOXX": 2,
+        "SOXL": 26,
+        "TIE": 0
+      },
+      "SOXX_beats_cash_rows": 28,
+      "SOXX_beats_SOXL_rows": 34,
+      "mean_f696_cash_weight": 0.6742952795027033,
+      "mean_f696_cash_by_future_winner": {
+        "CASH": 0.5977435675360028,
+        "SOXX": 0.9165195262949188,
+        "SOXL": 0.7498801367853948
+      }
+    },
+    {
+      "year": 2025,
+      "quarter": 2,
+      "sessions": 62,
+      "mature_winners": 62,
+      "unknown": 0,
+      "winner_counts": {
+        "CASH": 12,
+        "SOXX": 4,
+        "SOXL": 46,
+        "TIE": 0
+      },
+      "SOXX_beats_cash_rows": 50,
+      "SOXX_beats_SOXL_rows": 16,
+      "mean_f696_cash_weight": 0.4061718347005045,
+      "mean_f696_cash_by_future_winner": {
+        "CASH": 0.3874007278835881,
+        "SOXX": 0.38939017367069206,
+        "SOXL": 0.4125279200466403
+      }
+    },
+    {
+      "year": 2025,
+      "quarter": 3,
+      "sessions": 64,
+      "mature_winners": 64,
+      "unknown": 0,
+      "winner_counts": {
+        "CASH": 21,
+        "SOXX": 2,
+        "SOXL": 41,
+        "TIE": 0
+      },
+      "SOXX_beats_cash_rows": 43,
+      "SOXX_beats_SOXL_rows": 23,
+      "mean_f696_cash_weight": 0.28872334282249534,
+      "mean_f696_cash_by_future_winner": {
+        "CASH": 0.2794460518794106,
+        "SOXX": 0.2601163869758395,
+        "SOXL": 0.29487058724927795
+      }
+    },
+    {
+      "year": 2025,
+      "quarter": 4,
+      "sessions": 64,
+      "mature_winners": 64,
+      "unknown": 0,
+      "winner_counts": {
+        "CASH": 26,
+        "SOXX": 0,
+        "SOXL": 38,
+        "TIE": 0
+      },
+      "SOXX_beats_cash_rows": 38,
+      "SOXX_beats_SOXL_rows": 26,
+      "mean_f696_cash_weight": 0.3112178859957061,
+      "mean_f696_cash_by_future_winner": {
+        "CASH": 0.2932255604935309,
+        "SOXX": null,
+        "SOXL": 0.3235284244971945
+      }
+    },
+    {
+      "year": 2026,
+      "quarter": 1,
+      "sessions": 61,
+      "mature_winners": 61,
+      "unknown": 0,
+      "winner_counts": {
+        "CASH": 24,
+        "SOXX": 2,
+        "SOXL": 35,
+        "TIE": 0
+      },
+      "SOXX_beats_cash_rows": 37,
+      "SOXX_beats_SOXL_rows": 26,
+      "mean_f696_cash_weight": 0.23612981765964516,
+      "mean_f696_cash_by_future_winner": {
+        "CASH": 0.23366024479747505,
+        "SOXX": 0.23051400488177937,
+        "SOXL": 0.23814414263815417
+      }
+    },
+    {
+      "year": 2026,
+      "quarter": 2,
+      "sessions": 62,
+      "mature_winners": 62,
+      "unknown": 0,
+      "winner_counts": {
+        "CASH": 14,
+        "SOXX": 5,
+        "SOXL": 43,
+        "TIE": 0
+      },
+      "SOXX_beats_cash_rows": 48,
+      "SOXX_beats_SOXL_rows": 19,
+      "mean_f696_cash_weight": 0.30546992204953755,
+      "mean_f696_cash_by_future_winner": {
+        "CASH": 0.35169404753204636,
+        "SOXX": 0.3083375743458895,
+        "SOXL": 0.2900867588347264
+      }
+    },
+    {
+      "year": 2026,
+      "quarter": 3,
+      "sessions": 64,
+      "mature_winners": 64,
+      "unknown": 0,
+      "winner_counts": {
+        "CASH": 33,
+        "SOXX": 1,
+        "SOXL": 30,
+        "TIE": 0
+      },
+      "SOXX_beats_cash_rows": 31,
+      "SOXX_beats_SOXL_rows": 34,
+      "mean_f696_cash_weight": 0.39876444249165605,
+      "mean_f696_cash_by_future_winner": {
+        "CASH": 0.3230810885729149,
+        "SOXX": 0.2312487971552516,
+        "SOXL": 0.4875999866468182
+      }
+    },
+    {
+      "year": 2026,
+      "quarter": 4,
+      "sessions": 6,
+      "mature_winners": 2,
+      "unknown": 4,
+      "winner_counts": {
+        "CASH": 1,
+        "SOXX": 0,
+        "SOXL": 1,
+        "TIE": 0
+      },
+      "SOXX_beats_cash_rows": 1,
+      "SOXX_beats_SOXL_rows": 1,
+      "mean_f696_cash_weight": 0.6103565711306242,
+      "mean_f696_cash_by_future_winner": {
+        "CASH": 0.534284066599342,
+        "SOXX": null,
+        "SOXL": 0.5494048204954082
+      }
+    }
+  ],
+  "matched_state_year_cells": 12,
+  "matched_weak_minus_good": {
+    "CASH": -0.0066834432444716485,
+    "SOXX": -0.00967241961116855,
+    "SOXL": 0.016355862855640176,
+    "mean_f696_cash": 0.027536160940432933
+  },
+  "cells": [
+    {
+      "start_state": "decline",
+      "year": 2023,
+      "weak_windows": 52,
+      "good_windows": 0,
+      "matched": false
+    },
+    {
+      "start_state": "decline",
+      "year": 2024,
+      "weak_windows": 27,
+      "good_windows": 33,
+      "matched": true,
+      "weak_minus_good": {
+        "CASH": -0.0074020629576184716,
+        "SOXX": -0.002351557907113458,
+        "SOXL": 0.009753620864731971,
+        "mean_f696_cash": 0.08372478742348366
+      }
+    },
+    {
+      "start_state": "decline",
+      "year": 2025,
+      "weak_windows": 42,
+      "good_windows": 6,
+      "matched": true,
+      "weak_minus_good": {
+        "CASH": 0.0336356764928194,
+        "SOXX": 0.01568405139833711,
+        "SOXL": -0.04931972789115646,
+        "mean_f696_cash": 0.1140333415651163
+      }
+    },
+    {
+      "start_state": "decline",
+      "year": 2026,
+      "weak_windows": 7,
+      "good_windows": 7,
+      "matched": true,
+      "weak_minus_good": {
+        "CASH": -0.0113378684807256,
+        "SOXX": -0.006802721088435368,
+        "SOXL": 0.018140589569161203,
+        "mean_f696_cash": 0.049572075487125666
+      }
+    },
+    {
+      "start_state": "pullback",
+      "year": 2023,
+      "weak_windows": 54,
+      "good_windows": 0,
+      "matched": false
+    },
+    {
+      "start_state": "pullback",
+      "year": 2024,
+      "weak_windows": 16,
+      "good_windows": 32,
+      "matched": true,
+      "weak_minus_good": {
+        "CASH": -0.06845238095238093,
+        "SOXX": -0.01215277777777777,
+        "SOXL": 0.08060515873015872,
+        "mean_f696_cash": -0.00803534487178037
+      }
+    },
+    {
+      "start_state": "pullback",
+      "year": 2025,
+      "weak_windows": 38,
+      "good_windows": 17,
+      "matched": true,
+      "weak_minus_good": {
+        "CASH": 0.0466361983389848,
+        "SOXX": -0.02038183694530445,
+        "SOXL": -0.026254361393680203,
+        "mean_f696_cash": 0.02910060605324949
+      }
+    },
+    {
+      "start_state": "pullback",
+      "year": 2026,
+      "weak_windows": 4,
+      "good_windows": 2,
+      "matched": true,
+      "weak_minus_good": {
+        "CASH": -0.01388888888888884,
+        "SOXX": 0.003968253968253968,
+        "SOXL": 0.009920634920634885,
+        "mean_f696_cash": -0.0064405163500810825
+      }
+    },
+    {
+      "start_state": "rebound",
+      "year": 2023,
+      "weak_windows": 49,
+      "good_windows": 0,
+      "matched": false
+    },
+    {
+      "start_state": "rebound",
+      "year": 2024,
+      "weak_windows": 22,
+      "good_windows": 21,
+      "matched": true,
+      "weak_minus_good": {
+        "CASH": -0.025561739847454135,
+        "SOXX": -0.0023706452277880707,
+        "SOXL": 0.027932385075242205,
+        "mean_f696_cash": 0.041682139024363796
+      }
+    },
+    {
+      "start_state": "rebound",
+      "year": 2025,
+      "weak_windows": 28,
+      "good_windows": 6,
+      "matched": true,
+      "weak_minus_good": {
+        "CASH": 0.025888133030990246,
+        "SOXX": -0.01039304610733182,
+        "SOXL": -0.015495086923658308,
+        "mean_f696_cash": 0.06634796518759006
+      }
+    },
+    {
+      "start_state": "rebound",
+      "year": 2026,
+      "weak_windows": 5,
+      "good_windows": 5,
+      "matched": true,
+      "weak_minus_good": {
+        "CASH": -0.01428571428571429,
+        "SOXX": 0.0015873015873015886,
+        "SOXL": 0.012698412698412653,
+        "mean_f696_cash": 0.019261043009731804
+      }
+    },
+    {
+      "start_state": "uptrend",
+      "year": 2023,
+      "weak_windows": 94,
+      "good_windows": 0,
+      "matched": false
+    },
+    {
+      "start_state": "uptrend",
+      "year": 2024,
+      "weak_windows": 22,
+      "good_windows": 79,
+      "matched": true,
+      "weak_minus_good": {
+        "CASH": -0.07868924324620541,
+        "SOXX": -0.011242625166675776,
+        "SOXL": 0.08993186841288092,
+        "mean_f696_cash": -0.04475517821075092
+      }
+    },
+    {
+      "start_state": "uptrend",
+      "year": 2025,
+      "weak_windows": 85,
+      "good_windows": 28,
+      "matched": true,
+      "weak_minus_good": {
+        "CASH": 0.03867213552087495,
+        "SOXX": -0.027887821795384824,
+        "SOXL": -0.010784313725490269,
+        "mean_f696_cash": 0.01052475381274609
+      }
+    },
+    {
+      "start_state": "uptrend",
+      "year": 2026,
+      "weak_windows": 19,
+      "good_windows": 19,
+      "matched": true,
+      "weak_minus_good": {
+        "CASH": 0.017503214597956285,
+        "SOXX": -0.001049357991462635,
+        "SOXL": -0.016453856606493678,
+        "mean_f696_cash": 0.02744892753782935
+      }
+    }
+  ],
+  "new_market_GETs": 0,
+  "new_model_fits": 0,
+  "new_native_accounts": 0,
+  "new_bootstraps": 0,
+  "new_Recorders": 0,
+  "tradable_winner_signal": false,
+  "independent_validation": false,
+  "SOXX_goal_achieved": false,
+  "limits": [
+    "H5 winners are outcome-defined and overlapping, not observable at the f696 or b472 decision clock",
+    "Saved f696 weights are proposals before candidate-specific own-state risk, fees and share execution",
+    "A future winner mix cannot be used to select a threshold or prove a fee-net SOXX account"
+  ]
+}

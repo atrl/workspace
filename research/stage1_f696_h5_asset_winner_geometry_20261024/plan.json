@@ -1,0 +1,42 @@
+{
+  "experiment": "stage1_f696_h5_asset_winner_geometry_20261024",
+  "frozen": true,
+  "phase": "read_only_three_asset_H5_winner_and_f696_cash_interval_diagnostic",
+  "question": "When exact f696 Stage1 loses to SOXX, which of cash, SOXX and SOXL is the future H5 gross-price winner, and how much cash had the saved f696 proposal assigned? Does the rare SOXX-over-both label explain why the fixed joint-margin account never acted?",
+  "sources": {
+    "labels_card": "research/stage1_dual_task_39_information_20261023",
+    "labels_summary_sha256": "e3a22a8f050b90d6f0a7ea96df0b4499bc387376f0c26abf2bb8ee2b501ad136",
+    "labels_experiment_id": "666721299406485975",
+    "labels_recorder_id": "a4bbc11f5c764ac38ff2f682eadd0e1d",
+    "labels_dataset_sha256": "3bc64249f92a922d9edace380e7eecfdeeb52e3a9e611e004bb8e74982aa9b12",
+    "labels_NAS_sha256": "5ebda191e82d5262b92f7c196dcaca036c22ae8a8f14e30ded63ce4b07b32f66",
+    "labels_NAS_size_bytes": 1579665,
+    "f696_card": "research/stage1_domain_heads_20261018",
+    "f696_summary_sha256": "3b51938ca56ddf45029ff5e4a01a6bbc2f1d1407458efcad7d7c68b0ef5a1d37",
+    "f696_experiment_id": "283510277269468590",
+    "f696_recorder_id": "6e227278b7a64eafbcf34b965e16d2b9",
+    "f696_frame_sha256": "e83a57eb764dc59ee8d9fad7b1a48eb6b295c6183d6c4cab2062b3aa6c66e07c",
+    "f696_NAS_sha256": "f3f891d6d09d4187f12815e245b33cc9cfec4acfd4f555b734f66a59348d9884",
+    "f696_NAS_size_bytes": 11859296,
+    "account_card": "research/stage1_original_0bp_signal_loss_chain_v2_20261023",
+    "account_summary_sha256": "898089b008f1f6f50016ddbbd2fc082f77423464ed8613c54dbdd5fbbae1dc3a",
+    "account_experiment_id": "954993860986722516",
+    "account_recorder_id": "2f0392615c4c4b15928b4ada6e01ecd9",
+    "account_rolling_sha256": "12f8a16607303370c0ad4a339a3c1de00ab92a467b1490249a160084db2b7635",
+    "account_NAS_sha256": "54c6e93b4c304774c272b07312c856a9a2a255086d372066db418b5efed359c7",
+    "regime_plan": "research/stage1_f696_window_regime_pairing_20261023/plan.json",
+    "regime_plan_sha256": "e8265111f2680953aff3502a97cd64132949459945071953ad0e0d9f3df1f53b",
+    "qlib_provider": "data/qlib/minute_information_pit_allocator_20261012/daily_prices",
+    "provider_manifest_sha256": "d80a08d479b73098053006909b5e6227b03a56ab705681742d7261088e0a7e6c"
+  },
+  "fixed_definitions": {
+    "three_H5_margins_vs_SOXX": "Cash=cash_advantage_H5, SOXX=0, SOXL=SOXL_relative_H5 on the identical original open-to-open Qlib price plane. Choose highest only as a future-descriptive winner; exact ties within1e-12 remain tie, never broken in favor of a route.",
+    "maturity": "Require both labels mature; retain all 944 f696 signal dates and mark the last four unknown rather than fill them.",
+    "f696_proposal": "The saved f696 inputs/frame cash/SOXX/SOXL weights are prior-decision model outputs, not the realized postrisk/account holdings.",
+    "annual_quarter": "Report all complete2024/2025 and partial2023/2026 years and 16 quarters: mature winner counts, cash/SOXX/SOXL proposal means by winner and pairwise SOXX-vs-cash/SOXL sign counts.",
+    "rolling126": "Retain all819 contiguous original account windows and the 122-126 mature winner labels per window. Within fixed prior SOXX5/20 sign and first-trade year cells compare winning-asset fractions between weak and good windows descriptively; 2023 unmatched cells remain explicit.",
+    "interpretation": "Future H5 winners and account windows overlap and are hindsight labels. They can identify the receiver a new factor must learn, never be a trading switch or economic account."
+  },
+  "budget": {"Qlib_calendar_reads": 1, "Qlib_feature_reads": 1, "source_Recorder_object_reads": 3, "DatasetH_prepare_reads": 2, "new_market_GETs": 0, "new_model_fits": 0, "new_native_accounts": 0, "new_bootstraps": 0, "new_Recorders": 0},
+  "stop": "Stop on source SHA/NAS, 3014/940 mature label count, 944 f696 dates, 819 rolling windows, Qlib calendar or positive joint SOXX winner count disagreement with the closed 0bp failure attribution. No factor or threshold selected from winner groups."
+}
