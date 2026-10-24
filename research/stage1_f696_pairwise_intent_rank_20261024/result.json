@@ -1,0 +1,640 @@
+{
+  "status": "read_only_f696_pairwise_intent_rank_diagnostic_no_policy",
+  "plan_sha256": "b77f91fd1f1a7d1c5867541205b9cfb249053d3495a4a50d9b69aa59aec8ca48",
+  "source_recorder_ids": {
+    "labels": "a4bbc11f5c764ac38ff2f682eadd0e1d",
+    "f696": "6e227278b7a64eafbcf34b965e16d2b9",
+    "account": "2f0392615c4c4b15928b4ada6e01ecd9"
+  },
+  "train_mature_rows": 3014,
+  "train_SOXL_over_cash": 1697,
+  "held_mature_rows": 940,
+  "held_SOXL_over_cash": 539,
+  "held_full": {
+    "sessions": 944,
+    "mature": 940,
+    "unknown": 4,
+    "positive": 539,
+    "negative": 401,
+    "ties": 0,
+    "auc": 0.46799513276178756,
+    "spearman_continuous": -0.02346385923161014,
+    "mean_intent_score": -0.19198395312632596,
+    "median_split": {
+      "score_median": -0.06458083186046731,
+      "low_rows": 470,
+      "low_positive_fraction": 0.6191489361702127,
+      "high_rows": 470,
+      "high_positive_fraction": 0.5276595744680851
+    }
+  },
+  "halves": [
+    {
+      "start": "2023-01-03",
+      "end": "2024-12-31",
+      "sessions": 502,
+      "mature": 502,
+      "unknown": 0,
+      "positive": 278,
+      "negative": 224,
+      "ties": 0,
+      "auc": 0.42617869989722507,
+      "spearman_continuous": -0.10869349828931556,
+      "mean_intent_score": -0.23790939498004934,
+      "median_split": {
+        "score_median": -0.15223792896960675,
+        "low_rows": 251,
+        "low_positive_fraction": 0.6334661354581673,
+        "high_rows": 251,
+        "high_positive_fraction": 0.47410358565737054
+      }
+    },
+    {
+      "start": "2025-01-02",
+      "end": "2026-10-07",
+      "sessions": 442,
+      "mature": 438,
+      "unknown": 4,
+      "positive": 261,
+      "negative": 177,
+      "ties": 0,
+      "auc": 0.4985605125873975,
+      "spearman_continuous": 0.032956672118946574,
+      "mean_intent_score": -0.1398242883965315,
+      "median_split": {
+        "score_median": -0.007081539481412991,
+        "low_rows": 219,
+        "low_positive_fraction": 0.5707762557077626,
+        "high_rows": 219,
+        "high_positive_fraction": 0.6210045662100456
+      }
+    }
+  ],
+  "annual": [
+    {
+      "year": 2023,
+      "partial_endpoint": true,
+      "sessions": 249,
+      "mature": 249,
+      "unknown": 0,
+      "positive": 134,
+      "negative": 115,
+      "ties": 0,
+      "auc": 0.3761194029850746,
+      "spearman_continuous": -0.2522005441119316,
+      "mean_intent_score": -0.1452476307386972,
+      "median_split": {
+        "score_median": -0.06307301192383483,
+        "low_rows": 124,
+        "low_positive_fraction": 0.6612903225806451,
+        "high_rows": 124,
+        "high_positive_fraction": 0.41935483870967744
+      }
+    },
+    {
+      "year": 2024,
+      "partial_endpoint": false,
+      "sessions": 252,
+      "mature": 252,
+      "unknown": 0,
+      "positive": 143,
+      "negative": 109,
+      "ties": 0,
+      "auc": 0.4870725604670559,
+      "spearman_continuous": 0.009417627813609107,
+      "mean_intent_score": -0.3268157282794717,
+      "median_split": {
+        "score_median": -0.25344050044192623,
+        "low_rows": 126,
+        "low_positive_fraction": 0.5634920634920635,
+        "high_rows": 126,
+        "high_positive_fraction": 0.5714285714285714
+      }
+    },
+    {
+      "year": 2025,
+      "partial_endpoint": false,
+      "sessions": 250,
+      "mature": 250,
+      "unknown": 0,
+      "positive": 152,
+      "negative": 98,
+      "ties": 0,
+      "auc": 0.5007384532760473,
+      "spearman_continuous": 0.03862756204099265,
+      "mean_intent_score": -0.20625486968945614,
+      "median_split": {
+        "score_median": -0.0877360652061448,
+        "low_rows": 125,
+        "low_positive_fraction": 0.616,
+        "high_rows": 125,
+        "high_positive_fraction": 0.6
+      }
+    },
+    {
+      "year": 2026,
+      "partial_endpoint": true,
+      "sessions": 193,
+      "mature": 189,
+      "unknown": 4,
+      "positive": 110,
+      "negative": 79,
+      "ties": 0,
+      "auc": 0.5070195627157652,
+      "spearman_continuous": -0.0346611208873247,
+      "mean_intent_score": -0.05774565154676266,
+      "median_split": {
+        "score_median": 0.03565013684026469,
+        "low_rows": 94,
+        "low_positive_fraction": 0.5531914893617021,
+        "high_rows": 94,
+        "high_positive_fraction": 0.6170212765957447
+      }
+    }
+  ],
+  "quarter": [
+    {
+      "year": 2023,
+      "quarter": 1,
+      "sessions": 61,
+      "mature": 61,
+      "unknown": 0,
+      "positive": 36,
+      "negative": 25,
+      "ties": 0,
+      "auc": 0.6177777777777778,
+      "spearman_continuous": 0.3871496562665256,
+      "mean_intent_score": -0.0015797945834153174,
+      "median_split": {
+        "score_median": 0.0382813950831975,
+        "low_rows": 30,
+        "low_positive_fraction": 0.5666666666666667,
+        "high_rows": 30,
+        "high_positive_fraction": 0.6
+      }
+    },
+    {
+      "year": 2023,
+      "quarter": 2,
+      "sessions": 62,
+      "mature": 62,
+      "unknown": 0,
+      "positive": 35,
+      "negative": 27,
+      "ties": 0,
+      "auc": 0.32063492063492066,
+      "spearman_continuous": -0.37065296769157163,
+      "mean_intent_score": -0.34843246968956587,
+      "median_split": {
+        "score_median": -0.42044791010916716,
+        "low_rows": 31,
+        "low_positive_fraction": 0.7096774193548387,
+        "high_rows": 31,
+        "high_positive_fraction": 0.41935483870967744
+      }
+    },
+    {
+      "year": 2023,
+      "quarter": 3,
+      "sessions": 63,
+      "mature": 63,
+      "unknown": 0,
+      "positive": 25,
+      "negative": 38,
+      "ties": 0,
+      "auc": 0.36526315789473685,
+      "spearman_continuous": -0.39530529953917054,
+      "mean_intent_score": -0.08481060777539687,
+      "median_split": {
+        "score_median": -0.06760086022373002,
+        "low_rows": 31,
+        "low_positive_fraction": 0.5483870967741935,
+        "high_rows": 31,
+        "high_positive_fraction": 0.25806451612903225
+      }
+    },
+    {
+      "year": 2023,
+      "quarter": 4,
+      "sessions": 63,
+      "mature": 63,
+      "unknown": 0,
+      "positive": 38,
+      "negative": 25,
+      "ties": 0,
+      "auc": 0.09052631578947368,
+      "spearman_continuous": -0.8238767281105991,
+      "mean_intent_score": -0.1448319233927648,
+      "median_split": {
+        "score_median": -0.05937119759322418,
+        "low_rows": 31,
+        "low_positive_fraction": 0.9032258064516129,
+        "high_rows": 31,
+        "high_positive_fraction": 0.2903225806451613
+      }
+    },
+    {
+      "year": 2024,
+      "quarter": 1,
+      "sessions": 61,
+      "mature": 61,
+      "unknown": 0,
+      "positive": 42,
+      "negative": 19,
+      "ties": 0,
+      "auc": 0.1942355889724311,
+      "spearman_continuous": -0.5344262295081967,
+      "mean_intent_score": -0.16431749167048976,
+      "median_split": {
+        "score_median": -0.13643487280935793,
+        "low_rows": 30,
+        "low_positive_fraction": 0.8666666666666667,
+        "high_rows": 30,
+        "high_positive_fraction": 0.5
+      }
+    },
+    {
+      "year": 2024,
+      "quarter": 2,
+      "sessions": 63,
+      "mature": 63,
+      "unknown": 0,
+      "positive": 37,
+      "negative": 26,
+      "ties": 0,
+      "auc": 0.41995841995842,
+      "spearman_continuous": -0.18250768049155147,
+      "mean_intent_score": -0.06418406350411095,
+      "median_split": {
+        "score_median": 0.0036785485724757927,
+        "low_rows": 31,
+        "low_positive_fraction": 0.7096774193548387,
+        "high_rows": 31,
+        "high_positive_fraction": 0.4838709677419355
+      }
+    },
+    {
+      "year": 2024,
+      "quarter": 3,
+      "sessions": 64,
+      "mature": 64,
+      "unknown": 0,
+      "positive": 32,
+      "negative": 32,
+      "ties": 0,
+      "auc": 0.4599609375,
+      "spearman_continuous": -0.10293040293040293,
+      "mean_intent_score": -0.4203379117532633,
+      "median_split": {
+        "score_median": -0.45190586415596395,
+        "low_rows": 32,
+        "low_positive_fraction": 0.5625,
+        "high_rows": 32,
+        "high_positive_fraction": 0.4375
+      }
+    },
+    {
+      "year": 2024,
+      "quarter": 4,
+      "sessions": 64,
+      "mature": 64,
+      "unknown": 0,
+      "positive": 32,
+      "negative": 32,
+      "ties": 0,
+      "auc": 0.4580078125,
+      "spearman_continuous": -0.0700091575091575,
+      "mean_intent_score": -0.6467027215868615,
+      "median_split": {
+        "score_median": -0.7321263358419887,
+        "low_rows": 32,
+        "low_positive_fraction": 0.5,
+        "high_rows": 32,
+        "high_positive_fraction": 0.5
+      }
+    },
+    {
+      "year": 2025,
+      "quarter": 1,
+      "sessions": 60,
+      "mature": 60,
+      "unknown": 0,
+      "positive": 26,
+      "negative": 34,
+      "ties": 0,
+      "auc": 0.29977375565610864,
+      "spearman_continuous": -0.38343984440122264,
+      "mean_intent_score": -0.5765526486331728,
+      "median_split": {
+        "score_median": -0.6495648573363306,
+        "low_rows": 30,
+        "low_positive_fraction": 0.6,
+        "high_rows": 30,
+        "high_positive_fraction": 0.26666666666666666
+      }
+    },
+    {
+      "year": 2025,
+      "quarter": 2,
+      "sessions": 62,
+      "mature": 62,
+      "unknown": 0,
+      "positive": 47,
+      "negative": 15,
+      "ties": 0,
+      "auc": 0.44964539007092197,
+      "spearman_continuous": -0.2177482309687492,
+      "mean_intent_score": -0.20405056053058765,
+      "median_split": {
+        "score_median": -0.17619787896461803,
+        "low_rows": 31,
+        "low_positive_fraction": 0.8064516129032258,
+        "high_rows": 31,
+        "high_positive_fraction": 0.7096774193548387
+      }
+    },
+    {
+      "year": 2025,
+      "quarter": 3,
+      "sessions": 64,
+      "mature": 64,
+      "unknown": 0,
+      "positive": 41,
+      "negative": 23,
+      "ties": 0,
+      "auc": 0.45705196182396607,
+      "spearman_continuous": -0.06978021978021978,
+      "mean_intent_score": -0.009162792642809378,
+      "median_split": {
+        "score_median": 0.02761836595355438,
+        "low_rows": 32,
+        "low_positive_fraction": 0.65625,
+        "high_rows": 32,
+        "high_positive_fraction": 0.625
+      }
+    },
+    {
+      "year": 2025,
+      "quarter": 4,
+      "sessions": 64,
+      "mature": 64,
+      "unknown": 0,
+      "positive": 38,
+      "negative": 26,
+      "ties": 0,
+      "auc": 0.4493927125506073,
+      "spearman_continuous": -0.053754578754578744,
+      "mean_intent_score": -0.05832820347402246,
+      "median_split": {
+        "score_median": -0.02323911332480305,
+        "low_rows": 32,
+        "low_positive_fraction": 0.625,
+        "high_rows": 32,
+        "high_positive_fraction": 0.5625
+      }
+    },
+    {
+      "year": 2026,
+      "quarter": 1,
+      "sessions": 61,
+      "mature": 61,
+      "unknown": 0,
+      "positive": 35,
+      "negative": 26,
+      "ties": 0,
+      "auc": 0.4065934065934066,
+      "spearman_continuous": -0.16668429402432572,
+      "mean_intent_score": 0.06181122359070787,
+      "median_split": {
+        "score_median": 0.06368911923945289,
+        "low_rows": 30,
+        "low_positive_fraction": 0.6333333333333333,
+        "high_rows": 30,
+        "high_positive_fraction": 0.5
+      }
+    },
+    {
+      "year": 2026,
+      "quarter": 2,
+      "sessions": 62,
+      "mature": 62,
+      "unknown": 0,
+      "positive": 43,
+      "negative": 19,
+      "ties": 0,
+      "auc": 0.828641370869033,
+      "spearman_continuous": 0.6032837249124928,
+      "mean_intent_score": -0.011084648510752441,
+      "median_split": {
+        "score_median": -0.0002581431461182726,
+        "low_rows": 31,
+        "low_positive_fraction": 0.4838709677419355,
+        "high_rows": 31,
+        "high_positive_fraction": 0.9032258064516129
+      }
+    },
+    {
+      "year": 2026,
+      "quarter": 3,
+      "sessions": 64,
+      "mature": 64,
+      "unknown": 0,
+      "positive": 31,
+      "negative": 33,
+      "ties": 0,
+      "auc": 0.3812316715542522,
+      "spearman_continuous": -0.29624542124542125,
+      "mean_intent_score": -0.17750808278620278,
+      "median_split": {
+        "score_median": 0.019426125747659728,
+        "low_rows": 32,
+        "low_positive_fraction": 0.5625,
+        "high_rows": 32,
+        "high_positive_fraction": 0.40625
+      }
+    },
+    {
+      "year": 2026,
+      "quarter": 4,
+      "sessions": 6,
+      "mature": 2,
+      "unknown": 4,
+      "positive": 1,
+      "negative": 1,
+      "ties": 0,
+      "auc": 0.0,
+      "spearman_continuous": null,
+      "mean_intent_score": -0.4779383135957908,
+      "median_split": {
+        "score_median": -0.38795245618740926,
+        "low_rows": 1,
+        "low_positive_fraction": 1.0,
+        "high_rows": 1,
+        "high_positive_fraction": 0.0
+      }
+    }
+  ],
+  "rolling126_windows": 819,
+  "rolling126_summary": {
+    "good": {
+      "windows": 255,
+      "mean_auc": 0.4855636577553605,
+      "fraction_auc_above_half": 0.43529411764705883,
+      "auc_p10_p50_p90": [
+        0.4072495250539089,
+        0.4930078820239004,
+        0.5528089557763195
+      ]
+    },
+    "weak": {
+      "windows": 564,
+      "mean_auc": 0.36706989570299464,
+      "fraction_auc_above_half": 0.15602836879432624,
+      "auc_p10_p50_p90": [
+        0.19816948632538567,
+        0.3889479367007457,
+        0.5140864739008014
+      ]
+    }
+  },
+  "matched_state_year_cells": 12,
+  "matched_weak_minus_good_auc": -0.03563099810487807,
+  "cells": [
+    {
+      "start_state": "decline",
+      "year": 2023,
+      "weak_windows": 52,
+      "good_windows": 0,
+      "matched": false
+    },
+    {
+      "start_state": "decline",
+      "year": 2024,
+      "weak_windows": 27,
+      "good_windows": 33,
+      "matched": true,
+      "weak_minus_good_auc": -0.0674994085179903
+    },
+    {
+      "start_state": "decline",
+      "year": 2025,
+      "weak_windows": 42,
+      "good_windows": 6,
+      "matched": true,
+      "weak_minus_good_auc": 0.034865482191946684
+    },
+    {
+      "start_state": "decline",
+      "year": 2026,
+      "weak_windows": 7,
+      "good_windows": 7,
+      "matched": true,
+      "weak_minus_good_auc": -0.013408524637635422
+    },
+    {
+      "start_state": "pullback",
+      "year": 2023,
+      "weak_windows": 54,
+      "good_windows": 0,
+      "matched": false
+    },
+    {
+      "start_state": "pullback",
+      "year": 2024,
+      "weak_windows": 16,
+      "good_windows": 32,
+      "matched": true,
+      "weak_minus_good_auc": -0.0483095298641375
+    },
+    {
+      "start_state": "pullback",
+      "year": 2025,
+      "weak_windows": 38,
+      "good_windows": 17,
+      "matched": true,
+      "weak_minus_good_auc": -0.022156479245947103
+    },
+    {
+      "start_state": "pullback",
+      "year": 2026,
+      "weak_windows": 4,
+      "good_windows": 2,
+      "matched": true,
+      "weak_minus_good_auc": -0.05348717753103349
+    },
+    {
+      "start_state": "rebound",
+      "year": 2023,
+      "weak_windows": 49,
+      "good_windows": 0,
+      "matched": false
+    },
+    {
+      "start_state": "rebound",
+      "year": 2024,
+      "weak_windows": 22,
+      "good_windows": 21,
+      "matched": true,
+      "weak_minus_good_auc": -0.042459428857028636
+    },
+    {
+      "start_state": "rebound",
+      "year": 2025,
+      "weak_windows": 28,
+      "good_windows": 6,
+      "matched": true,
+      "weak_minus_good_auc": 0.004943680261940975
+    },
+    {
+      "start_state": "rebound",
+      "year": 2026,
+      "weak_windows": 5,
+      "good_windows": 5,
+      "matched": true,
+      "weak_minus_good_auc": -0.023522204978725703
+    },
+    {
+      "start_state": "uptrend",
+      "year": 2023,
+      "weak_windows": 94,
+      "good_windows": 0,
+      "matched": false
+    },
+    {
+      "start_state": "uptrend",
+      "year": 2024,
+      "weak_windows": 22,
+      "good_windows": 79,
+      "matched": true,
+      "weak_minus_good_auc": -0.04298051757969479
+    },
+    {
+      "start_state": "uptrend",
+      "year": 2025,
+      "weak_windows": 85,
+      "good_windows": 28,
+      "matched": true,
+      "weak_minus_good_auc": -0.0500079460455361
+    },
+    {
+      "start_state": "uptrend",
+      "year": 2026,
+      "weak_windows": 19,
+      "good_windows": 19,
+      "matched": true,
+      "weak_minus_good_auc": 0.0009512078029586535
+    }
+  ],
+  "new_market_GETs": 0,
+  "new_model_fits": 0,
+  "new_native_accounts": 0,
+  "new_bootstraps": 0,
+  "new_Recorders": 0,
+  "independent_validation": false,
+  "SOXX_goal_achieved": false,
+  "limits": [
+    "H5 price margin is future and overlapping, with no dividends, risk, Tiered fees or funded-account outcomes in this rank test",
+    "f696 proposal weights are pre-risk intent and 2023-2026 held market history has been reused",
+    "Overlapping weak/good windows and median splits cannot define a tradable switch or infer causation"
+  ]
+}

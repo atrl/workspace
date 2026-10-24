@@ -1,0 +1,39 @@
+{
+  "experiment": "stage1_f696_pairwise_intent_rank_20261024",
+  "decision": "descriptive_f696_pairwise_SOXL_cash_intent_misrank_no_policy",
+  "objective_achieved": false,
+  "plan_sha256": "b77f91fd1f1a7d1c5867541205b9cfb249053d3495a4a50d9b69aa59aec8ca48",
+  "source_recorder_ids": {
+    "labels": "a4bbc11f5c764ac38ff2f682eadd0e1d",
+    "f696": "6e227278b7a64eafbcf34b965e16d2b9",
+    "account": "2f0392615c4c4b15928b4ada6e01ecd9"
+  },
+  "held_mature_rows": 940,
+  "held_auc": 0.46799513276178756,
+  "year_auc": {
+    "2023": 0.3761194029850746,
+    "2024": 0.4870725604670559,
+    "2025": 0.5007384532760473,
+    "2026": 0.5070195627157652
+  },
+  "rolling126_weak_mean_auc": 0.36706989570299464,
+  "rolling126_good_mean_auc": 0.4855636577553605,
+  "matched_weak_minus_good_auc": -0.03563099810487807,
+  "new_model_fits": 0,
+  "new_native_accounts": 0,
+  "independent_forward_qualified_days": 0,
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "source recorders inputs/dataset",
+      "source recorders inputs/frame",
+      "source recorders analysis/rolling126"
+    ]
+  },
+  "limitations": [
+    "H5 price margin is future and overlapping, with no dividends, risk, Tiered fees or funded-account outcomes in this rank test",
+    "f696 proposal weights are pre-risk intent and 2023-2026 held market history has been reused",
+    "Overlapping weak/good windows and median splits cannot define a tradable switch or infer causation"
+  ]
+}

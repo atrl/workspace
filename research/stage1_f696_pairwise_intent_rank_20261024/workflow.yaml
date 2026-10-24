@@ -1,0 +1,8 @@
+experiment: stage1_f696_pairwise_intent_rank_20261024
+notebook: stage1_f696_pairwise_intent_rank_20261024.ipynb
+phase: read_only_pairwise_SOXL_cash_f696_intent_rank_interval_diagnostic
+artifact_policy: slim_card_recorder_first
+source_recorders:
+  labels: a4bbc11f5c764ac38ff2f682eadd0e1d
+  f696: 6e227278b7a64eafbcf34b965e16d2b9
+  account: 2f0392615c4c4b15928b4ada6e01ecd9
