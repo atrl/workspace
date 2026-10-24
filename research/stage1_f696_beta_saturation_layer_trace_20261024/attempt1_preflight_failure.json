@@ -1,0 +1,12 @@
+{
+  "status": "failed_before_Qlib_object_reads",
+  "reason": "source_targets SHA-256 copied with da instead of fa in plan.json",
+  "copied_sha256": "5841299fcc37e8a01f09644072125d4d0aac5ecfaa5ba26da5a41c78c7e42",
+  "actual_sha256": "5841299fcc37e8a01f09644072125d4d0aac5ecfaa5ba26fa26d5a41c78c7e42",
+  "original_bridge_plan_path": "research/stage1_f696_raw_to_target_bridge_20261024/plan.json",
+  "repair": "Correct only the literal source identity in the new plan; hypothesis, windows, budgets and code unchanged.",
+  "source_Recorder_object_reads": 0,
+  "new_market_GETs": 0,
+  "new_model_fits": 0,
+  "new_native_accounts": 0
+}

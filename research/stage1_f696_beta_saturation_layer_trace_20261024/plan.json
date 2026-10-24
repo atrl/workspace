@@ -1,0 +1,43 @@
+{
+  "experiment": "stage1_f696_beta_saturation_layer_trace_20261024",
+  "frozen": true,
+  "phase": "read_only_raw_model_to_accepted_to_own_state_cap_saturation_trace",
+  "question": "Among exact f696 original EXECUTE days classified nonbinding by accepted raw beta<=own-state cap yet having no postprojection beta slack, at which layer did the beta target reach the cap: raw model weights, accepted EMA/HOLD source target, or b472 legal projection?",
+  "sources": {
+    "action_card": "research/stage1_minute_information_comparison_20261012",
+    "action_summary_sha256": "ccdb6337cdf812606e27ef0446e550e07b634c75e703ef8f010e96be8591bc4a",
+    "action_readback_sha256": "185f1ab98e1f63503a1c5a4291a52540ecb7399aaaeb7a3f67f0ca773521d0f9",
+    "action_experiment_id": "948959188821794065",
+    "action_recorder_id": "9d671fcfb1aa467bb8a9fd83971fb015",
+    "raw_predictions_sha256": "63c3097b24bd6e2534b31c6d1ae691f1e0e959d0ae2afcc6940e5d427f6fffa9",
+    "source_targets_sha256": "5841299fcc37e8a01f09644072125d4d0aac5ecfaa5ba26fa26d5a41c78c7e42",
+    "action_NAS_sha256": "2540d2ed5459785dcf04016b20342fc73fade653e2600025f5b9aaf889d7e250",
+    "A0_card": "research/stage1_domain_heads_20261018",
+    "A0_summary_sha256": "3b51938ca56ddf45029ff5e4a01a6bbc2f1d1407458efcad7d7c68b0ef5a1d37",
+    "A0_experiment_id": "283510277269468590",
+    "A0_recorder_id": "6e227278b7a64eafbcf34b965e16d2b9",
+    "A0_frame_sha256": "e83a57eb764dc59ee8d9fad7b1a48eb6b295c6183d6c4cab2062b3aa6c66e07c",
+    "A0_native_sha256": "ce59dcab49559c7d07b98de85a75ccb7516561b5a317c110ad1dfe474ce45678",
+    "A0_NAS_sha256": "f3f891d6d09d4187f12815e245b33cc9cfec4acfd4f555b734f66a59348d9884",
+    "account_card": "research/stage1_original_0bp_signal_loss_chain_v2_20261023",
+    "account_summary_sha256": "898089b008f1f6f50016ddbbd2fc082f77423464ed8613c54dbdd5fbbae1dc3a",
+    "account_experiment_id": "954993860986722516",
+    "account_recorder_id": "2f0392615c4c4b15928b4ada6e01ecd9",
+    "account_rolling_sha256": "12f8a16607303370c0ad4a339a3c1de00ab92a467b1490249a160084db2b7635",
+    "account_NAS_sha256": "54c6e93b4c304774c272b07312c856a9a2a255086d372066db418b5efed359c7",
+    "prior_headroom_plan": "research/stage1_f696_cash_to_soxl_legal_headroom_20261024/plan.json",
+    "prior_headroom_plan_sha256": "98fcb3db69b4f53e35cc16e55ce1332200b374013869c48e60a1b94132ae213b",
+    "prior_headroom_summary_sha256": "da2624a93f876d605904c57b1c84a2f72110be98ecb08987da3bd744c537c050",
+    "provider": "data/qlib/minute_information_pit_allocator_20261012/daily_prices",
+    "provider_manifest_sha256": "d80a08d479b73098053006909b5e6227b03a56ab705681742d7261088e0a7e6c"
+  },
+  "fixed_trace": {
+    "identity": "Align944 signal dates raw_predictions[frozen_current], source_targets[frozen_current], f696 inputs/frame and944 native targets/auth; require all five accepted outputs equal f696 frame and all dates match Qlib calendar. Native full0bp account remains the sole economic baseline.",
+    "beta": "For each source weight triplet compute3*SOXL+SOXX before smoothing (raw_model), after EMA/HOLD (accepted), and after own-state legal projection (projected). Saved own-state current_beta_cap is the comparator.",
+    "primary_population": "Original EXECUTE and accepted_beta<=cap+1e-9 yet cap-projected_beta<=1e-10. Report how many raw_model_beta>=cap-1e-10, accepted_beta>=cap-1e-10, and accepted below cap but projection reaches cap; retain potential overlaps and numerical tolerances explicitly.",
+    "coverage": "All944 sessions, partial2023/2026 and complete2024/2025, all16 quarters, all819 contiguous original SOXX-relative rolling126 windows. On weak/good windows report mean primary days and each layer origin descriptively; do not choose a policy threshold from future outcomes.",
+    "decision": "If accepted targets already saturate cap, an incremental postprojection cash transfer under unchanged cap cannot repair those days; inspect upstream model intent versus EMA/HOLD before freezing any new factor receiver. If projection creates saturation, inspect b472 projection semantics. This is source attribution, not a local-return or own-state candidate account."
+  },
+  "budget": {"Qlib_calendar_reads": 1, "source_Recorder_object_reads": 5, "new_market_GETs": 0, "new_model_fits": 0, "new_native_accounts": 0, "new_bootstraps": 0, "new_Recorders": 0},
+  "stop": "Stop on source SHA/NAS/readback, exact944 alignment, accepted/f696 identity,797 EXECUTE/147 HOLD,459 primary no-slack days,819 windows or Qlib calendar mismatch. No fit, intervention or posthoc threshold."
+}

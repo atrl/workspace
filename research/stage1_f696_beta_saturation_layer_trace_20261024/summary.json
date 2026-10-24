@@ -1,0 +1,56 @@
+{
+  "experiment": "stage1_f696_beta_saturation_layer_trace_20261024",
+  "decision": "read_only_accepted_f696_target_saturates_cap_before_projection_no_policy",
+  "objective_achieved": false,
+  "plan_sha256": "9261bd15725e74b4cf6833a4b92720305bb31c3affdab78137961fa31cf3df0b",
+  "source_recorder_ids": {
+    "action": "9d671fcfb1aa467bb8a9fd83971fb015",
+    "A0": "6e227278b7a64eafbcf34b965e16d2b9",
+    "account": "2f0392615c4c4b15928b4ada6e01ecd9"
+  },
+  "all_days": {
+    "sessions": 944,
+    "execute": 797,
+    "nonbinding_execute": 536,
+    "primary_no_slack_nonbinding_execute": 459,
+    "primary_raw_model_beta_at_or_above_cap": 243,
+    "primary_accepted_beta_at_cap": 459,
+    "primary_accepted_below_cap_but_projection_at_cap": 0,
+    "mean_raw_minus_cap_primary": 0.0004413932439125767,
+    "mean_accepted_minus_cap_primary": 0.0
+  },
+  "rolling126_summary": {
+    "good": {
+      "windows": 255,
+      "mean_primary": 67.43137254901961,
+      "mean_raw_high": 30.83137254901961,
+      "mean_accepted_sat": 67.43137254901961,
+      "mean_projection_created": 0.0
+    },
+    "weak": {
+      "windows": 564,
+      "mean_primary": 59.969858156028366,
+      "mean_raw_high": 33.41843971631206,
+      "mean_accepted_sat": 59.969858156028366,
+      "mean_projection_created": 0.0
+    }
+  },
+  "new_model_fits": 0,
+  "new_native_accounts": 0,
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "source inputs/raw_predictions",
+      "source inputs/source_targets",
+      "source inputs/frame",
+      "source native/A_active_research_replay_0",
+      "source analysis/rolling126"
+    ]
+  },
+  "limitations": [
+    "Raw model versus accepted target contrasts are source lineage, not causal feature effects",
+    "Cap saturation and weak/good windows are on the original own-state path and cannot define a policy",
+    "No fee-net candidate action, own-state account, 2/5bp or independent forward evidence"
+  ]
+}
