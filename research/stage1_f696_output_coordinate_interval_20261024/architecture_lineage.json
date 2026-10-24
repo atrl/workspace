@@ -1,0 +1,31 @@
+{
+  "status": "read_only_saved_model_and_code_architecture_review",
+  "saved_training_model": {
+    "recorder_id": "68e31a0a0fad44e7ba1d1f7d856c7a0d",
+    "artifact": "models/base_outer_71",
+    "sha256": "5945030ca770bb7ca63c6b03d53e6cf7265f239312cac1308debfde93afddcac",
+    "class": "src.model.minute_pit_allocator.MinutePitAllocator",
+    "base_features": 39,
+    "extra_features": 0,
+    "candidate": "pit_only_aux_005",
+    "cash_target_penalty": 0.0,
+    "training_cost_bps": 10,
+    "minimum_cash_weight": 0.15,
+    "maximum_soxl_weight": 0.3
+  },
+  "code_identity": {
+    "src/model/minute_pit_allocator.py": "d06962ac2739633c0af34e3843365f1ad4c0a9bbc9dff0ba38e1636db6a175c8",
+    "src/workflow/pit_constituent_auxiliary_training_allocation.py": "1120abca4fdc1257c3a2ed9b42cd8b515356eeea0f5ef9e79622f3b38ceff85d",
+    "src/workflow/stage1_domain_heads.py": "5b4305c0c1311a52e0a7de87257bd2de03b5be34084ee7709859a9defe88b04a"
+  },
+  "verified_path": [
+    "stage1_domain_heads.prepare copies the exact f696 source_targets frozen_current five outputs into the A0 frame",
+    "PitAuxiliaryAllocationNet.forward sends primary 39 inputs plus a shared tail_encoder state to allocation_head",
+    "tail_head and alpha_head separately read the shared tail_encoder state; their probability outputs are not direct inputs to allocation_head",
+    "MinutePitAllocator.fit optimizes allocation loss plus auxiliary classifier losses; saved candidate cash_target_penalty is zero"
+  ],
+  "interpretation": "Higher auxiliary alpha probability together with higher proposed cash is architecturally possible and does not by itself prove a wiring or calibration defect. The observed cash proposal and account risk cap still require separately qualified economic information before changing policy.",
+  "new_model_fits": 0,
+  "new_native_accounts": 0,
+  "market_outcome_reads": 0
+}

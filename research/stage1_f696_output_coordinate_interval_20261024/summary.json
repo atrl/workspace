@@ -34,6 +34,8 @@
     "Risk cap and funded beta are endogenous account states",
     "Proposal-coordinate contrast does not identify a causal factor or tradable switch",
     "The proposal contrast does not identify which original input caused the cash choice",
-    "Original Stage1 cash and cap information routes already failed and are not reopened by this audit"
-  ]
+    "Original Stage1 cash and cap information routes already failed and are not reopened by this audit",
+    "Alpha/tail probabilities are auxiliary heads, not direct allocation-head inputs; high alpha with high cash is not a wiring-error proof"
+  ],
+  "architecture_lineage": "architecture_lineage.json"
 }
