@@ -1,0 +1,45 @@
+{
+  "experiment": "stage1_0945_pair_path_divergence_source_20261024",
+  "frozen": true,
+  "transport_repair": "transport_repair.json",
+  "phase": "source_only_first15minute_pair_path_novelty_preflight",
+  "parent": "exact_f696_allocation_plus_b472_open_action_0bp_Tiered",
+  "hypothesis": "At the 09:46 opening-action decision, disagreement along the paired SOXL/SOXX one-minute path may distinguish a broad semiconductor move from an ETF-specific move even when their first-15-minute total returns look similar. It could matter for the same-state local value of deploying risky capital. This is an untested hypothesis, not a tracking-error or alpha claim.",
+  "candidate_coordinate": "For both ETFs' complete right-edge 09:31..09:45 1-minute bars, r=log(close/open); E=sum((r_SOXL-3*r_SOXX)^2)/(sum(r_SOXL^2)+9*sum(r_SOXX^2)+1e-12). The factor is known at an assumed 09:46 research clock only after the 09:45 bar completes.",
+  "source": {
+    "provider": "data/qlib/minute_information_pit_allocator_20261012/core_1min",
+    "provider_manifest_sha256": "e2d97bd4dc00cdb231f7aa926799efcbc6f0d613ca197fbe04e86db1f074bf4e",
+    "parent_card": "research/minute_information_pit_allocator_20261012",
+    "parent_summary_sha256": "61c91f958323cf51b43f4b1554eeca5687011d30771e80bc7ff02d16b6d577ca",
+    "parent_nas_readback_sha256": "fad9abb3f59a2079487a5334b400baafe746e91a8eb76dff7a8f2babbfdfbae8",
+    "parent_nas_binding_sha256": "67d8f88adae6a3ec11519b096dfbed2398e1835f9a62972f260ba86c4ce74428",
+    "parent_archive_sha256": "ee328cab292f178bf3582ef574fb411561c93b82545cd3bb90842ecd9a9a24f1",
+    "parent_archive_size_bytes": 25284463,
+    "parent_experiment_id": "905520356740140469",
+    "parent_recorder_id": "68e31a0a0fad44e7ba1d1f7d856c7a0d",
+    "parent_artifacts": {
+      "inputs/features": "482d6a908ae95230143dc08014732c3247d22ccb1560f8509f6ac564a4d647ec",
+      "inputs/daily_frame": "674443e012ef98d21438891666e32e9fca8dcde6eb60fb3141f89ed6e0ca330c"
+    },
+    "f696_card": "research/stage1_domain_heads_20261018",
+    "f696_summary_sha256": "3b51938ca56ddf45029ff5e4a01a6bbc2f1d1407458efcad7d7c68b0ef5a1d37",
+    "f696_experiment_id": "283510277269468590",
+    "f696_recorder_id": "6e227278b7a64eafbcf34b965e16d2b9",
+    "f696_frame_sha256": "e83a57eb764dc59ee8d9fad7b1a48eb6b295c6183d6c4cab2062b3aa6c66e07c",
+    "f696_archive_sha256": "f3f891d6d09d4187f12815e245b33cc9cfec4acfd4f555b734f66a59348d9884",
+    "f696_archive_size_bytes": 11859296,
+    "prior_closed_cross_response_card": "research/stage1_0945_cross_response_dual_h5_information_20261023",
+    "prior_closed_cross_response_summary_sha256": "9f6c16bebb0d6958099d6403183fbbb426f933459ead8c121f6da7738885be52"
+  },
+  "gates": {
+    "bars": "Exactly 15 paired 09:31..09:45 Qlib minutes per known trade day, finite positive open/close and price_valid=1 for both; retain unknown dates including quarantined 2020-03-16",
+    "training_support": "At least 1000 source-known trade dates whose paired Stage1 signal dates are in 2018-2022",
+    "held_support": "At least 900/944 exact f696 held trade dates source-known; disclose every unknown",
+    "variation": "Training standard deviation of E > 0.02",
+    "novelty": "On source-known training dates, maximum absolute Spearman versus the original39 prior-signal inputs, saved prior-session whole-day tracking residual magnitude, and the same-day first15minute endpoint cross-response each < 0.80",
+    "timing": "The current retrospective Qlib store proves completed-bar order and an assumed 09:46 research clock. Historical first-public delivery is unqualified; source novelty cannot by itself authorize historical PIT or strategy promotion."
+  },
+  "budget": {"Qlib_calendar_reads": 1, "Qlib_feature_reads": 1, "Qlib_feature_attempts_max": 2, "source_Recorder_object_reads": 3, "new_market_GETs": 0, "SOXX_outcome_reads": 0, "model_fits": 0, "native_accounts": 0, "new_Recorders": 0},
+  "next_if_pass": "Only after all source/novelty gates pass, separately freeze a matched 09:46 same-state 0bp Tiered local-value information test with original39, own-state and early-return controls. No account or trading claim from this preflight.",
+  "stop": "Stop before fitting on source SHA/NAS, calendar, completion, support, variation or novelty failure. Do not change minute count, denominator, sign or threshold on the reused history."
+}

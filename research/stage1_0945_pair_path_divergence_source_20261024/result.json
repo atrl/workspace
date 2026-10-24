@@ -1,0 +1,52 @@
+{
+  "status": "source_and_novelty_preflight_pass",
+  "plan_sha256": "9b711e071d5b3c313bd8ad086876c507bcfc2ceed6953cf1060b72e467694016",
+  "provider_manifest_sha256": "e2d97bd4dc00cdb231f7aa926799efcbc6f0d613ca197fbe04e86db1f074bf4e",
+  "parent_archive_sha256": "ee328cab292f178bf3582ef574fb411561c93b82545cd3bb90842ecd9a9a24f1",
+  "minute_calendar_rows": 780060,
+  "raw_Qlib_rows": 1560120,
+  "qualified_pair_dates": 2007,
+  "invalid_pair_dates": [
+    "2020-03-16"
+  ],
+  "coverage": {
+    "train_expected": 1062,
+    "train_known": 1061,
+    "held_expected": 944,
+    "held_known": 944,
+    "train_unknown_trade_dates": [
+      "2020-03-16"
+    ],
+    "held_unknown_trade_dates": []
+  },
+  "training_std": 0.15677489534098663,
+  "training_max_abs_spearman_original39": 0.3553472689169119,
+  "training_spearman_prior_tracking_residual_magnitude": 0.04388337103307739,
+  "training_spearman_closed_endpoint_cross_response": 0.04304259842400328,
+  "training_spearman_early_returns": {
+    "early_ret_soxl": -0.020995126426584965,
+    "early_ret_soxx": -0.028389883968193984
+  },
+  "gates": {
+    "training_support": true,
+    "held_support": true,
+    "variation": true,
+    "novel_original39": true,
+    "novel_prior_tracking": true,
+    "novel_closed_endpoint": true
+  },
+  "historical_first_public_qualified": false,
+  "source_clock": "assumed 09:45 bar complete before 09:46 action, not historical first-receipt proof",
+  "new_market_GETs": 0,
+  "SOXX_outcome_reads": 0,
+  "model_fits": 0,
+  "native_accounts": 0,
+  "new_Recorders": 0,
+  "factor_economic_value_tested": false,
+  "independent_validation": false,
+  "limits": [
+    "SOXL and SOXX track different benchmarks; this is cross-ETF path divergence, not true fund tracking error",
+    "Retrospective Qlib minute provider and source receipt do not certify every historical 09:46 first-public value",
+    "Coverage and low feature correlation do not prove predictive information or SOXX account value"
+  ]
+}

@@ -1,0 +1,10 @@
+{
+  "status": "one_failed_Qlib_stdin_spawn_attempt_before_source_values",
+  "preserved_initial_plan": "plan_initial.json",
+  "initial_plan_sha256": "21201a3ff80d5ff5826fdf7ca1e105958d449df163c93c07b92aa8374bfaade8",
+  "attempt": "A one-date Qlib D.features schema probe launched from python stdin without kernels=1. macOS multiprocessing spawn could not reopen the <stdin> path; no feature frame or candidate value was returned.",
+  "error": "FileNotFoundError: /Users/rziiiii/dev/workspace/<stdin>",
+  "repair": "Run the original frozen Qlib source preflight from its saved notebook with qlib.init(kernels=1). Allow one replacement Qlib feature attempt, one successful feature read total.",
+  "unchanged": ["source provider and manifest SHA", "candidate formula and 09:46 timing", "training/held support and novelty gates", "zero market GETs, outcome reads, model fits and accounts"],
+  "failed_attempt_values_used": 0
+}

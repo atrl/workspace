@@ -1,0 +1,32 @@
+{
+  "experiment": "stage1_0945_pair_path_divergence_source_20261024",
+  "decision": "source_and_novelty_pass_needs_separate_0946_local_value_information_and_first_receipt",
+  "objective_achieved": false,
+  "plan_sha256": "9b711e071d5b3c313bd8ad086876c507bcfc2ceed6953cf1060b72e467694016",
+  "result": "result.json",
+  "transport_repair": "transport_repair.json",
+  "source_provider_manifest_sha256": "e2d97bd4dc00cdb231f7aa926799efcbc6f0d613ca197fbe04e86db1f074bf4e",
+  "source_NAS_sha256": "ee328cab292f178bf3582ef574fb411561c93b82545cd3bb90842ecd9a9a24f1",
+  "train_known": 1061,
+  "held_known": 944,
+  "historical_first_public_qualified": false,
+  "new_model_fits": 0,
+  "new_native_accounts": 0,
+  "independent_forward_days": 0,
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [],
+    "reused_native_sources": [
+      "research/minute_information_pit_allocator_20261012/qlib_recorder",
+      "research/stage1_domain_heads_20261018/qlib_recorder"
+    ]
+  },
+  "limitations": [
+    "SOXL and SOXX track different benchmarks; this is cross-ETF path divergence, not true fund tracking error",
+    "Retrospective Qlib minute provider and source receipt do not certify every historical 09:46 first-public value",
+    "Coverage and low feature correlation do not prove predictive information or SOXX account value",
+    "This source preflight uses no future return label and says nothing about actionable joint cash/cap value",
+    "The failed stdin Qlib schema probe yielded no factor values and its single-process replacement is preserved"
+  ]
+}
