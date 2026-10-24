@@ -1,0 +1,35 @@
+{
+  "status": "stopped_implementation_dependency_schema_after_full_read_only_replay_budget",
+  "decision": "not_evaluated_no_factor_or_interval_result",
+  "objective_achieved": false,
+  "plan_sha256": "e75f5659d4d68ef8eb2c5e2e8eca62347ff7987e9cbe4ddff2d87102aa3b165f",
+  "failed_at": "notebook code cell line 104 after assert len(runs)==42 and len(family_delta)==3",
+  "error_type": "KeyError",
+  "error_value": "nas_verified_sha256",
+  "incorrect_lookup": "interval_plan.source.nas_verified_sha256",
+  "actual_interval_source_keys": [
+    "card",
+    "summary_sha256",
+    "experiment_id",
+    "recorder_id",
+    "daily_sha256",
+    "nas_sha256",
+    "nas_size_bytes",
+    "provider",
+    "provider_manifest_sha256"
+  ],
+  "additional_unreached_lookup": "interval_plan.source.artifact_sha256 also absent",
+  "budget_used": {
+    "ablation_replays": 42,
+    "new_market_requests": 0,
+    "new_model_fits": 0,
+    "new_native_accounts": 0,
+    "new_bootstraps": 0,
+    "new_recorders": 0
+  },
+  "interval_analysis_executed": false,
+  "per_feature_numerical_result_preserved": false,
+  "scientific_information_gate_evaluated": false,
+  "SOXX_goal_achieved": false,
+  "next_action": "Close this exact 42-replay implementation attempt; do not spend another identical batch or claim a factor result. A future materially different bounded mechanism needs a fully validated preflight before source-model calls."
+}

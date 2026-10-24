@@ -1,0 +1,20 @@
+{
+  "experiment": "stage1_f696_input_path_sensitivity_20261024",
+  "decision": "not_evaluated_no_factor_or_interval_result",
+  "objective_achieved": false,
+  "plan_sha256": "e75f5659d4d68ef8eb2c5e2e8eca62347ff7987e9cbe4ddff2d87102aa3b165f",
+  "result": "result.json",
+  "ablation_replays_consumed": 42,
+  "new_model_fits": 0,
+  "new_native_accounts": 0,
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": []
+  },
+  "limitations": [
+    "The notebook stopped on a missing dependency key after all42 read-only replays; no numerical factor or interval result was retained",
+    "This is an implementation failure, not a negative scientific factor test",
+    "Do not rerun the same fixed 42-replay version on reused history"
+  ]
+}

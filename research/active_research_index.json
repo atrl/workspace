@@ -728,5 +728,6 @@
   "latest_read_only_exact_f696_original39_input_drift": "research/stage1_f696_original39_input_drift_20261024/result.json",
   "latest_read_only_exact_f696_output_coordinate_interval": "research/stage1_f696_output_coordinate_interval_20261024/result.json",
   "latest_failed_exact_f696_frozen_model_forward_parity": "research/stage1_f696_frozen_model_forward_parity_20261024/result.json",
-  "latest_read_only_exact_f696_raw_to_target_bridge": "research/stage1_f696_raw_to_target_bridge_20261024/result.json"
+  "latest_read_only_exact_f696_raw_to_target_bridge": "research/stage1_f696_raw_to_target_bridge_20261024/result.json",
+  "latest_stopped_f696_input_path_sensitivity": "research/stage1_f696_input_path_sensitivity_20261024/result.json"
 }

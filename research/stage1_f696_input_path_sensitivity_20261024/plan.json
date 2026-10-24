@@ -1,0 +1,26 @@
+{
+  "experiment": "stage1_f696_input_path_sensitivity_20261024",
+  "frozen": true,
+  "phase": "read_only_original39_primary_input_neutralization_through_exact_target_transform",
+  "question": "Which saved original39 primary-input families does the frozen model-to-EMA/HOLD f696 cash proposal depend on, and do those fixed family sensitivities differ in weak and good windows within the same prior trend and year?",
+  "dependencies": {
+    "bridge_card": "research/stage1_f696_raw_to_target_bridge_20261024",
+    "bridge_plan_sha256": "1ded3cea3e68e85d685d5dc0633cce86897c0a13088b341ed01780de8812e4ab",
+    "bridge_result_sha256": "ab7166a565866df892ee9467626a4d12b2cf82295f453cd856c7e21a5d8222dd",
+    "interval_card": "research/stage1_f696_factor_interval_delivery_20261024",
+    "interval_plan_sha256": "9b0cb3993820c077a3cae252611f414277e3121717682ec4474c0fd97aed94b9",
+    "interval_result_sha256": "1ffb49e04008e104b730f6acc91b495af20285b68901c8b64a51fa15122a6c19",
+    "forward_code_sha256": "7d8131a084b173e7903dbdf246001c6b73d29d83433177564e2cce04a0c62a13"
+  },
+  "method": {
+    "identity_gate": "Load only bridge-pinned original39 Qlib features, common inputs, outer_refit model, market, raw predictions and source targets. Recompute exact raw five outputs and exact EMA/HOLD f696 target on 944 dates within 1e-7 before any neutralization.",
+    "neutralization": "For each original39 primary-input column, on all 944 held signal dates replace only that primary column by the sealed outer_refit primary_scaler mean; keep the separate common-input frame, all other features, model weights, historical source returns and EMA/HOLD settings fixed.",
+    "families_by_original_feature_index": {"trend_relative_breadth": [0, 22], "volatility_risk": [23, 31], "tracking_structure": [32, 38]},
+    "runs": "Exactly 39 single-column and 3 whole-family forward plus EMA/HOLD replays. Report all 39 in original order without selecting a winner. A family replay is nonlinear and need not equal the sum of singles.",
+    "measures": "For every run report absolute and signed change in f696 accepted cash proposal, and absolute changes in SOXL/SOXX proposals. For each family report annual mean signed cash change and matched weak-minus-good change over all819 rolling126 windows using the frozen interval-card start-state/year definition.",
+    "scope": "All 944 held exact-f696 signal dates, 2023/2026 partial endpoints, complete 2024/2025, 16 source quarters and819 overlapping rolling126 windows; 2023 has no same-year good windows and stays unmatched.",
+    "stop": "Stop before neutralization if source hashes/NAS, model raw-forward, EMA/HOLD target parity, 39-feature order, 944 dates, Qlib calendar, or training-scaler means fail. Stop after exactly 42 replays; no feature threshold or economic account."
+  },
+  "budget": {"new_market_requests": 0, "new_model_fits": 0, "new_native_accounts": 0, "new_bootstraps": 0, "new_recorders": 0, "ablation_replays_max": 42},
+  "interpretation": "Ablation to a training mean is off the joint input manifold and measures frozen model path dependence, not causal market importance, incremental information, expected return or an executable policy. Reused weak/good windows cannot select a tradable factor; any new mechanism needs a separate information gate and its own full 0bp Tiered account."
+}
