@@ -1,0 +1,77 @@
+{
+  "status": "conditional_direct_joint_margin_information_pass_needs_new_f696_account",
+  "scientific_decision": "conditional_direct_joint_margin_information_pass_needs_new_f696_account",
+  "objective_achieved": false,
+  "plan_sha256": "c508fac456f2e37dc8bbd992317a9349fefd34aaa0099a7ac1cb50ca61d9dd97",
+  "preflight": "preflight_result.json",
+  "metrics": {
+    "MSE_saved_two_head_control": 0.004860988106974056,
+    "MSE_candidate": 0.0027607193108684642,
+    "MSE_train_mean": 0.0028267215008935644,
+    "paired_improvement": 0.0021002687961055914,
+    "improvement_vs_train_mean": 6.600219002509959e-05,
+    "held_halves": [
+      {
+        "start": "2023-01-03",
+        "end": "2024-12-31",
+        "rows": 502,
+        "paired_improvement": 0.0016723436897339021
+      },
+      {
+        "start": "2025-01-02",
+        "end": "2026-10-07",
+        "rows": 438,
+        "paired_improvement": 0.0025907217719014545
+      }
+    ],
+    "complete_years": {
+      "2024": {
+        "rows": 252,
+        "paired_improvement": 0.0019366023894616872
+      },
+      "2025": {
+        "rows": 250,
+        "paired_improvement": 0.002235895368296572
+      }
+    }
+  },
+  "gates": {
+    "beats_both_controls": true,
+    "both_halves_positive": true,
+    "both_complete_years_positive": true,
+    "block_lower_positive": true
+  },
+  "bootstrap": {
+    "paired_mean_loss_improvement": 0.002100268796105591,
+    "lower_bound": 0.001388795245415948,
+    "upper_bound": 0.003000740506326298,
+    "valid_replicates": 10000,
+    "invalid_replicates": 0,
+    "calendar_rows": 944,
+    "scored_rows": 940
+  },
+  "recorder_id": "58fcd8723e32488292311e564077eeaa",
+  "experiment_id": "335127282133153935",
+  "NAS_evidence": {
+    "sha256": "6674c048528f0ae4a5c904af452f3a354d063682c42a1d53b388b7e6dcd43444",
+    "size_bytes": 833683,
+    "media_type": "application/gzip",
+    "storage_uri": "sha256/66/74/6674c048528f0ae4a5c904af452f3a354d063682c42a1d53b388b7e6dcd43444",
+    "uploaded_by": "soxl-minute-research",
+    "created_at": "2026-10-24 17:24:17.630169+08",
+    "duplicate": false,
+    "nas_path": "/volume1/docker/yanxuan/registry/research-artifacts/66/74/6674c048528f0ae4a5c904af452f3a354d063682c42a1d53b388b7e6dcd43444",
+    "recorder_id": "58fcd8723e32488292311e564077eeaa",
+    "experiment_id": "335127282133153935",
+    "archive_root": "qlib_recorder"
+  },
+  "NAS_readback_verified": true,
+  "NAS_error": null,
+  "new_model_fits": 1,
+  "new_bootstraps": 1,
+  "new_native_accounts": 0,
+  "independent_forward_days": 0,
+  "historical_2023_2026_reused": true,
+  "SOXX_goal_achieved": false,
+  "next_action": "Close the fixed information receiver on any gate failure. If all gates pass and NAS readback is verified, separately freeze an exact-f696 own-state 0bp Tiered mapping and full account; this result alone cannot promote."
+}

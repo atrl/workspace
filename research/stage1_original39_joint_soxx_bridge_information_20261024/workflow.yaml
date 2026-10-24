@@ -1,0 +1,9 @@
+experiment: stage1_original39_joint_soxx_bridge_information_20261024
+entrypoint: stage1_original39_joint_soxx_bridge_information_20261024.ipynb
+phase: frozen_information_test
+artifact_policy: slim_card_recorder_first
+recorder_only_artifacts:
+  - inputs/*
+  - models/*
+  - predictions/*
+  - analysis/*

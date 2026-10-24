@@ -1,0 +1,12 @@
+{
+  "status": "joint_target_source_date_maturity_and_control_parity_pass",
+  "plan_sha256": "c508fac456f2e37dc8bbd992317a9349fefd34aaa0099a7ac1cb50ca61d9dd97",
+  "source_recorder_id": "a4bbc11f5c764ac38ff2f682eadd0e1d",
+  "feature_columns": 39,
+  "train_mature_rows": 3014,
+  "held_mature_rows": 940,
+  "full_held_calendar_rows": 944,
+  "saved_two_head_targets_equal": true,
+  "new_model_fits": 0,
+  "new_native_accounts": 0
+}

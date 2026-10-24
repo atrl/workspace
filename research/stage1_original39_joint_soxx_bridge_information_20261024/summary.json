@@ -1,0 +1,45 @@
+{
+  "experiment": "stage1_original39_joint_soxx_bridge_information_20261024",
+  "decision": "conditional_direct_joint_margin_information_pass_needs_new_f696_account",
+  "objective_achieved": false,
+  "plan_sha256": "c508fac456f2e37dc8bbd992317a9349fefd34aaa0099a7ac1cb50ca61d9dd97",
+  "preflight": "preflight_result.json",
+  "result": "result.json",
+  "recorder_id": "58fcd8723e32488292311e564077eeaa",
+  "experiment_id": "335127282133153935",
+  "new_model_fits": 1,
+  "new_native_accounts": 0,
+  "independent_forward_days": 0,
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "inputs/*",
+      "models/*",
+      "predictions/*",
+      "analysis/*"
+    ],
+    "recorder_delivery": "NAS content-addressed archive with scoped metric/gate readback",
+    "local_recorder_git_tracked": false
+  },
+  "NAS_evidence": {
+    "sha256": "6674c048528f0ae4a5c904af452f3a354d063682c42a1d53b388b7e6dcd43444",
+    "size_bytes": 833683,
+    "media_type": "application/gzip",
+    "storage_uri": "sha256/66/74/6674c048528f0ae4a5c904af452f3a354d063682c42a1d53b388b7e6dcd43444",
+    "uploaded_by": "soxl-minute-research",
+    "created_at": "2026-10-24 17:24:17.630169+08",
+    "duplicate": false,
+    "nas_path": "/volume1/docker/yanxuan/registry/research-artifacts/66/74/6674c048528f0ae4a5c904af452f3a354d063682c42a1d53b388b7e6dcd43444",
+    "recorder_id": "58fcd8723e32488292311e564077eeaa",
+    "experiment_id": "335127282133153935",
+    "archive_root": "qlib_recorder"
+  },
+  "NAS_readback_verified": true,
+  "limitations": [
+    "The candidate uses only original39 inputs with a different joint H5 gross-price receiver; information MSE is not a fee-net funded SOXX account",
+    "The 2023-2026 held history has already been reused for research and is not independent validation",
+    "The corrected block lower compares to the saved two-head control; the improvement over a training-mean forecast is small and is not independently block-certified",
+    "No mapping from the joint prediction to a frozen Stage1 own-state action has been executed"
+  ]
+}

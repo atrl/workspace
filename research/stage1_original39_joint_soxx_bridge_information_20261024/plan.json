@@ -1,0 +1,48 @@
+{
+  "experiment": "stage1_original39_joint_soxx_bridge_information_20261024",
+  "frozen": true,
+  "phase": "direct_original39_joint_SOXX_bridge_margin_information",
+  "parent": "Frozen complete f696 allocation plus b472 action/risk/recovery is the only later economic parent; this card fits an information receiver only, no policy or account.",
+  "hypothesis": "The original39 decision-time Qlib inputs may rank the next-H5 margin by which SOXX beats both cash and SOXL more coherently when trained directly on that joint minimum, rather than combining two independently failed cash and SOXL-relative Ridge heads.",
+  "target": "min(-cash_advantage_H5,-SOXL_relative_H5) on identical mature Qlib rows. Positive means SOXX beats both alternatives on the original open-to-open price plane; this excludes Tiered costs, drawdown and state feedback.",
+  "distinctness": "The closed original39 dual-task version trained/used separate cash and SOXL-relative targets and required both heads to pass. This one fixed version changes the receiving economic question to the joint SOXX bridge-asset margin, while reusing their exact feature order and saved two-head held predictions as the stronger matched control. It does not relabel the old models as passed or change historical market identity.",
+  "sources": {
+    "parent_card": "research/minute_information_pit_allocator_20261012",
+    "parent_summary_sha256": "61c91f958323cf51b43f4b1554eeca5687011d30771e80bc7ff02d16b6d577ca",
+    "dual_card": "research/stage1_dual_task_39_information_20261023",
+    "dual_summary_sha256": "e3a22a8f050b90d6f0a7ea96df0b4499bc387376f0c26abf2bb8ee2b501ad136",
+    "dual_experiment_id": "666721299406485975",
+    "dual_recorder_id": "a4bbc11f5c764ac38ff2f682eadd0e1d",
+    "dataset_artifact_sha256": "3bc64249f92a922d9edace380e7eecfdeeb52e3a9e611e004bb8e74982aa9b12",
+    "scored_artifact_sha256": "737071c726c36ebbabd4e77767cb09e870d59c3fd211d6589ac56b6dc31cc986",
+    "dual_NAS_sha256": "5ebda191e82d5262b92f7c196dcaca036c22ae8a8f14e30ded63ce4b07b32f66",
+    "dual_NAS_size_bytes": 1579665,
+    "provider": "data/qlib/minute_information_pit_allocator_20261012/daily_prices",
+    "provider_manifest_sha256": "d80a08d479b73098053006909b5e6227b03a56ab705681742d7261088e0a7e6c",
+    "bootstrap_module_sha256": "02705f897e668b710a38aae514df08b86e26c8cd8951405339960355a08a5ac4"
+  },
+  "cohorts": {
+    "train_signal_dates": ["2011-01-03", "2022-12-30"],
+    "held_reused_diagnostic_dates": ["2023-01-03", "2026-10-07"],
+    "expected_train_mature_rows": 3014,
+    "expected_held_mature_rows": 940,
+    "held_full_calendar_rows": 944,
+    "held_halves": [["2023-01-03", "2024-12-31"], ["2025-01-02", "2026-10-07"]],
+    "complete_held_years": [2024, 2025]
+  },
+  "model_and_controls": {
+    "candidate": "One SimpleImputer(median)->StandardScaler->Ridge(alpha=1.0) fit on the saved original39 DatasetH mature training rows and the direct joint target; no hyperparameter search",
+    "saved_two_head_control": "On exact same 940 held rows, min(-saved cash_prediction,-saved SOXL_relative_prediction) from the closed dual-task Recorder",
+    "training_mean_control": "Constant mean of the new joint training target",
+    "label_and_date_parity": "Saved two-head cash/relative held targets and the DatasetH held labels must match exactly before fit; every held forecast evaluated on the same 940 mature rows"
+  },
+  "information_gate": {
+    "candidate_held_MSE_better_than_both_controls": true,
+    "paired_MSE_improvement_vs_saved_two_head_control_positive_in_both_fixed_halves": true,
+    "paired_MSE_improvement_vs_saved_two_head_control_positive_in_complete_2024_and_2025": true,
+    "full_944_day_stationary_block_lower_positive": {"mean_block_sessions": 63, "replicates": 10000, "seed": 20261024, "one_sided_alpha": 0.0007575757575757576}
+  },
+  "budget": {"new_market_GETs": 0, "source_Recorder_object_loads_max": 2, "DatasetH_prepare_reads_max": 2, "new_model_fit_attempts_max": 1, "bootstrap_attempts_max": 1, "new_Recorders_max": 1, "NAS_archive_PUT_max": 1, "NAS_scoped_readback_max": 1, "new_native_accounts": 0},
+  "stop": "Stop before fit on source SHA/NAS, feature order, date/target parity or maturity failures. A failed fixed information gate closes this direct joint receiver; no model family, target min/max, cutoff, year, sign or feature rescue. An information pass only permits a separately frozen exact-f696 own-state0bp Tiered account, then 2/5bp and qualified forward evidence.",
+  "scientific_boundary": "Reused 2023-2026 held history is development feedback, not independent validation. Gross H5 information MSE is not a native funded SOXX result, and executor output cannot certify promotion."
+}
