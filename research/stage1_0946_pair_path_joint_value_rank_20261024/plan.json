@@ -1,0 +1,41 @@
+{
+  "experiment": "stage1_0946_pair_path_joint_value_rank_20261024",
+  "frozen": true,
+  "phase": "necessary_rank_information_for_same_state_0946_joint_cash_cap_local_value",
+  "parent": "f696 allocation plus b472 action/risk/recovery; only the saved original-architecture 2018-2022 0bp Tiered local-value scaffold is used here",
+  "hypothesis": "More same-day 09:31-09:45 SOXL/SOXX one-minute path divergence signals a less reliable broad semiconductor opening move and lower fee-net local value of deploying cash into SOXX with the frozen own-cap rule at 09:46. The precommitted rank sign is negative.",
+  "sources": {
+    "feature_card": "research/stage1_0945_pair_path_divergence_source_20261024",
+    "feature_plan_sha256": "9b711e071d5b3c313bd8ad086876c507bcfc2ceed6953cf1060b72e467694016",
+    "feature_result_sha256": "74a50c90adae695b9a43bc7bfdf31346b5edd08a8681bdf5c18edef273cfa4fb",
+    "feature_summary_sha256": "626534a65ada87e382f865b573cb904d7ebb841f8f9caf6ce1930c7dfe5d1a6f",
+    "minute_provider": "data/qlib/minute_information_pit_allocator_20261012/core_1min",
+    "minute_provider_manifest_sha256": "e2d97bd4dc00cdb231f7aa926799efcbc6f0d613ca197fbe04e86db1f074bf4e",
+    "day_provider": "data/qlib/minute_information_pit_allocator_20261012/daily_prices",
+    "day_provider_manifest_sha256": "d80a08d479b73098053006909b5e6227b03a56ab705681742d7261088e0a7e6c",
+    "label_card": "research/stage1_joint_cash_cap_soxx_0bp_local_value_20261023",
+    "label_summary_sha256": "c065da30e80dc08cdb67670d94e6ef24411020363d8727e762bfbb7069e7a4eb",
+    "label_experiment_id": "576312232090536744",
+    "label_recorder_id": "dd91c4770a354dfe8dc275774e249020",
+    "label_artifact_sha256": "f5f9709885b2c7de346caf8efe4b3bb37ab90dd24a807c5c86d7bc59d7eee8c2",
+    "label_NAS_sha256": "a823704afb3ab532d5d954ba126aac5d6528c85bacbd2c79ee4f6a9aae4d15c4",
+    "label_NAS_size_bytes": 87747,
+    "matched_control_plan": "research/stage1_0946_peer_breadth_joint_value_information_20261023/plan.json",
+    "matched_control_plan_sha256": "1f643f8f6b51d7346807eba706d7419fad85b3462538af65d64acf2e2dfc8f2c"
+  },
+  "receiver": {
+    "feature": "Identical source-card fixed 15 paired 1-minute-bar path-divergence formula, known only after the 09:45 bar completes at an assumed 09:46 research clock",
+    "label": "Saved joint_local_fee_net_advantage from a same-state 0bp added-slippage but Tiered-fee physical local cash/SOXX-cap move; not full funded strategy wealth",
+    "evaluation_calendar": "All 503 native Qlib trade dates 2021-01-01 through 2022-12-30; retain ineligible and missing dates in block resampling",
+    "evaluation_rows": "Exactly 329 source-known, eligible, finite, label-mature rows; minimum 70 in 2021 and 240 in 2022",
+    "maturity": "label_available_at strictly before 2023-01-01T00:00:00-05:00; never read 2023+ market outcomes for this screen"
+  },
+  "necessary_gate": {
+    "full_Spearman_negative": true,
+    "each_2021_2022_Spearman_negative": true,
+    "stationary_block_upper_below_zero": {"mean_block_sessions": 63, "replicates": 10000, "seed": 20261024, "one_sided_alpha": 0.0007575757575757576, "minimum_valid_replicates": 9500}
+  },
+  "budget": {"Qlib_day_calendar_reads": 1, "Qlib_minute_feature_reads": 1, "source_Recorder_object_reads": 1, "new_market_GETs": 0, "model_fits": 0, "native_accounts": 0, "bootstrap_attempts": 1, "new_Recorders": 0},
+  "stop": "Source, timing, maturity, calendar, row support or any necessary rank gate failure closes this fixed direction and receiver before an incremental fit or account. Do not reverse sign, adjust minutes/denominator, select years, or use the same history as independent confirmation.",
+  "limits": "Historical first-public minute receipts remain unqualified. A necessary rank pass would only authorize a separately frozen incremental information model; it would not prove SOXX performance, 2/5bp, or forward gates."
+}

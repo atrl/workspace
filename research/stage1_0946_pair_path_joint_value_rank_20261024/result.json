@@ -1,0 +1,43 @@
+{
+  "status": "not_promoted_fixed_pair_path_joint_value_rank_failed",
+  "plan_sha256": "e80fa3fbddc5779fca6f481e5a49cf09c379dcdd314fec346020787f12e243fd",
+  "source_card": "research/stage1_0945_pair_path_divergence_source_20261024",
+  "label_recorder_id": "dd91c4770a354dfe8dc275774e249020",
+  "full_calendar_rows": 503,
+  "source_known_rows": 503,
+  "mature_eligible_scored_rows": 329,
+  "full_Spearman": -0.11234095823954666,
+  "annual": {
+    "2021": {
+      "rows": 82,
+      "Spearman": -0.01646784799338782
+    },
+    "2022": {
+      "rows": 247,
+      "Spearman": -0.14124251043999272
+    }
+  },
+  "bootstrap": {
+    "valid_replicates": 9999,
+    "mean_block_sessions": 63,
+    "one_sided_alpha": 0.0007575757575757576,
+    "upper_bound": 0.061172164863221475
+  },
+  "gates": {
+    "full_negative": true,
+    "both_years_negative": true,
+    "block_upper_below_zero": false
+  },
+  "historical_first_public_qualified": false,
+  "new_market_GETs": 0,
+  "model_fits": 0,
+  "native_accounts": 0,
+  "bootstrap_attempts": 1,
+  "SOXX_strategy_success": false,
+  "independent_validation": false,
+  "limits": [
+    "Rank correlation is a necessary local action-value screen, not incremental original39 prediction or a complete funded account",
+    "The 2021-2022 OOF training-reference evaluation is reused development history, not independent validation",
+    "Historical first receipt of minute bars is unqualified"
+  ]
+}

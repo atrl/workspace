@@ -1,0 +1,26 @@
+{
+  "experiment": "stage1_0946_pair_path_joint_value_rank_20261024",
+  "decision": "not_promoted_fixed_pair_path_joint_value_rank_failed",
+  "objective_achieved": false,
+  "plan_sha256": "e80fa3fbddc5779fca6f481e5a49cf09c379dcdd314fec346020787f12e243fd",
+  "result": "result.json",
+  "source_card": "research/stage1_0945_pair_path_divergence_source_20261024",
+  "label_recorder_id": "dd91c4770a354dfe8dc275774e249020",
+  "mature_eligible_scored_rows": 329,
+  "historical_first_public_qualified": false,
+  "new_model_fits": 0,
+  "new_native_accounts": 0,
+  "independent_forward_days": 0,
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [],
+    "reused_native_source": "research/stage1_joint_cash_cap_soxx_0bp_local_value_20261023/qlib_recorder"
+  },
+  "limitations": [
+    "Rank correlation is a necessary local action-value screen, not incremental original39 prediction or a complete funded account",
+    "The 2021-2022 OOF training-reference evaluation is reused development history, not independent validation",
+    "Historical first receipt of minute bars is unqualified",
+    "The fixed source/path/sign/receiver version is closed without an incremental Ridge fit or a full f696 own-state account"
+  ]
+}
