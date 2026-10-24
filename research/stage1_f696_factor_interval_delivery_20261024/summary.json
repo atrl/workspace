@@ -1,0 +1,29 @@
+{
+  "experiment": "stage1_f696_factor_interval_delivery_20261024",
+  "decision": "descriptive_factor_to_funded_action_mismatch_no_candidate_or_policy",
+  "objective_achieved": false,
+  "plan_sha256": "9b0cb3993820c077a3cae252611f414277e3121717682ec4474c0fd97aed94b9",
+  "result": "result.json",
+  "source_recorder_id": "2f0392615c4c4b15928b4ada6e01ecd9",
+  "source_NAS_sha256": "54c6e93b4c304774c272b07312c856a9a2a255086d372066db418b5efed359c7",
+  "sessions": 944,
+  "rolling126_windows": 819,
+  "matched_state_year_cells": 12,
+  "unmatched_2023_cells": 4,
+  "new_model_fits": 0,
+  "new_native_accounts": 0,
+  "independent_forward_days": 0,
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [],
+    "reused_native_source": "research/stage1_original_0bp_signal_loss_chain_v2_20261023/qlib_recorder"
+  },
+  "limitations": [
+    "Weak/good groups use future returns and are not tradable states",
+    "126-session windows overlap heavily",
+    "Own-state cap and funded beta are endogenous downstream account states",
+    "All 2023 state-year cells lack a good window and are excluded from the within-year contrast",
+    "This audits saved model outputs and action delivery; it does not prove which original input factor caused the mismatch"
+  ]
+}

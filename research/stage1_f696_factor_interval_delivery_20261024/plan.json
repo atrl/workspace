@@ -1,0 +1,29 @@
+{
+  "experiment": "stage1_f696_factor_interval_delivery_20261024",
+  "frozen": true,
+  "phase": "read_only_exact_f696_factor_to_funded_action_interval_diagnostic",
+  "question": "Within the same prior SOXX 5/20-session return-sign state and first-trade calendar year, do weak and good 126-session exact-f696 windows differ in saved alpha/tail outputs, raw nominal beta, own-state risk cap, or funded beta?",
+  "source": {
+    "card": "research/stage1_original_0bp_signal_loss_chain_v2_20261023",
+    "summary_sha256": "898089b008f1f6f50016ddbbd2fc082f77423464ed8613c54dbdd5fbbae1dc3a",
+    "experiment_id": "954993860986722516",
+    "recorder_id": "2f0392615c4c4b15928b4ada6e01ecd9",
+    "daily_sha256": "00660bd17990b571040b7de62ca58475175d4a6a4a1b5e94f027b4b986824855",
+    "nas_sha256": "54c6e93b4c304774c272b07312c856a9a2a255086d372066db418b5efed359c7",
+    "nas_size_bytes": 292154,
+    "provider": "data/qlib/minute_information_pit_allocator_20261012/daily_prices",
+    "provider_manifest_sha256": "d80a08d479b73098053006909b5e6227b03a56ab705681742d7261088e0a7e6c"
+  },
+  "definitions": {
+    "population": "All 944 exact f696 A0 0bp Tiered sessions and all 819 contiguous 126-session windows; retain four calendar years including partial 2023/2026 and 16 quarters from the source card",
+    "weak_good": "Window paired log excess versus SOXX below or above zero; ties kept separate",
+    "start_state": "At the window's first trade, preceding signal-day Qlib SOXX close returns over 5 and 20 sessions, grouped by their signs into uptrend/rebound/pullback/decline",
+    "matched_cell": "start_state x first-trade calendar year, retaining cells with at least one weak and one good window",
+    "factor_measures": ["mean_alpha_probability", "mean_tail_probability", "mean_raw_nominal_beta", "mean_own_state_beta_cap", "mean_ending_beta", "mean_raw_minus_cap", "cap_binding_fraction"],
+    "component_measures": ["cash_opportunity_log", "SOXL_selection_log", "Stage1_direct_fees_log", "paired_log_excess"],
+    "comparison": "For each matched cell and measure, weak mean minus good mean; report cell counts and the min-group-count-weighted descriptive average across matched cells; no threshold selection or significance claim"
+  },
+  "interpretation": "Alpha/tail/raw beta are saved predecision outputs; own-state cap is account-dependent; ending beta and future returns are downstream diagnostics, not candidate features. Overlapping windows and outcome-defined groups prohibit causal or independent-validation claims.",
+  "budget": {"new_market_requests": 0, "new_model_fits": 0, "new_native_accounts": 0, "new_bootstraps": 0, "new_recorders": 0},
+  "stop": "Stop if source SHA/NAS, Qlib calendar, 944/819 coverage, daily component closure, or predecision start-state mapping fails. Do not derive a policy threshold or add a candidate feature from this diagnostic alone."
+}
