@@ -1,0 +1,117 @@
+{
+  "status": "exact_raw_to_f696_target_bridge_pass",
+  "plan_sha256": "1ded3cea3e68e85d685d5dc0633cce86897c0a13088b341ed01780de8812e4ab",
+  "sessions": 944,
+  "f696_rows": 944,
+  "smoothing_span": 3,
+  "rebalance_threshold": 0.02,
+  "replay_to_source_target_max_abs": {
+    "soxl_weight": 0.0,
+    "soxx_weight": 0.0,
+    "cash_weight": 0.0,
+    "tail_probability": 0.0,
+    "alpha_probability": 0.0
+  },
+  "source_target_to_f696_max_abs": {
+    "soxl_weight": 0.0,
+    "soxx_weight": 0.0,
+    "cash_weight": 0.0,
+    "tail_probability": 0.0,
+    "alpha_probability": 0.0
+  },
+  "identity_gate_pass": true,
+  "raw_to_ema": {
+    "soxl_weight": {
+      "mean_abs": 0.018221941774485575,
+      "max_abs": 0.12533445817512717
+    },
+    "soxx_weight": {
+      "mean_abs": 0.01653657261127007,
+      "max_abs": 0.12063163768821658
+    },
+    "cash_weight": {
+      "mean_abs": 0.033006472914571344,
+      "max_abs": 0.23599985343211172
+    }
+  },
+  "ema_to_accepted": {
+    "soxl_weight": {
+      "mean_abs": 0.0020047119742456557,
+      "max_abs": 0.017821923361821534
+    },
+    "soxx_weight": {
+      "mean_abs": 0.0020857303985102184,
+      "max_abs": 0.019240885231239235
+    },
+    "cash_weight": {
+      "mean_abs": 0.003210342385444592,
+      "max_abs": 0.019868951321202477
+    }
+  },
+  "raw_to_accepted": {
+    "soxl_weight": {
+      "mean_abs": 0.019909918560023762,
+      "max_abs": 0.1253344581751272
+    },
+    "soxx_weight": {
+      "mean_abs": 0.018455403464929583,
+      "max_abs": 0.12063163768821658
+    },
+    "cash_weight": {
+      "mean_abs": 0.035806897395000516,
+      "max_abs": 0.2359998534321116
+    }
+  },
+  "accepted_differs_from_ema_days_lower_bound_hold": 322,
+  "annual": [
+    {
+      "year": 2023,
+      "sessions": 250,
+      "partial_endpoint": true,
+      "mean_raw_cash": 0.3720442542238977,
+      "mean_accepted_cash": 0.3727750350982734,
+      "mean_accepted_minus_raw_cash": 0.0007307808743756859,
+      "non_ema_accepted_days": 80
+    },
+    {
+      "year": 2024,
+      "sessions": 252,
+      "partial_endpoint": false,
+      "mean_raw_cash": 0.5021799924734336,
+      "mean_accepted_cash": 0.49939516130998995,
+      "mean_accepted_minus_raw_cash": -0.0027848311634436572,
+      "non_ema_accepted_days": 75
+    },
+    {
+      "year": 2025,
+      "sessions": 250,
+      "partial_endpoint": false,
+      "mean_raw_cash": 0.41008627790376406,
+      "mean_accepted_cash": 0.41341247651248697,
+      "mean_accepted_minus_raw_cash": 0.0033261986087229447,
+      "non_ema_accepted_days": 95
+    },
+    {
+      "year": 2026,
+      "sessions": 192,
+      "partial_endpoint": true,
+      "mean_raw_cash": 0.32787481287286063,
+      "mean_accepted_cash": 0.32442779605544614,
+      "mean_accepted_minus_raw_cash": -0.003447016817414491,
+      "non_ema_accepted_days": 72
+    }
+  ],
+  "first_day_return_perturbation_target_day_max_abs": 0.0,
+  "new_market_requests": 0,
+  "new_model_fits": 0,
+  "new_native_accounts": 0,
+  "new_bootstraps": 0,
+  "new_recorders": 0,
+  "economic_factor_qualified": false,
+  "independent_validation": false,
+  "limits": [
+    "EMA/HOLD reuses the historical source market return path to update virtual gross holdings only for later targets",
+    "Non-EMA accepted count is a lower bound on HOLD, not a re-executed funded strategy",
+    "Source-target identity does not qualify model input sensitivity or SOXX economic success"
+  ]
+}

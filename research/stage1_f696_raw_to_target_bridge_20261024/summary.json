@@ -1,0 +1,31 @@
+{
+  "experiment": "stage1_f696_raw_to_target_bridge_20261024",
+  "decision": "exact_raw_to_f696_target_bridge_pass_source_lineage_only",
+  "objective_achieved": false,
+  "plan_sha256": "1ded3cea3e68e85d685d5dc0633cce86897c0a13088b341ed01780de8812e4ab",
+  "result": "result.json",
+  "sessions": 944,
+  "identity_gate_pass": true,
+  "action_recorder_id": "9d671fcfb1aa467bb8a9fd83971fb015",
+  "parent_recorder_id": "68e31a0a0fad44e7ba1d1f7d856c7a0d",
+  "f696_recorder_id": "6e227278b7a64eafbcf34b965e16d2b9",
+  "new_model_fits": 0,
+  "new_native_accounts": 0,
+  "independent_forward_days": 0,
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [],
+    "reused_native_sources": [
+      "research/stage1_minute_information_comparison_20261012/qlib_recorder",
+      "research/minute_information_pit_allocator_20261012/qlib_recorder",
+      "research/stage1_domain_heads_20261018/qlib_recorder"
+    ]
+  },
+  "limitations": [
+    "EMA/HOLD reuses the historical source market return path to update virtual gross holdings only for later targets",
+    "Non-EMA accepted count is a lower bound on HOLD, not a re-executed funded strategy",
+    "Source-target identity does not qualify model input sensitivity or SOXX economic success",
+    "Only source-target identity and weight-coordinate differences are established; no SOXX economic candidate was evaluated"
+  ]
+}

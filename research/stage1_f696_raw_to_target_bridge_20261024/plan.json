@@ -1,0 +1,53 @@
+{
+  "experiment": "stage1_f696_raw_to_target_bridge_20261024",
+  "frozen": true,
+  "phase": "read_only_post_model_ema_hold_identity_bridge",
+  "question": "Does the released EMA/HOLD transform on sealed raw model predictions and source market returns reproduce the exact f696 frozen_current target on all 944 signal dates, and how much of the cash difference occurs at EMA versus HOLD?",
+  "sources": {
+    "action_card": "research/stage1_minute_information_comparison_20261012",
+    "action_summary_sha256": "ccdb6337cdf812606e27ef0446e550e07b634c75e703ef8f010e96be8591bc4a",
+    "action_readback_sha256": "185f1ab98e1f63503a1c5a4291a52540ecb7399aaaeb7a3f67f0ca773521d0f9",
+    "action_experiment_id": "948959188821794065",
+    "action_recorder_id": "9d671fcfb1aa467bb8a9fd83971fb015",
+    "action_archive_sha256": "2540d2ed5459785dcf04016b20342fc73fade653e2600025f5b9aaf889d7e250",
+    "action_archive_size_bytes": 31117245,
+    "action_artifacts": {
+      "inputs/plan": "b3fddcc9f1ad9735ab4ef260bfec7792aca572adbde2ad6a78511d8c5d8fb103",
+      "inputs/market": "6b3a7ce53a2fe02b9eb4c7d0934ebae794ade047cb5a4f9209aef4770eeb8c24",
+      "inputs/raw_predictions": "63c3097b24bd6e2534b31c6d1ae691f1e0e959d0ae2afcc6940e5d427f6fffa9",
+      "inputs/source_targets": "5841299fcc37e8a01f09644072125d4d0aac5ecfaa5ba26fa26d5a41c78c7e42"
+    },
+    "parent_card": "research/minute_information_pit_allocator_20261012",
+    "parent_summary_sha256": "61c91f958323cf51b43f4b1554eeca5687011d30771e80bc7ff02d16b6d577ca",
+    "parent_experiment_id": "905520356740140469",
+    "parent_recorder_id": "68e31a0a0fad44e7ba1d1f7d856c7a0d",
+    "parent_archive_sha256": "ee328cab292f178bf3582ef574fb411561c93b82545cd3bb90842ecd9a9a24f1",
+    "parent_archive_size_bytes": 25284463,
+    "parent_artifacts": {
+      "inputs/plan": "a1c4bbefa76d1f245e9b2b66741604a3697a8789727a7a3f3621010e88413f7b",
+      "inputs/frozen_parent_models": "512b8d7621310caf023f7f09051d47bd8df89473378f32e56bcc5ce093f1211d"
+    },
+    "f696_card": "research/stage1_domain_heads_20261018",
+    "f696_summary_sha256": "3b51938ca56ddf45029ff5e4a01a6bbc2f1d1407458efcad7d7c68b0ef5a1d37",
+    "f696_experiment_id": "283510277269468590",
+    "f696_recorder_id": "6e227278b7a64eafbcf34b965e16d2b9",
+    "f696_frame_sha256": "e83a57eb764dc59ee8d9fad7b1a48eb6b295c6183d6c4cab2062b3aa6c66e07c",
+    "f696_archive_sha256": "f3f891d6d09d4187f12815e245b33cc9cfec4acfd4f555b734f66a59348d9884",
+    "f696_archive_size_bytes": 11859296,
+    "provider": "data/qlib/minute_information_pit_allocator_20261012/daily_prices",
+    "provider_manifest_sha256": "d80a08d479b73098053006909b5e6227b03a56ab705681742d7261088e0a7e6c",
+    "code_sha256": {
+      "src/workflow/stage1_minute_comparison.py": "e031b75470b3b13fa753023ccfb5b5bda259eb78f2b27726217ea7ee60c49eb0",
+      "src/workflow/pit_constituent_auxiliary_training_allocation.py": "1120abca4fdc1257c3a2ed9b42cd8b515356eeea0f5ef9e79622f3b38ceff85d"
+    }
+  },
+  "method": {
+    "source": "inputs/raw_predictions['frozen_current'], inputs/source_targets['frozen_current'], inputs/market aligned by 944 signal dates",
+    "replay": "Use sealed parent smoothing_span and rebalance_threshold, sealed outer_refit candidate, and exact src.workflow.pit_constituent_auxiliary_training_allocation._smooth_weights with source-market SOXL/SOXX returns",
+    "identity_gate": "All five replayed outputs equal source_targets and f696 frame within max absolute 1e-7 on all 944 dates",
+    "decomposition": "For each asset weight, report raw-to-EMA and EMA-to-accepted mean/max absolute differences, plus the count of accepted days differing from EMA as a lower bound on HOLD. No new policy or account.",
+    "causal_clock": "Current-day source returns update virtual gross marked holdings only after the current target is accepted; a fixed first-day return perturbation must leave target day 1 unchanged. No inference that current return was known at the current decision."
+  },
+  "budget": {"new_market_requests": 0, "new_model_fits": 0, "new_native_accounts": 0, "new_bootstraps": 0, "new_recorders": 0},
+  "scientific_boundary": "The transform is a source-target lineage, not an economic improvement. If parity fails, stop and record the exact dependency. If it passes, any factor sensitivity test must include this transform and be separately frozen."
+}
