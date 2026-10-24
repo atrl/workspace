@@ -1,0 +1,30 @@
+{
+  "experiment": "stage1_soxl_local_value_risk_state_overlap_20261024",
+  "frozen": true,
+  "phase": "read_only_training_local_value_predecision_risk_state_overlap",
+  "question": "Can the saved predecision Stage1 risk state distinguish 2020-2021 positive from 2022 negative fee-net local cash-to-SOXL value on the exact eligible training actions, or do the same states contain both regimes?",
+  "sources": {
+    "SOXL_card": "research/stage1_joint_cash_cap_soxl_0bp_local_value_20261024",
+    "SOXL_summary_sha256": "d4c5c7b29f7edce9302278f7e901ce6fdf1206bd239ca863a00167bcff5032a4",
+    "SOXL_experiment_id": "598502564044048354",
+    "SOXL_recorder_id": "9f4753640e9247a18adff4cab4bb57f8",
+    "SOXL_labels_sha256": "b9e145b0c7e8488ee70a6acc11bd203897eae5e45f2b59459845d2382ae53a41",
+    "SOXL_NAS_sha256": "15f713a01daa410cafae50955e4f6abab5f0baab6fd70a246b00745755ccc5e1",
+    "reference_card": "research/stage1_signed_volume_0bp_action_label_source_20261023",
+    "reference_summary_sha256": "ce6652a6323ec9bd11a8ce8de89239cba167a53bedb50e471080006a1a89f476",
+    "reference_experiment_id": "194705746221035167",
+    "reference_recorder_id": "3663a1e073f042e383dbcf54969a9bc2",
+    "reference_path_sha256": "eb6403c99304be47572635ae3a71494ddd5ce9a96c7e3e361cf5c38f76ffa4e5",
+    "provider": "data/qlib/full_path_tiered_allocation_20261013",
+    "provider_manifest_sha256": "3a3d6f4e248d6016ea25a140587abb65fba0d8a346e45da402414095df772223"
+  },
+  "fixed_definitions": {
+    "population": "All1061 Qlib2018-2022 reference sessions retained; primary688 mature eligible SOXL local labels, with the end-row unknown. Keep partial2018 and complete2019-2022, all17 quarters and exact cap-binding flag.",
+    "predecision_state": "Saved same-day 09:46 original Stage1 risk_state integer0-3, current_beta_cap and portfolio_drawdown from the verified reference replay; compare to the saved local action label only after strict calendar alignment. No future value enters the state.",
+    "overlap_test": "For each exact risk_state and binding flag report 2020-2021 pooled versus2022 mature counts, mean/median label and positive fraction. Matched cells require at least10 mature labels in each era; weight each cell by its2022 count and report matched2022 coverage and matched mean differences. Report all cells, including unmatched, without merging or choosing a state threshold after outcomes.",
+    "continuous_context": "Report annual and quarter mean cap/drawdown and label; within each fixed state/binding cell report cap and drawdown medians. These are descriptive, not a fitted predictor.",
+    "interpretation": "If the same state and binding flag has opposite local value in the two eras, risk_state alone is inadequate; if coverage is low, attribution remains unresolved. This is not a trade switch, full f696 account or independent validation."
+  },
+  "budget": {"Qlib_calendar_reads": 1, "source_Recorder_object_reads": 2, "new_market_GETs": 0, "new_model_fits": 0, "new_native_accounts": 0, "new_bootstraps": 0, "new_Recorders": 0},
+  "stop": "Stop on source SHA/NAS/readback, provider, native Qlib calendar, 1061 rows, 688 mature labels, ordered dates, or exact predecision-state alignment disagreement. No rule chosen from the historical cells."
+}

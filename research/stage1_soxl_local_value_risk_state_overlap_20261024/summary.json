@@ -1,0 +1,29 @@
+{
+  "experiment": "stage1_soxl_local_value_risk_state_overlap_20261024",
+  "decision": "descriptive_same_risk_states_cross_year_local_value_sign_shift_no_policy",
+  "objective_achieved": false,
+  "plan_sha256": "fa8159300701e2bb5a8556e2e56e8e0ad3b60b6b6bfa9bbc52b9d3e39d41c1a2",
+  "source_recorder_ids": {
+    "labels": "9f4753640e9247a18adff4cab4bb57f8",
+    "reference": "3663a1e073f042e383dbcf54969a9bc2"
+  },
+  "mature_labels": 688,
+  "matched_cells": 4,
+  "matched_2022_coverage": 0.9919028340080972,
+  "weighted_later_minus_earlier_mean": -0.00047310282115734013,
+  "new_model_fits": 0,
+  "new_native_accounts": 0,
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "source analysis/labels",
+      "source paths/reference_0"
+    ]
+  },
+  "limitations": [
+    "Same-state era comparison uses historical outcomes and is not a causal or tradable regime switch",
+    "2018-2022 original architecture training local labels are not a complete exact-f696 funded account",
+    "The 2022 era and state cells are reused and not independent forward validation"
+  ]
+}

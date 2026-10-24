@@ -1,0 +1,463 @@
+{
+  "status": "read_only_SOXL_local_value_predecision_risk_state_overlap_no_policy",
+  "plan_sha256": "fa8159300701e2bb5a8556e2e56e8e0ad3b60b6b6bfa9bbc52b9d3e39d41c1a2",
+  "source_recorder_ids": {
+    "labels": "9f4753640e9247a18adff4cab4bb57f8",
+    "reference": "3663a1e073f042e383dbcf54969a9bc2"
+  },
+  "full_sessions": 1061,
+  "mature_labels": 688,
+  "annual": [
+    {
+      "year": 2018,
+      "partial_endpoint": true,
+      "sessions": 53,
+      "mature": 19,
+      "mean": 7.445166997873025e-05,
+      "median": 7.575752671633466e-05,
+      "positive_fraction": 0.5789473684210527,
+      "median_cap": 1.1410681221409003,
+      "median_drawdown": 0.08499400624112363
+    },
+    {
+      "year": 2019,
+      "partial_endpoint": false,
+      "sessions": 252,
+      "mature": 138,
+      "mean": 2.9222363680665355e-05,
+      "median": 0.0,
+      "positive_fraction": 0.45652173913043476,
+      "median_cap": 1.3650306074223661,
+      "median_drawdown": 0.04322188852135994
+    },
+    {
+      "year": 2020,
+      "partial_endpoint": false,
+      "sessions": 253,
+      "mature": 202,
+      "mean": 0.00019662442935676125,
+      "median": 0.00021447527475978328,
+      "positive_fraction": 0.5841584158415841,
+      "median_cap": 0.3,
+      "median_drawdown": 0.21268636633158444
+    },
+    {
+      "year": 2021,
+      "partial_endpoint": false,
+      "sessions": 252,
+      "mature": 82,
+      "mean": 0.0003584963077191619,
+      "median": 4.014106324732581e-05,
+      "positive_fraction": 0.5121951219512195,
+      "median_cap": 1.278504392242366,
+      "median_drawdown": 0.056819467309794536
+    },
+    {
+      "year": 2022,
+      "partial_endpoint": false,
+      "sessions": 251,
+      "mature": 247,
+      "mean": -0.0001637842708000178,
+      "median": -0.0002726072538504196,
+      "positive_fraction": 0.4493927125506073,
+      "median_cap": 0.3,
+      "median_drawdown": 0.27488646496685065
+    }
+  ],
+  "quarter": [
+    {
+      "year": 2018,
+      "quarter": 4,
+      "sessions": 53,
+      "mature": 19,
+      "mean": 7.445166997873025e-05,
+      "median": 7.575752671633466e-05,
+      "positive_fraction": 0.5789473684210527,
+      "median_cap": 1.1410681221409003,
+      "median_drawdown": 0.08499400624112363
+    },
+    {
+      "year": 2019,
+      "quarter": 1,
+      "sessions": 61,
+      "mature": 31,
+      "mean": 0.0001796524903091186,
+      "median": 2.448901850816724e-05,
+      "positive_fraction": 0.5806451612903226,
+      "median_cap": 1.3647828927569234,
+      "median_drawdown": 0.03675982834849301
+    },
+    {
+      "year": 2019,
+      "quarter": 2,
+      "sessions": 63,
+      "mature": 35,
+      "mean": -0.00013653310410795613,
+      "median": 0.0,
+      "positive_fraction": 0.42857142857142855,
+      "median_cap": 1.1856321666761225,
+      "median_drawdown": 0.06754415367834765
+    },
+    {
+      "year": 2019,
+      "quarter": 3,
+      "sessions": 64,
+      "mature": 32,
+      "mean": 0.00011734073802986933,
+      "median": 0.0,
+      "positive_fraction": 0.46875,
+      "median_cap": 1.3253639089443108,
+      "median_drawdown": 0.06408592904647514
+    },
+    {
+      "year": 2019,
+      "quarter": 4,
+      "sessions": 64,
+      "mature": 40,
+      "mean": -1.28196496207053e-05,
+      "median": 0.0,
+      "positive_fraction": 0.375,
+      "median_cap": 1.3870631766306296,
+      "median_drawdown": 0.02417549651945039
+    },
+    {
+      "year": 2020,
+      "quarter": 1,
+      "sessions": 62,
+      "mature": 28,
+      "mean": -0.0009863411321031793,
+      "median": -0.001148594449991524,
+      "positive_fraction": 0.35714285714285715,
+      "median_cap": 1.0859104911112982,
+      "median_drawdown": 0.05909063205413201
+    },
+    {
+      "year": 2020,
+      "quarter": 2,
+      "sessions": 63,
+      "mature": 55,
+      "mean": 0.0006528413820432653,
+      "median": 0.0006769213371427593,
+      "positive_fraction": 0.5818181818181818,
+      "median_cap": 0.3,
+      "median_drawdown": 0.2264886609810769
+    },
+    {
+      "year": 2020,
+      "quarter": 3,
+      "sessions": 64,
+      "mature": 60,
+      "mean": 0.00026891039935778087,
+      "median": 0.00024391314052180134,
+      "positive_fraction": 0.6333333333333333,
+      "median_cap": 0.3,
+      "median_drawdown": 0.21633887274856317
+    },
+    {
+      "year": 2020,
+      "quarter": 4,
+      "sessions": 64,
+      "mature": 59,
+      "mean": 0.0002592336687306501,
+      "median": 0.0002436744317936544,
+      "positive_fraction": 0.6440677966101694,
+      "median_cap": 0.420660956140287,
+      "median_drawdown": 0.20542213438810558
+    },
+    {
+      "year": 2021,
+      "quarter": 1,
+      "sessions": 61,
+      "mature": 39,
+      "mean": 0.00029217894697140844,
+      "median": 7.170725699653478e-05,
+      "positive_fraction": 0.5128205128205128,
+      "median_cap": 1.3699401640896052,
+      "median_drawdown": 0.08905823276476743
+    },
+    {
+      "year": 2021,
+      "quarter": 2,
+      "sessions": 63,
+      "mature": 17,
+      "mean": 2.5138647835915632e-05,
+      "median": 8.43543088783159e-05,
+      "positive_fraction": 0.5294117647058824,
+      "median_cap": 1.3112896160828194,
+      "median_drawdown": 0.06831102459400273
+    },
+    {
+      "year": 2021,
+      "quarter": 3,
+      "sessions": 64,
+      "mature": 5,
+      "mean": 0.000923580148881014,
+      "median": 0.0006940028258793882,
+      "positive_fraction": 0.8,
+      "median_cap": 1.15972909603048,
+      "median_drawdown": 0.03568373277131215
+    },
+    {
+      "year": 2021,
+      "quarter": 4,
+      "sessions": 64,
+      "mature": 21,
+      "mean": 0.0006169743115938432,
+      "median": -6.894211836287579e-06,
+      "positive_fraction": 0.42857142857142855,
+      "median_cap": 1.3028803656532446,
+      "median_drawdown": 0.039628318961857256
+    },
+    {
+      "year": 2022,
+      "quarter": 1,
+      "sessions": 62,
+      "mature": 59,
+      "mean": -9.35480072688101e-05,
+      "median": -0.00015006302318154696,
+      "positive_fraction": 0.4406779661016949,
+      "median_cap": 0.3,
+      "median_drawdown": 0.23951216572333012
+    },
+    {
+      "year": 2022,
+      "quarter": 2,
+      "sessions": 62,
+      "mature": 62,
+      "mean": -0.0005408550499422778,
+      "median": -0.00041622067794084595,
+      "positive_fraction": 0.43548387096774194,
+      "median_cap": 0.3,
+      "median_drawdown": 0.2665679169643689
+    },
+    {
+      "year": 2022,
+      "quarter": 3,
+      "sessions": 64,
+      "mature": 64,
+      "mean": -0.00010149917027315976,
+      "median": -9.669355277576165e-05,
+      "positive_fraction": 0.484375,
+      "median_cap": 0.3,
+      "median_drawdown": 0.28914450519959856
+    },
+    {
+      "year": 2022,
+      "quarter": 4,
+      "sessions": 63,
+      "mature": 62,
+      "mean": 8.215447637352991e-05,
+      "median": -0.0006195391604580985,
+      "positive_fraction": 0.43548387096774194,
+      "median_cap": 0.3,
+      "median_drawdown": 0.2948561290126117
+    }
+  ],
+  "cells": [
+    {
+      "risk_state": 0,
+      "cap_binding": false,
+      "earlier_2020_2021": {
+        "sessions": 22,
+        "mature": 22,
+        "mean": 3.839294095756104e-05,
+        "median": 0.0,
+        "positive_fraction": 0.3181818181818182,
+        "median_cap": 1.3956520774623957,
+        "median_drawdown": 0.03819972606159455
+      },
+      "later_2022": {
+        "sessions": 0,
+        "mature": 0,
+        "mean": null,
+        "median": null,
+        "positive_fraction": null,
+        "median_cap": null,
+        "median_drawdown": null
+      },
+      "matched": false
+    },
+    {
+      "risk_state": 0,
+      "cap_binding": true,
+      "earlier_2020_2021": {
+        "sessions": 26,
+        "mature": 26,
+        "mean": 0.0003811699403450967,
+        "median": 0.0003701054302226957,
+        "positive_fraction": 0.5769230769230769,
+        "median_cap": 0.6,
+        "median_drawdown": 0.09270123116585555
+      },
+      "later_2022": {
+        "sessions": 10,
+        "mature": 10,
+        "mean": -0.002155503358650466,
+        "median": -0.0014956172591469898,
+        "positive_fraction": 0.0,
+        "median_cap": 0.3,
+        "median_drawdown": 0.27704042565896814
+      },
+      "matched": true,
+      "later_minus_earlier_mean": -0.002536673298995563
+    },
+    {
+      "risk_state": 1,
+      "cap_binding": false,
+      "earlier_2020_2021": {
+        "sessions": 0,
+        "mature": 0,
+        "mean": null,
+        "median": null,
+        "positive_fraction": null,
+        "median_cap": null,
+        "median_drawdown": null
+      },
+      "later_2022": {
+        "sessions": 0,
+        "mature": 0,
+        "mean": null,
+        "median": null,
+        "positive_fraction": null,
+        "median_cap": null,
+        "median_drawdown": null
+      },
+      "matched": false
+    },
+    {
+      "risk_state": 1,
+      "cap_binding": true,
+      "earlier_2020_2021": {
+        "sessions": 48,
+        "mature": 48,
+        "mean": 0.0006269042230564539,
+        "median": 0.0005125869471717407,
+        "positive_fraction": 0.5833333333333334,
+        "median_cap": 0.2,
+        "median_drawdown": 0.1988801024779382
+      },
+      "later_2022": {
+        "sessions": 40,
+        "mature": 40,
+        "mean": 4.768193368443481e-05,
+        "median": 9.900272355519426e-05,
+        "positive_fraction": 0.525,
+        "median_cap": 0.2,
+        "median_drawdown": 0.2823273131520404
+      },
+      "matched": true,
+      "later_minus_earlier_mean": -0.0005792222893720191
+    },
+    {
+      "risk_state": 2,
+      "cap_binding": false,
+      "earlier_2020_2021": {
+        "sessions": 0,
+        "mature": 0,
+        "mean": null,
+        "median": null,
+        "positive_fraction": null,
+        "median_cap": null,
+        "median_drawdown": null
+      },
+      "later_2022": {
+        "sessions": 0,
+        "mature": 0,
+        "mean": null,
+        "median": null,
+        "positive_fraction": null,
+        "median_cap": null,
+        "median_drawdown": null
+      },
+      "matched": false
+    },
+    {
+      "risk_state": 2,
+      "cap_binding": true,
+      "earlier_2020_2021": {
+        "sessions": 116,
+        "mature": 116,
+        "mean": 3.756842998215085e-05,
+        "median": 0.00041552467854860686,
+        "positive_fraction": 0.5862068965517241,
+        "median_cap": 0.4158460504475676,
+        "median_drawdown": 0.2050500364609072
+      },
+      "later_2022": {
+        "sessions": 100,
+        "mature": 100,
+        "mean": -1.765221484123792e-05,
+        "median": -0.0001666293568911755,
+        "positive_fraction": 0.45,
+        "median_cap": 0.3,
+        "median_drawdown": 0.27543263254674305
+      },
+      "matched": true,
+      "later_minus_earlier_mean": -5.5220644823388766e-05
+    },
+    {
+      "risk_state": 3,
+      "cap_binding": false,
+      "earlier_2020_2021": {
+        "sessions": 24,
+        "mature": 24,
+        "mean": 8.414840697651112e-05,
+        "median": 5.6798574772711916e-05,
+        "positive_fraction": 0.5833333333333334,
+        "median_cap": 1.4214738079662412,
+        "median_drawdown": 0.18483717637377461
+      },
+      "later_2022": {
+        "sessions": 2,
+        "mature": 2,
+        "mean": -0.000257454115944824,
+        "median": -0.000257454115944824,
+        "positive_fraction": 0.0,
+        "median_cap": 1.4206258544744421,
+        "median_drawdown": 0.16947766353635796
+      },
+      "matched": false
+    },
+    {
+      "risk_state": 3,
+      "cap_binding": true,
+      "earlier_2020_2021": {
+        "sessions": 48,
+        "mature": 48,
+        "mean": 0.0004560597179358883,
+        "median": 0.000534229357911177,
+        "positive_fraction": 0.5833333333333334,
+        "median_cap": 0.3,
+        "median_drawdown": 0.2301426576902867
+      },
+      "later_2022": {
+        "sessions": 95,
+        "mature": 95,
+        "mean": -0.0001950192519206704,
+        "median": -0.00019770885985056735,
+        "positive_fraction": 0.47368421052631576,
+        "median_cap": 0.3,
+        "median_drawdown": 0.272973402619193
+      },
+      "matched": true,
+      "later_minus_earlier_mean": -0.0006510789698565587
+    }
+  ],
+  "matched_cells": 4,
+  "matched_2022_labels": 245,
+  "full_2022_labels": 247,
+  "matched_2022_coverage": 0.9919028340080972,
+  "weighted_later_minus_earlier_mean": -0.00047310282115734013,
+  "new_market_GETs": 0,
+  "new_model_fits": 0,
+  "new_native_accounts": 0,
+  "new_bootstraps": 0,
+  "new_Recorders": 0,
+  "independent_validation": false,
+  "SOXX_goal_achieved": false,
+  "limits": [
+    "Same-state era comparison uses historical outcomes and is not a causal or tradable regime switch",
+    "2018-2022 original architecture training local labels are not a complete exact-f696 funded account",
+    "The 2022 era and state cells are reused and not independent forward validation"
+  ]
+}
