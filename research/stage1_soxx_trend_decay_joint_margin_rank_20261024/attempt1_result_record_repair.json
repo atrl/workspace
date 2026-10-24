@@ -1,0 +1,10 @@
+{
+  "status": "implementation_result_serialization_repair_after_support_stop",
+  "preserved_initial_plan": "plan_initial.json",
+  "initial_plan_sha256": "5c7c3252c721bc3e7ba6b91f7b69515b3cf9b2b560c45e8e3a3036bb70e1743e",
+  "first_attempt": "The fixed factor and mature label were read once. At least one 2021/2022 year had fewer than the frozen 50 nonzero factor observations, so the planned bootstrap branch was correctly skipped. The result serialization then raised NameError: n was only initialized inside that skipped branch.",
+  "first_attempt_bootstraps": 0,
+  "repair": "Initialize the already-frozen calendar length and bootstrap metadata before the support branch, then save the exact support-failure result. Allow one replacement Qlib/Recorder readback; no extra market GET, model fit, bootstrap or account.",
+  "unchanged": ["two original39 input identities", "2011-2020 training scaler", "fixed ReLU product", "2021-2022 label and full calendar", "nonzero support threshold 50 per year", "rank signs, block parameters and stop decision"],
+  "science_result_from_first_attempt": "support gate failed; no rank-promotion claim"
+}

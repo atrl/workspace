@@ -1,0 +1,53 @@
+{
+  "status": "not_promoted_fixed_trend_decay_joint_margin_rank_failed",
+  "plan_sha256": "ce0b808a74189a134a24436a1ca7777279fc3bf133b958cfffd42d4260a2840c",
+  "features_recorder_id": "68e31a0a0fad44e7ba1d1f7d856c7a0d",
+  "labels_recorder_id": "a4bbc11f5c764ac38ff2f682eadd0e1d",
+  "training_scaler_rows": 2517,
+  "full_eval_calendar_rows": 503,
+  "mature_scored_rows": 497,
+  "factor_train_median": {
+    "soxx_ret60": 0.05981922894716263,
+    "levered_decay_20": -0.0037547298707067966
+  },
+  "factor_train_SD": {
+    "soxx_ret60": 0.10340553010636677,
+    "levered_decay_20": 0.027821166933557996
+  },
+  "full_Spearman": 0.07497034755750784,
+  "annual": {
+    "2021": {
+      "rows": 252,
+      "nonzero_factor_rows": 111,
+      "Spearman": 0.06682824454492528
+    },
+    "2022": {
+      "rows": 245,
+      "nonzero_factor_rows": 21,
+      "Spearman": -0.06284393373343455
+    }
+  },
+  "bootstrap": {
+    "valid_replicates": 0,
+    "mean_block_sessions": 63,
+    "one_sided_alpha": 0.00078125,
+    "lower_bound": null
+  },
+  "gates": {
+    "nonzero_support": false,
+    "full_positive": true,
+    "both_years_positive": false,
+    "block_lower_positive": false
+  },
+  "new_market_GETs": 0,
+  "new_model_fits": 0,
+  "new_native_accounts": 0,
+  "new_bootstraps": 0,
+  "independent_validation": false,
+  "SOXX_goal_achieved": false,
+  "limits": [
+    "The joint H5 price margin is a necessary gross information label and not a Tiered fee-net funded account",
+    "The two inputs already belong to original39; interaction novelty and incremental information are not established by a rank pass",
+    "All evaluation years and price history are reused development feedback; no forward evidence"
+  ]
+}

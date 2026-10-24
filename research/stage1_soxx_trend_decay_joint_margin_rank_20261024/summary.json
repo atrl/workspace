@@ -1,0 +1,31 @@
+{
+  "experiment": "stage1_soxx_trend_decay_joint_margin_rank_20261024",
+  "decision": "not_promoted_fixed_trend_decay_joint_margin_rank_failed_support_and_2022_sign",
+  "objective_achieved": false,
+  "plan_sha256": "ce0b808a74189a134a24436a1ca7777279fc3bf133b958cfffd42d4260a2840c",
+  "result": "result.json",
+  "implementation_repair": "attempt1_result_record_repair.json",
+  "features_recorder_id": "68e31a0a0fad44e7ba1d1f7d856c7a0d",
+  "labels_recorder_id": "a4bbc11f5c764ac38ff2f682eadd0e1d",
+  "mature_scored_rows": 497,
+  "new_model_fits": 0,
+  "new_native_accounts": 0,
+  "bootstrap_attempts": 0,
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [],
+    "reused_native_sources": [
+      "research/minute_information_pit_allocator_20261012/qlib_recorder",
+      "research/stage1_dual_task_39_information_20261023/qlib_recorder"
+    ]
+  },
+  "limitations": [
+    "The joint H5 price margin is a necessary gross information label and not a Tiered fee-net funded account",
+    "The two inputs already belong to original39; interaction novelty and incremental information are not established by a rank pass",
+    "All evaluation years and price history are reused development feedback; no forward evidence",
+    "2022 had only21 nonzero interaction rows against frozen minimum50; the necessary bootstrap was correctly skipped",
+    "2022 rank point sign was negative, contradicting the fixed positive joint-margin hypothesis",
+    "No held2023+ outcome, incremental model or full f696 account was used to rescue the version"
+  ]
+}
