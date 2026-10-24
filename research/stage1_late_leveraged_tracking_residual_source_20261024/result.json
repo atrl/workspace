@@ -1,0 +1,361 @@
+{
+  "status": "conditional_source_novelty_pass_first_receipt_unqualified",
+  "plan_sha256": "f8e85d50f284c3b320b14f64cf15055a4492fae511557c9f73ee053e913d37a1",
+  "minute_recorder_id": "68e31a0a0fad44e7ba1d1f7d856c7a0d",
+  "source_sessions": 2008,
+  "native_1min_rows": 1558560,
+  "source_symbol_day_groups": 4012,
+  "Qlib_1min_feature_reads_total": 2,
+  "known_sessions": 2005,
+  "train_sessions": 1061,
+  "train_known": 1060,
+  "held_sessions": 946,
+  "held_known": 945,
+  "f696_aligned_held_944_known": 944,
+  "coverage": [
+    {
+      "year": 2018,
+      "sessions": 54,
+      "known": 53,
+      "missing": 1,
+      "partial_endpoint": true
+    },
+    {
+      "year": 2019,
+      "sessions": 252,
+      "known": 252,
+      "missing": 0,
+      "partial_endpoint": false
+    },
+    {
+      "year": 2020,
+      "sessions": 253,
+      "known": 252,
+      "missing": 1,
+      "partial_endpoint": false
+    },
+    {
+      "year": 2021,
+      "sessions": 252,
+      "known": 252,
+      "missing": 0,
+      "partial_endpoint": false
+    },
+    {
+      "year": 2022,
+      "sessions": 251,
+      "known": 251,
+      "missing": 0,
+      "partial_endpoint": false
+    },
+    {
+      "year": 2023,
+      "sessions": 250,
+      "known": 250,
+      "missing": 0,
+      "partial_endpoint": false
+    },
+    {
+      "year": 2024,
+      "sessions": 252,
+      "known": 252,
+      "missing": 0,
+      "partial_endpoint": false
+    },
+    {
+      "year": 2025,
+      "sessions": 250,
+      "known": 250,
+      "missing": 0,
+      "partial_endpoint": false
+    },
+    {
+      "year": 2026,
+      "sessions": 194,
+      "known": 193,
+      "missing": 1,
+      "partial_endpoint": true
+    }
+  ],
+  "correlations": [
+    {
+      "control": "soxl_ret3",
+      "rows": 1060,
+      "pearson": -0.014690371797521968,
+      "spearman": 0.0727061307895936
+    },
+    {
+      "control": "soxl_ret5",
+      "rows": 1060,
+      "pearson": -0.037108007878083105,
+      "spearman": 0.021164026708178824
+    },
+    {
+      "control": "soxl_ret10",
+      "rows": 1060,
+      "pearson": 0.022174336353756496,
+      "spearman": 0.04128333100506699
+    },
+    {
+      "control": "soxl_ret20",
+      "rows": 1060,
+      "pearson": -1.9732848927366816e-05,
+      "spearman": 0.010061929197966231
+    },
+    {
+      "control": "soxl_ret60",
+      "rows": 1060,
+      "pearson": 0.004379869658523974,
+      "spearman": -0.0076603472329238795
+    },
+    {
+      "control": "soxx_ret3",
+      "rows": 1060,
+      "pearson": -0.005553087603518527,
+      "spearman": 0.07326869300228928
+    },
+    {
+      "control": "soxx_ret5",
+      "rows": 1060,
+      "pearson": -0.04107452923078497,
+      "spearman": 0.015073705120777072
+    },
+    {
+      "control": "soxx_ret10",
+      "rows": 1060,
+      "pearson": 0.006485773348615706,
+      "spearman": 0.035936687746335065
+    },
+    {
+      "control": "soxx_ret20",
+      "rows": 1060,
+      "pearson": -0.01875955307201965,
+      "spearman": 0.0043565297342113935
+    },
+    {
+      "control": "soxx_ret60",
+      "rows": 1060,
+      "pearson": -0.006122213343450589,
+      "spearman": -0.01310251574174208
+    },
+    {
+      "control": "relative_momentum20",
+      "rows": 1060,
+      "pearson": 0.00962721428965637,
+      "spearman": 0.012121641396034881
+    },
+    {
+      "control": "soxx_trend20",
+      "rows": 1060,
+      "pearson": 0.008076838257643595,
+      "spearman": 0.04340143038004208
+    },
+    {
+      "control": "soxx_trend60",
+      "rows": 1060,
+      "pearson": -0.005339766886230755,
+      "spearman": -0.005277253700948536
+    },
+    {
+      "control": "trend_efficiency_20",
+      "rows": 1060,
+      "pearson": 0.027315686631878156,
+      "spearman": 0.012865188743979987
+    },
+    {
+      "control": "levered_decay_20",
+      "rows": 1060,
+      "pearson": 0.11778914593492631,
+      "spearman": 0.053338817059675164
+    },
+    {
+      "control": "soxx_lead_10",
+      "rows": 1060,
+      "pearson": -0.12549691729603096,
+      "spearman": -0.039082230152377426
+    },
+    {
+      "control": "range_pos_252",
+      "rows": 1060,
+      "pearson": 0.03002722876476204,
+      "spearman": 0.03795420210467631
+    },
+    {
+      "control": "cross_breadth_pos_20",
+      "rows": 1060,
+      "pearson": 0.03024075435906258,
+      "spearman": 0.03462889084807343
+    },
+    {
+      "control": "cross_breadth_pos_60",
+      "rows": 1060,
+      "pearson": 0.004471298024873281,
+      "spearman": 0.00352298256964268
+    },
+    {
+      "control": "semis_vs_cross_20",
+      "rows": 1060,
+      "pearson": -0.006885273780509739,
+      "spearman": -0.004431914179011054
+    },
+    {
+      "control": "semis_vs_cross_60",
+      "rows": 1060,
+      "pearson": -0.015957587003607693,
+      "spearman": -0.02847133051076588
+    },
+    {
+      "control": "tech_breadth_20",
+      "rows": 1060,
+      "pearson": 0.018992821052860823,
+      "spearman": 0.02400556125317763
+    },
+    {
+      "control": "tech_breadth_60",
+      "rows": 1060,
+      "pearson": -0.007207878220091662,
+      "spearman": -0.006497494232849944
+    },
+    {
+      "control": "soxx_vol20",
+      "rows": 1060,
+      "pearson": -0.01643680337856183,
+      "spearman": -0.016025078577099963
+    },
+    {
+      "control": "soxx_drawdown60",
+      "rows": 1060,
+      "pearson": 0.014453485918129746,
+      "spearman": 0.02901176085840665
+    },
+    {
+      "control": "dist_high_252",
+      "rows": 1060,
+      "pearson": 0.03291711906234471,
+      "spearman": 0.036326013432804484
+    },
+    {
+      "control": "vix",
+      "rows": 1060,
+      "pearson": -0.024957354667117418,
+      "spearman": -0.05183325824691152
+    },
+    {
+      "control": "vix_chg5",
+      "rows": 1060,
+      "pearson": 0.011167708620215171,
+      "spearman": -0.014159273302212162
+    },
+    {
+      "control": "vix_z_60",
+      "rows": 1060,
+      "pearson": -0.028574043699616816,
+      "spearman": -0.0425556475387286
+    },
+    {
+      "control": "rv20",
+      "rows": 1060,
+      "pearson": -0.020042883979044718,
+      "spearman": -0.01779212945893021
+    },
+    {
+      "control": "rv60",
+      "rows": 1060,
+      "pearson": -0.033636922224816665,
+      "spearman": -0.008560023604741684
+    },
+    {
+      "control": "rv20_expansion",
+      "rows": 1060,
+      "pearson": -0.025355357602830322,
+      "spearman": -0.03440380017399278
+    },
+    {
+      "control": "tracking_error_5_z20",
+      "rows": 1060,
+      "pearson": 0.09624045358778897,
+      "spearman": 0.16781195036898527
+    },
+    {
+      "control": "tracking_error_5_pctile60",
+      "rows": 1060,
+      "pearson": 0.10630992758343541,
+      "spearman": 0.14990094624929953
+    },
+    {
+      "control": "panic_reversal_5",
+      "rows": 1060,
+      "pearson": -0.11845930754268993,
+      "spearman": -0.024761392112021885
+    },
+    {
+      "control": "chop_breakdown_risk",
+      "rows": 1060,
+      "pearson": 0.03550437319148352,
+      "spearman": 0.0035130244475393784
+    },
+    {
+      "control": "high_chop_pressure",
+      "rows": 1060,
+      "pearson": -0.01004139788098355,
+      "spearman": 0.006218432904575762
+    },
+    {
+      "control": "cross_vol_breadth_high",
+      "rows": 1060,
+      "pearson": -0.0551255921646023,
+      "spearman": -0.06339895754360604
+    },
+    {
+      "control": "cross_dispersion_20",
+      "rows": 1060,
+      "pearson": 0.024375693284252695,
+      "spearman": 0.029833086728534238
+    },
+    {
+      "control": "minute_soxx_late_return30",
+      "rows": 1060,
+      "pearson": 0.29176582517323246,
+      "spearman": 0.13316676279476392
+    },
+    {
+      "control": "minute_soxx_late_volume_share",
+      "rows": 1060,
+      "pearson": -0.040984908402258505,
+      "spearman": -0.04335938556740522
+    },
+    {
+      "control": "minute_soxl_tracking_residual_rv5",
+      "rows": 1060,
+      "pearson": 0.03948255449327762,
+      "spearman": -0.044143547015455566
+    },
+    {
+      "control": "minute_soxl_soxx_sign_agreement",
+      "rows": 1060,
+      "pearson": -0.011915266988466624,
+      "spearman": -0.007066384007014864
+    }
+  ],
+  "max_abs_train_spearman": 0.16781195036898527,
+  "max_abs_train_pearson": 0.29176582517323246,
+  "candidate_min_max": [
+    -0.037067892405725084,
+    0.06310127552966513
+  ],
+  "derived_coordinate_csv_sha256": "f61b45189b549f1f3f1e65eee59aefced7e5277a608b3e372a4b099ed75a0b31",
+  "source_novelty_pass": true,
+  "new_market_GETs": 0,
+  "new_model_fits": 0,
+  "new_native_accounts": 0,
+  "future_market_outcome_reads": 0,
+  "new_Recorders": 0,
+  "historical_first_receipt_certified": false,
+  "independent_validation": false,
+  "SOXX_goal_achieved": false,
+  "limits": [
+    "Late signed ETF price residual is not measured leveraged-ETF rebalancing flow",
+    "Historical minute bars have no certified first-live receipt vintages",
+    "Coverage and low input correlation do not prove predictive information or fee-net SOXX value"
+  ]
+}

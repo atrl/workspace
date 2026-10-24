@@ -1,0 +1,22 @@
+{
+  "status": "mechanical_source_group_cardinality_repair_before_scoring",
+  "reason": "A date without one-minute Qlib rows must remain unknown rather than fail an all-date group count assertion; the frozen source plan already requires retaining missing days and no zero fill.",
+  "changes": [
+    "Remove the erroneous requirement that the two-symbol source group count equals 2 times all saved source dates.",
+    "Require at most two symbol groups per available date, pivot and reindex to all saved source dates, then enforce two aligned valid 30-bar tails only on known values."
+  ],
+  "cumulative_budget": {
+    "Qlib_1min_feature_reads_max": 2,
+    "source_Recorder_object_reads_max": 4,
+    "new_market_GETs": 0,
+    "future_market_outcome_reads": 0,
+    "new_model_fits": 0,
+    "new_native_accounts": 0,
+    "new_Recorders": 0
+  },
+  "scientific_contract_unchanged": [
+    "signed final30-minute SOXL-minus3xSOXX residual",
+    "source years, clock, validity and novelty thresholds",
+    "no future labels, fit or account"
+  ]
+}

@@ -1,0 +1,29 @@
+{
+  "experiment": "stage1_late_leveraged_tracking_residual_source_20261024",
+  "frozen": true,
+  "phase": "source_only_prior_close_late_signed_leverage_residual_novelty_preflight",
+  "mechanism": "A positive signed SOXL minus3x SOXX return residual confined to the prior session's final30 completed one-minute bars may proxy a transient leverage-specific closing pressure that reverses by the next Stage1 decision. This is a hypothesis, not observed ETF rebalancing flow or a proven price signal.",
+  "research_motivation_primary_paper": "https://abarbon.com/assets/Liquidity_Provision_to_Rebalancing_Flows_from_Leveraged_ETFs_and_Equity_Options.pdf",
+  "closed_route_distinction": "Original Stage1 already receives SOXX last30 return, last-hour SOXX volume share, and unsigned full-session SOXL-minus3xSOXX residual volatility. This preflight only tests a signed late-session residual. The closed Stage1 cash/relative H5, peer breadth, opening path divergence and fixed original39 pairwise receivers are not rerun or reinterpreted.",
+  "sources": {
+    "minute_card": "research/minute_information_pit_allocator_20261012",
+    "minute_summary_sha256": "61c91f958323cf51b43f4b1554eeca5687011d30771e80bc7ff02d16b6d577ca",
+    "minute_experiment_id": "905520356740140469",
+    "minute_recorder_id": "68e31a0a0fad44e7ba1d1f7d856c7a0d",
+    "minute_features_sha256": "6c71bcdec902af47f2f41a62d413067a1352fd7c996d6214d55c0f2686e91140",
+    "original39_features_sha256": "482d6a908ae95230143dc08014732c3247d22ccb1560f8509f6ac564a4d647ec",
+    "minute_NAS_sha256": "ee328cab292f178bf3582ef574fb411561c93b82545cd3bb90842ecd9a9a24f1",
+    "minute_NAS_readback_sha256": "fad9abb3f59a2079487a5334b400baafe746e91a8eb76dff7a8f2babbfdfbae8",
+    "core_1min_provider": "data/qlib/minute_information_pit_allocator_20261012/core_1min",
+    "core_1min_manifest_sha256": "e2d97bd4dc00cdb231f7aa926799efcbc6f0d613ca197fbe04e86db1f074bf4e"
+  },
+  "fixed_formula": {
+    "price_plane": "Use original Qlib core_1min raw NONE within-session $open,$close,$price_valid bars for SOXL and SOXX. For each qualified exchange session with saved actual close C, take exactly the completed one-minute bars with stamp in (C-30min,C], require30 bars per symbol, ordered equal timestamps, positive finite open/close and price_valid. Sum log(close/open) for SOXL minus3 times the same SOXX sum. No later adjustment coefficient or future bar.",
+    "availability": "Saved source minute_feature_available_at is actual session close+1min. The new coordinate can enter only the next Qlib trading day's frozen f69609:29 allocation decision after that time; do not use same-day09:29 or assume historical live receipt certified.",
+    "coverage": "Retain all original minute source dates and report qualified known/missing by2018-2022 training and2023-2026 reused held years, including early closes. No source value is set to zero for missing days. Require at least1055/1061 training and940/944 held source-known dates before considering a separate information gate.",
+    "novelty": "On finite2018-2022 dates report Pearson and Spearman versus each original39 input and existing minute_soxx_late_return30, minute_soxx_late_volume_share, minute_soxl_tracking_residual_rv5 and minute_soxl_soxx_sign_agreement; require maximum absolute Spearman<0.85 and no exact duplicate. Report all controls, not only best. Numeric novelty cannot certify economic information.",
+    "decision": "A source/novelty pass permits only a separately frozen training and reused-held information test with a decision-time economic label. It does not prove ETF flows, historical first receipt, net SOXX outperformance or an independent forward day."
+  },
+  "budget": {"Qlib_1min_feature_reads": 1, "source_Recorder_object_reads": 2, "new_market_GETs": 0, "new_model_fits": 0, "new_native_accounts": 0, "future_market_outcome_reads": 0, "new_Recorders": 0},
+  "stop": "Stop on provider/source SHA/NAS, time alignment, price validity, 30-bar session support, insufficient coverage or novelty gate failure. Do not fit, inspect future labels or choose another late window/sign after results."
+}

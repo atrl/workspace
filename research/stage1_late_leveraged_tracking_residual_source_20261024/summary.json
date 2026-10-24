@@ -1,0 +1,28 @@
+{
+  "experiment": "stage1_late_leveraged_tracking_residual_source_20261024",
+  "decision": "conditional_source_novelty_pass_first_receipt_unqualified",
+  "objective_achieved": false,
+  "plan_sha256": "f8e85d50f284c3b320b14f64cf15055a4492fae511557c9f73ee053e913d37a1",
+  "source_recorder_id": "68e31a0a0fad44e7ba1d1f7d856c7a0d",
+  "source_sessions": 2008,
+  "train_known": 1060,
+  "f696_aligned_held_944_known": 944,
+  "max_abs_train_spearman": 0.16781195036898527,
+  "source_novelty_pass": true,
+  "Qlib_1min_feature_reads_total": 2,
+  "new_model_fits": 0,
+  "new_native_accounts": 0,
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "source inputs/minute_features",
+      "source inputs/features"
+    ]
+  },
+  "limitations": [
+    "Late signed ETF price residual is not measured leveraged-ETF rebalancing flow",
+    "Historical minute bars have no certified first-live receipt vintages",
+    "Coverage and low input correlation do not prove predictive information or fee-net SOXX value"
+  ]
+}

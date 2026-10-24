@@ -1,0 +1,10 @@
+{
+  "status": "failed_after_first_local_Qlib_1min_source_read_before_any_label_or_fit",
+  "reason": "The implementation asserted two one-minute Qlib symbol groups for every one of the 2008 saved source dates; source input audit already records only 2007 valid core sessions. The assertion failed before derived coordinates or outcome reads.",
+  "source_Recorder_object_reads": 2,
+  "Qlib_1min_feature_reads": 1,
+  "future_market_outcome_reads": 0,
+  "new_model_fits": 0,
+  "new_native_accounts": 0,
+  "new_Recorders": 0
+}
