@@ -1,0 +1,7 @@
+experiment: stage1_f696_frozen_model_forward_parity_20261024
+entrypoint: stage1_f696_frozen_model_forward_parity_20261024.ipynb
+phase: frozen_read_only_identity_preflight
+source_recorder_ids:
+  parent: 68e31a0a0fad44e7ba1d1f7d856c7a0d
+  f696: 6e227278b7a64eafbcf34b965e16d2b9
+artifact_policy: slim_card_recorder_first

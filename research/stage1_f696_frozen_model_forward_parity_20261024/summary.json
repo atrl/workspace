@@ -1,0 +1,28 @@
+{
+  "experiment": "stage1_f696_frozen_model_forward_parity_20261024",
+  "decision": "needs_post_model_allocation_target_bridge_no_sensitivity_run",
+  "objective_achieved": false,
+  "plan_sha256": "ba99ddb66aed30e1f65402b99999986a7f596aec60a2976f49a0309619e55ed1",
+  "result": "result.json",
+  "parent_recorder_id": "68e31a0a0fad44e7ba1d1f7d856c7a0d",
+  "f696_recorder_id": "6e227278b7a64eafbcf34b965e16d2b9",
+  "matched_f696_rows": 944,
+  "identity_gate_pass": false,
+  "new_model_fits": 0,
+  "new_native_accounts": 0,
+  "independent_forward_days": 0,
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [],
+    "reused_native_sources": [
+      "research/minute_information_pit_allocator_20261012/qlib_recorder",
+      "research/stage1_domain_heads_20261018/qlib_recorder"
+    ]
+  },
+  "limitations": [
+    "The sealed outer-refit model reproduces alpha/tail exactly but not final f696 asset weights; it cannot be used as an exact f696 weight-sensitivity oracle",
+    "The source-to-target transformation is not established by this preflight",
+    "No factor, fit, account or independent SOXX evidence was produced"
+  ]
+}
