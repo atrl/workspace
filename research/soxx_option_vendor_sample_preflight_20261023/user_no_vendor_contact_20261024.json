@@ -1,0 +1,13 @@
+{
+  "status": "vendor_contact_declined_for_now",
+  "source_path_decision": "research/soxx_option_vendor_sample_preflight_20261023/source_path_decision_20261023.json",
+  "user_instruction": "暂不联系供应商",
+  "scope": "Do not send the drafted ORATS or other vendor sample/price inquiry, place a purchase, or start a subscription under the current SOXX Goal without a later direct user authorization.",
+  "source_gap_unchanged": "No qualified 2011-2022 SOXX strike-level IV/Delta chain with original quote and delivery timestamps is available in the pinned source decision.",
+  "existing_drafts_preserved": true,
+  "vendor_messages_sent": 0,
+  "purchases": 0,
+  "model_fits": 0,
+  "accounts": 0,
+  "goal_status_effect": "This is a user authorization boundary, not evidence that a market mechanism is impossible or that SOXX v2 passed."
+}
