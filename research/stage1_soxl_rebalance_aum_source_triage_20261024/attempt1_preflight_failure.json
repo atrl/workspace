@@ -1,0 +1,14 @@
+{
+  "status": "failed_before_any_HTTP_GET",
+  "reason": "PosixPath run_state variable was updated as a dict before fetch",
+  "original_run_state": {
+    "status": "started",
+    "plan_sha256": "05e29195bd07af8216ac7fb0518fa1990b84af1f3791a849714ff7ded558a631",
+    "GETs_started": 0
+  },
+  "HTTP_GETs": 0,
+  "future_market_outcome_reads": 0,
+  "model_fits": 0,
+  "accounts": 0,
+  "repair": "Use separate state_path and state dict; no request URL, budget or source criterion change."
+}

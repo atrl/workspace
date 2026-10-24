@@ -1,0 +1,5 @@
+experiment: stage1_soxl_rebalance_aum_source_triage_20261024
+notebook: stage1_soxl_rebalance_aum_source_triage_20261024.ipynb
+phase: official_issuer_SOXL_daily_AUM_and_shares_history_source_triage_only
+artifact_policy: slim_card_recorder_first
+source: https://www.direxion.com/product/daily-semiconductor-bull-bear-3x-etfs

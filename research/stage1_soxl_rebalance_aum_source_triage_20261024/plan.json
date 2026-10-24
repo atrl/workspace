@@ -1,0 +1,15 @@
+{
+  "experiment": "stage1_soxl_rebalance_aum_source_triage_20261024",
+  "frozen": true,
+  "phase": "official_issuer_SOXL_daily_AUM_and_shares_history_source_triage_only",
+  "question": "Does Direxion's public official SOXL product page or its directly linked holdings download provide a date-stamped 2011-2022 daily fund size/shares series and historical first-public vintages needed to estimate leveraged ETF end-of-day rebalancing demand, rather than relying on a price-only late tracking residual?",
+  "motivation": "The fixed signed late ETF price residual passed source/novelty but failed the SOXX cash-cap local information gate. Actual rebalance-demand estimation would need fund size and investor flows; this is a different source requirement, not a retest of the failed residual coordinate.",
+  "official_page": "https://www.direxion.com/product/daily-semiconductor-bull-bear-3x-etfs",
+  "official_primary_research": "https://abarbon.com/assets/Liquidity_Provision_to_Rebalancing_Flows_from_Leveraged_ETFs_and_Equity_Options.pdf",
+  "request_budget": {"official_product_page_GETs": 1, "same_issuer_direct_CSV_GETs_max": 1, "retries": 0, "max_bytes_per_response": 2000000, "fallback_hosts": 0},
+  "allowed_hosts": ["www.direxion.com", "direxion.com"],
+  "method": "Capture exact official response bytes, UTC request/response time, HTTP status, content type, size and SHA256. Parse only issuer page anchors for Daily Fund Holdings and any explicit historic AUM/shares downloads. Follow at most one direct same-issuer CSV link if it is clearly labelled and within budget. Inspect rows/headers/date coverage and whether the page/download states original publication or revision timing. Archive exact received bytes to Yanxuan NAS with remote SHA and scoped readback. Do not scrape news or use a third-party estimate.",
+  "acceptance": "A usable factor source would require fund-size/shares fields for the relevant daily 2011-2022 training history, 2023-2026 reused evaluation coverage, split-aware units and auditable first availability before the next Stage1 decision. A current snapshot, holdings-only table, quarterly filing, or historical values with unknown first publication is source_only_needs_data.",
+  "scientific_boundary": "No SOXX market outcome, model, factor fit, account, purchase, vendor outreach or qualified forward day. This card cannot reopen the closed late residual information experiment; a real fund-flow mechanism would need a new frozen formula and receiver after source qualification.",
+  "stop": "Stop after the bounded requests or a non-200/oversized/untrusted-host response. Preserve failures and exact bytes; do not infer absent historical data merely from one page if the site may expose another official endpoint."
+}

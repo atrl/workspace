@@ -1,0 +1,67 @@
+{
+  "status": "source_only_needs_historical_daily_AUM_shares_and_first_public_vintages",
+  "plan_sha256": "05e29195bd07af8216ac7fb0518fa1990b84af1f3791a849714ff7ded558a631",
+  "official_requests": [
+    {
+      "label": "issuer_page",
+      "url": "https://www.direxion.com/product/daily-semiconductor-bull-bear-3x-etfs",
+      "requested_at_utc": "2026-10-24T10:47:55.529638+00:00",
+      "received_at_utc": "2026-10-24T10:47:57.435455+00:00",
+      "http_status": 200,
+      "content_type": "text/html; charset=utf-8",
+      "response_date": "Sat, 24 Oct 2026 10:47:56 GMT",
+      "cache_control": "max-age=1800, stale-while-revalidate=60",
+      "last_modified": null,
+      "bytes": 1204411,
+      "sha256": "d41f550ab6397b2b0ae0a713ec633d85d54f7017daeea2f555eafd35a5a422fa",
+      "relative_path": "data/snapshots/stage1_soxl_rebalance_aum_source_triage_20261024/issuer_page.bin",
+      "error": null
+    }
+  ],
+  "relevant_official_page_links": [
+    {
+      "text": "Daily Fund Holdings (csv)",
+      "url": "https://www.direxion.com/product/daily-semiconductor-bull-bear-3x-etfs"
+    },
+    {
+      "text": "View all Index Holdings",
+      "url": "https://www.direxion.com/product/daily-semiconductor-bull-bear-3x-etfs"
+    },
+    {
+      "text": "View Daily Fund Holdings",
+      "url": "https://www.direxion.com/product/daily-semiconductor-bull-bear-3x-etfs"
+    },
+    {
+      "text": "Daily Fund Holdings (csv)",
+      "url": "https://www.direxion.com/product/daily-semiconductor-bull-bear-3x-etfs"
+    },
+    {
+      "text": "Daily Fund Holdings (csv)",
+      "url": "https://www.direxion.com/product/daily-semiconductor-bull-bear-3x-etfs"
+    },
+    {
+      "text": ".css-1prvevb figure,.css-1prvevb img{margin-block-end:0;}.css-1prvevb figure{inline-size:50%;margin:0 auto;}@media (min-width: 768px){.css-1prvevb figure{aspect-ratio:4/3;overflow:hidden;inline-size:70%;}.css-1prvevb figure img{block-size:100%;margin:0;object-fit:contain;inline-size:100%;}}@media (max-width: 767px){.css-1prvevb img{display:block;margin-inline:auto;}}.css-sky0mu h3{line-height:1.2;margin-block-start:var(--spacing-1-5);}@media (min-width: 768px){.css-sky0mu h3{margin-block-start:var(--spacing-3);}}Education CenterEducational materials, videos, and self-paced online training.",
+      "url": "https://www.direxion.com/leveraged-etf-education"
+    }
+  ],
+  "official_page_term_counts": {
+    "shares outstanding": 0,
+    "assets under management": 0,
+    "net assets": 4,
+    "historical assets": 0,
+    "daily fund holdings": 4,
+    "daily fund flows": 0
+  },
+  "linked_csv_inspection": null,
+  "daily_2011_2022_AUM_shares_qualified": false,
+  "historical_first_public_vintages_qualified": false,
+  "new_market_GETs": 1,
+  "future_market_outcome_reads": 0,
+  "new_model_fits": 0,
+  "new_native_accounts": 0,
+  "vendor_contacted": false,
+  "limits": [
+    "A current issuer page or holdings CSV does not by itself prove a 2011-2022 daily fund-size/share series or its first publication time",
+    "No third-party AUM estimate or inferred ETF rebalancing flow was used"
+  ]
+}
