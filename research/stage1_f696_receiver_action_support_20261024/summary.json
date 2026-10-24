@@ -1,0 +1,25 @@
+{
+  "experiment": "stage1_f696_receiver_action_support_20261024",
+  "decision": "read_only_prioritize_allocation_and_open_action_receiver_no_candidate",
+  "objective_achieved": false,
+  "plan_sha256": "c0256537ddeb5369bc56ba34bbfd0c9e4f7515e152782c445b5e104c9c6e30bf",
+  "result": "result.json",
+  "source_recorder_id": "6e227278b7a64eafbcf34b965e16d2b9",
+  "sessions": 944,
+  "rolling126_windows": 819,
+  "new_model_fits": 0,
+  "new_native_accounts": 0,
+  "independent_forward_days": 0,
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [],
+    "reused_native_source": "research/stage1_domain_heads_20261018/qlib_recorder"
+  },
+  "limitations": [
+    "Zero realized recovery actions in baseline does not rule out a separately trained policy that could create new actions",
+    "The HOLD-only erasure freezes the old path and is not an executable own-state account",
+    "All 819 windows overlap; this is support and accounting evidence, not independent validation",
+    "Receiver support does not by itself show that a new predictive factor exists or that a changed open-action policy improves SOXX wealth"
+  ]
+}

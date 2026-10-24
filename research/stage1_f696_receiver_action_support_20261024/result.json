@@ -1,0 +1,196 @@
+{
+  "status": "read_only_exact_f696_receiver_support_no_candidate",
+  "plan_sha256": "c0256537ddeb5369bc56ba34bbfd0c9e4f7515e152782c445b5e104c9c6e30bf",
+  "source_recorder_id": "6e227278b7a64eafbcf34b965e16d2b9",
+  "sessions": 944,
+  "quarters": 16,
+  "rolling126_windows": 819,
+  "open_execute_sessions": 797,
+  "hold_sessions": 147,
+  "recovery_action_sessions": 0,
+  "annual": [
+    {
+      "year": 2023,
+      "sessions": 249,
+      "partial_endpoint": true,
+      "open_execute": 200,
+      "hold": 49,
+      "recovery_actions": 0
+    },
+    {
+      "year": 2024,
+      "sessions": 252,
+      "partial_endpoint": false,
+      "open_execute": 220,
+      "hold": 32,
+      "recovery_actions": 0
+    },
+    {
+      "year": 2025,
+      "sessions": 250,
+      "partial_endpoint": false,
+      "open_execute": 206,
+      "hold": 44,
+      "recovery_actions": 0
+    },
+    {
+      "year": 2026,
+      "sessions": 193,
+      "partial_endpoint": true,
+      "open_execute": 171,
+      "hold": 22,
+      "recovery_actions": 0
+    }
+  ],
+  "quarter": [
+    {
+      "year": 2023,
+      "quarter": 1,
+      "sessions": 61,
+      "open_execute": 55,
+      "hold": 6,
+      "recovery_actions": 0
+    },
+    {
+      "year": 2023,
+      "quarter": 2,
+      "sessions": 62,
+      "open_execute": 56,
+      "hold": 6,
+      "recovery_actions": 0
+    },
+    {
+      "year": 2023,
+      "quarter": 3,
+      "sessions": 63,
+      "open_execute": 51,
+      "hold": 12,
+      "recovery_actions": 0
+    },
+    {
+      "year": 2023,
+      "quarter": 4,
+      "sessions": 63,
+      "open_execute": 38,
+      "hold": 25,
+      "recovery_actions": 0
+    },
+    {
+      "year": 2024,
+      "quarter": 1,
+      "sessions": 61,
+      "open_execute": 54,
+      "hold": 7,
+      "recovery_actions": 0
+    },
+    {
+      "year": 2024,
+      "quarter": 2,
+      "sessions": 63,
+      "open_execute": 49,
+      "hold": 14,
+      "recovery_actions": 0
+    },
+    {
+      "year": 2024,
+      "quarter": 3,
+      "sessions": 64,
+      "open_execute": 63,
+      "hold": 1,
+      "recovery_actions": 0
+    },
+    {
+      "year": 2024,
+      "quarter": 4,
+      "sessions": 64,
+      "open_execute": 54,
+      "hold": 10,
+      "recovery_actions": 0
+    },
+    {
+      "year": 2025,
+      "quarter": 1,
+      "sessions": 60,
+      "open_execute": 50,
+      "hold": 10,
+      "recovery_actions": 0
+    },
+    {
+      "year": 2025,
+      "quarter": 2,
+      "sessions": 62,
+      "open_execute": 54,
+      "hold": 8,
+      "recovery_actions": 0
+    },
+    {
+      "year": 2025,
+      "quarter": 3,
+      "sessions": 64,
+      "open_execute": 45,
+      "hold": 19,
+      "recovery_actions": 0
+    },
+    {
+      "year": 2025,
+      "quarter": 4,
+      "sessions": 64,
+      "open_execute": 57,
+      "hold": 7,
+      "recovery_actions": 0
+    },
+    {
+      "year": 2026,
+      "quarter": 1,
+      "sessions": 61,
+      "open_execute": 51,
+      "hold": 10,
+      "recovery_actions": 0
+    },
+    {
+      "year": 2026,
+      "quarter": 2,
+      "sessions": 62,
+      "open_execute": 56,
+      "hold": 6,
+      "recovery_actions": 0
+    },
+    {
+      "year": 2026,
+      "quarter": 3,
+      "sessions": 64,
+      "open_execute": 61,
+      "hold": 3,
+      "recovery_actions": 0
+    },
+    {
+      "year": 2026,
+      "quarter": 4,
+      "sessions": 6,
+      "open_execute": 3,
+      "hold": 3,
+      "recovery_actions": 0
+    }
+  ],
+  "rolling126_open_execute_min": 87,
+  "rolling126_open_execute_max": 119,
+  "rolling126_recovery_action_max": 0,
+  "hold_only_frozen_path_bound": {
+    "original_positive_windows": 255,
+    "optimistic_negative_hold_cash_erasure_positive_windows": 450,
+    "required_positive_windows": 574
+  },
+  "new_market_requests": 0,
+  "new_model_fits": 0,
+  "new_native_accounts": 0,
+  "new_bootstraps": 0,
+  "new_recorders": 0,
+  "new_factor_selected": false,
+  "policy_inference": false,
+  "independent_validation": false,
+  "limits": [
+    "Zero realized recovery actions in baseline does not rule out a separately trained policy that could create new actions",
+    "The HOLD-only erasure freezes the old path and is not an executable own-state account",
+    "All 819 windows overlap; this is support and accounting evidence, not independent validation"
+  ]
+}
