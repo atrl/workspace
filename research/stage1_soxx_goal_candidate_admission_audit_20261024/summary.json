@@ -1,0 +1,50 @@
+{
+  "experiment": "stage1_soxx_goal_candidate_admission_audit_20261024",
+  "decision": "scoped_no_current_candidate_ready_for_new_exact_f696_0bp_account",
+  "objective_achieved": false,
+  "plan_sha256": "545b2bd1cad95347f3c81ea09c5bb81a4adfa0060c6da12ead518e9e14212c42",
+  "named_routes_checked": 9,
+  "ready_for_new_exact_f696_0bp": 0,
+  "baseline": {
+    "relative_wealth": 0.6860064369263443,
+    "positive_rolling126": 255,
+    "rolling126_total": 819,
+    "rolling126_required": 574,
+    "cash_opportunity_log": -0.6003226009036167,
+    "SOXL_selection_log": 0.22593145822639604
+  },
+  "closest_completed_0bp": {
+    "route": "common_return_dedup_C",
+    "relative_wealth": 0.9614726395822718,
+    "rolling126_positive": 369,
+    "rolling126_required": 574,
+    "complete_years": [
+      {
+        "year": "2024",
+        "sessions": 252,
+        "complete_year": true,
+        "relative_wealth": 1.1416937094387585
+      },
+      {
+        "year": "2025",
+        "sessions": 250,
+        "complete_year": true,
+        "relative_wealth": 0.9374686837562093
+      }
+    ]
+  },
+  "new_model_fits": 0,
+  "new_native_accounts": 0,
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "source native account and source candidate Recorders only"
+    ]
+  },
+  "limitations": [
+    "This audit covers only explicitly named current routes, not all possible future factors or sparse-checkout branches.",
+    "Historical development failures do not prove any future mechanism impossible.",
+    "Source-only forward vintages and idle/scheduled work do not count as qualified economic forward days."
+  ]
+}

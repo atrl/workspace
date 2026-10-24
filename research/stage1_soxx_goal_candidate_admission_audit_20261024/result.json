@@ -1,0 +1,129 @@
+{
+  "status": "scoped_no_current_candidate_ready_for_new_exact_f696_0bp_account",
+  "audited_at_utc": "2026-10-24T11:09:33.357395+00:00",
+  "plan_sha256": "545b2bd1cad95347f3c81ea09c5bb81a4adfa0060c6da12ead518e9e14212c42",
+  "scope_limit": "Only the exact f696 A0 baseline, the closest full common-return de-dup account, the conditional joint-SOXX information path and its no-action f696 account, the latest original39 pairwise and prior-close late residual information screens, the latest one-factor rank, and the Cboe/IBKR/SOXL-AUM source dependencies. This is not an exhaustive claim over every sparse-checkout branch.",
+  "baseline": {
+    "relative_wealth": 0.6860064369263443,
+    "positive_rolling126": 255,
+    "rolling126_total": 819,
+    "rolling126_required": 574,
+    "cash_opportunity_log": -0.6003226009036167,
+    "SOXL_selection_log": 0.22593145822639604
+  },
+  "closest_completed_0bp": {
+    "route": "common_return_dedup_C",
+    "relative_wealth": 0.9614726395822718,
+    "rolling126_positive": 369,
+    "rolling126_required": 574,
+    "complete_years": [
+      {
+        "year": "2024",
+        "sessions": 252,
+        "complete_year": true,
+        "relative_wealth": 1.1416937094387585
+      },
+      {
+        "year": "2025",
+        "sessions": 250,
+        "complete_year": true,
+        "relative_wealth": 0.9374686837562093
+      }
+    ]
+  },
+  "routes": [
+    {
+      "route": "exact_f696_A0",
+      "stage": "frozen_complete_0bp_reference",
+      "status": "failed_SOXX_hard_gate",
+      "evidence": "exact_f696_baseline_result",
+      "ready_for_new_account": false,
+      "reason": "Existing reference wealth and rolling windows fail; it is the parent, not a new candidate."
+    },
+    {
+      "route": "common_return_dedup_C",
+      "stage": "own_state_0bp_completed",
+      "status": "not_promoted_fixed_Stage1_common_return_dedup_0bp_failed",
+      "evidence": "common_return_dedup_0bp",
+      "ready_for_new_account": false,
+      "reason": "Frozen version fails SOXX wealth, complete2025, rolling126 and paired lower gates; cannot resume by mask/seed tuning."
+    },
+    {
+      "route": "direct_joint_SOXX_margin_to_account",
+      "stage": "conditional_information_then_own_state_0bp",
+      "status": "not_promoted_fixed_joint_SOXX_bridge_0bp_no_action",
+      "evidence": "joint_SOXX_bridge_0bp",
+      "ready_for_new_account": false,
+      "reason": "Information passed its narrow old-head control, but fixed mapping never triggered and exact f696 account equals the failing parent."
+    },
+    {
+      "route": "original39_direct_SOXL_cash_binary",
+      "stage": "information_screen",
+      "status": "not_promoted_fixed_original39_SOXL_cash_binary_information_failed",
+      "evidence": "original39_binary",
+      "ready_for_new_account": false,
+      "reason": "Only1/6 fixed information gates passed; 2025/2026 sign ranking failed."
+    },
+    {
+      "route": "prior_close_late_signed_residual_joint_value",
+      "stage": "conditional_source_and_information_screen",
+      "status": "not_promoted_fixed_late_residual_joint_value_information_failed",
+      "evidence": "late_residual_joint_value",
+      "ready_for_new_account": false,
+      "reason": "Only3/6 local-value gates passed; historical minute first-live receipt remains unqualified."
+    },
+    {
+      "route": "existing_SOXL_ret3_contrarian",
+      "stage": "one_factor_necessary_rank",
+      "status": "not_promoted_fixed_soxl_ret3_pairwise_incremental_rank_failed",
+      "evidence": "soxl_ret3_rank",
+      "ready_for_new_account": false,
+      "reason": "2023 AUC<0.5 and 39-selection-corrected block lower<0; original39 already contains the coordinate."
+    },
+    {
+      "route": "Cboe_total_options_activity",
+      "stage": "source_forward_ongoing_and_fixed_information_closed",
+      "status": "not_promoted_information_gate_failed",
+      "evidence": "Cboe_variance_information",
+      "ready_for_new_account": false,
+      "reason": "Five-date vintages are source-only and fixed variance information gate failed; no strategy forward day."
+    },
+    {
+      "route": "SOXX_option_skew_IBKR",
+      "stage": "current_quote_entitlement_only",
+      "status": "source_entitlement_passed_feature_not_qualified",
+      "evidence": "IBKR_option_source",
+      "ready_for_new_account": false,
+      "reason": "No qualified2011-2022 strike/IV/Delta history or original quote-time receipts."
+    },
+    {
+      "route": "SOXL_actual_rebalance_demand",
+      "stage": "official_source_gap",
+      "status": "source_only_needs_historical_daily_SOXL_AUM_shares_and_first_public_vintages",
+      "evidence": "SOXL_AUM_source",
+      "ready_for_new_account": false,
+      "reason": "No qualified2011-2022 daily AUM/shares and first-public vintages; current product page/scripts only."
+    }
+  ],
+  "named_routes_checked": 9,
+  "ready_for_new_exact_f696_0bp": 0,
+  "Cboe_source_missed_windows": 3,
+  "qualified_strategy_forward_days_in_named_routes": 0,
+  "historical_passing_candidate_in_named_routes": false,
+  "next_independent_work": [
+    "Let frozen Cboe source-only heartbeat observe future official vintages in its actual UTC windows; these are not strategy days.",
+    "Seek a genuinely different predecision mechanism with source identity, first availability and an economic receiver that can alter both f696 allocation intent and own-state risk capacity."
+  ],
+  "user_constraint": "No supplier outreach now, per direct user instruction; no purchase/subscription.",
+  "new_market_GETs": 0,
+  "new_model_fits": 0,
+  "new_native_accounts": 0,
+  "new_bootstraps": 0,
+  "new_Recorders": 0,
+  "SOXX_goal_achieved": false,
+  "limits": [
+    "This audit covers only explicitly named current routes, not all possible future factors or sparse-checkout branches.",
+    "Historical development failures do not prove any future mechanism impossible.",
+    "Source-only forward vintages and idle/scheduled work do not count as qualified economic forward days."
+  ]
+}

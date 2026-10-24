@@ -1,0 +1,5 @@
+experiment: stage1_soxx_goal_candidate_admission_audit_20261024
+notebook: stage1_soxx_goal_candidate_admission_audit_20261024.ipynb
+phase: read_only_current_scoped_candidate_admission_and_dependency_audit
+artifact_policy: slim_card_recorder_first
+source: pinned_existing_card_sidecars_only

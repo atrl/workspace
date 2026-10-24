@@ -1,0 +1,28 @@
+{
+  "experiment": "stage1_soxx_goal_candidate_admission_audit_20261024",
+  "frozen": true,
+  "phase": "read_only_current_scoped_candidate_admission_and_dependency_audit",
+  "question": "After the latest factor/interval and source qualification work, is any named current candidate ready to justify a new exact-f696 independently funded 0bp Tiered account against the v2 SOXX hard gate?",
+  "scope": "Only the exact f696 A0 baseline, the closest full common-return de-dup account, the conditional joint-SOXX information path and its no-action f696 account, the latest original39 pairwise and prior-close late residual information screens, the latest one-factor rank, and the Cboe/IBKR/SOXL-AUM source dependencies. This is not an exhaustive claim over every sparse-checkout branch.",
+  "sources": {
+    "contract": ["docs/three_asset_research_contract.md", "293b52fa25ca060245dc4fadf61401334a5ab510b7ebf4c4af52c9651d92a341"],
+    "prior_queue": ["research/stage1_0bp_candidate_queue_audit_20261023/summary.json", "608c0844a58be2054bb93fd3bcbd4f4ab8a8e09e258890d118bb66f7b540558d"],
+    "exact_f696_baseline": ["research/stage1_original_0bp_signal_loss_chain_v2_20261023/summary.json", "898089b008f1f6f50016ddbbd2fc082f77423464ed8613c54dbdd5fbbae1dc3a"],
+    "exact_f696_baseline_result": ["research/stage1_original_0bp_signal_loss_chain_v2_20261023/result.json", "734d9dce6a4543687ea860c9daf5764b056ebfc65089ee8d1bf85ba152b63145"],
+    "exact_f696_cash_window_bound": ["research/stage1_original_0bp_cash_layer_window_bound_20261023/result.json", "3edd9c81935512b26ff06bb2c742fe2159d1965ff7fcfb759012abd7bb73adce"],
+    "common_return_dedup_0bp": ["research/stage1_common_return_dedup_0bp_20261023/summary.json", "31069b6c16600384eab765606d78ff4a582a94142a33b488f95ff1f5aa82c827"],
+    "joint_SOXX_bridge_information": ["research/stage1_original39_joint_soxx_bridge_information_20261024/summary.json", "445057fa3fb255421d659a88dec28450e5f4aa2906772b7c141f716dab6ec92a"],
+    "joint_SOXX_bridge_0bp": ["research/stage1_joint_soxx_bridge_0bp_20261024/summary.json", "e5e26fb06881c371b5aea2cd64b723c102938f4ab6ccbf0762cb73f6ad10c931"],
+    "original39_binary": ["research/stage1_original39_soxl_cash_binary_information_20261024/summary.json", "712b9e413441c0b96af78198b6e8495675e62a613112297b153a9fd7eb76f233"],
+    "late_residual_joint_value": ["research/stage1_late_residual_joint_value_information_20261024/summary.json", "35de7bb316f8de114e79bfaec85f688283bdf763ebbdf0d4e14f04cd94ae7ab2"],
+    "soxl_ret3_rank": ["research/stage1_soxl_ret3_pairwise_incremental_rank_20261024/summary.json", "e5b828e0cff3de0475e79c194ef699a3db33f4a2dd76714402c933e959ca5c26"],
+    "Cboe_variance_information": ["research/cboe_total_activity_variance_information_20261022/summary.json", "6bec70c736c6e00ed7359e7cd4bbccf0f86c17cb0e95d27f2773eb1bf8621765"],
+    "IBKR_option_source": ["research/ibkr_soxx_option_skew_forward_source_20261022/summary.json", "eb6a89592701a29e766eeba1908caf97759f9617e7057bc2665cbaf5c85c5a03"],
+    "SOXL_AUM_source": ["research/stage1_soxl_rebalance_aum_source_triage_20261024/summary.json", "87f2e366fb994dd1770ac6426b3288e3f35fff7711e3961f6780635038148400"],
+    "Cboe_forward_scheduler": ["research/cboe_total_options_activity_source_20261022/scheduler_window_audit_20261024.json", "9f04fddcd77f0d82e1eeb8f9508721ea239a2efe709ba7c780ff94e9c6ff69ed"]
+  },
+  "admission_rule": "A new funded 0bp candidate needs a distinct predecision factor/receiver with source identity, availability/maturity and necessary information support plus an exact f696 legal action mapping before its full account. A closed fixed version, source-only pass, weak rank, local label or runtime repair is insufficient. Even a historical 0bp pass still needs v2 2/5bp and independent forward.",
+  "report": "For every named route record exact decision/status, source/info/action/economic stage reached, failed or missing gate and minimum external or independent condition. Retain baseline wealth/years/819-window/risk evidence and avoid adding a new model, threshold, account or vendor contact.",
+  "budget": {"Qlib_object_reads": 0, "new_market_GETs": 0, "new_model_fits": 0, "new_native_accounts": 0, "new_bootstraps": 0, "new_Recorders": 0},
+  "scientific_boundary": "This is a scoped current admission audit, not proof no possible future factor exists. User has declined supplier outreach for now. Source-only Cboe observations are not qualified strategy forward days. Goal stays active unless the separate blocked audit threshold and real impasse are met."
+}
