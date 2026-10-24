@@ -1,0 +1,74 @@
+{
+  "experiment": "stage1_late_residual_joint_value_information_20261024",
+  "decision": "not_promoted_fixed_late_residual_joint_value_information_failed",
+  "objective_achieved": false,
+  "plan_sha256": "65caaefdd49c9baff2210743412a9d41f6b519545907dd402333794cfbb96df0",
+  "result": "result.json",
+  "recorder_id": "bd02a4dcd99c4e5caf14d70175225b5e",
+  "experiment_id": "688148326881161791",
+  "recorder_uri": "/Users/rziiiii/dev/workspace/research/stage1_late_residual_joint_value_information_20261024/qlib_recorder",
+  "train_mature_known": 357,
+  "eval_mature_known": 329,
+  "metrics": {
+    "added_standardized_coefficient": -0.0001243084164116766,
+    "MSE_baseline": 9.485402466105757e-06,
+    "MSE_candidate": 9.316190450969133e-06,
+    "MSE_train_mean": 5.665950684354107e-06,
+    "paired_improvement": 1.6921201513662067e-07,
+    "improvement_vs_train_mean": -3.6502397666150288e-06,
+    "annual_paired_improvement": {
+      "2021": 4.960848909941692e-08,
+      "2022": 2.0891844888176527e-07
+    },
+    "annual_candidate_rank_spearman": {
+      "2021": -0.021735817873625562,
+      "2022": 0.1068144245501486
+    }
+  },
+  "bootstrap": {
+    "paired_mean_loss_improvement": 1.6921201513662067e-07,
+    "lower_bound": -1.4970305229485603e-08,
+    "upper_bound": 3.1627764908436974e-07,
+    "valid_replicates": 10000,
+    "invalid_replicates": 0,
+    "calendar_rows": 503,
+    "scored_rows": 329
+  },
+  "gates": {
+    "negative_coefficient": true,
+    "beats_baseline": true,
+    "beats_train_mean": false,
+    "both_eval_years": true,
+    "both_year_ranks": false,
+    "positive_block_lower": false
+  },
+  "new_model_fits": 2,
+  "new_native_accounts": 0,
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "inputs/dataset",
+      "models/*",
+      "predictions/held_scored",
+      "analysis/bootstrap_replicate_means"
+    ]
+  },
+  "nas_evidence": {
+    "sha256": "d35d81e2a8071a0b61a0793d00386290bcbdc5e78e4f46ce9af0c5dd4045de99",
+    "size_bytes": 366128,
+    "media_type": "application/gzip",
+    "storage_uri": "sha256/d3/5d/d35d81e2a8071a0b61a0793d00386290bcbdc5e78e4f46ce9af0c5dd4045de99",
+    "uploaded_by": "soxl-minute-research",
+    "created_at": "2026-10-24 18:42:52.664979+08",
+    "duplicate": false,
+    "nas_path": "/volume1/docker/yanxuan/registry/research-artifacts/d3/5d/d35d81e2a8071a0b61a0793d00386290bcbdc5e78e4f46ce9af0c5dd4045de99",
+    "recorder_id": "bd02a4dcd99c4e5caf14d70175225b5e",
+    "experiment_id": "688148326881161791",
+    "archive_root": "qlib_recorder"
+  },
+  "nas_readback": {
+    "verified": true,
+    "sha256": "d35d81e2a8071a0b61a0793d00386290bcbdc5e78e4f46ce9af0c5dd4045de99"
+  }
+}

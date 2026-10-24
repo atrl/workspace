@@ -1,0 +1,15 @@
+{
+  "status": "source_clock_novelty_and_support_pass",
+  "plan_sha256": "65caaefdd49c9baff2210743412a9d41f6b519545907dd402333794cfbb96df0",
+  "calendar_rows": 1061,
+  "source_known_on_calendar": 1059,
+  "train_mature_known": 357,
+  "eval_mature_known": 329,
+  "eval_2021": 82,
+  "eval_2022": 247,
+  "max_abs_train_spearman_vs_baseline": 0.1339021751689822,
+  "source_Recorder_object_reads": 4,
+  "Qlib_1min_feature_reads": 1,
+  "Qlib_day_calendar_reads": 1,
+  "new_model_fits": 0
+}
