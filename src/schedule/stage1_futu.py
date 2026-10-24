@@ -1227,17 +1227,31 @@ def build_stage1_bark_message(
     if mobile_summary and mobile_summary.get("status") == "ready":
         lines.append(f"账本截至 {mobile_summary.get('as_of') or '未知'}")
         lines.append(
-            f"模拟净值 ${_format_money(mobile_summary['equity'])} / "
-            f"回撤 {float(mobile_summary['drawdown_pct']):.2f}%"
+            f"模拟账户资产 ${_format_money(mobile_summary['equity'])} / "
+            f"账户观测回撤 {float(mobile_summary['drawdown_pct']):.2f}%"
         )
+        account = mobile_summary.get("account_performance") or {}
+        if account.get("status") == "ready":
+            lines.append(
+                f"成立以来本金净值变动 {account['capital_growth_pct']:+.2f}% "
+                f"（初始 ${_format_money(account['initial_equity'])}，含首日，未调整外部资金流）"
+            )
+        else:
+            lines.append("成立以来本金净值变动待核证初始本金/账户对账")
+        lines.append("成立以来费后超额/TWR：证据不足")
         performance = mobile_summary.get("performance")
         if performance:
             returns = performance["returns_pct"]
             lines.append(
-                f"同窗 {performance['start']}~{performance['end']} "
+                f"收盘同窗 {performance['start']}~{performance['end']}（不含首日） "
                 f"Stage1 {returns['Stage1']:+.2f}% / SOXX {returns['SOXX']:+.2f}% / SOXL {returns['SOXL']:+.2f}%"
             )
-            lines.append(f"相对 SOXX {performance['difference_vs_soxx_pp']:+.2f}pp（诊断值）")
+            lines.append(f"同窗收益差 vs SOXX {performance['difference_vs_soxx_pp']:+.2f}个百分点（非费后alpha）")
+            lines.append("历史费用时点/基准分红未完整核证；含停机持仓，非连续策略前向")
+        valuation = mobile_summary.get("valuation_reconciliation") or {}
+        gap = valuation.get("settled_minus_account_equity")
+        if gap is not None and abs(gap) >= 0.01:
+            lines.append(f"结算曲线减账户快照差额 ${gap:+.2f}（时点/现金口径不同，不回填历史）")
         for fill in mobile_summary.get("latest_by_side") or []:
             lines.append(f"最近成交 {fill['time']} 纽约 {fill['side']} {fill['quantity']} {fill['symbol']}")
 
