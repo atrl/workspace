@@ -1,0 +1,63 @@
+{
+  "status": "source_observation_schedule_corrected_missed_windows_preserved",
+  "audited_at_utc": "2026-10-24T10:32:06.020731+00:00",
+  "multiday_forward_plan_sha256": "c3ef7c87d0494aa8672b99a623b4ad635d27e28a1209dde949a2614852b0f98e",
+  "third_binding_sha256": "a634a26436d2fa1f3334fc16ca3a031664707aecafc90fdac0d5024c3057fd9c",
+  "third_binding_verified": true,
+  "missed_windows": [
+    {
+      "target_trade_date": "2026-10-22",
+      "phase": "post_midnight",
+      "window_start_utc": "2026-10-23T04:10:00+00:00",
+      "window_end_utc": "2026-10-23T04:55:00+00:00",
+      "receipt_exists": false,
+      "status": "missed_no_backfill"
+    },
+    {
+      "target_trade_date": "2026-10-22",
+      "phase": "later",
+      "window_start_utc": "2026-10-23T12:45:00+00:00",
+      "window_end_utc": "2026-10-23T13:25:00+00:00",
+      "receipt_exists": false,
+      "status": "missed_no_backfill"
+    },
+    {
+      "target_trade_date": "2026-10-23",
+      "phase": "post_midnight",
+      "window_start_utc": "2026-10-24T04:10:00+00:00",
+      "window_end_utc": "2026-10-24T04:55:00+00:00",
+      "receipt_exists": false,
+      "status": "missed_no_backfill"
+    }
+  ],
+  "next_frozen_window": {
+    "target_trade_date": "2026-10-23",
+    "phase": "later",
+    "start_utc": "2026-10-24T12:45:00+00:00",
+    "end_utc": "2026-10-24T13:25:00+00:00",
+    "status": "not_yet_open"
+  },
+  "automation_schedule_after_correction": {
+    "cboe-five-day-source-early-vintages": {
+      "active": true,
+      "utc_trigger": "04:10",
+      "target_thread_id": "01a16141-bbb9-7660-a992-86f5741aa7b7"
+    },
+    "cboe-five-day-source-later-vintages": {
+      "active": true,
+      "utc_trigger": "12:45",
+      "target_thread_id": "01a16141-bbb9-7660-a992-86f5741aa7b7"
+    }
+  },
+  "earlier_observed_trigger_times_utc": {
+    "early": "12:10",
+    "later": "21:00"
+  },
+  "correction": "Updated the two existing active heartbeat schedules through the app to fire within their unchanged frozen UTC windows; prompts and source plan retained.",
+  "http_GETs": 0,
+  "market_outcome_reads": 0,
+  "model_fits": 0,
+  "accounts": 0,
+  "qualified_strategy_days": 0,
+  "limitation": "Missed source windows cannot be backfilled or counted as observed vintages; a scheduled run and third binding alone do not prove publication timing."
+}

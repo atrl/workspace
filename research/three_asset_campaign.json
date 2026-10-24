@@ -662,6 +662,8 @@
     "Cboe_transport_identity_clarification": "research/cboe_total_options_activity_source_20261022/forward_transport_identity_clarification.json",
     "closed_Cboe_economic_dependency": "research/cboe_variance_conditional_composition_20261022/dependency_closeout.json",
     "Cboe_third_source_archive": "research/cboe_total_options_activity_source_20261022/third_source_archive_receipt.json",
+    "Cboe_multiday_source_schedule_audit": "research/cboe_total_options_activity_source_20261022/scheduler_window_audit_20261024.json",
+    "Cboe_multiday_source_schedule_interpretation": "The two active Cboe five-target-date source-only heartbeats had fired about8 hours after their frozen UTC receipt windows. At2026-10-24 10:31 UTC the Oct22 target's early/later phases and Oct23 target's early phase had no receipts and were irrecoverably missed. Existing heartbeat schedules were corrected through the app to04:10/12:45 UTC without changing the frozen source plan, prompt or third-Oct21 binding; Oct23 later phase remained pending. No HTTP fetch, market outcome, model/account or qualified strategy day was created by this audit; missed vintages cannot be backfilled.",
     "Cboe_information_result": "research/cboe_total_activity_variance_information_20261022/result_review.json",
     "coordinate_probe_review": "research/korea_semiconductor_exports_korean_vintage_20261022/coordinate_layout_probe_review.json",
     "coordinate_full_source_plan": "research/korea_semiconductor_exports_korean_vintage_20261022/coordinate_full_source_plan.json",
