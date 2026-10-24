@@ -1,0 +1,32 @@
+{
+  "experiment": "stage1_soxl_local_value_drawdown_rank_20261024",
+  "frozen": true,
+  "phase": "read_only_predecision_own_state_drawdown_rank_necessary_condition",
+  "hypothesis": "Among the saved 09:46 eligible cash-to-SOXL local actions, a deeper original-account drawdown should rank lower next-session 0bp Tiered fee-net local value even within the predecision risk state; the fixed score is negative saved portfolio_drawdown.",
+  "sources": {
+    "overlap_plan": "research/stage1_soxl_local_value_risk_state_overlap_20261024/plan.json",
+    "overlap_plan_sha256": "fa8159300701e2bb5a8556e2e56e8e0ad3b60b6b6bfa9bbc52b9d3e39d41c1a2",
+    "SOXL_card": "research/stage1_joint_cash_cap_soxl_0bp_local_value_20261024",
+    "SOXL_summary_sha256": "d4c5c7b29f7edce9302278f7e901ce6fdf1206bd239ca863a00167bcff5032a4",
+    "SOXL_experiment_id": "598502564044048354",
+    "SOXL_recorder_id": "9f4753640e9247a18adff4cab4bb57f8",
+    "SOXL_labels_sha256": "b9e145b0c7e8488ee70a6acc11bd203897eae5e45f2b59459845d2382ae53a41",
+    "SOXL_NAS_sha256": "15f713a01daa410cafae50955e4f6abab5f0baab6fd70a246b00745755ccc5e1",
+    "reference_card": "research/stage1_signed_volume_0bp_action_label_source_20261023",
+    "reference_summary_sha256": "ce6652a6323ec9bd11a8ce8de89239cba167a53bedb50e471080006a1a89f476",
+    "reference_experiment_id": "194705746221035167",
+    "reference_recorder_id": "3663a1e073f042e383dbcf54969a9bc2",
+    "reference_path_sha256": "eb6403c99304be47572635ae3a71494ddd5ce9a96c7e3e361cf5c38f76ffa4e5",
+    "provider": "data/qlib/full_path_tiered_allocation_20261013",
+    "provider_manifest_sha256": "3a3d6f4e248d6016ea25a140587abb65fba0d8a346e45da402414095df772223"
+  },
+  "fixed_definitions": {
+    "population": "All1061 original Qlib2018-2022 sessions; score688 mature eligible cash-to-SOXL local labels, retain ineligible/end unknown, partial2018 and complete2019-2022, all17 quarters.",
+    "score": "Negative of the saved original 09:46 portfolio_drawdown magnitude. No winsorizing, rescaling, threshold, refit, sign reversal or state-dependent coefficient.",
+    "target": "Saved next-session fee-net SOXL local advantage from the frozen0.10-beta same-state action. Binary positive strictly greater than1e-12 versus negative strictly less than-1e-12; exact zero omitted from AUC and counted separately. Continuous Spearman uses all finite mature labels.",
+    "analysis": "Report full, each year, each quarter, binding/nonbinding, fixed 2020-2021 pooled and2022, and each exact risk_state on the binding subset: positive-label AUC and continuous Spearman, sample/zero counts. Do not select a drawdown cutpoint from outcomes.",
+    "necessary_gate": "To justify a later separately frozen incremental receiver, the score must have AUC>0.5 and Spearman>0 on each complete2020,2021,2022 year, and positive within-binding Spearman in pooled2020-2021 and2022. Failure closes this fixed directional factor before fit/account. Passing is only a necessary screen, never promotion or independent validation."
+  },
+  "budget": {"Qlib_calendar_reads": 1, "source_Recorder_object_reads": 2, "new_market_GETs": 0, "new_model_fits": 0, "new_native_accounts": 0, "new_bootstraps": 0, "new_Recorders": 0},
+  "stop": "Stop on source SHA/NAS/readback, provider, native Qlib calendar,1061 rows,688 mature labels, ordered dates, finite drawdown or exact predecision-state alignment disagreement. No threshold or model from reused history."
+}

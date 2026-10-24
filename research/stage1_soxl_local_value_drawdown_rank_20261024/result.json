@@ -1,0 +1,474 @@
+{
+  "status": "read_only_SOXL_local_value_drawdown_rank_necessary_condition",
+  "plan_sha256": "10aa3f5ace28c34367035afbd2e6921c7309b1384a800d5d02b27d1958d0efa2",
+  "source_recorder_ids": {
+    "labels": "9f4753640e9247a18adff4cab4bb57f8",
+    "reference": "3663a1e073f042e383dbcf54969a9bc2"
+  },
+  "full_sessions": 1061,
+  "mature_labels": 688,
+  "full": {
+    "sessions": 1061,
+    "mature": 688,
+    "positive": 345,
+    "negative": 311,
+    "zero": 32,
+    "auc": 0.5281886387995713,
+    "spearman": 0.005420155518317013,
+    "mean_label": 4.957468748976795e-05
+  },
+  "annual": [
+    {
+      "year": 2018,
+      "partial_endpoint": true,
+      "sessions": 53,
+      "mature": 19,
+      "positive": 11,
+      "negative": 8,
+      "zero": 0,
+      "auc": 0.6704545454545454,
+      "spearman": -0.021052631578947368,
+      "mean_label": 7.445166997873025e-05
+    },
+    {
+      "year": 2019,
+      "partial_endpoint": false,
+      "sessions": 252,
+      "mature": 138,
+      "positive": 63,
+      "negative": 56,
+      "zero": 19,
+      "auc": 0.5359977324263039,
+      "spearman": 0.053347953182907595,
+      "mean_label": 2.9222363680665355e-05
+    },
+    {
+      "year": 2020,
+      "partial_endpoint": false,
+      "sessions": 253,
+      "mature": 202,
+      "positive": 118,
+      "negative": 83,
+      "zero": 1,
+      "auc": 0.43097814988768635,
+      "spearman": -0.252355498030503,
+      "mean_label": 0.00019662442935676125
+    },
+    {
+      "year": 2021,
+      "partial_endpoint": false,
+      "sessions": 252,
+      "mature": 82,
+      "positive": 42,
+      "negative": 29,
+      "zero": 11,
+      "auc": 0.49753694581280783,
+      "spearman": -0.07365077045500472,
+      "mean_label": 0.0003584963077191619
+    },
+    {
+      "year": 2022,
+      "partial_endpoint": false,
+      "sessions": 251,
+      "mature": 247,
+      "positive": 111,
+      "negative": 135,
+      "zero": 1,
+      "auc": 0.4487153820487153,
+      "spearman": -0.09730296205926665,
+      "mean_label": -0.0001637842708000178
+    }
+  ],
+  "quarter": [
+    {
+      "year": 2018,
+      "quarter": 4,
+      "sessions": 53,
+      "mature": 19,
+      "positive": 11,
+      "negative": 8,
+      "zero": 0,
+      "auc": 0.6704545454545454,
+      "spearman": -0.021052631578947368,
+      "mean_label": 7.445166997873025e-05
+    },
+    {
+      "year": 2019,
+      "quarter": 1,
+      "sessions": 61,
+      "mature": 31,
+      "positive": 18,
+      "negative": 9,
+      "zero": 4,
+      "auc": 0.617283950617284,
+      "spearman": 0.08585439598414724,
+      "mean_label": 0.0001796524903091186
+    },
+    {
+      "year": 2019,
+      "quarter": 2,
+      "sessions": 63,
+      "mature": 35,
+      "positive": 15,
+      "negative": 16,
+      "zero": 4,
+      "auc": 0.6541666666666667,
+      "spearman": 0.23438602262506655,
+      "mean_label": -0.00013653310410795613
+    },
+    {
+      "year": 2019,
+      "quarter": 3,
+      "sessions": 64,
+      "mature": 32,
+      "positive": 15,
+      "negative": 15,
+      "zero": 2,
+      "auc": 0.26666666666666666,
+      "spearman": -0.2663367255251548,
+      "mean_label": 0.00011734073802986933
+    },
+    {
+      "year": 2019,
+      "quarter": 4,
+      "sessions": 64,
+      "mature": 40,
+      "positive": 15,
+      "negative": 16,
+      "zero": 9,
+      "auc": 0.28958333333333336,
+      "spearman": -0.2154758262843569,
+      "mean_label": -1.28196496207053e-05
+    },
+    {
+      "year": 2020,
+      "quarter": 1,
+      "sessions": 62,
+      "mature": 28,
+      "positive": 10,
+      "negative": 18,
+      "zero": 0,
+      "auc": 0.26666666666666666,
+      "spearman": -0.26491516146688554,
+      "mean_label": -0.0009863411321031793
+    },
+    {
+      "year": 2020,
+      "quarter": 2,
+      "sessions": 63,
+      "mature": 55,
+      "positive": 32,
+      "negative": 23,
+      "zero": 0,
+      "auc": 0.4660326086956522,
+      "spearman": -0.2804473304473305,
+      "mean_label": 0.0006528413820432653
+    },
+    {
+      "year": 2020,
+      "quarter": 3,
+      "sessions": 64,
+      "mature": 60,
+      "positive": 38,
+      "negative": 22,
+      "zero": 0,
+      "auc": 0.3696172248803828,
+      "spearman": -0.3268685746040567,
+      "mean_label": 0.00026891039935778087
+    },
+    {
+      "year": 2020,
+      "quarter": 4,
+      "sessions": 64,
+      "mature": 59,
+      "positive": 38,
+      "negative": 20,
+      "zero": 1,
+      "auc": 0.48552631578947364,
+      "spearman": -0.14821741671537117,
+      "mean_label": 0.0002592336687306501
+    },
+    {
+      "year": 2021,
+      "quarter": 1,
+      "sessions": 61,
+      "mature": 39,
+      "positive": 20,
+      "negative": 9,
+      "zero": 10,
+      "auc": 0.6055555555555556,
+      "spearman": -0.1903614312328304,
+      "mean_label": 0.00029217894697140844
+    },
+    {
+      "year": 2021,
+      "quarter": 2,
+      "sessions": 63,
+      "mature": 17,
+      "positive": 9,
+      "negative": 8,
+      "zero": 0,
+      "auc": 0.375,
+      "spearman": -0.2377450980392157,
+      "mean_label": 2.5138647835915632e-05
+    },
+    {
+      "year": 2021,
+      "quarter": 3,
+      "sessions": 64,
+      "mature": 5,
+      "positive": 4,
+      "negative": 1,
+      "zero": 0,
+      "auc": 0.0,
+      "spearman": -0.39999999999999997,
+      "mean_label": 0.000923580148881014
+    },
+    {
+      "year": 2021,
+      "quarter": 4,
+      "sessions": 64,
+      "mature": 21,
+      "positive": 9,
+      "negative": 11,
+      "zero": 1,
+      "auc": 0.24242424242424243,
+      "spearman": -0.16883116883116883,
+      "mean_label": 0.0006169743115938432
+    },
+    {
+      "year": 2022,
+      "quarter": 1,
+      "sessions": 62,
+      "mature": 59,
+      "positive": 26,
+      "negative": 32,
+      "zero": 1,
+      "auc": 0.3305288461538462,
+      "spearman": -0.17808299240210407,
+      "mean_label": -9.35480072688101e-05
+    },
+    {
+      "year": 2022,
+      "quarter": 2,
+      "sessions": 62,
+      "mature": 62,
+      "positive": 27,
+      "negative": 35,
+      "zero": 0,
+      "auc": 0.4116402116402116,
+      "spearman": -0.18088187152174462,
+      "mean_label": -0.0005408550499422778
+    },
+    {
+      "year": 2022,
+      "quarter": 3,
+      "sessions": 64,
+      "mature": 64,
+      "positive": 31,
+      "negative": 33,
+      "zero": 0,
+      "auc": 0.4359726295210166,
+      "spearman": -0.06268315018315017,
+      "mean_label": -0.00010149917027315976
+    },
+    {
+      "year": 2022,
+      "quarter": 4,
+      "sessions": 63,
+      "mature": 62,
+      "positive": 27,
+      "negative": 35,
+      "zero": 0,
+      "auc": 0.362962962962963,
+      "spearman": -0.2682632016317897,
+      "mean_label": 8.215447637352991e-05
+    }
+  ],
+  "by_binding": {
+    "false": {
+      "sessions": 520,
+      "mature": 148,
+      "positive": 67,
+      "negative": 50,
+      "zero": 31,
+      "auc": 0.4829850746268657,
+      "spearman": -0.02871022182228824,
+      "mean_label": 4.263828336297417e-05
+    },
+    "true": {
+      "sessions": 541,
+      "mature": 540,
+      "positive": 278,
+      "negative": 261,
+      "zero": 1,
+      "auc": 0.5218997216020287,
+      "spearman": 0.013373616964850133,
+      "mean_label": 5.147577602822252e-05
+    }
+  },
+  "era": [
+    {
+      "era": "2020_2021",
+      "sessions": 505,
+      "mature": 284,
+      "positive": 160,
+      "negative": 112,
+      "zero": 12,
+      "auc": 0.45864955357142856,
+      "spearman": -0.1470203093242733,
+      "mean_label": 0.00024336208437689103
+    },
+    {
+      "era": "2022",
+      "sessions": 251,
+      "mature": 247,
+      "positive": 111,
+      "negative": 135,
+      "zero": 1,
+      "auc": 0.4487153820487153,
+      "spearman": -0.09730296205926665,
+      "mean_label": -0.0001637842708000178
+    }
+  ],
+  "binding_era": [
+    {
+      "era": "2020_2021",
+      "sessions": 238,
+      "mature": 238,
+      "positive": 139,
+      "negative": 99,
+      "zero": 0,
+      "auc": 0.44953128406365805,
+      "spearman": -0.13691101142538475,
+      "mean_label": 0.0002783639726661111
+    },
+    {
+      "era": "2022",
+      "sessions": 246,
+      "mature": 245,
+      "positive": 111,
+      "negative": 133,
+      "zero": 1,
+      "auc": 0.4551920341394025,
+      "spearman": -0.09922643187622911,
+      "mean_label": -0.00016301961900291737
+    }
+  ],
+  "binding_state": [
+    {
+      "risk_state": 0,
+      "era": "2020_2021",
+      "sessions": 26,
+      "mature": 26,
+      "positive": 15,
+      "negative": 11,
+      "zero": 0,
+      "auc": 0.4727272727272727,
+      "spearman": 0.06666666666666665,
+      "mean_label": 0.0003811699403450967
+    },
+    {
+      "risk_state": 0,
+      "era": "2022",
+      "sessions": 10,
+      "mature": 10,
+      "positive": 0,
+      "negative": 10,
+      "zero": 0,
+      "auc": null,
+      "spearman": -0.23636363636363633,
+      "mean_label": -0.002155503358650466
+    },
+    {
+      "risk_state": 1,
+      "era": "2020_2021",
+      "sessions": 48,
+      "mature": 48,
+      "positive": 28,
+      "negative": 20,
+      "zero": 0,
+      "auc": 0.45892857142857135,
+      "spearman": -0.17488059053408597,
+      "mean_label": 0.0006269042230564539
+    },
+    {
+      "risk_state": 1,
+      "era": "2022",
+      "sessions": 40,
+      "mature": 40,
+      "positive": 21,
+      "negative": 19,
+      "zero": 0,
+      "auc": 0.4912280701754386,
+      "spearman": -0.07842401500938087,
+      "mean_label": 4.768193368443481e-05
+    },
+    {
+      "risk_state": 2,
+      "era": "2020_2021",
+      "sessions": 116,
+      "mature": 116,
+      "positive": 68,
+      "negative": 48,
+      "zero": 0,
+      "auc": 0.4172794117647059,
+      "spearman": -0.23007726905777878,
+      "mean_label": 3.756842998215085e-05
+    },
+    {
+      "risk_state": 2,
+      "era": "2022",
+      "sessions": 101,
+      "mature": 100,
+      "positive": 45,
+      "negative": 54,
+      "zero": 1,
+      "auc": 0.505761316872428,
+      "spearman": -0.020858085808580853,
+      "mean_label": -1.765221484123792e-05
+    },
+    {
+      "risk_state": 3,
+      "era": "2020_2021",
+      "sessions": 48,
+      "mature": 48,
+      "positive": 28,
+      "negative": 20,
+      "zero": 0,
+      "auc": 0.36428571428571427,
+      "spearman": -0.2736647850629613,
+      "mean_label": 0.0004560597179358883
+    },
+    {
+      "risk_state": 3,
+      "era": "2022",
+      "sessions": 95,
+      "mature": 95,
+      "positive": 45,
+      "negative": 50,
+      "zero": 0,
+      "auc": 0.3924444444444445,
+      "spearman": -0.18223684210526317,
+      "mean_label": -0.0001950192519206704
+    }
+  ],
+  "gates": {
+    "each_2020_2022_auc_above_half": false,
+    "each_2020_2022_spearman_positive": false,
+    "binding_era_spearman_positive": false
+  },
+  "necessary_gate_pass": false,
+  "new_market_GETs": 0,
+  "new_model_fits": 0,
+  "new_native_accounts": 0,
+  "new_bootstraps": 0,
+  "new_Recorders": 0,
+  "independent_validation": false,
+  "SOXX_goal_achieved": false,
+  "limits": [
+    "Historical same-next-target local value is not an own-state full f696 account",
+    "Direction emerged from reused interval attribution, so 2022 is not independent validation",
+    "No drawdown threshold or sign reversal may be chosen after this fixed screen"
+  ]
+}
