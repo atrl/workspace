@@ -1,0 +1,39 @@
+{
+  "experiment": "stage1_f696_output_coordinate_interval_20261024",
+  "frozen": true,
+  "phase": "read_only_exact_f696_output_coordinate_to_funded_beta_diagnostic",
+  "question": "In matched weak/good exact-f696 126-session intervals, is higher alpha but lower nominal/funded beta explained by the saved SOXL, SOXX and cash proposal coordinates, or only by the own-state risk cap?",
+  "sources": {
+    "f696_card": "research/stage1_domain_heads_20261018",
+    "f696_summary_sha256": "3b51938ca56ddf45029ff5e4a01a6bbc2f1d1407458efcad7d7c68b0ef5a1d37",
+    "f696_readback_sha256": "8447c22f923748f1108336a70e2effca8600827e3cc4978ccaa1dac65bd38161",
+    "f696_experiment_id": "283510277269468590",
+    "f696_recorder_id": "6e227278b7a64eafbcf34b965e16d2b9",
+    "f696_frame_sha256": "e83a57eb764dc59ee8d9fad7b1a48eb6b295c6183d6c4cab2062b3aa6c66e07c",
+    "f696_nas_sha256": "f3f891d6d09d4187f12815e245b33cc9cfec4acfd4f555b734f66a59348d9884",
+    "f696_nas_size_bytes": 11859296,
+    "account_card": "research/stage1_original_0bp_signal_loss_chain_v2_20261023",
+    "account_summary_sha256": "898089b008f1f6f50016ddbbd2fc082f77423464ed8613c54dbdd5fbbae1dc3a",
+    "account_experiment_id": "954993860986722516",
+    "account_recorder_id": "2f0392615c4c4b15928b4ada6e01ecd9",
+    "account_daily_sha256": "00660bd17990b571040b7de62ca58475175d4a6a4a1b5e94f027b4b986824855",
+    "account_rolling126_sha256": "12f8a16607303370c0ad4a339a3c1de00ab92a467b1490249a160084db2b7635",
+    "account_nas_sha256": "54c6e93b4c304774c272b07312c856a9a2a255086d372066db418b5efed359c7",
+    "account_nas_size_bytes": 292154,
+    "qlib_provider": "data/qlib/minute_information_pit_allocator_20261012/daily_prices",
+    "qlib_provider_manifest_sha256": "d80a08d479b73098053006909b5e6227b03a56ab705681742d7261088e0a7e6c"
+  },
+  "fixed_definitions": {
+    "identity": "Align exactly 944 signal/trade dates. Require saved five f696 outputs in inputs/frame to match exact original Stage1 daily alpha/tail and raw beta; reject a 27baa substitution.",
+    "proposal_coordinates": ["soxl_weight", "soxx_weight", "cash_weight", "alpha_probability", "tail_probability"],
+    "derived": {"raw_beta": "2*soxl_weight+soxx_weight", "risky_soxl_share": "soxl_weight/(soxl_weight+soxx_weight) when risky sum positive"},
+    "downstream": ["own_state_beta_cap", "ending_beta", "cap_binding"],
+    "intervals": "All 819 overlapping contiguous 126-session exact-f696 0bp Tiered windows, 944 sessions, 16 quarters and both partial endpoint years",
+    "weak_good": "Window paired log excess versus SOXX below/above zero, diagnostic only",
+    "matched_cell": "Prior signal-day Qlib SOXX 5/20-session return-sign state by window first-trade calendar year, retain cells with weak and good windows; weight cell contrast by smaller group count",
+    "2023": "Preserve four unmatched state-year cells, all weak; do not infer within-year contrasts",
+    "comparison": "For each output and downstream coordinate report weak minus good means per matched cell and descriptive weighted average; no model fit, threshold or causal policy claim"
+  },
+  "budget": {"new_market_requests": 0, "new_model_fits": 0, "new_native_accounts": 0, "new_bootstraps": 0, "new_recorders": 0},
+  "stop": "Stop if source SHA/NAS, exact five-output f696 parity, Qlib calendar, 944/819 coverage, proposal simplex, or beta algebra fails."
+}

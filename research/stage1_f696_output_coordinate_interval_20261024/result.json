@@ -1,0 +1,342 @@
+{
+  "status": "read_only_exact_f696_proposal_coordinate_interval_diagnostic_no_policy",
+  "plan_sha256": "443ae06484e29ca2a8c1bbea42c8d909a04dda4ab69ff81f3a362cfdbeef59e6",
+  "f696_recorder_id": "6e227278b7a64eafbcf34b965e16d2b9",
+  "account_recorder_id": "2f0392615c4c4b15928b4ada6e01ecd9",
+  "f696_five_output_parity": {
+    "alpha_probability_max_abs": 0.0,
+    "tail_probability_max_abs": 0.0,
+    "raw_beta_max_abs": 0.0
+  },
+  "sessions": 944,
+  "rolling126_windows": 819,
+  "weak_windows": 564,
+  "good_windows": 255,
+  "matched_state_year_cells": 12,
+  "weighted_weak_minus_good": {
+    "soxl_weight": -0.012458580034192368,
+    "soxx_weight": -0.015077580906240555,
+    "cash_weight": 0.027536160940432933,
+    "alpha_probability": 0.012353006196356502,
+    "tail_probability": -0.016203701403636996,
+    "raw_beta": -0.05245332100881761,
+    "risky_soxl_share": -0.00884801816073383,
+    "own_state_beta_cap": -0.07165289699778116,
+    "ending_beta": -0.07487846236072836,
+    "cap_binding": 0.040895121882505735
+  },
+  "cell_signs": {
+    "soxl_weight": {
+      "positive_cells": 3,
+      "negative_cells": 9
+    },
+    "soxx_weight": {
+      "positive_cells": 4,
+      "negative_cells": 8
+    },
+    "cash_weight": {
+      "positive_cells": 9,
+      "negative_cells": 3
+    },
+    "alpha_probability": {
+      "positive_cells": 11,
+      "negative_cells": 1
+    },
+    "tail_probability": {
+      "positive_cells": 3,
+      "negative_cells": 9
+    },
+    "raw_beta": {
+      "positive_cells": 3,
+      "negative_cells": 9
+    },
+    "risky_soxl_share": {
+      "positive_cells": 3,
+      "negative_cells": 9
+    },
+    "own_state_beta_cap": {
+      "positive_cells": 4,
+      "negative_cells": 8
+    },
+    "ending_beta": {
+      "positive_cells": 4,
+      "negative_cells": 8
+    },
+    "cap_binding": {
+      "positive_cells": 7,
+      "negative_cells": 5
+    }
+  },
+  "cells": [
+    {
+      "start_state": "decline",
+      "year": 2023,
+      "weak_windows": 52,
+      "good_windows": 0,
+      "matched": false
+    },
+    {
+      "start_state": "decline",
+      "year": 2024,
+      "weak_windows": 27,
+      "good_windows": 33,
+      "matched": true,
+      "weak_minus_good": {
+        "soxl_weight": -0.03088723495784007,
+        "soxx_weight": -0.05283755246564373,
+        "cash_weight": 0.08372478742348366,
+        "alpha_probability": 0.015563599095939074,
+        "tail_probability": -0.014664463940765926,
+        "raw_beta": -0.1454992573391637,
+        "risky_soxl_share": -0.024903734883000683,
+        "own_state_beta_cap": -0.1949440320499109,
+        "ending_beta": -0.20502939316542718,
+        "cap_binding": 0.09414248303137196
+      }
+    },
+    {
+      "start_state": "decline",
+      "year": 2025,
+      "weak_windows": 42,
+      "good_windows": 6,
+      "matched": true,
+      "weak_minus_good": {
+        "soxl_weight": -0.05959378952576996,
+        "soxx_weight": -0.05443955203934625,
+        "cash_weight": 0.1140333415651163,
+        "alpha_probability": 0.049121181367250966,
+        "tail_probability": -0.042279033243757536,
+        "raw_beta": -0.23322092061665645,
+        "risky_soxl_share": -0.03824738217003176,
+        "own_state_beta_cap": -0.24138318239844192,
+        "ending_beta": -0.24438614873535824,
+        "cap_binding": 0.07558578987150416
+      }
+    },
+    {
+      "start_state": "decline",
+      "year": 2026,
+      "weak_windows": 7,
+      "good_windows": 7,
+      "matched": true,
+      "weak_minus_good": {
+        "soxl_weight": -0.021854528099403137,
+        "soxx_weight": -0.02771754738772242,
+        "cash_weight": 0.049572075487125666,
+        "alpha_probability": 0.00236964793432326,
+        "tail_probability": 0.004770023811633911,
+        "raw_beta": -0.09328113168593188,
+        "risky_soxl_share": -0.012189114801916479,
+        "own_state_beta_cap": -0.08726995511653557,
+        "ending_beta": -0.08669839800232726,
+        "cap_binding": 0.04535147392290245
+      }
+    },
+    {
+      "start_state": "pullback",
+      "year": 2023,
+      "weak_windows": 54,
+      "good_windows": 0,
+      "matched": false
+    },
+    {
+      "start_state": "pullback",
+      "year": 2024,
+      "weak_windows": 16,
+      "good_windows": 32,
+      "matched": true,
+      "weak_minus_good": {
+        "soxl_weight": 0.006851530298489478,
+        "soxx_weight": 0.0011838145732908645,
+        "cash_weight": -0.00803534487178037,
+        "alpha_probability": 0.0030081236202803563,
+        "tail_probability": -0.016582862318803876,
+        "raw_beta": 0.02173840546875927,
+        "risky_soxl_share": 0.00482234804797621,
+        "own_state_beta_cap": 0.02916360983550792,
+        "ending_beta": 0.026677582896718066,
+        "cap_binding": -0.007936507936507908
+      }
+    },
+    {
+      "start_state": "pullback",
+      "year": 2025,
+      "weak_windows": 38,
+      "good_windows": 17,
+      "matched": true,
+      "weak_minus_good": {
+        "soxl_weight": -0.01968350487676629,
+        "soxx_weight": -0.0094171011764832,
+        "cash_weight": 0.02910060605324949,
+        "alpha_probability": 0.020883998821010774,
+        "tail_probability": -0.03361733748791587,
+        "raw_beta": -0.06846761580678273,
+        "risky_soxl_share": -0.012696477570016518,
+        "own_state_beta_cap": -0.018929953155816026,
+        "ending_beta": -0.020229203028987675,
+        "cap_binding": -0.0552238439235343
+      }
+    },
+    {
+      "start_state": "pullback",
+      "year": 2026,
+      "weak_windows": 4,
+      "good_windows": 2,
+      "matched": true,
+      "weak_minus_good": {
+        "soxl_weight": 0.005295693665899437,
+        "soxx_weight": 0.001144822684181812,
+        "cash_weight": -0.0064405163500810825,
+        "alpha_probability": -0.001965806479491905,
+        "tail_probability": -0.007116142423853028,
+        "raw_beta": 0.017031903681880234,
+        "risky_soxl_share": 0.004435486529621446,
+        "own_state_beta_cap": 0.12244440387409328,
+        "ending_beta": 0.12112074616159552,
+        "cap_binding": -0.10515873015873017
+      }
+    },
+    {
+      "start_state": "rebound",
+      "year": 2023,
+      "weak_windows": 49,
+      "good_windows": 0,
+      "matched": false
+    },
+    {
+      "start_state": "rebound",
+      "year": 2024,
+      "weak_windows": 22,
+      "good_windows": 21,
+      "matched": true,
+      "weak_minus_good": {
+        "soxl_weight": -0.01336190964075322,
+        "soxx_weight": -0.028320229383610646,
+        "cash_weight": 0.041682139024363796,
+        "alpha_probability": 0.007284579693754956,
+        "tail_probability": -0.004985452534848833,
+        "raw_beta": -0.06840595830587026,
+        "risky_soxl_share": -0.010415122192406978,
+        "own_state_beta_cap": -0.11080510775126001,
+        "ending_beta": -0.11572990052367726,
+        "cap_binding": 0.06691060262488835
+      }
+    },
+    {
+      "start_state": "rebound",
+      "year": 2025,
+      "weak_windows": 28,
+      "good_windows": 6,
+      "matched": true,
+      "weak_minus_good": {
+        "soxl_weight": -0.03797493037622365,
+        "soxx_weight": -0.028373034811366327,
+        "cash_weight": 0.06634796518759006,
+        "alpha_probability": 0.04072854476146681,
+        "tail_probability": -0.041569842825322015,
+        "raw_beta": -0.1422978259400376,
+        "risky_soxl_share": -0.023516327067630016,
+        "own_state_beta_cap": -0.16536048184716368,
+        "ending_beta": -0.1659153270611583,
+        "cap_binding": 0.06500377928949347
+      }
+    },
+    {
+      "start_state": "rebound",
+      "year": 2026,
+      "weak_windows": 5,
+      "good_windows": 5,
+      "matched": true,
+      "weak_minus_good": {
+        "soxl_weight": -0.00846919480121111,
+        "soxx_weight": -0.010791848208520693,
+        "cash_weight": 0.019261043009731804,
+        "alpha_probability": 0.0007275267725899148,
+        "tail_probability": 0.00027960014958228196,
+        "raw_beta": -0.03619943261215397,
+        "risky_soxl_share": -0.005367292072208596,
+        "own_state_beta_cap": -0.0114362804083884,
+        "ending_beta": -0.01138047232194972,
+        "cap_binding": -0.0031746031746031633
+      }
+    },
+    {
+      "start_state": "uptrend",
+      "year": 2023,
+      "weak_windows": 94,
+      "good_windows": 0,
+      "matched": false
+    },
+    {
+      "start_state": "uptrend",
+      "year": 2024,
+      "weak_windows": 22,
+      "good_windows": 79,
+      "matched": true,
+      "weak_minus_good": {
+        "soxl_weight": 0.02484158066520964,
+        "soxx_weight": 0.019913597545541284,
+        "cash_weight": -0.04475517821075092,
+        "alpha_probability": 0.0063111139042068,
+        "tail_probability": -0.01764559128268306,
+        "raw_beta": 0.09443833954117054,
+        "risky_soxl_share": 0.018414999693807166,
+        "own_state_beta_cap": 0.0373212904871606,
+        "ending_beta": 0.03255098968804637,
+        "cap_binding": 0.0982108608690889
+      }
+    },
+    {
+      "start_state": "uptrend",
+      "year": 2025,
+      "weak_windows": 85,
+      "good_windows": 28,
+      "matched": true,
+      "weak_minus_good": {
+        "soxl_weight": -0.012472858944131582,
+        "soxx_weight": 0.0019481051313856024,
+        "cash_weight": 0.01052475381274609,
+        "alpha_probability": 0.016875933994110026,
+        "tail_probability": -0.03689173043499186,
+        "raw_beta": -0.035470471701009254,
+        "risky_soxl_share": -0.009727160555513814,
+        "own_state_beta_cap": 0.002681769945034773,
+        "ending_beta": 0.002455572855430521,
+        "cap_binding": -0.05985394157663071
+      }
+    },
+    {
+      "start_state": "uptrend",
+      "year": 2026,
+      "weak_windows": 19,
+      "good_windows": 19,
+      "matched": true,
+      "weak_minus_good": {
+        "soxl_weight": -0.014751876999371027,
+        "soxx_weight": -0.01269705053845821,
+        "cash_weight": 0.02744892753782935,
+        "alpha_probability": 0.0016323796091421428,
+        "tail_probability": 0.020490155327340026,
+        "raw_beta": -0.056952681536570626,
+        "risky_soxl_share": -0.009807799465953282,
+        "own_state_beta_cap": -0.16830715688421327,
+        "ending_beta": -0.16826063299401361,
+        "cap_binding": 0.1524644945697578
+      }
+    }
+  ],
+  "new_market_requests": 0,
+  "new_model_fits": 0,
+  "new_native_accounts": 0,
+  "new_bootstraps": 0,
+  "new_recorders": 0,
+  "candidate_feature_selected": false,
+  "policy_inference": false,
+  "independent_validation": false,
+  "limits": [
+    "Weak/good labels use future returns and 126-session windows overlap",
+    "2023 has no good within-year matched cells",
+    "Risk cap and funded beta are endogenous account states",
+    "Proposal-coordinate contrast does not identify a causal factor or tradable switch"
+  ]
+}

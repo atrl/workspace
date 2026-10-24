@@ -1,0 +1,15 @@
+{
+  "status": "stopped_before_interval_comparison_on_frozen_parent_identity_check",
+  "initial_plan": "plan_initial.json",
+  "initial_plan_sha256": "100a883ba49f48fd9151b90f5f9b7fedee0974052d711f95e26d8137deaaac3c",
+  "failed_assertion": "raw beta reconstructed as 2*SOXL weight + SOXX weight must equal sealed exact-f696 daily raw_nominal_beta",
+  "observed_max_abs_difference": 0.3153698045946747,
+  "alpha_probability_max_abs_difference": 0.0,
+  "tail_probability_max_abs_difference": 0.0,
+  "cause": "The plan used a 2x SOXL coefficient; the existing Stage1 account code and sealed raw_nominal_beta use a 3x SOXL coefficient.",
+  "source_objects_loaded": ["f696 inputs/frame", "original f696 analysis/daily", "original f696 analysis/rolling126"],
+  "interval_group_comparison_executed": false,
+  "new_model_fits": 0,
+  "new_native_accounts": 0,
+  "new_recorders": 0
+}

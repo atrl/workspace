@@ -1,0 +1,11 @@
+{
+  "status": "mechanical_leverage_identity_repair_only",
+  "preserved_initial_plan": "plan_initial.json",
+  "initial_plan_sha256": "100a883ba49f48fd9151b90f5f9b7fedee0974052d711f95e26d8137deaaac3c",
+  "failed_attempt": "attempt1_failure.json",
+  "old_formula": "2*soxl_weight+soxx_weight",
+  "correct_formula": "3*soxl_weight+soxx_weight",
+  "existing_account_code_reference": "src/analysis/stage1_origin_replay.py:144",
+  "unchanged": ["exact f696 and 0bp account source identities", "944 dates and 819 windows", "matched state-year grouping", "budget and scientific stop", "all outcomes and policy gates"],
+  "new_factor_or_threshold": false
+}
