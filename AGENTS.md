@@ -74,6 +74,13 @@ cards keep their original gates. The active campaign entry is
   press releases, article text, or scraped news-derived series as candidate
   features. Prefer the frozen Qlib/NAS market data and existing decision-state
   evidence when proposing the next bounded mechanism.
+- As confirmed by the user, Yanxuan NAS has no additional
+  CRSP, Sharadar, ORATS, or comparable historical dataset available for this
+  Goal. Continue with the existing Qlib/NAS market data and saved Stage1
+  evidence. Do not treat an unlocated commercial source as an active dependency
+  or ask again for a vendor or NAS directory. Recheck the current cards before
+  reviving a source: ADS, G.17 industrial production, CFTC NQ positioning, and
+  SOXX issuer-share creation have already had fixed information versions closed.
 - Use Yanxuan NAS as the durable backup for each campaign market snapshot,
   received original-source bytes, and large Qlib Recorder evidence. For the
   `us_semis_intraday` feed it is also the current source authority, as declared
