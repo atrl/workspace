@@ -1,0 +1,35 @@
+{
+  "experiment": "stage1_qqq_downside_beta_soxl_local_rank_20261024",
+  "frozen": true,
+  "phase": "read_only_cross_market_downside_beta_fee_net_SOXL_local_value_necessary_rank",
+  "hypothesis": "A larger prior-60-session SOXX-versus-QQQ downside beta gap signals broader technology downside fragility and should rank the next-session 0bp Tiered fee-net cash-to-SOXL local action value lower at the Stage1 opening receiver.",
+  "closed_route_distinction": "The fixed same-coordinate SOXX H5 tail-event rank failed; this version targets the original-account same-next-target cash-to-SOXL action's fee-net value, with a negative action-value direction, no H5 tail relabel or threshold rescue. The fixed SOXL drawdown rank has also failed; this coordinate is external cross-market coupling, not an own-state transform.",
+  "sources": {
+    "factor_card": "research/stage1_soxx_qqq_downside_beta_source_20261023",
+    "factor_plan_sha256": "4d1aeecd3009bf1bd6e94894781572ec04899462920731a970bc1265e4ce0dc2",
+    "factor_summary_sha256": "1110091e2bfd906c4d624bf791d422372056cef64f5ba9590b50ee5d776d0322",
+    "factor_experiment_id": "107662550415421774",
+    "factor_recorder_id": "e357303114444af79ae34c41f4b58e41",
+    "factor_dataset_sha256": "bf467a9d0c25ff99b78f8a49a0f98dfb7dc97774fdb04487e3845110ebd15d9d",
+    "factor_frame_sha256": "f23954e857f94311fb35c71e111818f664717f54daa928bdb9a70173d4c1a083",
+    "factor_NAS_sha256": "9628994993e30700c35e5b49e35318a2d29f443e676bcce94dbefa1a154ac878",
+    "label_card": "research/stage1_joint_cash_cap_soxl_0bp_local_value_20261024",
+    "label_summary_sha256": "d4c5c7b29f7edce9302278f7e901ce6fdf1206bd239ca863a00167bcff5032a4",
+    "label_experiment_id": "598502564044048354",
+    "label_recorder_id": "9f4753640e9247a18adff4cab4bb57f8",
+    "label_artifact_sha256": "b9e145b0c7e8488ee70a6acc11bd203897eae5e45f2b59459845d2382ae53a41",
+    "label_NAS_sha256": "15f713a01daa410cafae50955e4f6abab5f0baab6fd70a246b00745755ccc5e1",
+    "provider": "data/qlib/minute_information_pit_allocator_20261012/daily_prices",
+    "provider_manifest_sha256": "d80a08d479b73098053006909b5e6227b03a56ab705681742d7261088e0a7e6c"
+  },
+  "fixed_definitions": {
+    "signal_clock": "Use the saved factor on each original local-label signal_date t, built only from t-60 through t-1 completed Qlib sessions. Local target is decided on trade_date t+1 at09:46 from the saved Stage1 state; reject any alignment or maturity mismatch.",
+    "score": "Negative saved downside_beta_gap_60. No refit, missing fill, rescaling, quantile threshold, sign reversal, or selecting the beta-all/down component after outcomes.",
+    "population": "All1061 native Qlib2018-2022 local-label sessions retained; score the688 mature eligible labels, keep partial2018 and complete2019-2022, all17 quarters and cap-binding strata.",
+    "rank": "Positive label is strictly >1e-12, negative strictly <-1e-12, exact zero counted and excluded only from binary ROC AUC. Continuous Spearman uses every finite mature label. Report full, each year, all quarters, binding/nonbinding, pooled2020-2021 and2022 binding eras.",
+    "necessary_gate": "Require AUC>0.5 and continuous Spearman>0 in each complete2020/2021/2022 year, and positive binding Spearman in both pooled2020-2021 and2022. Any failure closes this fixed information direction before fit or account. Passing only permits a separately frozen incremental receiver gate against original39 plus own-state and same-day returns, not a strategy claim."
+  },
+  "budget": {"Qlib_calendar_reads": 1, "source_Recorder_object_reads": 3, "DatasetH_prepare_reads": 1, "new_market_GETs": 0, "new_model_fits": 0, "new_native_accounts": 0, "new_bootstraps": 0, "new_Recorders": 0},
+  "limitations": "Yahoo current revised historical quotes have no certified historical first receipt. Reused 2018-2022 local labels and any rank pass are conditional development evidence only; exact f696 0bp Tiered own-state SOXX hard gate, 2/5bp and qualified forward remain separate.",
+  "stop": "Stop on any source SHA/NAS/readback, Qlib calendar,1061 full rows,688 mature labels, factor coverage, signal/decision timing, or source DatasetH alignment mismatch. Do not rescue old H5 tail rank or choose a post hoc action threshold."
+}

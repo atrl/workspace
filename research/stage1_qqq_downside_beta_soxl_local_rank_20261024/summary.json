@@ -1,0 +1,38 @@
+{
+  "experiment": "stage1_qqq_downside_beta_soxl_local_rank_20261024",
+  "decision": "not_promoted_fixed_QQQ_downside_beta_SOXL_local_value_rank_failed",
+  "objective_achieved": false,
+  "plan_sha256": "69cacaaf48dcb5817e3ea1dc49e8c2a3bf7bae495da61da71634bd0019e33d43",
+  "source_recorder_ids": {
+    "factor": "e357303114444af79ae34c41f4b58e41",
+    "labels": "9f4753640e9247a18adff4cab4bb57f8"
+  },
+  "mature_labels": 688,
+  "full_auc": 0.4731254951302484,
+  "complete_2020_2022_auc": {
+    "2020": 0.5329793751276292,
+    "2021": 0.513136288998358,
+    "2022": 0.4742075408742075
+  },
+  "gates": {
+    "each_2020_2022_auc_above_half": false,
+    "each_2020_2022_spearman_positive": false,
+    "binding_era_spearman_positive": false
+  },
+  "new_model_fits": 0,
+  "new_native_accounts": 0,
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "source inputs/dataset",
+      "source analysis/source_frame",
+      "source analysis/labels"
+    ]
+  },
+  "limitations": [
+    "Current Yahoo historical source does not certify first public market-data receipt or revisions",
+    "2018-2022 local labels are reused and do not prove independent validation",
+    "Same-next-target local value is not the exact f696 own-state complete funded SOXX account"
+  ]
+}

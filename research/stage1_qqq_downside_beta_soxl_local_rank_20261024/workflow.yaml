@@ -1,0 +1,7 @@
+experiment: stage1_qqq_downside_beta_soxl_local_rank_20261024
+notebook: stage1_qqq_downside_beta_soxl_local_rank_20261024.ipynb
+phase: read_only_cross_market_downside_beta_fee_net_SOXL_local_value_necessary_rank
+artifact_policy: slim_card_recorder_first
+source_recorders:
+  factor: e357303114444af79ae34c41f4b58e41
+  local_label: 9f4753640e9247a18adff4cab4bb57f8
