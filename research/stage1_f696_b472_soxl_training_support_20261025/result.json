@@ -1,0 +1,79 @@
+{
+  "decision": "source_support_pass_separate_information_gate_required",
+  "plan_sha256": "21a0609ba61e43d839955985344403d015c42e2772ad42566fe600af5526cf1d",
+  "source_recorder_ids": [
+    "f696f656b3d44e868588e09a5d97c905",
+    "b472a458fc9042b4905094fddeaebd33"
+  ],
+  "sessions": 1756,
+  "exact_raw_allocation_match_rows": 1756,
+  "max_saved_target_projection_error": 2.220446049250313e-16,
+  "binding_rows": 859,
+  "positive_support": 911,
+  "binding_positive": 859,
+  "nonbinding_positive": 52,
+  "years_with_at_least20": 7,
+  "support_gate_pass": true,
+  "annual": [
+    {
+      "year": 2016,
+      "rows": 252,
+      "binding_rows": 52,
+      "positive_support": 53,
+      "binding_positive": 52,
+      "nonbinding_positive": 1
+    },
+    {
+      "year": 2017,
+      "rows": 251,
+      "binding_rows": 32,
+      "positive_support": 67,
+      "binding_positive": 32,
+      "nonbinding_positive": 35
+    },
+    {
+      "year": 2018,
+      "rows": 251,
+      "binding_rows": 126,
+      "positive_support": 140,
+      "binding_positive": 126,
+      "nonbinding_positive": 14
+    },
+    {
+      "year": 2019,
+      "rows": 252,
+      "binding_rows": 236,
+      "positive_support": 236,
+      "binding_positive": 236,
+      "nonbinding_positive": 0
+    },
+    {
+      "year": 2020,
+      "rows": 253,
+      "binding_rows": 164,
+      "positive_support": 166,
+      "binding_positive": 164,
+      "nonbinding_positive": 2
+    },
+    {
+      "year": 2021,
+      "rows": 252,
+      "binding_rows": 35,
+      "positive_support": 35,
+      "binding_positive": 35,
+      "nonbinding_positive": 0
+    },
+    {
+      "year": 2022,
+      "rows": 245,
+      "binding_rows": 214,
+      "positive_support": 214,
+      "binding_positive": 214,
+      "nonbinding_positive": 0
+    }
+  ],
+  "future_label_columns_loaded": 0,
+  "model_fits": 0,
+  "native_accounts": 0,
+  "scope": "legal target support only; no OOF b472 action, physical fill, local net-value label or own-state funded candidate account"
+}

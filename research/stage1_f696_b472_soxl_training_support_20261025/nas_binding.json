@@ -1,0 +1,20 @@
+{
+  "schema_version": "1",
+  "authority": "yanxuan_nas",
+  "source_id": "stage1_f696_b472_soxl_training_support_20261025",
+  "as_of": "2026-10-25",
+  "source_plan": "plan.json",
+  "evidence": {
+    "sha256": "69e9b58ea188f3b615e2fb6437dcfd5667f8e67c877eadcff47fb0ce8703b4d4",
+    "size_bytes": 98837,
+    "media_type": "application/gzip",
+    "storage_uri": "sha256/69/e9/69e9b58ea188f3b615e2fb6437dcfd5667f8e67c877eadcff47fb0ce8703b4d4",
+    "uploaded_by": "soxl-minute-research",
+    "created_at": "2026-10-25 13:16:10.010035+08",
+    "duplicate": false,
+    "nas_path": "/volume1/docker/yanxuan/registry/research-artifacts/69/e9/69e9b58ea188f3b615e2fb6437dcfd5667f8e67c877eadcff47fb0ce8703b4d4",
+    "recorder_id": "8d0400b6bfdd46b49694745b1254d0ee",
+    "experiment_id": "764150360052998678",
+    "archive_root": "qlib_recorder"
+  }
+}

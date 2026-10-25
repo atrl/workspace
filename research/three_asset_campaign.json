@@ -408,13 +408,13 @@
   },
   "current_task": {
     "card": "research/three_asset_campaign.json",
-    "phase": "Stage1_historical_goal_active_READ_ONLY_training_intent_capacity_audit",
+    "phase": "Stage1_historical_goal_active_CHECK_SOXL_local_training_label_feasibility",
     "implementation_executor": null,
     "independent_reviewer": null,
     "execution_authorized": false,
     "parent": "Frozen Stage1 f696f656 allocator plus b472a458 action/recovery chain under the same Qlib source, decision clocks, and full funded account contract; use its 0bp native account as the attribution baseline.",
     "first_screen": "0bp means zero added slippage with frozen IBKR Tiered fees still charged. A Stage1-derived candidate must first clear the SOXX 0bp wealth, <=30% available-mark drawdown, CVaR5, complete-year, rolling-126 and preregistered uncertainty screens on one full native account. Compare the matched frozen Stage1 account for module attribution.",
-    "next_action": "Reuse sealed exact f696 A0 Qlib source, raw-to-target bridge, pairwise SOXL-vs-cash intent audit, and closed-route index. Identify on 2018-2022 matured training dates which decision-time input/receiver could distinguish useful cash protection from cash drag and survive own-state capacity; report positive and negative controls, action reachability, and a falsifiable information gate before any new fit or account. Do not rerun closed receiver variants or use 2023-2026 outcome-selected signs/thresholds. A frozen candidate must pass its own complete 0bp Tiered SOXX account before separate 2/5bp historical gates. Historical pass ends this Goal without waiting for forward windows; forward and production remain separate.",
+    "next_action": "Freeze and audit whether saved f696/b472 development evidence contains enough physical account state to build an exact same-state, whole-share, 0bp Tiered-fee, common-next-session-reset local cash-to-SOXL training label on legal supported dates. If missing, freeze one bounded native Qlib training reference before any fit; do not use saved execute_advantage as this action label.",
     "baseline_evidence": "research/stage1_domain_heads_20261018/conclusion.md",
     "layer_diagnosis": "research/stage1_uniform_layer_attribution_20261010/conclusion.md",
     "cross_account_attribution": "research/three_asset_failure_attribution_20261015/conclusion.md",
@@ -782,6 +782,8 @@
     "forward_and_production_status": "separate later contract-v2 gates; no automatic promotion",
     "reused_2023_2026_is_independent": false,
     "existing_data_only": true,
-    "next_bounded_task": "Read-only training-domain audit of exact f696 raw allocation intent versus SOXL-over-cash task and own-state capacity; reuse the sealed Qlib source and closed-route index before freezing a distinct receiver."
+    "next_bounded_task": "Freeze and audit whether saved f696/b472 development evidence contains enough physical account state to build an exact same-state, whole-share, 0bp Tiered-fee, common-next-session-reset local cash-to-SOXL training label on legal supported dates. If missing, freeze one bounded native Qlib training reference before any fit; do not use saved execute_advantage as this action label.",
+    "latest_source_support": "research/stage1_f696_b472_soxl_training_support_20261025/summary.json",
+    "latest_source_support_interpretation": "Frozen f696 development allocations and b472 predecision caps match 1756/1756 rows; a diagnostic <=0.10 beta cash-to-SOXL legal target has 911 supported days across all seven years, 859 binding and only52 nonbinding. Source support passes but neither local fee-net information nor funded SOXX economics is shown. Next verify exact same-state physical training-label feasibility; do not relabel saved execute_advantage or treat cap+0.10 as an approved policy."
   }
 }
