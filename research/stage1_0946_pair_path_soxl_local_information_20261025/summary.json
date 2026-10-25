@@ -1,0 +1,95 @@
+{
+  "experiment": "stage1_0946_pair_path_soxl_local_information_20261025",
+  "decision": "not_promoted_fixed_pair_path_SOXL_local_information_failed",
+  "promotion": "not_promoted_information_only",
+  "objective_achieved": false,
+  "plan_sha256": "0fd189c257f30dd3cd78450f6aa5cca702555fc4f60c549b8544d2d57a9c8fc5",
+  "source_recorder_ids": {
+    "local_label": "9f4753640e9247a18adff4cab4bb57f8",
+    "training_reference": "3663a1e073f042e383dbcf54969a9bc2"
+  },
+  "recorder_id": "c442475ca9104f369fe5e940b041cede",
+  "experiment_id": "519171971702976223",
+  "preflight": {
+    "status": "source_clock_and_novelty_pass",
+    "source_known": 1060,
+    "unknown_dates": [
+      "2020-03-16"
+    ],
+    "max_abs_spearman_baseline": 0.34980112458401225,
+    "plan_sha256": "0fd189c257f30dd3cd78450f6aa5cca702555fc4f60c549b8544d2d57a9c8fc5",
+    "future_label_values_used_for_source_selection": false,
+    "model_fits": 0,
+    "native_accounts": 0
+  },
+  "train_mature_legal": 238,
+  "eval_mature_legal": 301,
+  "metrics": {
+    "standardized_pair_path_coefficient": -0.00012988605263251576,
+    "MSE_baseline": 1.5204711388573034e-05,
+    "MSE_candidate": 1.5448191520759523e-05,
+    "MSE_train_mean": 6.489601837408607e-06,
+    "paired_improvement": -2.4348013218648453e-07,
+    "improvement_vs_train_mean": -8.958589683350917e-06,
+    "annual_paired_improvement": {
+      "2021": 1.3087468202145132e-07,
+      "2022": -3.2904694686258414e-07
+    },
+    "annual_candidate_rank_spearman": {
+      "2021": -0.016814764183185237,
+      "2022": 0.12253792360606777
+    }
+  },
+  "bootstrap": {
+    "paired_mean_loss_improvement": -2.434801321864845e-07,
+    "lower_bound": -5.306367131262876e-07,
+    "upper_bound": 2.6009688891835513e-07,
+    "valid_replicates": 10000,
+    "invalid_replicates": 0,
+    "calendar_rows": 503,
+    "scored_rows": 301
+  },
+  "gates": {
+    "negative_coefficient": true,
+    "beats_baseline": false,
+    "beats_train_mean": false,
+    "both_eval_years": false,
+    "both_year_ranks": false,
+    "positive_block_lower": false
+  },
+  "model_fits": 2,
+  "native_accounts": 0,
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "inputs/*",
+      "models/*",
+      "predictions/*",
+      "analysis/*"
+    ]
+  },
+  "limitations": [
+    "Original-architecture OOF local-value scaffold is not exact f696 own-state policy.",
+    "09:45 completion is an assumed research clock; historical first receipt is unqualified.",
+    "One-step local fee-net value is not a continuous funded SOXX account."
+  ],
+  "NAS_evidence": {
+    "sha256": "f877d9904fa89c3486a806f41123887a0c47f4e87ef6af62fd74afd86da9ce21",
+    "size_bytes": 164624,
+    "media_type": "application/gzip",
+    "storage_uri": "sha256/f8/77/f877d9904fa89c3486a806f41123887a0c47f4e87ef6af62fd74afd86da9ce21",
+    "uploaded_by": "soxl-minute-research",
+    "created_at": "2026-10-25 13:24:51.286511+08",
+    "duplicate": false,
+    "nas_path": "/volume1/docker/yanxuan/registry/research-artifacts/f8/77/f877d9904fa89c3486a806f41123887a0c47f4e87ef6af62fd74afd86da9ce21",
+    "recorder_id": "c442475ca9104f369fe5e940b041cede",
+    "experiment_id": "519171971702976223",
+    "archive_root": "qlib_recorder"
+  },
+  "NAS_readback": {
+    "verified": true,
+    "archive_sha256": "f877d9904fa89c3486a806f41123887a0c47f4e87ef6af62fd74afd86da9ce21",
+    "scoped_metrics_and_gates_equal": true
+  }
+}

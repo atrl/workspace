@@ -1,0 +1,9 @@
+{
+  "status": "implementation_import_preflight_failed",
+  "error": "Notebook kernel started in card directory; src was not on sys.path",
+  "source_reads": 0,
+  "model_fits": 0,
+  "bootstraps": 0,
+  "native_accounts": 0,
+  "repair": "Resolve repository root before importing frozen run module; no plan or scientific gate change"
+}

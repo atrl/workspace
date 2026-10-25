@@ -1,0 +1,10 @@
+{
+  "status": "post_run_binding_metadata_repair",
+  "reason": "Copied source manifest contained 23 unrelated source objects and an old source_id; archived Recorder bytes and receipt remain unchanged.",
+  "executed_module_sha256": "3e81a67bc8f0523413202a8a5c7364cf3939643ea00050afe6276a5c3a81cdf2",
+  "changed_surface": "NAS binding creation only, after model fits and Recorder archival; no Qlib read, fit, bootstrap, account or re-archive",
+  "recorder_id": "c442475ca9104f369fe5e940b041cede",
+  "archive_sha256": "f877d9904fa89c3486a806f41123887a0c47f4e87ef6af62fd74afd86da9ce21",
+  "old_manifest_source_id": "stage1_joint_cash_cap_soxl_0bp_local_value_20261024",
+  "new_manifest_source_id": "stage1_0946_pair_path_soxl_local_information_20261025"
+}

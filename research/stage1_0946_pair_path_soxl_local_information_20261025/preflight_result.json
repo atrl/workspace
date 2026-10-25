@@ -1,0 +1,12 @@
+{
+  "status": "source_clock_and_novelty_pass",
+  "source_known": 1060,
+  "unknown_dates": [
+    "2020-03-16"
+  ],
+  "max_abs_spearman_baseline": 0.34980112458401225,
+  "plan_sha256": "0fd189c257f30dd3cd78450f6aa5cca702555fc4f60c549b8544d2d57a9c8fc5",
+  "future_label_values_used_for_source_selection": false,
+  "model_fits": 0,
+  "native_accounts": 0
+}

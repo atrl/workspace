@@ -1,0 +1,86 @@
+{
+  "schema_version": 1,
+  "experiment": "stage1_0946_pair_path_soxl_local_information_20261025",
+  "frozen": true,
+  "phase": "conditional_0946_SOXL_cash_local_fee_net_value_information",
+  "parent": "Exact f696 allocation plus b472 opening/risk/recovery remains the only later economic parent; 2018-2022 original-architecture OOF physical account supplies a training local label only.",
+  "hypothesis": "Higher same-day 09:31-09:45 SOXL/SOXX paired path divergence energy signals ETF-specific fragility, so after original39, own-state and early-return controls it has a negative coefficient for fee-net value of deploying cash into SOXL at 09:46.",
+  "distinctness": "The closed endpoint cross-response used signed aggregate returns for H5 labels; peer breadth used another coordinate for cash-to-SOXX local value. This screen uses unsigned paired minute-path energy and the legally masked cash-to-SOXL physical local-value label. No sign flip or alteration of closed versions.",
+  "source": {
+    "pair_source_card": "research/stage1_0945_pair_path_divergence_source_20261024",
+    "pair_source_summary_sha256": "626534a65ada87e382f865b573cb904d7ebb841f8f9caf6ce1930c7dfe5d1a6f",
+    "minute_provider": "data/qlib/minute_information_pit_allocator_20261012/core_1min",
+    "minute_provider_manifest_sha256": "e2d97bd4dc00cdb231f7aa926799efcbc6f0d613ca197fbe04e86db1f074bf4e",
+    "minute_parent_summary_sha256": "61c91f958323cf51b43f4b1554eeca5687011d30771e80bc7ff02d16b6d577ca",
+    "minute_parent_nas_sha256": "ee328cab292f178bf3582ef574fb411561c93b82545cd3bb90842ecd9a9a24f1",
+    "local_label_card": "research/stage1_joint_cash_cap_soxl_0bp_local_value_20261024",
+    "local_label_summary_sha256": "d4c5c7b29f7edce9302278f7e901ce6fdf1206bd239ca863a00167bcff5032a4",
+    "local_label_recorder_id": "9f4753640e9247a18adff4cab4bb57f8",
+    "local_label_experiment_id": "598502564044048354",
+    "local_label_nas_sha256": "15f713a01daa410cafae50955e4f6abab5f0baab6fd70a246b00745755ccc5e1",
+    "local_label_artifact_sha256": "b9e145b0c7e8488ee70a6acc11bd203897eae5e45f2b59459845d2382ae53a41",
+    "legality_audit_card": "research/stage1_soxl_local_action_max_weight_legality_audit_20261024",
+    "legality_audit_summary_sha256": "3c49ecc564195a37409afac23595aaacda2f349ac006b01d8b76836ff5b240c7",
+    "training_reference_card": "research/stage1_signed_volume_0bp_action_label_source_20261023",
+    "training_reference_summary_sha256": "ce6652a6323ec9bd11a8ce8de89239cba167a53bedb50e471080006a1a89f476",
+    "training_reference_recorder_id": "3663a1e073f042e383dbcf54969a9bc2",
+    "training_reference_experiment_id": "194705746221035167",
+    "training_reference_nas_sha256": "73e1f3d1bdb567a9906e34a5216052ab9ab22e36ff9f06d5aac8a7d083b425eb",
+    "training_frame_artifact_sha256": "fc81f9342955aa17dc584a6587f325af39fc3731490f32a486e8fb121a095d6d",
+    "training_path_artifact_sha256": "eb6403c99304be47572635ae3a71494ddd5ce9a96c7e3e361cf5c38f76ffa4e5",
+    "original39_parent_summary_sha256": "61c91f958323cf51b43f4b1554eeca5687011d30771e80bc7ff02d16b6d577ca",
+    "bootstrap_module_sha256": "02705f897e668b710a38aae514df08b86e26c8cd8951405339960355a08a5ac4"
+  },
+  "coordinate": "E=sum((log(SOXL_close/open)-3*log(SOXX_close/open))**2)/(sum(log(SOXL_close/open)**2)+9*sum(log(SOXX_close/open)**2)+1e-12) on exactly 15 complete paired 09:31..09:45 Qlib 1-minute bars; available only after the 09:45 bar at assumed 09:46 research decision. Missing 2020-03-16 remains unknown and is excluded symmetrically.",
+  "receiver": {
+    "label": "Saved 0bp added-slippage IBKR Tiered same-state next-session common-reset soxl_local_fee_net_advantage, only originally eligible mature actions satisfying projected_SOXL+delta_SOXL<=0.30+1e-10.",
+    "calendar": "all 1061 original OOF trade dates, with ineligible, missing source and terminal unknown retained for block resampling",
+    "train_trade_dates": [
+      "2018-10-15",
+      "2020-12-31"
+    ],
+    "train_label_available_before": "2021-01-01T00:00:00-05:00",
+    "evaluation_trade_dates": [
+      "2021-01-01",
+      "2022-12-30"
+    ],
+    "evaluation_label_available_before": "2023-01-01T00:00:00-05:00",
+    "minimum_train_mature_legal_source_known": 230,
+    "minimum_eval_mature_legal_source_known": 300,
+    "minimum_eval_2021": 50,
+    "minimum_eval_2022": 240,
+    "baseline": "original39 prior-signal Stage1 inputs plus own-state portfolio_drawdown/current_beta_cap/risk_state/raw_beta/projected_cash/delta_target_beta and same-day 09:45 SOXX/SOXL early returns; SimpleImputer median, StandardScaler, Ridge alpha=1",
+    "candidate": "same baseline plus one pair_path_divergence E; same rows and exact train-only transforms",
+    "null": "matched training local-value mean"
+  },
+  "source_gate": {
+    "exact_15_valid_paired_bars": true,
+    "training_known_min": 1050,
+    "held_f696_known_min": 900,
+    "train_max_abs_spearman_added_vs_baseline_below": 0.8,
+    "historical_first_receipt_qualified": false
+  },
+  "information_gate": {
+    "negative_added_standardized_coefficient": true,
+    "candidate_MSE_better_than_baseline_and_training_mean_full_eval": true,
+    "paired_MSE_improvement_positive_in_2021_and_2022": true,
+    "candidate_rank_spearman_positive_in_2021_and_2022": true,
+    "paired_full_503_day_calendar_stationary_block_lower_positive": {
+      "mean_block": 63,
+      "resamples": 10000,
+      "seed": 20261025,
+      "one_sided_alpha": 0.0007575757575757576
+    }
+  },
+  "budget": {
+    "new_market_requests": 0,
+    "Qlib_minute_feature_reads_max": 1,
+    "source_Recorder_object_loads_max": 3,
+    "DatasetH_builds_max": 1,
+    "new_model_fits_max": 2,
+    "bootstrap_attempts_max": 1,
+    "new_Recorders_max": 1,
+    "new_native_accounts": 0
+  },
+  "stop": "Any source hash/NAS, 1061-date match, legal mask, 09:45<09:46 timing, source-support, baseline same-row or information gate failure closes this fixed version without changing minute window, sign, asset, action size, year or model. Conditional information pass still needs historical first-receipt qualification and a separately frozen exact f696 own-state full 0bp Tiered account before SOXX economic claims."
+}
