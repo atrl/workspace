@@ -21,3 +21,11 @@
 先复用已封存的精确 f696 原生账户和来源桥，不重跑账户：`stage1_f696_factor_interval_delivery_20261024`、`stage1_f696_output_coordinate_interval_20261024`、`stage1_f696_raw_to_target_bridge_20261024`、`stage1_f696_pairwise_intent_rank_20261024`。已知较高 alpha 概率与较高现金提案可并存，辅助 alpha/tail 概率不直接输入配置头；EMA/HOLD 桥已逐行复现，单调缩短平滑无依据。SOXL 对现金的 H5 毛排序在复用历史上偏弱，但不能据此直接交易。下一步从训练期检查配置头的成对接收任务与风险容量传递，先写明哪个已有输入/旧版本未解释的错误会被修正，再决定是否存在新信息门候选。
 
 客户端 Goal 状态、实际执行进程和科学资格分开记录。`research/three_asset_campaign.json` 是研究索引与阶段收据，不会创建或激活客户端 Goal；每次状态声称都要以 `get_goal` 读回为准。现有 Qlib/NAS 数据与已验证来源为边界；不使用新闻文本、购买数据或真实下单。保护无关 WIP，来源/Recorder 的 NAS 备份须逐项有清单、SHA、大小、收据及限定读回。
+
+## 2026-10-25 有界准入复核
+
+精确 f696 A_0 的[0bp自身账户](../research/stage1_original_0bp_signal_loss_chain_v2_20261023/conclusion.md)仍只有255/819个126日窗口胜SOXX、相对财富0.686；[九条具名路线审查](../research/stage1_soxx_goal_candidate_admission_audit_20261024/conclusion.md)没有一条可准入新的完整0bp账户。新增的[f696/b472开发期现金转SOXL目标空间](../research/stage1_f696_b472_soxl_training_support_20261025/conclusion.md)跨年支持门通过（911/1756日），但859日依赖受限层诊断上界，目标空间不是费用后价值。原架构同类SOXL局部标签经[合法性审计](../research/stage1_soxl_local_action_max_weight_legality_audit_20261024/conclusion.md)只剩540个成熟日且2022均值为负；新增[09:46双ETF路径分歧信息门](../research/stage1_0946_pair_path_soxl_local_information_20261025/conclusion.md)仅过1/6，固定版本关闭。三者不能拼接成一个可运行的经济候选。
+
+配置结构也已排除直接重复：[f696现金结构审计](../research/allocator_cash_geometry_20261014/conclusion.md)确认现金目标惩罚系数为0，基础损失已经含相对SOXX年度对数收益；[同输入去额外换手惩罚](../research/allocator_turnover_ablation_20261014/conclusion.md)的固定完整账户显著增加现金并失败。旧名义beta守恒组成账户使用27baa等其他母本且未过滚动/风险门；[纠正f696母本身份](../research/stage1_f696_beta_composition_0bp_corrected_20261023/pre_execution_stop.json)本身不构成新特征，静态重跑计划已停止。保留现金曾在2024Q3提供正贡献，故不能从全程现金拖累推导统一降低现金的规则。
+
+本复核的结论是：**当前已命名、已核查的现有数据和接收任务下，没有同时具有事前增量信息、合法资金动作与冻结完整账户设计的新候选**。它不证明所有模型不可能胜SOXX，也不重开失败固定版本。后续只有在现有Qlib/NAS里定位到一条实质不同、可验证首次可用时间、训练期增量及双层资金传递的新机制，或用户改变数据/研究边界后，才启动新的拟合和账户。先核查活动索引、关闭理由和来源清单；不要继续按字段或符号逐项试错。
