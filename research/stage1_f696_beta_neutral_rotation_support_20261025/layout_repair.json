@@ -1,0 +1,7 @@
+{
+  "status": "post_execution_compact_rolling_summary",
+  "original_result_sha256": "322cb258a79b7dced8fec113003785be5ab7a402bc715ae2776a6f58894cf0fc",
+  "rolling126_rows": 819,
+  "rolling126_gzip_sha256": "132d921541de05f81c73628852f340d146a6bfd7f9dae307c7217616f5674326",
+  "changed_surface": "Only move the 819 source-support window counts from result.json into a deterministic compressed sidecar; no source read, model fit, account, or scientific gate rerun."
+}

@@ -399,22 +399,22 @@
   },
   "goal_controller": {
     "thread_id": "01a1716c-7114-7902-aae0-ac1f8567c090",
-    "observed_status": "active",
-    "observed_at_utc": "2026-10-25T05:12:01.969569+00:00",
+    "observed_status": "blocked",
+    "observed_at_utc": "2026-10-25T05:29:52+00:00",
     "objective_v2_applied": true,
     "previous_thread_id": "01a16372-8939-7261-bd7d-87a21a166cf0",
     "previous_thread_last_observed_status": "active",
-    "source": "create_goal and get_goal in current thread; repository is a readback projection, not Goal authority"
+    "source": "get_goal showed blocked after premature scoped impasse call; client resume is user-controlled, while scientific research has a new bounded path"
   },
   "current_task": {
     "card": "research/three_asset_campaign.json",
-    "phase": "Stage1_historical_goal_scoped_no_ready_candidate",
+    "phase": "Stage1_historical_goal_scientific_joint_action_receiver_design",
     "implementation_executor": null,
     "independent_reviewer": null,
     "execution_authorized": false,
     "parent": "Frozen Stage1 f696f656 allocator plus b472a458 action/recovery chain under the same Qlib source, decision clocks, and full funded account contract; use its 0bp native account as the attribution baseline.",
     "first_screen": "0bp means zero added slippage with frozen IBKR Tiered fees still charged. A Stage1-derived candidate must first clear the SOXX 0bp wealth, <=30% available-mark drawdown, CVaR5, complete-year, rolling-126 and preregistered uncertainty screens on one full native account. Compare the matched frozen Stage1 account for module attribution.",
-    "next_action": "No fit or account is admitted from the currently named existing-data routes. Reopen only for a materially distinct decision-time mechanism with verified availability, training support, matched information gain and an explicit path through raw allocation intent plus own-state risk capacity; then freeze its own complete 0bp Tiered account before execution. Do not retry closed turnover, static composition, original39 binary or 09:46 local-value versions.",
+    "next_action": "Freeze one joint intent-capacity receiver: at a valid decision clock, train separate fee-net same-state local-value targets for cash protection/deployment and SOXL-versus-SOXX composition with legal action support across years; require one matched information gate covering both layers before exact-f696 own-state 0bp Tiered account. Do not directly combine static target capacities or reopen failed fixed versions.",
     "baseline_evidence": "research/stage1_domain_heads_20261018/conclusion.md",
     "layer_diagnosis": "research/stage1_uniform_layer_attribution_20261010/conclusion.md",
     "cross_account_attribution": "research/three_asset_failure_attribution_20261015/conclusion.md",
@@ -774,7 +774,7 @@
     "KCS_held_index_interpretation": "45 monthly KCS early20 official page identities for2023Jan-2026Sep: fixed first pass44/45,2024Sep TLS handshake timeout; separately frozen one-GET repair found official 2024-09-23 newsId156651567 and Qlib 45/45 with44 rows unchanged. NAS source/Recorder readbacks verified. Attachments, semiconductor YoY, historical first-public/revision and strategy forward evidence remain unqualified; zero SOXX outcomes/fits/accounts."
   },
   "historical_research_goal": {
-    "status": "no_ready_candidate_scoped_existing_data_audit_20261025",
+    "status": "client_blocked_scientific_joint_action_path_identified",
     "completion_label": "historical_research_passed",
     "completion_contract": "docs/stage1_historical_goal.md",
     "historical_gate": "research contract v2 complete native Qlib funded SOXX account at 0/2/5bp, all wealth/risk/year/rolling126/uncertainty gates",
@@ -782,11 +782,13 @@
     "forward_and_production_status": "separate later contract-v2 gates; no automatic promotion",
     "reused_2023_2026_is_independent": false,
     "existing_data_only": true,
-    "next_bounded_task": "No fit or account is admitted from the currently named existing-data routes. Reopen only for a materially distinct decision-time mechanism with verified availability, training support, matched information gain and an explicit path through raw allocation intent plus own-state risk capacity; then freeze its own complete 0bp Tiered account before execution. Do not retry closed turnover, static composition, original39 binary or 09:46 local-value versions.",
+    "next_bounded_task": "Freeze one joint intent-capacity receiver: at a valid decision clock, train separate fee-net same-state local-value targets for cash protection/deployment and SOXL-versus-SOXX composition with legal action support across years; require one matched information gate covering both layers before exact-f696 own-state 0bp Tiered account. Do not directly combine static target capacities or reopen failed fixed versions.",
     "latest_source_support": "research/stage1_f696_b472_soxl_training_support_20261025/summary.json",
     "latest_source_support_interpretation": "Frozen f696 development allocations and b472 predecision caps match 1756/1756 rows; a diagnostic <=0.10 beta cash-to-SOXL legal target has 911 supported days across all seven years, 859 binding and only52 nonbinding. Source support passes but neither local fee-net information nor funded SOXX economics is shown. Next verify exact same-state physical training-label feasibility; do not relabel saved execute_advantage or treat cap+0.10 as an approved policy.",
     "latest_closed_information_screen": "research/stage1_0946_pair_path_soxl_local_information_20261025/summary.json",
     "latest_closed_information_interpretation": "Distinct assumed-09:46 paired SOXL/SOXX 15-minute path energy had1060/1061 source-known OOF dates and legal cash-to-SOXL local-value train/eval238/301. Added sign matched the frozen negative hypothesis but candidate MSE exceeded matched baseline and training mean, 2022 paired gain and 63-session corrected lower were negative; only1/6 information gates passed. Two fits, zero candidate accounts. Fixed version closed; historical first receipt remains unqualified. Do not rescue by sign, minute window, year or beta size.",
-    "latest_admission_review": "docs/stage1_historical_goal.md"
+    "latest_admission_review": "docs/stage1_historical_goal.md",
+    "latest_beta_neutral_support": "research/stage1_f696_beta_neutral_rotation_support_20261025/summary.json",
+    "latest_beta_neutral_support_interpretation": "Exact f696 0bp Tiered source has600/797 EXECUTE dates with legal nominal-beta-preserving SOXL+cash to SOXX target capacity:64 binding and536 nonbinding. Pre-registered solo dual-layer source gate fails because binding<100. It complements the prior cash-to-SOXL target capacity261 binding/24 nonbinding, but neither support result is fee-net information or an account. The previously marked client blocked status was premature as a scientific impasse; one bounded joint-action receiver design remains possible."
   }
 }

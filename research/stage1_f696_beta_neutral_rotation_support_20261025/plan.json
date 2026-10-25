@@ -1,0 +1,47 @@
+{
+  "experiment": "stage1_f696_beta_neutral_rotation_support_20261025",
+  "frozen": true,
+  "phase": "read_only_exact_f696_beta_neutral_rotation_target_support",
+  "question": "Does a beta-preserving SOXL plus cash to SOXX rotation have legal opening target headroom on both cap-binding and nonbinding exact-f696 EXECUTE sessions, without violating original SOXL30% or cash15% bounds?",
+  "parent": "Exact original f696 A0 0bp Tiered own-state path and b472 opening decisions; no 27baa proposal substitution or candidate account.",
+  "sources": {
+    "A0_card": "research/stage1_domain_heads_20261018",
+    "A0_summary_sha256": "3b51938ca56ddf45029ff5e4a01a6bbc2f1d1407458efcad7d7c68b0ef5a1d37",
+    "A0_experiment_id": "283510277269468590",
+    "A0_recorder_id": "6e227278b7a64eafbcf34b965e16d2b9",
+    "A0_native_sha256": "ce59dcab49559c7d07b98de85a75ccb7516561b5a317c110ad1dfe474ce45678",
+    "A0_frame_sha256": "e83a57eb764dc59ee8d9fad7b1a48eb6b295c6183d6c4cab2062b3aa6c66e07c",
+    "A0_recovery_spec_sha256": "4a4bb9cd5e09e0dace34615d47e25c831c58951daabace972aa7a31c93e45bda",
+    "A0_NAS_sha256": "f3f891d6d09d4187f12815e245b33cc9cfec4acfd4f555b734f66a59348d9884",
+    "A0_readback": "research/stage1_domain_heads_20261018/readback_verification.json",
+    "account_card": "research/stage1_original_0bp_signal_loss_chain_v2_20261023",
+    "account_summary_sha256": "898089b008f1f6f50016ddbbd2fc082f77423464ed8613c54dbdd5fbbae1dc3a",
+    "account_experiment_id": "954993860986722516",
+    "account_recorder_id": "2f0392615c4c4b15928b4ada6e01ecd9",
+    "account_rolling_sha256": "12f8a16607303370c0ad4a339a3c1de00ab92a467b1490249a160084db2b7635",
+    "account_NAS_sha256": "54c6e93b4c304774c272b07312c856a9a2a255086d372066db418b5efed359c7",
+    "provider": "data/qlib/stage1_domain_heads_20261018",
+    "provider_manifest_sha256": "b9b00a50e86cf26f254d169c886f981b6e90a9daafc3612e3c7ef7c6479b8083",
+    "prior_headroom_card": "research/stage1_f696_cash_to_soxl_legal_headroom_20261024",
+    "prior_headroom_summary_sha256": "da2624a93f876d605904c57b1c84a2f72110be98ecb08987da3bd744c537c050"
+  },
+  "fixed_geometry": {
+    "clock": "Only original 09:46 EXECUTE sessions; HOLD is retained in the denominator with zero diagnostic action.",
+    "delta": "max(0,min(projected_SOXL,(projected_CASH-0.15)/2,(1-projected_SOXX)/3)); no action-size threshold or outcome-informed scaling.",
+    "candidate": "[projected_SOXL-delta, projected_SOXX+3*delta, projected_CASH-2*delta]",
+    "invariants": "weights nonnegative and sum1, SOXL<=0.30, cash>=0.15, SOXX<=1, nominal beta=3*SOXL+SOXX equal to original projected beta within1e-9, original own-state cap unchanged.",
+    "report": "All944 sessions, 797 EXECUTE/147 HOLD, complete2024/2025 and partial2023/2026, all16 quarters and819 contiguous126-session windows. Split binding/nonbinding and positive delta>1e-10; no future outcome needed or policy claim."
+  },
+  "support_gate": "At least300 positive EXECUTE dates, at least100 binding and100 nonbinding dates, and >=50 positive dates in each complete year2024 and2025. This is only a legal-target source gate; it cannot authorize the old static composition account or a new strategy.",
+  "budget": {
+    "Qlib_calendar_reads": 1,
+    "source_Recorder_object_reads": 3,
+    "new_market_GETs": 0,
+    "future_outcome_reads": 0,
+    "new_model_fits": 0,
+    "new_native_accounts": 0,
+    "new_bootstraps": 0,
+    "new_Recorders": 0
+  },
+  "stop": "Stop on source SHA/NAS, Qlib 944 calendar, f696 five-output identity, 797/147 decision count, original projected legality, or beta-preservation mismatch. A support pass requires a separately frozen distinct decision-time feature and matched fee-net label before any own-state funded account. Do not rerun the closed static composition or tune delta on 2023-2026 returns."
+}

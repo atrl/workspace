@@ -1,0 +1,10 @@
+{
+  "status": "source_deserialization_preflight_failed",
+  "error": "Qlib Recorder pickle could not import src because notebook kernel started in card directory",
+  "source_object_load_attempts": 1,
+  "source_objects_loaded": 0,
+  "future_outcome_reads": 0,
+  "model_fits": 0,
+  "accounts": 0,
+  "repair": "Add resolved repository root to sys.path before Recorder load; no formula, source identity or gate changes"
+}

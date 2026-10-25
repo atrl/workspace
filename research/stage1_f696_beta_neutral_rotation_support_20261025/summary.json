@@ -1,0 +1,26 @@
+{
+  "experiment": "stage1_f696_beta_neutral_rotation_support_20261025",
+  "decision": "beta_neutral_rotation_target_support_failed",
+  "objective_achieved": false,
+  "plan_sha256": "7da0651ca4f657edec5243eab2b92887c5d5072e4978ebec62d394d4c92961c8",
+  "result": "result.json",
+  "source_recorder_id": "6e227278b7a64eafbcf34b965e16d2b9",
+  "source_NAS_readback_verified": true,
+  "positive_EXECUTE": 600,
+  "binding_positive": 64,
+  "nonbinding_positive": 536,
+  "support_gate_pass": false,
+  "new_model_fits": 0,
+  "new_native_accounts": 0,
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": []
+  },
+  "limitations": [
+    "Read-only target-space accounting on original path, not a tradable counterfactual.",
+    "A static version on different parent previously failed risk/rolling gates; a new decision-time feature is required before any economic account."
+  ],
+  "rolling126_file": "rolling126.json.gz",
+  "rolling126_sha256": "132d921541de05f81c73628852f340d146a6bfd7f9dae307c7217616f5674326"
+}
