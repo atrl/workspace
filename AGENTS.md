@@ -12,6 +12,11 @@ other comparisons support attribution and remain diagnostic. Frozen historical
 cards keep their original gates. The active campaign entry is
 `research/three_asset_campaign.json`.
 
+The active Stage1 historical research Goal is defined in
+`docs/stage1_historical_goal.md`. Its completion is a fully gated 0/2/5bp
+historical Qlib account result, recorded as `historical_research_passed`;
+independent forward evidence remains a separate contract-v2 promotion gate.
+
 ## Current research baseline and failure-to-feature loop
 
 - Start new economic mechanisms from the frozen, complete Stage1 allocation,

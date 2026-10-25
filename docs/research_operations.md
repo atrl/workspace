@@ -48,6 +48,10 @@ model和reasoning，记录返回代理名及请求参数；若服务不返回实
 ## Goal客户端边界
 
 Goal属于客户端线程。研究文件不能代替客户端active；恢复/更新后须get_goal读回。
+当前Stage1历史研究Goal的完成口径与逐轮选择规则见
+[`stage1_historical_goal.md`](stage1_historical_goal.md)。历史通过只能记录
+`historical_research_passed`，独立前向及生产晋升属于后续合同门槛，不等待
+新窗口才结束此历史Goal。
 当前工具若不支持恢复，记录客户端限制，继续已明确授权的工作，不伪造状态、
 不清除历史或创建替代Goal来绕过限制。阶段完成与科学目标达成分别报告。
 
