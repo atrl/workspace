@@ -1,0 +1,32 @@
+{
+  "experiment": "stage1_f696_training_label_parent_identity_audit_20261025",
+  "frozen": true,
+  "phase": "read_only_training_parent_identity_audit",
+  "question": "Can the saved 2018-2022 original-architecture physical training scaffold labels be treated as matched exact-f696 development local-value labels?",
+  "sources": {
+    "f696_lineage_card": "research/stage1_f696_b472_oof_cash_room_support_20261023",
+    "f696_lineage_summary_sha256": "98b209285d059a93d75370569ea58fc60267baf3012607d9844d2ad8e93b808c",
+    "f696_card": "research/pit_constituent_auxiliary_training_allocation_retrained_20260928",
+    "f696_summary_sha256": "df3113363977c60cb1538e4e1f39445aa9a8f14aa3e723d7f73fcd532d62ab42",
+    "f696_experiment_id": "188464491611747257",
+    "f696_recorder_id": "f696f656b3d44e868588e09a5d97c905",
+    "f696_predictions_sha256": "f532c84b5c3c05d181092044aa1bc6223e26e774d81a26f3bfa181828bdf342e",
+    "physical_reference_card": "research/stage1_signed_volume_0bp_action_label_source_20261023",
+    "physical_reference_summary_sha256": "ce6652a6323ec9bd11a8ce8de89239cba167a53bedb50e471080006a1a89f476",
+    "physical_reference_experiment_id": "194705746221035167",
+    "physical_reference_recorder_id": "3663a1e073f042e383dbcf54969a9bc2",
+    "physical_source_frame_artifact_sha256": "fc81f9342955aa17dc584a6587f325af39fc3731490f32a486e8fb121a095d6d",
+    "provider_uri": "data/qlib/full_path_tiered_allocation_20261013",
+    "provider_manifest_sha256": "3a3d6f4e248d6016ea25a140587abb65fba0d8a346e45da402414095df772223"
+  },
+  "method": "Read only f696 development_walk_forward 2016-2022 prediction weights and the original-architecture 2018-2022 Qlib physical reference inputs/source_frame; normalize signal_date, one-to-one inner join, compare all three raw proposal weights byte-level numerical equality and report unmatched dates. Do not read local-value labels, outcome returns or candidate accounts.",
+  "budget": {
+    "source_Recorder_object_loads": 1,
+    "new_market_requests": 0,
+    "future_label_reads": 0,
+    "model_fits": 0,
+    "accounts": 0,
+    "new_Recorders": 0
+  },
+  "interpretation": "This audits label-parent eligibility only; mismatch does not invalidate either original experiment or automatically reopen closed fixed information screens. A new exact-f696 physical training reference needs its own frozen design."
+}

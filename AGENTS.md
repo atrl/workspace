@@ -30,6 +30,14 @@ independent forward evidence remains a separate contract-v2 promotion gate.
   verify 944/944 proposal rows against the frozen A_0 source, then run the
   candidate's own-state account. The identity audit is
   `research/stage1_f696_parent_identity_audit_20261023`.
+- The saved 2018–2022 original-architecture physical training reference is also
+  a different parent: its raw three-asset proposals disagree with f696
+  `development_walk_forward` on all 1056 shared signal dates. Its fee-net local
+  labels and fixed information failures retain their original scope; they are
+  not matched f696 training labels or automatic necessary gates. The read-only
+  audit is `research/stage1_f696_training_label_parent_identity_audit_20261025`.
+  Before fitting a joint f696 receiver, build and verify an exact-parent physical
+  0bp Tiered development reference and separately freeze its local labels.
 - In `qlib_venv`, set `MLFLOW_ALLOW_FILE_STORE=true` before importing Qlib
   workflow or reading the sealed local Recorder stores. Without it, MLflow may
   report `No valid experiment has been found` even when the experiment ID,

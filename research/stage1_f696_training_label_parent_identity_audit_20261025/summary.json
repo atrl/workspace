@@ -1,0 +1,22 @@
+{
+  "experiment": "stage1_f696_training_label_parent_identity_audit_20261025",
+  "decision": "old_physical_training_label_parent_mismatch_exact_f696",
+  "objective_achieved": false,
+  "plan_sha256": "6f1741cf2bd76e12a1f56e375a0238c1de128b415666b9b9058cd30734dc6036",
+  "result": "result.json",
+  "source_recorder_ids": [
+    "f696f656b3d44e868588e09a5d97c905",
+    "3663a1e073f042e383dbcf54969a9bc2"
+  ],
+  "source_NAS_scoped_readbacks_verified": true,
+  "matched_signal_dates": 1056,
+  "rows_any_difference_gt_1e_8": 1056,
+  "future_label_reads": 0,
+  "model_fits": 0,
+  "accounts": 0,
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": []
+  }
+}

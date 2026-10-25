@@ -1,0 +1,42 @@
+{
+  "decision": "old_physical_training_label_parent_mismatch_exact_f696",
+  "plan_sha256": "6f1741cf2bd76e12a1f56e375a0238c1de128b415666b9b9058cd30734dc6036",
+  "f696_recorder_id": "f696f656b3d44e868588e09a5d97c905",
+  "physical_reference_recorder_id": "3663a1e073f042e383dbcf54969a9bc2",
+  "f696_development_rows": 1756,
+  "physical_reference_rows": 1061,
+  "matched_signal_dates": 1056,
+  "f696_only_dates": 700,
+  "physical_reference_only_dates": [
+    "2022-12-22",
+    "2022-12-23",
+    "2022-12-27",
+    "2022-12-28",
+    "2022-12-29"
+  ],
+  "rows_any_difference_gt_1e_8": 1056,
+  "rows_all_three_exact_equal": 0,
+  "weight_differences": {
+    "soxl_weight": {
+      "exact_equal_rows": 0,
+      "max_abs": 0.24122940246281066,
+      "mean_abs": 0.046739329826955694
+    },
+    "soxx_weight": {
+      "exact_equal_rows": 0,
+      "max_abs": 0.3663453921234032,
+      "mean_abs": 0.05935478279094022
+    },
+    "cash_weight": {
+      "exact_equal_rows": 0,
+      "max_abs": 0.5910661547054783,
+      "mean_abs": 0.094260144438008
+    }
+  },
+  "source_NAS_scoped_readbacks_verified": true,
+  "future_label_reads": 0,
+  "model_fits": 0,
+  "accounts": 0,
+  "new_Recorders": 0,
+  "interpretation": "Original-architecture 2018-2022 physical local labels are not matched exact-f696 OOF labels; preserve all fixed original-scaffold results in their own scope, do not relabel or automatically rerun."
+}
