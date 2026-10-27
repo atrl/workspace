@@ -23,6 +23,13 @@ independent forward evidence remains a separate contract-v2 promotion gate.
   action, risk, and recovery chain. Reuse its matching Qlib source and native
   account as the attribution baseline; keep SOXX as the final benchmark. Do not
   silently switch the parent to a different allocator or a strong reference.
+- The user separately authorized an independent XGB/LGB three-asset allocator
+  comparison in `research/independent_tree_allocation_20261027`. It is an
+  explicit separate route, not a matched f696+b472 receiver or a change to the
+  active release. Its fixed 0bp native-account version failed the SOXX risk,
+  year/window and/or wealth gates; retain the evidence and do not tune that
+  version on the reused 2023-2026 history. Stage1's historical Goal definition
+  remains unchanged.
 - `stage1_nvda_guidance_receiver.prepare_account_sources` returns the raw
   cashbook frame containing **27baa** allocation proposals. It does not replace
   them with f696 outputs. For an f696-parent experiment, explicitly align and

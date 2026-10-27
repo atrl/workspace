@@ -1,0 +1,13 @@
+{
+  "status": "passed",
+  "sha256": "2b510371211a845319c68cd8f0e7a1f3e2024f98e3677a300541ba0668964f5e",
+  "bytes": 4829492,
+  "member_count": 46,
+  "scoped_members": [
+    "qlib_recorder/102309230852234857/c9687c23744246b8bac15dce3efde67d/artifacts/models/xgb",
+    "qlib_recorder/102309230852234857/c9687c23744246b8bac15dce3efde67d/artifacts/models/lgbm",
+    "qlib_recorder/102309230852234857/c9687c23744246b8bac15dce3efde67d/artifacts/analysis/window_detail",
+    "qlib_recorder/102309230852234857/c9687c23744246b8bac15dce3efde67d/artifacts/analysis/quarter",
+    "qlib_recorder/102309230852234857/c9687c23744246b8bac15dce3efde67d/artifacts/analysis/constraint_bridge"
+  ]
+}

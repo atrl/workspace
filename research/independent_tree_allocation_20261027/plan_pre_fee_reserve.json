@@ -1,0 +1,164 @@
+{
+  "experiment": "independent_tree_allocation_20261027",
+  "schema_version": "independent_tree_allocation_v1",
+  "hypothesis": "Independent XGB/LGB may rank cash, SOXX, SOXL better when legacy caps and stop are removed; matched predictions isolate post-model restrictions.",
+  "source": {
+    "card": "research/full_path_tiered_allocation_20261013",
+    "recorder_id": "35f69540c3d94b4db81bfe32859607ae",
+    "archive": "61e331c4d0d920e22eced638dd9d5d2283e6748d78f87bbfd420377e1de24d5a",
+    "inventory_sha256": "eff8f3d2022dc5b0187a5d9bd2625d04b47626017be87fbdc8aaff11a48706b7",
+    "plan_sha256": "74b2581367de848f1474034af02affabbc6874eb05472e18c810427f6b54665e"
+  },
+  "provider_uri": "data/qlib/full_path_tiered_allocation_20261013",
+  "provider_manifest_sha256": "3a3d6f4e248d6016ea25a140587abb65fba0d8a346e45da402414095df772223",
+  "source_start": "2018-10-12",
+  "source_end": "2026-10-07",
+  "cutoff": "2023-01-01",
+  "test_start": "2023-01-03",
+  "test_end": "2026-10-09",
+  "expected_test_rows": 944,
+  "complete_years": [
+    2024,
+    2025
+  ],
+  "decision_clock": "09:46 ET after completed 09:45 mark; 09:47 open fill; labels mature after next session 09:49",
+  "features": [
+    "soxl_ret3",
+    "soxl_ret5",
+    "soxl_ret10",
+    "soxl_ret20",
+    "soxl_ret60",
+    "soxx_ret3",
+    "soxx_ret5",
+    "soxx_ret10",
+    "soxx_ret20",
+    "soxx_ret60",
+    "relative_momentum20",
+    "soxx_trend20",
+    "soxx_trend60",
+    "trend_efficiency_20",
+    "levered_decay_20",
+    "soxx_lead_10",
+    "range_pos_252",
+    "cross_breadth_pos_20",
+    "cross_breadth_pos_60",
+    "semis_vs_cross_20",
+    "semis_vs_cross_60",
+    "tech_breadth_20",
+    "tech_breadth_60",
+    "soxx_vol20",
+    "soxx_drawdown60",
+    "dist_high_252",
+    "vix",
+    "vix_chg5",
+    "vix_z_60",
+    "rv20",
+    "rv60",
+    "rv20_expansion",
+    "tracking_error_5_z20",
+    "tracking_error_5_pctile60",
+    "panic_reversal_5",
+    "chop_breakdown_risk",
+    "high_chop_pressure",
+    "cross_vol_breadth_high",
+    "cross_dispersion_20",
+    "minute_core_ready",
+    "minute_peer_ready",
+    "minute_soxx_log_rv5",
+    "minute_soxx_downside_share5",
+    "minute_soxx_late_rv_share",
+    "minute_soxx_trend_efficiency",
+    "minute_soxx_post_first_hour_return",
+    "minute_soxx_late_return30",
+    "minute_soxx_intraday_drawdown",
+    "minute_soxx_rebound_from_low",
+    "minute_soxx_late_volume_share",
+    "minute_soxx_rv1_rv5_ratio_log",
+    "minute_soxl_tracking_residual_rv5",
+    "minute_soxl_soxx_sign_agreement"
+  ],
+  "families": [
+    "xgb",
+    "lgbm"
+  ],
+  "seed": 75,
+  "label": "0bp Tiered one-step round-trip wealth from identical 100000 cash; best of full SOXL, full SOXX, cash; no same-day future in features",
+  "prediction_mapping": "argmax of three probabilities selects a pure action; same fitted classifier reused in both arms",
+  "arms": {
+    "unrestricted": {
+      "maximum_soxl_weight": 1.0,
+      "minimum_cash_weight": 0.0,
+      "drawdown_stop": null
+    },
+    "constrained": {
+      "maximum_soxl_weight": 0.3,
+      "minimum_cash_weight": 0.15,
+      "drawdown_stop": -0.04,
+      "risk_multiplier": 0.1
+    }
+  },
+  "reference_accounts": [
+    "SOXX buy-hold reused native account",
+    "50pct SOXL plus 50pct cash constant",
+    "100pct SOXL constant"
+  ],
+  "initial_cash": 100000,
+  "tariff": {
+    "role": "2026-10-13 current IBKR Pro Tiered price projection across reused history, not historical realized bills",
+    "tiers": [
+      {
+        "through_shares": 300000,
+        "per_share": 0.0035
+      },
+      {
+        "through_shares": 3000000,
+        "per_share": 0.002
+      },
+      {
+        "through_shares": 20000000,
+        "per_share": 0.0015
+      },
+      {
+        "through_shares": 100000000,
+        "per_share": 0.001
+      },
+      {
+        "through_shares": null,
+        "per_share": 0.0005
+      }
+    ],
+    "minimum_per_order": 0.35,
+    "maximum_order_fraction": 0.01,
+    "venue_per_share": 0.003,
+    "venue_subdollar_fraction": 0.003,
+    "clearing_per_share": 0.0002,
+    "clearing_maximum_fraction": 0.005,
+    "sec_sale_fraction": 2.06e-05,
+    "taf_per_sold_share": 0.0,
+    "taf_maximum_per_trade": 9.79,
+    "cat_per_share": 3e-06,
+    "commission_pass_through_fraction": 0.000735,
+    "venue_assumption": "SMART orders removing displayed Nasdaq liquidity; no assumed maker rebate",
+    "TAF_rule": "current IBKR fee holiday 2026-10-01 through 2026-12-31; zero projection over the full diagnostic history",
+    "fractional_share_fills": false,
+    "usd_cent_rounding": "unrounded rate projection, not exact statement cents"
+  },
+  "maximum_soxl_weight": 1.0,
+  "minimum_cash_weight": 0.0,
+  "slippage_bps": [
+    0,
+    2,
+    5
+  ],
+  "stage_sequence": "four tree arms and two simple risk references at 0bp; only 0bp gate pass can proceed to frozen 2/5bp",
+  "budget": {
+    "model_fits": 2,
+    "native_accounts": 6,
+    "bootstrap_resamples_per_prelim_pass": 10000
+  },
+  "historical_gate": "SOXX wealth >1, available and monitored drawdown <=30pct, CVaR5 >= SOXX, 2024-2025 both positive, rolling126 >=70pct, 63-day stationary bootstrap lower >0; 0bp is not historical pass",
+  "scientific_boundary": "new independent allocator route authorized by user; frozen f696+b472 and active release remain comparison context, not replaced; reused 2023-2026 is development history",
+  "source_limit": "existing full-path point-mark provider and NAS-verified recorder; 2026 projected IBKR Tiered tariff, assumed historical liquidity/fill, no new market snapshot",
+  "selection": "both XGB/LGB reported; no historical winner or threshold search; fixed old restriction pair only",
+  "as_of": "2026-10-27"
+}

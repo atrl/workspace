@@ -1,0 +1,6 @@
+{
+  "old_sha256": "6679ad358f7b258beb49aac30d1a8ecee96ce8de1e54237056286ffe6256062c",
+  "new_sha256": "0a9275010719b45ad9524b3b8de2fb2c43fe180365dd1a479f8fdafd649f7359",
+  "reason": "Native account rejected full 100pct desired weight because the independent whole-share replay left insufficient fee cash; no native account succeeded; fixed 0.1pct operational cash reserve in both unrestricted tree and full-SOXL reference. Models and training labels unchanged.",
+  "completed_accounts_before_amendment": 0
+}

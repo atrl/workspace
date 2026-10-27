@@ -1,0 +1,30 @@
+{
+  "status": "diagnostic_post_model_mapping",
+  "cases": [
+    {
+      "family": "xgb",
+      "sessions": 944,
+      "pure_soxl_predictions": 601,
+      "pure_soxx_predictions": 0,
+      "cash_predictions": 343,
+      "constrained_stop_days": 864,
+      "mean_unrestricted_target_cash_pct": 36.39841101694915,
+      "mean_constrained_target_cash_pct": 92.88665254237287,
+      "mean_constrained_target_cash_on_stop_pct": 94.29398148148145,
+      "mean_constrained_target_cash_off_stop_pct": 77.6875
+    },
+    {
+      "family": "lgbm",
+      "sessions": 944,
+      "pure_soxl_predictions": 520,
+      "pure_soxx_predictions": 0,
+      "cash_predictions": 424,
+      "constrained_stop_days": 909,
+      "mean_unrestricted_target_cash_pct": 44.97033898305085,
+      "mean_constrained_target_cash_pct": 93.29184322033898,
+      "mean_constrained_target_cash_on_stop_pct": 95.37128712871286,
+      "mean_constrained_target_cash_off_stop_pct": 39.28571428571429
+    }
+  ],
+  "scope": "same fitted family and decision calendar, separate own-state paths; joint cap-floor-stop effect only, no isolated causal layer claim"
+}

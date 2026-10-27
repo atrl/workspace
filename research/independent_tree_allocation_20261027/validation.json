@@ -1,0 +1,67 @@
+{
+  "status": "passed",
+  "notebook_executed": true,
+  "model_fits": 2,
+  "native_accounts": 6,
+  "native_reconciliation": {
+    "xgb_unrestricted_0": {
+      "return_error": 2.220446049250313e-16,
+      "relative_cash_error": 9.579253098808018e-16,
+      "relative_quantity_value_error": 0.0,
+      "maximum_weight_error": 9.992007221626409e-16
+    },
+    "xgb_constrained_0": {
+      "return_error": 2.220446049250313e-16,
+      "relative_cash_error": 2.641929656627648e-16,
+      "relative_quantity_value_error": 0.0,
+      "maximum_weight_error": 2.220446049250313e-16
+    },
+    "lgbm_unrestricted_0": {
+      "return_error": 6.661338147750939e-16,
+      "relative_cash_error": 1.8245363345155386e-15,
+      "relative_quantity_value_error": 0.0,
+      "maximum_weight_error": 1.822327011513636e-15
+    },
+    "lgbm_constrained_0": {
+      "return_error": 2.220446049250313e-16,
+      "relative_cash_error": 5.426207521112878e-16,
+      "relative_quantity_value_error": 0.0,
+      "maximum_weight_error": 3.885780586188048e-16
+    },
+    "reference_half_soxl_cash_0": {
+      "return_error": 4.440892098500626e-16,
+      "relative_cash_error": 1.8826635173954441e-16,
+      "relative_quantity_value_error": 0.0,
+      "maximum_weight_error": 2.220446049250313e-16
+    },
+    "reference_full_soxl_0": {
+      "return_error": 2.220446049250313e-16,
+      "relative_cash_error": 2.94529927984951e-18,
+      "relative_quantity_value_error": 0.0,
+      "maximum_weight_error": 2.220446049250313e-16
+    }
+  },
+  "regime_evidence": {
+    "status": "passed",
+    "annual_rows": 24,
+    "quarter_rows": 96,
+    "window_rows": 4914,
+    "windows_per_case": 819,
+    "quarters_per_case": 16
+  },
+  "nas_readback": {
+    "status": "passed",
+    "sha256": "2b510371211a845319c68cd8f0e7a1f3e2024f98e3677a300541ba0668964f5e",
+    "bytes": 4829492,
+    "member_count": 46,
+    "scoped_members": [
+      "qlib_recorder/102309230852234857/c9687c23744246b8bac15dce3efde67d/artifacts/models/xgb",
+      "qlib_recorder/102309230852234857/c9687c23744246b8bac15dce3efde67d/artifacts/models/lgbm",
+      "qlib_recorder/102309230852234857/c9687c23744246b8bac15dce3efde67d/artifacts/analysis/window_detail",
+      "qlib_recorder/102309230852234857/c9687c23744246b8bac15dce3efde67d/artifacts/analysis/quarter",
+      "qlib_recorder/102309230852234857/c9687c23744246b8bac15dce3efde67d/artifacts/analysis/constraint_bridge"
+    ]
+  },
+  "decision": "not_promoted_0bp_gate_failed",
+  "production_release_changed": false
+}

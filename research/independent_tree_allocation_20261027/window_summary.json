@@ -1,0 +1,142 @@
+{
+  "cases": [
+    {
+      "case": "xgb_unrestricted_0",
+      "positive": 506,
+      "total": 819,
+      "worst": {
+        "case": "xgb_unrestricted_0",
+        "start_signal": "2024-10-03",
+        "end_signal": "2025-04-04",
+        "sessions": 126,
+        "relative_log_excess": -0.8317575838987474,
+        "relative_wealth": 0.4352835662226105,
+        "positive": false
+      },
+      "best": {
+        "case": "xgb_unrestricted_0",
+        "start_signal": "2025-04-07",
+        "end_signal": "2025-10-06",
+        "sessions": 126,
+        "relative_log_excess": 0.8888960809073938,
+        "relative_wealth": 2.4324429483989958,
+        "positive": true
+      }
+    },
+    {
+      "case": "xgb_constrained_0",
+      "positive": 135,
+      "total": 819,
+      "worst": {
+        "case": "xgb_constrained_0",
+        "start_signal": "2025-12-16",
+        "end_signal": "2026-06-17",
+        "sessions": 126,
+        "relative_log_excess": -0.7665844484699593,
+        "relative_wealth": 0.4645972171360432,
+        "positive": false
+      },
+      "best": {
+        "case": "xgb_constrained_0",
+        "start_signal": "2024-10-02",
+        "end_signal": "2025-04-03",
+        "sessions": 126,
+        "relative_log_excess": 0.3680479002114637,
+        "relative_wealth": 1.4449112488706488,
+        "positive": true
+      }
+    },
+    {
+      "case": "lgbm_unrestricted_0",
+      "positive": 428,
+      "total": 819,
+      "worst": {
+        "case": "lgbm_unrestricted_0",
+        "start_signal": "2025-09-30",
+        "end_signal": "2026-03-31",
+        "sessions": 126,
+        "relative_log_excess": -0.6317877239953766,
+        "relative_wealth": 0.5316405244278328,
+        "positive": false
+      },
+      "best": {
+        "case": "lgbm_unrestricted_0",
+        "start_signal": "2025-04-04",
+        "end_signal": "2025-10-03",
+        "sessions": 126,
+        "relative_log_excess": 0.7215494787056762,
+        "relative_wealth": 2.057618978658476,
+        "positive": true
+      }
+    },
+    {
+      "case": "lgbm_constrained_0",
+      "positive": 150,
+      "total": 819,
+      "worst": {
+        "case": "lgbm_constrained_0",
+        "start_signal": "2025-12-16",
+        "end_signal": "2026-06-17",
+        "sessions": 126,
+        "relative_log_excess": -0.7897514833621591,
+        "relative_wealth": 0.45395759728098717,
+        "positive": false
+      },
+      "best": {
+        "case": "lgbm_constrained_0",
+        "start_signal": "2024-10-02",
+        "end_signal": "2025-04-03",
+        "sessions": 126,
+        "relative_log_excess": 0.38335379409498993,
+        "relative_wealth": 1.4671970238977508,
+        "positive": true
+      }
+    },
+    {
+      "case": "reference_half_soxl_cash_0",
+      "positive": 517,
+      "total": 819,
+      "worst": {
+        "case": "reference_half_soxl_cash_0",
+        "start_signal": "2024-10-02",
+        "end_signal": "2025-04-03",
+        "sessions": 126,
+        "relative_log_excess": -0.27483150998797545,
+        "relative_wealth": 0.7597001143234522,
+        "positive": false
+      },
+      "best": {
+        "case": "reference_half_soxl_cash_0",
+        "start_signal": "2025-11-20",
+        "end_signal": "2026-05-22",
+        "sessions": 126,
+        "relative_log_excess": 0.3161766520631311,
+        "relative_wealth": 1.3718725783433259,
+        "positive": true
+      }
+    },
+    {
+      "case": "reference_full_soxl_0",
+      "positive": 518,
+      "total": 819,
+      "worst": {
+        "case": "reference_full_soxl_0",
+        "start_signal": "2024-10-02",
+        "end_signal": "2025-04-03",
+        "sessions": 126,
+        "relative_log_excess": -1.1250401081092944,
+        "relative_wealth": 0.3246394464228305,
+        "positive": false
+      },
+      "best": {
+        "case": "reference_full_soxl_0",
+        "start_signal": "2025-11-20",
+        "end_signal": "2026-05-22",
+        "sessions": 126,
+        "relative_log_excess": 1.2291366456676298,
+        "relative_wealth": 3.4182770776398606,
+        "positive": true
+      }
+    }
+  ]
+}

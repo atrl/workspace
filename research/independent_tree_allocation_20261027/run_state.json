@@ -1,0 +1,57 @@
+{
+  "plan_sha256": "0a9275010719b45ad9524b3b8de2fb2c43fe180365dd1a479f8fdafd649f7359",
+  "fit_attempts": [
+    "xgb",
+    "lgbm"
+  ],
+  "account_attempts": [
+    "xgb_unrestricted_0",
+    "xgb_constrained_0",
+    "lgbm_unrestricted_0",
+    "lgbm_constrained_0",
+    "reference_half_soxl_cash_0",
+    "reference_full_soxl_0"
+  ],
+  "runtime_failures": [
+    {
+      "recorder_id": "b93dbe491ebf4f67801f6e92965980db",
+      "failure": "missing xgboost then macOS OpenMP import-order crash before successful fit",
+      "successful_fits": 0,
+      "native_accounts": 0
+    },
+    {
+      "recorder_id": "c9687c23744246b8bac15dce3efde67d",
+      "failure": "Qlib Recorder reinitialized inside active R.start during first native account; both fitted models saved, zero native accounts",
+      "successful_fits": 2,
+      "native_accounts": 0
+    },
+    {
+      "recorder_id": "c9687c23744246b8bac15dce3efde67d",
+      "failure": "Default Qlib Position rounded adjusted ETF quantities; native reconciliation failed at 2.96e-6. Targeted read-only QlibContinuousPosition check reconciled at 2.22e-16.",
+      "successful_fits": 2,
+      "native_accounts": 0
+    }
+  ],
+  "recorder_id": "c9687c23744246b8bac15dce3efde67d",
+  "experiment_id": "102309230852234857",
+  "fits_done": [
+    "xgb",
+    "lgbm"
+  ],
+  "plan_amendments": [
+    {
+      "old_sha256": "6679ad358f7b258beb49aac30d1a8ecee96ce8de1e54237056286ffe6256062c",
+      "new_sha256": "0a9275010719b45ad9524b3b8de2fb2c43fe180365dd1a479f8fdafd649f7359",
+      "reason": "Native account rejected full 100pct desired weight because the independent whole-share replay left insufficient fee cash; no native account succeeded; fixed 0.1pct operational cash reserve in both unrestricted tree and full-SOXL reference. Models and training labels unchanged.",
+      "completed_accounts_before_amendment": 0
+    }
+  ],
+  "accounts_done": [
+    "xgb_unrestricted_0",
+    "xgb_constrained_0",
+    "lgbm_unrestricted_0",
+    "lgbm_constrained_0",
+    "reference_half_soxl_cash_0",
+    "reference_full_soxl_0"
+  ]
+}
