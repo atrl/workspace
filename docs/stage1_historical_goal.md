@@ -71,3 +71,5 @@
 [首次 Qlib 分钟预检](../research/stage1_intraday_allocation_action_space_20261028/conclusion.md)已完成：1044个合格开发日、384660个逐分钟潜在决策点，929天现金与 beta 容量随盘中价格变化；该卡零未来收益、零拟合、零新账户。下一步是整股扣费的分钟动作标签与信息门，尚无 SOXX 通过证据。
 
 [首个分钟整股标签](../research/stage1_intraday_beta_neutral_labels_20261028/conclusion.md)在固定名义beta守恒SOXL＋现金转SOXX动作上只得到2022年41个可行动日，未过预登记50日支持门。失败归因显示2022高现金但几乎没有可卖SOXL；该版本关闭，零模型、零候选账户。新Recorder的NAS工件API返回HTTP500，缺少归档回执，34MB本地对象保留。下一机制须针对原beta空间内直接现金部署，并先证明分钟成交和信息价值；SOXX历史Goal仍未通过。
+
+[现金直购SOXX分钟标签](../research/stage1_intraday_cash_deployment_labels_20261028/conclusion.md)在原beta上限下有165695条整股含费局部标签、2022年180个可行动日，来源支持通过。[新分钟时机模型](../research/stage1_intraday_cash_timing_information_20261028/conclusion.md)实际使2021/2022年16/33天的首次行动不同，但两年触发局部价值均负、配对区块改善下界负，事前价格偏离假说的系数方向也相反；固定信息门失败，零2023+候选账户。新增两卡的NAS工件回执仍缺，本地Recorder保留。分钟输入影响动作不等于SOXX超额；历史Goal未通过。

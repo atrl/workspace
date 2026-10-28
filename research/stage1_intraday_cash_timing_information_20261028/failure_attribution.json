@@ -1,0 +1,25 @@
+{
+  "source_recorder_id": "712dfd5b5d4a4618bda3b3488f4b335d",
+  "read_only_from": "analysis/daily",
+  "annual": [
+    {
+      "year": 2021,
+      "changed_action_days": 16,
+      "changed_days_positive_increment": 6,
+      "changed_days_negative_increment": 10,
+      "candidate_positive_trigger_days": 93,
+      "candidate_negative_trigger_days": 107
+    },
+    {
+      "year": 2022,
+      "changed_action_days": 33,
+      "changed_days_positive_increment": 17,
+      "changed_days_negative_increment": 16,
+      "candidate_positive_trigger_days": 72,
+      "candidate_negative_trigger_days": 69
+    }
+  ],
+  "interpretation": "Minute feature changed action timing, but predicted-positive triggers did not consistently realize positive fee-net local value; added feature sign opposed the preregistered discount-reversion hypothesis and full-calendar paired lower bound was negative.",
+  "new_fits": 0,
+  "new_accounts": 0
+}

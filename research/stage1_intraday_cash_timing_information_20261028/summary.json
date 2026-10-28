@@ -1,0 +1,60 @@
+{
+  "experiment": "stage1_intraday_cash_timing_information_20261028",
+  "plan_sha256": "960aec574d0d416010dcde79cde128b27349410ba8f5233a93f18d2db95f66ff",
+  "decision": "not_promoted_minute_cash_timing_information_failed",
+  "objective_achieved": false,
+  "historical_research_passed": false,
+  "information_gate_pass": false,
+  "annual": [
+    {
+      "year": 2021,
+      "calendar_days": 252,
+      "funded_source_days": 213,
+      "candidate_trigger_days": 200,
+      "control_trigger_days": 201,
+      "candidate_later_than_first_days": 38,
+      "changed_action_days": 16,
+      "different_score_rows": 44774,
+      "candidate_local_value_sum": -0.004068314716376813,
+      "control_local_value_sum": -0.0043019304451874015,
+      "candidate_increment_sum": 0.00023361572881058922
+    },
+    {
+      "year": 2022,
+      "calendar_days": 246,
+      "funded_source_days": 180,
+      "candidate_trigger_days": 141,
+      "control_trigger_days": 143,
+      "candidate_later_than_first_days": 102,
+      "changed_action_days": 33,
+      "different_score_rows": 36593,
+      "candidate_local_value_sum": -0.004173018432879909,
+      "control_local_value_sum": -0.004281537223923958,
+      "candidate_increment_sum": 0.00010851879104404783
+    }
+  ],
+  "added_feature_coefficients": {
+    "2021": 1.4051729691132517e-05,
+    "2022": 5.963915615232888e-06
+  },
+  "bootstrap_lower_mean_increment": -1.7174170379874433e-07,
+  "new_model_fits": 6,
+  "new_native_accounts": 0,
+  "label_nas_receipt_qualified": false,
+  "historical_first_receipt_qualified": false,
+  "recorder_id": "712dfd5b5d4a4618bda3b3488f4b335d",
+  "experiment_id": "176486937418071779",
+  "recorder_uri": "/Users/rziiiii/dev/workspace/research/stage1_intraday_cash_timing_information_20261028/qlib_recorder",
+  "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/stage1_intraday_cash_timing_information_20261028/qlib_recorder/176486937418071779/712dfd5b5d4a4618bda3b3488f4b335d",
+  "provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/stage1_event_guard_fullminute_20261028",
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "inputs/*",
+      "sources/*",
+      "models/*",
+      "analysis/*"
+    ]
+  }
+}

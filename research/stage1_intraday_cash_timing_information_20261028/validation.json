@@ -1,0 +1,15 @@
+{
+  "status": "passed_runtime_scientific_information_failed",
+  "notebook_executed": true,
+  "native_qlib_dataset_and_recorder": true,
+  "source_label_manifest_verified_locally": true,
+  "model_fits": 6,
+  "candidate_score_differences_2021": 44774,
+  "candidate_score_differences_2022": 36593,
+  "candidate_changed_action_days_2021": 16,
+  "candidate_changed_action_days_2022": 33,
+  "information_gate_pass": false,
+  "new_native_accounts": 0,
+  "nas_recorder_readback": false,
+  "nas_archive_status": "needs_nas_artifact_receipt"
+}

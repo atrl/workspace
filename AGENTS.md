@@ -127,6 +127,18 @@ independent forward evidence remains a separate contract-v2 promotion gate.
   receipts do not cover this new Recorder. A distinct cash-deployment mechanism
   must use original beta room and prove whole-share actions and event-time
   information before any account.
+- The distinct direct cash-to-SOXX minute labels are
+  `research/stage1_intraday_cash_deployment_labels_20261028`: 165695 funded
+  event rows on 815 days, including 180 days in 2022, and 0bp Tiered parent
+  reconciliation passed. The bounded minute timing receiver is
+  `research/stage1_intraday_cash_timing_information_20261028`: its SOXX
+  trailing-15-minute volume-weighted price proxy changed predictions and
+  first-passage actions versus ordinary returns, but 2021/2022 aggregate
+  triggered fee-net local value was negative, the block lower was negative,
+  and its coefficient had the opposite preregistered sign. Close this fixed
+  information version without changing sign/window/threshold; no 2023+
+  candidate account or SOXX success follows. Both new local Recorders lack
+  NAS artifact receipts because the API PUT failed; keep their local objects.
 - The independent XGB/LGB card uses a one-step all-cash origin and a pure
   SOXL/SOXX/cash winner label: only 8/1060 training labels select SOXX.
   Hard-argmax predictions are not free continuous-weight allocation. Its

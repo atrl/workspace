@@ -1,0 +1,82 @@
+{
+  "experiment": "stage1_intraday_cash_deployment_labels_20261028",
+  "plan_sha256": "cb4dea53f5d0fbcb56e307417424998c3610ec36575beb781a9b7f403db0d8e0",
+  "decision": "minute_cash_deployment_label_support_pass_needs_information",
+  "objective_achieved": false,
+  "historical_research_passed": false,
+  "source_audit": {
+    "sessions": 1056,
+    "event_slots": 384660,
+    "status_counts": {
+      "eligible": 1044,
+      "recovery": 10,
+      "source_invalid": 1,
+      "terminal": 1
+    },
+    "reason_counts": {
+      "no_target_room": 177420,
+      "funded": 165695,
+      "no_whole_share_buy": 35734,
+      "fill_exceeded_beta_cap": 5745,
+      "cash_floor_after_fee": 66
+    },
+    "funded_rows": 165695,
+    "funded_days": 815,
+    "parent_nav_max_error_usd": 1.1641532182693481e-10
+  },
+  "support_gate_pass": true,
+  "year_support": [
+    {
+      "year": 2018,
+      "days": 45,
+      "event_rows": 8019,
+      "positive_days": 36,
+      "negative_days": 37
+    },
+    {
+      "year": 2019,
+      "days": 195,
+      "event_rows": 41493,
+      "positive_days": 145,
+      "negative_days": 120
+    },
+    {
+      "year": 2020,
+      "days": 182,
+      "event_rows": 34816,
+      "positive_days": 144,
+      "negative_days": 112
+    },
+    {
+      "year": 2021,
+      "days": 213,
+      "event_rows": 44774,
+      "positive_days": 169,
+      "negative_days": 168
+    },
+    {
+      "year": 2022,
+      "days": 180,
+      "event_rows": 36593,
+      "positive_days": 127,
+      "negative_days": 120
+    }
+  ],
+  "new_model_fits": 0,
+  "new_native_accounts": 0,
+  "recorder_id": "3d8bdf0b707c41128bd61c47c75b7314",
+  "experiment_id": "761731957911014921",
+  "recorder_uri": "/Users/rziiiii/dev/workspace/research/stage1_intraday_cash_deployment_labels_20261028/qlib_recorder",
+  "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/stage1_intraday_cash_deployment_labels_20261028/qlib_recorder/761731957911014921/3d8bdf0b707c41128bd61c47c75b7314",
+  "provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/stage1_event_guard_fullminute_20261028",
+  "historical_first_receipt_qualified": false,
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "inputs/*",
+      "sources/*",
+      "analysis/*"
+    ]
+  }
+}
