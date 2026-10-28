@@ -1,0 +1,17 @@
+{
+  "plan_sha256": "81639cbf04030ee68a972af153eebfbb6ce78657c8cb56809cbd7039ada7f90b",
+  "fit_attempts": [
+    "binding_cash_to_soxl_control",
+    "binding_cash_to_soxl_candidate",
+    "nonbinding_soxl_cash_to_soxx_control",
+    "nonbinding_soxl_cash_to_soxx_candidate"
+  ],
+  "fits_done": [
+    "binding_cash_to_soxl_control",
+    "binding_cash_to_soxl_candidate",
+    "nonbinding_soxl_cash_to_soxx_control",
+    "nonbinding_soxl_cash_to_soxx_candidate"
+  ],
+  "recorder_id": "318bc25cbeac4a9fb21e745893978f46",
+  "experiment_id": "838337273387398687"
+}

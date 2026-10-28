@@ -1,0 +1,12 @@
+{
+  "old_plan_sha256": "138c9a7664fff9e520af383f54c369567b45e9800d71c713e3a9792db9be1059",
+  "new_plan_sha256": "82dea610f074c44a09e4adb9295d3b91f210bf214a106a88dbc162e15964af0b",
+  "reason": "The selected open/close/volume fields have all 15 valid paired bars on 2020-03-16 under the repaired zero-volume rule. Prior squared-path source had a stricter different field/validity contract; this coordinate has 1056/1056 source-known sessions.",
+  "observed_known": 1056,
+  "observed_unknown": [],
+  "first_availability_equal_0946": true,
+  "native_D_reads_before_repair": 4,
+  "future_labels_read": 0,
+  "model_fits": 0,
+  "native_accounts": 0
+}

@@ -1,0 +1,24 @@
+{
+  "old_plan_sha256": "a4757a84df2262c26396859910d8bbf16d4d95f1245db765d57bf2cf605b6a42",
+  "new_plan_sha256": "138c9a7664fff9e520af383f54c369567b45e9800d71c713e3a9792db9be1059",
+  "first_attempt_known": 1044,
+  "first_attempt_expected": 1055,
+  "unexpected_unknown_dates": [
+    "2018-12-28",
+    "2019-02-19",
+    "2019-02-26",
+    "2019-03-06",
+    "2019-07-17",
+    "2019-09-30",
+    "2019-11-21",
+    "2019-11-27",
+    "2020-01-14",
+    "2020-03-09",
+    "2020-03-12"
+  ],
+  "cause": "Valid zero-volume minute bars were incorrectly rejected despite positive full-session volume; zero volume contributes zero to weighted average",
+  "native_D_reads_before_repair": 2,
+  "future_labels_read": 0,
+  "model_fits": 0,
+  "native_accounts": 0
+}

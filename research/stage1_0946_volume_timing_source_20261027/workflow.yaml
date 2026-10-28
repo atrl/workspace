@@ -1,0 +1,11 @@
+experiment: stage1_0946_volume_timing_source_20261027
+provider_uri: /Users/rziiiii/dev/workspace/data/qlib/minute_information_pit_allocator_20261012/core_1min
+recorder_uri: /Users/rziiiii/dev/workspace/research/stage1_0946_volume_timing_source_20261027/qlib_recorder
+artifact_policy:
+  policy: slim_card_recorder_first
+  workflow_config: workflow.yaml
+  recorder_only_artifacts:
+  - inputs/*
+  - sources/*
+  - analysis/coordinate
+  - analysis/correlations

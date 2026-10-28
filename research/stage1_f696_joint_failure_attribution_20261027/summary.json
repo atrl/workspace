@@ -1,0 +1,156 @@
+{
+  "experiment": "stage1_f696_joint_failure_attribution_20261027",
+  "plan_sha256": "f61cc5d6ebb48ab03f8eaa810447c5b3b511a1d07111483d929dbfb846663e69",
+  "decision": "read_only_failure_attribution_no_admitted_candidate",
+  "objective_achieved": false,
+  "historical_research_passed": false,
+  "source_recorder_ids": {
+    "labels": "f8f222073c704bfea4426ce952516048",
+    "frame": "748eb4209e314fb6a6c41c19498d6d03",
+    "daily": "d3e4eda4e4ff413a818022330019d10e",
+    "early": "318bc25cbeac4a9fb21e745893978f46"
+  },
+  "source_audits": {
+    "labels": {
+      "recorder_id": "f8f222073c704bfea4426ce952516048",
+      "experiment": "stage1_f696_joint_action_local_labels_20261027",
+      "experiment_id": "534495478972593267",
+      "recorder_uri": "/Users/rziiiii/dev/workspace/research/stage1_f696_joint_action_local_labels_20261027/qlib_recorder",
+      "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/stage1_f696_joint_action_local_labels_20261027/qlib_recorder/534495478972593267/f8f222073c704bfea4426ce952516048",
+      "summary_sha256": "fd87e1c4dc7ced93ffb21eb8aae2a876a0a1d65678b4cad33e1c08f21cebc69c",
+      "verification_manifest_sha256": "1acdd805e08b31acd2f2fb171f20975bc46402a0346a8af3bc0c8e393b39672b",
+      "artifacts": {
+        "analysis/labels": {
+          "artifact": "analysis/labels",
+          "artifact_id": "f8f222073c704bfea4426ce952516048:analysis/labels",
+          "sha256": "47f4c1f3b9c079c1dd227c2701d83658e1afaf6c25424dec609565142f1a2362",
+          "bytes": 169627,
+          "manifest_entry": "qlib_recorder/534495478972593267/f8f222073c704bfea4426ce952516048/artifacts/analysis/labels",
+          "local_path": "/Users/rziiiii/dev/workspace/research/stage1_f696_joint_action_local_labels_20261027/qlib_recorder/534495478972593267/f8f222073c704bfea4426ce952516048/artifacts/analysis/labels"
+        }
+      },
+      "read_only": true,
+      "local_filestore_only": true,
+      "hashes_checked_before_unpickling": true,
+      "metadata_and_artifact_hashes_rechecked": true,
+      "source_api": [
+        "qlib.workflow.R.get_recorder",
+        "Recorder.load_object"
+      ]
+    },
+    "frame": {
+      "recorder_id": "748eb4209e314fb6a6c41c19498d6d03",
+      "experiment": "stage1_f696_exact_parent_training_reference_20261027",
+      "experiment_id": "792097999724860410",
+      "recorder_uri": "/Users/rziiiii/dev/workspace/research/stage1_f696_exact_parent_training_reference_20261027/qlib_recorder",
+      "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/stage1_f696_exact_parent_training_reference_20261027/qlib_recorder/792097999724860410/748eb4209e314fb6a6c41c19498d6d03",
+      "summary_sha256": "8c0d00825fd7aa0177e4578face924fe8a3159898a5915a4c5cac26f20877cc2",
+      "verification_manifest_sha256": "d0c696c91179e005c7859bac28b418ff827aa53c7005cf560d329f0896eb5618",
+      "artifacts": {
+        "inputs/covered_frame": {
+          "artifact": "inputs/covered_frame",
+          "artifact_id": "748eb4209e314fb6a6c41c19498d6d03:inputs/covered_frame",
+          "sha256": "9d1eafa9e9f51872c0cdc2f2d14fdee91f03a3f1a1d673277aed1393c2a0de04",
+          "bytes": 811213,
+          "manifest_entry": "qlib_recorder/792097999724860410/748eb4209e314fb6a6c41c19498d6d03/artifacts/inputs/covered_frame",
+          "local_path": "/Users/rziiiii/dev/workspace/research/stage1_f696_exact_parent_training_reference_20261027/qlib_recorder/792097999724860410/748eb4209e314fb6a6c41c19498d6d03/artifacts/inputs/covered_frame"
+        }
+      },
+      "read_only": true,
+      "local_filestore_only": true,
+      "hashes_checked_before_unpickling": true,
+      "metadata_and_artifact_hashes_rechecked": true,
+      "source_api": [
+        "qlib.workflow.R.get_recorder",
+        "Recorder.load_object"
+      ]
+    },
+    "daily": {
+      "recorder_id": "d3e4eda4e4ff413a818022330019d10e",
+      "experiment": "stage1_f696_joint_local_information_20261027",
+      "experiment_id": "257993439540996288",
+      "recorder_uri": "/Users/rziiiii/dev/workspace/research/stage1_f696_joint_local_information_20261027/qlib_recorder",
+      "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/stage1_f696_joint_local_information_20261027/qlib_recorder/257993439540996288/d3e4eda4e4ff413a818022330019d10e",
+      "summary_sha256": "9e71142ac9225cb84fd0ed5b42de865ae2f1cb06aefd667f9ceec21952beb52d",
+      "verification_manifest_sha256": "481459c993e82be7a6acd90c1fafcf8a393bf20e4387304d3288053cdbaa7143",
+      "artifacts": {
+        "analysis/predictions": {
+          "artifact": "analysis/predictions",
+          "artifact_id": "d3e4eda4e4ff413a818022330019d10e:analysis/predictions",
+          "sha256": "8b557c704a44463e0efc566ec85e2f02ce4225922a951e21e00bd76dd4f4695d",
+          "bytes": 17206,
+          "manifest_entry": "qlib_recorder/257993439540996288/d3e4eda4e4ff413a818022330019d10e/artifacts/analysis/predictions",
+          "local_path": "/Users/rziiiii/dev/workspace/research/stage1_f696_joint_local_information_20261027/qlib_recorder/257993439540996288/d3e4eda4e4ff413a818022330019d10e/artifacts/analysis/predictions"
+        }
+      },
+      "read_only": true,
+      "local_filestore_only": true,
+      "hashes_checked_before_unpickling": true,
+      "metadata_and_artifact_hashes_rechecked": true,
+      "source_api": [
+        "qlib.workflow.R.get_recorder",
+        "Recorder.load_object"
+      ]
+    },
+    "early": {
+      "recorder_id": "318bc25cbeac4a9fb21e745893978f46",
+      "experiment": "stage1_f696_volume_timing_information_20261027",
+      "experiment_id": "838337273387398687",
+      "recorder_uri": "/Users/rziiiii/dev/workspace/research/stage1_f696_volume_timing_information_20261027/qlib_recorder",
+      "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/stage1_f696_volume_timing_information_20261027/qlib_recorder/838337273387398687/318bc25cbeac4a9fb21e745893978f46",
+      "summary_sha256": "c82f365454eadc7841171d8f97cfb7c15e5d338dff612c3872061d8a2b84473b",
+      "verification_manifest_sha256": "ea1a23a736349a047a6b572918687ef4e317a9d762696afcacf60a0fbdfa770e",
+      "artifacts": {
+        "analysis/predictions": {
+          "artifact": "analysis/predictions",
+          "artifact_id": "318bc25cbeac4a9fb21e745893978f46:analysis/predictions",
+          "sha256": "58e3d956472ad92cab3fcb5bd2d01dd948c974789ef2ba787a4a48d2a180e867",
+          "bytes": 17206,
+          "manifest_entry": "qlib_recorder/838337273387398687/318bc25cbeac4a9fb21e745893978f46/artifacts/analysis/predictions",
+          "local_path": "/Users/rziiiii/dev/workspace/research/stage1_f696_volume_timing_information_20261027/qlib_recorder/838337273387398687/318bc25cbeac4a9fb21e745893978f46/artifacts/analysis/predictions"
+        }
+      },
+      "read_only": true,
+      "local_filestore_only": true,
+      "hashes_checked_before_unpickling": true,
+      "metadata_and_artifact_hashes_rechecked": true,
+      "source_api": [
+        "qlib.workflow.R.get_recorder",
+        "Recorder.load_object"
+      ]
+    }
+  },
+  "binding_2022_prior_market_predicted_positive_fraction": 1.0,
+  "binding_2022_realized_positive_fraction": 0.45454545454545453,
+  "nonbinding_2022_eligible_rows": 1,
+  "new_model_fits": 0,
+  "new_native_accounts": 0,
+  "new_recorders": 0,
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [],
+    "reused_native_recorders": [
+      "research/stage1_f696_joint_action_local_labels_20261027",
+      "research/stage1_f696_exact_parent_training_reference_20261027",
+      "research/stage1_f696_joint_local_information_20261027",
+      "research/stage1_f696_volume_timing_information_20261027"
+    ]
+  },
+  "binding_2021_2022_descriptive_state": {
+    "2021": {
+      "local_value_mean": 0.0002431219098859,
+      "mean_cash_before": 0.662488943460867,
+      "mean_account_drawdown": 0.2015614197427357,
+      "mean_beta_cap": 0.3562944285683916,
+      "mean_vix": 19.623072608223175
+    },
+    "2022": {
+      "local_value_mean": -0.0001704216840882,
+      "mean_cash_before": 0.7179510344674068,
+      "mean_account_drawdown": 0.2918061344810329,
+      "mean_beta_cap": 0.2850520059476971,
+      "mean_vix": 25.85204555338079
+    }
+  }
+}

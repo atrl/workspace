@@ -1,0 +1,9 @@
+{
+  "status": "passed",
+  "plan_sha256": "a86f99e11156bbcc474fbf302ff4e6804792e9533c368641033bed9a8667b1c6",
+  "notebook_executed": true,
+  "decision": "exact_f696_b472_covered_training_reference_passed_needs_local_labels",
+  "new_model_fits": 0,
+  "new_native_accounts": 1,
+  "nas_readback_sha256": "db1ae7040439b69ba4a264f00741a625e9c432cefe08a2d770d374b51d3591c8"
+}

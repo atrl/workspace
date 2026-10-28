@@ -45,6 +45,21 @@ independent forward evidence remains a separate contract-v2 promotion gate.
   audit is `research/stage1_f696_training_label_parent_identity_audit_20261025`.
   Before fitting a joint f696 receiver, build and verify an exact-parent physical
   0bp Tiered development reference and separately freeze its local labels.
+- The covered exact-parent development reference is now
+  `research/stage1_f696_exact_parent_training_reference_20261027`: 1056
+  2018–2022 signals have f696 five-output parity and a native f696+b472 0bp
+  Tiered own-state account. Earlier 700 f696 development signals lack matching
+  09:46/09:47 minute history; five terminal physical-source dates lack f696
+  proposals. The paired local-label card has 617 binding cash-to-SOXL and 304
+  nonbinding beta-neutral SOXX rotation labels. The fixed state-plus-prior-market
+  and 09:46 volume-timing information screens both failed their joint gates;
+  neither authorizes a 2023+ candidate account. Preserve all five cards and
+  stop those versions without sign, year, threshold, or feature-window rescue.
+  The read-only follow-up is
+  `research/stage1_f696_joint_failure_attribution_20261027`: 2022 binding
+  predictions stayed positive while realized local value weakened, and the
+  nonbinding route had only one eligible 2022 label. These are descriptive
+  shifts, not a tradable VIX, drawdown, or cash threshold.
 - In `qlib_venv`, set `MLFLOW_ALLOW_FILE_STORE=true` before importing Qlib
   workflow or reading the sealed local Recorder stores. Without it, MLflow may
   report `No valid experiment has been found` even when the experiment ID,

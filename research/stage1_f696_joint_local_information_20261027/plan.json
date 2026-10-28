@@ -1,0 +1,81 @@
+{
+  "experiment": "stage1_f696_joint_local_information_20261027",
+  "schema_version": "f696_joint_local_value_information_v1",
+  "frozen": true,
+  "hypothesis": "On exact-parent own-state local Tiered value labels, six predecision market coordinates add stable temporal value ranking beyond frozen proposal and account-state controls in both complementary action regimes.",
+  "sources": {
+    "labels": {
+      "card": "research/stage1_f696_joint_action_local_labels_20261027",
+      "recorder_id": "f8f222073c704bfea4426ce952516048",
+      "archive": "30bb43189f16a054940fb0808c958cc2fc88e4ab8c21f66657cda96fd3a1b9ad",
+      "inventory_sha256": "1acdd805e08b31acd2f2fb171f20975bc46402a0346a8af3bc0c8e393b39672b",
+      "summary_sha256": "fd87e1c4dc7ced93ffb21eb8aae2a876a0a1d65678b4cad33e1c08f21cebc69c"
+    },
+    "frame": {
+      "card": "research/stage1_f696_exact_parent_training_reference_20261027",
+      "recorder_id": "748eb4209e314fb6a6c41c19498d6d03",
+      "archive": "db1ae7040439b69ba4a264f00741a625e9c432cefe08a2d770d374b51d3591c8",
+      "inventory_sha256": "d0c696c91179e005c7859bac28b418ff827aa53c7005cf560d329f0896eb5618",
+      "summary_sha256": "8c0d00825fd7aa0177e4578face924fe8a3159898a5915a4c5cac26f20877cc2"
+    }
+  },
+  "provider_uri": "data/qlib/full_path_tiered_allocation_20261013",
+  "provider_manifest_sha256": "3a3d6f4e248d6016ea25a140587abb65fba0d8a346e45da402414095df772223",
+  "expected_reference_rows": 1056,
+  "state_features": [
+    "pretrade_soxl_weight",
+    "pretrade_soxx_weight",
+    "pretrade_cash_weight",
+    "known_drawdown",
+    "current_beta_cap",
+    "raw_beta",
+    "raw_cash_weight",
+    "alpha_probability",
+    "tail_probability"
+  ],
+  "market_features": [
+    "soxl_ret5",
+    "soxx_ret20",
+    "relative_momentum20",
+    "soxx_vol20",
+    "soxx_drawdown60",
+    "vix"
+  ],
+  "routes": {
+    "binding_cash_to_soxl": {
+      "cutoff": "2021-01-01",
+      "minimum_total_rows": 600,
+      "expected_evaluation_rows": 399,
+      "required_years": [
+        2021,
+        2022
+      ],
+      "minimum_year_rows": 100,
+      "seed_offset": 0
+    },
+    "nonbinding_soxl_cash_to_soxx": {
+      "cutoff": "2020-01-01",
+      "minimum_total_rows": 300,
+      "expected_evaluation_rows": 95,
+      "required_years": [
+        2020,
+        2021
+      ],
+      "minimum_year_rows": 30,
+      "seed_offset": 101
+    }
+  },
+  "model": "LightGBMRegressor 60 trees, 7 leaves, depth3, min_child20, lr0.03, L2=10, seed71; same fixed model for state-only control and state-plus-market candidate; no tuning or selection",
+  "information_gate": "For each route: pooled candidate MSE below same-family state-only control and training mean; positive-advantage AUC>0.5; >=5 positive and >=5 negative predicted local values; each required evaluation year >=minimum rows, candidate MSE below control and AUC>0.5; stationary bootstrap lower 2.5pct of paired MSE gain >0, mean block21 eligible route rows, 3000 draws.",
+  "decision_clock": "09:46 ET, only source-confirmed features available before decision; local fee-net label matures next session09:49",
+  "seed": 71,
+  "budget": {
+    "market_requests": 0,
+    "model_fit_attempts": 4,
+    "new_native_accounts": 0,
+    "new_recorders": 1,
+    "bootstrap_draws_per_route": 3000
+  },
+  "stop": "Any source identity or maturity failure stops; if either route misses information gate, close fixed version without feature, sign, cutoff, tree-depth, threshold or evaluation-year rescue. No complete 0bp candidate account until both pass.",
+  "as_of": "2026-10-27"
+}

@@ -1,0 +1,78 @@
+{
+  "experiment": "stage1_f696_volume_timing_information_20261027",
+  "plan_sha256": "81639cbf04030ee68a972af153eebfbb6ce78657c8cb56809cbd7039ada7f90b",
+  "decision": "not_promoted_fixed_0946_volume_timing_information_failed",
+  "objective_achieved": false,
+  "historical_research_passed": false,
+  "gates": {
+    "binding_cash_to_soxl": {
+      "passed": false,
+      "pooled": {
+        "rows": 399,
+        "candidate_mse": 5.603159030160734e-06,
+        "control_mse": 5.657964953590868e-06,
+        "train_mean_mse": 4.786020369927331e-06,
+        "candidate_auc": 0.4954257565095003,
+        "predicted_positive": 372,
+        "predicted_negative": 27,
+        "realized_positive": 203,
+        "realized_negative": 196
+      },
+      "bootstrap_lower_mse_gain": 6.829396541537288e-10,
+      "required_years": [
+        2021,
+        2022
+      ]
+    },
+    "nonbinding_soxl_cash_to_soxx": {
+      "passed": false,
+      "pooled": {
+        "rows": 95,
+        "candidate_mse": 3.489420245647693e-08,
+        "control_mse": 3.479589586319851e-08,
+        "train_mean_mse": 3.160835287340456e-08,
+        "candidate_auc": 0.5337656529516995,
+        "predicted_positive": 40,
+        "predicted_negative": 55,
+        "realized_positive": 52,
+        "realized_negative": 43
+      },
+      "bootstrap_lower_mse_gain": -5.435219007220862e-10,
+      "required_years": [
+        2020,
+        2021
+      ]
+    }
+  },
+  "historical_first_receipt_qualified": false,
+  "new_model_fits": 4,
+  "new_native_accounts": 0,
+  "recorder_id": "318bc25cbeac4a9fb21e745893978f46",
+  "experiment_id": "838337273387398687",
+  "recorder_uri": "/Users/rziiiii/dev/workspace/research/stage1_f696_volume_timing_information_20261027/qlib_recorder",
+  "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/stage1_f696_volume_timing_information_20261027/qlib_recorder/838337273387398687/318bc25cbeac4a9fb21e745893978f46",
+  "provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/full_path_tiered_allocation_20261013",
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "inputs/*",
+      "sources/*",
+      "models/*",
+      "analysis/*"
+    ]
+  },
+  "nas_evidence": {
+    "sha256": "1a38195aa52256bfb746b7aaac976317fb67ba58c5c4a080e65c8bc3470fa6eb",
+    "size_bytes": 128978,
+    "media_type": "application/gzip",
+    "storage_uri": "sha256/1a/38/1a38195aa52256bfb746b7aaac976317fb67ba58c5c4a080e65c8bc3470fa6eb",
+    "uploaded_by": "soxl-minute-research",
+    "created_at": "2026-10-27 22:27:06.902864+08",
+    "duplicate": false,
+    "nas_path": "/volume1/docker/yanxuan/registry/research-artifacts/1a/38/1a38195aa52256bfb746b7aaac976317fb67ba58c5c4a080e65c8bc3470fa6eb",
+    "recorder_id": "318bc25cbeac4a9fb21e745893978f46",
+    "experiment_id": "838337273387398687",
+    "archive_root": "qlib_recorder"
+  }
+}

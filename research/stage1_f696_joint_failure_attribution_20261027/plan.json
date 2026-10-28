@@ -1,0 +1,46 @@
+{
+  "experiment": "stage1_f696_joint_failure_attribution_20261027",
+  "frozen": true,
+  "phase": "read_only_failure_attribution",
+  "sources": {
+    "labels": {
+      "card": "research/stage1_f696_joint_action_local_labels_20261027",
+      "recorder_id": "f8f222073c704bfea4426ce952516048",
+      "archive": "30bb43189f16a054940fb0808c958cc2fc88e4ab8c21f66657cda96fd3a1b9ad",
+      "inventory_sha256": "1acdd805e08b31acd2f2fb171f20975bc46402a0346a8af3bc0c8e393b39672b",
+      "summary_sha256": "fd87e1c4dc7ced93ffb21eb8aae2a876a0a1d65678b4cad33e1c08f21cebc69c"
+    },
+    "frame": {
+      "card": "research/stage1_f696_exact_parent_training_reference_20261027",
+      "recorder_id": "748eb4209e314fb6a6c41c19498d6d03",
+      "archive": "db1ae7040439b69ba4a264f00741a625e9c432cefe08a2d770d374b51d3591c8",
+      "inventory_sha256": "d0c696c91179e005c7859bac28b418ff827aa53c7005cf560d329f0896eb5618",
+      "summary_sha256": "8c0d00825fd7aa0177e4578face924fe8a3159898a5915a4c5cac26f20877cc2"
+    },
+    "daily": {
+      "card": "research/stage1_f696_joint_local_information_20261027",
+      "recorder_id": "d3e4eda4e4ff413a818022330019d10e",
+      "archive": "5a4eb032779520094e4f4fa71723d1c5adff9a6b632e49e68c8dcec1fdfa80a2",
+      "inventory_sha256": "481459c993e82be7a6acd90c1fafcf8a393bf20e4387304d3288053cdbaa7143",
+      "summary_sha256": "9e71142ac9225cb84fd0ed5b42de865ae2f1cb06aefd667f9ceec21952beb52d"
+    },
+    "early": {
+      "card": "research/stage1_f696_volume_timing_information_20261027",
+      "recorder_id": "318bc25cbeac4a9fb21e745893978f46",
+      "archive": "1a38195aa52256bfb746b7aaac976317fb67ba58c5c4a080e65c8bc3470fa6eb",
+      "inventory_sha256": "ea1a23a736349a047a6b572918687ef4e317a9d762696afcacf60a0fbdfa770e",
+      "summary_sha256": "c82f365454eadc7841171d8f97cfb7c15e5d338dff612c3872061d8a2b84473b"
+    }
+  },
+  "provider_uri": "data/qlib/full_path_tiered_allocation_20261013",
+  "expected_support_rows": 10,
+  "expected_forecast_rows": 10,
+  "method": "Compare all 2018-2022 eligible local labels and predecision state by route/year; compare only previously evaluated 2020-2022 fixed prediction means and positive-score fractions; no threshold-derived trading switch.",
+  "budget": {
+    "source_recorder_artifacts": 4,
+    "new_model_fits": 0,
+    "new_accounts": 0,
+    "new_recorders": 0
+  },
+  "stop": "Any source hash or prediction/label identity mismatch stops. Descriptive outcome differences do not authorize another threshold/window/sign rescue."
+}

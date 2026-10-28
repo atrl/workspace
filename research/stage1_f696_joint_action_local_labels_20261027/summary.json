@@ -1,0 +1,66 @@
+{
+  "experiment": "stage1_f696_joint_action_local_labels_20261027",
+  "plan_sha256": "4143abd67af1971c207248c8b7d51f500647143d9b8280d2b3f72f73cebdce6e",
+  "decision": "matched_joint_local_labels_pass_needs_information_screen",
+  "objective_achieved": false,
+  "historical_research_passed": false,
+  "source_reference_recorder_id": "748eb4209e314fb6a6c41c19498d6d03",
+  "label_audit": {
+    "sessions": 1056,
+    "maximum_reference_nav_error_usd": 0.0,
+    "eligible": 921,
+    "mature": 921,
+    "routes": {
+      "binding_cash_to_soxl": 617,
+      "nonbinding_soxl_cash_to_soxx": 304
+    }
+  },
+  "support": {
+    "binding_cash_to_soxl": {
+      "rows": 617,
+      "years_20_rows": 4,
+      "years_both_signs_5": 5,
+      "positive": 336,
+      "negative": 281
+    },
+    "nonbinding_soxl_cash_to_soxx": {
+      "rows": 304,
+      "years_20_rows": 4,
+      "years_both_signs_5": 4,
+      "positive": 155,
+      "negative": 149
+    }
+  },
+  "gate_pass": true,
+  "new_model_fits": 0,
+  "new_native_accounts": 0,
+  "recorder_id": "f8f222073c704bfea4426ce952516048",
+  "experiment_id": "534495478972593267",
+  "recorder_uri": "/Users/rziiiii/dev/workspace/research/stage1_f696_joint_action_local_labels_20261027/qlib_recorder",
+  "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/stage1_f696_joint_action_local_labels_20261027/qlib_recorder/534495478972593267/f8f222073c704bfea4426ce952516048",
+  "provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/full_path_tiered_allocation_20261013",
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "inputs/*",
+      "sources/*",
+      "analysis/labels",
+      "analysis/annual",
+      "analysis/audit"
+    ]
+  },
+  "nas_evidence": {
+    "sha256": "30bb43189f16a054940fb0808c958cc2fc88e4ab8c21f66657cda96fd3a1b9ad",
+    "size_bytes": 183986,
+    "media_type": "application/gzip",
+    "storage_uri": "sha256/30/bb/30bb43189f16a054940fb0808c958cc2fc88e4ab8c21f66657cda96fd3a1b9ad",
+    "uploaded_by": "soxl-minute-research",
+    "created_at": "2026-10-27 22:17:11.253795+08",
+    "duplicate": false,
+    "nas_path": "/volume1/docker/yanxuan/registry/research-artifacts/30/bb/30bb43189f16a054940fb0808c958cc2fc88e4ab8c21f66657cda96fd3a1b9ad",
+    "recorder_id": "f8f222073c704bfea4426ce952516048",
+    "experiment_id": "534495478972593267",
+    "archive_root": "qlib_recorder"
+  }
+}

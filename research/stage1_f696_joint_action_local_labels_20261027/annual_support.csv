@@ -1,0 +1,11 @@
+route,year,rows,positive,negative,mean
+binding_cash_to_soxl,2018,10,5,5,0.00036685514625277895
+binding_cash_to_soxl,2019,39,18,21,1.1555508359137814e-05
+binding_cash_to_soxl,2020,169,110,59,0.0004774075604535041
+binding_cash_to_soxl,2021,179,103,76,0.0002431219098859148
+binding_cash_to_soxl,2022,220,100,120,-0.00017042168408826677
+nonbinding_soxl_cash_to_soxx,2018,39,20,19,1.4383771195904514e-05
+nonbinding_soxl_cash_to_soxx,2019,170,83,87,-3.1458787273831366e-06
+nonbinding_soxl_cash_to_soxx,2020,61,31,30,1.8931548543150343e-06
+nonbinding_soxl_cash_to_soxx,2021,33,20,13,4.6358242956002266e-05
+nonbinding_soxl_cash_to_soxx,2022,1,1,0,6.532808453649598e-05

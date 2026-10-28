@@ -1,0 +1,96 @@
+{
+  "recorder_id": "748eb4209e314fb6a6c41c19498d6d03",
+  "experiment_id": "792097999724860410",
+  "entries": [
+    {
+      "path": "qlib_recorder/792097999724860410/748eb4209e314fb6a6c41c19498d6d03/artifacts/analysis/native/exact_f696_b472_0",
+      "sha256": "fd44fd5fe48e78bdaff4e7d4e07eb39803328beb6d7fc608900e9f93de67616e",
+      "bytes": 9133152
+    },
+    {
+      "path": "qlib_recorder/792097999724860410/748eb4209e314fb6a6c41c19498d6d03/artifacts/analysis/summary",
+      "sha256": "d053a2192f4b0e677720673442a38d7d6af26c8a94ccb8258c32dae0ec926f98",
+      "bytes": 1735
+    },
+    {
+      "path": "qlib_recorder/792097999724860410/748eb4209e314fb6a6c41c19498d6d03/artifacts/code_cached.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "qlib_recorder/792097999724860410/748eb4209e314fb6a6c41c19498d6d03/artifacts/code_diff.txt",
+      "sha256": "2f0d55512e0d2b9dcaae3235c61b28a4c0dfe6c52a7c5bbfa6a45e490b463106",
+      "bytes": 443296
+    },
+    {
+      "path": "qlib_recorder/792097999724860410/748eb4209e314fb6a6c41c19498d6d03/artifacts/code_status.txt",
+      "sha256": "a6f2c6a6f53f3a5b3b51509b2f4f8c82ac3d46e09ba11d4e46f78a2dbfc4dc44",
+      "bytes": 66260
+    },
+    {
+      "path": "qlib_recorder/792097999724860410/748eb4209e314fb6a6c41c19498d6d03/artifacts/inputs/covered_frame",
+      "sha256": "9d1eafa9e9f51872c0cdc2f2d14fdee91f03a3f1a1d673277aed1393c2a0de04",
+      "bytes": 811213
+    },
+    {
+      "path": "qlib_recorder/792097999724860410/748eb4209e314fb6a6c41c19498d6d03/artifacts/inputs/plan",
+      "sha256": "4efa5ff8e5bd31f11f5c29a16093e820e3cff1137f60141843a7773f62d9a460",
+      "bytes": 4010
+    },
+    {
+      "path": "qlib_recorder/792097999724860410/748eb4209e314fb6a6c41c19498d6d03/artifacts/inputs/source_receipt",
+      "sha256": "0e0ada06a7fca2929dfdd69966c5ba57108e138a01bf42178626ba87d0571e4e",
+      "bytes": 2208
+    },
+    {
+      "path": "qlib_recorder/792097999724860410/748eb4209e314fb6a6c41c19498d6d03/artifacts/sources/native",
+      "sha256": "0d62721d4fa0b228413ada1a08ad0340447a09b64a4942f06a4de2f82be270c3",
+      "bytes": 9985
+    },
+    {
+      "path": "qlib_recorder/792097999724860410/748eb4209e314fb6a6c41c19498d6d03/artifacts/sources/replay",
+      "sha256": "cdca7692c4feba7c9879cf86f78dfb5a6e60bf9e60fa2a764b4cc92c2c578500",
+      "bytes": 6926
+    },
+    {
+      "path": "qlib_recorder/792097999724860410/748eb4209e314fb6a6c41c19498d6d03/artifacts/sources/workflow",
+      "sha256": "8168ab380a321e9ce26d1dd5b0e7b4bd703c566bdc27885b4fcfd6197a936151",
+      "bytes": 11761
+    },
+    {
+      "path": "qlib_recorder/792097999724860410/748eb4209e314fb6a6c41c19498d6d03/meta.yaml",
+      "sha256": "7cd21411f164798477e413636fdfde85e2df687815c373736b077c38331b9728",
+      "bytes": 465
+    },
+    {
+      "path": "qlib_recorder/792097999724860410/748eb4209e314fb6a6c41c19498d6d03/metrics/training_reference_sessions",
+      "sha256": "d495c32bad94d5f7a4e934d027b664796a814d0a53f6900dad6896b76a54bf27",
+      "bytes": 23
+    },
+    {
+      "path": "qlib_recorder/792097999724860410/748eb4209e314fb6a6c41c19498d6d03/params/cmd-sys.argv",
+      "sha256": "61ea581c6085f6ecf704be4920cdd8f65e76a137d6475c777af158870cd858c1",
+      "bytes": 202
+    },
+    {
+      "path": "qlib_recorder/792097999724860410/748eb4209e314fb6a6c41c19498d6d03/tags/mlflow.runName",
+      "sha256": "e210afbd2a5a7b09d08be575b2edc101d6e4c442e7e865e1d07b7b3321d2eb86",
+      "bytes": 15
+    },
+    {
+      "path": "qlib_recorder/792097999724860410/748eb4209e314fb6a6c41c19498d6d03/tags/mlflow.source.name",
+      "sha256": "2b91bc6c6ab0849037e6bbaa702be690e7bcaffff56b8048a68ff3f095ddf989",
+      "bytes": 89
+    },
+    {
+      "path": "qlib_recorder/792097999724860410/748eb4209e314fb6a6c41c19498d6d03/tags/mlflow.source.type",
+      "sha256": "c5ce086a14ea48fd26ac36ef868d31af1a5638e960bceb5cc8f6686b002f04f0",
+      "bytes": 8
+    },
+    {
+      "path": "qlib_recorder/792097999724860410/748eb4209e314fb6a6c41c19498d6d03/tags/mlflow.user",
+      "sha256": "794e1b40e6313c087fa15dfa63123c54353fa62090a43f453e84503f453aeceb",
+      "bytes": 7
+    }
+  ]
+}

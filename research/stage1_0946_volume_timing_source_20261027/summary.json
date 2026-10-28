@@ -1,0 +1,52 @@
+{
+  "experiment": "stage1_0946_volume_timing_source_20261027",
+  "plan_sha256": "82dea610f074c44a09e4adb9295d3b91f210bf214a106a88dbc162e15964af0b",
+  "decision": "source_novelty_pass_needs_matched_information",
+  "objective_achieved": false,
+  "historical_research_passed": false,
+  "known": 1056,
+  "unknown": 0,
+  "standard_deviation": 0.00944229117676159,
+  "maximum_abs_train_spearman": 0.18842056875218666,
+  "train_correlations": {
+    "soxl_ret5": -0.03239005442563514,
+    "soxx_ret20": 0.015865484117196956,
+    "relative_momentum20": 0.027681585497879788,
+    "soxx_vol20": -0.09967900758506848,
+    "soxx_drawdown60": 0.09435230347739301,
+    "vix": -0.054377591830991175,
+    "soxl_early_log_return": 0.18842056875218666,
+    "soxx_early_log_return": 0.06357116830650833
+  },
+  "historical_first_receipt_qualified": false,
+  "new_model_fits": 0,
+  "new_native_accounts": 0,
+  "recorder_id": "a8f5ba453e974335af292fddbead67cf",
+  "experiment_id": "876975773862531642",
+  "recorder_uri": "/Users/rziiiii/dev/workspace/research/stage1_0946_volume_timing_source_20261027/qlib_recorder",
+  "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/stage1_0946_volume_timing_source_20261027/qlib_recorder/876975773862531642/a8f5ba453e974335af292fddbead67cf",
+  "provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/minute_information_pit_allocator_20261012/core_1min",
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "inputs/*",
+      "sources/*",
+      "analysis/coordinate",
+      "analysis/correlations"
+    ]
+  },
+  "nas_evidence": {
+    "sha256": "d1975a19b463dc4a610b7526464670f5e8e7899eab4fce907e525ad96b750fe5",
+    "size_bytes": 103888,
+    "media_type": "application/gzip",
+    "storage_uri": "sha256/d1/97/d1975a19b463dc4a610b7526464670f5e8e7899eab4fce907e525ad96b750fe5",
+    "uploaded_by": "soxl-minute-research",
+    "created_at": "2026-10-27 22:25:18.575726+08",
+    "duplicate": false,
+    "nas_path": "/volume1/docker/yanxuan/registry/research-artifacts/d1/97/d1975a19b463dc4a610b7526464670f5e8e7899eab4fce907e525ad96b750fe5",
+    "recorder_id": "a8f5ba453e974335af292fddbead67cf",
+    "experiment_id": "876975773862531642",
+    "archive_root": "qlib_recorder"
+  }
+}

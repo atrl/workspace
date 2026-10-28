@@ -1,0 +1,48 @@
+{
+  "status": "covered_exact_f696_proposals_verified",
+  "proposals": 1756,
+  "physical_source_rows": 1061,
+  "covered_rows": 1056,
+  "first_signal": "2018-10-12",
+  "last_signal": "2022-12-21",
+  "max_proposal_alignment_error": 0.0,
+  "new_model_fits": 0,
+  "new_accounts": 0,
+  "action_source_audit": {
+    "recorder_id": "9d671fcfb1aa467bb8a9fd83971fb015",
+    "experiment": "stage1_minute_information_comparison_20261012",
+    "experiment_id": "948959188821794065",
+    "recorder_uri": "/Users/rziiiii/dev/workspace/research/stage1_minute_information_comparison_20261012/qlib_recorder",
+    "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/stage1_minute_information_comparison_20261012/qlib_recorder/948959188821794065/9d671fcfb1aa467bb8a9fd83971fb015",
+    "summary_sha256": "ccdb6337cdf812606e27ef0446e550e07b634c75e703ef8f010e96be8591bc4a",
+    "verification_manifest_sha256": "ace09b2e8647d72dcc78dce8b0b958fe4ec4fdfe2672efcb84a0c791bc368193",
+    "artifacts": {
+      "inputs/plan": {
+        "artifact": "inputs/plan",
+        "artifact_id": "9d671fcfb1aa467bb8a9fd83971fb015:inputs/plan",
+        "sha256": "b3fddcc9f1ad9735ab4ef260bfec7792aca572adbde2ad6a78511d8c5d8fb103",
+        "bytes": 5416,
+        "manifest_entry": "qlib_recorder/948959188821794065/9d671fcfb1aa467bb8a9fd83971fb015/artifacts/inputs/plan",
+        "local_path": "/Users/rziiiii/dev/workspace/research/stage1_minute_information_comparison_20261012/qlib_recorder/948959188821794065/9d671fcfb1aa467bb8a9fd83971fb015/artifacts/inputs/plan"
+      },
+      "controller/source_recovery_selection": {
+        "artifact": "controller/source_recovery_selection",
+        "artifact_id": "9d671fcfb1aa467bb8a9fd83971fb015:controller/source_recovery_selection",
+        "sha256": "ee811aab1d0ba67dfc89577503efab4dbb4e06598c73e94f8a673e736ec4c116",
+        "bytes": 268,
+        "manifest_entry": "qlib_recorder/948959188821794065/9d671fcfb1aa467bb8a9fd83971fb015/artifacts/controller/source_recovery_selection",
+        "local_path": "/Users/rziiiii/dev/workspace/research/stage1_minute_information_comparison_20261012/qlib_recorder/948959188821794065/9d671fcfb1aa467bb8a9fd83971fb015/artifacts/controller/source_recovery_selection"
+      }
+    },
+    "read_only": true,
+    "local_filestore_only": true,
+    "hashes_checked_before_unpickling": true,
+    "metadata_and_artifact_hashes_rechecked": true,
+    "source_api": [
+      "qlib.workflow.R.get_recorder",
+      "Recorder.load_object"
+    ]
+  },
+  "f696_earlier_uncovered_rows": 700,
+  "physical_terminal_without_f696_rows": 5
+}

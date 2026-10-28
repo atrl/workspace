@@ -1,0 +1,44 @@
+{
+  "experiment": "stage1_0946_volume_timing_source_20261027",
+  "schema_version": "stage1_0946_volume_timing_source_v1",
+  "frozen": true,
+  "hypothesis": "Concentration of first-15-minute dollar volume in relatively adverse SOXL minute returns conveys decision-time leveraged-ETF stress beyond aggregate early returns, prior-day market state and account state.",
+  "coordinate": "For each ETF on exactly 15 complete 09:31..09:45 bars, log(close/open); pressure=weighted mean(log return,open*volume)-unweighted mean(log return); paired residual=SOXL pressure-3*SOXX pressure. No imputation; invalid day unknown. Zero-volume bars with valid prices have zero weight and remain valid if the 15-bar session has positive total volume.",
+  "minute_provider": "data/qlib/minute_information_pit_allocator_20261012/core_1min",
+  "minute_provider_manifest_sha256": "e2d97bd4dc00cdb231f7aa926799efcbc6f0d613ca197fbe04e86db1f074bf4e",
+  "minute_nas_binding": "research/minute_information_pit_allocator_20261012/nas_binding.json",
+  "minute_nas_archive_sha256": "ee328cab292f178bf3582ef574fb411561c93b82545cd3bb90842ecd9a9a24f1",
+  "reference": {
+    "card": "research/stage1_f696_exact_parent_training_reference_20261027",
+    "recorder_id": "748eb4209e314fb6a6c41c19498d6d03",
+    "archive": "db1ae7040439b69ba4a264f00741a625e9c432cefe08a2d770d374b51d3591c8",
+    "inventory_sha256": "d0c696c91179e005c7859bac28b418ff827aa53c7005cf560d329f0896eb5618",
+    "summary_sha256": "8c0d00825fd7aa0177e4578face924fe8a3159898a5915a4c5cac26f20877cc2"
+  },
+  "expected_sessions": 1056,
+  "expected_known": 1056,
+  "expected_unknown_dates": [],
+  "novelty_cutoff": "2021-01-01",
+  "control_features": [
+    "soxl_ret5",
+    "soxx_ret20",
+    "relative_momentum20",
+    "soxx_vol20",
+    "soxx_drawdown60",
+    "vix"
+  ],
+  "gate": {
+    "minimum_std": 1e-08,
+    "maximum_abs_train_spearman": 0.8
+  },
+  "first_available_clock": "Assumed after 09:45 final completed bar at 09:46 ET; historical actual first receipt unqualified",
+  "budget": {
+    "new_source_requests": 0,
+    "native_D_feature_reads": 5,
+    "model_fits": 0,
+    "native_accounts": 0,
+    "new_recorders": 1
+  },
+  "stop": "Any source/NAS/provider mismatch, any missing required bar, nonpositive prices, negative volume or zero total volume, timing mismatch, constant value or train correlation>=.8 closes this coordinate. No future local label access or sign tuning here.",
+  "as_of": "2026-10-27"
+}

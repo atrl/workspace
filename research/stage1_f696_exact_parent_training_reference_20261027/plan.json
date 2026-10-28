@@ -1,0 +1,89 @@
+{
+  "experiment": "stage1_f696_exact_parent_training_reference_20261027",
+  "schema_version": "exact_f696_b472_covered_training_reference_v1",
+  "frozen": true,
+  "hypothesis": "Saved f696 development proposals can run through frozen b472 action/recovery on the existing 2018-2022 09:46/09:47 native Qlib clock, yielding own-state Tiered training reference.",
+  "sources": {
+    "allocation_card": "research/pit_constituent_auxiliary_training_allocation_retrained_20260928",
+    "allocation_summary_sha256": "df3113363977c60cb1538e4e1f39445aa9a8f14aa3e723d7f73fcd532d62ab42",
+    "allocation_experiment_id": "188464491611747257",
+    "allocation_recorder_id": "f696f656b3d44e868588e09a5d97c905",
+    "allocation_predictions_artifact": "pit_constituent_auxiliary_training_allocation_retrained_20260928/predictions.csv",
+    "allocation_predictions_sha256": "f532c84b5c3c05d181092044aa1bc6223e26e774d81a26f3bfa181828bdf342e",
+    "physical_card": "research/stage1_signed_volume_0bp_action_label_source_20261023",
+    "physical_summary_sha256": "ce6652a6323ec9bd11a8ce8de89239cba167a53bedb50e471080006a1a89f476",
+    "physical_experiment_id": "194705746221035167",
+    "physical_recorder_id": "3663a1e073f042e383dbcf54969a9bc2",
+    "physical_frame_sha256": "fc81f9342955aa17dc584a6587f325af39fc3731490f32a486e8fb121a095d6d",
+    "provider_manifest_sha256": "3a3d6f4e248d6016ea25a140587abb65fba0d8a346e45da402414095df772223",
+    "release_sha256": "8e337aa5273508e13eca2d75e446dcd984bc12515743798416c287b4c6b36279",
+    "action": {
+      "card": "research/stage1_minute_information_comparison_20261012",
+      "recorder_id": "9d671fcfb1aa467bb8a9fd83971fb015",
+      "archive": "2540d2ed5459785dcf04016b20342fc73fade653e2600025f5b9aaf889d7e250",
+      "inventory_sha256": "ace09b2e8647d72dcc78dce8b0b958fe4ec4fdfe2672efcb84a0c791bc368193"
+    }
+  },
+  "provider_uri": "data/qlib/full_path_tiered_allocation_20261013",
+  "release_path": "production/stage1_futu_sim_v1/runtime_release.json",
+  "expected_proposals": 1756,
+  "expected_source_rows": 1061,
+  "expected_covered_rows": 1056,
+  "first_signal": "2018-10-12",
+  "last_signal": "2022-12-21",
+  "decision_clock": "f696 next-session09:29 proposal; frozen b472 account 09:46 decision after 09:45 completed mark; 09:47 open fill; 10:32 recovery; next-session09:47 valuation",
+  "cost_scope": "0bp added slippage with IBKR Tiered fees retained; point-mark adjusted-price training analogue with raw-share fee units; no historical broker bill or full-minute drawdown claim",
+  "initial_cash": 100000,
+  "tariff": {
+    "role": "2026-10-13 current IBKR Pro Tiered price projection across reused history, not historical realized bills",
+    "tiers": [
+      {
+        "through_shares": 300000,
+        "per_share": 0.0035
+      },
+      {
+        "through_shares": 3000000,
+        "per_share": 0.002
+      },
+      {
+        "through_shares": 20000000,
+        "per_share": 0.0015
+      },
+      {
+        "through_shares": 100000000,
+        "per_share": 0.001
+      },
+      {
+        "through_shares": null,
+        "per_share": 0.0005
+      }
+    ],
+    "minimum_per_order": 0.35,
+    "maximum_order_fraction": 0.01,
+    "venue_per_share": 0.003,
+    "venue_subdollar_fraction": 0.003,
+    "clearing_per_share": 0.0002,
+    "clearing_maximum_fraction": 0.005,
+    "sec_sale_fraction": 2.06e-05,
+    "taf_per_sold_share": 0.0,
+    "taf_maximum_per_trade": 9.79,
+    "cat_per_share": 3e-06,
+    "commission_pass_through_fraction": 0.000735,
+    "venue_assumption": "SMART orders removing displayed Nasdaq liquidity; no assumed maker rebate",
+    "TAF_rule": "current IBKR fee holiday 2026-10-01 through 2026-12-31; zero projection over the full diagnostic history",
+    "fractional_share_fills": false,
+    "usd_cent_rounding": "unrounded rate projection, not exact statement cents"
+  },
+  "maximum_soxl_weight": 0.3,
+  "minimum_cash_weight": 0.15,
+  "source_boundary": "Only 1056 prefix shared signals receive a physical account. 2016-2018 signals and five 2022 terminal signals lack matched 09:46/09:47 physical frame; no daily-price backfill.",
+  "budget": {
+    "market_requests": 0,
+    "model_fits": 0,
+    "native_account_attempts": 1,
+    "new_recorders": 1
+  },
+  "stop": "Stop on source/receipt/hash mismatch, noncontiguous shared prefix, five-output mismatch, unavailable Qlib minute stamps, controller mismatch, native ledger error >1e-7, or missing physical support. Do not synthesize earlier minute fills.",
+  "promotion": "training reference only; not an economic candidate or Goal completion",
+  "as_of": "2026-10-27"
+}
