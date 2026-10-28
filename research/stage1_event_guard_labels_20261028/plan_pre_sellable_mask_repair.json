@@ -1,0 +1,92 @@
+{
+  "experiment": "stage1_event_guard_labels_20261028",
+  "schema_version": "stage1_event_guard_labels_v1",
+  "frozen": true,
+  "question": "Does the dated f696 own-state 0bp Tiered development account supply cross-year, fee-net, funded SOXL-to-SOXX minute switch labels without a fixed trigger time?",
+  "provider_uri": "data/qlib/stage1_event_guard_fullminute_20261028",
+  "provider_manifest_sha256": "e9ab78e4e8fca7b70a5ccc27074893414a1308f13a4d37c3174c1690827db1e0",
+  "provider_source": {
+    "card": "research/stage1_event_minute_source_20261028",
+    "recorder_id": "449e5bdaaebf448c97cdf1bb559226d8",
+    "archive": "280d19bb1137e77028f8b696c5b71ed0a8a319c10dc0b91d24e062545437f35d",
+    "inventory_sha256": "685d08323911a8b1e7edfeb1a16786f6264e9aa280239e4ab3309720e9d8d918",
+    "summary_sha256": "fd130feca16c3983b8c41f21a54987ad412ba82440c9c1b62c60ac7dbc7ecd6f"
+  },
+  "training_source": {
+    "card": "research/stage1_f696_oof_training_reference_20261028",
+    "recorder_id": "2994f6afbfc54f279cefec362b220001",
+    "archive": "e773cd3edf42b9ff9826270b70fdb9f9e90f4737e35f4d158ef0f5fcf5a4e9dd",
+    "inventory_sha256": "8699fd57be85d3b4b330f529e73612c8cc52967b5e7c3e8c0682c622c6e70f54",
+    "summary_sha256": "00f276f2fe3e5641642a6f864e5e85da968599286aa8e9202a2d445cdf193584"
+  },
+  "frame_source": {
+    "card": "research/stage1_f696_exact_parent_training_reference_20261027",
+    "recorder_id": "748eb4209e314fb6a6c41c19498d6d03",
+    "archive": "db1ae7040439b69ba4a264f00741a625e9c432cefe08a2d770d374b51d3591c8",
+    "inventory_sha256": "d0c696c91179e005c7859bac28b418ff827aa53c7005cf560d329f0896eb5618",
+    "summary_sha256": "8c0d00825fd7aa0177e4578face924fe8a3159898a5915a4c5cac26f20877cc2"
+  },
+  "training_start": "2018-10-15",
+  "training_end": "2022-12-22",
+  "expected_parent_sessions": 1056,
+  "initial_cash": 100000,
+  "tariff": {
+    "role": "2026-10-13 current IBKR Pro Tiered price projection across reused history, not historical realized bills",
+    "tiers": [
+      {
+        "through_shares": 300000,
+        "per_share": 0.0035
+      },
+      {
+        "through_shares": 3000000,
+        "per_share": 0.002
+      },
+      {
+        "through_shares": 20000000,
+        "per_share": 0.0015
+      },
+      {
+        "through_shares": 100000000,
+        "per_share": 0.001
+      },
+      {
+        "through_shares": null,
+        "per_share": 0.0005
+      }
+    ],
+    "minimum_per_order": 0.35,
+    "maximum_order_fraction": 0.01,
+    "venue_per_share": 0.003,
+    "venue_subdollar_fraction": 0.003,
+    "clearing_per_share": 0.0002,
+    "clearing_maximum_fraction": 0.005,
+    "sec_sale_fraction": 2.06e-05,
+    "taf_per_sold_share": 0.0,
+    "taf_maximum_per_trade": 9.79,
+    "cat_per_share": 3e-06,
+    "commission_pass_through_fraction": 0.000735,
+    "venue_assumption": "SMART orders removing displayed Nasdaq liquidity; no assumed maker rebate",
+    "TAF_rule": "current IBKR fee holiday 2026-10-01 through 2026-12-31; zero projection over the full diagnostic history",
+    "fractional_share_fills": false,
+    "usd_cent_rounding": "unrounded rate projection, not exact statement cents"
+  },
+  "event": "Evaluate every completed valid one-minute RTH bar after the original 09:47 fill; bar end t, information assumed available t+1 minute, potential fill open of bar starting t+2 minute. No fill at or after actual session close. Each action sells all currently funded SOXL raw shares and buys SOXX with proceeds, preserving prior cash except fees; require at least one actual SOXL sell and SOXX buy.",
+  "local_label": "From exact own after-opening adjusted quantities, cash and current month Tiered counter, compare HOLD versus minute switch, carry both to next session09:47, then reset both to same reference target with independent fee counters. Exclude any original recovery day, invalid minute day, no-SOXL day, terminal day and no-funded-order minute. Label matures next09:49. Keep daily full calendar and minute unknown mask; never replace with old 921 labels.",
+  "feature_set": "Own funded SOXL/SOXX/cash weights, known account drawdown, beta cap, alpha/tail, minutes to close, prior 5/15-minute SOXL/SOXX log returns, and relative downside semivariance share over15 completed minutes. All inputs available at decision time; only target accesses future prices.",
+  "support_gate": {
+    "minimum_days": 100,
+    "years_with_20_days": 3,
+    "minimum_2022_days": 20,
+    "years_with_10_each_sign": 2
+  },
+  "budget": {
+    "new_market_requests": 0,
+    "label_pass_attempts": 1,
+    "maximum_event_rows": 310000,
+    "model_fits": 0,
+    "new_native_accounts": 0,
+    "new_recorders": 1
+  },
+  "stop": "Any source summary/NAS/manifest, 1056 date, 1min clock, no-recovery mask, parent next-open NAV tolerance1e-7, funded order, label maturity or support-gate failure closes this fixed source/label version without reselecting bars or years. Historical first receipt remains unqualified.",
+  "as_of": "2026-10-28"
+}

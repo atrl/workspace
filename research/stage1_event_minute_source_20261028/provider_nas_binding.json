@@ -1,0 +1,14 @@
+{
+  "status": "passed",
+  "provider_uri": "data/qlib/stage1_event_guard_fullminute_20261028",
+  "provider_manifest_sha256": "e9ab78e4e8fca7b70a5ccc27074893414a1308f13a4d37c3174c1690827db1e0",
+  "archive_sha256": "1c28961e8dbc5356aae3a8d249d93b2440a45ae937394bbde213c95851c35788",
+  "size_bytes": 37522229,
+  "nas_path": "/volume1/docker/yanxuan/registry/research-artifacts/1c/28/1c28961e8dbc5356aae3a8d249d93b2440a45ae937394bbde213c95851c35788",
+  "scoped_members": [
+    "qlib_store/stage1_event_guard_fullminute_20261028/calendars/1min.txt",
+    "qlib_store/stage1_event_guard_fullminute_20261028/features/soxl/open.1min.bin",
+    "qlib_store/stage1_event_guard_fullminute_20261028/qlib_store_manifest.json"
+  ],
+  "source_original_NAS_snapshot_id": "18f1fb3f17907932ddd13881aea9199369181a92c9b6c77395d0b255100c68c3"
+}

@@ -1,0 +1,11 @@
+experiment: stage1_fullminute_loss_attribution_20261028
+provider_uri: /Users/rziiiii/dev/workspace/data/qlib/minute_information_pit_allocator_20261012/core_1min
+recorder_uri: /Users/rziiiii/dev/workspace/research/stage1_fullminute_loss_attribution_20261028/qlib_recorder
+artifact_policy:
+  policy: slim_card_recorder_first
+  workflow_config: workflow.yaml
+  recorder_only_artifacts:
+  - inputs/*
+  - sources/*
+  - analysis/minute/*
+  - analysis/daily

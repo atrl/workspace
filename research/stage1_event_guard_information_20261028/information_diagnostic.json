@@ -1,0 +1,80 @@
+{
+  "status": "fixed_receiver_ignored_minute_increment",
+  "rows": [
+    {
+      "year": 2021,
+      "evaluation_rows": 80850,
+      "max_score_difference": 0.0,
+      "different_score_rows": 0,
+      "added_feature_importance": 0,
+      "candidate_feature_importance": {
+        "soxl_weight": 10,
+        "soxx_weight": 39,
+        "cash_weight": 42,
+        "known_drawdown": 90,
+        "current_beta_cap": 30,
+        "alpha_probability": 65,
+        "tail_probability": 82,
+        "time_to_close_minutes": 0,
+        "soxl_ret5": 0,
+        "soxx_ret5": 0,
+        "soxl_ret15": 0,
+        "soxx_ret15": 0,
+        "relative_downside_share15": 0
+      },
+      "control_feature_importance": {
+        "soxl_weight": 10,
+        "soxx_weight": 39,
+        "cash_weight": 42,
+        "known_drawdown": 90,
+        "current_beta_cap": 30,
+        "alpha_probability": 65,
+        "tail_probability": 82,
+        "time_to_close_minutes": 0,
+        "soxl_ret5": 0,
+        "soxx_ret5": 0,
+        "soxl_ret15": 0,
+        "soxx_ret15": 0
+      }
+    },
+    {
+      "year": 2022,
+      "evaluation_rows": 15170,
+      "max_score_difference": 0.0,
+      "different_score_rows": 0,
+      "added_feature_importance": 0,
+      "candidate_feature_importance": {
+        "soxl_weight": 10,
+        "soxx_weight": 33,
+        "cash_weight": 44,
+        "known_drawdown": 99,
+        "current_beta_cap": 44,
+        "alpha_probability": 72,
+        "tail_probability": 58,
+        "time_to_close_minutes": 0,
+        "soxl_ret5": 0,
+        "soxx_ret5": 0,
+        "soxl_ret15": 0,
+        "soxx_ret15": 0,
+        "relative_downside_share15": 0
+      },
+      "control_feature_importance": {
+        "soxl_weight": 10,
+        "soxx_weight": 33,
+        "cash_weight": 44,
+        "known_drawdown": 99,
+        "current_beta_cap": 44,
+        "alpha_probability": 72,
+        "tail_probability": 58,
+        "time_to_close_minutes": 0,
+        "soxl_ret5": 0,
+        "soxx_ret5": 0,
+        "soxl_ret15": 0,
+        "soxx_ret15": 0
+      }
+    }
+  ],
+  "interpretation": "The fixed shallow trees split only on account-state features. Candidate and control predictions and first-passage actions are exactly identical. This closes this model/label/feature version, not all minute-based tail information.",
+  "new_fits": 0,
+  "new_accounts": 0
+}

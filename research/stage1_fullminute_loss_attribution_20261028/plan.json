@@ -1,0 +1,50 @@
+{
+  "experiment": "stage1_fullminute_loss_attribution_20261028",
+  "schema_version": "stage1_fullminute_loss_attribution_v1",
+  "frozen": true,
+  "question": "Where did the frozen Stage1 lose absolute NAV or SOXX excess, and does NAS full-minute data cover the actual risk path without inventing crash filters?",
+  "minute_provider": "data/qlib/minute_information_pit_allocator_20261012/core_1min",
+  "minute_provider_manifest_sha256": "e2d97bd4dc00cdb231f7aa926799efcbc6f0d613ca197fbe04e86db1f074bf4e",
+  "minute_nas_binding": "research/minute_information_pit_allocator_20261012/nas_binding.json",
+  "minute_source_id": "18f1fb3f17907932ddd13881aea9199369181a92c9b6c77395d0b255100c68c3",
+  "stage_source": {
+    "card": "research/stage1_domain_heads_20261018",
+    "recorder_id": "6e227278b7a64eafbcf34b965e16d2b9",
+    "archive": "f3f891d6d09d4187f12815e245b33cc9cfec4acfd4f555b734f66a59348d9884",
+    "inventory_sha256": "e166f7718f11fa8a2280997ee757386c398f31424ffe9105a69e8ad0477988ab"
+  },
+  "raw_source": {
+    "card": "research/frozen_policy_raw_cashbook_20261015",
+    "recorder_id": "55b4223a73d44fee89c86608edf8f58c",
+    "archive": "cb4d3c04e805a7c09010d30338f0d12f3bf42a5fa1ceaa40428f0dc5bbfc3869",
+    "inventory_sha256": "bd63e0f24735d4ef323e908dc35b5d9f01fef12c811bb3f31ac404b0d474f054"
+  },
+  "price_source": {
+    "card": "research/full_path_tiered_allocation_20261013",
+    "recorder_id": "35f69540c3d94b4db81bfe32859607ae",
+    "archive": "61e331c4d0d920e22eced638dd9d5d2283e6748d78f87bbfd420377e1de24d5a",
+    "inventory_sha256": "eff8f3d2022dc5b0187a5d9bd2625d04b47626017be87fbdc8aaff11a48706b7"
+  },
+  "training_start": "2018-10-15",
+  "training_end": "2022-12-22",
+  "training_calendar_days": 1056,
+  "training_invalid_dates": [
+    "2020-03-16"
+  ],
+  "held_start": "2023-01-04",
+  "held_terminal": "2026-10-09",
+  "held_calendar_days": 945,
+  "held_sessions": 944,
+  "initial_cash": 100000,
+  "valuation_scope": "Frozen Stage1 and SOXX raw-share book, no new orders. Bar timestamp is right edge; 09:47/10:32 fills use next bar open. Original holdings/cash/receivable carried through every valid RTH minute; terminal next09:47 only. OHLC high/low envelope is conservative asynchronous bound, not realized simultaneous NAV.",
+  "descriptive_groups": "SOXL open-to-next-open <=-10pct or >=+10pct and worst12 Stage1 sessions are accounting diagnostics only, never threshold or candidate selection.",
+  "budget": {
+    "model_fits": 0,
+    "new_native_accounts": 0,
+    "new_policy_paths": 0,
+    "new_recorders": 1,
+    "Qlib_fullminute_reads": 1
+  },
+  "stop": "Stop on source manifest/NAS, XNYS minute calendar, invalid held minute, 3778 price-point parity, native book date or minute close NAV mismatch. Preserve training 2020-03-16 invalid as unknown; no interpolation, no strategy promotion.",
+  "as_of": "2026-10-28"
+}

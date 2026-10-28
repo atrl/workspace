@@ -1,0 +1,64 @@
+{
+  "experiment": "stage1_event_guard_information_20261028",
+  "schema_version": "stage1_event_guard_information_v1",
+  "frozen": true,
+  "question": "Does 15-minute SOXL-vs-SOXX downside concentration improve first-passage fee-net SOXL-to-SOXX protective action value beyond same-state and ordinary minute-return controls?",
+  "sources": {
+    "labels": {
+      "card": "research/stage1_event_guard_labels_20261028",
+      "recorder_id": "d7f36ef1a4a3488a86d586e882cabcca",
+      "archive": "ce0176b7c34b7d6e97e50f1a077c624479abe0d810ee3e5b22248ebe4766cda3",
+      "inventory_sha256": "ad73eaafd1d5ad9971c0a144ed01379b06a95f48720148f722697cf4879b249e",
+      "summary_sha256": "5a5bdc04f2e0e4949e832bbb3853af18d4d3e441a6302f5f68ee177ae8c687ea"
+    },
+    "parent": {
+      "card": "research/stage1_f696_oof_training_reference_20261028",
+      "recorder_id": "2994f6afbfc54f279cefec362b220001",
+      "archive": "e773cd3edf42b9ff9826270b70fdb9f9e90f4737e35f4d158ef0f5fcf5a4e9dd",
+      "inventory_sha256": "8699fd57be85d3b4b330f529e73612c8cc52967b5e7c3e8c0682c622c6e70f54",
+      "summary_sha256": "00f276f2fe3e5641642a6f864e5e85da968599286aa8e9202a2d445cdf193584"
+    }
+  },
+  "provider_uri": "data/qlib/stage1_event_guard_fullminute_20261028",
+  "expected_funded_rows": 271060,
+  "evaluation_years": [
+    2021,
+    2022
+  ],
+  "minimum_year_source_days": 30,
+  "minimum_year_trigger_days": 5,
+  "control_features": [
+    "soxl_weight",
+    "soxx_weight",
+    "cash_weight",
+    "known_drawdown",
+    "current_beta_cap",
+    "alpha_probability",
+    "tail_probability",
+    "time_to_close_minutes",
+    "soxl_ret5",
+    "soxx_ret5",
+    "soxl_ret15",
+    "soxx_ret15"
+  ],
+  "added_feature": "relative_downside_share15",
+  "model": "Fixed LightGBMRegressor 60 trees, 7 leaves, depth3, min_child20, lr0.03, L2=10, seed71; each training day total weight1. Same family/rows for control and candidate.",
+  "selection": "Train on strictly matured earlier years for 2021 and 2022; evaluate every eligible completed minute in each target year, use only first predicted fee-net advantage>0 per day, one switch/day, full calendar no-trigger value0. No validation-year tuning or threshold search.",
+  "bootstrap": {
+    "mean_block_days": 63,
+    "resamples": 10000,
+    "seed": 20261014,
+    "one_sided_alpha": 0.0016666666666666668
+  },
+  "information_gate": "Each of 2021 and 2022 has >=5 candidate triggers, candidate aggregate fee-net local value>0 and candidate-minus-control aggregate>0; full-calendar 63-day corrected stationary-bootstrap lower mean improvement>0. Pointwise MSE/AUC diagnostic only. Information pass allows one separately frozen complete own-state0bp account, not scientific promotion.",
+  "budget": {
+    "model_fit_attempts": 4,
+    "new_native_accounts": 0,
+    "new_market_requests": 0,
+    "new_recorders": 1,
+    "bootstrap_attempts": 1
+  },
+  "stop": "Any source identity/maturity, prediction row, funded action or fixed information gate failure closes this version. No sign/window/model-depth/threshold/year rescue. Historical first receipt remains unqualified; reused market history not independent.",
+  "as_of": "2026-10-28",
+  "seed": 71
+}

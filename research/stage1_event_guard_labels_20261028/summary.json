@@ -1,0 +1,92 @@
+{
+  "experiment": "stage1_event_guard_labels_20261028",
+  "plan_sha256": "5864273b5de52a253eb040c5da9fe6b09e0f455389078578ee92c2f1524af530",
+  "decision": "event_guard_label_support_pass_needs_information",
+  "objective_achieved": false,
+  "historical_research_passed": false,
+  "source_audit": {
+    "calendar_days": 1056,
+    "candidate_days": 737,
+    "rows": 271430,
+    "mature_funded_rows": 271060,
+    "parent_nav_max_error_usd": 1.1641532182693481e-10,
+    "masked_days": {
+      "terminal": 1,
+      "recovery": 10,
+      "source_invalid": 1,
+      "no_sellable_soxl": 319
+    }
+  },
+  "support_gate_pass": true,
+  "funded_event_days": 736,
+  "mature_funded_rows": 271060,
+  "year_support": [
+    {
+      "year": 2018,
+      "days": 45,
+      "event_rows": 16470,
+      "positive_days": 36,
+      "negative_days": 34
+    },
+    {
+      "year": 2019,
+      "days": 222,
+      "event_rows": 81600,
+      "positive_days": 142,
+      "negative_days": 172
+    },
+    {
+      "year": 2020,
+      "days": 209,
+      "event_rows": 76970,
+      "positive_days": 139,
+      "negative_days": 164
+    },
+    {
+      "year": 2021,
+      "days": 219,
+      "event_rows": 80850,
+      "positive_days": 146,
+      "negative_days": 177
+    },
+    {
+      "year": 2022,
+      "days": 41,
+      "event_rows": 15170,
+      "positive_days": 34,
+      "negative_days": 32
+    }
+  ],
+  "new_model_fits": 0,
+  "new_native_accounts": 0,
+  "recorder_id": "d7f36ef1a4a3488a86d586e882cabcca",
+  "experiment_id": "313706541426478180",
+  "recorder_uri": "/Users/rziiiii/dev/workspace/research/stage1_event_guard_labels_20261028/qlib_recorder",
+  "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/stage1_event_guard_labels_20261028/qlib_recorder/313706541426478180/d7f36ef1a4a3488a86d586e882cabcca",
+  "provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/stage1_event_guard_fullminute_20261028",
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "inputs/*",
+      "sources/*",
+      "analysis/labels",
+      "analysis/perday",
+      "analysis/annual",
+      "analysis/audit"
+    ]
+  },
+  "nas_evidence": {
+    "sha256": "ce0176b7c34b7d6e97e50f1a077c624479abe0d810ee3e5b22248ebe4766cda3",
+    "size_bytes": 20400412,
+    "media_type": "application/gzip",
+    "storage_uri": "sha256/ce/01/ce0176b7c34b7d6e97e50f1a077c624479abe0d810ee3e5b22248ebe4766cda3",
+    "uploaded_by": "soxl-minute-research",
+    "created_at": "2026-10-28 17:01:11.135568+08",
+    "duplicate": false,
+    "nas_path": "/volume1/docker/yanxuan/registry/research-artifacts/ce/01/ce0176b7c34b7d6e97e50f1a077c624479abe0d810ee3e5b22248ebe4766cda3",
+    "recorder_id": "d7f36ef1a4a3488a86d586e882cabcca",
+    "experiment_id": "313706541426478180",
+    "archive_root": "qlib_recorder"
+  }
+}

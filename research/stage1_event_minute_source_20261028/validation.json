@@ -1,0 +1,10 @@
+{
+  "status": "passed",
+  "plan_sha256": "c328d00646a68dbab39c98ba2703689484613c189e5802d68de485fa1fc259ef",
+  "notebook_executed": true,
+  "decision": "event_minute_provider_source_parity_pass_needs_label_information",
+  "new_model_fits": 0,
+  "new_native_accounts": 0,
+  "nas_recorder_readback_sha256": "280d19bb1137e77028f8b696c5b71ed0a8a319c10dc0b91d24e062545437f35d",
+  "nas_provider_readback_sha256": "1c28961e8dbc5356aae3a8d249d93b2440a45ae937394bbde213c95851c35788"
+}

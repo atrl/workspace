@@ -1,0 +1,83 @@
+{
+  "experiment": "stage1_fullminute_loss_attribution_20261028",
+  "plan_sha256": "44e02460244719b9880588d474748ce3676eecce7ff6531c47304f7bf2d288d3",
+  "decision": "read_only_minute_loss_attribution_no_policy_promotion",
+  "objective_achieved": false,
+  "historical_research_passed": false,
+  "training_source_days": 1056,
+  "training_invalid_symbol_days": 1,
+  "held_source_days": 945,
+  "held_invalid_symbol_days": 0,
+  "raw_point_parity": {
+    "point_rows": 3778,
+    "max_absolute_error": 0.0
+  },
+  "stage1_risk": {
+    "trade_days": 944,
+    "minute_rows": 366721,
+    "close_nav_max_error_usd": 0.0,
+    "observed_drawdown": 0.2995876584330103,
+    "conservative_ohlc_bound": 0.3006512660493422,
+    "observed_worst_at": "2026-07-29 16:00:00",
+    "bound_worst_at": "2026-07-29 16:00:00",
+    "qualification": "unresolved_intraminute_ordering"
+  },
+  "soxx_risk": {
+    "trade_days": 944,
+    "minute_rows": 366721,
+    "close_nav_max_error_usd": 0.0,
+    "observed_drawdown": 0.4353147893902196,
+    "conservative_ohlc_bound": 0.4367643171409433,
+    "observed_worst_at": "2025-04-07 09:44:00",
+    "bound_worst_at": "2025-04-07 09:45:00",
+    "qualification": "observed_source_mark_breach"
+  },
+  "worst_12_dominant_soxl_segment": {
+    "soxl_close_next_return": 7,
+    "soxl_recovery_close_return": 5
+  },
+  "descriptive_groups": {
+    "soxl_down_10pct": {
+      "days": 52,
+      "relative_log_sum": 0.8826024510810214,
+      "relative_win_days": 35,
+      "mean_ending_cash_weight": 0.560399371948828
+    },
+    "soxl_up_10pct": {
+      "days": 58,
+      "relative_log_sum": -0.6352832528725534,
+      "relative_win_days": 24,
+      "mean_ending_cash_weight": 0.46535716783563347
+    }
+  },
+  "new_model_fits": 0,
+  "new_native_accounts": 0,
+  "provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/minute_information_pit_allocator_20261012/core_1min",
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "inputs/*",
+      "sources/*",
+      "analysis/minute/*",
+      "analysis/daily"
+    ]
+  },
+  "recorder_id": "254255fa7bd0439c8df067deb85de649",
+  "experiment_id": "250966867182327215",
+  "recorder_uri": "/Users/rziiiii/dev/workspace/research/stage1_fullminute_loss_attribution_20261028/qlib_recorder",
+  "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/stage1_fullminute_loss_attribution_20261028/qlib_recorder/250966867182327215/254255fa7bd0439c8df067deb85de649",
+  "nas_evidence": {
+    "sha256": "b7c44dca398f4453c72decabb9737b334365fb49e2229da50982c58fa69e92ff",
+    "size_bytes": 19698162,
+    "media_type": "application/gzip",
+    "storage_uri": "sha256/b7/c4/b7c44dca398f4453c72decabb9737b334365fb49e2229da50982c58fa69e92ff",
+    "uploaded_by": "soxl-minute-research",
+    "created_at": "2026-10-28 16:45:03.312513+08",
+    "duplicate": false,
+    "nas_path": "/volume1/docker/yanxuan/registry/research-artifacts/b7/c4/b7c44dca398f4453c72decabb9737b334365fb49e2229da50982c58fa69e92ff",
+    "recorder_id": "254255fa7bd0439c8df067deb85de649",
+    "experiment_id": "250966867182327215",
+    "archive_root": "qlib_recorder"
+  }
+}

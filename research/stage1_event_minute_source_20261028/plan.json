@@ -1,0 +1,31 @@
+{
+  "experiment": "stage1_event_minute_source_20261028",
+  "schema_version": "stage1_event_minute_source_v1",
+  "frozen": true,
+  "source_manifest": "data/raw/external/semis_minute_none_20261012_v1/source_manifest.json",
+  "source_sha256": "18f1fb3f17907932ddd13881aea9199369181a92c9b6c77395d0b255100c68c3",
+  "nas_binding": "research/minute_information_pit_allocator_20261012/nas_binding.json",
+  "provider_uri": "data/qlib/stage1_event_guard_fullminute_20261028",
+  "source_start": "2018-10-12",
+  "source_as_of": "2026-10-09",
+  "expected_minute_rows": 1560120,
+  "expected_invalid_bars": 1,
+  "expected_frame_rows": 2006,
+  "price_source": {
+    "card": "research/full_path_tiered_allocation_20261013",
+    "recorder_id": "35f69540c3d94b4db81bfe32859607ae",
+    "archive": "61e331c4d0d920e22eced638dd9d5d2283e6748d78f87bbfd420377e1de24d5a",
+    "inventory_sha256": "eff8f3d2022dc5b0187a5d9bd2625d04b47626017be87fbdc8aaff11a48706b7"
+  },
+  "clock": "Raw bar timestamps are right edges; completed bar at t is assumed known at t+1 minute, variable protective fill uses open of bar beginning t+2 minutes. Preserve raw price for whole-share fees and published-affine adjusted price for the covered OOF account.",
+  "scope": "Research source only; historical first receipt, actual broker fill and standalone dividend cash not certified. One invalid SOXX minute on 2020-03-16 remains unknown. Derived store stays local until its NAS restore is separately verified; original bytes are NAS-backed.",
+  "budget": {
+    "new_market_requests": 0,
+    "new_providers": 1,
+    "new_recorders": 1,
+    "model_fits": 0,
+    "native_accounts": 0
+  },
+  "stop": "Source SHA/NAS, 1min calendar, validity mask or any original adjusted/raw known/open/recovery/exit/close anchor mismatch stops; no interpolation, no new policy path.",
+  "as_of": "2026-10-28"
+}

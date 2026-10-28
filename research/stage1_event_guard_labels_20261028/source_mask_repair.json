@@ -1,0 +1,10 @@
+{
+  "old_plan_sha256": "673880592def23ba83ef06955383978eb0cc8d408079b06292e4c3d4caac028a",
+  "new_plan_sha256": "5864273b5de52a253eb040c5da9fe6b09e0f455389078578ee92c2f1524af530",
+  "reason": "After-opening adjusted SOXL residual amounts below one original share generated impossible candidate rows. A read-only original-share opening mask found 737 sellable nonrecovery days versus 1046 positive adjusted-quantity days. The action and label formula, source, fee rate, clock, support gate and 310000-row budget remain unchanged.",
+  "first_attempt_event_rows": 384660,
+  "first_attempt_consumed": true,
+  "new_total_attempt_budget": 2,
+  "new_model_fits": 0,
+  "new_native_accounts": 0
+}

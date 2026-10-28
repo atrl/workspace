@@ -78,6 +78,23 @@ independent forward evidence remains a separate contract-v2 promotion gate.
   next work follows `docs/stage1_research_plan_v3_20261028.md` and first freezes
   new labels, masking recovery dates and the terminal unknown. The historical
   Goal remains unmet.
+- The 2026-10-28 event-driven minute-risk batch is indexed by
+  `research/stage1_fullminute_loss_attribution_20261028` (frozen A_0 minute
+  risk/loss), `research/stage1_event_minute_source_20261028` (dual raw/affine
+  Qlib minute price plane), `research/stage1_event_guard_labels_20261028`
+  (dated-parent whole-share Tiered switch labels) and
+  `research/stage1_event_guard_information_20261028` (fixed first-passage
+  information screen). The full-minute source is complete on all 945 held
+  dates and the original 3778 raw decision/fill points match exactly. A_0
+  observed minute drawdown is 29.9588%, while asynchronous OHLC bounds reach
+  30.0651%; true intraminute ordering remains unknown. The label gate passed
+  on 736 funded event days, but the fixed candidate/control trees made
+  identical predictions, ignored every minute feature and failed the
+  preregistered 2021/2022 action-value gate. No 2023+ candidate account is
+  authorized by that version; keep it closed without tree-depth, sign,
+  minute-window or threshold rescue. The 80MB derived provider has a separate
+  NAS archive and scoped readback; preserve its local copy until restoration
+  is independently verified.
 - The independent XGB/LGB card uses a one-step all-cash origin and a pure
   SOXL/SOXX/cash winner label: only 8/1060 training labels select SOXX.
   Hard-argmax predictions are not free continuous-weight allocation. Its
