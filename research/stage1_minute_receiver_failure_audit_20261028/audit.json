@@ -1,0 +1,271 @@
+{
+  "experiment": "stage1_minute_receiver_failure_audit_20261028",
+  "plan_sha256": "c5e14bfd83ebdc82a9f098ef406a8b06c1ac40879eab6742bab6e196f3ecb8e6",
+  "source_recorder_ids": {
+    "labels": "d7f36ef1a4a3488a86d586e882cabcca",
+    "information": "61b9c3771f4542b48ad8725507ad8f21"
+  },
+  "source_receipt_entries": {
+    "labels": 13,
+    "information": 13
+  },
+  "funded_rows": 271060,
+  "funded_days": 736,
+  "by_year": [
+    {
+      "year": 2019,
+      "days": 222,
+      "funded_rows": 81600,
+      "within_day_label_variance_share": 0.07101512189018205,
+      "days_with_label_intraday_variation": 222,
+      "minute_fields": {
+        "soxl_ret5": {
+          "days_with_intraday_variation": 222,
+          "within_day_pearson_descriptive": 0.11065148831954923
+        },
+        "soxx_ret5": {
+          "days_with_intraday_variation": 222,
+          "within_day_pearson_descriptive": 0.11074293938722811
+        },
+        "soxl_ret15": {
+          "days_with_intraday_variation": 222,
+          "within_day_pearson_descriptive": 0.1821400486619221
+        },
+        "soxx_ret15": {
+          "days_with_intraday_variation": 222,
+          "within_day_pearson_descriptive": 0.1809798984283425
+        },
+        "relative_downside_share15": {
+          "days_with_intraday_variation": 222,
+          "within_day_pearson_descriptive": -0.006857055930548366
+        }
+      }
+    },
+    {
+      "year": 2020,
+      "days": 209,
+      "funded_rows": 76970,
+      "within_day_label_variance_share": 0.09656754517301631,
+      "days_with_label_intraday_variation": 209,
+      "minute_fields": {
+        "soxl_ret5": {
+          "days_with_intraday_variation": 209,
+          "within_day_pearson_descriptive": 0.12868245506808862
+        },
+        "soxx_ret5": {
+          "days_with_intraday_variation": 209,
+          "within_day_pearson_descriptive": 0.13004677989817956
+        },
+        "soxl_ret15": {
+          "days_with_intraday_variation": 209,
+          "within_day_pearson_descriptive": 0.21454632917838956
+        },
+        "soxx_ret15": {
+          "days_with_intraday_variation": 209,
+          "within_day_pearson_descriptive": 0.2135236987489096
+        },
+        "relative_downside_share15": {
+          "days_with_intraday_variation": 209,
+          "within_day_pearson_descriptive": -0.02384651810715804
+        }
+      }
+    },
+    {
+      "year": 2021,
+      "days": 219,
+      "funded_rows": 80850,
+      "within_day_label_variance_share": 0.0936847125992612,
+      "days_with_label_intraday_variation": 219,
+      "minute_fields": {
+        "soxl_ret5": {
+          "days_with_intraday_variation": 219,
+          "within_day_pearson_descriptive": 0.11711590630128964
+        },
+        "soxx_ret5": {
+          "days_with_intraday_variation": 219,
+          "within_day_pearson_descriptive": 0.11678154111596095
+        },
+        "soxl_ret15": {
+          "days_with_intraday_variation": 219,
+          "within_day_pearson_descriptive": 0.17939126627260762
+        },
+        "soxx_ret15": {
+          "days_with_intraday_variation": 219,
+          "within_day_pearson_descriptive": 0.17911631717447604
+        },
+        "relative_downside_share15": {
+          "days_with_intraday_variation": 219,
+          "within_day_pearson_descriptive": 0.005834560424040071
+        }
+      }
+    },
+    {
+      "year": 2022,
+      "days": 41,
+      "funded_rows": 15170,
+      "within_day_label_variance_share": 0.187195467566507,
+      "days_with_label_intraday_variation": 41,
+      "minute_fields": {
+        "soxl_ret5": {
+          "days_with_intraday_variation": 41,
+          "within_day_pearson_descriptive": 0.12004595387212733
+        },
+        "soxx_ret5": {
+          "days_with_intraday_variation": 41,
+          "within_day_pearson_descriptive": 0.11740008391306091
+        },
+        "soxl_ret15": {
+          "days_with_intraday_variation": 41,
+          "within_day_pearson_descriptive": 0.20121295889867058
+        },
+        "soxx_ret15": {
+          "days_with_intraday_variation": 41,
+          "within_day_pearson_descriptive": 0.1962317546934143
+        },
+        "relative_downside_share15": {
+          "days_with_intraday_variation": 41,
+          "within_day_pearson_descriptive": -0.03815415861411794
+        }
+      }
+    }
+  ],
+  "score_audit": [
+    {
+      "year": 2021,
+      "evaluation_days": 219,
+      "different_candidate_control_scores": 0,
+      "max_candidate_control_score_gap": 0.0,
+      "days_with_constant_candidate_score": 198,
+      "trigger_days": 31,
+      "triggers_at_first_eligible_minute": 31
+    },
+    {
+      "year": 2022,
+      "evaluation_days": 41,
+      "different_candidate_control_scores": 0,
+      "max_candidate_control_score_gap": 0.0,
+      "days_with_constant_candidate_score": 18,
+      "trigger_days": 5,
+      "triggers_at_first_eligible_minute": 4
+    }
+  ],
+  "saved_split_diagnostic": {
+    "status": "fixed_receiver_ignored_minute_increment",
+    "rows": [
+      {
+        "year": 2021,
+        "evaluation_rows": 80850,
+        "max_score_difference": 0.0,
+        "different_score_rows": 0,
+        "added_feature_importance": 0,
+        "candidate_feature_importance": {
+          "soxl_weight": 10,
+          "soxx_weight": 39,
+          "cash_weight": 42,
+          "known_drawdown": 90,
+          "current_beta_cap": 30,
+          "alpha_probability": 65,
+          "tail_probability": 82,
+          "time_to_close_minutes": 0,
+          "soxl_ret5": 0,
+          "soxx_ret5": 0,
+          "soxl_ret15": 0,
+          "soxx_ret15": 0,
+          "relative_downside_share15": 0
+        },
+        "control_feature_importance": {
+          "soxl_weight": 10,
+          "soxx_weight": 39,
+          "cash_weight": 42,
+          "known_drawdown": 90,
+          "current_beta_cap": 30,
+          "alpha_probability": 65,
+          "tail_probability": 82,
+          "time_to_close_minutes": 0,
+          "soxl_ret5": 0,
+          "soxx_ret5": 0,
+          "soxl_ret15": 0,
+          "soxx_ret15": 0
+        }
+      },
+      {
+        "year": 2022,
+        "evaluation_rows": 15170,
+        "max_score_difference": 0.0,
+        "different_score_rows": 0,
+        "added_feature_importance": 0,
+        "candidate_feature_importance": {
+          "soxl_weight": 10,
+          "soxx_weight": 33,
+          "cash_weight": 44,
+          "known_drawdown": 99,
+          "current_beta_cap": 44,
+          "alpha_probability": 72,
+          "tail_probability": 58,
+          "time_to_close_minutes": 0,
+          "soxl_ret5": 0,
+          "soxx_ret5": 0,
+          "soxl_ret15": 0,
+          "soxx_ret15": 0,
+          "relative_downside_share15": 0
+        },
+        "control_feature_importance": {
+          "soxl_weight": 10,
+          "soxx_weight": 33,
+          "cash_weight": 44,
+          "known_drawdown": 99,
+          "current_beta_cap": 44,
+          "alpha_probability": 72,
+          "tail_probability": 58,
+          "time_to_close_minutes": 0,
+          "soxl_ret5": 0,
+          "soxx_ret5": 0,
+          "soxl_ret15": 0,
+          "soxx_ret15": 0
+        }
+      }
+    ],
+    "interpretation": "The fixed shallow trees split only on account-state features. Candidate and control predictions and first-passage actions are exactly identical. This closes this model/label/feature version, not all minute-based tail information.",
+    "new_fits": 0,
+    "new_accounts": 0
+  },
+  "reviewed_closed_conclusion_hashes": [
+    {
+      "path": "research/minute_information_pit_allocator_20261012/conclusion.md",
+      "sha256": "686c267f3606151db0b492db869f12f5bf37bdbcdd55c4dcbe2af2e982cbc0bf"
+    },
+    {
+      "path": "research/minute_value_weight_20261017/conclusion.md",
+      "sha256": "d218d78e7adb15c3608183d54614a8da23a87f597c1944cfc9f05c2222db2c3c"
+    },
+    {
+      "path": "research/path_area_action_bridge_20261018/P3/conclusion.md",
+      "sha256": "c0d00bec4f6ef6bc75d29f4845f4e7a32322f50ba2de4a399430eae48daa4b16"
+    },
+    {
+      "path": "research/stage1_0946_pair_path_joint_value_rank_20261024/conclusion.md",
+      "sha256": "3ab779ec09026e20fe13c77d7f8062f6ebcbdd6c69a096972436090a871cbce2"
+    },
+    {
+      "path": "research/stage1_0946_pair_path_soxl_local_information_20261025/conclusion.md",
+      "sha256": "46f84b177109b01548b2de9738be8fc87cecfa1271cd5bc2ce0c9ed5280a7a94"
+    },
+    {
+      "path": "research/stage1_f696_volume_timing_information_20261027/conclusion.md",
+      "sha256": "1f7b2ed62357e979e3f75436300e62dcac0f4429fc795289700f5cc247aa3223"
+    },
+    {
+      "path": "research/stage1_event_guard_information_20261028/conclusion.md",
+      "sha256": "40dd2a7f7cdd43aa62a524b47186290a151c15511c7eb0ae1787763965343420"
+    },
+    {
+      "path": "research/independent_tree_allocation_20261027/conclusion.md",
+      "sha256": "ebf7380e9093ef83cec38daa7efd361f09f2bf176ffb0e099f5d7a70e3f991ed"
+    }
+  ],
+  "new_model_fits": 0,
+  "new_native_accounts": 0,
+  "new_recorders": 0,
+  "historical_research_passed": false,
+  "decision": "read_only_attribution_no_minute_action_information_proven"
+}

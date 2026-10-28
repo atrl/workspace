@@ -1,0 +1,9 @@
+experiment: stage1_minute_receiver_failure_audit_20261028
+type: read_only_existing_qlib_recorder_attribution
+source_cards:
+  labels: research/stage1_event_guard_labels_20261028
+  information: research/stage1_event_guard_information_20261028
+artifact_policy:
+  policy: slim_card_recorder_first
+  workflow_config: workflow.yaml
+  recorder_only_artifacts: []

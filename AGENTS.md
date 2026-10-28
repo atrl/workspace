@@ -105,6 +105,16 @@ independent forward evidence remains a separate contract-v2 promotion gate.
   unchanged 09:29 f696 allocator. Freeze new funded allocation labels,
   controls and gates before any fit. The bounded plan is
   `docs/stage1_research_plan_v3_20261028.md`.
+- Before proposing another minute mechanism, read the closed-route matrix and
+  read-only Qlib attribution in
+  `research/stage1_minute_receiver_failure_audit_20261028`. The failed event
+  receiver saw varying minute fields but had zero minute splits, identical
+  candidate/control scores, and almost every trigger at the first eligible
+  minute. A same feature with a new window or model capacity, or a parent
+  correction alone, is not a new hypothesis. The next matched task starts
+  with one legal 09:46 fee-net allocation label per day, not the old dense
+  protective switch labels; check support and actual whole-share action before
+  fitting an information receiver.
 - The independent XGB/LGB card uses a one-step all-cash origin and a pure
   SOXL/SOXX/cash winner label: only 8/1060 training labels select SOXX.
   Hard-argmax predictions are not free continuous-weight allocation. Its

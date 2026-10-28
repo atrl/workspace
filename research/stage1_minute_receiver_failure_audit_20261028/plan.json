@@ -1,0 +1,25 @@
+{
+  "experiment": "stage1_minute_receiver_failure_audit_20261028",
+  "frozen": true,
+  "type": "read_only_existing_qlib_recorder_attribution",
+  "question": "Why did the fixed event receiver ignore all minute fields, and which previously failed minute routes constrain a new matched Stage1 opening-action proposal?",
+  "source_cards": {
+    "labels": "research/stage1_event_guard_labels_20261028",
+    "information": "research/stage1_event_guard_information_20261028"
+  },
+  "years": [2019, 2020, 2021, 2022],
+  "minute_fields": ["soxl_ret5", "soxx_ret5", "soxl_ret15", "soxx_ret15", "relative_downside_share15"],
+  "diagnostics": ["daily_support", "within_day_label_variance_share", "minute_field_within_day_variance", "within_day_correlations_descriptive_only", "candidate_control_score_identity", "first_trigger_at_first_eligible_minute", "saved_feature_split_counts"],
+  "source_review": [
+    "research/minute_information_pit_allocator_20261012/conclusion.md",
+    "research/minute_value_weight_20261017/conclusion.md",
+    "research/path_area_action_bridge_20261018/P3/conclusion.md",
+    "research/stage1_0946_pair_path_joint_value_rank_20261024/conclusion.md",
+    "research/stage1_0946_pair_path_soxl_local_information_20261025/conclusion.md",
+    "research/stage1_f696_volume_timing_information_20261027/conclusion.md",
+    "research/stage1_event_guard_information_20261028/conclusion.md",
+    "research/independent_tree_allocation_20261027/conclusion.md"
+  ],
+  "budget": {"new_model_fits": 0, "new_native_accounts": 0, "new_market_requests": 0, "new_recorders": 0},
+  "stop": "Describe existing evidence only. Do not refit the failed guard, choose a minute field by these correlations, or infer SOXX excess from local labels."
+}

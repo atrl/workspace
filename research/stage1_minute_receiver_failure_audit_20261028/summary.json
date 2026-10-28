@@ -1,0 +1,26 @@
+{
+  "experiment": "stage1_minute_receiver_failure_audit_20261028",
+  "plan_sha256": "c5e14bfd83ebdc82a9f098ef406a8b06c1ac40879eab6742bab6e196f3ecb8e6",
+  "source_recorder_ids": {
+    "labels": "d7f36ef1a4a3488a86d586e882cabcca",
+    "information": "61b9c3771f4542b48ad8725507ad8f21"
+  },
+  "funded_rows": 271060,
+  "funded_days": 736,
+  "new_model_fits": 0,
+  "new_native_accounts": 0,
+  "new_recorders": 0,
+  "historical_research_passed": false,
+  "decision": "read_only_attribution_no_minute_action_information_proven",
+  "audit": "audit.json",
+  "objective_achieved": false,
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [],
+    "reused_native_recorders": [
+      "d7f36ef1a4a3488a86d586e882cabcca",
+      "61b9c3771f4542b48ad8725507ad8f21"
+    ]
+  }
+}
