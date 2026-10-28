@@ -1,0 +1,52 @@
+{
+  "experiment": "stage1_intraday_cash_timing_failure_audit_20261028",
+  "frozen": true,
+  "type": "read_only_native_qlib_recorder_failure_attribution",
+  "source_cards": {
+    "labels": "research/stage1_intraday_cash_deployment_labels_20261028",
+    "information": "research/stage1_intraday_cash_timing_information_20261028",
+    "dated_parent": "research/stage1_f696_oof_training_reference_20261028",
+    "covered_frame": "research/stage1_f696_exact_parent_training_reference_20261027"
+  },
+  "years": [
+    2021,
+    2022
+  ],
+  "diagnostics": [
+    "first_funded_buy_versus_candidate_and_control_on_full_calendar",
+    "candidate_model_with_added_minute_input_set_to_zero_without_refit",
+    "first_anchor_candidate_control_score_gap",
+    "candidate_trigger_positive_negative_local_value_counts",
+    "additional_soxx_share_price_pnl_versus_fee_and_reset_residual",
+    "selected_branch_reconciliation_to_saved_local_label"
+  ],
+  "budget": {
+    "new_model_fits": 0,
+    "new_native_accounts": 0,
+    "new_recorders": 0,
+    "new_market_requests": 0
+  },
+  "stop": "Attribution only. The fixed 15-minute feature, sign, Ridge model, action amplitude, years and threshold remain closed. Same-model input zeroing is a diagnostic decomposition, not a rescue strategy or independent validation. Preserve local Recorders lacking NAS artifact receipts.",
+  "source_pins": {
+    "labels": {
+      "recorder_id": "3d8bdf0b707c41128bd61c47c75b7314",
+      "summary_sha256": "6623fbe7eefd16ec45a955b317f3e720bdaaf5e72eed3f900c793ec5807afb42",
+      "manifest_sha256": "c8d1f5a8a88f9653ccea67a6533e61a18fda3a76c3d35c87aec6b14b0a200ca1"
+    },
+    "information": {
+      "recorder_id": "712dfd5b5d4a4618bda3b3488f4b335d",
+      "summary_sha256": "c8c7df89db623f120dc921ecfe5c640567a97e5e311b442b80746083e549eb65",
+      "manifest_sha256": "54c0ace625b6e99bb8dc2aa7248407b38069eda2d860a7a2f25350260be79dfe"
+    },
+    "dated_parent": {
+      "recorder_id": "2994f6afbfc54f279cefec362b220001",
+      "summary_sha256": "00f276f2fe3e5641642a6f864e5e85da968599286aa8e9202a2d445cdf193584",
+      "manifest_sha256": "8699fd57be85d3b4b330f529e73612c8cc52967b5e7c3e8c0682c622c6e70f54"
+    },
+    "covered_frame": {
+      "recorder_id": "748eb4209e314fb6a6c41c19498d6d03",
+      "summary_sha256": "8c0d00825fd7aa0177e4578face924fe8a3159898a5915a4c5cac26f20877cc2",
+      "manifest_sha256": "d0c696c91179e005c7859bac28b418ff827aa53c7005cf560d329f0896eb5618"
+    }
+  }
+}

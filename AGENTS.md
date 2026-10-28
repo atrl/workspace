@@ -139,6 +139,19 @@ independent forward evidence remains a separate contract-v2 promotion gate.
   information version without changing sign/window/threshold; no 2023+
   candidate account or SOXX success follows. Both new local Recorders lack
   NAS artifact receipts because the API PUT failed; keep their local objects.
+- The read-only follow-up is
+  `research/stage1_intraday_cash_timing_failure_audit_20261028`. It
+  reconstructed all 341 selected branches with zero local-label error.
+  Additional SOXX share price P&L, not only fees/reset, drove most negative
+  local value in both 2021/2022. First-legal-minute buying was negative too;
+  the 2021 first-anchor model was overoptimistic and the 2022 first-anchor
+  model underoptimistic. Same-model zeroing of the added minute input changed
+  21/56 days, whereas separately fitted candidate/control changed 16/33;
+  do not call all between-model action differences the direct feature effect.
+  The current information screen conditions on ex-post funded minute rows;
+  any future live-intent design must score source-eligible minutes before
+  knowing a later fill and handle rejected/no-whole-share orders. Preserve
+  this failure attribution and the closed fixed version before another plan.
 - The independent XGB/LGB card uses a one-step all-cash origin and a pure
   SOXL/SOXX/cash winner label: only 8/1060 training labels select SOXX.
   Hard-argmax predictions are not free continuous-weight allocation. Its

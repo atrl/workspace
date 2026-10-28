@@ -1,0 +1,7 @@
+experiment: stage1_intraday_cash_timing_failure_audit_20261028
+type: read_only_native_qlib_recorder_failure_attribution
+provider_uri: data/qlib/stage1_event_guard_fullminute_20261028
+artifact_policy:
+  policy: slim_card_recorder_first
+  workflow_config: workflow.yaml
+  recorder_only_artifacts: []

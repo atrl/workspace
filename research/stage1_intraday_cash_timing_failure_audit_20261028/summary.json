@@ -1,0 +1,71 @@
+{
+  "experiment": "stage1_intraday_cash_timing_failure_audit_20261028",
+  "plan_sha256": "413b54a9a64287bf9699aad8bdc648ffba74b7b0c0ffe22ec47ff934aff9bff3",
+  "source_recorder_ids": {
+    "labels": "3d8bdf0b707c41128bd61c47c75b7314",
+    "information": "712dfd5b5d4a4618bda3b3488f4b335d",
+    "dated_parent": "2994f6afbfc54f279cefec362b220001",
+    "covered_frame": "748eb4209e314fb6a6c41c19498d6d03"
+  },
+  "annual": [
+    {
+      "year": 2021,
+      "calendar_days": 252,
+      "first_buy_sum": -0.003933278664032853,
+      "candidate_sum": -0.004068314716376813,
+      "control_sum": -0.0043019304451874015,
+      "same_model_feature_zeroed_sum": -0.004215003320577827,
+      "direct_feature_changed_action_days": 21,
+      "candidate_control_changed_action_days": 16,
+      "candidate_trigger_days": 200,
+      "candidate_positive_local_days": 93,
+      "candidate_negative_local_days": 107,
+      "first_label_positive_days": 101,
+      "candidate_first_score_positive_days": 162,
+      "median_abs_direct_score_effect": 1.0596745598043636e-05,
+      "median_abs_candidate_control_score_gap": 3.3134686898514205e-06,
+      "median_abs_anchor_candidate_control_score_gap": 2.4375866787305824e-07,
+      "gross_additional_share_price_pnl_sum": -0.0036347509592381485,
+      "fees_reset_rounding_residual_sum": -0.00043356375713866506
+    },
+    {
+      "year": 2022,
+      "calendar_days": 246,
+      "first_buy_sum": -0.004499396206157788,
+      "candidate_sum": -0.004173018432879909,
+      "control_sum": -0.004281537223923958,
+      "same_model_feature_zeroed_sum": -0.004415557002095272,
+      "direct_feature_changed_action_days": 56,
+      "candidate_control_changed_action_days": 33,
+      "candidate_trigger_days": 141,
+      "candidate_positive_local_days": 72,
+      "candidate_negative_local_days": 69,
+      "first_label_positive_days": 83,
+      "candidate_first_score_positive_days": 39,
+      "median_abs_direct_score_effect": 5.4427833923309964e-06,
+      "median_abs_candidate_control_score_gap": 2.1319278322865504e-06,
+      "median_abs_anchor_candidate_control_score_gap": 1.5448030847521184e-07,
+      "gross_additional_share_price_pnl_sum": -0.00392737435944841,
+      "fees_reset_rounding_residual_sum": -0.0002456440734314993
+    }
+  ],
+  "selected_branch_max_reconstruction_error": 0.0,
+  "new_model_fits": 0,
+  "new_native_accounts": 0,
+  "historical_research_passed": false,
+  "decision": "read_only_minute_timing_failure_attribution_no_promotion",
+  "objective_achieved": false,
+  "audit": "audit.json",
+  "new_recorders": 0,
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [],
+    "reused_native_recorders": [
+      "3d8bdf0b707c41128bd61c47c75b7314",
+      "712dfd5b5d4a4618bda3b3488f4b335d",
+      "2994f6afbfc54f279cefec362b220001",
+      "748eb4209e314fb6a6c41c19498d6d03"
+    ]
+  }
+}
