@@ -1,0 +1,33 @@
+{
+  "status": "read_only_target_capacity_diagnostic",
+  "parent_recorder_id": "2994f6afbfc54f279cefec362b220001",
+  "sessions": 1056,
+  "open_execute_days": 936,
+  "recovery_days_excluded": 10,
+  "rule_scope": "Old fixed support-target formulas applied to dated own-state accepted target solely to test feasible action space; no local outcome, fee-net label, fit, account or approved action size",
+  "annual_target_supported": {
+    "2018": {
+      "binding_cash_to_soxl": 11,
+      "nonbinding_soxl_cash_to_soxx": 43
+    },
+    "2019": {
+      "binding_cash_to_soxl": 36,
+      "nonbinding_soxl_cash_to_soxx": 188
+    },
+    "2020": {
+      "binding_cash_to_soxl": 46,
+      "nonbinding_soxl_cash_to_soxx": 162
+    },
+    "2021": {
+      "binding_cash_to_soxl": 39,
+      "nonbinding_soxl_cash_to_soxx": 189
+    },
+    "2022": {
+      "binding_cash_to_soxl": 184,
+      "nonbinding_soxl_cash_to_soxx": 29
+    }
+  },
+  "new_model_fits": 0,
+  "new_native_accounts": 0,
+  "future_local_value_labels_read": 0
+}

@@ -1,0 +1,123 @@
+{
+  "experiment": "stage1_f696_oof_training_reference_20261028",
+  "schema_version": "stage1_f696_oof_training_reference_v1",
+  "frozen": true,
+  "hypothesis": "A covered 2018-2022 development reference can use only prior-year f696 allocations, saved annual b472 opening models and newly dated recovery models trained on the identical 09:47 physical-price teacher, with its own Tiered cash/holdings state.",
+  "old_reference_card": "research/stage1_f696_exact_parent_training_reference_20261027",
+  "old_reference_plan_sha256": "a86f99e11156bbcc474fbf302ff4e6804792e9533c368641033bed9a8667b1c6",
+  "old_reference_summary_sha256": "8c0d00825fd7aa0177e4578face924fe8a3159898a5915a4c5cac26f20877cc2",
+  "action_card": "research/stage1_open_action_value_net_fees_20260928",
+  "action_bundle_sha256": "fa6024c9bf1698a2b2c4b5da83ce64f222e0bf579a2455b98f6b68447ec7c75a",
+  "action_experiment_id": "466758183726921937",
+  "action_recorder_id": "b472a458fc9042b4905094fddeaebd33",
+  "action_model_object": "stage1_open_action_value_net_fees_20260928/open_action_value_models.pkl",
+  "action_diagnostics_artifact": "qlib_recorder/466758183726921937/b472a458fc9042b4905094fddeaebd33/artifacts/stage1_open_action_value_net_fees_20260928/training_diagnostics.csv",
+  "action_artifacts": {
+    "qlib_recorder/466758183726921937/b472a458fc9042b4905094fddeaebd33/artifacts/stage1_open_action_value_net_fees_20260928/open_action_value_models.pkl": "a006816c34a106e1006a18763ad5a6b1c1159e847f84dc65b40ffee1f1128e52",
+    "qlib_recorder/466758183726921937/b472a458fc9042b4905094fddeaebd33/artifacts/stage1_open_action_value_net_fees_20260928/training_diagnostics.csv": "a6f70dca9b1d796e27f3f539917e98cf5a5147084ea05f1badcfd711e57cc496"
+  },
+  "provider_uri": "data/qlib/full_path_tiered_allocation_20261013",
+  "signal_years": [
+    2018,
+    2019,
+    2020,
+    2021,
+    2022
+  ],
+  "expected_sessions": 1056,
+  "recovery_selection": {
+    "selection_uses_outer_test": false,
+    "selected_from_segment": "development_walk_forward",
+    "logistic_c": 0.3,
+    "probability_threshold": 0.825,
+    "action_beta": 0.6,
+    "minimum_source_alpha_probability": 0.25,
+    "threshold_plateau_count": 3,
+    "production_enabled": false
+  },
+  "recovery_teacher": "New disclosed development scaffold: use NAS-backed prior covered f696 source; derive 09:47-to-next-09:47 adjusted ETF returns from saved open/exit marks; build teacher with frozen recovery_spec and mature labels. This is not a byte-reproduction of original unsaved recovery_models_dev. No mutable soxl/soxl_intraday_15min provider read.",
+  "recovery_training_support": {
+    "2018": {
+      "rows": 0,
+      "positive": 0,
+      "negative": 0
+    },
+    "2019": {
+      "rows": 0,
+      "positive": 0,
+      "negative": 0
+    },
+    "2020": {
+      "rows": 65,
+      "positive": 35,
+      "negative": 30
+    },
+    "2021": {
+      "rows": 189,
+      "positive": 103,
+      "negative": 86
+    },
+    "2022": {
+      "rows": 225,
+      "positive": 123,
+      "negative": 102
+    }
+  },
+  "explicit_no_recovery_model_years": [
+    2018,
+    2019
+  ],
+  "initial_cash": 100000,
+  "tariff": {
+    "role": "2026-10-13 current IBKR Pro Tiered price projection across reused history, not historical realized bills",
+    "tiers": [
+      {
+        "through_shares": 300000,
+        "per_share": 0.0035
+      },
+      {
+        "through_shares": 3000000,
+        "per_share": 0.002
+      },
+      {
+        "through_shares": 20000000,
+        "per_share": 0.0015
+      },
+      {
+        "through_shares": 100000000,
+        "per_share": 0.001
+      },
+      {
+        "through_shares": null,
+        "per_share": 0.0005
+      }
+    ],
+    "minimum_per_order": 0.35,
+    "maximum_order_fraction": 0.01,
+    "venue_per_share": 0.003,
+    "venue_subdollar_fraction": 0.003,
+    "clearing_per_share": 0.0002,
+    "clearing_maximum_fraction": 0.005,
+    "sec_sale_fraction": 2.06e-05,
+    "taf_per_sold_share": 0.0,
+    "taf_maximum_per_trade": 9.79,
+    "cat_per_share": 3e-06,
+    "commission_pass_through_fraction": 0.000735,
+    "venue_assumption": "SMART orders removing displayed Nasdaq liquidity; no assumed maker rebate",
+    "TAF_rule": "current IBKR fee holiday 2026-10-01 through 2026-12-31; zero projection over the full diagnostic history",
+    "fractional_share_fills": false,
+    "usd_cent_rounding": "unrounded rate projection, not exact statement cents"
+  },
+  "maximum_soxl_weight": 0.3,
+  "minimum_cash_weight": 0.15,
+  "decision_clock": "Allocation f696 next-session09:29; annual opening action09:46 after known09:45 mark; 09:47 whole-share Tiered fill; recovery10:32; next09:47 valuation. Each annual open/recovery model trained only on prior-year mature labels; no final b472 fallback.",
+  "source_limits": "2018-10-12..2022-12-21 covered signals only; older700 proposals and terminal5 physical dates not filled; adjusted-price account with raw share fee units, no separate receivable/dividend or historical broker-bill parity; source first receipts and full-minute risk remain unqualified.",
+  "budget": {
+    "new_market_requests": 0,
+    "recovery_fit_attempts": 3,
+    "native_account_attempts": 1,
+    "new_recorders": 1
+  },
+  "stop": "Stop on source hash/NAS, annual model cutoff, teacher cohort/maturity, missing recovery receipt, incomplete date mapping or native NAV/cash/share/fee error. One physical account only, no new action-value receiver fit or SOXX promotion claim.",
+  "as_of": "2026-10-28"
+}

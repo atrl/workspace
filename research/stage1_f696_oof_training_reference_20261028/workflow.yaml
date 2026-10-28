@@ -1,0 +1,11 @@
+experiment: stage1_f696_oof_training_reference_20261028
+provider_uri: /Users/rziiiii/dev/workspace/data/qlib/full_path_tiered_allocation_20261013
+recorder_uri: /Users/rziiiii/dev/workspace/research/stage1_f696_oof_training_reference_20261028/qlib_recorder
+artifact_policy:
+  policy: slim_card_recorder_first
+  workflow_config: workflow.yaml
+  recorder_only_artifacts:
+  - inputs/*
+  - sources/*
+  - models/*
+  - analysis/*

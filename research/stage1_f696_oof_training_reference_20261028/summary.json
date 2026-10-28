@@ -1,0 +1,101 @@
+{
+  "experiment": "stage1_f696_oof_training_reference_20261028",
+  "plan_sha256": "a1f279a080109da5cf36f8f35ee2d833e47502c22d7674a1459c9f7c2c30a113",
+  "decision": "dated_2018_2022_training_reference_passed_needs_new_label_design",
+  "objective_achieved": false,
+  "historical_research_passed": false,
+  "source_role": "new_covered_walk_forward_training_scaffold_not_frozen_live_b472_development_replay",
+  "sessions": 1056,
+  "new_recovery_model_fits": 3,
+  "new_native_accounts": 1,
+  "native_audit": {
+    "status": "passed",
+    "sessions": 1056,
+    "orders": 1416,
+    "errors": {
+      "return_error": 4.440892098500626e-16,
+      "relative_cash_error": 4.729303113683174e-16,
+      "relative_quantity_value_error": 0.0,
+      "maximum_weight_error": 4.440892098500626e-16
+    },
+    "provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/full_path_tiered_allocation_20261013",
+    "tariff_role": "2026-10-13 current IBKR Pro Tiered price projection across reused history, not historical realized bills",
+    "slippage_bps": 0,
+    "maximum_monthly_fee_counted_raw_shares": 7717.0,
+    "commission_uses_raw_whole_share_orders": true,
+    "actual_broker_fill_or_corporate_action_parity": false,
+    "native_api": [
+      "qlib.backtest.backtest",
+      "SimulatorExecutor",
+      "Exchange",
+      "Position"
+    ]
+  },
+  "opening_execute_days": 936,
+  "recovery_days": 10,
+  "recovery_support": {
+    "2018": {
+      "rows": 0,
+      "positive": 0,
+      "negative": 0,
+      "latest_label_available_at": null,
+      "cutoff": "2018-10-15 14:31:00+00:00"
+    },
+    "2019": {
+      "rows": 0,
+      "positive": 0,
+      "negative": 0,
+      "latest_label_available_at": null,
+      "cutoff": "2019-01-03 15:31:00+00:00"
+    },
+    "2020": {
+      "rows": 65,
+      "positive": 35,
+      "negative": 30,
+      "latest_label_available_at": "2019-10-17 13:30:00+00:00",
+      "cutoff": "2020-01-03 15:31:00+00:00"
+    },
+    "2021": {
+      "rows": 189,
+      "positive": 103,
+      "negative": 86,
+      "latest_label_available_at": "2020-11-17 14:30:00+00:00",
+      "cutoff": "2021-01-05 15:31:00+00:00"
+    },
+    "2022": {
+      "rows": 225,
+      "positive": 123,
+      "negative": 102,
+      "latest_label_available_at": "2021-10-04 13:30:00+00:00",
+      "cutoff": "2022-01-04 15:31:00+00:00"
+    }
+  },
+  "recorder_id": "2994f6afbfc54f279cefec362b220001",
+  "experiment_id": "165443341115748238",
+  "recorder_uri": "/Users/rziiiii/dev/workspace/research/stage1_f696_oof_training_reference_20261028/qlib_recorder",
+  "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/stage1_f696_oof_training_reference_20261028/qlib_recorder/165443341115748238/2994f6afbfc54f279cefec362b220001",
+  "provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/full_path_tiered_allocation_20261013",
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "inputs/*",
+      "sources/*",
+      "models/*",
+      "analysis/*"
+    ]
+  },
+  "nas_evidence": {
+    "sha256": "e773cd3edf42b9ff9826270b70fdb9f9e90f4737e35f4d158ef0f5fcf5a4e9dd",
+    "size_bytes": 1243800,
+    "media_type": "application/gzip",
+    "storage_uri": "sha256/e7/73/e773cd3edf42b9ff9826270b70fdb9f9e90f4737e35f4d158ef0f5fcf5a4e9dd",
+    "uploaded_by": "soxl-minute-research",
+    "created_at": "2026-10-28 14:35:53.888499+08",
+    "duplicate": false,
+    "nas_path": "/volume1/docker/yanxuan/registry/research-artifacts/e7/73/e773cd3edf42b9ff9826270b70fdb9f9e90f4737e35f4d158ef0f5fcf5a4e9dd",
+    "recorder_id": "2994f6afbfc54f279cefec362b220001",
+    "experiment_id": "165443341115748238",
+    "archive_root": "qlib_recorder"
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "scope": "same f696 proposals and 1056 source dates; different action model vintages and newly dated recovery teacher; diagnostic only",
+  "sessions": 1056,
+  "in_sample_final_b472": {
+    "terminal_equity": 1.1605348305776768,
+    "open_execute_days": 921,
+    "recovery_days": 0,
+    "orders": 1009
+  },
+  "dated_oof_scaffold": {
+    "terminal_equity": 2.662377837617661,
+    "open_execute_days": 936,
+    "recovery_days": 10,
+    "orders": 1416
+  },
+  "different_open_execute_days": 149,
+  "different_recovery_days": 10,
+  "mean_abs_ending_cash_weight_diff": 0.1362426002258851
+}

@@ -66,6 +66,18 @@ independent forward evidence remains a separate contract-v2 promotion gate.
   predictions stayed positive while realized local value weakened, and the
   nonbinding route had only one eligible 2022 label. These are descriptive
   shifts, not a tradable VIX, drawdown, or cash threshold.
+- The corrected development scaffold is
+  `research/stage1_f696_oof_training_reference_20261028`: the same 1056
+  f696 proposals, sealed prior-year b472 opening models, explicit no-recovery
+  models in 2018/2019, and three newly fitted prior-year recovery models in
+  2020–2022. Its one 0bp Tiered native account and 1056 annual model-clock rows
+  reconcile; recovery fires on 10 dates. This is a **new dated recovery teacher**
+  built from the verified 09:47 price plane, not a byte-identical recreation of
+  the old unsaved yearly recovery models or the final release. Its NAS Recorder
+  archive passed scoped readback. The old 921 local labels do not transfer;
+  next work follows `docs/stage1_research_plan_v3_20261028.md` and first freezes
+  new labels, masking recovery dates and the terminal unknown. The historical
+  Goal remains unmet.
 - The independent XGB/LGB card uses a one-step all-cash origin and a pure
   SOXL/SOXX/cash winner label: only 8/1060 training labels select SOXX.
   Hard-argmax predictions are not free continuous-weight allocation. Its
