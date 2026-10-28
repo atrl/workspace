@@ -95,6 +95,16 @@ independent forward evidence remains a separate contract-v2 promotion gate.
   minute-window or threshold rescue. The 80MB derived provider has a separate
   NAS archive and scoped readback; preserve its local copy until restoration
   is independently verified.
+- The user narrowed the next Stage1 batch after that failure: do not pursue
+  the protective SOXL-to-SOXX event switch or the separate continuous-weight
+  tree allocator as the next candidate. First audit read-only why the prior
+  minute rows produced zero minute-feature splits and identical candidate and
+  control actions. If a distinct mechanism remains, use minute information
+  only at a clock where it is available to the matched f696+b472 chain;
+  09:45 completed bars belong to a 09:46 opening-action receiver, not the
+  unchanged 09:29 f696 allocator. Freeze new funded allocation labels,
+  controls and gates before any fit. The bounded plan is
+  `docs/stage1_research_plan_v3_20261028.md`.
 - The independent XGB/LGB card uses a one-step all-cash origin and a pure
   SOXL/SOXX/cash winner label: only 8/1060 training labels select SOXX.
   Hard-argmax predictions are not free continuous-weight allocation. Its
