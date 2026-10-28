@@ -43,23 +43,37 @@ independent forward evidence remains a separate contract-v2 promotion gate.
   labels and fixed information failures retain their original scope; they are
   not matched f696 training labels or automatic necessary gates. The read-only
   audit is `research/stage1_f696_training_label_parent_identity_audit_20261025`.
-  Before fitting a joint f696 receiver, build and verify an exact-parent physical
-  0bp Tiered development reference and separately freeze its local labels.
+  Before fitting a joint f696 receiver, build and verify an exact-parent,
+  **fully walk-forward at every model layer** physical 0bp Tiered development
+  reference and separately freeze its local labels.
 - The covered exact-parent development reference is now
   `research/stage1_f696_exact_parent_training_reference_20261027`: 1056
-  2018–2022 signals have f696 five-output parity and a native f696+b472 0bp
-  Tiered own-state account. Earlier 700 f696 development signals lack matching
+  2018–2022 signals have f696 five-output parity and a native 0bp Tiered
+  own-state account, but the replay used the final b472 model trained through
+  2022 on earlier dates. Its 617 binding and 304 nonbinding local labels and
+  both failed information screens are conditional diagnostics, **not strict
+  walk-forward receiver evidence**. The read-only correction is
+  `research/stage1_methodology_audit_20261028`; build a truly dated b472
+  opening/recovery controller reference before reusing the label method.
+  Earlier 700 f696 development signals lack matching
   09:46/09:47 minute history; five terminal physical-source dates lack f696
-  proposals. The paired local-label card has 617 binding cash-to-SOXL and 304
-  nonbinding beta-neutral SOXX rotation labels. The fixed state-plus-prior-market
-  and 09:46 volume-timing information screens both failed their joint gates;
-  neither authorizes a 2023+ candidate account. Preserve all five cards and
+  proposals. The fixed state-plus-prior-market and 09:46 volume-timing screens
+  failed their *recorded conditional* gates; neither authorizes a 2023+
+  candidate account or rejects the corrected OOF receiver. Preserve all cards and
   stop those versions without sign, year, threshold, or feature-window rescue.
   The read-only follow-up is
   `research/stage1_f696_joint_failure_attribution_20261027`: 2022 binding
   predictions stayed positive while realized local value weakened, and the
   nonbinding route had only one eligible 2022 label. These are descriptive
   shifts, not a tradable VIX, drawdown, or cash threshold.
+- The independent XGB/LGB card uses a one-step all-cash origin and a pure
+  SOXL/SOXX/cash winner label: only 8/1060 training labels select SOXX.
+  Hard-argmax predictions are not free continuous-weight allocation. Its
+  constrained arm combines a SOXL cap, cash floor, and 4% drawdown stop; the
+  864/909 stop-state days cannot identify which individual rule caused the
+  performance drop. Keep the frozen numbers, but do not infer that XGB/LGB
+  cannot rank a risk-adjusted SOXX middle allocation or that a single old
+  rule was proven harmful.
 - In `qlib_venv`, set `MLFLOW_ALLOW_FILE_STORE=true` before importing Qlib
   workflow or reading the sealed local Recorder stores. Without it, MLflow may
   report `No valid experiment has been found` even when the experiment ID,

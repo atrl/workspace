@@ -1,0 +1,7 @@
+{
+  "status": "kernel_died_before_audit_result",
+  "stage": "read_only_source_loading",
+  "model_fits": 0,
+  "accounts": 0,
+  "repair": "Import xgboost before Qlib/PyTorch in notebook; no scientific method changed"
+}

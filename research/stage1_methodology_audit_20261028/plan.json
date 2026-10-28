@@ -1,0 +1,43 @@
+{
+  "experiment": "stage1_methodology_audit_20261028",
+  "schema_version": "stage1_methodology_read_only_audit_v1",
+  "frozen": true,
+  "question": "Do the recent exact-parent training labels and independent tree comparison support the scientific claims made about walk-forward action value, SOXX selection and restrictions?",
+  "action_card": "research/stage1_open_action_value_net_fees_20260928",
+  "action_experiment_id": "466758183726921937",
+  "action_model_object": "stage1_open_action_value_net_fees_20260928/open_action_value_models.pkl",
+  "action_diagnostics_artifact": "qlib_recorder/466758183726921937/b472a458fc9042b4905094fddeaebd33/artifacts/stage1_open_action_value_net_fees_20260928/training_diagnostics.csv",
+  "action_artifacts": [
+    "qlib_recorder/466758183726921937/b472a458fc9042b4905094fddeaebd33/artifacts/stage1_open_action_value_net_fees_20260928/open_action_value_models.pkl",
+    "qlib_recorder/466758183726921937/b472a458fc9042b4905094fddeaebd33/artifacts/stage1_open_action_value_net_fees_20260928/frozen_open_action_value_model.pkl",
+    "qlib_recorder/466758183726921937/b472a458fc9042b4905094fddeaebd33/artifacts/stage1_open_action_value_net_fees_20260928/training_diagnostics.csv"
+  ],
+  "reference_card": "research/stage1_f696_exact_parent_training_reference_20261027",
+  "label_card": "research/stage1_f696_joint_action_local_labels_20261027",
+  "tree_card": "research/independent_tree_allocation_20261027",
+  "provider_uri": "data/qlib/soxl",
+  "covered_years": [
+    2018,
+    2019,
+    2020,
+    2021,
+    2022
+  ],
+  "source_sha256": {
+    "research/stage1_open_action_value_net_fees_20260928/summary.json": "f6549f17979c5e2d92f2bfd474e99a3c7c74c4df13c35f20dcb8dbf9551d7219",
+    "research/stage1_open_action_value_net_fees_20260928/frozen_bundle_manifest.json": "fa6024c9bf1698a2b2c4b5da83ce64f222e0bf579a2455b98f6b68447ec7c75a",
+    "research/stage1_f696_exact_parent_training_reference_20261027/summary.json": "8c0d00825fd7aa0177e4578face924fe8a3159898a5915a4c5cac26f20877cc2",
+    "research/stage1_f696_joint_action_local_labels_20261027/summary.json": "fd87e1c4dc7ced93ffb21eb8aae2a876a0a1d65678b4cad33e1c08f21cebc69c",
+    "research/independent_tree_allocation_20261027/summary.json": "03c31f8be6f0ba921814d29533feb74d1ba498f1041283ddce49ece8b2de1820",
+    "research/independent_tree_allocation_20261027/constraint_bridge.json": "bf91e30ec71e43071c78cb7edc04fd6260048d0442167293c2b2a2fd3f60fd05",
+    "src/workflow/stage1_f696_training_reference.py": "ce3106b6bff9be5e58c33c1b077379370763997d45833f24a9907ea024084d7b"
+  },
+  "budget": {
+    "new_market_requests": 0,
+    "new_model_fits": 0,
+    "new_accounts": 0,
+    "new_recorders": 0
+  },
+  "stop": "If source bundle/hash, native Recorder identity, training cutoff or annual-model inventory differs, stop without revising frozen numeric cards. Corrections must append scope notes, not relabel failed accounts as successes.",
+  "as_of": "2026-10-28"
+}

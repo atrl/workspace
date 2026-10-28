@@ -1,0 +1,20 @@
+{
+  "experiment": "stage1_methodology_audit_20261028",
+  "plan_sha256": "7277f65ece71b94923f2ec4b9f388afec84eb4444024eef992d6c780f30f4175",
+  "decision": "methodology_correction_requires_oof_action_training_reference",
+  "objective_achieved": false,
+  "historical_research_passed": false,
+  "audit": "audit.json",
+  "new_model_fits": 0,
+  "new_native_accounts": 0,
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [],
+    "reused_native_recorders": [
+      "research/stage1_open_action_value_net_fees_20260928",
+      "research/stage1_f696_exact_parent_training_reference_20261027",
+      "research/independent_tree_allocation_20261027"
+    ]
+  }
+}

@@ -1,0 +1,38 @@
+{
+  "decision": "methodology_correction_requires_oof_action_training_reference",
+  "plan_sha256": "7277f65ece71b94923f2ec4b9f388afec84eb4444024eef992d6c780f30f4175",
+  "f696_reference_rows_with_final_b472": 1056,
+  "reference_native_reconciliation_passed": true,
+  "reference_has_separate_corporate_action_parity": false,
+  "frozen_b472_training_signal_end": "2022-12-31",
+  "saved_prior_year_action_models": [
+    2018,
+    2019,
+    2020,
+    2021,
+    2022
+  ],
+  "annual_vs_frozen_coefficient_max_abs": {
+    "2018": 0.10763776275973563,
+    "2019": 0.08284877735986801,
+    "2020": 0.15212112084116242,
+    "2021": 0.09099646849452565,
+    "2022": 0.05136451811712564
+  },
+  "affected_local_label_rows": 921,
+  "tree_one_step_label_counts_soxl_soxx_cash": {
+    "0": 552,
+    "1": 8,
+    "2": 500
+  },
+  "tree_test_actions_soxx": 0,
+  "tree_constrained_stop_days": {
+    "xgb": 864,
+    "lgbm": 909
+  },
+  "scientific_scope": "Frozen numerical results remain valid for their recorded scaffold; the 2018-2022 b472 final-model path is in-sample, so its 617/304 local labels and downstream information screens cannot certify a strict walk-forward Stage1 receiver. The pure-action tree result does not establish continuous-allocation tree capacity or isolate individual restrictions.",
+  "new_model_fits": 0,
+  "new_accounts": 0,
+  "new_recorders": 0,
+  "legacy_b472_bundle_validation": "local frozen_bundle_manifest SHA256 and size verified; no new NAS scoped readback for the legacy action card in this audit"
+}
