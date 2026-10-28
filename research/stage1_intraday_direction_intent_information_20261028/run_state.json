@@ -1,0 +1,17 @@
+{
+  "plan_sha256": "b8ed5c30ff0b12fe61bd989a1ec31bc36d96b57e4ce1ff4ac465d386240e4036",
+  "fit_attempts": [
+    "2021_control",
+    "2021_candidate",
+    "2022_control",
+    "2022_candidate"
+  ],
+  "fits_done": [
+    "2021_control",
+    "2021_candidate",
+    "2022_control",
+    "2022_candidate"
+  ],
+  "recorder_id": "f6c8b829c04e41b5a53fc87f6cf05558",
+  "experiment_id": "299920768728284209"
+}

@@ -1,0 +1,59 @@
+{
+  "experiment": "stage1_intraday_direction_intent_information_20261028",
+  "schema_version": "stage1_intraday_direction_intent_information_v1",
+  "frozen": true,
+  "question": "Do completed SOXX 15-minute price returns improve whether to initiate a legal cash-to-SOXX buy over current funded state, with next-bar execution fixed and all source-eligible intentions evaluated?",
+  "label_source": {
+    "card": "research/stage1_intraday_cash_deployment_labels_20261028",
+    "recorder_id": "3d8bdf0b707c41128bd61c47c75b7314",
+    "summary_sha256": "6623fbe7eefd16ec45a955b317f3e720bdaaf5e72eed3f900c793ec5807afb42",
+    "inventory_sha256": "c8d1f5a8a88f9653ccea67a6533e61a18fda3a76c3d35c87aec6b14b0a200ca1",
+    "nas_receipt_qualified": false
+  },
+  "parent_source": {
+    "card": "research/stage1_f696_oof_training_reference_20261028",
+    "recorder_id": "2994f6afbfc54f279cefec362b220001",
+    "archive": "e773cd3edf42b9ff9826270b70fdb9f9e90f4737e35f4d158ef0f5fcf5a4e9dd",
+    "inventory_sha256": "8699fd57be85d3b4b330f529e73612c8cc52967b5e7c3e8c0682c622c6e70f54",
+    "summary_sha256": "00f276f2fe3e5641642a6f864e5e85da968599286aa8e9202a2d445cdf193584"
+  },
+  "provider_uri": "data/qlib/stage1_event_guard_fullminute_20261028",
+  "provider_manifest_sha256": "e9ab78e4e8fca7b70a5ccc27074893414a1308f13a4d37c3174c1690827db1e0",
+  "expected_source_slots": 384660,
+  "expected_intent_rows": 207240,
+  "expected_funded_rows": 165695,
+  "evaluation_years": [
+    2021,
+    2022
+  ],
+  "intent_mask": "At completed bar t retain every source-valid parent day/slot with decision-known cash deployment target weight>1e-10. No-fill, cap, or cash-floor outcomes at t+2 remain rows with label0 and reason; do not condition model/evaluation on ex-post funded_change. No-target-room slots remain in the full session calendar with no intended order.",
+  "label": "If actual next-bar whole-share buy is funded, use its 0bp-added-slippage Tiered same-state next-open local_advantage. If execution fails, local value0 and label maturity fill_at+1 minute. Funded label maturity next-day09:49. Neither label is available at the decision time.",
+  "control_features": [
+    "decision_soxl_weight",
+    "decision_soxx_weight",
+    "decision_cash_weight",
+    "current_beta_cap",
+    "cash_deployment_weight",
+    "minute_of_session"
+  ],
+  "candidate_added_feature": "soxx_ret15",
+  "feature_formula": "Completed Qlib SOXX adjusted close log return over the previous15 right-edge one-minute bars within the same session; available at decision t+1 minute. Positive continuation is the frozen directional hypothesis. No VWAP proxy, sign flip, alternative window or year selection.",
+  "model": "Two arms per year, Qlib DatasetH and fixed StandardScaler/Ridge alpha10, inverse intent-row count per day weights; fit only prior mature labels, evaluate 2021 and 2022 separately. Total four fits.",
+  "policy": "At every decision-known positive-target-room completed minute, score buy-versus-HOLD. If score>0, submit fixed 0bp Tiered next-bar buy intention. A failed/no-whole-share attempt yields no position change; next score is allowed only after fill outcome time fill_at+1 minute. Stop after first funded buy/day. Full source calendar no-intent/no-fill dates contribute0. The execution timing rule and action size are frozen and identical for both arms; no second timing model unless direction information passes.",
+  "bootstrap": {
+    "mean_block_days": 63,
+    "resamples": 10000,
+    "seed": 20261028,
+    "one_sided_alpha": 0.0016666666666666668
+  },
+  "information_gate": "Each of2021/2022: >=10 candidate funded buy days, candidate fee-net local sum>0, candidate-minus-control local sum>0, at least one different funded action day/time; candidate SOXX ret15 standardized coefficient>0; complete-calendar paired 63-day corrected stationary-bootstrap lower mean increment>0. Passing only permits a separate execution-time investigation and one later own-state0bp account, not SOXX success.",
+  "budget": {
+    "new_model_fit_attempts": 4,
+    "new_native_accounts": 0,
+    "new_market_requests": 0,
+    "new_recorders": 1,
+    "bootstrap_attempts": 1
+  },
+  "stop": "Any source hash/maturity, intent count, causal no-fill replay, year support or frozen information gate failure closes this version. Do not rescue by ret15 sign, Ridge alpha, threshold, action size or evaluation year. New label Recorder NAS receipt is missing; preserve local and mark needs_nas. Historical first minute receipt unqualified.",
+  "as_of": "2026-10-28"
+}

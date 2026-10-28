@@ -75,3 +75,5 @@
 [现金直购SOXX分钟标签](../research/stage1_intraday_cash_deployment_labels_20261028/conclusion.md)在原beta上限下有165695条整股含费局部标签、2022年180个可行动日，来源支持通过。[新分钟时机模型](../research/stage1_intraday_cash_timing_information_20261028/conclusion.md)实际使2021/2022年16/33天的首次行动不同，但两年触发局部价值均负、配对区块改善下界负，事前价格偏离假说的系数方向也相反；固定信息门失败，零2023+候选账户。新增两卡的NAS工件回执仍缺，本地Recorder保留。分钟输入影响动作不等于SOXX超额；历史Goal未通过。
 
 [逐笔只读归因](../research/stage1_intraday_cash_timing_failure_audit_20261028/conclusion.md)显示两年负局部价值主要是新增SOXX股数后续价格损失，费用/复位为次要拖累；首次合法分钟机械买入也为负。固定模型的分钟字段有真实动作传递，但基础买入方向校准和择时未产生正净价值。该结果不改变信息门失败、0个完整候选账户或SOXX历史Goal状态。
+
+[方向先行分钟模型](../research/stage1_intraday_direction_intent_information_20261028/conclusion.md)固定下一bar执行，在207240条当时有目标空间的意向上把未成交保留入路径；2021/2022候选扣费局部和均负，2022相对状态控制更差，SOXX15分钟涨跌系数违背事前方向，信息门失败。第二层执行择时按计划未训练，0个2023+候选完整账户；此结果也未完成SOXX历史Goal。新Recorder的NAS工件收据仍缺，本地保留。

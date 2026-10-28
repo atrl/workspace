@@ -152,6 +152,19 @@ independent forward evidence remains a separate contract-v2 promotion gate.
   any future live-intent design must score source-eligible minutes before
   knowing a later fill and handle rejected/no-whole-share orders. Preserve
   this failure attribution and the closed fixed version before another plan.
+- The first direction-before-execution attempt is
+  `research/stage1_intraday_direction_intent_information_20261028`. It used
+  all 207240 decision-known positive-target-room minute intentions, kept
+  no-whole-share/constraint-failed attempts in the evaluation path, fixed
+  next-bar execution, and compared state+clock Ridge against one added
+  completed SOXX 15-minute return. Four dated Qlib fits changed funded
+  actions, but both annual candidate local-value sums were negative, 2022
+  candidate-control value fell, the block lower was negative, and the
+  preregistered positive-momentum coefficient had the wrong sign. Close this
+  fixed direction version; do not train an execution-timing layer or run a
+  candidate account from it. The no-fill cost assumption is conditional:
+  1-minute OHLCV does not prove broker rejection/fees at future fill prices.
+  Its local Recorder lacks NAS artifact receipt/readback and must remain.
 - The independent XGB/LGB card uses a one-step all-cash origin and a pure
   SOXL/SOXX/cash winner label: only 8/1060 training labels select SOXX.
   Hard-argmax predictions are not free continuous-weight allocation. Its

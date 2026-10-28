@@ -1,0 +1,66 @@
+{
+  "experiment": "stage1_intraday_direction_intent_information_20261028",
+  "plan_sha256": "b8ed5c30ff0b12fe61bd989a1ec31bc36d96b57e4ce1ff4ac465d386240e4036",
+  "decision": "not_promoted_minute_direction_intent_information_failed",
+  "objective_achieved": false,
+  "historical_research_passed": false,
+  "information_gate_pass": false,
+  "annual": [
+    {
+      "year": 2021,
+      "calendar_days": 252,
+      "intent_days": 237,
+      "intent_rows": 52788,
+      "funded_source_rows": 44774,
+      "candidate_funded_days": 169,
+      "control_funded_days": 167,
+      "candidate_attempts": 451,
+      "candidate_failed_attempts": 282,
+      "changed_funded_action_days": 32,
+      "different_score_rows": 52788,
+      "candidate_local_value_sum": -0.00365033782577619,
+      "control_local_value_sum": -0.0037207950666046947,
+      "candidate_increment_sum": 7.04572408285047e-05
+    },
+    {
+      "year": 2022,
+      "calendar_days": 246,
+      "intent_days": 219,
+      "intent_rows": 49834,
+      "funded_source_rows": 36593,
+      "candidate_funded_days": 120,
+      "control_funded_days": 72,
+      "candidate_attempts": 271,
+      "candidate_failed_attempts": 151,
+      "changed_funded_action_days": 79,
+      "different_score_rows": 49834,
+      "candidate_local_value_sum": -0.004581838681755008,
+      "control_local_value_sum": -0.0037285260687982503,
+      "candidate_increment_sum": -0.0008533126129567576
+    }
+  ],
+  "added_feature_coefficients": {
+    "2021": -1.5770683772573734e-06,
+    "2022": -2.1288229472106895e-06
+  },
+  "bootstrap_lower_mean_increment": -5.3695880377377055e-06,
+  "new_model_fits": 4,
+  "new_native_accounts": 0,
+  "label_nas_receipt_qualified": false,
+  "historical_first_receipt_qualified": false,
+  "recorder_id": "f6c8b829c04e41b5a53fc87f6cf05558",
+  "experiment_id": "299920768728284209",
+  "recorder_uri": "/Users/rziiiii/dev/workspace/research/stage1_intraday_direction_intent_information_20261028/qlib_recorder",
+  "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/stage1_intraday_direction_intent_information_20261028/qlib_recorder/299920768728284209/f6c8b829c04e41b5a53fc87f6cf05558",
+  "provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/stage1_event_guard_fullminute_20261028",
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "inputs/*",
+      "sources/*",
+      "models/*",
+      "analysis/*"
+    ]
+  }
+}
