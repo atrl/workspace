@@ -1,0 +1,10 @@
+experiment: stage1_intraday_allocation_action_space_20261028
+type: read_only_minute_source_clock_and_target_space_preflight
+provider_uri: data/qlib/stage1_event_guard_fullminute_20261028
+source_cards:
+  parent: research/stage1_f696_oof_training_reference_20261028
+  frame: research/stage1_f696_exact_parent_training_reference_20261027
+artifact_policy:
+  policy: slim_card_recorder_first
+  workflow_config: workflow.yaml
+  recorder_only_artifacts: []

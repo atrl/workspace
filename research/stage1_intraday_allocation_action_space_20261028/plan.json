@@ -1,0 +1,14 @@
+{
+  "experiment": "stage1_intraday_allocation_action_space_20261028",
+  "frozen": true,
+  "type": "read_only_minute_source_clock_and_target_space_preflight",
+  "parent_plan": "research/stage1_event_guard_labels_20261028/plan.json",
+  "provider_uri": "data/qlib/stage1_event_guard_fullminute_20261028",
+  "provider_manifest_sha256": "e9ab78e4e8fca7b70a5ccc27074893414a1308f13a4d37c3174c1690827db1e0",
+  "expected_parent_sessions": 1056,
+  "minute_clock": "Each valid completed RTH minute after the original 09:47 opening fill: bar right-edge t, assumed information at t+1 minute, earliest fill at open of the bar starting t+2 minutes, strictly before session close.",
+  "capacity_measure": "At each minute close, mark frozen own after-opening quantities and cash at observed adjusted prices. Diagnostic cash-to-risk-room is min(current cash weight, max(0, parent current beta cap minus current 3xSOXL+SOXX nominal beta)); beta-neutral rotation room requires positive SOXL and cash. Positive room is only a target-space diagnostic, not a whole-share order or fee-net label.",
+  "exclude": ["source_invalid_day", "original_recovery_day", "terminal_without_next_open"],
+  "budget": {"qlib_minute_source_reads": 1, "new_model_fits": 0, "new_native_accounts": 0, "new_market_requests": 0, "new_recorders": 0},
+  "stop": "Do not calculate future returns, fit a model, infer funded order support or choose a trigger threshold from this preflight. Preserve the prior guard and daily 09:46 proposal as closed/superseded in their original scopes."
+}

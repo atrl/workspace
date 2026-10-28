@@ -75,8 +75,8 @@ independent forward evidence remains a separate contract-v2 promotion gate.
   built from the verified 09:47 price plane, not a byte-identical recreation of
   the old unsaved yearly recovery models or the final release. Its NAS Recorder
   archive passed scoped readback. The old 921 local labels do not transfer;
-  next work follows `docs/stage1_research_plan_v3_20261028.md` and first freezes
-  new labels, masking recovery dates and the terminal unknown. The historical
+  next work follows `docs/stage1_intraday_allocation_plan_v4_20261028.md`;
+  new event-time labels must mask recovery dates and terminal unknown. The historical
   Goal remains unmet.
 - The 2026-10-28 event-driven minute-risk batch is indexed by
   `research/stage1_fullminute_loss_attribution_20261028` (frozen A_0 minute
@@ -95,26 +95,26 @@ independent forward evidence remains a separate contract-v2 promotion gate.
   minute-window or threshold rescue. The 80MB derived provider has a separate
   NAS archive and scoped readback; preserve its local copy until restoration
   is independently verified.
-- The user narrowed the next Stage1 batch after that failure: do not pursue
-  the protective SOXL-to-SOXX event switch or the separate continuous-weight
-  tree allocator as the next candidate. First audit read-only why the prior
-  minute rows produced zero minute-feature splits and identical candidate and
-  control actions. If a distinct mechanism remains, use minute information
-  only at a clock where it is available to the matched f696+b472 chain;
-  09:45 completed bars belong to a 09:46 opening-action receiver, not the
-  unchanged 09:29 f696 allocator. Freeze new funded allocation labels,
-  controls and gates before any fit. The bounded plan is
-  `docs/stage1_research_plan_v3_20261028.md`.
-- Before proposing another minute mechanism, read the closed-route matrix and
-  read-only Qlib attribution in
-  `research/stage1_minute_receiver_failure_audit_20261028`. The failed event
-  receiver saw varying minute fields but had zero minute splits, identical
-  candidate/control scores, and almost every trigger at the first eligible
-  minute. A same feature with a new window or model capacity, or a parent
-  correction alone, is not a new hypothesis. The next matched task starts
-  with one legal 09:46 fee-net allocation label per day, not the old dense
-  protective switch labels; check support and actual whole-share action before
-  fitting an information receiver.
+- The user removed protective SOXL-to-SOXX event switching and the separate
+  continuous-weight tree allocator from the next batch. The subsequent
+  one-label-per-day 09:46 proposal was also rejected: it collapses intraday
+  timing back to a daily action. Use
+  `docs/stage1_intraday_allocation_plan_v4_20261028.md` for the current
+  minute-level allocation task. Keep exact f696+b472 as the parent; after its
+  opening trade, evaluate each completed eligible minute with causal receipt
+  and next-bar fill. An event-time allocation action must use its own funded
+  state, whole shares and fees. Daily grouping applies to uncertainty, not to
+  the decision clock. Before proposing a feature or model, read the closed
+  routes and Qlib attribution in
+  `research/stage1_minute_receiver_failure_audit_20261028`; a new window,
+  model capacity, or parent correction alone is not a new mechanism.
+- The read-only Qlib minute action-space preflight is
+  `research/stage1_intraday_allocation_action_space_20261028`: 1044 eligible
+  dated-parent sessions and 384660 causal minute decision slots, with positive
+  cash/beta target room on 929 days. This is only target-space and clock
+  evidence: whole-share orders, Tiered local labels, model use of minute data,
+  and SOXX returns remain unproved. The next experiment must freeze a bounded
+  intraday action and per-event same-state labels before fitting.
 - The independent XGB/LGB card uses a one-step all-cash origin and a pure
   SOXL/SOXX/cash winner label: only 8/1060 training labels select SOXX.
   Hard-argmax predictions are not free continuous-weight allocation. Its

@@ -1,0 +1,83 @@
+{
+  "experiment": "stage1_intraday_allocation_action_space_20261028",
+  "plan_sha256": "9ffe660ff9ec388578a07b93f60cbc5425b0712a73a7e23a356cc28ba83ff2f0",
+  "parent_recorder_id": "2994f6afbfc54f279cefec362b220001",
+  "frame_recorder_id": "748eb4209e314fb6a6c41c19498d6d03",
+  "provider_manifest_sha256": "e9ab78e4e8fca7b70a5ccc27074893414a1308f13a4d37c3174c1690827db1e0",
+  "sessions": 1056,
+  "status_counts": {
+    "eligible": 1044,
+    "recovery": 10,
+    "source_invalid": 1,
+    "terminal": 1
+  },
+  "annual": [
+    {
+      "year": 2018,
+      "sessions": 53,
+      "eligible_days": 53,
+      "event_minutes": 19250,
+      "days_with_cash_to_risk_target_room": 50,
+      "days_with_beta_neutral_rotation_target_room": 53,
+      "days_with_intraday_cash_room_variation": 50,
+      "half_days": 2
+    },
+    {
+      "year": 2019,
+      "sessions": 252,
+      "eligible_days": 252,
+      "event_minutes": 92700,
+      "days_with_cash_to_risk_target_room": 222,
+      "days_with_beta_neutral_rotation_target_room": 252,
+      "days_with_intraday_cash_room_variation": 222,
+      "half_days": 3
+    },
+    {
+      "year": 2020,
+      "sessions": 253,
+      "eligible_days": 242,
+      "event_minutes": 89180,
+      "days_with_cash_to_risk_target_room": 201,
+      "days_with_beta_neutral_rotation_target_room": 242,
+      "days_with_intraday_cash_room_variation": 201,
+      "half_days": 2
+    },
+    {
+      "year": 2021,
+      "sessions": 252,
+      "eligible_days": 252,
+      "event_minutes": 93060,
+      "days_with_cash_to_risk_target_room": 237,
+      "days_with_beta_neutral_rotation_target_room": 252,
+      "days_with_intraday_cash_room_variation": 237,
+      "half_days": 1
+    },
+    {
+      "year": 2022,
+      "sessions": 246,
+      "eligible_days": 245,
+      "event_minutes": 90470,
+      "days_with_cash_to_risk_target_room": 219,
+      "days_with_beta_neutral_rotation_target_room": 245,
+      "days_with_intraday_cash_room_variation": 219,
+      "half_days": 1
+    }
+  ],
+  "event_minutes": 384660,
+  "new_model_fits": 0,
+  "new_native_accounts": 0,
+  "historical_research_passed": false,
+  "decision": "intraday_clock_target_space_diagnostic_only",
+  "objective_achieved": false,
+  "audit": "audit.json",
+  "new_recorders": 0,
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [],
+    "reused_native_recorders": [
+      "2994f6afbfc54f279cefec362b220001",
+      "748eb4209e314fb6a6c41c19498d6d03"
+    ]
+  }
+}
