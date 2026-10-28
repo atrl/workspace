@@ -1,0 +1,81 @@
+{
+  "experiment": "stage1_intraday_beta_neutral_labels_20261028",
+  "plan_sha256": "efc60e529aeb3bf319a827e899e3b6c423ac7d4b8ac35d58f1e83fb6f14e9dc0",
+  "decision": "not_promoted_minute_beta_neutral_label_support_failed",
+  "objective_achieved": false,
+  "historical_research_passed": false,
+  "source_audit": {
+    "sessions": 1056,
+    "event_slots": 384660,
+    "status_counts": {
+      "eligible": 1044,
+      "recovery": 10,
+      "source_invalid": 1,
+      "terminal": 1
+    },
+    "reason_counts": {
+      "funded": 164086,
+      "no_whole_share_pair": 113600,
+      "rounding_increased_beta": 91002,
+      "cash_floor_after_fee": 15972
+    },
+    "funded_rows": 164086,
+    "funded_days": 730,
+    "parent_nav_max_error_usd": 1.1641532182693481e-10
+  },
+  "support_gate_pass": false,
+  "year_support": [
+    {
+      "year": 2018,
+      "days": 45,
+      "event_rows": 9955,
+      "positive_days": 43,
+      "negative_days": 43
+    },
+    {
+      "year": 2019,
+      "days": 221,
+      "event_rows": 39277,
+      "positive_days": 208,
+      "negative_days": 216
+    },
+    {
+      "year": 2020,
+      "days": 204,
+      "event_rows": 34047,
+      "positive_days": 199,
+      "negative_days": 194
+    },
+    {
+      "year": 2021,
+      "days": 219,
+      "event_rows": 67667,
+      "positive_days": 214,
+      "negative_days": 206
+    },
+    {
+      "year": 2022,
+      "days": 41,
+      "event_rows": 13140,
+      "positive_days": 41,
+      "negative_days": 39
+    }
+  ],
+  "new_model_fits": 0,
+  "new_native_accounts": 0,
+  "recorder_id": "3a68367746694ba0845b2ef207280226",
+  "experiment_id": "710681403904759152",
+  "recorder_uri": "/Users/rziiiii/dev/workspace/research/stage1_intraday_beta_neutral_labels_20261028/qlib_recorder",
+  "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/stage1_intraday_beta_neutral_labels_20261028/qlib_recorder/710681403904759152/3a68367746694ba0845b2ef207280226",
+  "provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/stage1_event_guard_fullminute_20261028",
+  "historical_first_receipt_qualified": false,
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "inputs/*",
+      "sources/*",
+      "analysis/*"
+    ]
+  }
+}

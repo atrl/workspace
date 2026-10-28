@@ -69,3 +69,5 @@
 用户随后指出，每天一次09:46标签仍属日级处理。[v4 分钟配置方案](stage1_intraday_allocation_plan_v4_20261028.md)取代该下一任务：开盘后按每根有效完成分钟重新检查来源、当前自身状态和合法配置空间，动作时刻不预先固定。先做只读分钟动作空间与时钟预检，再冻结分钟标签和信息门；没有新的盈利或 SOXX 通过结果。
 
 [首次 Qlib 分钟预检](../research/stage1_intraday_allocation_action_space_20261028/conclusion.md)已完成：1044个合格开发日、384660个逐分钟潜在决策点，929天现金与 beta 容量随盘中价格变化；该卡零未来收益、零拟合、零新账户。下一步是整股扣费的分钟动作标签与信息门，尚无 SOXX 通过证据。
+
+[首个分钟整股标签](../research/stage1_intraday_beta_neutral_labels_20261028/conclusion.md)在固定名义beta守恒SOXL＋现金转SOXX动作上只得到2022年41个可行动日，未过预登记50日支持门。失败归因显示2022高现金但几乎没有可卖SOXL；该版本关闭，零模型、零候选账户。新Recorder的NAS工件API返回HTTP500，缺少归档回执，34MB本地对象保留。下一机制须针对原beta空间内直接现金部署，并先证明分钟成交和信息价值；SOXX历史Goal仍未通过。

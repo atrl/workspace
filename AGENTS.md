@@ -115,6 +115,18 @@ independent forward evidence remains a separate contract-v2 promotion gate.
   evidence: whole-share orders, Tiered local labels, model use of minute data,
   and SOXX returns remain unproved. The next experiment must freeze a bounded
   intraday action and per-event same-state labels before fitting.
+- The first frozen minute-grain allocation label card is
+  `research/stage1_intraday_beta_neutral_labels_20261028`. Its 2.5% SOXL
+  weight beta-neutral SOXL+cash-to-SOXX rotation generated 164086 funded
+  minute labels, but only 41 funded days in 2022 versus the frozen 50-day
+  support gate. The 2022 parent held high cash and almost no SOXL, so this
+  route lacked sellable SOXL; do not rescue it by reducing size or the gate.
+  No information model or candidate account ran. Its 34MB local Recorder is
+  preserved: the NAS artifact API returned HTTP 500 TransactionException,
+  leaving archive receipt/readback unverified. Existing source and parent NAS
+  receipts do not cover this new Recorder. A distinct cash-deployment mechanism
+  must use original beta room and prove whole-share actions and event-time
+  information before any account.
 - The independent XGB/LGB card uses a one-step all-cash origin and a pure
   SOXL/SOXX/cash winner label: only 8/1060 training labels select SOXX.
   Hard-argmax predictions are not free continuous-weight allocation. Its

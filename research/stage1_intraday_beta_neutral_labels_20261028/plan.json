@@ -1,0 +1,92 @@
+{
+  "experiment": "stage1_intraday_beta_neutral_labels_20261028",
+  "frozen": true,
+  "schema_version": "stage1_intraday_beta_neutral_labels_v1",
+  "question": "Does the dated f696+b472 parent permit legal minute-timed beta-neutral SOXL+cash to SOXX rotation labels with Tiered fees and whole-share trades?",
+  "provider_uri": "data/qlib/stage1_event_guard_fullminute_20261028",
+  "provider_manifest_sha256": "e9ab78e4e8fca7b70a5ccc27074893414a1308f13a4d37c3174c1690827db1e0",
+  "training_source": {
+    "card": "research/stage1_f696_oof_training_reference_20261028",
+    "recorder_id": "2994f6afbfc54f279cefec362b220001",
+    "archive": "e773cd3edf42b9ff9826270b70fdb9f9e90f4737e35f4d158ef0f5fcf5a4e9dd",
+    "inventory_sha256": "8699fd57be85d3b4b330f529e73612c8cc52967b5e7c3e8c0682c622c6e70f54",
+    "summary_sha256": "00f276f2fe3e5641642a6f864e5e85da968599286aa8e9202a2d445cdf193584"
+  },
+  "frame_source": {
+    "card": "research/stage1_f696_exact_parent_training_reference_20261027",
+    "recorder_id": "748eb4209e314fb6a6c41c19498d6d03",
+    "archive": "db1ae7040439b69ba4a264f00741a625e9c432cefe08a2d770d374b51d3591c8",
+    "inventory_sha256": "d0c696c91179e005c7859bac28b418ff827aa53c7005cf560d329f0896eb5618",
+    "summary_sha256": "8c0d00825fd7aa0177e4578face924fe8a3159898a5915a4c5cac26f20877cc2"
+  },
+  "training_start": "2018-10-15",
+  "training_end": "2022-12-22",
+  "expected_parent_sessions": 1056,
+  "expected_event_slots": 384660,
+  "initial_cash": 100000,
+  "tariff": {
+    "role": "2026-10-13 current IBKR Pro Tiered price projection across reused history, not historical realized bills",
+    "tiers": [
+      {
+        "through_shares": 300000,
+        "per_share": 0.0035
+      },
+      {
+        "through_shares": 3000000,
+        "per_share": 0.002
+      },
+      {
+        "through_shares": 20000000,
+        "per_share": 0.0015
+      },
+      {
+        "through_shares": 100000000,
+        "per_share": 0.001
+      },
+      {
+        "through_shares": null,
+        "per_share": 0.0005
+      }
+    ],
+    "minimum_per_order": 0.35,
+    "maximum_order_fraction": 0.01,
+    "venue_per_share": 0.003,
+    "venue_subdollar_fraction": 0.003,
+    "clearing_per_share": 0.0002,
+    "clearing_maximum_fraction": 0.005,
+    "sec_sale_fraction": 2.06e-05,
+    "taf_per_sold_share": 0.0,
+    "taf_maximum_per_trade": 9.79,
+    "cat_per_share": 3e-06,
+    "commission_pass_through_fraction": 0.000735,
+    "venue_assumption": "SMART orders removing displayed Nasdaq liquidity; no assumed maker rebate",
+    "TAF_rule": "current IBKR fee holiday 2026-10-01 through 2026-12-31; zero projection over the full diagnostic history",
+    "fractional_share_fills": false,
+    "usd_cent_rounding": "unrounded rate projection, not exact statement cents"
+  },
+  "action": {
+    "type": "beta_neutral_incremental_rotation_not_tail_guard",
+    "max_soxl_weight_reduction": 0.025,
+    "minimum_cash_weight_after_trade": 0.15,
+    "formula": "At each eligible completed minute use current parent after-open quantities/cash marked at completed close. Let d=min(0.025,current SOXL weight,max(0,(cash weight-0.15)/2),max(0,(1-SOXX weight)/3)). Target weights=(SOXL-d,SOXX+3d,cash-2d), conserving 3xSOXL+SOXX nominal beta at decision time. If d<=0 or whole-share SOXL sell and SOXX buy do not both occur, mark unknown. Size target at decision using only completed bar; simulate actual whole-share fill at next subsequent bar open. Do not raise original beta cap or invoke protective stop."
+  },
+  "clock": "Completed right-edge bar t after original09:47 fill; assumed decision t+1min, fill at open of bar starting t+2min, strictly before close. One hypothetical branch per minute from unchanged parent post-open state; later own-state policy is separate.",
+  "local_label": "Compare HOLD and candidate from identical after-opening parent holdings/cash and post-opening monthly fee counter, settle at candidate fill with IBKR Tiered 0bp added slippage, hold to next trading-day09:47, reset both to identical next parent target using independent branch fee counters. Current recovery days, one invalid source day, terminal day and non-funded orders remain unknown. Label matures after next09:47 reset at09:49.",
+  "support_gate": {
+    "minimum_funded_days": 200,
+    "years_with_20_days": 3,
+    "minimum_2022_days": 50,
+    "years_with_10_each_sign": 2,
+    "parent_nav_max_error_usd": 1e-07
+  },
+  "budget": {
+    "label_pass_attempts": 1,
+    "maximum_event_slots": 384660,
+    "model_fits": 0,
+    "new_native_accounts": 0,
+    "new_market_requests": 0,
+    "new_recorders": 1
+  },
+  "stop": "Source identity or causal timing mismatch, budget overrun, parent NAV parity failure, fee/cash/cap legality failure or support gate failure closes this fixed label version. No reselecting action size/window/year or relabeling old protective switch rows. Local labels are not a full own-state strategy or SOXX pass.",
+  "as_of": "2026-10-28"
+}

@@ -1,0 +1,14 @@
+{
+  "source_recorder_id": "3a68367746694ba0845b2ef207280226",
+  "year": 2022,
+  "event_slots": 90470,
+  "funded_days": 41,
+  "no_whole_share_pair_rows": 75300,
+  "no_whole_share_pair_days": 204,
+  "cash_weight_median": 0.7010462737949548,
+  "soxl_weight_median": 2.0391921381132206e-05,
+  "delta_soxl_weight_median": 2.0391921381132206e-05,
+  "interpretation": "2022 cash was often high but SOXL shares were too scarce for a SOXL-funded beta-neutral rotation; the fixed >=50-day recent-year support gate failed. This is a descriptive source/action constraint, not evidence that cash deployment succeeds.",
+  "new_fits": 0,
+  "new_accounts": 0
+}
