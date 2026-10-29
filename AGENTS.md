@@ -252,17 +252,17 @@ independent forward evidence remains a separate contract-v2 promotion gate.
   Judge any accepted feature on the complete native account and all regimes,
   including intervals outside the motivating failure. A failed fixed version
   stays closed. The detailed loop is `docs/research_failure_to_feature_sop.md`.
-- The 2019-12-19 event checkpoint mechanical card is
-  `research/stage1_event_checkpoint_parity_20261029`: its no-event
-  20-session continuation matches the sealed dated parent and its one SOXX
-  event continuation matches full-history replay, including monthly Tiered
-  state, with zero account error. This is a replay identity gate only; no
-  economic labels, information gate, 2023+ candidate account, or SOXX alpha
-  was established. Dividend receivables in the adjusted-price development
-  reference remain `unknown`. The earlier HOLD/cash-to-SOXX/cash-to-SOXL
-  design covers only additions. Before bulk labels or fitting, freeze a
-  separate bidirectional action contract and check sell/rotation support,
-  including SOXL-to-SOXX and SOXL-to-cash, against old failed reverse routes.
+- The original two-value Stage1 research method asks A whether cash should
+  remain protective or be deployed, and B whether SOXL plus cash should be
+  rotated into SOXX at unchanged nominal beta. The minute cash-to-SOXX versus
+  cash-to-SOXL source card covers only part of A; it is not B. The old 617/304
+  A/B labels used an in-sample final b472 action model and cannot qualify the
+  dated f696+b472 receiver. The 2019-12-19 checkpoint mechanical card
+  `research/stage1_event_checkpoint_parity_20261029` passed exact 20-session
+  no-event/event replay identity, not A/B information or SOXX alpha. On the
+  1056-date corrected parent, freeze and test A/B own-state fee-net labels and
+  information before any 2023+ candidate account. Dividend receivables remain
+  `unknown` in the adjusted-price development reference.
 - For the frozen f696 allocation source, `timing.decision_at` is the next US
   session at 09:29 ET. The b472 opening action decision is later, at 09:46 ET.
   A same-day 09:45 completed minute bar cannot enter the unchanged f696
