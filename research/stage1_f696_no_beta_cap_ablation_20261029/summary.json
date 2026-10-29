@@ -139,5 +139,11 @@
     "2023-2026 history has been reused; this is not independent validation.",
     "Available sparse marks do not certify full-minute max drawdown.",
     "No 2/5bp or forward evidence."
-  ]
+  ],
+  "attribution_artifacts": {
+    "full_quarter_comparison": "interval_attribution.csv",
+    "rolling_extremes": "window_extremes.json",
+    "annual_exposure": "failure_attribution.json"
+  },
+  "deployment_audit": "deployment_audit.json"
 }

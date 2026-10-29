@@ -1,0 +1,27 @@
+{
+  "as_of": "2026-10-29",
+  "surface": "primary_checkout_release_manifest_and_git_only",
+  "release_path": "production/stage1_futu_sim_v1/runtime_release.json",
+  "release_sha256": "8e337aa5273508e13eca2d75e446dcd984bc12515743798416c287b4c6b36279",
+  "release_id": "stage1_hold_net_fees_20260928_paper_trial_v1",
+  "research_promotion_status": "not_promoted",
+  "allocation_recorder_id": "f696f656b3d44e868588e09a5d97c905",
+  "action_recorder_id": "b472a458fc9042b4905094fddeaebd33",
+  "last_no_beta_cap_commit": "30478344",
+  "production_paths_in_last_commit": [],
+  "production_worktree_changes": [],
+  "no_beta_cap_research_card_deployed": false,
+  "live_paper_process_identity_verified": false,
+  "interpretation": "Repository release file and latest local paper-run receipt still identify the b472 paper trial, with no real broker order; remote live process identity was not independently read.",
+  "local_paper_run": {
+    "path": "runtime/soxl/stage1_futu_sim/latest_actionable_run.json",
+    "sha256": "5ced078fdbc989bffced785a164b26e630318e2a01c608ddfcc498f3876ae8f0",
+    "recorded_at": "2026-10-29T10:28:54+08:00",
+    "slot": "postclose",
+    "status": "ok",
+    "card_decision": "paper_trial_not_promoted_waiting_next_open",
+    "card_recorder_id": "b472a458fc9042b4905094fddeaebd33",
+    "real_broker_order": false,
+    "cycle_id": "stage1_2026-08-03_v2"
+  }
+}

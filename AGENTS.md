@@ -307,6 +307,44 @@ full conversation or highest reasoning effort.
   reward flows; use objective concepts. V1 permits paper/sim adapters only and
   forbids real broker execution.
 
+## Required conclusion and deployment attribution
+
+- Every research conclusion in the notebook, `conclusion.md`, and user handoff
+  must say **what caused the result** at the level the evidence supports. Lead
+  with the SOXX verdict and exact frozen gates, then name the source/account,
+  cost, dates, and decision status. `summary.json` must point to supporting
+  interval and attribution artifacts when they exist. A source-only or
+  information-only card explicitly says which funded-account causes remain
+  unmeasured.
+- For a funded result, retain all complete years, partial endpoint years,
+  quarters, and contiguous 126-session windows in Qlib Recorder. In the
+  narrative identify the weak intervals with dates and sample sizes and at
+  least one matched stronger interval. Report candidate versus SOXX **and**
+  versus its exact parent on the same periods; explain both improvement and
+  damage, including intervals outside the motivating failure. Do not turn an
+  outcome-selected interval into a decision-time switch.
+- Trace the observed difference through prediction or factor -> source target
+  -> accepted target -> risk projection -> action/whole-share fill -> actual
+  holdings, cash and fees -> NAV. Quantify the material contributions from
+  cash opportunity cost, SOXL versus SOXX selection, execution cost, and
+  risk-state feedback when the saved evidence permits. For a new feature,
+  distinguish input variation, model use, score change, funded action change,
+  and complete-account value; a nonzero coefficient or local label is not
+  alpha. Compare matched control and HOLD as applicable.
+- Name the specific constraint or data boundary behind a failure: beta cap,
+  SOXL/cash structure, recovery state, whole-share rounding, no-fill,
+  source/maturity coverage, cost, or label horizon. If several mechanisms
+  change together, state that their individual effects are not identified.
+  Mark missing evidence `needs_data` or `unknown` instead of inventing a
+  cause. Reuse verified Recorder evidence for this attribution; do not refit
+  or rerun an account just to improve prose.
+- For any question about going live, verify the current production release,
+  model/strategy identities and deployed configuration separately from the
+  research result. State whether code or configuration actually changed, what
+  would change if the candidate were deployed, and which historical, source,
+  risk and forward gates still prevent promotion. Research completion or an
+  improved Stage1 comparison never implies deployment or SOXX success.
+
 ## Verification and scientific decisions
 
 - Run the smallest relevant existing check once after the final code change.

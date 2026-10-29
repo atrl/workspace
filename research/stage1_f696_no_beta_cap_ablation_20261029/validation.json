@@ -9,5 +9,9 @@
   "rolling_126_windows": 819,
   "historical_0bp_gate_pass": false,
   "nas_recorder_readback": false,
-  "nas_archive_status": "needs_nas_artifact_receipt"
+  "nas_archive_status": "needs_nas_artifact_receipt",
+  "interval_attribution_quarters": 16,
+  "rolling_extremes_from_saved_q_lib_windows": true,
+  "production_release_file_unchanged": true,
+  "remote_live_process_identity_verified": false
 }
