@@ -26,6 +26,10 @@ versioned contract.
 The workspace supports research and paper/simulated execution. Do not buy data,
 place real broker orders, or replace an active release through research code.
 Missing evidence for one branch does not stop eligible work on another branch.
+The old Stage1 beta ceiling is a frozen-baseline rule, not a mandatory rule for
+new research. Its removal was already tested in the exact-f696 cap3 0bp account
+and failed SOXX wealth and risk gates; do not repeat a simple cap-removal task.
+The active paper SIM release was not changed by that research experiment.
 
 ## Architecture and data authority
 

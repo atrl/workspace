@@ -179,14 +179,31 @@ independent forward evidence remains a separate contract-v2 promotion gate.
   recovery became ineligible, so do not claim a pure cap-threshold effect.
   This is a different exact-f696 parent from the older 27baa bypass. The new
   local Recorder has no NAS archive receipt/readback after API failure; keep it.
-- The next joint capacity/asset-choice implementation is
+- Current research boundary: the old beta hard cap is **not a required
+  constraint for new candidates**. Its removal was already executed in the
+  cap3 ablation above and failed the SOXX wealth/risk gates. Do not propose
+  another task whose premise is merely "remove the beta cap", cite old-cap
+  minute order sizes as the capacity of a new cap-free design, or reuse the
+  cap3 result as a trained cap-free model. A new receiver must be trained and
+  judged in its own chosen risk architecture; SOXX wealth, drawdown, CVaR,
+  year/window and cost gates remain mandatory. Historical frozen accounts
+  and the current paper SIM release still retain their original identities;
+  research ablation did not deploy a new release.
+  The cap3 quarterly attribution shows why a new receiver needs decision-time
+  information: 2026Q2 gained 118.43% versus SOXX 82.19%, while 2026Q3 lost
+  19.80% versus SOXX 7.74% lost; SOXL averaged 21.88% in that losing quarter
+  versus 2.76% in the frozen parent. These are hindsight intervals, not
+  tradable quarter switches. Test SOXX middle allocation and funded risk
+  choice under a newly trained receiver, not the old cap3 action model.
+- The historical old-cap joint capacity/asset-choice card is
   `docs/stage1_event_capacity_choice_implementation_20261029.md`. Its first
   read-only minute source/whole-share gate is
   `research/stage1_event_beta_asset_choice_support_20261029`: 1025 eligible
   dated-parent sessions, 377810 causal minute slots, 283513 slots where
   cash-to-SOXX and equal-beta cash-to-SOXL can each form one whole-share buy,
   and 226 supported 2022 dates. This uses maximum common feasible beta only
-  as source capacity, not a trading size or profit label. The checkpointable
+  as **old-cap** source capacity, not a trading size, profit label, or live
+  capacity bound for cap-free research. The checkpointable
   replay parity was subsequently completed in
   `research/stage1_event_checkpoint_parity_20261029`; its 20-session horizon
   is an account-continuation test, not a minute-signal label. The adjusted-price
