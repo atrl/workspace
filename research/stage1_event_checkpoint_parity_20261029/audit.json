@@ -1,0 +1,24 @@
+{
+  "experiment": "stage1_event_checkpoint_parity_20261029",
+  "plan_sha256": "c33fcf3b31a5168303286368c5bae2b56ea99d44ec81dbf22b8ea0fa19a821f7",
+  "decision": "checkpoint_20_session_mechanical_parity_pass",
+  "parent_recorder_id": "2994f6afbfc54f279cefec362b220001",
+  "source_readback_entries": 13,
+  "event_day": "2019-12-19",
+  "bar_end_at": "2019-12-19 09:48:00",
+  "horizon_sessions": 20,
+  "hold_orders": 26,
+  "event_orders": 28,
+  "max_event_errors": {
+    "native_expected_nav": 0.0,
+    "ending_cash": 0.0,
+    "ending_soxl_quantity": 0.0,
+    "ending_soxx_quantity": 0.0,
+    "fees": 0.0,
+    "strategy_return": 0.0
+  },
+  "new_model_fits": 0,
+  "new_candidate_accounts": 0,
+  "historical_research_passed": false,
+  "dividend_receivable_parity": "unknown"
+}

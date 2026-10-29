@@ -252,6 +252,15 @@ independent forward evidence remains a separate contract-v2 promotion gate.
   Judge any accepted feature on the complete native account and all regimes,
   including intervals outside the motivating failure. A failed fixed version
   stays closed. The detailed loop is `docs/research_failure_to_feature_sop.md`.
+- The 2019-12-19 event checkpoint mechanical card is
+  `research/stage1_event_checkpoint_parity_20261029`: its no-event
+  20-session continuation matches the sealed dated parent and its one SOXX
+  event continuation matches full-history replay, including monthly Tiered
+  state, with zero account error. This is a replay identity gate only; no
+  economic labels, information gate, 2023+ candidate account, or SOXX alpha
+  was established. Dividend receivables in the adjusted-price development
+  reference remain `unknown`. Freeze the three-branch 20-session label and
+  information contract before bulk event labels or fitting.
 - For the frozen f696 allocation source, `timing.decision_at` is the next US
   session at 09:29 ET. The b472 opening action decision is later, at 09:46 ET.
   A same-day 09:45 completed minute bar cannot enter the unchanged f696

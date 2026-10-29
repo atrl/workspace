@@ -1,0 +1,11 @@
+experiment: stage1_event_checkpoint_parity_20261029
+kind: qlib_native_source_mechanical_replay
+plan: plan.json
+notebook: stage1_event_checkpoint_parity_20261029.ipynb
+source:
+  parent_recorder: 2994f6afbfc54f279cefec362b220001
+  minute_provider: data/qlib/stage1_event_guard_fullminute_20261028
+artifacts:
+  small: [selected_source_event.json, audit.json, summary.json, conclusion.md]
+  recorder_only: []
+promotion: ineligible_mechanical_gate_only
