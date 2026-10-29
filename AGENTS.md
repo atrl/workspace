@@ -259,8 +259,10 @@ independent forward evidence remains a separate contract-v2 promotion gate.
   state, with zero account error. This is a replay identity gate only; no
   economic labels, information gate, 2023+ candidate account, or SOXX alpha
   was established. Dividend receivables in the adjusted-price development
-  reference remain `unknown`. Freeze the three-branch 20-session label and
-  information contract before bulk event labels or fitting.
+  reference remain `unknown`. The earlier HOLD/cash-to-SOXX/cash-to-SOXL
+  design covers only additions. Before bulk labels or fitting, freeze a
+  separate bidirectional action contract and check sell/rotation support,
+  including SOXL-to-SOXX and SOXL-to-cash, against old failed reverse routes.
 - For the frozen f696 allocation source, `timing.decision_at` is the next US
   session at 09:29 ET. The b472 opening action decision is later, at 09:46 ET.
   A same-day 09:45 completed minute bar cannot enter the unchanged f696
