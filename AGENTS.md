@@ -257,12 +257,17 @@ independent forward evidence remains a separate contract-v2 promotion gate.
   rotated into SOXX at unchanged nominal beta. The minute cash-to-SOXX versus
   cash-to-SOXL source card covers only part of A; it is not B. The old 617/304
   A/B labels used an in-sample final b472 action model and cannot qualify the
-  dated f696+b472 receiver. The 2019-12-19 checkpoint mechanical card
+  dated f696+b472 receiver. A separate dated-parent minute B label version
+  made 164086 funded labels but had only 41 actionable 2022 days versus its
+  frozen 50-day gate; that fixed 2.5% SOXL-reduction route is closed. Dated
+  minute cash-to-SOXX A labels had support, but fixed direction/timing
+  information screens failed. The 2019-12-19 checkpoint mechanical card
   `research/stage1_event_checkpoint_parity_20261029` passed exact 20-session
   no-event/event replay identity, not A/B information or SOXX alpha. On the
-  1056-date corrected parent, freeze and test A/B own-state fee-net labels and
-  information before any 2023+ candidate account. Dividend receivables remain
-  `unknown` in the adjusted-price development reference.
+  1056-date corrected parent, test a materially distinct 20-session own-state
+  cash-deployment objective and decision-time information before any 2023+
+  candidate account; do not rescue the stopped B size/gate. Dividend
+  receivables remain `unknown` in the adjusted-price development reference.
 - For the frozen f696 allocation source, `timing.decision_at` is the next US
   session at 09:29 ET. The b472 opening action decision is later, at 09:46 ET.
   A same-day 09:45 completed minute bar cannot enter the unchanged f696
