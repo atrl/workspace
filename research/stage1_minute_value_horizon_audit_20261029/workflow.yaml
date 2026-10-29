@@ -1,0 +1,11 @@
+experiment: stage1_minute_value_horizon_audit_20261029
+kind: qlib_source_read_only_horizon_diagnosis
+plan: plan.json
+notebook: stage1_minute_value_horizon_audit_20261029.ipynb
+source:
+  dated_parent_recorder: 2994f6afbfc54f279cefec362b220001
+  minute_provider: data/qlib/stage1_event_guard_fullminute_20261028
+artifacts:
+  small: [annual_horizon_summary.csv, audit.json, summary.json, conclusion.md]
+  recorder_only: []
+promotion: ineligible_no_new_signal_or_complete_account

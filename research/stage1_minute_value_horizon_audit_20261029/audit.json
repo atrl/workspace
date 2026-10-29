@@ -1,0 +1,42 @@
+{
+  "experiment": "stage1_minute_value_horizon_audit_20261029",
+  "plan_sha256": "e2ca05409e693b5d2fb0f86519611663652015b46dc52bc202c88a459ad2e72d",
+  "decision": "descriptive_horizon_audit_only_no_alpha_admission",
+  "parent_recorder_id": "2994f6afbfc54f279cefec362b220001",
+  "source_readback_entries": 13,
+  "counts": {
+    "source_invalid": 1,
+    "recovery": 10,
+    "terminal": 4,
+    "no_funded": 2127,
+    "funded": 996
+  },
+  "funded_days": 538,
+  "annual_funded_days": {
+    "2018": 30,
+    "2019": 153,
+    "2020": 135,
+    "2021": 109,
+    "2022": 111
+  },
+  "annual_rows": 15,
+  "overall": {
+    "same_day_close": {
+      "mean": -6.800645551896906e-06,
+      "positive_fraction": 0.4367469879518072
+    },
+    "next_open": {
+      "mean": 2.0753586587197275e-05,
+      "positive_fraction": 0.5341365461847389
+    },
+    "fifth_session_next_open": {
+      "mean": 5.926308959512691e-05,
+      "positive_fraction": 0.5170682730923695
+    }
+  },
+  "new_model_fits": 0,
+  "candidate_accounts": 0,
+  "historical_research_passed": false,
+  "source_ever_first_receipt": "unknown",
+  "dividend_receivable_parity": "unknown"
+}

@@ -1,0 +1,15 @@
+{
+  "experiment": "stage1_minute_value_horizon_audit_20261029",
+  "workflow_config": "workflow.yaml",
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "recorder_only_artifacts": []
+  },
+  "parent_recorder_id": "2994f6afbfc54f279cefec362b220001",
+  "decision": "descriptive_horizon_audit_only_no_alpha_admission",
+  "funded_events": 996,
+  "funded_days": 538,
+  "new_model_fits": 0,
+  "candidate_accounts": 0,
+  "historical_research_passed": false
+}

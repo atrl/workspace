@@ -271,6 +271,15 @@ independent forward evidence remains a separate contract-v2 promotion gate.
   controls, before any 2023+ candidate account. Do not rescue the stopped B
   size/gate. Dividend receivables remain `unknown` in the adjusted-price
   development reference.
+- The read-only horizon audit
+  `research/stage1_minute_value_horizon_audit_20261029` used three fixed
+  minute bars and the stopped cash-to-SOXX action on the dated parent: 996
+  legal events over 538 days. Same-day, next-open and fifth-session mean
+  fee-net local increments were -0.068/+0.208/+0.593bp; all three 2022
+  fifth-session time cells were negative. This is no minute predictor or
+  complete candidate account. Do not select a profitable time/horizon/year
+  from it or reopen the stopped direction/timing versions. The 20-session
+  replay horizon remains an accounting diagnostic, not an alpha label.
 - For the frozen f696 allocation source, `timing.decision_at` is the next US
   session at 09:29 ET. The b472 opening action decision is later, at 09:46 ET.
   A same-day 09:45 completed minute bar cannot enter the unchanged f696
