@@ -186,10 +186,10 @@ independent forward evidence remains a separate contract-v2 promotion gate.
   dated-parent sessions, 377810 causal minute slots, 283513 slots where
   cash-to-SOXX and equal-beta cash-to-SOXL can each form one whole-share buy,
   and 226 supported 2022 dates. This uses maximum common feasible beta only
-  as source capacity, not a trading size or profit label. Before any factor
-  fit, implement a checkpointable 20-session own-state event replay and prove
-  HOLD/no-intervention parity with the frozen dated parent for shares, cash,
-  Tiered fees, risk/recovery, NAV and model clocks. The adjusted-price
+  as source capacity, not a trading size or profit label. The checkpointable
+  replay parity was subsequently completed in
+  `research/stage1_event_checkpoint_parity_20261029`; its 20-session horizon
+  is an account-continuation test, not a minute-signal label. The adjusted-price
   development reference does not certify separate dividend receivables;
   keep that source boundary `unknown`. A static
   next-open reset, old cap+0.10 label or hindsight minute selection cannot
@@ -200,10 +200,10 @@ independent forward evidence remains a separate contract-v2 promotion gate.
   the dated f696+b472 parent for all1056 sessions, 1416 orders, 10 recovery
   actions, annual model clocks, quantities, cash, monthly Tiered counters,
   targets, fees, NAV and risk state (max error0). This is only a no-event
-  identity result. The engine still replays from inception for each event and
-  has no qualified event branch/checkpoint; do not use it to mass-produce
-  20-session labels or claim model/portfolio evidence. Next build a resumable
-  checkpoint and test one frozen event's full-history versus resumed path.
+  identity result. The v1 engine still replays from inception for each event;
+  the later checkpoint card tested one frozen event branch with zero account
+  error. Neither parity card qualifies bulk economic labels or model/portfolio
+  evidence.
 - The independent XGB/LGB card uses a one-step all-cash origin and a pure
   SOXL/SOXX/cash winner label: only 8/1060 training labels select SOXX.
   Hard-argmax predictions are not free continuous-weight allocation. Its
@@ -264,10 +264,13 @@ independent forward evidence remains a separate contract-v2 promotion gate.
   information screens failed. The 2019-12-19 checkpoint mechanical card
   `research/stage1_event_checkpoint_parity_20261029` passed exact 20-session
   no-event/event replay identity, not A/B information or SOXX alpha. On the
-  1056-date corrected parent, test a materially distinct 20-session own-state
-  cash-deployment objective and decision-time information before any 2023+
-  candidate account; do not rescue the stopped B size/gate. Dividend
-  receivables remain `unknown` in the adjusted-price development reference.
+  1056-date corrected parent, keep the 20-session checkpoint as a path and
+  risk-feedback tool, not a proven minute-alpha horizon. Pre-freeze separate
+  event-time execution labels (same day/next open) and cash-risk direction
+  labels (same day/next open/5 sessions), with overlap and multiple-horizon
+  controls, before any 2023+ candidate account. Do not rescue the stopped B
+  size/gate. Dividend receivables remain `unknown` in the adjusted-price
+  development reference.
 - For the frozen f696 allocation source, `timing.decision_at` is the next US
   session at 09:29 ET. The b472 opening action decision is later, at 09:46 ET.
   A same-day 09:45 completed minute bar cannot enter the unchanged f696
