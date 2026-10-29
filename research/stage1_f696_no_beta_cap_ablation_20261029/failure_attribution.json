@@ -1,0 +1,84 @@
+{
+  "candidate_recorder_id": "e11aeb96e9ac453ab12d0147549b8297",
+  "source_f696_recorder_id": "6e227278b7a64eafbcf34b965e16d2b9",
+  "read_only_recorder_identity_checked": true,
+  "annual": [
+    {
+      "year": 2023,
+      "sessions": 249,
+      "candidate_average_weights": {
+        "soxl": 0.2268277832545886,
+        "soxx": 0.3988415423250412,
+        "cash": 0.37433067442037016
+      },
+      "f696_parent_average_weights": {
+        "soxl": 0.17199218850101777,
+        "soxx": 0.38675929820900173,
+        "cash": 0.4412485132899805
+      },
+      "candidate_sum_fee_rates": 0.0026690869614664214,
+      "f696_parent_sum_fee_rates": 0.0041720314917103735,
+      "candidate_risk_state_nonzero_days": 91,
+      "f696_parent_risk_state_nonzero_days": 94
+    },
+    {
+      "year": 2024,
+      "sessions": 252,
+      "candidate_average_weights": {
+        "soxl": 0.16958303330241387,
+        "soxx": 0.3329482108760753,
+        "cash": 0.4974687558215109
+      },
+      "f696_parent_average_weights": {
+        "soxl": 0.12973028326987096,
+        "soxx": 0.33267345155286987,
+        "cash": 0.5375962651772591
+      },
+      "candidate_sum_fee_rates": 0.0017674327848496805,
+      "f696_parent_sum_fee_rates": 0.0021358402831138687,
+      "candidate_risk_state_nonzero_days": 137,
+      "f696_parent_risk_state_nonzero_days": 74
+    },
+    {
+      "year": 2025,
+      "sessions": 250,
+      "candidate_average_weights": {
+        "soxl": 0.20831175872567786,
+        "soxx": 0.3743187626815021,
+        "cash": 0.4173694785928201
+      },
+      "f696_parent_average_weights": {
+        "soxl": 0.14348455805351204,
+        "soxx": 0.36621632966822026,
+        "cash": 0.49029911227826767
+      },
+      "candidate_sum_fee_rates": 0.0022661736287010858,
+      "f696_parent_sum_fee_rates": 0.0029570397464994736,
+      "candidate_risk_state_nonzero_days": 204,
+      "f696_parent_risk_state_nonzero_days": 96
+    },
+    {
+      "year": 2026,
+      "sessions": 193,
+      "candidate_average_weights": {
+        "soxl": 0.2653738899551433,
+        "soxx": 0.41085805180286594,
+        "cash": 0.32376805824199073
+      },
+      "f696_parent_average_weights": {
+        "soxl": 0.1611314155260063,
+        "soxx": 0.3879434326311478,
+        "cash": 0.4509251518428458
+      },
+      "candidate_sum_fee_rates": 0.0005414323242455359,
+      "f696_parent_sum_fee_rates": 0.0010067236568998572,
+      "candidate_risk_state_nonzero_days": 105,
+      "f696_parent_risk_state_nonzero_days": 89
+    }
+  ],
+  "candidate_recovery_actions": 0,
+  "f696_parent_recovery_actions": 0,
+  "interpretation": "Cap3 raised average SOXL and reduced cash in every reported year, while SOXX weights changed little; total wealth improved over Stage1 but stayed below SOXX, and available drawdown/CVaR worsened. Higher-risk own-state feedback increased nonzero risk-state days. This is descriptive of the changed full path and does not isolate a tradable cap signal.",
+  "new_fits": 0,
+  "new_accounts": 0
+}

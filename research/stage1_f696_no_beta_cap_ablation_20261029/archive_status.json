@@ -1,0 +1,9 @@
+{
+  "status": "needs_nas_artifact_receipt",
+  "api_attempts": 1,
+  "api_result": "curl_22_http_status_not_rechecked",
+  "local_recorder_preserved": true,
+  "nas_receipt_verified": false,
+  "scoped_nas_readback_verified": false,
+  "source_domain_and_raw_nas_bindings_separately_verified": true
+}

@@ -1,0 +1,12 @@
+experiment: stage1_f696_no_beta_cap_ablation_20261029
+type: frozen_one_account_0bp_beta_cap_removal
+provider_uri: data/qlib/stage1_domain_heads_20261018
+artifact_policy:
+  policy: slim_card_recorder_first
+  workflow_config: workflow.yaml
+  recorder_only_artifacts:
+    - inputs/*
+    - sources/*
+    - paths/*
+    - native/*
+    - analysis/*

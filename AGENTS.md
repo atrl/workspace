@@ -165,6 +165,20 @@ independent forward evidence remains a separate contract-v2 promotion gate.
   candidate account from it. The no-fill cost assumption is conditional:
   1-minute OHLCV does not prove broker rejection/fees at future fill prices.
   Its local Recorder lacks NAS artifact receipt/readback and must remain.
+- On 2026-10-29 the user explicitly authorized removing the beta hard cap as
+  one research intervention. The exact-f696 result is
+  `research/stage1_f696_no_beta_cap_ablation_20261029`: 944/944 five-output
+  parity, one native 0bp Tiered own-state account, zero new fits. Setting
+  defensive/trailing/emergency beta ceilings to 3.0 removed beta projection
+  while retaining SOXL<=30%, cash>=15% and the b472 action model. Relative
+  wealth was 0.883 versus SOXX, available close/monitored drawdown
+  -46.82%/-47.25%, CVaR5 -5.735% versus SOXX -4.905%, complete years 0/2
+  positive, 295/819 rolling126 windows positive, and corrected block lower
+  negative. All numeric 0bp gates failed; close this fixed version without
+  2/5bp or threshold rescue. The action model saw cap3 outside training and
+  recovery became ineligible, so do not claim a pure cap-threshold effect.
+  This is a different exact-f696 parent from the older 27baa bypass. The new
+  local Recorder has no NAS archive receipt/readback after API failure; keep it.
 - The independent XGB/LGB card uses a one-step all-cash origin and a pure
   SOXL/SOXX/cash winner label: only 8/1060 training labels select SOXX.
   Hard-argmax predictions are not free continuous-weight allocation. Its
