@@ -1,0 +1,27 @@
+{
+  "schema_version": 1,
+  "status": "exact_post_midnight_vintage_archived_after_initial_api_failure",
+  "target_trade_date": "2026-10-28",
+  "phase": "post_midnight",
+  "prior_failure": "post_midnight_archive_failure.json",
+  "member_sha256": {
+    "research/cboe_total_options_activity_source_20261022/multiday_forward_observations/2026-10-28/post_midnight.json": "c9c0fd4ec20abb8c3a5657af615dcca9f41cde53db3bdb60f5391797beccbfca",
+    "data/snapshots/cboe_total_options_activity_source_20261022/multiday_forward/2026-10-28/post_midnight/soxx.csv": "264035a3a6d3a9f3667e2aa68962caf5a4169478ce383041bae82e0996d1add2",
+    "data/snapshots/cboe_total_options_activity_source_20261022/multiday_forward/2026-10-28/post_midnight/soxl.csv": "8bdd60f596eaaec9d068c233bd047593e2225a39a5e37b87330ef69d562e49d6"
+  },
+  "nas_evidence": {
+    "sha256": "daf5ea29bfe5aae8bc2a4c0f50070c2d2e0c2ebf1d92bee0a6143009a57619fd",
+    "size_bytes": 1414,
+    "media_type": "application/gzip",
+    "storage_uri": "sha256/da/f5/daf5ea29bfe5aae8bc2a4c0f50070c2d2e0c2ebf1d92bee0a6143009a57619fd",
+    "uploaded_by": "soxl-minute-research",
+    "created_at": "2026-10-29 20:46:43.388373+08",
+    "duplicate": false
+  },
+  "nas_path": "/volume1/docker/yanxuan/registry/research-artifacts/da/f5/daf5ea29bfe5aae8bc2a4c0f50070c2d2e0c2ebf1d92bee0a6143009a57619fd",
+  "remote_sha256": "daf5ea29bfe5aae8bc2a4c0f50070c2d2e0c2ebf1d92bee0a6143009a57619fd",
+  "model_fits": 0,
+  "accounts": 0,
+  "market_outcome_reads": 0,
+  "qualified_strategy_days": 0
+}

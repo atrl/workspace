@@ -1,0 +1,47 @@
+{
+  "schema_version": 1,
+  "target_trade_date": "2026-10-28",
+  "phase": "later",
+  "plan_sha256": "c3ef7c87d0494aa8672b99a623b4ad635d27e28a1209dde949a2614852b0f98e",
+  "binding_sha256": "a634a26436d2fa1f3334fc16ca3a031664707aecafc90fdac0d5024c3057fd9c",
+  "observed_at_utc": "2026-10-29T12:45:23.225177+00:00",
+  "models": 0,
+  "accounts": 0,
+  "market_outcome_reads": 0,
+  "PIT_qualified": false,
+  "status": "partial_failure",
+  "records": [
+    {
+      "symbol": "SOXX",
+      "url": "https://www.cboe.com/us/options/market_statistics/historical_data/download/class/?reportType=volume&volumeType=sum&volumeAggType=daily&symbolType=underlying&symbol=SOXX&startDate=2026-10-27&endDate=2026-10-28&exchanges=CBOE&exchanges=BATS&exchanges=C2&exchanges=EDGX",
+      "requested_at_utc": "2026-10-29T12:45:23.227752+00:00",
+      "http_status": 200,
+      "content_type": "text/csv",
+      "response_date": "Thu, 29 Oct 2026 12:45:25 GMT",
+      "response_age": null,
+      "cache_status": "EXPIRED",
+      "cache_control": "public, max-age=5, s-maxage=30, stale-while-revalidate=30",
+      "last_modified": "Thu, 29 Oct 2026 12:45:25 GMT",
+      "relative_path": "data/snapshots/cboe_total_options_activity_source_20261022/multiday_forward/2026-10-28/later/soxx.csv",
+      "bytes": 272,
+      "sha256": "264035a3a6d3a9f3667e2aa68962caf5a4169478ce383041bae82e0996d1add2",
+      "target_date_present": true,
+      "predecessor_date": "2026-10-27",
+      "predecessor_date_present": true,
+      "predecessor_unchanged": null,
+      "daily_contracts": {
+        "2026-10-27": 12003,
+        "2026-10-28": 25503
+      },
+      "target_exchange_rows": 4
+    },
+    {
+      "symbol": "SOXL",
+      "url": "https://www.cboe.com/us/options/market_statistics/historical_data/download/class/?reportType=volume&volumeType=sum&volumeAggType=daily&symbolType=underlying&symbol=SOXL&startDate=2026-10-27&endDate=2026-10-28&exchanges=CBOE&exchanges=BATS&exchanges=C2&exchanges=EDGX",
+      "requested_at_utc": "2026-10-29T12:45:26.068450+00:00",
+      "error": "TimeoutError: The read operation timed out"
+    }
+  ],
+  "http_GETs": 2,
+  "predecessor_trade_date": "2026-10-27"
+}
