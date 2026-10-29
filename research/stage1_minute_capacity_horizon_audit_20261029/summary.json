@@ -1,0 +1,164 @@
+{
+  "experiment": "stage1_minute_capacity_horizon_audit_20261029",
+  "plan_sha256": "f8ac3e16f25295a6c2a86e0ed1b000c009451faf3b99a400648bf172aeaeb3c0",
+  "decision": "read_only_capacity_and_horizon_mismatch_no_promotion",
+  "objective_achieved": false,
+  "historical_research_passed": false,
+  "parent_days": 1056,
+  "minute_slots": 384660,
+  "funded_rows": 165695,
+  "funded_days": 815,
+  "annual": [
+    {
+      "year": 2018,
+      "parent_days": 53,
+      "funded_days": 45,
+      "cap_limited_first_days": 45,
+      "first_action_under_1pct_days": 45,
+      "median_first_cash_weight": 0.5144773259424588,
+      "median_first_beta_room": 0.002271651052417334,
+      "median_first_deployment_weight": 0.002271651052417334,
+      "first_positive_days": 19,
+      "any_positive_minute_days": 36,
+      "first_local_value_sum": 1.2695510603123682e-05,
+      "first_or_hold_oracle_sum": 0.0008153044579845709,
+      "best_minute_or_hold_oracle_sum": 0.009659081075552267
+    },
+    {
+      "year": 2019,
+      "parent_days": 252,
+      "funded_days": 195,
+      "cap_limited_first_days": 192,
+      "first_action_under_1pct_days": 164,
+      "median_first_cash_weight": 0.21066355860869235,
+      "median_first_beta_room": 0.0027696279812417512,
+      "median_first_deployment_weight": 0.0027696279812416957,
+      "first_positive_days": 100,
+      "any_positive_minute_days": 145,
+      "first_local_value_sum": 0.0015342170927766703,
+      "first_or_hold_oracle_sum": 0.00795768268042258,
+      "best_minute_or_hold_oracle_sum": 0.027528371245349313
+    },
+    {
+      "year": 2020,
+      "parent_days": 253,
+      "funded_days": 182,
+      "cap_limited_first_days": 179,
+      "first_action_under_1pct_days": 151,
+      "median_first_cash_weight": 0.3314118711933418,
+      "median_first_beta_room": 0.0025445684735007773,
+      "median_first_deployment_weight": 0.002544568473500791,
+      "first_positive_days": 95,
+      "any_positive_minute_days": 144,
+      "first_local_value_sum": 0.006186245846271701,
+      "first_or_hold_oracle_sum": 0.01672437368677417,
+      "best_minute_or_hold_oracle_sum": 0.04595719066599552
+    },
+    {
+      "year": 2021,
+      "parent_days": 252,
+      "funded_days": 213,
+      "cap_limited_first_days": 213,
+      "first_action_under_1pct_days": 191,
+      "median_first_cash_weight": 0.2987497906532459,
+      "median_first_beta_room": 0.0022307237893314236,
+      "median_first_deployment_weight": 0.0022307237893315346,
+      "first_positive_days": 101,
+      "any_positive_minute_days": 169,
+      "first_local_value_sum": -0.003933278664032854,
+      "first_or_hold_oracle_sum": 0.005678352124838963,
+      "best_minute_or_hold_oracle_sum": 0.031477716025458444
+    },
+    {
+      "year": 2022,
+      "parent_days": 246,
+      "funded_days": 180,
+      "cap_limited_first_days": 179,
+      "first_action_under_1pct_days": 169,
+      "median_first_cash_weight": 0.7011253543897381,
+      "median_first_beta_room": 0.0011750710554067623,
+      "median_first_deployment_weight": 0.0011750710554067623,
+      "first_positive_days": 83,
+      "any_positive_minute_days": 127,
+      "first_local_value_sum": -0.004499396206157788,
+      "first_or_hold_oracle_sum": 0.003425183652885073,
+      "best_minute_or_hold_oracle_sum": 0.02063752323954925
+    }
+  ],
+  "new_model_fits": 0,
+  "new_native_accounts": 0,
+  "provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/stage1_event_guard_fullminute_20261028",
+  "source_recorder_ids": {
+    "labels": "3d8bdf0b707c41128bd61c47c75b7314",
+    "parent": "2994f6afbfc54f279cefec362b220001"
+  },
+  "source_readback": {
+    "labels": {
+      "recorder_id": "3d8bdf0b707c41128bd61c47c75b7314",
+      "experiment": "stage1_intraday_cash_deployment_labels_20261028",
+      "experiment_id": "761731957911014921",
+      "recorder_uri": "/Users/rziiiii/dev/workspace/research/stage1_intraday_cash_deployment_labels_20261028/qlib_recorder",
+      "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/stage1_intraday_cash_deployment_labels_20261028/qlib_recorder/761731957911014921/3d8bdf0b707c41128bd61c47c75b7314",
+      "summary_sha256": "6623fbe7eefd16ec45a955b317f3e720bdaaf5e72eed3f900c793ec5807afb42",
+      "verification_manifest_sha256": "c8d1f5a8a88f9653ccea67a6533e61a18fda3a76c3d35c87aec6b14b0a200ca1",
+      "artifacts": {
+        "analysis/labels": {
+          "artifact": "analysis/labels",
+          "artifact_id": "3d8bdf0b707c41128bd61c47c75b7314:analysis/labels",
+          "sha256": "066407ba8f7221dc8796e8fe88a2fae4ef64c2ae9e5e9fef351859cc2d29aca2",
+          "bytes": 35006549,
+          "manifest_entry": "qlib_recorder/761731957911014921/3d8bdf0b707c41128bd61c47c75b7314/artifacts/analysis/labels",
+          "local_path": "/Users/rziiiii/dev/workspace/research/stage1_intraday_cash_deployment_labels_20261028/qlib_recorder/761731957911014921/3d8bdf0b707c41128bd61c47c75b7314/artifacts/analysis/labels"
+        }
+      },
+      "read_only": true,
+      "local_filestore_only": true,
+      "hashes_checked_before_unpickling": true,
+      "metadata_and_artifact_hashes_rechecked": true,
+      "source_api": [
+        "qlib.workflow.R.get_recorder",
+        "Recorder.load_object"
+      ]
+    },
+    "parent": {
+      "recorder_id": "2994f6afbfc54f279cefec362b220001",
+      "experiment": "stage1_f696_oof_training_reference_20261028",
+      "experiment_id": "165443341115748238",
+      "recorder_uri": "/Users/rziiiii/dev/workspace/research/stage1_f696_oof_training_reference_20261028/qlib_recorder",
+      "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/stage1_f696_oof_training_reference_20261028/qlib_recorder/165443341115748238/2994f6afbfc54f279cefec362b220001",
+      "summary_sha256": "00f276f2fe3e5641642a6f864e5e85da968599286aa8e9202a2d445cdf193584",
+      "verification_manifest_sha256": "8699fd57be85d3b4b330f529e73612c8cc52967b5e7c3e8c0682c622c6e70f54",
+      "artifacts": {
+        "analysis/native/dated_f696_0": {
+          "artifact": "analysis/native/dated_f696_0",
+          "artifact_id": "2994f6afbfc54f279cefec362b220001:analysis/native/dated_f696_0",
+          "sha256": "51b204158c75eb049a270a2afc3277039bc5b084c033619ae19d73af5aac1555",
+          "bytes": 9545620,
+          "manifest_entry": "qlib_recorder/165443341115748238/2994f6afbfc54f279cefec362b220001/artifacts/analysis/native/dated_f696_0",
+          "local_path": "/Users/rziiiii/dev/workspace/research/stage1_f696_oof_training_reference_20261028/qlib_recorder/165443341115748238/2994f6afbfc54f279cefec362b220001/artifacts/analysis/native/dated_f696_0"
+        }
+      },
+      "read_only": true,
+      "local_filestore_only": true,
+      "hashes_checked_before_unpickling": true,
+      "metadata_and_artifact_hashes_rechecked": true,
+      "source_api": [
+        "qlib.workflow.R.get_recorder",
+        "Recorder.load_object"
+      ]
+    }
+  },
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "inputs/*",
+      "analysis/*"
+    ]
+  },
+  "nas_receipt_qualified": false,
+  "recorder_id": "ded49b2d8a2647c699999f95df0e5a8c",
+  "experiment_id": "622223143721154784",
+  "recorder_uri": "/Users/rziiiii/dev/workspace/research/stage1_minute_capacity_horizon_audit_20261029/qlib_recorder",
+  "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/stage1_minute_capacity_horizon_audit_20261029/qlib_recorder/622223143721154784/ded49b2d8a2647c699999f95df0e5a8c"
+}

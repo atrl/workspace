@@ -2,6 +2,8 @@
   "schema_version": 2,
   "campaign": "three_asset_stable_excess_20261015",
   "objective_achieved": false,
+  "latest_stage1_minute_capacity_horizon_audit": "research/stage1_minute_capacity_horizon_audit_20261029/summary.json",
+  "stage1_minute_capacity_horizon_interpretation": "Read-only Qlib audit of the dated f696+b472 parent and 165695 funded direct-cash minute labels: in 2022, 179/180 first legal buy dates are limited by the original beta cap, median cash weight is 70.11pct but median deployable weight is only 0.1175pct, and 169/180 actions are below 1pct NAV. The next-open-reset label cannot establish persistent SOXX exposure. Hindsight best-minute-or-HOLD positive local value is an impossible oracle, not a strategy or account. Zero fits/accounts; no SOXX historical pass. The label and new audit Recorders lack qualified NAS receipts and must remain local.",
   "latest_stage1_fullminute_loss_attribution": "research/stage1_fullminute_loss_attribution_20261028/summary.json",
   "latest_stage1_event_minute_source": "research/stage1_event_minute_source_20261028/summary.json",
   "latest_stage1_event_guard_labels": "research/stage1_event_guard_labels_20261028/summary.json",

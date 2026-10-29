@@ -1,0 +1,39 @@
+{
+  "experiment": "stage1_minute_capacity_horizon_audit_20261029",
+  "frozen": true,
+  "role": "read_only_attribution_no_new_candidate_or_account",
+  "question": "Does the funded direct-cash minute label have enough original beta headroom to express its nominal 10% SOXX buy, and how much same-day value exists only with hindsight minute selection?",
+  "source": {
+    "card": "research/stage1_intraday_cash_deployment_labels_20261028",
+    "recorder_id": "3d8bdf0b707c41128bd61c47c75b7314",
+    "summary_sha256": "6623fbe7eefd16ec45a955b317f3e720bdaaf5e72eed3f900c793ec5807afb42",
+    "inventory_sha256": "c8d1f5a8a88f9653ccea67a6533e61a18fda3a76c3d35c87aec6b14b0a200ca1",
+    "nas_receipt_qualified": false
+  },
+  "parent": {
+    "card": "research/stage1_f696_oof_training_reference_20261028",
+    "recorder_id": "2994f6afbfc54f279cefec362b220001",
+    "summary_sha256": "00f276f2fe3e5641642a6f864e5e85da968599286aa8e9202a2d445cdf193584",
+    "inventory_sha256": "8699fd57be85d3b4b330f529e73612c8cc52967b5e7c3e8c0682c622c6e70f54"
+  },
+  "provider_uri": "data/qlib/stage1_event_guard_fullminute_20261028",
+  "provider_manifest_sha256": "e9ab78e4e8fca7b70a5ccc27074893414a1308f13a4d37c3174c1690827db1e0",
+  "expected_parent_days": 1056,
+  "expected_minute_slots": 384660,
+  "expected_funded_rows": 165695,
+  "measurements": [
+    "first_funded_event_per_day ordered by decision_at",
+    "at first event: original beta room, cash room after 15% floor, actual requested deployment weight, binding constraint and year",
+    "per day: first-event fee-net local value, best-event fee-net local value, best positive value or HOLD, first positive value or HOLD",
+    "annual aggregates over all parent calendar days with no funded event assigned zero only for the descriptive opportunity bound"
+  ],
+  "hindsight_limit": "Best-event selection uses future local labels and is an impossible oracle, not a strategy or native account return. The original labels reset to the same parent at next open. Development-period normalized local-value sums cannot be subtracted from the 2023-2026 held account log gap.",
+  "stop": "Source identity or counts differ, parent day identity differs, or first-event action breaches its original cap/cash constraint. Do not fit, run a candidate account, change the old fixed minute route, or infer a tradable risk-cap release.",
+  "budget": {
+    "new_model_fits": 0,
+    "new_native_accounts": 0,
+    "new_market_requests": 0,
+    "new_recorders": 1
+  },
+  "as_of": "2026-10-29"
+}

@@ -1,0 +1,9 @@
+experiment: stage1_minute_capacity_horizon_audit_20261029
+provider_uri: /Users/rziiiii/dev/workspace/data/qlib/stage1_event_guard_fullminute_20261028
+recorder_uri: /Users/rziiiii/dev/workspace/research/stage1_minute_capacity_horizon_audit_20261029/qlib_recorder
+artifact_policy:
+  policy: slim_card_recorder_first
+  workflow_config: workflow.yaml
+  recorder_only_artifacts:
+  - inputs/*
+  - analysis/*

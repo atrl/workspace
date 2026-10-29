@@ -1,0 +1,20 @@
+{
+  "recorder_id": "ded49b2d8a2647c699999f95df0e5a8c",
+  "entries": [
+    {
+      "path": "qlib_recorder/622223143721154784/ded49b2d8a2647c699999f95df0e5a8c/artifacts/analysis/annual",
+      "sha256": "3b6019ec9826636228917dbe120acd7654e982772736031a67e5bc9cd47204b2",
+      "bytes": 1690
+    },
+    {
+      "path": "qlib_recorder/622223143721154784/ded49b2d8a2647c699999f95df0e5a8c/artifacts/analysis/perday",
+      "sha256": "c8b8c30b7684779d80b370a135915c0675d9153d65ad28ad24ad6d5dc69078a5",
+      "bytes": 90639
+    },
+    {
+      "path": "qlib_recorder/622223143721154784/ded49b2d8a2647c699999f95df0e5a8c/artifacts/inputs/plan",
+      "sha256": "68955df5e44bc5788ec2d09557bee45dfbfd4bd2fe40a6e6fae3c5e09586136f",
+      "bytes": 2291
+    }
+  ]
+}
