@@ -195,6 +195,23 @@ independent forward evidence remains a separate contract-v2 promotion gate.
   versus 2.76% in the frozen parent. These are hindsight intervals, not
   tradable quarter switches. Test SOXX middle allocation and funded risk
   choice under a newly trained receiver, not the old cap3 action model.
+- Before proposing that new cap-free training, read
+  `docs/stage1_cap_free_retraining_admission_20261029.md`. Cap-free continuous
+  allocation and benchmark-relative/tail-aware objectives have **already
+  been fitted** in separate older routes; their wealth/risk failures are not
+  a reason to rerun the same input/label/receiver under a new card name.
+  Require a concrete decision-time information mechanism distinct from every
+  listed closed route, matching own-state fee-net numeric labels, continuous
+  SOXL/SOXX/cash output and identical training/inference risk domains. Call
+  `src.core.stage1_cap_free_admission.validate_cap_free_receiver_plan` before
+  fitting and its result-claim check before reporting a trained model or
+  account pass. Structural validation is not scientific approval; a reviewer
+  must still judge novelty and actual Qlib evidence. In particular, cap3 had
+  zero fits, old b472 binary execution labels are not risk-size labels, and
+  cash-origin hard argmax cannot identify SOXX middle allocations. If a
+  genuinely distinct mechanism is absent, record
+  `needs_distinct_decision_time_mechanism` and continue failure attribution;
+  do not manufacture another fit.
 - The historical old-cap joint capacity/asset-choice card is
   `docs/stage1_event_capacity_choice_implementation_20261029.md`. Its first
   read-only minute source/whole-share gate is

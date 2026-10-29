@@ -30,6 +30,10 @@ The old Stage1 beta ceiling is a frozen-baseline rule, not a mandatory rule for
 new research. Its removal was already tested in the exact-f696 cap3 0bp account
 and failed SOXX wealth and risk gates; do not repeat a simple cap-removal task.
 The active paper SIM release was not changed by that research experiment.
+Cap-free continuous receivers and SOXX-relative/tail-aware objectives have
+also been fitted in earlier, differently scoped routes. Review their frozen
+failures in `docs/stage1_cap_free_retraining_admission_20261029.md` and pass
+`src.core.stage1_cap_free_admission` before making a new training claim.
 
 ## Architecture and data authority
 
