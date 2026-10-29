@@ -1,0 +1,87 @@
+{
+  "experiment": "stage1_event_beta_asset_choice_support_20261029",
+  "schema_version": "stage1_event_beta_asset_choice_support_v1",
+  "frozen": true,
+  "type": "source_and_mechanical_action_preflight_no_outcomes",
+  "question": "Can the dated f696+b472 own-state account support, at the same completed minute, a cash-to-SOXX buy and equal-nominal-beta cash-to-SOXL buy after removing only the beta ceiling, with enough mature 20-session episodes?",
+  "provider_uri": "data/qlib/stage1_event_guard_fullminute_20261028",
+  "provider_manifest_sha256": "e9ab78e4e8fca7b70a5ccc27074893414a1308f13a4d37c3174c1690827db1e0",
+  "training_source": {
+    "card": "research/stage1_f696_oof_training_reference_20261028",
+    "recorder_id": "2994f6afbfc54f279cefec362b220001",
+    "archive": "e773cd3edf42b9ff9826270b70fdb9f9e90f4737e35f4d158ef0f5fcf5a4e9dd",
+    "inventory_sha256": "8699fd57be85d3b4b330f529e73612c8cc52967b5e7c3e8c0682c622c6e70f54",
+    "summary_sha256": "00f276f2fe3e5641642a6f864e5e85da968599286aa8e9202a2d445cdf193584"
+  },
+  "frame_source": {
+    "card": "research/stage1_f696_exact_parent_training_reference_20261027",
+    "recorder_id": "748eb4209e314fb6a6c41c19498d6d03",
+    "archive": "db1ae7040439b69ba4a264f00741a625e9c432cefe08a2d770d374b51d3591c8",
+    "inventory_sha256": "d0c696c91179e005c7859bac28b418ff827aa53c7005cf560d329f0896eb5618",
+    "summary_sha256": "8c0d00825fd7aa0177e4578face924fe8a3159898a5915a4c5cac26f20877cc2"
+  },
+  "training_start": "2018-10-15",
+  "training_end": "2022-12-22",
+  "expected_parent_sessions": 1056,
+  "initial_cash": 100000,
+  "tariff": {
+    "role": "2026-10-13 current IBKR Pro Tiered price projection across reused history, not historical realized bills",
+    "tiers": [
+      {
+        "through_shares": 300000,
+        "per_share": 0.0035
+      },
+      {
+        "through_shares": 3000000,
+        "per_share": 0.002
+      },
+      {
+        "through_shares": 20000000,
+        "per_share": 0.0015
+      },
+      {
+        "through_shares": 100000000,
+        "per_share": 0.001
+      },
+      {
+        "through_shares": null,
+        "per_share": 0.0005
+      }
+    ],
+    "minimum_per_order": 0.35,
+    "maximum_order_fraction": 0.01,
+    "venue_per_share": 0.003,
+    "venue_subdollar_fraction": 0.003,
+    "clearing_per_share": 0.0002,
+    "clearing_maximum_fraction": 0.005,
+    "sec_sale_fraction": 2.06e-05,
+    "taf_per_sold_share": 0.0,
+    "taf_maximum_per_trade": 9.79,
+    "cat_per_share": 3e-06,
+    "commission_pass_through_fraction": 0.000735,
+    "venue_assumption": "SMART orders removing displayed Nasdaq liquidity; no assumed maker rebate",
+    "TAF_rule": "current IBKR fee holiday 2026-10-01 through 2026-12-31; zero projection over the full diagnostic history",
+    "fractional_share_fills": false,
+    "usd_cent_rounding": "unrounded rate projection, not exact statement cents"
+  },
+  "clock": "After frozen09:47 opening fill, each valid completed RTH 1m bar right edge t is assumed available t+1min; potential whole-share order at open of bar starting t+2min, strictly before close. No same-day 09:45 input enters frozen f69609:29.",
+  "action_space": "Decision-known common upper beta room d=min(max(0,cash_weight-0.15),3*max(0,0.30-soxl_weight),max(0,1-soxx_weight)); SOXX target=(soxl,soxx+d,cash-d), SOXL target=(soxl+d/3,soxx,cash-d/3). This is the maximum simultaneous target-space bound, not an approved trading size or learned policy. No original beta ceiling; long-only simplex, SOXL<=30%, cash>=15% still required. At next-bar fill require exactly one raw whole-share BUY of the intended asset, no other trade, postfill SOXL/cash structure legal. Independent Tiered fee state after frozen open orders, no future outcome used.",
+  "horizon": "A hypothetical episode would carry the changed own state for exactly20 subsequent Qlib trading sessions and mature after its terminal09:47; this card only checks that the calendar/source exists and does not read future prices or compute those outcomes. Last20 parent sessions are terminal unknown.",
+  "support_gate": {
+    "minimum_both_funded_days": 100,
+    "minimum_both_funded_2022_days": 20,
+    "minimum_years_with_20_both_days": 3,
+    "minimum_median_common_beta_room": 0.01
+  },
+  "budget": {
+    "qlib_minute_reads": 1,
+    "source_recorder_reads": 2,
+    "new_model_fits": 0,
+    "new_native_accounts": 0,
+    "new_recorders": 0,
+    "new_market_requests": 0,
+    "maximum_event_slots": 384660
+  },
+  "stop": "Any source identity/calendar mismatch, causal slot, fee/share legality, horizon maturity or fixed support gate failure ends this source/mechanical version. Do not choose a trading size, sign, trigger, or favorable outcome date from this preflight; no strategy wealth or SOXX result is computed.",
+  "as_of": "2026-10-29"
+}

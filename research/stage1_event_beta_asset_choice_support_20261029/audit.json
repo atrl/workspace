@@ -1,0 +1,90 @@
+{
+  "experiment": "stage1_event_beta_asset_choice_support_20261029",
+  "plan_sha256": "91041a376067613af5347131c949cf4cbee3650d981d9b6da8ed47683666c475",
+  "source_recorder_ids": {
+    "parent": "2994f6afbfc54f279cefec362b220001",
+    "frame": "748eb4209e314fb6a6c41c19498d6d03"
+  },
+  "source_readback_entries": {
+    "parent": 13,
+    "frame": 13
+  },
+  "parent_sessions": 1056,
+  "status_counts": {
+    "eligible": 1025,
+    "terminal_20_session_label": 20,
+    "original_recovery": 10,
+    "source_invalid": 1
+  },
+  "event_slots": 377810,
+  "target_room_slots": 346471,
+  "both_funded_slots": 283513,
+  "annual": [
+    {
+      "year": 2018,
+      "parent_days": 53,
+      "source_eligible_days": 53,
+      "minute_slots": 19250,
+      "target_room_slots": 19209,
+      "soxx_whole_buy_days": 53,
+      "soxl_whole_buy_days": 53,
+      "both_whole_buy_days": 53,
+      "both_whole_buy_slots": 17603,
+      "median_both_day_common_beta_room": 0.32896988682275563
+    },
+    {
+      "year": 2019,
+      "parent_days": 252,
+      "source_eligible_days": 252,
+      "minute_slots": 92700,
+      "target_room_slots": 75799,
+      "soxx_whole_buy_days": 238,
+      "soxl_whole_buy_days": 226,
+      "both_whole_buy_days": 226,
+      "both_whole_buy_slots": 66325,
+      "median_both_day_common_beta_room": 0.058470246142406784
+    },
+    {
+      "year": 2020,
+      "parent_days": 253,
+      "source_eligible_days": 242,
+      "minute_slots": 89180,
+      "target_room_slots": 85450,
+      "soxx_whole_buy_days": 241,
+      "soxl_whole_buy_days": 240,
+      "both_whole_buy_days": 240,
+      "both_whole_buy_slots": 78315,
+      "median_both_day_common_beta_room": 0.24436844286840792
+    },
+    {
+      "year": 2021,
+      "parent_days": 252,
+      "source_eligible_days": 252,
+      "minute_slots": 93060,
+      "target_room_slots": 83637,
+      "soxx_whole_buy_days": 243,
+      "soxl_whole_buy_days": 243,
+      "both_whole_buy_days": 241,
+      "both_whole_buy_slots": 49247,
+      "median_both_day_common_beta_room": 0.12241911266340944
+    },
+    {
+      "year": 2022,
+      "parent_days": 246,
+      "source_eligible_days": 226,
+      "minute_slots": 83620,
+      "target_room_slots": 82376,
+      "soxx_whole_buy_days": 226,
+      "soxl_whole_buy_days": 226,
+      "both_whole_buy_days": 226,
+      "both_whole_buy_slots": 72023,
+      "median_both_day_common_beta_room": 0.5507753738730843
+    }
+  ],
+  "support_gate_pass": true,
+  "new_model_fits": 0,
+  "new_native_accounts": 0,
+  "future_outcomes_read": 0,
+  "historical_research_passed": false,
+  "decision": "joint_minute_asset_choice_support_pass_needs_episode_replay"
+}

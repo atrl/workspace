@@ -1,0 +1,35 @@
+{
+  "experiment": "stage1_event_episode_noop_parity_20261029",
+  "plan_sha256": "306a53ee81b55d922cc0a9642063bd7e5bff80c581472745df6ec5ad026cd257",
+  "status": "passed_noop_replay_parity",
+  "source_recorder_id": "2994f6afbfc54f279cefec362b220001",
+  "sessions": 1056,
+  "opening_action_days": 936,
+  "recovery_days": 10,
+  "orders": 1416,
+  "controller_rows": 1056,
+  "max_errors": {
+    "native_expected_nav": 0.0,
+    "ending_soxl_quantity": 0.0,
+    "ending_soxx_quantity": 0.0,
+    "ending_cash": 0.0,
+    "strategy_return": 0.0,
+    "fees": 0.0
+  },
+  "monthly_fee_peak": 7717.0,
+  "new_model_fits": 0,
+  "new_native_accounts": 0,
+  "new_economic_event_branches": 0,
+  "historical_research_passed": false,
+  "decision": "event_hook_noop_parity_pass_needs_checkpoint_and_event_branch",
+  "objective_achieved": false,
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [],
+    "reused_native_recorders": [
+      "2994f6afbfc54f279cefec362b220001"
+    ]
+  },
+  "audit": "audit.json"
+}

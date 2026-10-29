@@ -179,6 +179,31 @@ independent forward evidence remains a separate contract-v2 promotion gate.
   recovery became ineligible, so do not claim a pure cap-threshold effect.
   This is a different exact-f696 parent from the older 27baa bypass. The new
   local Recorder has no NAS archive receipt/readback after API failure; keep it.
+- The next joint capacity/asset-choice implementation is
+  `docs/stage1_event_capacity_choice_implementation_20261029.md`. Its first
+  read-only minute source/whole-share gate is
+  `research/stage1_event_beta_asset_choice_support_20261029`: 1025 eligible
+  dated-parent sessions, 377810 causal minute slots, 283513 slots where
+  cash-to-SOXX and equal-beta cash-to-SOXL can each form one whole-share buy,
+  and 226 supported 2022 dates. This uses maximum common feasible beta only
+  as source capacity, not a trading size or profit label. Before any factor
+  fit, implement a checkpointable 20-session own-state event replay and prove
+  HOLD/no-intervention parity with the frozen dated parent for shares, cash,
+  Tiered fees, risk/recovery, NAV and model clocks. The adjusted-price
+  development reference does not certify separate dividend receivables;
+  keep that source boundary `unknown`. A static
+  next-open reset, old cap+0.10 label or hindsight minute selection cannot
+  replace the parity gate. No new economic account or SOXX result exists.
+- The first replay-engine parity gate is
+  `research/stage1_event_episode_noop_parity_20261029`. The new
+  `src/backtest/stage1_event_episode.py` with `event=None` exactly reproduced
+  the dated f696+b472 parent for all1056 sessions, 1416 orders, 10 recovery
+  actions, annual model clocks, quantities, cash, monthly Tiered counters,
+  targets, fees, NAV and risk state (max error0). This is only a no-event
+  identity result. The engine still replays from inception for each event and
+  has no qualified event branch/checkpoint; do not use it to mass-produce
+  20-session labels or claim model/portfolio evidence. Next build a resumable
+  checkpoint and test one frozen event's full-history versus resumed path.
 - The independent XGB/LGB card uses a one-step all-cash origin and a pure
   SOXL/SOXX/cash winner label: only 8/1060 training labels select SOXX.
   Hard-argmax predictions are not free continuous-weight allocation. Its

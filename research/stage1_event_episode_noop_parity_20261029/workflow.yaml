@@ -1,0 +1,7 @@
+experiment: stage1_event_episode_noop_parity_20261029
+type: mechanical_replay_identity_no_outcome_intervention
+provider_uri: data/qlib/full_path_tiered_allocation_20261013
+artifact_policy:
+  policy: slim_card_recorder_first
+  workflow_config: workflow.yaml
+  recorder_only_artifacts: []

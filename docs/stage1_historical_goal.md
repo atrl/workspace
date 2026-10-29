@@ -85,3 +85,7 @@
 ## 2026-10-29 用户授权去除 beta 硬上限的固定账户消融
 
 [精确 f696 的独立0bp账户](../research/stage1_f696_no_beta_cap_ablation_20261029/conclusion.md)在944/944五输出核对后，去除 beta 投影但保留 SOXL30%与现金15%结构、b472动作模型及Tiered费用。相对原f696财富1.287，相对SOXX仅0.883；可用收盘/监控回撤−46.82%/−47.25%，CVaR5−5.735%弱于SOXX−4.905%，完整年0/2、滚动126日295/819胜出，区块下界负。0bp六项数值硬门全败，固定版本关闭，不跑2/5bp、不改变现役SIM。cap3.0超出原动作模型训练域且机械关闭恢复资格，结论仅限该整体路径；此前27baa父本旁路不能替代它。新Recorder缺NAS工件回执，本地保留；历史Goal仍未达成。
+
+[分钟双资产等beta整股来源预检](../research/stage1_event_beta_asset_choice_support_20261029/conclusion.md)在逐层点时母本上获得1025个合格日、283513个两种动作均能各自形成单笔整股买单的分钟，2022有226日；没有读取任何未来收益，不能称新因子或超额。后续[具体实施门](stage1_event_capacity_choice_implementation_20261029.md)先要求20交易日事件回放在HOLD分支逐股、现金、费用、风险状态与NAV复现原父本，然后才冻结同起点SOXX／SOXL等beta增量标签和新信息门。本阶段零拟合、零新账户，历史Goal仍未达成。
+
+[事件回放器无干预身份门](../research/stage1_event_episode_noop_parity_20261029/conclusion.md)已在封存逐层点时1056日父本上通过：1416笔订单、10次恢复和全部股数、现金、Tiered费用、NAV、风险状态最大差0。当前仅验证无事件路径；尚无可恢复checkpoint或真实事件分支，不生成20日收益标签、不拟合因子，也无SOXX新账户。

@@ -1,0 +1,7 @@
+experiment: stage1_event_beta_asset_choice_support_20261029
+type: source_and_mechanical_action_preflight_no_outcomes
+provider_uri: data/qlib/stage1_event_guard_fullminute_20261028
+artifact_policy:
+  policy: slim_card_recorder_first
+  workflow_config: workflow.yaml
+  recorder_only_artifacts: []
