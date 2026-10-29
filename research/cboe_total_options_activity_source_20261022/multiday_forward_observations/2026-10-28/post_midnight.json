@@ -1,0 +1,65 @@
+{
+  "schema_version": 1,
+  "target_trade_date": "2026-10-28",
+  "phase": "post_midnight",
+  "plan_sha256": "c3ef7c87d0494aa8672b99a623b4ad635d27e28a1209dde949a2614852b0f98e",
+  "binding_sha256": "a634a26436d2fa1f3334fc16ca3a031664707aecafc90fdac0d5024c3057fd9c",
+  "observed_at_utc": "2026-10-29T04:16:06.781058+00:00",
+  "models": 0,
+  "accounts": 0,
+  "market_outcome_reads": 0,
+  "PIT_qualified": false,
+  "status": "observed",
+  "records": [
+    {
+      "symbol": "SOXX",
+      "url": "https://www.cboe.com/us/options/market_statistics/historical_data/download/class/?reportType=volume&volumeType=sum&volumeAggType=daily&symbolType=underlying&symbol=SOXX&startDate=2026-10-27&endDate=2026-10-28&exchanges=CBOE&exchanges=BATS&exchanges=C2&exchanges=EDGX",
+      "requested_at_utc": "2026-10-29T04:16:06.783303+00:00",
+      "http_status": 200,
+      "content_type": "text/csv",
+      "response_date": "Thu, 29 Oct 2026 04:16:08 GMT",
+      "response_age": null,
+      "cache_status": "MISS",
+      "cache_control": "public, max-age=5, s-maxage=30, stale-while-revalidate=30",
+      "last_modified": "Thu, 29 Oct 2026 04:16:08 GMT",
+      "relative_path": "data/snapshots/cboe_total_options_activity_source_20261022/multiday_forward/2026-10-28/post_midnight/soxx.csv",
+      "bytes": 272,
+      "sha256": "264035a3a6d3a9f3667e2aa68962caf5a4169478ce383041bae82e0996d1add2",
+      "target_date_present": true,
+      "predecessor_date": "2026-10-27",
+      "predecessor_date_present": true,
+      "predecessor_unchanged": null,
+      "daily_contracts": {
+        "2026-10-27": 12003,
+        "2026-10-28": 25503
+      },
+      "target_exchange_rows": 4
+    },
+    {
+      "symbol": "SOXL",
+      "url": "https://www.cboe.com/us/options/market_statistics/historical_data/download/class/?reportType=volume&volumeType=sum&volumeAggType=daily&symbolType=underlying&symbol=SOXL&startDate=2026-10-27&endDate=2026-10-28&exchanges=CBOE&exchanges=BATS&exchanges=C2&exchanges=EDGX",
+      "requested_at_utc": "2026-10-29T04:16:08.697200+00:00",
+      "http_status": 200,
+      "content_type": "text/csv",
+      "response_date": "Thu, 29 Oct 2026 04:16:09 GMT",
+      "response_age": null,
+      "cache_status": "MISS",
+      "cache_control": "public, max-age=5, s-maxage=30, stale-while-revalidate=30",
+      "last_modified": "Thu, 29 Oct 2026 04:16:09 GMT",
+      "relative_path": "data/snapshots/cboe_total_options_activity_source_20261022/multiday_forward/2026-10-28/post_midnight/soxl.csv",
+      "bytes": 275,
+      "sha256": "8bdd60f596eaaec9d068c233bd047593e2225a39a5e37b87330ef69d562e49d6",
+      "target_date_present": true,
+      "predecessor_date": "2026-10-27",
+      "predecessor_date_present": true,
+      "predecessor_unchanged": null,
+      "daily_contracts": {
+        "2026-10-27": 62981,
+        "2026-10-28": 61592
+      },
+      "target_exchange_rows": 4
+    }
+  ],
+  "http_GETs": 2,
+  "predecessor_trade_date": "2026-10-27"
+}

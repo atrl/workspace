@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "status": "needs_data_nas_archive_unverified",
+  "target_trade_date": "2026-10-28",
+  "phase": "post_midnight",
+  "member_sha256": {
+    "research/cboe_total_options_activity_source_20261022/multiday_forward_observations/2026-10-28/post_midnight.json": "c9c0fd4ec20abb8c3a5657af615dcca9f41cde53db3bdb60f5391797beccbfca",
+    "data/snapshots/cboe_total_options_activity_source_20261022/multiday_forward/2026-10-28/post_midnight/soxx.csv": "264035a3a6d3a9f3667e2aa68962caf5a4169478ce383041bae82e0996d1add2",
+    "data/snapshots/cboe_total_options_activity_source_20261022/multiday_forward/2026-10-28/post_midnight/soxl.csv": "8bdd60f596eaaec9d068c233bd047593e2225a39a5e37b87330ef69d562e49d6"
+  },
+  "nas_upload_attempts": 1,
+  "nas_error": "NAS API PUT /api/research/artifacts/7ff65bcf3b42260bcb4a87a9e43434d4695b07577c763cdef5b927e84846ddeb failed (curl 22)",
+  "nas_receipt": null,
+  "remote_sha256": null,
+  "preservation": "Keep exact local source bytes and receipt; Git commit is not a NAS readback.",
+  "model_fits": 0,
+  "accounts": 0,
+  "market_outcome_reads": 0,
+  "qualified_strategy_days": 0
+}
