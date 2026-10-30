@@ -1,0 +1,94 @@
+{
+  "experiment": "stage1_v5_equal_beta_value_labels_20261030",
+  "schema_version": "stage1_v5_equal_beta_value_labels_v1",
+  "frozen": true,
+  "type": "numeric_same_state_fee_net_value_discovery_labels",
+  "provider_uri": "data/qlib/stage1_event_guard_fullminute_20261028",
+  "provider_manifest_sha256": "e9ab78e4e8fca7b70a5ccc27074893414a1308f13a4d37c3174c1690827db1e0",
+  "training_source": {
+    "card": "research/stage1_f696_oof_training_reference_20261028",
+    "recorder_id": "2994f6afbfc54f279cefec362b220001",
+    "archive": "e773cd3edf42b9ff9826270b70fdb9f9e90f4737e35f4d158ef0f5fcf5a4e9dd",
+    "inventory_sha256": "8699fd57be85d3b4b330f529e73612c8cc52967b5e7c3e8c0682c622c6e70f54",
+    "summary_sha256": "00f276f2fe3e5641642a6f864e5e85da968599286aa8e9202a2d445cdf193584"
+  },
+  "frame_source": {
+    "card": "research/stage1_f696_exact_parent_training_reference_20261027",
+    "recorder_id": "748eb4209e314fb6a6c41c19498d6d03",
+    "archive": "db1ae7040439b69ba4a264f00741a625e9c432cefe08a2d770d374b51d3591c8",
+    "inventory_sha256": "d0c696c91179e005c7859bac28b418ff827aa53c7005cf560d329f0896eb5618",
+    "summary_sha256": "8c0d00825fd7aa0177e4578face924fe8a3159898a5915a4c5cac26f20877cc2"
+  },
+  "training_start": "2018-10-15",
+  "training_end": "2022-12-22",
+  "expected_parent_sessions": 1056,
+  "tariff": {
+    "role": "2026-10-13 current IBKR Pro Tiered price projection across reused history, not historical realized bills",
+    "tiers": [
+      {
+        "through_shares": 300000,
+        "per_share": 0.0035
+      },
+      {
+        "through_shares": 3000000,
+        "per_share": 0.002
+      },
+      {
+        "through_shares": 20000000,
+        "per_share": 0.0015
+      },
+      {
+        "through_shares": 100000000,
+        "per_share": 0.001
+      },
+      {
+        "through_shares": null,
+        "per_share": 0.0005
+      }
+    ],
+    "minimum_per_order": 0.35,
+    "maximum_order_fraction": 0.01,
+    "venue_per_share": 0.003,
+    "venue_subdollar_fraction": 0.003,
+    "clearing_per_share": 0.0002,
+    "clearing_maximum_fraction": 0.005,
+    "sec_sale_fraction": 2.06e-05,
+    "taf_per_sold_share": 0.0,
+    "taf_maximum_per_trade": 9.79,
+    "cat_per_share": 3e-06,
+    "commission_pass_through_fraction": 0.000735,
+    "venue_assumption": "SMART orders removing displayed Nasdaq liquidity; no assumed maker rebate",
+    "TAF_rule": "current IBKR fee holiday 2026-10-01 through 2026-12-31; zero projection over the full diagnostic history",
+    "fractional_share_fills": false,
+    "usd_cent_rounding": "unrounded rate projection, not exact statement cents"
+  },
+  "clock": "completed 1m bar t after parent09:47 fill; decision t+1m; one intended whole-share buy at open of bar starting t+2m before true XNYS close",
+  "action": {
+    "nominal_beta_increment": 0.1,
+    "soxx_target": "(soxl,soxx+0.10,cash-0.10)",
+    "soxl_target": "(soxl+0.10/3,soxx,cash-0.10/3)",
+    "constraints": "long-only simplex, no borrowing; old beta cap, SOXL30pct and cash15pct floors are not imposed; both arms must independently produce exactly one whole-share buy of intended asset with positive postfill cash"
+  },
+  "label": "For each funded event at t+2, value of an independent one-buy SOXL or SOXX branch at next US session 09:47 before next action, minus unchanged after-open HOLD branch at the same next open, divided by decision NAV; primary difference SOXL minus SOXX. No common reset; event fees only; discovery label, not final continuous target.",
+  "unknown": "Original recovery day, incomplete source day, no one-buy whole-share/negative cash arm, terminal next-open unavailable. No fill or future whole-share legality cannot be a decision feature.",
+  "support_gate": {
+    "minimum_discovery_funded_days": 200,
+    "minimum_2019_days": 50,
+    "minimum_2020_days": 100,
+    "minimum_2021_days": 100,
+    "minimum_2022_days": 100,
+    "minimum_positive_and_negative_days_2019_2022": 20
+  },
+  "budget": {
+    "label_pass_attempts": 1,
+    "maximum_event_slots": 384660,
+    "new_model_fits": 0,
+    "new_native_accounts": 0,
+    "new_recorders": 1,
+    "new_market_requests": 0
+  },
+  "stop": "Any parent/source/time/fee parity failure or fixed value sign support failure closes this label version. Do not tune size, time, years, risk structure or missingness on realized value. 2021/22 outputs remain sealed for later information-gate testing, not feature discovery.",
+  "as_of": "2026-10-30",
+  "label_code": "src/analysis/stage1_v5_equal_beta_value_labels.py",
+  "label_code_sha256": "5cf5db4125b99a5a2f5ad3c7392b87d8d96d796552e1bb51b176b1cc4694b905"
+}

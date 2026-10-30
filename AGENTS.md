@@ -259,6 +259,22 @@ independent forward evidence remains a separate contract-v2 promotion gate.
   handle recovery in its own state or decide after recovery is known. One
   invalid source day and the terminal day remain unknown. No return labels,
   model fits, candidate account or SOXX pass occurred in this card.
+- The next v5 label card
+  `research/stage1_v5_equal_beta_value_labels_20261030` used that same dated
+  parent and all384660 Qlib event slots to save333631 paired, fee-net,
+  next-open numeric SOXL/SOXX/HOLD value labels across1044 days in Recorder
+  `54bf06d027dc44bc805b87a659558dd6`. Yearly paired days remain
+  53/252/242/252/245; both positive and negative minute values occur on
+  many of the same days, so rows/sign counts are not independent predictive
+  samples. Parent HOLD next-open NAV error is1.16e-10 USD. An initial
+  metric-logging `float(dict)` error occurred after all label objects were
+  saved; the same Recorder was resumed, object hashes unchanged, final
+  Qlib status FINISHED and NAS upload plus scoped labels/audit readback passed.
+  No new feature fit or candidate account ran. The original recovery-day
+  mask is retrospective and cannot become a decision-time feature. Next use
+  only2018–2020 for matched state/ordinary-minute control residual discovery;
+  keep2021/2022 for a separately frozen information gate, and do not treat
+  these local labels as full-account SOXX alpha.
   Keep 2023+ outcomes out of feature/window/sign selection.
   This v5 document is **not yet a fit-ready model contract**: its few legal
   HOLD/buy/rotation actions are source and information controls, not a

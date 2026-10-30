@@ -1,0 +1,99 @@
+{
+  "experiment": "stage1_v5_equal_beta_value_labels_20261030",
+  "plan_sha256": "dc1fae30166eafec597d05ba4ad42463114e58e84ef89f96d0db2db113772008",
+  "decision": "fixed_010_value_label_sign_support_pass_needs_control_residual",
+  "objective_achieved": false,
+  "historical_research_passed": false,
+  "source_audit": {
+    "sessions": 1056,
+    "event_slots": 384660,
+    "status_counts": {
+      "eligible": 1044,
+      "original_recovery": 10,
+      "source_invalid": 1,
+      "terminal": 1
+    },
+    "soxl_funded_rows": 384367,
+    "soxx_funded_rows": 333897,
+    "paired_rows": 333631,
+    "paired_days": 1044,
+    "parent_nav_max_error_usd": 1.1641532182693481e-10
+  },
+  "support_gate_pass": true,
+  "annual_sign_support": [
+    {
+      "year": 2018,
+      "days": 53,
+      "paired_rows": 18114,
+      "positive_days": 51,
+      "negative_days": 53
+    },
+    {
+      "year": 2019,
+      "days": 252,
+      "paired_rows": 92051,
+      "positive_days": 248,
+      "negative_days": 248
+    },
+    {
+      "year": 2020,
+      "days": 242,
+      "paired_rows": 86676,
+      "positive_days": 237,
+      "negative_days": 240
+    },
+    {
+      "year": 2021,
+      "days": 252,
+      "paired_rows": 57049,
+      "positive_days": 237,
+      "negative_days": 246
+    },
+    {
+      "year": 2022,
+      "days": 245,
+      "paired_rows": 79741,
+      "positive_days": 234,
+      "negative_days": 242
+    }
+  ],
+  "new_model_fits": 0,
+  "new_native_accounts": 0,
+  "recorder_id": "54bf06d027dc44bc805b87a659558dd6",
+  "experiment_id": "328880377376450977",
+  "recorder_uri": "/Users/rziiiii/dev/workspace/research/stage1_v5_equal_beta_value_labels_20261030/qlib_recorder",
+  "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/stage1_v5_equal_beta_value_labels_20261030/qlib_recorder/328880377376450977/54bf06d027dc44bc805b87a659558dd6",
+  "provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/stage1_event_guard_fullminute_20261028",
+  "archive_status": "nas_receipt_and_scoped_readback_verified",
+  "historical_first_receipt_qualified": false,
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "inputs/*",
+      "sources/*",
+      "analysis/*"
+    ]
+  },
+  "limitations": [
+    "One-event next-open discovery labels are not a complete own-state candidate strategy.",
+    "Original recovery days are retrospectively masked, not a decision-time feature.",
+    "2021/2022 labels are not used for discovery.",
+    "No source receipt or actual broker fill certification."
+  ],
+  "nas_evidence": {
+    "sha256": "09de9c27473fc795d13e93650d8bdbc4c73c6acde3a601ab8f4ee9579c1b16e9",
+    "size_bytes": 18580222,
+    "media_type": "application/gzip",
+    "storage_uri": "sha256/09/de/09de9c27473fc795d13e93650d8bdbc4c73c6acde3a601ab8f4ee9579c1b16e9",
+    "uploaded_by": "soxl-minute-research",
+    "created_at": "2026-10-30 11:58:27.36817+08",
+    "duplicate": false,
+    "nas_path": "/volume1/docker/yanxuan/registry/research-artifacts/09/de/09de9c27473fc795d13e93650d8bdbc4c73c6acde3a601ab8f4ee9579c1b16e9",
+    "recorder_id": "54bf06d027dc44bc805b87a659558dd6",
+    "experiment_id": "328880377376450977",
+    "archive_root": "qlib_recorder"
+  },
+  "nas_scoped_readback": "nas_scoped_readback.json",
+  "archive_status_updated_after_recorder_summary": true
+}

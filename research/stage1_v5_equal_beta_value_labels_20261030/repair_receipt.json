@@ -1,0 +1,57 @@
+{
+  "status": "resumed_same_recorder_after_metric_type_error",
+  "recorder_id": "54bf06d027dc44bc805b87a659558dd6",
+  "experiment_id": "328880377376450977",
+  "artifact_sha256": {
+    "perday": "f3dbb41a921e45d45d02cf6fc6863a50ac6d415f9151a5d99d1a5d636d842159",
+    "labels": "174550661777391932201b0006c0cd37c0c0d02a8e645f4f2c54466cbbd3da06",
+    "annual": "c2d211a45f3fe8150ff7c8b3255ddf7a903173632ade21dc4c2decfa650ba0d3",
+    "audit": "7fa31b42d6aeebf1004111d6d4e6ce701b0ca39c09c46863ddbf7b5ed7b43322",
+    "masks": "1f3269dacb4292434ccc44f301fda44be1d487c39c34140e1e858f5ba7623ff5"
+  },
+  "no_label_recompute": true,
+  "paired_rows": 333631,
+  "paired_days": 1044,
+  "sign_support_gate_pass": true,
+  "annual_sign_support": [
+    {
+      "year": 2018,
+      "days": 53,
+      "paired_rows": 18114,
+      "positive_days": 51,
+      "negative_days": 53
+    },
+    {
+      "year": 2019,
+      "days": 252,
+      "paired_rows": 92051,
+      "positive_days": 248,
+      "negative_days": 248
+    },
+    {
+      "year": 2020,
+      "days": 242,
+      "paired_rows": 86676,
+      "positive_days": 237,
+      "negative_days": 240
+    },
+    {
+      "year": 2021,
+      "days": 252,
+      "paired_rows": 57049,
+      "positive_days": 237,
+      "negative_days": 246
+    },
+    {
+      "year": 2022,
+      "days": 245,
+      "paired_rows": 79741,
+      "positive_days": 234,
+      "negative_days": 242
+    }
+  ],
+  "initial_failure": "float(gate_dict) in metric logging after all label objects saved",
+  "second_resume_warning": "Qlib async cmd-sys.argv param collision; metrics were absent after this resume",
+  "final_resume": "same cmd-sys.argv and recorder; metrics and analysis/summary saved",
+  "final_recorder_status": "FINISHED"
+}
