@@ -1,0 +1,33 @@
+{
+  "experiment": "stage1_v5_capfree_lock_clock_matrix_20261030",
+  "plan_sha256": "bc4e8845eb6291d98684927ae4391781f38bbe76ee3fc9456be5592dcbeeca77",
+  "decision": "four_case_capfree_lock_mechanical_clock_matrix_pass_not_bulk_labels",
+  "historical_research_passed": false,
+  "module": "src/backtest/stage1_capfree_lock_episode.py",
+  "module_sha256": "1b3d8988db90a29ddc5700759cc4aebabfc32ddd3d126fc84188fa6a1d1fd3c1",
+  "audit": "audit.json",
+  "mechanical_case_count": 4,
+  "maximum_terminal_nav_closure_error_usd": 2.1827872842550278e-11,
+  "ambiguous_recovery_bars_rejected": [
+    "10:30",
+    "10:31",
+    "10:32"
+  ],
+  "synthetic_no_fill_retained": true,
+  "qlib_minute_reads": 3,
+  "new_model_fits": 0,
+  "new_candidate_accounts": 0,
+  "new_recorders": 0,
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": []
+  },
+  "limitations": [
+    "Four source-selected mechanical episodes do not establish all-minute support or economic value.",
+    "Before-10:32 lock suppresses later old recovery in both arms; HOLD differs from parent on those dates.",
+    "Late episode splices verified native post-10:32 state; source had 1 actual recovery order in the tested 2020 case, 0 in the half-day case.",
+    "Three bars adjacent to 10:32 remain unknown due order timing.",
+    "No repeated trigger/cooldown full account, continuous model or SOXX gate; adjusted-price dividend receivables and real first receipt remain unqualified."
+  ]
+}

@@ -457,6 +457,21 @@ independent forward evidence remains a separate contract-v2 promotion gate.
   parent after first next-open. Expand causal late/recovery/half-day clocks and
   arbitrary continuous targets under the same cap-free domain before bulk
   labels; preserve the old checkpoint as parent-only parity.
+- The generalized single-event cap-free lock clock matrix is
+  `research/stage1_v5_capfree_lock_clock_matrix_20261030` and
+  `src/backtest/stage1_capfree_lock_episode.py`. Four fixed Qlib cases cover
+  ordinary early buy, 13:00 half-day SOXL sell/SOXX buy, and before/after a
+  2020 recovery. Both branches lock five sessions after the event; old b472
+  and caps are not called during lock. Maximum terminal own-share/cash NAV
+  closure is 2.18e-11 USD and monthly Tiered shares reconcile. Early lock on
+  a recovery day intentionally suppresses later recovery in both arms, so
+  HOLD differs from the frozen parent by $19.4067 at first next-open; late
+  lock splices actual post-10:32 parent state and matches first next-open.
+  Bars ending 10:30–10:32 are unknown due recovery ordering, not arbitrarily
+  early/late. A no-whole-share event remains explicit. This is only four
+  mechanical samples, not all-minute support, bulk labels, a trained
+  continuous receiver or SOXX account. Next audit all causal minute intents,
+  maturity, repeated lock triggers and budget before generating labels.
 - The historical old-cap joint capacity/asset-choice card is
   `docs/stage1_event_capacity_choice_implementation_20261029.md`. Its first
   read-only minute source/whole-share gate is

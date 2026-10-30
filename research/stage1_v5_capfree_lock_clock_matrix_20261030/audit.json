@@ -1,0 +1,108 @@
+{
+  "experiment": "stage1_v5_capfree_lock_clock_matrix_20261030",
+  "plan_sha256": "bc4e8845eb6291d98684927ae4391781f38bbe76ee3fc9456be5592dcbeeca77",
+  "module_sha256": "1b3d8988db90a29ddc5700759cc4aebabfc32ddd3d126fc84188fa6a1d1fd3c1",
+  "cases": [
+    {
+      "case": "ordinary_early",
+      "day": "2019-12-19",
+      "clock": "2019-12-19 09:48:00->2019-12-19 09:50:00",
+      "session_close": "2019-12-19 16:00:00",
+      "recovery_orders_before_decision": 0,
+      "post_1032_parent_state_spliced": false,
+      "event_order_count": 1,
+      "event_order_symbols": [
+        "SOXX"
+      ],
+      "event_order_sell": [
+        false
+      ],
+      "event_fee_usd": 0.55524925,
+      "monthly_fee_share_delta": 64.0,
+      "event_status": "funded",
+      "hold_parent_first_next_open_error_usd": 0.0,
+      "terminal_nav_closure_error_usd": 2.1827872842550278e-11,
+      "hold_available_mark_max_drawdown": 0.009570343031858108,
+      "event_available_mark_max_drawdown": 0.010218654298004726
+    },
+    {
+      "case": "halfday_late_mixed",
+      "day": "2018-11-23",
+      "clock": "2018-11-23 12:00:00->2018-11-23 12:02:00",
+      "session_close": "2018-11-23 13:00:00",
+      "recovery_orders_before_decision": 0,
+      "post_1032_parent_state_spliced": true,
+      "event_order_count": 2,
+      "event_order_symbols": [
+        "SOXL",
+        "SOXX"
+      ],
+      "event_order_sell": [
+        true,
+        false
+      ],
+      "event_fee_usd": 1.0643322599472045,
+      "monthly_fee_share_delta": 89.0,
+      "event_status": "funded",
+      "hold_parent_first_next_open_error_usd": 0.0,
+      "terminal_nav_closure_error_usd": 1.4551915228366852e-11,
+      "hold_available_mark_max_drawdown": 0.08191517394871295,
+      "event_available_mark_max_drawdown": 0.08183755213009603
+    },
+    {
+      "case": "recovery_day_early",
+      "day": "2020-03-09",
+      "clock": "2020-03-09 09:48:00->2020-03-09 09:50:00",
+      "session_close": "2020-03-09 16:00:00",
+      "recovery_orders_before_decision": 0,
+      "post_1032_parent_state_spliced": false,
+      "event_order_count": 1,
+      "event_order_symbols": [
+        "SOXX"
+      ],
+      "event_order_sell": [
+        false
+      ],
+      "event_fee_usd": 0.55845225,
+      "monthly_fee_share_delta": 65.0,
+      "event_status": "funded",
+      "hold_parent_first_next_open_error_usd": 19.406701446714578,
+      "terminal_nav_closure_error_usd": 0.0,
+      "hold_available_mark_max_drawdown": 0.20545253426827959,
+      "event_available_mark_max_drawdown": 0.21656582991083162
+    },
+    {
+      "case": "recovery_day_late",
+      "day": "2020-03-09",
+      "clock": "2020-03-09 12:00:00->2020-03-09 12:02:00",
+      "session_close": "2020-03-09 16:00:00",
+      "recovery_orders_before_decision": 1,
+      "post_1032_parent_state_spliced": true,
+      "event_order_count": 1,
+      "event_order_symbols": [
+        "SOXX"
+      ],
+      "event_order_sell": [
+        false
+      ],
+      "event_fee_usd": 0.55204625,
+      "monthly_fee_share_delta": 63.0,
+      "event_status": "funded",
+      "hold_parent_first_next_open_error_usd": 5.820766091346741e-11,
+      "terminal_nav_closure_error_usd": 7.275957614183426e-12,
+      "hold_available_mark_max_drawdown": 0.2548389671592577,
+      "event_available_mark_max_drawdown": 0.2683042742302675
+    }
+  ],
+  "ambiguous_recovery_bars_rejected": [
+    "10:30",
+    "10:31",
+    "10:32"
+  ],
+  "synthetic_no_fill_retained": true,
+  "qlib_minute_reads": 3,
+  "new_model_fits": 0,
+  "new_candidate_accounts": 0,
+  "historical_research_passed": false,
+  "decision": "four_case_capfree_lock_mechanical_clock_matrix_pass_not_bulk_labels"
+}

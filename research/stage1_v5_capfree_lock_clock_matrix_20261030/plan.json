@@ -1,0 +1,61 @@
+{
+  "experiment": "stage1_v5_capfree_lock_clock_matrix_20261030",
+  "frozen": true,
+  "type": "single_event_clock_matrix_capfree_lock_mechanical",
+  "module": "src/backtest/stage1_capfree_lock_episode.py",
+  "parent_card": "research/stage1_f696_oof_training_reference_20261028",
+  "parent_recorder_id": "2994f6afbfc54f279cefec362b220001",
+  "parent_summary_sha256": "00f276f2fe3e5641642a6f864e5e85da968599286aa8e9202a2d445cdf193584",
+  "parent_manifest_sha256": "8699fd57be85d3b4b330f529e73612c8cc52967b5e7c3e8c0682c622c6e70f54",
+  "old_source_card": "research/stage1_f696_exact_parent_training_reference_20261027",
+  "old_source_plan_sha256": "a86f99e11156bbcc474fbf302ff4e6804792e9533c368641033bed9a8667b1c6",
+  "minute_provider_uri": "data/qlib/stage1_event_guard_fullminute_20261028",
+  "minute_provider_manifest_sha256": "e9ab78e4e8fca7b70a5ccc27074893414a1308f13a4d37c3174c1690827db1e0",
+  "checkpoint_code": "src/backtest/stage1_event_checkpoint.py",
+  "checkpoint_code_sha256": "1e62923b270c6ec4f698b2e5d676d3abe2d476fbbdd4ded1e3e2b6408bd1c34b",
+  "cases": [
+    {
+      "name": "ordinary_early",
+      "trade_date": "2019-12-19",
+      "bar_end_at": "09:48",
+      "target_rule": "cash_to_soxx_0.10"
+    },
+    {
+      "name": "halfday_late_mixed",
+      "trade_date": "2018-11-23",
+      "bar_end_at": "12:00",
+      "target_rule": "soxl_minus_0.04_soxx_plus_0.08_cash_minus_0.04"
+    },
+    {
+      "name": "recovery_day_early",
+      "trade_date": "2020-03-09",
+      "bar_end_at": "09:48",
+      "target_rule": "cash_to_soxx_0.10"
+    },
+    {
+      "name": "recovery_day_late",
+      "trade_date": "2020-03-09",
+      "bar_end_at": "12:00",
+      "target_rule": "cash_to_soxx_0.10"
+    }
+  ],
+  "event_selection": "dates and clocks frozen from source calendar and first known2020 recovery action; no future returns used. Recovery-day choice is mechanical coverage, not policy training.",
+  "ambiguous_recovery_bar_ends": [
+    "10:30",
+    "10:31",
+    "10:32"
+  ],
+  "horizon_sessions": 5,
+  "domain": "long-only simplex, no borrowing, whole-share Tiered, no old beta/SOXL/cash limits during lock; both HOLD and EVENT suspend b472 for five sessions; late event splices verified native parent recovery before decision, early event suppresses later recovery",
+  "verification": "same prefill q/cash/fee/peak, source fill parity, valid minute marks, 5-session terminal NAV algebra, HOLD first next-open parent parity where no recovery remains; half-day actual close; ambiguous clocks rejected",
+  "budget": {
+    "new_model_fits": 0,
+    "new_candidate_accounts": 0,
+    "new_recorders": 0,
+    "qlib_minute_reads": 3,
+    "mechanical_cases": 4,
+    "new_market_requests": 0
+  },
+  "stop": "Any source/hash/case clock/parent recovery/NAV/fee/whole-share check failure stops; do not change cases on realized outcome.",
+  "as_of": "2026-10-30"
+}
