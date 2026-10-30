@@ -1,0 +1,11 @@
+{
+  "status": "passed",
+  "archive_sha256": "f0e846708a8afc37a06212dc49d873db85550b32260b2d37d6e97831eb646ede",
+  "receipt_size_bytes": 25316858,
+  "recorder_id": "2da04a28956b4fb39d07954824ee457d",
+  "selected_artifacts": {
+    "analysis/labels": "187e1bd3eff8994afb24c2deed603597258ca925d75bb1c7742681863c9a9e0a",
+    "analysis/audit": "290f166b637f25acb460ca306133b5689dda46f167d392dd5202dc78136e057e",
+    "analysis/discovery_annual": "ab70e3b9cea76fb27a8e2f22b997a982085fa564ca0e1068b6b8eec6596fc9df"
+  }
+}

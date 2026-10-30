@@ -529,6 +529,24 @@ independent forward evidence remains a separate contract-v2 promotion gate.
   path, while future four sessions must be complete. This is not all-minute
   labels, a continuous model or SOXX alpha. Next freeze one full-batch
   Qlib Recorder/NAS budget and retain source/no-fill/unknown intention rows.
+- The complete same-domain five-session minute path label Recorder is
+  `research/stage1_v5_capfree_lock_path_labels_20261030` (Qlib ID
+  `2da04a28956b4fb39d07954824ee457d`). It retains all385932 decision-known
+  minute intents,382996 mature complete paths and332277 paired exact
+  whole-share Tiered SOXL/SOXX buys;1468 path-source unknown,1468 terminal
+  unknown and50719 nonpaired/no-exact-fill rows stay explicit. Original
+  dated-parent opening peak closes within4.44e-16. Batch345.8s and64.6MB
+  Recorder stayed inside frozen budget; NAS receipt, archive hash and scoped
+  labels/audit/discovery-year readback passed. Discovery2018/2019/2020
+  day-weighted SOXL-minus-SOXX local means are -1.487/-0.443/-1.052bp;
+  fee differential only +0.009/+0.009/+0.006bp, so relative price/share
+  path drives the negative local means. Both signs have2019/2020 day support,
+  but no feature predictiveness or SOXX account follows. 2021/2022 values are
+  stored but not inspected for selection. Next freeze one matched information
+  screen for completed-minute own drawdown beyond opening state/ordinary
+  minute returns, with live-intent/no-fill accounting and day-grouped purge;
+  discrete+0.10 labels do not supervise final continuous weights. Keep
+  contract-v2 SOXX gates and current paper SIM separate.
 - The historical old-cap joint capacity/asset-choice card is
   `docs/stage1_event_capacity_choice_implementation_20261029.md`. Its first
   read-only minute source/whole-share gate is

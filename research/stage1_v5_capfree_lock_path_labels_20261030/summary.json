@@ -1,0 +1,93 @@
+{
+  "experiment": "stage1_v5_capfree_lock_path_labels_20261030",
+  "plan_sha256": "2bb3dbd2a1b47cc59bf3670be71d75a93bda05cbea26c5f9e5ad81c0a246f2bb",
+  "decision": "five_session_path_labels_source_and_discovery_sign_pass_information_unproven",
+  "historical_research_passed": false,
+  "recorder_id": "2da04a28956b4fb39d07954824ee457d",
+  "experiment_id": "294476149756418685",
+  "recorder_uri": "/Users/rziiiii/dev/workspace/research/stage1_v5_capfree_lock_path_labels_20261030/qlib_recorder",
+  "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/stage1_v5_capfree_lock_path_labels_20261030/qlib_recorder/294476149756418685/2da04a28956b4fb39d07954824ee457d",
+  "recorder_bytes": 64619375,
+  "source_audit": {
+    "counts": {
+      "intent_rows": 385932,
+      "mature_path_rows": 382996,
+      "soxl_funded": 382489,
+      "soxx_funded": 332757,
+      "paired_funded": 332277,
+      "unknown_path": 1468,
+      "terminal_unknown": 1468,
+      "no_exact_whole_share_pair": 50719
+    },
+    "opening_peak_max_error": 4.440892098500626e-16,
+    "qlib_minute_rows": 820440,
+    "batch_elapsed_seconds": 345.8058930829866,
+    "discovery_sign_support_pass": true
+  },
+  "discovery_annual": [
+    {
+      "year": 2018,
+      "days": 53,
+      "positive_days": 36,
+      "negative_days": 51,
+      "day_mean_relative_value": -0.0001487213932741548,
+      "day_mean_soxl_tail_damage": 0.004297903244222047,
+      "day_mean_soxx_tail_damage": 0.004336196714998777
+    },
+    {
+      "year": 2019,
+      "days": 252,
+      "positive_days": 199,
+      "negative_days": 246,
+      "day_mean_relative_value": -4.426538457834643e-05,
+      "day_mean_soxl_tail_damage": 0.0022575427380372025,
+      "day_mean_soxx_tail_damage": 0.0022859495267694807
+    },
+    {
+      "year": 2020,
+      "days": 249,
+      "positive_days": 181,
+      "negative_days": 235,
+      "day_mean_relative_value": -0.00010517388305850832,
+      "day_mean_soxl_tail_damage": 0.0032444067680417804,
+      "day_mean_soxx_tail_damage": 0.003299174216296686
+    }
+  ],
+  "new_model_fits": 0,
+  "new_native_candidate_accounts": 0,
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "inputs/*",
+      "sources/*",
+      "analysis/*"
+    ]
+  },
+  "limitations": [
+    "Five-session event/HOLD local path labels, not a trained continuous allocator or complete SOXX candidate account.",
+    "2021/2022 values stored but not inspected for selection; overlapping minute events require day grouping and five-session purge.",
+    "Historical minute first receipt, actual broker fills and adjusted-price separate dividend receivables remain unqualified."
+  ],
+  "archive_status": "nas_receipt_and_scoped_readback_verified",
+  "nas_evidence": {
+    "sha256": "f0e846708a8afc37a06212dc49d873db85550b32260b2d37d6e97831eb646ede",
+    "size_bytes": 25316858,
+    "media_type": "application/gzip",
+    "storage_uri": "sha256/f0/e8/f0e846708a8afc37a06212dc49d873db85550b32260b2d37d6e97831eb646ede",
+    "uploaded_by": "soxl-minute-research",
+    "created_at": "2026-10-30 14:29:25.296976+08",
+    "duplicate": false,
+    "nas_path": "/volume1/docker/yanxuan/registry/research-artifacts/f0/e8/f0e846708a8afc37a06212dc49d873db85550b32260b2d37d6e97831eb646ede",
+    "recorder_id": "2da04a28956b4fb39d07954824ee457d",
+    "experiment_id": "294476149756418685",
+    "archive_root": "qlib_recorder"
+  },
+  "nas_scoped_readback": "nas_scoped_readback.json",
+  "discovery_fee_price_attribution": "discovery_fee_price_attribution.json",
+  "local_verified_objects": [
+    "analysis/labels",
+    "analysis/audit",
+    "analysis/discovery_annual"
+  ]
+}

@@ -1,0 +1,39 @@
+{
+  "source_recorder_id": "2da04a28956b4fb39d07954824ee457d",
+  "source_labels_sha256": "187e1bd3eff8994afb24c2deed603597258ca925d75bb1c7742681863c9a9e0a",
+  "scope": "2018-2020 paired funded discovery only",
+  "annual": [
+    {
+      "year": 2018,
+      "days": 53,
+      "event_rows": 17968,
+      "day_mean_relative_bp": -1.4872139327415477,
+      "day_mean_fee_relative_bp": 0.008661989834240416,
+      "day_mean_price_and_share_relative_bp": -1.4958759225757883,
+      "day_mean_soxl_tail_damage_pp": 0.42979032442220466,
+      "day_mean_soxx_tail_damage_pp": 0.4336196714998777
+    },
+    {
+      "year": 2019,
+      "days": 252,
+      "event_rows": 91304,
+      "day_mean_relative_bp": -0.4426538457834643,
+      "day_mean_fee_relative_bp": 0.008845870277686671,
+      "day_mean_price_and_share_relative_bp": -0.4514997160611509,
+      "day_mean_soxl_tail_damage_pp": 0.22575427380372015,
+      "day_mean_soxx_tail_damage_pp": 0.22859495267694813
+    },
+    {
+      "year": 2020,
+      "days": 249,
+      "event_rows": 88334,
+      "day_mean_relative_bp": -1.051738830585083,
+      "day_mean_fee_relative_bp": 0.006415970338334284,
+      "day_mean_price_and_share_relative_bp": -1.0581548009234172,
+      "day_mean_soxl_tail_damage_pp": 0.3244406768041781,
+      "day_mean_soxx_tail_damage_pp": 0.3299174216296686
+    }
+  ],
+  "future_2021_2022_values_accessed": false,
+  "interpretation": "fee arithmetic versus remaining price/share path accounting, not causal feature attribution or account alpha"
+}

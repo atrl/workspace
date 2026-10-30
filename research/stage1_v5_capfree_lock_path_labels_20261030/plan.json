@@ -1,0 +1,60 @@
+{
+  "experiment": "stage1_v5_capfree_lock_path_labels_20261030",
+  "frozen": true,
+  "type": "five_session_same_state_fee_net_three_arm_minute_path_labels",
+  "parent": {
+    "card": "research/stage1_f696_oof_training_reference_20261028",
+    "recorder_id": "2994f6afbfc54f279cefec362b220001",
+    "summary_sha256": "00f276f2fe3e5641642a6f864e5e85da968599286aa8e9202a2d445cdf193584",
+    "manifest_sha256": "8699fd57be85d3b4b330f529e73612c8cc52967b5e7c3e8c0682c622c6e70f54",
+    "nas_archive_sha256": "e773cd3edf42b9ff9826270b70fdb9f9e90f4737e35f4d158ef0f5fcf5a4e9dd"
+  },
+  "frame": {
+    "card": "research/stage1_f696_exact_parent_training_reference_20261027",
+    "recorder_id": "748eb4209e314fb6a6c41c19498d6d03",
+    "summary_sha256": "8c0d00825fd7aa0177e4578face924fe8a3159898a5915a4c5cac26f20877cc2",
+    "manifest_sha256": "d0c696c91179e005c7859bac28b418ff827aa53c7005cf560d329f0896eb5618",
+    "nas_archive_sha256": "db1ae7040439b69ba4a264f00741a625e9c432cefe08a2d770d374b51d3591c8"
+  },
+  "provider_uri": "data/qlib/stage1_event_guard_fullminute_20261028",
+  "provider_manifest_sha256": "e9ab78e4e8fca7b70a5ccc27074893414a1308f13a4d37c3174c1690827db1e0",
+  "support_card": "research/stage1_v5_capfree_lock_fullminute_support_20261030",
+  "support_summary_sha256": "3df1caf293d7caadbfe967899759dd9216b0ad119e1b1216d79a7215fcce792d",
+  "support_perday_sha256": "36f8fae96a727d0b728a7732e2bc7d0c140e5052a6de654ef4f5bbcd1ac01f9d",
+  "vector_module": "src/analysis/stage1_capfree_lock_vectorized.py",
+  "vector_module_sha256": "aa1be2b7a9ece7e094360cf06e509d9cf28bf8ee456d33d44f01996fc48363b9",
+  "parity_card": "research/stage1_v5_lock_vectorized_clock_matrix_20261030",
+  "parity_audit_sha256": "28094218a7e9f7a6a3eb6e2ffd2ef00fd3f7f853db1b26632450b9a0bfd52ad4",
+  "start": "2018-10-15",
+  "end": "2022-12-22",
+  "expected_sessions": 1056,
+  "expected_decision_source_intents": 385932,
+  "expected_mature_path_rows": 382996,
+  "expected_paired_funded_rows": 332277,
+  "actions": {
+    "hold": "no event order, same five-session cap-free lock",
+    "soxx": "decision weights+(0,+0.10,-0.10)",
+    "soxl": "decision weights+(+0.10/3,0,-0.10/3)"
+  },
+  "clock": "completed minute t, assumed receipt t+1, next-bar fill t+2; reject10:30-10:32 ambiguity; parent q0 before recovery and verified q1 from10:33 after recovery; actual session close",
+  "label": "own-state whole-share 0bp added slippage IBKR Tiered event versus same-clock HOLD lock at fifth next-open; save terminal normalized value and available-minute/overnight max drawdown damage separately, not a combined utility; preserve no-whole-share and source/terminal unknown intents",
+  "maturity": "fifth session next-open+2 minutes; overlap purge at least five sessions and group by trade_date; 2021/22 values saved but not inspected for feature/sign/window selection",
+  "discovery_sign_support_gate": {
+    "minimum_2019_positive_days": 20,
+    "minimum_2019_negative_days": 20,
+    "minimum_2020_positive_days": 20,
+    "minimum_2020_negative_days": 20
+  },
+  "budget": {
+    "qlib_minute_reads": 1,
+    "new_recorders": 1,
+    "new_model_fits": 0,
+    "new_candidate_accounts": 0,
+    "maximum_intent_rows": 400000,
+    "maximum_seconds": 900,
+    "maximum_recorder_bytes": 250000000,
+    "nas_archive_attempts": 1
+  },
+  "stop": "Any source/parent/fee/clock/peak/parity/row-count mismatch or time/size budget breach stops; do not adjust horizon, action size, years, masks or sign from labels. No 2023+ candidate account.",
+  "as_of": "2026-10-30"
+}
