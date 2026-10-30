@@ -1,0 +1,22 @@
+{
+  "plan_sha256": "5b04703ad61dac8799a0e5fbb83a57649ce5fafab5bb7617801aaba08e63630a",
+  "source": {
+    "rows": 385932,
+    "maximum_decision_nav_error_usd": 5.820766091346741e-11,
+    "minute_features_available_rows": 385932
+  },
+  "variation": {
+    "training_days_with_gt_0_1pp_intraday_range": 558,
+    "maximum_abs_within_day_ordinary_rank_correlation": 0.213421355293225,
+    "correlations": {
+      "minute_soxl_ret5": -0.1279520847797985,
+      "minute_soxl_ret15": -0.21178942574714513,
+      "minute_soxx_ret5": -0.1302722510465568,
+      "minute_soxx_ret15": -0.213421355293225,
+      "minute_soxl_log1p_raw_volume": 0.028311078885515536,
+      "minute_soxx_log1p_raw_volume": 0.032067731609966364
+    },
+    "passed": true
+  },
+  "value_columns_accessed": false
+}

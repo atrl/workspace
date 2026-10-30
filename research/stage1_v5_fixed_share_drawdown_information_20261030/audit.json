@@ -1,0 +1,200 @@
+{
+  "experiment": "stage1_v5_fixed_share_drawdown_information_20261030",
+  "plan_sha256": "5b04703ad61dac8799a0e5fbb83a57649ce5fafab5bb7617801aaba08e63630a",
+  "screen_code_sha256": "66a7847ff3749b06126e23e3b87e421b846214ec40b6d95a72a724a62c55c903",
+  "source_variation": {
+    "training_days_with_gt_0_1pp_intraday_range": 558,
+    "maximum_abs_within_day_ordinary_rank_correlation": 0.213421355293225,
+    "correlations": {
+      "minute_soxl_ret5": -0.1279520847797985,
+      "minute_soxl_ret15": -0.21178942574714513,
+      "minute_soxx_ret5": -0.1302722510465568,
+      "minute_soxx_ret15": -0.213421355293225,
+      "minute_soxl_log1p_raw_volume": 0.028311078885515536,
+      "minute_soxx_log1p_raw_volume": 0.032067731609966364
+    },
+    "passed": true
+  },
+  "train_rows": 200403,
+  "train_days": 549,
+  "evaluation_rows": 180938,
+  "evaluation_days": 494,
+  "metrics": [
+    {
+      "model": "control",
+      "target": "soxl_value",
+      "year": 2021,
+      "days": 252,
+      "day_mse": 2.0760340061605863e-05,
+      "train_mean_mse": 1.2022830468401984e-05
+    },
+    {
+      "model": "control",
+      "target": "soxl_value",
+      "year": 2022,
+      "days": 242,
+      "day_mse": 0.00017389477300242174,
+      "train_mean_mse": 3.0208267843215525e-05
+    },
+    {
+      "model": "candidate",
+      "target": "soxl_value",
+      "year": 2021,
+      "days": 252,
+      "day_mse": 2.059209582749832e-05,
+      "train_mean_mse": 1.2022830468401984e-05
+    },
+    {
+      "model": "candidate",
+      "target": "soxl_value",
+      "year": 2022,
+      "days": 242,
+      "day_mse": 0.00018201898575260846,
+      "train_mean_mse": 3.0208267843215525e-05
+    },
+    {
+      "model": "control",
+      "target": "soxx_value",
+      "year": 2021,
+      "days": 252,
+      "day_mse": 2.095530175291287e-05,
+      "train_mean_mse": 1.1808141515234518e-05
+    },
+    {
+      "model": "control",
+      "target": "soxx_value",
+      "year": 2022,
+      "days": 242,
+      "day_mse": 0.0001801352277606684,
+      "train_mean_mse": 3.088069779777925e-05
+    },
+    {
+      "model": "candidate",
+      "target": "soxx_value",
+      "year": 2021,
+      "days": 252,
+      "day_mse": 2.0765356793146337e-05,
+      "train_mean_mse": 1.1808141515234518e-05
+    },
+    {
+      "model": "candidate",
+      "target": "soxx_value",
+      "year": 2022,
+      "days": 242,
+      "day_mse": 0.00018880113593727337,
+      "train_mean_mse": 3.088069779777925e-05
+    }
+  ],
+  "relative_feature_coefficient": -2.0712832152542553e-05,
+  "prediction_changed_rows": 180938,
+  "same_model_zero_score_changed_rows": 180575,
+  "annual_actions": [
+    {
+      "year": 2021,
+      "days": 252,
+      "control_action_days": 192,
+      "candidate_action_days": 196,
+      "candidate_control_action_changed_days": 15,
+      "same_model_zero_action_changed_days": 13,
+      "control_value_sum": 0.12280885605322359,
+      "candidate_value_sum": 0.12911918603289985,
+      "candidate_minus_control_value_sum": 0.006310329979676235,
+      "candidate_minus_control_tail_damage_sum": 0.010304096962788667
+    },
+    {
+      "year": 2022,
+      "days": 242,
+      "control_action_days": 230,
+      "candidate_action_days": 232,
+      "candidate_control_action_changed_days": 3,
+      "same_model_zero_action_changed_days": 4,
+      "control_value_sum": -0.10991534215054286,
+      "candidate_value_sum": -0.1042111716641573,
+      "candidate_minus_control_value_sum": 0.00570417048638555,
+      "candidate_minus_control_tail_damage_sum": 0.005136405536446564
+    }
+  ],
+  "quarter_actions": [
+    {
+      "quarter": "2021Q1",
+      "days": 61,
+      "candidate_value_sum": 0.06754432397269096,
+      "control_value_sum": 0.0738501928576276,
+      "candidate_minus_control_value_sum": -0.00630586888493665,
+      "candidate_minus_control_tail_sum": 0.006193858224893045
+    },
+    {
+      "quarter": "2021Q2",
+      "days": 63,
+      "candidate_value_sum": 0.007769919449308169,
+      "control_value_sum": 0.007769919449308169,
+      "candidate_minus_control_value_sum": 0.0,
+      "candidate_minus_control_tail_sum": 0.0
+    },
+    {
+      "quarter": "2021Q3",
+      "days": 64,
+      "candidate_value_sum": 0.00827895446799933,
+      "control_value_sum": 0.001071641986423043,
+      "candidate_minus_control_value_sum": 0.007207312481576285,
+      "candidate_minus_control_tail_sum": 0.003800181681803627
+    },
+    {
+      "quarter": "2021Q4",
+      "days": 64,
+      "candidate_value_sum": 0.04552598814290136,
+      "control_value_sum": 0.040117101759864764,
+      "candidate_minus_control_value_sum": 0.0054088863830366,
+      "candidate_minus_control_tail_sum": 0.00031005705609199463
+    },
+    {
+      "quarter": "2022Q1",
+      "days": 62,
+      "candidate_value_sum": -0.014038094529557281,
+      "control_value_sum": -0.019742265015942832,
+      "candidate_minus_control_value_sum": 0.00570417048638555,
+      "candidate_minus_control_tail_sum": 0.005136405536446564
+    },
+    {
+      "quarter": "2022Q2",
+      "days": 62,
+      "candidate_value_sum": -0.12932656371759574,
+      "control_value_sum": -0.12932656371759574,
+      "candidate_minus_control_value_sum": 0.0,
+      "candidate_minus_control_tail_sum": 0.0
+    },
+    {
+      "quarter": "2022Q3",
+      "days": 64,
+      "candidate_value_sum": 0.003877703793338629,
+      "control_value_sum": 0.003877703793338629,
+      "candidate_minus_control_value_sum": 0.0,
+      "candidate_minus_control_tail_sum": 0.0
+    },
+    {
+      "quarter": "2022Q4",
+      "days": 54,
+      "candidate_value_sum": 0.03527578278965711,
+      "control_value_sum": 0.03527578278965711,
+      "candidate_minus_control_value_sum": 0.0,
+      "candidate_minus_control_tail_sum": 0.0
+    }
+  ],
+  "candidate_control_block_lower": -2.4217722002217123e-05,
+  "gates": {
+    "control_beats_training_mean": false,
+    "candidate_beats_control_mse": false,
+    "relative_feature_sign_negative": true,
+    "candidate_control_funded_action_change": false,
+    "same_model_zero_action_change": true,
+    "candidate_control_value_positive_each_year": true,
+    "candidate_hold_value_positive_each_year": false,
+    "candidate_control_block_lower_positive": false,
+    "candidate_tail_not_worse_each_year": false
+  },
+  "information_gate_pass": false,
+  "new_model_fits": 4,
+  "new_candidate_accounts": 0,
+  "historical_research_passed": false,
+  "decision": "not_promoted_fixed_minute_own_drawdown_information_failed"
+}

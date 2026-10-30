@@ -1,0 +1,151 @@
+{
+  "source_recorder_id": "3f3ee86e5372470faa6825f63ae25bbf",
+  "source_daily_actions_sha256": "1955c2704b4534ad30c1ba1e5a99a379625a2b08b809dffe87c5e2bd714bfe97",
+  "quarterly_action_attribution": [
+    {
+      "quarter": "2021Q1",
+      "days": 61,
+      "candidate_arm_counts": {
+        "SOXX": 53,
+        "HOLD": 8
+      },
+      "control_arm_counts": {
+        "SOXX": 52,
+        "HOLD": 9
+      },
+      "changed_days": 6,
+      "candidate_first_0948_action_days": 48,
+      "candidate_value_sum": 0.06754432397269096,
+      "control_value_sum": 0.0738501928576276,
+      "candidate_minus_control_value_sum": -0.00630586888493665,
+      "candidate_minus_control_tail_sum": 0.006193858224893045
+    },
+    {
+      "quarter": "2021Q2",
+      "days": 63,
+      "candidate_arm_counts": {
+        "SOXX": 50,
+        "SOXL": 13
+      },
+      "control_arm_counts": {
+        "SOXX": 50,
+        "SOXL": 13
+      },
+      "changed_days": 0,
+      "candidate_first_0948_action_days": 63,
+      "candidate_value_sum": 0.007769919449308169,
+      "control_value_sum": 0.007769919449308169,
+      "candidate_minus_control_value_sum": 0.0,
+      "candidate_minus_control_tail_sum": 0.0
+    },
+    {
+      "quarter": "2021Q3",
+      "days": 64,
+      "candidate_arm_counts": {
+        "SOXX": 49,
+        "SOXL": 13,
+        "HOLD": 2
+      },
+      "control_arm_counts": {
+        "SOXX": 48,
+        "SOXL": 12,
+        "HOLD": 4
+      },
+      "changed_days": 7,
+      "candidate_first_0948_action_days": 58,
+      "candidate_value_sum": 0.00827895446799933,
+      "control_value_sum": 0.001071641986423043,
+      "candidate_minus_control_value_sum": 0.007207312481576285,
+      "candidate_minus_control_tail_sum": 0.003800181681803627
+    },
+    {
+      "quarter": "2021Q4",
+      "days": 64,
+      "candidate_arm_counts": {
+        "HOLD": 46,
+        "SOXL": 15,
+        "SOXX": 3
+      },
+      "control_arm_counts": {
+        "HOLD": 47,
+        "SOXL": 15,
+        "SOXX": 2
+      },
+      "changed_days": 2,
+      "candidate_first_0948_action_days": 16,
+      "candidate_value_sum": 0.04552598814290136,
+      "control_value_sum": 0.040117101759864764,
+      "candidate_minus_control_value_sum": 0.0054088863830366,
+      "candidate_minus_control_tail_sum": 0.00031005705609199463
+    },
+    {
+      "quarter": "2022Q1",
+      "days": 62,
+      "candidate_arm_counts": {
+        "SOXX": 51,
+        "HOLD": 10,
+        "SOXL": 1
+      },
+      "control_arm_counts": {
+        "SOXX": 49,
+        "HOLD": 12,
+        "SOXL": 1
+      },
+      "changed_days": 3,
+      "candidate_first_0948_action_days": 48,
+      "candidate_value_sum": -0.014038094529557281,
+      "control_value_sum": -0.019742265015942832,
+      "candidate_minus_control_value_sum": 0.00570417048638555,
+      "candidate_minus_control_tail_sum": 0.005136405536446564
+    },
+    {
+      "quarter": "2022Q2",
+      "days": 62,
+      "candidate_arm_counts": {
+        "SOXX": 62
+      },
+      "control_arm_counts": {
+        "SOXX": 62
+      },
+      "changed_days": 0,
+      "candidate_first_0948_action_days": 62,
+      "candidate_value_sum": -0.12932656371759574,
+      "control_value_sum": -0.12932656371759574,
+      "candidate_minus_control_value_sum": 0.0,
+      "candidate_minus_control_tail_sum": 0.0
+    },
+    {
+      "quarter": "2022Q3",
+      "days": 64,
+      "candidate_arm_counts": {
+        "SOXX": 64
+      },
+      "control_arm_counts": {
+        "SOXX": 64
+      },
+      "changed_days": 0,
+      "candidate_first_0948_action_days": 64,
+      "candidate_value_sum": 0.003877703793338629,
+      "control_value_sum": 0.003877703793338629,
+      "candidate_minus_control_value_sum": 0.0,
+      "candidate_minus_control_tail_sum": 0.0
+    },
+    {
+      "quarter": "2022Q4",
+      "days": 54,
+      "candidate_arm_counts": {
+        "SOXX": 54
+      },
+      "control_arm_counts": {
+        "SOXX": 54
+      },
+      "changed_days": 0,
+      "candidate_first_0948_action_days": 54,
+      "candidate_value_sum": 0.03527578278965711,
+      "control_value_sum": 0.03527578278965711,
+      "candidate_minus_control_value_sum": 0.0,
+      "candidate_minus_control_tail_sum": 0.0
+    }
+  ],
+  "scope": "fixed 2021/22 local first-passage information screen; overlapping five-session labels are not a funded account"
+}

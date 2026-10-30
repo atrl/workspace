@@ -610,6 +610,26 @@ independent forward evidence remains a separate contract-v2 promotion gate.
   screen against opening state/ordinary minute returns with live-intent,
   no-fill, day-grouped and five-session purge accounting; discrete labels
   still do not define a continuous final allocator or SOXX pass.
+- The fixed-share five-session minute own-drawdown information version is
+  closed in `research/stage1_v5_fixed_share_drawdown_information_20261030`.
+  Four Qlib DatasetH/Ridge heads used200403 mature2018–2020 rows/549 days,
+  evaluated180938 rows/494 valid2021/2022 days once. New minute own drawdown
+  varies on558 train source days and has max abs within-day rank correlation
+  0.213 with ordinary minute controls; candidate scores change and its
+  SOXL-minus-SOXX added coefficient has the pre-frozen negative sign. Yet
+  separately fitted candidate/control first funded actions differ15/3 days
+  in2021/2022 (<20 gate), same-model zeroing changes13/4 days, both models'
+  year MSE is worse than the training-mean constant, and the candidate
+  worsens2022 MSE. In2022Q2 both choose SOXX on all62 days at first09:48,
+  with common five-session local-value sum-0.12933;2021Q3/Q4 have some gains
+  while2021Q1 is damaged. Candidate2022 local value vsHOLD is-0.10421;
+  10-session block lower-2.42e-5, tail damage increases both years. No
+  continuous receiver or2023+ candidate account is admitted. NAS archive
+  receipt/scoped seven-object readback passed. Never rescue this fixed
+  version by changing drawdown sign/window, Ridge alpha, threshold or
+  outcome-selected quarter on reused2021/2022; find a distinct decision-time
+  mechanism or record needs_distinct_decision_time_mechanism. Local overlapping
+  values are not SOXX account wealth or contract-v2 success.
 - The historical old-cap joint capacity/asset-choice card is
   `docs/stage1_event_capacity_choice_implementation_20261029.md`. Its first
   read-only minute source/whole-share gate is
