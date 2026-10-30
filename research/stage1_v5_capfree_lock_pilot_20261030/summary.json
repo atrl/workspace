@@ -1,0 +1,40 @@
+{
+  "experiment": "stage1_v5_capfree_lock_pilot_20261030",
+  "plan_sha256": "7eeddc0a710cf545ba07866da7f6282eeae87c19664d05ffdf7306a083e4bffb",
+  "decision": "single_early_event_capfree_five_session_mechanical_pass_not_bulk_labels",
+  "historical_research_passed": false,
+  "audit": "audit.json",
+  "pilot_module": "src/backtest/stage1_capfree_lock_pilot.py",
+  "pilot_code_sha256": "f0f5d5d82baf9a12acfb9311589c54752e6a3d2c476454a2fa6383ab361741f2",
+  "metrics": {
+    "event_day": "2019-12-19",
+    "horizon_sessions": 5,
+    "same_start_decision_nav": 159019.0495717724,
+    "hold_day1_parent_next_open_error_usd": 0.0,
+    "event_raw_shares": 64,
+    "event_fee_usd": 0.55524925,
+    "event_cash_nonnegative": true,
+    "old_parent_beta_cap_at_open": 1.3949364778479563,
+    "event_target_nominal_beta": 1.4915449671921246,
+    "event_target_exceeds_old_cap": true,
+    "terminal_nav_closure_error_usd": 2.1827872842550278e-11,
+    "hold_minute_close_max_drawdown": 0.009570343031858108,
+    "event_minute_close_max_drawdown": 0.010218654298004726,
+    "late_clock_rejected": true
+  },
+  "new_model_fits": 0,
+  "new_native_candidate_accounts": 0,
+  "new_recorders": 0,
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": []
+  },
+  "limitations": [
+    "One prespecified pre-recovery 2019 event only; no all-minute support or labels.",
+    "Pilot accepts a one-buy SOXX arm, not arbitrary continuous three-asset targets or repeated policy decisions.",
+    "Five-session lock omits old b472 action/recovery in both branches; HOLD lock is not the frozen parent after first next-open.",
+    "Minute-close drawdown is not intraminute OHLC ordering certification.",
+    "Adjusted-price development source does not certify separate dividend receivables; historical receipt and actual broker fill remain unknown."
+  ]
+}

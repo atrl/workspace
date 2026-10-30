@@ -444,6 +444,19 @@ independent forward evidence remains a separate contract-v2 promotion gate.
   architecture and continuation rule, then pass no-event/event identity before
   fitting. Funded-pair eligibility uses future fill and is diagnostic only;
   2021/2022 value columns were not used. No candidate account/SOXX pass.
+- The first cap-free lock-path mechanical pilot is
+  `research/stage1_v5_capfree_lock_pilot_20261030` with reusable pilot code
+  `src/backtest/stage1_capfree_lock_pilot.py`. On one prespecified early
+  2019-12-19 event, same-state HOLD and +0.10 SOXX lock branches run for five
+  sessions without old b472/cap after the event. The event bought 64 raw SOXX
+  shares with $0.55524925 Tiered fee, target beta1.491545 above old cap1.394936;
+  HOLD first next-open matches parent exactly and terminal NAV closes within
+  2.18e-11 USD. This is one early, explicit-no-recovery-year mechanical pilot,
+  not all-minute labels, information, a continuous three-asset receiver, a
+  native candidate account or SOXX excess. HOLD lock differs from the frozen
+  parent after first next-open. Expand causal late/recovery/half-day clocks and
+  arbitrary continuous targets under the same cap-free domain before bulk
+  labels; preserve the old checkpoint as parent-only parity.
 - The historical old-cap joint capacity/asset-choice card is
   `docs/stage1_event_capacity_choice_implementation_20261029.md`. Its first
   read-only minute source/whole-share gate is

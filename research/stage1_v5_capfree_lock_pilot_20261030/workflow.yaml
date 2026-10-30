@@ -1,0 +1,8 @@
+experiment: stage1_v5_capfree_lock_pilot_20261030
+kind: qlib_native_single_event_capfree_lock_mechanical_pilot
+plan: plan.json
+notebook: stage1_v5_capfree_lock_pilot_20261030.ipynb
+module: src/backtest/stage1_capfree_lock_pilot.py
+artifact_policy: slim_card_recorder_first
+source_recorders: [dated_parent, covered_frame]
+recorder_only: []
