@@ -1,0 +1,18 @@
+{
+  "experiment": "stage1_v5_control_feature_shift_20261030",
+  "workflow_config": "workflow.yaml",
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "recorder_only_artifacts": []
+  },
+  "source_control_recorder_id": "5f8e1a386cb349fd91f03811e1880cd5",
+  "decision": "read_only_control_shift_attribution_no_candidate_feature",
+  "train_days": 304,
+  "evaluation_days": 242,
+  "saved_prediction_max_error": 0.0,
+  "interval_attribution": "period_prediction_shift.csv",
+  "feature_attribution": "feature_shift.csv",
+  "new_model_fits": 0,
+  "new_native_accounts": 0,
+  "historical_research_passed": false
+}

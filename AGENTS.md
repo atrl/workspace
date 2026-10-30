@@ -292,6 +292,20 @@ independent forward evidence remains a separate contract-v2 promotion gate.
   this result and is diagnostic, not a frozen information gate. Models and
   predictions passed native Qlib and NAS scoped readback. No candidate
   feature, funded account or SOXX success followed.
+- The read-only coefficient/feature-shift audit
+  `research/stage1_v5_control_feature_shift_20261030` exactly reproduces the
+  saved2020 predictions (max error0) and decomposes the day-weighted forecast
+  shift by all saved Ridge coefficients and Qlib feature means (sum error
+  <1e-12). Both controls move from training mean -0.079bp to2020 +0.291bp
+  while true SOXL-minus-SOXX local value remains -0.092bp. In2020Q2 the
+  ordinary-minute prediction was about+0.58bp versus actual-0.12bp.
+  Original39/f696/state contributions are large and offsetting; six ordinary
+  minute fields contribute only about-0.007bp net to the +0.370bp shift.
+  These are descriptive model-use/shift contributions, not causal factor
+  importance or a sign-flip policy. No2021/2022 label results, new fit,
+  candidate account or SOXX pass. First freeze a control/calibration rule
+  based only on2018/2019 training information before using2020 residuals
+  to propose any new source-known mechanism.
   Keep 2023+ outcomes out of feature/window/sign selection.
   This v5 document is **not yet a fit-ready model contract**: its few legal
   HOLD/buy/rotation actions are source and information controls, not a

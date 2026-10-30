@@ -1,0 +1,9 @@
+experiment: stage1_v5_control_feature_shift_20261030
+kind: qlib_recorder_read_only_model_shift_attribution
+plan: plan.json
+notebook: stage1_v5_control_feature_shift_20261030.ipynb
+source_control_recorder: 5f8e1a386cb349fd91f03811e1880cd5
+artifacts:
+  small: [feature_shift.csv, period_prediction_shift.csv, audit.json, summary.json, conclusion.md]
+  recorder_only: []
+promotion: ineligible_read_only_attribution

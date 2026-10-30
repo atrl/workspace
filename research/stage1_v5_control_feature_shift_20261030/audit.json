@@ -1,0 +1,234 @@
+{
+  "experiment": "stage1_v5_control_feature_shift_20261030",
+  "plan_sha256": "b15ac5814d2e94e00689e2603380424ff8d32b99c923c780a815c06f6f59711d",
+  "decision": "read_only_control_shift_attribution_no_candidate_feature",
+  "source_readback_entries": {
+    "labels": 13,
+    "control": 13,
+    "parent": 13,
+    "frame": 13
+  },
+  "training_days": 304,
+  "evaluation_days": 242,
+  "full_year": [
+    {
+      "model": "state_only",
+      "period": "2020",
+      "rows": 86676,
+      "days": 242,
+      "train_prediction_mean": -7.937472660465628e-06,
+      "period_prediction_mean": 2.9079796276668663e-05,
+      "period_actual_mean": -9.151743122872033e-06,
+      "prediction_shift": 3.701726893713429e-05,
+      "contribution_sum": 3.7017268937130434e-05,
+      "saved_prediction_max_error": 0.0
+    },
+    {
+      "model": "ordinary_minute",
+      "period": "2020",
+      "rows": 86676,
+      "days": 242,
+      "train_prediction_mean": -7.93747266046561e-06,
+      "period_prediction_mean": 2.9106977699710402e-05,
+      "period_actual_mean": -9.151743122872033e-06,
+      "prediction_shift": 3.704445036017601e-05,
+      "contribution_sum": 3.7044450360171986e-05,
+      "saved_prediction_max_error": 0.0
+    }
+  ],
+  "top_contributions": {
+    "state_only": [
+      {
+        "model": "state_only",
+        "period": "2020",
+        "feature": "alpha_probability",
+        "coefficient": -6.0461904379571216e-06,
+        "train_scaled_mean": 0.014649916252157067,
+        "period_scaled_mean": -2.875493554880436,
+        "prediction_shift_contribution": 1.747435781948609e-05
+      },
+      {
+        "model": "state_only",
+        "period": "2020",
+        "feature": "rv20",
+        "coefficient": -1.5385106356282792e-05,
+        "train_scaled_mean": 0.0132452652628936,
+        "period_scaled_mean": 1.0607330567163904,
+        "prediction_shift_contribution": -1.6115711078419817e-05
+      },
+      {
+        "model": "state_only",
+        "period": "2020",
+        "feature": "soxx_ret60",
+        "coefficient": -2.1054580470767236e-05,
+        "train_scaled_mean": -0.01878089341283676,
+        "period_scaled_mean": 0.6034297500850936,
+        "prediction_shift_contribution": -1.3100384063295039e-05
+      },
+      {
+        "model": "state_only",
+        "period": "2020",
+        "feature": "levered_decay_20",
+        "coefficient": -1.8603078837775427e-05,
+        "train_scaled_mean": -0.0054211593740070155,
+        "period_scaled_mean": -0.675714379368782,
+        "prediction_shift_contribution": 1.2469517615989147e-05
+      },
+      {
+        "model": "state_only",
+        "period": "2020",
+        "feature": "soxx_vol20",
+        "coefficient": 1.097991255321319e-05,
+        "train_scaled_mean": 0.012960655014445233,
+        "period_scaled_mean": 1.093906321491678,
+        "prediction_shift_contribution": 1.1868688892694766e-05
+      },
+      {
+        "model": "state_only",
+        "period": "2020",
+        "feature": "soxl_weight",
+        "coefficient": 1.4208715197984906e-05,
+        "train_scaled_mean": -0.002012684931986593,
+        "period_scaled_mean": -0.6709520333224444,
+        "prediction_shift_contribution": -9.504768686005618e-06
+      },
+      {
+        "model": "state_only",
+        "period": "2020",
+        "feature": "vix",
+        "coefficient": 2.9026577019207074e-06,
+        "train_scaled_mean": 0.01616450343432151,
+        "period_scaled_mean": 3.045577599102502,
+        "prediction_shift_contribution": 8.793349254440696e-06
+      },
+      {
+        "model": "state_only",
+        "period": "2020",
+        "feature": "range_pos_252",
+        "coefficient": 2.7961687998794812e-05,
+        "train_scaled_mean": -0.01714900868188791,
+        "period_scaled_mean": 0.24181586477970554,
+        "prediction_shift_contribution": 7.241094994380455e-06
+      },
+      {
+        "model": "state_only",
+        "period": "2020",
+        "feature": "high_chop_pressure",
+        "coefficient": -1.1209983412444679e-05,
+        "train_scaled_mean": -0.018451511504843397,
+        "period_scaled_mean": 0.605871597616407,
+        "prediction_shift_contribution": -6.998651697255105e-06
+      },
+      {
+        "model": "state_only",
+        "period": "2020",
+        "feature": "soxx_trend60",
+        "coefficient": 1.2977722804895284e-05,
+        "train_scaled_mean": -0.017491399314961017,
+        "period_scaled_mean": 0.48414309442269576,
+        "prediction_shift_contribution": 6.510073409101289e-06
+      }
+    ],
+    "ordinary_minute": [
+      {
+        "model": "ordinary_minute",
+        "period": "2020",
+        "feature": "alpha_probability",
+        "coefficient": -6.141922559449405e-06,
+        "train_scaled_mean": 0.014649916252157067,
+        "period_scaled_mean": -2.875493554880436,
+        "prediction_shift_contribution": 1.7751037385394683e-05
+      },
+      {
+        "model": "ordinary_minute",
+        "period": "2020",
+        "feature": "rv20",
+        "coefficient": -1.5529581165365533e-05,
+        "train_scaled_mean": 0.0132452652628936,
+        "period_scaled_mean": 1.0607330567163904,
+        "prediction_shift_contribution": -1.6267046677106562e-05
+      },
+      {
+        "model": "ordinary_minute",
+        "period": "2020",
+        "feature": "soxx_ret60",
+        "coefficient": -2.0715346998215413e-05,
+        "train_scaled_mean": -0.01878089341283676,
+        "period_scaled_mean": 0.6034297500850936,
+        "prediction_shift_contribution": -1.2889309386042532e-05
+      },
+      {
+        "model": "ordinary_minute",
+        "period": "2020",
+        "feature": "levered_decay_20",
+        "coefficient": -1.8368496097389027e-05,
+        "train_scaled_mean": -0.0054211593740070155,
+        "period_scaled_mean": -0.675714379368782,
+        "prediction_shift_contribution": 1.2312278395580348e-05
+      },
+      {
+        "model": "ordinary_minute",
+        "period": "2020",
+        "feature": "soxx_vol20",
+        "coefficient": 1.1045716148701076e-05,
+        "train_scaled_mean": 0.012960655014445233,
+        "period_scaled_mean": 1.093906321491678,
+        "prediction_shift_contribution": 1.1939819004076018e-05
+      },
+      {
+        "model": "ordinary_minute",
+        "period": "2020",
+        "feature": "soxl_weight",
+        "coefficient": 1.4558001210702298e-05,
+        "train_scaled_mean": -0.002012684931986593,
+        "period_scaled_mean": -0.6709520333224444,
+        "prediction_shift_contribution": -9.738419843754691e-06
+      },
+      {
+        "model": "ordinary_minute",
+        "period": "2020",
+        "feature": "vix",
+        "coefficient": 3.1590198798188305e-06,
+        "train_scaled_mean": 0.01616450343432151,
+        "period_scaled_mean": 3.045577599102502,
+        "prediction_shift_contribution": 9.569976193399286e-06
+      },
+      {
+        "model": "ordinary_minute",
+        "period": "2020",
+        "feature": "range_pos_252",
+        "coefficient": 2.7789845468395172e-05,
+        "train_scaled_mean": -0.01714900868188791,
+        "period_scaled_mean": 0.24181586477970554,
+        "prediction_shift_contribution": 7.196593815240192e-06
+      },
+      {
+        "model": "ordinary_minute",
+        "period": "2020",
+        "feature": "high_chop_pressure",
+        "coefficient": -1.1116418061505238e-05,
+        "train_scaled_mean": -0.018451511504843397,
+        "period_scaled_mean": 0.605871597616407,
+        "prediction_shift_contribution": -6.940236686450573e-06
+      },
+      {
+        "model": "ordinary_minute",
+        "period": "2020",
+        "feature": "soxx_trend60",
+        "coefficient": 1.2697418599992718e-05,
+        "train_scaled_mean": -0.017491399314961017,
+        "period_scaled_mean": 0.48414309442269576,
+        "prediction_shift_contribution": 6.369463151182454e-06
+      }
+    ]
+  },
+  "new_model_fits": 0,
+  "new_native_accounts": 0,
+  "new_recorders": 0,
+  "candidate_feature_selected": false,
+  "limits": [
+    "2020 outcomes are reused development feedback; feature attribution is diagnostic, not a tradable rule.",
+    "Funded-pair sample is conditioned on next-bar fill; not a live-intent policy.",
+    "2021/2022 label values were not evaluated."
+  ]
+}
