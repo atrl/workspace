@@ -1,0 +1,17 @@
+{
+  "experiment": "stage1_cap3_signal_delivery_audit_20261030",
+  "workflow_config": "workflow.yaml",
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "recorder_only_artifacts": []
+  },
+  "source_recorder_ids": ["6e227278b7a64eafbcf34b965e16d2b9", "e11aeb96e9ac453ab12d0147549b8297"],
+  "decision": "descriptive_signal_delivery_no_candidate",
+  "sessions": 944,
+  "quarters": 16,
+  "interval_attribution": "quarter_signal_delivery.csv",
+  "source_nas_status": {"f696_frame": "scoped_readback_passed", "cap3_account": "needs_nas_artifact_receipt_local_hash_readback_only"},
+  "new_model_fits": 0,
+  "new_native_accounts": 0,
+  "historical_research_passed": false
+}

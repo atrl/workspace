@@ -1,0 +1,11 @@
+experiment: stage1_cap3_signal_delivery_audit_20261030
+kind: qlib_recorder_read_only_signal_delivery
+plan: plan.json
+notebook: stage1_cap3_signal_delivery_audit_20261030.ipynb
+sources:
+  f696_frame_recorder: 6e227278b7a64eafbcf34b965e16d2b9
+  cap3_account_recorder: e11aeb96e9ac453ab12d0147549b8297
+artifacts:
+  small: [quarter_signal_delivery.csv, audit.json, summary.json, conclusion.md]
+  recorder_only: []
+promotion: ineligible_read_only_attribution

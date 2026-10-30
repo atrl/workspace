@@ -1,0 +1,46 @@
+{
+  "experiment": "stage1_cap3_signal_delivery_audit_20261030",
+  "frozen": true,
+  "kind": "read_only_signal_to_target_to_holding_attribution",
+  "source_frame_card": "research/stage1_domain_heads_20261018",
+  "source_frame_recorder_id": "6e227278b7a64eafbcf34b965e16d2b9",
+  "cap3_card": "research/stage1_f696_no_beta_cap_ablation_20261029",
+  "cap3_recorder_id": "e11aeb96e9ac453ab12d0147549b8297",
+  "sessions": 944,
+  "periods": "all 16 calendar quarters, with partial endpoints retained",
+  "preselected_signal_fields": [
+    "soxl_ret3",
+    "soxx_ret20",
+    "soxx_vol20",
+    "soxx_drawdown60",
+    "vix",
+    "minute_soxx_rebound_from_low",
+    "minute_soxx_downside_share5",
+    "soxl_weight",
+    "soxx_weight",
+    "cash_weight",
+    "alpha_probability",
+    "tail_probability"
+  ],
+  "account_fields": [
+    "soxl_weight",
+    "soxx_weight",
+    "cash_weight",
+    "ending_soxl_weight",
+    "ending_soxx_weight",
+    "ending_cash_weight",
+    "risk_state"
+  ],
+  "clock_rule": "source frame feature_available_at must precede the cap3 09:46 action decision; minute_* in this frame are prior-session aggregates, not same-day completed-minute inputs",
+  "scope": "Descriptive all-quarter feature and action delivery; no outcome-selected signal, fitting, new account, promotion or threshold",
+  "budget": {
+    "new_model_fits": 0,
+    "new_native_accounts": 0,
+    "new_recorders": 0
+  },
+  "as_of": "2026-10-30",
+  "source_frame_manifest_sha256": "e166f7718f11fa8a2280997ee757386c398f31424ffe9105a69e8ad0477988ab",
+  "cap3_manifest_sha256": "991349bdd825310c0bd13d2058c4c60fbbb1d55a3082d421a48cc2d304cff80e",
+  "architecture_lineage": "research/stage1_f696_output_coordinate_interval_20261024/architecture_lineage.json",
+  "architecture_lineage_sha256": "52d14c164f0f68914dc8a6dd18ff711e429604e7bbc74e2d5a83d0a7e4d6bd04"
+}

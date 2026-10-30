@@ -1,0 +1,69 @@
+{
+  "experiment": "stage1_cap3_signal_delivery_audit_20261030",
+  "plan_sha256": "6562d19286b4ca52a4c2a2bd3dea0ce7ae36d0dee9428aa5ba8c58dde2b4eb68",
+  "status": "descriptive_signal_delivery_no_candidate",
+  "sessions": 944,
+  "quarters": 16,
+  "source_readback_entries": {
+    "f696_frame": 13,
+    "cap3_account": 13
+  },
+  "same_day_minute_in_f696": false,
+  "prior_day_minute_aggregates_used_by_f696": false,
+  "feature_clock": "prior-session 16:01 or earlier, before cap3 09:46",
+  "new_model_fits": 0,
+  "new_native_accounts": 0,
+  "candidate_feature_selected": false,
+  "focus": [
+    {
+      "period": "2024Q3",
+      "sessions": 64,
+      "signal_alpha_probability": 0.5251760482788086,
+      "signal_tail_probability": 0.19672223925590515,
+      "signal_cash_weight": 0.5553616254383233,
+      "signal_soxx_ret20": -0.028472265953951137,
+      "signal_soxx_vol20": 0.02878016523027327,
+      "signal_minute_soxx_rebound_from_low": 0.014387046515025759,
+      "accepted_soxl_weight": 0.13502371368506008,
+      "accepted_soxx_weight": 0.30961466087661654,
+      "accepted_cash_weight": 0.5553616254383233,
+      "relative_wealth_vs_soxx": 0.944575971387004,
+      "candidate_vs_parent_relative_wealth": 0.8754717518174517
+    },
+    {
+      "period": "2026Q2",
+      "sessions": 62,
+      "signal_alpha_probability": 0.4860026240348816,
+      "signal_tail_probability": 0.2234358787536621,
+      "signal_cash_weight": 0.30546992204953755,
+      "signal_soxx_ret20": 0.21047414800963335,
+      "signal_soxx_vol20": 0.031755256436524854,
+      "signal_minute_soxx_rebound_from_low": 0.022343126022831478,
+      "accepted_soxl_weight": 0.2925344833047986,
+      "accepted_soxx_weight": 0.40177186553394717,
+      "accepted_cash_weight": 0.30569365116125435,
+      "relative_wealth_vs_soxx": 1.198908891406716,
+      "candidate_vs_parent_relative_wealth": 1.033103834875795
+    },
+    {
+      "period": "2026Q3",
+      "sessions": 64,
+      "signal_alpha_probability": 0.5176239013671875,
+      "signal_tail_probability": 0.23450998961925507,
+      "signal_cash_weight": 0.39876444249165605,
+      "signal_soxx_ret20": -0.031616228133771074,
+      "signal_soxx_vol20": 0.03466271667275578,
+      "signal_minute_soxx_rebound_from_low": 0.015031362933768833,
+      "accepted_soxl_weight": 0.22038502896315532,
+      "accepted_soxx_weight": 0.3805902525599898,
+      "accepted_cash_weight": 0.39902471847685483,
+      "relative_wealth_vs_soxx": 0.869331051738282,
+      "candidate_vs_parent_relative_wealth": 1.0301383676442273
+    }
+  ],
+  "limits": [
+    "Quarter labels are hindsight outcomes; no causal signal or tradable switch is identified.",
+    "Existing minute_* frame values are prior-session summaries, not intraday event features.",
+    "The original b472 action model was not refitted for cap3; recovery eligibility changed mechanically."
+  ]
+}

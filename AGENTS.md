@@ -212,6 +212,21 @@ independent forward evidence remains a separate contract-v2 promotion gate.
   genuinely distinct mechanism is absent, record
   `needs_distinct_decision_time_mechanism` and continue failure attribution;
   do not manufacture another fit.
+- The read-only signal-delivery audit
+  `research/stage1_cap3_signal_delivery_audit_20261030` aligns all944 f696
+  predecision feature/output rows with the cap3 accepted targets and own-state
+  holdings across all16 quarters. The cap3 account reused f696 944/944 and
+  fitted no new signal. In 2026Q3, prior SOXX20 return averaged -3.16% and
+  drawdown60 -17.32%, yet raw/accepted/ending SOXL weights averaged
+  22.13/22.04/21.88%; cap3/SOXX wealth was0.869. In 2026Q2, prior SOXX20
+  return averaged+21.05% and accepted SOXL29.25%, with cap3/SOXX1.199.
+  These hindsight intervals do not prove a tradable trend threshold. The
+  frame's `minute_*` fields were completed by the **prior** session16:01,
+  but the saved f696 network had39 base inputs and0 extra minute inputs; it
+  did not use even those prior-day summaries. Frozen f69609:29 and b472
+  opening ACTION_FEATURES did not receive same-day dynamic minute bars.
+  Preserve the source-versus-model-use distinction and do not call this
+  audit a new feature fit, information pass or cap-free alpha.
 - The historical old-cap joint capacity/asset-choice card is
   `docs/stage1_event_capacity_choice_implementation_20261029.md`. Its first
   read-only minute source/whole-share gate is
