@@ -1,0 +1,8 @@
+experiment: stage1_v5_fixed_raw_share_order_20261030
+kind: qlib_native_causal_fixed_share_order_mechanics
+plan: plan.json
+notebook: stage1_v5_fixed_raw_share_order_20261030.ipynb
+module: src/backtest/stage1_fixed_share_event.py
+artifact_policy: slim_card_recorder_first
+source_recorders: [dated_parent, covered_frame]
+recorder_only: []

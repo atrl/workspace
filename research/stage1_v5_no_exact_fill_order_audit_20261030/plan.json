@@ -1,0 +1,38 @@
+{
+  "experiment": "stage1_v5_no_exact_fill_order_audit_20261030",
+  "frozen": true,
+  "type": "read_only_next_bar_order_shape_audit_no_values",
+  "label_card": "research/stage1_v5_capfree_lock_path_labels_20261030",
+  "label_recorder_id": "2da04a28956b4fb39d07954824ee457d",
+  "label_summary_sha256": "88b894313be118aa13399e2d5d03ffa0a5ead0c93e52806b38375196d1d6b0c0",
+  "label_manifest_sha256": "508694d55ea14a2cc67db7763c29ba94ffb9ba5a6e6c21da6b018126d70afb80",
+  "label_nas_archive_sha256": "f0e846708a8afc37a06212dc49d873db85550b32260b2d37d6e97831eb646ede",
+  "parent": {
+    "card": "research/stage1_f696_oof_training_reference_20261028",
+    "recorder_id": "2994f6afbfc54f279cefec362b220001",
+    "summary_sha256": "00f276f2fe3e5641642a6f864e5e85da968599286aa8e9202a2d445cdf193584",
+    "manifest_sha256": "8699fd57be85d3b4b330f529e73612c8cc52967b5e7c3e8c0682c622c6e70f54",
+    "nas_archive_sha256": "e773cd3edf42b9ff9826270b70fdb9f9e90f4737e35f4d158ef0f5fcf5a4e9dd"
+  },
+  "provider_uri": "data/qlib/stage1_event_guard_fullminute_20261028",
+  "provider_manifest_sha256": "e9ab78e4e8fca7b70a5ccc27074893414a1308f13a4d37c3174c1690827db1e0",
+  "tariff_source_plan": "research/stage1_v5_equal_beta_value_labels_20261030/plan.json",
+  "tariff_source_plan_sha256": "dc1fae30166eafec597d05ba4ad42463114e58e84ef89f96d0db2db113772008",
+  "scope": "all 50719 source/path-mature rows marked no_exact_whole_share_pair across2018-2022; no economic value columns selected or inspected",
+  "order_classes": [
+    "zero_order",
+    "exact_one_intended_buy",
+    "single_wrong_order",
+    "multi_order"
+  ],
+  "action_reconstruction": "same q/cash as decision phase, fixed+0.10 nominal beta SOXX or+0.10/3 SOXL from decision mark; settle at Qlib next-bar open/raw prices with same Tiered state",
+  "budget": {
+    "qlib_minute_reads": 1,
+    "maximum_rows": 60000,
+    "new_model_fits": 0,
+    "new_candidate_accounts": 0,
+    "new_recorders": 0
+  },
+  "stop": "Any label source hash, q/cash/decision NAV, or exact-one-funded flag mismatch stops; do not inspect2021/22 economic values or tune action on observed profit.",
+  "as_of": "2026-10-30"
+}

@@ -1,0 +1,7 @@
+experiment: stage1_v5_no_exact_fill_order_audit_20261030
+kind: qlib_native_read_only_order_shape_attribution
+plan: plan.json
+notebook: stage1_v5_no_exact_fill_order_audit_20261030.ipynb
+artifact_policy: slim_card_recorder_first
+source_recorders: [v5_lock_path_labels, dated_parent]
+recorder_only: []

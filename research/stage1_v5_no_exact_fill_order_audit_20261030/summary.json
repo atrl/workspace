@@ -1,0 +1,29 @@
+{
+  "experiment": "stage1_v5_no_exact_fill_order_audit_20261030",
+  "plan_sha256": "ef4109c5ae594079e74473eca1c021f3d59630ff7440817f72d368cce404afd7",
+  "decision": "full_target_weight_next_bar_drift_creates_unintended_second_order",
+  "historical_research_passed": false,
+  "audit": "audit.json",
+  "metrics": {
+    "source_rows": 50719,
+    "arms_reconstructed": 101438,
+    "max_decision_nav_error_usd": 0.0,
+    "zero_order": 0,
+    "soxx_multi_order": 50239,
+    "soxl_multi_order": 507,
+    "exact_one_intended_buy_arms": 50692
+  },
+  "new_model_fits": 0,
+  "new_candidate_accounts": 0,
+  "new_recorders": 0,
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": []
+  },
+  "limitations": [
+    "Only saved no-exact-pair order geometry; no future value or candidate account.",
+    "Old labels remain valid for full target-weight rebalance action, but are not pure one-asset buy labels.",
+    "Retrospective exact-order mask cannot be a live model input."
+  ]
+}

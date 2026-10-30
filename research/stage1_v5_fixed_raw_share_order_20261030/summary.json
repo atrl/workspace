@@ -1,0 +1,27 @@
+{
+  "experiment": "stage1_v5_fixed_raw_share_order_20261030",
+  "plan_sha256": "524c87afdbd0e183f6449e875cce402e27fab08eb40831b864ce7ac2123b1458",
+  "decision": "causal_fixed_raw_share_one_asset_order_mechanical_pass",
+  "historical_research_passed": false,
+  "audit": "audit.json",
+  "module": "src/backtest/stage1_fixed_share_event.py",
+  "module_sha256": "5bf69f1d17e266d869ce13ba6511ea8b1675b1b24e3d382fe4285f20d3deefe7",
+  "mechanical_cases": 5,
+  "maximum_other_asset_quantity_error": 0.0,
+  "maximum_fill_nav_fee_error_usd": 3.013755911496219e-11,
+  "synthetic_decision_zero_share_retained": true,
+  "synthetic_fill_cash_rejection_retained": true,
+  "new_model_fits": 0,
+  "new_candidate_accounts": 0,
+  "new_recorders": 0,
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": []
+  },
+  "limitations": [
+    "Five preselected order cases, no five-session path labels or economic value.",
+    "Fixed shares are a research execution assumption; actual broker rejects/partial fills and historical first receipt remain unqualified.",
+    "Old full-target-weight labels cannot be reused as fixed-share action values."
+  ]
+}

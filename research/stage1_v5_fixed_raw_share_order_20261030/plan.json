@@ -1,0 +1,58 @@
+{
+  "experiment": "stage1_v5_fixed_raw_share_order_20261030",
+  "frozen": true,
+  "type": "causal_fixed_raw_whole_share_one_asset_buy_mechanical",
+  "parent_card": "research/stage1_f696_oof_training_reference_20261028",
+  "parent_recorder_id": "2994f6afbfc54f279cefec362b220001",
+  "parent_summary_sha256": "00f276f2fe3e5641642a6f864e5e85da968599286aa8e9202a2d445cdf193584",
+  "parent_manifest_sha256": "8699fd57be85d3b4b330f529e73612c8cc52967b5e7c3e8c0682c622c6e70f54",
+  "old_source_card": "research/stage1_f696_exact_parent_training_reference_20261027",
+  "old_source_plan_sha256": "a86f99e11156bbcc474fbf302ff4e6804792e9533c368641033bed9a8667b1c6",
+  "minute_provider_uri": "data/qlib/stage1_event_guard_fullminute_20261028",
+  "minute_provider_manifest_sha256": "e9ab78e4e8fca7b70a5ccc27074893414a1308f13a4d37c3174c1690827db1e0",
+  "order_audit_card": "research/stage1_v5_no_exact_fill_order_audit_20261030",
+  "order_audit_sha256": "88facd245ccb411a881ce4581574885b3205e1bcb4c9a59b82136332bc532545",
+  "cases": [
+    {
+      "trade_date": "2018-10-15",
+      "bar_end_at": "11:25",
+      "asset": "SOXX",
+      "reason": "first source-only old extra SOXL sale"
+    },
+    {
+      "trade_date": "2018-11-23",
+      "bar_end_at": "12:00",
+      "asset": "SOXX",
+      "reason": "13:00 half-day"
+    },
+    {
+      "trade_date": "2019-12-19",
+      "bar_end_at": "09:48",
+      "asset": "SOXX",
+      "reason": "ordinary early"
+    },
+    {
+      "trade_date": "2020-03-09",
+      "bar_end_at": "09:48",
+      "asset": "SOXL",
+      "reason": "recovery-day pre-event"
+    },
+    {
+      "trade_date": "2020-03-09",
+      "bar_end_at": "12:00",
+      "asset": "SOXX",
+      "reason": "post-recovery known state"
+    }
+  ],
+  "quantity_rule": "at completed decision bar use decision NAV and raw_close: SOXX floor(0.10*NAV/raw_close), SOXL floor((0.10/3)*NAV/raw_close); no future fill price; require at least one share and cash can fund this fixed quantity plus Tiered fee quoted at known raw_close",
+  "execution_rule": "at t+2 next-bar raw_open, submit only that fixed raw-share buy; charge actual Tiered quote; if actual cash insufficient record insufficient_fill_cash and no simulated fill, never trim quantity; unchanged asset raw/adjusted quantity exactly unchanged",
+  "risk_domain": "long-only, no borrowing, no old beta/SOXL30/cash15 hard caps; historical first receipt/broker rejection unknown",
+  "budget": {
+    "qlib_minute_reads": 4,
+    "new_model_fits": 0,
+    "new_candidate_accounts": 0,
+    "new_recorders": 0
+  },
+  "stop": "Any source/hash/clock/cash, other-asset quantity, raw-share or fee mismatch stops; do not alter size/date from future value.",
+  "as_of": "2026-10-30"
+}

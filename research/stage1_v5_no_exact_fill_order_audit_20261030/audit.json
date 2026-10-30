@@ -1,0 +1,128 @@
+{
+  "experiment": "stage1_v5_no_exact_fill_order_audit_20261030",
+  "plan_sha256": "ef4109c5ae594079e74473eca1c021f3d59630ff7440817f72d368cce404afd7",
+  "rows": 50719,
+  "arms_reconstructed": 101438,
+  "max_decision_nav_error_usd": 0.0,
+  "aggregate_arm_order_shapes": {
+    "zero_order": 0,
+    "exact_one_intended_buy": 50692,
+    "single_wrong_order": 0,
+    "multi_order": 50746
+  },
+  "annual_arm_shapes": [
+    {
+      "year": 2018,
+      "arm": "SOXL",
+      "no_exact_pair_source_rows": 1123,
+      "zero_order": 0,
+      "exact_one_intended_buy": 1122,
+      "single_wrong_order": 0,
+      "multi_order": 1
+    },
+    {
+      "year": 2018,
+      "arm": "SOXX",
+      "no_exact_pair_source_rows": 1123,
+      "zero_order": 0,
+      "exact_one_intended_buy": 0,
+      "single_wrong_order": 0,
+      "multi_order": 1123
+    },
+    {
+      "year": 2019,
+      "arm": "SOXL",
+      "no_exact_pair_source_rows": 640,
+      "zero_order": 0,
+      "exact_one_intended_buy": 633,
+      "single_wrong_order": 0,
+      "multi_order": 7
+    },
+    {
+      "year": 2019,
+      "arm": "SOXX",
+      "no_exact_pair_source_rows": 640,
+      "zero_order": 0,
+      "exact_one_intended_buy": 0,
+      "single_wrong_order": 0,
+      "multi_order": 640
+    },
+    {
+      "year": 2020,
+      "arm": "SOXL",
+      "no_exact_pair_source_rows": 2689,
+      "zero_order": 0,
+      "exact_one_intended_buy": 2343,
+      "single_wrong_order": 0,
+      "multi_order": 346
+    },
+    {
+      "year": 2020,
+      "arm": "SOXX",
+      "no_exact_pair_source_rows": 2689,
+      "zero_order": 0,
+      "exact_one_intended_buy": 330,
+      "single_wrong_order": 0,
+      "multi_order": 2359
+    },
+    {
+      "year": 2021,
+      "arm": "SOXL",
+      "no_exact_pair_source_rows": 35638,
+      "zero_order": 0,
+      "exact_one_intended_buy": 35634,
+      "single_wrong_order": 0,
+      "multi_order": 4
+    },
+    {
+      "year": 2021,
+      "arm": "SOXX",
+      "no_exact_pair_source_rows": 35638,
+      "zero_order": 0,
+      "exact_one_intended_buy": 3,
+      "single_wrong_order": 0,
+      "multi_order": 35635
+    },
+    {
+      "year": 2022,
+      "arm": "SOXL",
+      "no_exact_pair_source_rows": 10629,
+      "zero_order": 0,
+      "exact_one_intended_buy": 10480,
+      "single_wrong_order": 0,
+      "multi_order": 149
+    },
+    {
+      "year": 2022,
+      "arm": "SOXX",
+      "no_exact_pair_source_rows": 10629,
+      "zero_order": 0,
+      "exact_one_intended_buy": 147,
+      "single_wrong_order": 0,
+      "multi_order": 10482
+    }
+  ],
+  "first_source_examples": {
+    "multi_order": {
+      "trade_date": "2018-10-15",
+      "bar_end_at": "2018-10-15 11:25:00",
+      "arm": "SOXX",
+      "orders": [
+        [
+          "SOXL",
+          "sell",
+          1
+        ],
+        [
+          "SOXX",
+          "buy",
+          59
+        ]
+      ]
+    }
+  },
+  "economic_value_columns_accessed": false,
+  "new_model_fits": 0,
+  "new_candidate_accounts": 0,
+  "historical_research_passed": false
+}

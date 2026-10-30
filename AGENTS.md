@@ -547,6 +547,35 @@ independent forward evidence remains a separate contract-v2 promotion gate.
   minute returns, with live-intent/no-fill accounting and day-grouped purge;
   discrete+0.10 labels do not supervise final continuous weights. Keep
   contract-v2 SOXX gates and current paper SIM separate.
+- A read-only order-shape correction is
+  `research/stage1_v5_no_exact_fill_order_audit_20261030`. All50719
+  mature `no_exact_whole_share_pair` minute rows were replayed across101438
+  arms with0 NAV error and exact saved funded parity. There were zero
+  zero-order attempts: SOXX had50239 multi-order arms, SOXL507, while50692
+  other arms made one intended buy. A decision-time full target-weight vector
+  was settled at the next-bar price, so passive price drift induced an extra
+  rebalance of the supposedly unchanged asset (e.g., sell1 SOXL then buy59
+  SOXX). Do not call these rows no-fill, use the future exact-order mask as
+  a live predictor input, or treat old paired labels as pure cash-buy labels.
+  The old Recorder remains valid for its full-target-rebalance action scope.
+  Before fitting, freeze a new decision-time raw-whole-share one-asset order
+  contract, prove cash/Tiered/no-fill handling, and regenerate its same-state
+  five-session labels. No value columns, fits or SOXX account were assessed.
+- The causal raw-whole-share single-asset order pilot is
+  `research/stage1_v5_fixed_raw_share_order_20261030` and
+  `src/backtest/stage1_fixed_share_event.py`. At the completed minute it
+  freezes SOXX floor(0.10*NAV/raw_close) or SOXL
+  floor((0.10/3)*NAV/raw_close) shares using decision-known prices/cash;
+  at the next-bar open it attempts only that fixed buy, charges Tiered and
+  records no-share or insufficient-fill-cash without resizing on future
+  price. Five preselected Qlib early/late/recovery/half-day cases made one
+  intended order, changed the other asset by zero shares and closed fill NAV
+  to prefill NAV minus fee within3.01e-11 USD. The first old multi-order
+  example becomes only buy59 SOXX instead of sell1 SOXL plus buy59 SOXX.
+  This is mechanical only: old full-target-weight path labels cannot be
+  reused as fixed-share values. Extend the same-state five-session lock path
+  and regenerate labels before an information fit. Actual broker rejection,
+  partial fills and historical first receipt remain unqualified.
 - The historical old-cap joint capacity/asset-choice card is
   `docs/stage1_event_capacity_choice_implementation_20261029.md`. Its first
   read-only minute source/whole-share gate is
