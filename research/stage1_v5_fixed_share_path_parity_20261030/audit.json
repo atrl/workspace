@@ -1,0 +1,67 @@
+{
+  "experiment": "stage1_v5_fixed_share_path_parity_20261030",
+  "plan_sha256": "e87a5b625fb280ce2d05a2391945db7bc38ce9daa78f687c90d5de8d9fc9df13",
+  "order_module_sha256": "5bf69f1d17e266d869ce13ba6511ea8b1675b1b24e3d382fe4285f20d3deefe7",
+  "reference_module_sha256": "7c875695eba97351c0f20eac16a7e89c887a470b8d297c13e43cdfc6d8c4d79b",
+  "vector_module_sha256": "c813c720e56891ad5c75bf38ea454ad32c5615449fbc63644fe18a1c20b21f32",
+  "cases": [
+    {
+      "case": "first source-only old extra SOXL sale",
+      "asset": "SOXX",
+      "status": "funded",
+      "raw_shares": 59,
+      "orders": 1,
+      "other_asset_quantity_change": 0.0,
+      "source_close": "2018-10-15 16:00:00"
+    },
+    {
+      "case": "13:00 half-day",
+      "asset": "SOXX",
+      "status": "funded",
+      "raw_shares": 60,
+      "orders": 1,
+      "other_asset_quantity_change": 0.0,
+      "source_close": "2018-11-23 13:00:00"
+    },
+    {
+      "case": "ordinary early",
+      "asset": "SOXX",
+      "status": "funded",
+      "raw_shares": 64,
+      "orders": 1,
+      "other_asset_quantity_change": 0.0,
+      "source_close": "2019-12-19 16:00:00"
+    },
+    {
+      "case": "recovery-day pre-event",
+      "asset": "SOXL",
+      "status": "funded",
+      "raw_shares": 29,
+      "orders": 1,
+      "other_asset_quantity_change": 0.0,
+      "source_close": "2020-03-09 16:00:00"
+    },
+    {
+      "case": "post-recovery known state",
+      "asset": "SOXX",
+      "status": "funded",
+      "raw_shares": 63,
+      "orders": 1,
+      "other_asset_quantity_change": 0.0,
+      "source_close": "2020-03-09 16:00:00"
+    }
+  ],
+  "max_parity_errors": {
+    "terminal_nav": 0.0,
+    "max_drawdown": 0.0,
+    "cash": 0.0,
+    "quantity": 0.0,
+    "fee": 0.0
+  },
+  "synthetic_zero_share_path_identity": true,
+  "qlib_minute_reads": 4,
+  "new_model_fits": 0,
+  "new_candidate_accounts": 0,
+  "historical_research_passed": false,
+  "decision": "fixed_share_five_session_reference_vector_mechanical_parity_pass"
+}

@@ -1,0 +1,36 @@
+{
+  "experiment": "stage1_v5_fixed_share_path_parity_20261030",
+  "plan_sha256": "e87a5b625fb280ce2d05a2391945db7bc38ce9daa78f687c90d5de8d9fc9df13",
+  "decision": "fixed_share_five_session_reference_vector_mechanical_parity_pass",
+  "historical_research_passed": false,
+  "audit": "audit.json",
+  "first_attempt": "attempt1_preflight_failure.json",
+  "module_sha256": {
+    "order": "5bf69f1d17e266d869ce13ba6511ea8b1675b1b24e3d382fe4285f20d3deefe7",
+    "reference": "7c875695eba97351c0f20eac16a7e89c887a470b8d297c13e43cdfc6d8c4d79b",
+    "vectorized": "c813c720e56891ad5c75bf38ea454ad32c5615449fbc63644fe18a1c20b21f32"
+  },
+  "mechanical_cases": 5,
+  "max_parity_errors": {
+    "terminal_nav": 0.0,
+    "max_drawdown": 0.0,
+    "cash": 0.0,
+    "quantity": 0.0,
+    "fee": 0.0
+  },
+  "synthetic_zero_share_path_identity": true,
+  "qlib_minute_reads": 4,
+  "new_model_fits": 0,
+  "new_candidate_accounts": 0,
+  "new_recorders": 0,
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": []
+  },
+  "limitations": [
+    "Five selected Qlib events and synthetic zero-share only, not complete calendar support or values.",
+    "Broker actual rejection/partial fills and historical receipt remain unknown.",
+    "Old target-weight path Recorder cannot serve as this fixed-share label version."
+  ]
+}

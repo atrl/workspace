@@ -1,0 +1,65 @@
+{
+  "parent_card": "research/stage1_f696_oof_training_reference_20261028",
+  "parent_recorder_id": "2994f6afbfc54f279cefec362b220001",
+  "parent_summary_sha256": "00f276f2fe3e5641642a6f864e5e85da968599286aa8e9202a2d445cdf193584",
+  "parent_manifest_sha256": "8699fd57be85d3b4b330f529e73612c8cc52967b5e7c3e8c0682c622c6e70f54",
+  "old_source_card": "research/stage1_f696_exact_parent_training_reference_20261027",
+  "old_source_plan_sha256": "a86f99e11156bbcc474fbf302ff4e6804792e9533c368641033bed9a8667b1c6",
+  "minute_provider_uri": "data/qlib/stage1_event_guard_fullminute_20261028",
+  "minute_provider_manifest_sha256": "e9ab78e4e8fca7b70a5ccc27074893414a1308f13a4d37c3174c1690827db1e0",
+  "cases": [
+    {
+      "trade_date": "2018-10-15",
+      "bar_end_at": "11:25",
+      "asset": "SOXX",
+      "reason": "first source-only old extra SOXL sale"
+    },
+    {
+      "trade_date": "2018-11-23",
+      "bar_end_at": "12:00",
+      "asset": "SOXX",
+      "reason": "13:00 half-day"
+    },
+    {
+      "trade_date": "2019-12-19",
+      "bar_end_at": "09:48",
+      "asset": "SOXX",
+      "reason": "ordinary early"
+    },
+    {
+      "trade_date": "2020-03-09",
+      "bar_end_at": "09:48",
+      "asset": "SOXL",
+      "reason": "recovery-day pre-event"
+    },
+    {
+      "trade_date": "2020-03-09",
+      "bar_end_at": "12:00",
+      "asset": "SOXX",
+      "reason": "post-recovery known state"
+    }
+  ],
+  "experiment": "stage1_v5_fixed_share_path_parity_20261030",
+  "frozen": true,
+  "type": "causal_fixed_raw_share_five_session_lock_reference_vector_parity",
+  "fixed_order_card": "research/stage1_v5_fixed_raw_share_order_20261030",
+  "fixed_order_audit_sha256": "c9b5cceadf7d97c8ff86c508e9049e3e0f110a7af27aed5f49a08deec95fc4bf",
+  "fixed_order_module": "src/backtest/stage1_fixed_share_event.py",
+  "fixed_order_module_sha256": "5bf69f1d17e266d869ce13ba6511ea8b1675b1b24e3d382fe4285f20d3deefe7",
+  "reference_module": "src/backtest/stage1_capfree_lock_episode.py",
+  "reference_module_prior_sha256": "8654a7c8adff7d5eff67013e24b0b299eb24c2d5cd5175c8676ba4787672819d",
+  "vector_module": "src/analysis/stage1_capfree_lock_vectorized.py",
+  "vector_module_prior_sha256": "aa1be2b7a9ece7e094360cf06e509d9cf28bf8ee456d33d44f01996fc48363b9",
+  "horizon_sessions": 5,
+  "maximum_nav_error_usd": 1e-07,
+  "maximum_risk_error": 1e-10,
+  "scope": "five fixed Qlib source cases, both SOXL/SOXX arms where source-ready, plus synthetic no-share/insufficient-fill-cash; no future return selection",
+  "budget": {
+    "qlib_minute_reads": 4,
+    "new_model_fits": 0,
+    "new_candidate_accounts": 0,
+    "new_recorders": 0
+  },
+  "stop": "Any reference/vector order, share, cash, fee, terminal NAV, risk or no-fill mismatch stops before full labels.",
+  "as_of": "2026-10-30"
+}

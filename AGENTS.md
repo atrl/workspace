@@ -576,6 +576,20 @@ independent forward evidence remains a separate contract-v2 promotion gate.
   reused as fixed-share values. Extend the same-state five-session lock path
   and regenerate labels before an information fit. Actual broker rejection,
   partial fills and historical first receipt remain unqualified.
+- The fixed-raw-share five-session reference/vector parity is
+  `research/stage1_v5_fixed_share_path_parity_20261030`. Five fixed Qlib
+  ordinary/half-day/pre/post-recovery and old multi-order source cases now
+  enter both `stage1_capfree_lock_episode.py` and
+  `stage1_capfree_lock_vectorized.py` with the same decision-known raw-share
+  intent. Each makes only the intended buy, holds the other asset quantity
+  exactly, and has zero reference/vector difference in HOLD/EVENT terminal
+  NAV, available-mark max drawdown, shares, cash, Tiered fees and monthly
+  counters. Synthetic no-share remains a HOLD path. First attempt stopped
+  before Qlib read due a missing checkpoint-code plan key; old plan/receipt
+  retained and mechanical repair made. This is five mechanical events, not
+  new full-calendar source support, economic labels, model or SOXX pass.
+  Freeze and regenerate all fixed-share minute labels; never transfer old
+  full-target-weight path values into this action contract.
 - The historical old-cap joint capacity/asset-choice card is
   `docs/stage1_event_capacity_choice_implementation_20261029.md`. Its first
   read-only minute source/whole-share gate is

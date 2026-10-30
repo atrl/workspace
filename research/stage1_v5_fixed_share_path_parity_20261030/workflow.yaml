@@ -1,0 +1,8 @@
+experiment: stage1_v5_fixed_share_path_parity_20261030
+kind: qlib_native_fixed_share_five_session_path_parity
+plan: plan.json
+notebook: stage1_v5_fixed_share_path_parity_20261030.ipynb
+modules: [src/backtest/stage1_fixed_share_event.py, src/backtest/stage1_capfree_lock_episode.py, src/analysis/stage1_capfree_lock_vectorized.py]
+artifact_policy: slim_card_recorder_first
+source_recorders: [dated_parent, covered_frame]
+recorder_only: []

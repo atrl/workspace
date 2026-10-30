@@ -15,6 +15,7 @@ import pandas as pd
 
 from src.backtest.event_guard_clock import guard_slot
 from src.backtest.ibkr_tiered import settle_tiered_event
+from src.backtest.stage1_fixed_share_event import fixed_buy_intent, settle_fixed_buy
 
 
 _QUOTE_FIELDS = ("SOXL_open", "SOXX_open", "SOXL_close", "SOXX_close",
@@ -30,9 +31,11 @@ def replay_capfree_lock_episode(frame, checkpoint, quotes, *, event,
     An event order can round to no fill; that remains an explicit episode.
     """
     required = {"trade_date", "bar_end_at", "decision_at", "fill_at",
-                "desired_weights", "adjusted_fill_prices", "raw_fill_prices"}
-    if not isinstance(event, dict) or set(event) != required:
+                "adjusted_fill_prices", "raw_fill_prices"}
+    if not isinstance(event, dict) or (set(event) not in
+            (required | {"desired_weights"}, required | {"fixed_buy_intent"})):
         raise ValueError("blocked: event contract differs")
+    fixed_mode = "fixed_buy_intent" in event
     if horizon_sessions != 5 or checkpoint.index < 0 or checkpoint.index + 5 > len(frame):
         raise ValueError("blocked: five-session terminal unavailable")
     if not isinstance(quotes, pd.DataFrame) or not set(_QUOTE_FIELDS) <= set(quotes):
@@ -62,14 +65,16 @@ def replay_capfree_lock_episode(frame, checkpoint, quotes, *, event,
         raise ValueError("blocked: 10:32 recovery/event ordering is ambiguous")
     if late != (recovery_state is not None):
         raise ValueError("blocked: late event needs verified post-recovery parent state")
-    desired = np.asarray(event["desired_weights"], float)
     adjusted = np.asarray(event["adjusted_fill_prices"], float)
     raw = np.asarray(event["raw_fill_prices"], float)
-    if (desired.shape != (3,) or adjusted.shape != (2,) or raw.shape != (2,) or
-            not np.isfinite([*desired, *adjusted, *raw]).all() or
-            desired.min() < -1e-10 or abs(float(desired.sum()) - 1) > 1e-8 or
-            adjusted.min() <= 0 or raw.min() <= 0):
-        raise ValueError("blocked: long-only simplex or fill prices invalid")
+    if (adjusted.shape != (2,) or raw.shape != (2,) or
+            not np.isfinite([*adjusted, *raw]).all() or adjusted.min() <= 0 or raw.min() <= 0):
+        raise ValueError("blocked: fill prices invalid")
+    if not fixed_mode:
+        desired = np.asarray(event["desired_weights"], float)
+        if (desired.shape != (3,) or not np.isfinite(desired).all() or
+                desired.min() < -1e-10 or abs(float(desired.sum()) - 1) > 1e-8):
+            raise ValueError("blocked: long-only simplex invalid")
     fill_quote = first_quotes.loc[fill + pd.Timedelta(minutes=1)]
     source_adjusted = fill_quote[["SOXL_open", "SOXX_open"]].to_numpy(float)
     source_raw = fill_quote[["SOXL_raw_open", "SOXX_raw_open"]].to_numpy(float)
@@ -110,6 +115,22 @@ def replay_capfree_lock_episode(frame, checkpoint, quotes, *, event,
     decision_nav = float(before.q @ decision_price + before.cash)
     if decision_nav <= 0:
         raise ValueError("blocked: event decision NAV invalid")
+    if fixed_mode:
+        intent = event["fixed_buy_intent"]
+        symbol = intent.get("symbol") if isinstance(intent, dict) else None
+        field = symbol + "_raw_close" if symbol in ("SOXL", "SOXX") else ""
+        if field not in first_quotes:
+            raise ValueError("blocked: decision raw close source absent")
+        raw_close = float(first_quotes.loc[bar_end, field])
+        expected = fixed_buy_intent(symbol=symbol, decision_nav=decision_nav,
+            raw_close=raw_close, cash=before.cash, fees=before.fees,
+            decision_at=decision,
+            nominal_beta_increment=float(intent["nominal_beta_increment"]))
+        if (intent["status"] != expected["status"] or
+                intent["raw_shares"] != expected["raw_shares"] or
+                abs(float(intent["decision_nav"]) - decision_nav) > 1e-7 or
+                abs(float(intent["decision_raw_close"]) - raw_close) > 1e-8):
+            raise ValueError("blocked: fixed buy intent differs from decision-known source")
     prefill_drawdown = max(0.0, 1.0 - decision_nav / float(before.peak))
     prefill_marks = first_quotes.loc[(first_quotes.index > bar_end) &
                                      (first_quotes.index <= fill)]
@@ -126,9 +147,17 @@ def replay_capfree_lock_episode(frame, checkpoint, quotes, *, event,
     for arm in ("HOLD", "EVENT"):
         state = deepcopy(before)
         orders = []
+        status = "hold"
         if arm == "EVENT":
-            settled = settle_tiered_event(state.q, state.cash, desired=desired,
-                adjusted_prices=adjusted, raw_prices=raw, stamp=fill, fees=state.fees)
+            if fixed_mode:
+                settled = settle_fixed_buy(state.q, state.cash, intent=intent,
+                    adjusted_fill_prices=adjusted, raw_fill_prices=raw,
+                    fill_at=fill, fees=state.fees)
+                status = settled["status"]
+            else:
+                settled = settle_tiered_event(state.q, state.cash, desired=desired,
+                    adjusted_prices=adjusted, raw_prices=raw, stamp=fill, fees=state.fees)
+                status = "funded" if settled["orders"] else "no_whole_share_fill"
             state.q, state.cash = settled["quantities"], float(settled["cash"])
             orders = settled["orders"]
         if state.q.min() < -1e-8 or state.cash < -1e-8:
@@ -189,6 +218,7 @@ def replay_capfree_lock_episode(frame, checkpoint, quotes, *, event,
         # The fifth next-open is the terminal mark and follows the last close.
         mark_price(exit_price)
         results[arm] = {"path": pd.DataFrame(rows), "orders": orders,
+                        "status": status,
                         "ending_quantities": state.q.copy(), "ending_cash": float(state.cash),
                         "ending_peak": float(state.peak),
                         "terminal_available_mark_max_drawdown": float(monitored),
@@ -196,6 +226,6 @@ def replay_capfree_lock_episode(frame, checkpoint, quotes, *, event,
     results.update({"decision_nav": decision_nav, "prefill_quantities": before.q.copy(),
                     "prefill_cash": float(before.cash), "prefill_peak": float(before.peak),
                     "post_1032_parent_state_spliced": post_1032_state_spliced,
-                    "event_status": "funded" if results["EVENT"]["orders"] else "no_whole_share_fill",
+                    "event_status": results["EVENT"]["status"],
                     "session_close": session_close})
     return results
