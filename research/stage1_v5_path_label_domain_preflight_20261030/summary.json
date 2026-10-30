@@ -1,0 +1,62 @@
+{
+  "experiment": "stage1_v5_path_label_domain_preflight_20261030",
+  "plan_sha256": "43546f023f9cddb7f67576acbef1ac273754b91c1f8a4b731763c5dcf053a379",
+  "decision": "old_cap_checkpoint_mixed_domain_for_v5_cap_free_path_labels",
+  "historical_research_passed": false,
+  "audit": "audit.json",
+  "metrics": {
+    "paired_discovery_rows": 196841,
+    "paired_discovery_days": 547,
+    "maximum_decision_nav_error_usd": 0.0,
+    "proposed_over_old_cap_rows": 195717,
+    "proposed_over_old_cap_days": 544,
+    "already_over_old_cap_rows": 94842,
+    "newly_cross_old_cap_rows": 100875,
+    "annual": [
+      {
+        "year": 2018,
+        "paired_intent_rows": 18114,
+        "paired_days": 53,
+        "proposed_over_old_cap_rows": 18114,
+        "proposed_over_old_cap_days": 53,
+        "already_over_old_cap_rows": 8187,
+        "newly_cross_old_cap_rows": 9927,
+        "median_old_cap_headroom": 0.0007814871070475071
+      },
+      {
+        "year": 2019,
+        "paired_intent_rows": 92051,
+        "paired_days": 252,
+        "proposed_over_old_cap_rows": 91681,
+        "proposed_over_old_cap_days": 251,
+        "already_over_old_cap_rows": 40971,
+        "newly_cross_old_cap_rows": 50710,
+        "median_old_cap_headroom": 0.0009813009345851498
+      },
+      {
+        "year": 2020,
+        "paired_intent_rows": 86676,
+        "paired_days": 242,
+        "proposed_over_old_cap_rows": 85922,
+        "proposed_over_old_cap_days": 240,
+        "already_over_old_cap_rows": 45684,
+        "newly_cross_old_cap_rows": 40238,
+        "median_old_cap_headroom": -0.0006169331265731409
+      }
+    ]
+  },
+  "new_model_fits": 0,
+  "new_native_accounts": 0,
+  "new_recorders": 0,
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": []
+  },
+  "limitations": [
+    "This is old-cap domain mismatch only, not cap-free source capacity or value.",
+    "Pair-funded rows condition on future fill legality and cannot be live decision inputs.",
+    "No 5-session own-state path labels, model fit or candidate account.",
+    "2021/2022 value columns not used in analysis; historical minute first receipt and dividend receivables remain unknown."
+  ]
+}

@@ -1,0 +1,46 @@
+{
+  "experiment": "stage1_v5_path_label_domain_preflight_20261030",
+  "frozen": true,
+  "kind": "read_only_v5_cross_session_label_risk_domain_preflight",
+  "label_source": {
+    "card": "research/stage1_v5_equal_beta_value_labels_20261030",
+    "recorder_id": "54bf06d027dc44bc805b87a659558dd6",
+    "summary_sha256": "e06d7d85d4777c407cf1bb760d5bd45ea79b25a5f9c9cfb7f0477501086492ab",
+    "manifest_sha256": "ff88a0e84ae49a9d91162960dd9a8d18d93b770a1fa11ffe602a8e1d25ad0a33",
+    "nas_archive_sha256": "09de9c27473fc795d13e93650d8bdbc4c73c6acde3a601ab8f4ee9579c1b16e9"
+  },
+  "parent": {
+    "card": "research/stage1_f696_oof_training_reference_20261028",
+    "recorder_id": "2994f6afbfc54f279cefec362b220001",
+    "summary_sha256": "00f276f2fe3e5641642a6f864e5e85da968599286aa8e9202a2d445cdf193584",
+    "manifest_sha256": "8699fd57be85d3b4b330f529e73612c8cc52967b5e7c3e8c0682c622c6e70f54",
+    "nas_archive_sha256": "e773cd3edf42b9ff9826270b70fdb9f9e90f4737e35f4d158ef0f5fcf5a4e9dd"
+  },
+  "minute_provider_uri": "data/qlib/stage1_event_guard_fullminute_20261028",
+  "minute_provider_manifest_sha256": "e9ab78e4e8fca7b70a5ccc27074893414a1308f13a4d37c3174c1690827db1e0",
+  "checkpoint_code": "src/backtest/stage1_event_checkpoint.py",
+  "checkpoint_code_sha256": "1e62923b270c6ec4f698b2e5d676d3abe2d476fbbdd4ded1e3e2b6408bd1c34b",
+  "dated_open_action_code": "src/workflow/stage1_open_action_value.py",
+  "dated_open_action_code_sha256": "6459fb44b1019bd8c4555ebd6b2ba6e9dbe8241844875b23a439837040734671",
+  "discovery_years": [
+    2018,
+    2019,
+    2020
+  ],
+  "reserved_years": [
+    2021,
+    2022
+  ],
+  "action_nominal_beta_increment": 0.1,
+  "comparison": "on paired whole-share funded decision intents, mark current parent shares at completed Qlib minute close and compare beta plus fixed0.10 with dated parent old current_beta_cap; this is old-cap mismatch diagnostic, not a new cap-free capacity bound",
+  "gate": "If any paired intent exceeds old cap, the old-cap checkpoint continuation cannot be labeled a cap-free own-risk-path training teacher without a separate same-domain receiver and risk architecture.",
+  "budget": {
+    "new_model_fits": 0,
+    "new_native_accounts": 0,
+    "new_recorders": 0,
+    "qlib_minute_reads": 1,
+    "new_market_requests": 0
+  },
+  "stop": "Any SHA, model-clock, label pair, Qlib minute mark or parent-position mismatch stops. No future value columns, no 2021/22 outcomes, no path value calculated.",
+  "as_of": "2026-10-30"
+}

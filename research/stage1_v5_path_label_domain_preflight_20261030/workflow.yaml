@@ -1,0 +1,7 @@
+experiment: stage1_v5_path_label_domain_preflight_20261030
+kind: qlib_native_read_only_risk_domain_preflight
+plan: plan.json
+notebook: stage1_v5_path_label_domain_preflight_20261030.ipynb
+artifact_policy: slim_card_recorder_first
+source_recorders: [v5_equal_beta_labels, dated_parent]
+recorder_only: []

@@ -431,6 +431,19 @@ independent forward evidence remains a separate contract-v2 promotion gate.
   A v5 minute path-value receiver is still untested; require a distinct
   same-state path label and matched information gate before fitting or account.
   Preserve the half-day clock correction receipt; 2021/2022 outcomes untouched.
+- The v5 cap-free path-label domain preflight is
+  `research/stage1_v5_path_label_domain_preflight_20261030`: in the
+  2018–2020 discovery years, 195717/196841 paired funded minute intents
+  (544/547 days) would exceed the dated parent's old current_beta_cap after
+  fixed +0.10 nominal beta; 100875 were newly pushed above cap by the action.
+  The existing checkpoint event accepts a simplex target, but subsequent
+  sessions still use old b472 opening/recovery and beta projection. It is a
+  valid old-parent parity reference, not a cap-free own-path label teacher.
+  Do not bulk-generate v5 5-session labels from it or treat old-cap headroom
+  as cap-free capacity. Freeze a separate training/inference-matched risk
+  architecture and continuation rule, then pass no-event/event identity before
+  fitting. Funded-pair eligibility uses future fill and is diagnostic only;
+  2021/2022 value columns were not used. No candidate account/SOXX pass.
 - The historical old-cap joint capacity/asset-choice card is
   `docs/stage1_event_capacity_choice_implementation_20261029.md`. Its first
   read-only minute source/whole-share gate is
