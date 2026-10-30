@@ -1,0 +1,9 @@
+experiment: stage1_v5_lock_risk_mark_order_correction_20261030
+kind: qlib_native_read_only_risk_mark_order_correction
+plan: plan.json
+notebook: stage1_v5_lock_risk_mark_order_correction_20261030.ipynb
+module: src/backtest/stage1_capfree_lock_episode.py
+focused_test: tests/test_stage1_capfree_lock_mark_order.py
+artifact_policy: slim_card_recorder_first
+source_recorders: [dated_parent, covered_frame]
+recorder_only: []

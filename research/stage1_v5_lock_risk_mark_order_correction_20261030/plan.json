@@ -1,0 +1,94 @@
+{
+  "experiment": "stage1_v5_lock_risk_mark_order_correction_20261030",
+  "frozen": true,
+  "type": "read_only_mechanical_risk_mark_chronology_correction",
+  "old_card": "research/stage1_v5_capfree_lock_clock_matrix_20261030",
+  "old_plan_sha256": "bc4e8845eb6291d98684927ae4391781f38bbe76ee3fc9456be5592dcbeeca77",
+  "old_audit_sha256": "2a287c0211a38a4cc6002265097e7033f2aa0b98ecf9373474097c8053c706fe",
+  "old_module_sha256": "1b3d8988db90a29ddc5700759cc4aebabfc32ddd3d126fc84188fa6a1d1fd3c1",
+  "module": "src/backtest/stage1_capfree_lock_episode.py",
+  "same_cases": [
+    {
+      "name": "ordinary_early",
+      "trade_date": "2019-12-19",
+      "bar_end_at": "09:48",
+      "target_rule": "cash_to_soxx_0.10"
+    },
+    {
+      "name": "halfday_late_mixed",
+      "trade_date": "2018-11-23",
+      "bar_end_at": "12:00",
+      "target_rule": "soxl_minus_0.04_soxx_plus_0.08_cash_minus_0.04"
+    },
+    {
+      "name": "recovery_day_early",
+      "trade_date": "2020-03-09",
+      "bar_end_at": "09:48",
+      "target_rule": "cash_to_soxx_0.10"
+    },
+    {
+      "name": "recovery_day_late",
+      "trade_date": "2020-03-09",
+      "bar_end_at": "12:00",
+      "target_rule": "cash_to_soxx_0.10"
+    }
+  ],
+  "source_parent": {
+    "card": "research/stage1_f696_oof_training_reference_20261028",
+    "recorder_id": "2994f6afbfc54f279cefec362b220001",
+    "summary_sha256": "00f276f2fe3e5641642a6f864e5e85da968599286aa8e9202a2d445cdf193584",
+    "manifest_sha256": "8699fd57be85d3b4b330f529e73612c8cc52967b5e7c3e8c0682c622c6e70f54"
+  },
+  "frame_source": {
+    "card": "research/stage1_f696_exact_parent_training_reference_20261027",
+    "plan_sha256": "a86f99e11156bbcc474fbf302ff4e6804792e9533c368641033bed9a8667b1c6"
+  },
+  "provider_uri": "data/qlib/stage1_event_guard_fullminute_20261028",
+  "provider_manifest_sha256": "e9ab78e4e8fca7b70a5ccc27074893414a1308f13a4d37c3174c1690827db1e0",
+  "chronology": "for every next session process 09:31..09:47 completed bars, then insert 09:47 account open mark, then bars 09:48..actual close; terminal fifth next-open after last close. Per-day risk rows end at each session close; terminal risk includes fifth next-open.",
+  "scope": "correct only mark-to-market peak/drawdown order, no change to event clock, target, shares, cash, fees, terminal NAV or dates",
+  "budget": {
+    "qlib_minute_reads": 3,
+    "new_model_fits": 0,
+    "new_candidate_accounts": 0,
+    "new_recorders": 0
+  },
+  "stop": "If event orders, monthly fees, cash, terminal NAV or same-state identity change beyond1e-7 USD, stop and diagnose, not accept risk correction alone.",
+  "as_of": "2026-10-30",
+  "parent_card": "research/stage1_f696_oof_training_reference_20261028",
+  "parent_recorder_id": "2994f6afbfc54f279cefec362b220001",
+  "parent_summary_sha256": "00f276f2fe3e5641642a6f864e5e85da968599286aa8e9202a2d445cdf193584",
+  "parent_manifest_sha256": "8699fd57be85d3b4b330f529e73612c8cc52967b5e7c3e8c0682c622c6e70f54",
+  "old_source_card": "research/stage1_f696_exact_parent_training_reference_20261027",
+  "old_source_plan_sha256": "a86f99e11156bbcc474fbf302ff4e6804792e9533c368641033bed9a8667b1c6",
+  "minute_provider_uri": "data/qlib/stage1_event_guard_fullminute_20261028",
+  "minute_provider_manifest_sha256": "e9ab78e4e8fca7b70a5ccc27074893414a1308f13a4d37c3174c1690827db1e0",
+  "checkpoint_code": "src/backtest/stage1_event_checkpoint.py",
+  "checkpoint_code_sha256": "1e62923b270c6ec4f698b2e5d676d3abe2d476fbbdd4ded1e3e2b6408bd1c34b",
+  "cases": [
+    {
+      "name": "ordinary_early",
+      "trade_date": "2019-12-19",
+      "bar_end_at": "09:48",
+      "target_rule": "cash_to_soxx_0.10"
+    },
+    {
+      "name": "halfday_late_mixed",
+      "trade_date": "2018-11-23",
+      "bar_end_at": "12:00",
+      "target_rule": "soxl_minus_0.04_soxx_plus_0.08_cash_minus_0.04"
+    },
+    {
+      "name": "recovery_day_early",
+      "trade_date": "2020-03-09",
+      "bar_end_at": "09:48",
+      "target_rule": "cash_to_soxx_0.10"
+    },
+    {
+      "name": "recovery_day_late",
+      "trade_date": "2020-03-09",
+      "bar_end_at": "12:00",
+      "target_rule": "cash_to_soxx_0.10"
+    }
+  ]
+}

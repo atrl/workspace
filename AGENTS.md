@@ -472,6 +472,19 @@ independent forward evidence remains a separate contract-v2 promotion gate.
   mechanical samples, not all-minute support, bulk labels, a trained
   continuous receiver or SOXX account. Next audit all causal minute intents,
   maturity, repeated lock triggers and budget before generating labels.
+- The five-session lock risk-mark chronology was corrected in
+  `research/stage1_v5_lock_risk_mark_order_correction_20261030`. The prior
+  `stage1_capfree_lock_episode.py` placed each next-day 09:47 open before
+  that day's 09:31–09:47 completed minute bars. This can corrupt running
+  peak/max drawdown even though quantities, fees and terminal NAV reconcile.
+  The corrected module processes early bars, then 09:47 open, then later
+  bars; `available_mark_max_drawdown` is through each session close and
+  `terminal_available_mark_max_drawdown` includes the fifth next-open.
+  Four frozen Qlib mechanical cases happened to retain identical maxima and
+  all terminal/account identities; a focused synthetic regression proves a
+  20% true drawdown would be 33.33% under the old ordering. Preserve old card
+  and its source hash; use only the corrected module SHA for bulk risk labels.
+  This correction adds no alpha, trained receiver or SOXX account.
 - Full-minute cap-free five-session lock source support is
   `research/stage1_v5_capfree_lock_fullminute_support_20261030`: Qlib read
   820440 dual-ETF rows on all1056 dated-parent sessions. Of389100 causal

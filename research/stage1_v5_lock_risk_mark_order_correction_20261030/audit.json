@@ -1,0 +1,116 @@
+{
+  "experiment": "stage1_v5_lock_risk_mark_order_correction_20261030",
+  "plan_sha256": "04520fd465e96310d544fc7e3d8308dfd79f8632b0695894c87c494271c18f0c",
+  "old_module_sha256": "1b3d8988db90a29ddc5700759cc4aebabfc32ddd3d126fc84188fa6a1d1fd3c1",
+  "corrected_module_sha256": "537e2aea5ecf1c9c493f937f6cc67fbd788440a7169d321a88b3b9eb08be1725",
+  "old_audit_sha256": "2a287c0211a38a4cc6002265097e7033f2aa0b98ecf9373474097c8053c706fe",
+  "cases": [
+    {
+      "case": "ordinary_early",
+      "day": "2019-12-19",
+      "clock": "2019-12-19 09:48:00->2019-12-19 09:50:00",
+      "session_close": "2019-12-19 16:00:00",
+      "recovery_orders_before_decision": 0,
+      "post_1032_parent_state_spliced": false,
+      "event_order_count": 1,
+      "event_order_symbols": [
+        "SOXX"
+      ],
+      "event_order_sell": [
+        false
+      ],
+      "event_fee_usd": 0.55524925,
+      "monthly_fee_share_delta": 64.0,
+      "event_status": "funded",
+      "hold_parent_first_next_open_error_usd": 0.0,
+      "terminal_nav_closure_error_usd": 2.1827872842550278e-11,
+      "hold_available_mark_max_drawdown": 0.009570343031858108,
+      "event_available_mark_max_drawdown": 0.010218654298004726,
+      "hold_terminal_available_mark_max_drawdown": 0.009570343031858108,
+      "event_terminal_available_mark_max_drawdown": 0.010218654298004726
+    },
+    {
+      "case": "halfday_late_mixed",
+      "day": "2018-11-23",
+      "clock": "2018-11-23 12:00:00->2018-11-23 12:02:00",
+      "session_close": "2018-11-23 13:00:00",
+      "recovery_orders_before_decision": 0,
+      "post_1032_parent_state_spliced": true,
+      "event_order_count": 2,
+      "event_order_symbols": [
+        "SOXL",
+        "SOXX"
+      ],
+      "event_order_sell": [
+        true,
+        false
+      ],
+      "event_fee_usd": 1.0643322599472045,
+      "monthly_fee_share_delta": 89.0,
+      "event_status": "funded",
+      "hold_parent_first_next_open_error_usd": 0.0,
+      "terminal_nav_closure_error_usd": 1.4551915228366852e-11,
+      "hold_available_mark_max_drawdown": 0.08191517394871295,
+      "event_available_mark_max_drawdown": 0.08183755213009603,
+      "hold_terminal_available_mark_max_drawdown": 0.08191517394871295,
+      "event_terminal_available_mark_max_drawdown": 0.08183755213009603
+    },
+    {
+      "case": "recovery_day_early",
+      "day": "2020-03-09",
+      "clock": "2020-03-09 09:48:00->2020-03-09 09:50:00",
+      "session_close": "2020-03-09 16:00:00",
+      "recovery_orders_before_decision": 0,
+      "post_1032_parent_state_spliced": false,
+      "event_order_count": 1,
+      "event_order_symbols": [
+        "SOXX"
+      ],
+      "event_order_sell": [
+        false
+      ],
+      "event_fee_usd": 0.55845225,
+      "monthly_fee_share_delta": 65.0,
+      "event_status": "funded",
+      "hold_parent_first_next_open_error_usd": 19.406701446714578,
+      "terminal_nav_closure_error_usd": 0.0,
+      "hold_available_mark_max_drawdown": 0.2020416864785276,
+      "event_available_mark_max_drawdown": 0.21149116659656608,
+      "hold_terminal_available_mark_max_drawdown": 0.20545253426827959,
+      "event_terminal_available_mark_max_drawdown": 0.21656582991083162
+    },
+    {
+      "case": "recovery_day_late",
+      "day": "2020-03-09",
+      "clock": "2020-03-09 12:00:00->2020-03-09 12:02:00",
+      "session_close": "2020-03-09 16:00:00",
+      "recovery_orders_before_decision": 1,
+      "post_1032_parent_state_spliced": true,
+      "event_order_count": 1,
+      "event_order_symbols": [
+        "SOXX"
+      ],
+      "event_order_sell": [
+        false
+      ],
+      "event_fee_usd": 0.55204625,
+      "monthly_fee_share_delta": 63.0,
+      "event_status": "funded",
+      "hold_parent_first_next_open_error_usd": 5.820766091346741e-11,
+      "terminal_nav_closure_error_usd": 7.275957614183426e-12,
+      "hold_available_mark_max_drawdown": 0.2449520373730566,
+      "event_available_mark_max_drawdown": 0.2568047232357509,
+      "hold_terminal_available_mark_max_drawdown": 0.2548389671592577,
+      "event_terminal_available_mark_max_drawdown": 0.2683042742302675
+    }
+  ],
+  "independent_chronological_risk_ordinary": {
+    "HOLD": 0.009570343031858108,
+    "EVENT": 0.010218654298004726
+  },
+  "orders_cash_fee_terminal_nav_unchanged": true,
+  "new_model_fits": 0,
+  "new_candidate_accounts": 0,
+  "historical_research_passed": false,
+  "decision": "risk_mark_order_corrected_terminal_nav_parity_preserved"
+}

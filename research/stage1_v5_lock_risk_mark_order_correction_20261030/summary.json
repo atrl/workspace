@@ -1,0 +1,43 @@
+{
+  "experiment": "stage1_v5_lock_risk_mark_order_correction_20261030",
+  "plan_sha256": "04520fd465e96310d544fc7e3d8308dfd79f8632b0695894c87c494271c18f0c",
+  "decision": "risk_mark_order_corrected_terminal_nav_parity_preserved",
+  "historical_research_passed": false,
+  "audit": "audit.json",
+  "old_module_sha256": "1b3d8988db90a29ddc5700759cc4aebabfc32ddd3d126fc84188fa6a1d1fd3c1",
+  "corrected_module_sha256": "537e2aea5ecf1c9c493f937f6cc67fbd788440a7169d321a88b3b9eb08be1725",
+  "four_case_risk_delta": {
+    "ordinary_early": {
+      "hold_max_drawdown_delta": 0.0,
+      "event_max_drawdown_delta": 0.0
+    },
+    "halfday_late_mixed": {
+      "hold_max_drawdown_delta": 0.0,
+      "event_max_drawdown_delta": 0.0
+    },
+    "recovery_day_early": {
+      "hold_max_drawdown_delta": 0.0,
+      "event_max_drawdown_delta": 0.0
+    },
+    "recovery_day_late": {
+      "hold_max_drawdown_delta": 0.0,
+      "event_max_drawdown_delta": 0.0
+    }
+  },
+  "four_case_orders_cash_fee_terminal_nav_unchanged": true,
+  "focused_test": "tests/test_stage1_capfree_lock_mark_order.py",
+  "focused_test_status": "1 passed",
+  "new_model_fits": 0,
+  "new_candidate_accounts": 0,
+  "new_recorders": 0,
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": []
+  },
+  "limitations": [
+    "Four historical cases happen to keep same maximum; synthetic chronology regression proves old order can materially bias max drawdown.",
+    "Per-day risk field now means through session close, terminal risk includes fifth next-open.",
+    "No bulk path labels, fit, own candidate account or SOXX gate."
+  ]
+}

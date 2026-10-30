@@ -144,28 +144,49 @@ def replay_capfree_lock_episode(frame, checkpoint, quotes, *, event,
             if bars.empty or not bars[["SOXL_price_valid", "SOXX_price_valid"]].eq(1).all().all():
                 raise ValueError("blocked: invalid or incomplete Qlib lock-session marks")
             prices = bars[["SOXL_close", "SOXX_close"]].to_numpy(float)
-            for price in prices:
+
+            def mark_price(price):
+                nonlocal monitored
                 nav = float(state.q @ price + state.cash)
                 if nav <= 0 or not np.isfinite(nav):
                     raise ValueError("blocked: nonpositive lock-session NAV")
                 state.peak = max(float(state.peak), nav)
                 monitored = max(monitored, 1.0 - nav / float(state.peak))
+
+            if offset == 0:
+                for price in prices:
+                    mark_price(price)
+            else:
+                # The prior row's next-open mark occurs at this session's
+                # 09:47, after its earlier minute bars and before 09:48.
+                boundary = session + pd.Timedelta(hours=9, minutes=47)
+                early = bars.index <= boundary
+                if not early.any() or early.all():
+                    raise ValueError("blocked: next-open minute boundary absent")
+                for price in prices[early]:
+                    mark_price(price)
+                previous = frame.iloc[checkpoint.index + offset - 1]
+                previous_next_open = previous[["soxl_exit_open", "soxx_exit_open"]].to_numpy(float)
+                mark_price(previous_next_open)
+                for price in prices[~early]:
+                    mark_price(price)
             close_price = row[["close_soxl", "close_soxx"]].to_numpy(float)
             close_nav = float(state.q @ close_price + state.cash)
             if abs(close_nav - float(state.q @ prices[-1] + state.cash)) > 1e-6:
                 raise ValueError("blocked: terminal Qlib minute/account close price differs")
             exit_price = row[["soxl_exit_open", "soxx_exit_open"]].to_numpy(float)
             next_open_nav = float(state.q @ exit_price + state.cash)
-            state.peak = max(float(state.peak), next_open_nav)
-            monitored = max(monitored, 1.0 - next_open_nav / float(state.peak))
             rows.append({"trade_date": session, "next_open_nav": next_open_nav,
                          "close_nav": close_nav, "ending_cash": float(state.cash),
                          "soxl_quantity": float(state.q[0]), "soxx_quantity": float(state.q[1]),
                          "available_mark_max_drawdown": float(monitored),
                          "event_fee_usd": float(sum(o["total"] for o in orders)) if offset == 0 else 0.0})
+        # The fifth next-open is the terminal mark and follows the last close.
+        mark_price(exit_price)
         results[arm] = {"path": pd.DataFrame(rows), "orders": orders,
                         "ending_quantities": state.q.copy(), "ending_cash": float(state.cash),
                         "ending_peak": float(state.peak),
+                        "terminal_available_mark_max_drawdown": float(monitored),
                         "monthly_fee_shares": deepcopy(state.fees.monthly_shares)}
     results.update({"decision_nav": decision_nav, "prefill_quantities": before.q.copy(),
                     "prefill_cash": float(before.cash), "prefill_peak": float(before.peak),
