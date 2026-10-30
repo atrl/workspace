@@ -1,0 +1,18 @@
+{
+  "status": "duplicate_source_route_closed_before_fit",
+  "mechanism": "SOXL/SOXX prior-close to completed opening gap and gap times first15-minute return",
+  "evidence": [
+    {
+      "card": "research/opening_state_training_20261015/conclusion.md",
+      "conclusion_sha256": "8735b53dabe1a17daecc98647fcdae25f1664e95a79c66b1dd6bc8ba1b850ac2"
+    },
+    {
+      "card": "research/opening_interaction_training_20261015/conclusion.md",
+      "conclusion_sha256": "32b0413cb6b5709855cd6197e602f84590c4cfa8fd6a139bb6b25ed379e835c2"
+    }
+  ],
+  "scope": "older receiver and labels differ; old tests do not mathematically reject the new five-session target, but the gap/interaction is not a distinct new decision-time source merely because target changes",
+  "decision": "do_not_refit_same_open_gap_fields_under_new_card_without_materially_distinct_mechanism",
+  "new_model_fits": 0,
+  "new_accounts": 0
+}

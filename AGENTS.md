@@ -630,6 +630,35 @@ independent forward evidence remains a separate contract-v2 promotion gate.
   outcome-selected quarter on reused2021/2022; find a distinct decision-time
   mechanism or record needs_distinct_decision_time_mechanism. Local overlapping
   values are not SOXX account wealth or contract-v2 success.
+- The read-only saved-model failure trace is
+  `research/stage1_v5_drawdown_failure_trace_20261030`: all180938 held
+  predictions and Ridge coefficient reconstruction close exactly from Qlib
+  source. In2022Q2, candidate/control buy SOXX at first09:48 on62/62 days;
+  candidate predicts+91.721bp five-session SOXX-HOLD versus actual-20.859bp,
+  average fee only0.020bp. Prior known SOXX20 return averaged-5.50%.
+  From2021Q3 to2022Q2 predicted SOXX value rises78.606bp: original39
+  net+65.305bp, opening/account state+13.694bp, ordinary minute-0.455bp,
+  new own-drawdown+0.062bp. These are model arithmetic, not factor causality.
+  2021Q3 has7 candidate/control changed days and local improvement, but
+  2021Q1 is damaged and2021Q4 first-bar prediction-23.582bp misses actual
+  +17.152bp. The fixed failed model is dominated by cross-year daily/state
+  miscalibration, while its minute feature rarely changes first orders.
+  Do not turn these outcome-selected quarters or coefficients into switches.
+  Next inspect whether completed opening gap versus prior close is genuinely
+  outside original39/b472/closed routes and decision-time source-known; if
+  not, record needs_distinct_decision_time_mechanism, not another fit.
+- Before reviving an opening-gap idea after the failed minute-own-drawdown
+  model, read `research/stage1_v5_drawdown_failure_trace_20261030/closed_route_check.json`.
+  `opening_state_training_20261015` already fitted SOXL/SOXX overnight gaps
+  plus first15-minute returns and ran native 0/2/5bp accounts; its fixed
+  candidate failed SOXX wealth/risk. `opening_interaction_training_20261015`
+  then fitted gap-by-first15-minute interactions and also failed. Their
+  parent/label scopes differ from the new fixed-share five-session labels,
+  but changing the label alone does not make the same opening market fields
+  a distinct decision-time information mechanism. Do not refit this source
+  under a renamed card. Current new-feature admission is
+  `needs_distinct_decision_time_mechanism`, while the historical Goal remains
+  active and the fixed drawdown version stays closed.
 - The historical old-cap joint capacity/asset-choice card is
   `docs/stage1_event_capacity_choice_implementation_20261029.md`. Its first
   read-only minute source/whole-share gate is
