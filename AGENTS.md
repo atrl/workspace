@@ -232,14 +232,19 @@ independent forward evidence remains a separate contract-v2 promotion gate.
   minute action and the cap3-only follow-ups. It redefines the economic task
   as fee-net, own-state SOXL/SOXX/cash marginal value and tail damage at a
   later completed-minute clock, with continuous target and identical
-  no-old-cap training/inference domains. Its first bounded hypothesis is a
-  30-completed-bar SOXL/SOXX downside-co-movement slope gap conditional on
-  actual SOXL exposure and f696 prior intent; this is **not admitted alpha**.
-  Before fitting, freeze source/hash and run only source availability,
-  redundancy against closed downside-beta/path-energy/tracking/volume routes,
-  and yearly whole-share support. If this is only a renamed old mechanism,
-  mark `not_admitted_duplicate_mechanism` and do not fit. Keep all 2023+
-  outcomes out of feature/window/sign selection.
+  no-old-cap training/inference domains. The proposed 30-bar downside-beta
+  gap was withdrawn **before execution**: the same formula family already
+  exists at a daily horizon, and changing its window alone is not new
+  information. Do not run its source preflight or fit it under a new name.
+  The next bounded task is same-state, equal-nominal-beta SOXL-versus-SOXX
+  and HOLD fee-net numeric action-value discovery on all eligible minutes
+  of the dated 2018–2022 parent. The discovery perturbation is fixed at
+  +0.10 nominal beta via either +0.10 SOXX or +0.10/3 SOXL from cash;
+  insufficient cash or no exact whole-share buy is unknown, not a smaller
+  action. Freeze source/whole-share support before reading value; use only
+  2018–2020 for residual discovery,
+  then freeze one feature hypothesis before 2021/2022 information tests.
+  Keep 2023+ outcomes out of feature/window/sign selection.
   This v5 document is **not yet a fit-ready model contract**: its few legal
   HOLD/buy/rotation actions are source and information controls, not a
   continuous three-asset supervision surface. After the source gate, freeze
