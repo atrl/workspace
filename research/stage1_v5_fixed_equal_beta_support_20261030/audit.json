@@ -1,0 +1,33 @@
+{
+  "experiment": "stage1_v5_fixed_equal_beta_support_20261030",
+  "plan_sha256": "cd0bc67af067fd1cc37853d543e001a844b3c865000063fda3343adfce8328c3",
+  "decision": "fixed_010_source_support_pass_needs_value_labels",
+  "source_recorder_ids": {
+    "parent": "2994f6afbfc54f279cefec362b220001",
+    "frame": "748eb4209e314fb6a6c41c19498d6d03"
+  },
+  "source_readback_entries": {
+    "parent": 13,
+    "frame": 13
+  },
+  "parent_sessions": 1056,
+  "source_slots": 384660,
+  "scanned_until_first_funded": 2154,
+  "annual_funded_days": {
+    "2018": 53,
+    "2019": 252,
+    "2020": 242,
+    "2021": 252,
+    "2022": 245
+  },
+  "support_gate_pass": true,
+  "new_model_fits": 0,
+  "new_native_accounts": 0,
+  "future_returns_read": 0,
+  "historical_research_passed": false,
+  "limits": [
+    "One event per day first funded slot is for support counting only, not a trading trigger.",
+    "Historical minute first receipt and actual fill/quote response remain unqualified.",
+    "No value labels or SOXX account result."
+  ]
+}

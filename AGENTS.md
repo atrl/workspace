@@ -248,6 +248,17 @@ independent forward evidence remains a separate contract-v2 promotion gate.
   and maximum common target room; they are neither an upper nor lower bound
   on this fixed0.10 v5 action without those structures. Recount exact funded
   **days**, not minute rows, before declaring the window sufficient.
+- The exact fixed+0.10 v5 source/whole-share gate is now
+  `research/stage1_v5_fixed_equal_beta_support_20261030`: 1056 dated-parent
+  days, 384660 minute source slots, and same-minute independently fee-funded
+  SOXX/SOXL one-buy support on 53/252/242/252/245 days in 2018–2022.
+  The discovery/evaluation periods therefore have 547/497 **actionable days**,
+  not independent value labels or proven alpha. The 10 original recovery days
+  were excluded based on a later original action; this is a retrospective
+  source/label mask, not decision-known input. A live-intent receiver must
+  handle recovery in its own state or decide after recovery is known. One
+  invalid source day and the terminal day remain unknown. No return labels,
+  model fits, candidate account or SOXX pass occurred in this card.
   Keep 2023+ outcomes out of feature/window/sign selection.
   This v5 document is **not yet a fit-ready model contract**: its few legal
   HOLD/buy/rotation actions are source and information controls, not a
