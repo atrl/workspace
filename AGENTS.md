@@ -590,6 +590,26 @@ independent forward evidence remains a separate contract-v2 promotion gate.
   new full-calendar source support, economic labels, model or SOXX pass.
   Freeze and regenerate all fixed-share minute labels; never transfer old
   full-target-weight path values into this action contract.
+- The fixed raw-share same-state five-session full-minute label Recorder is
+  `research/stage1_v5_fixed_share_lock_labels_20261030` (Qlib ID
+  `b85e80ab42fa4d9c83c6c9667114fd5d`). Before reading economic outcomes,
+  its Qlib source/whole-share gate passed: all385932 decision-known cash
+  intents retained,382996 mature complete paths, and both one-asset fixed
+  raw-share buys fund on all382996; yearly path days53/252/249/252/242.
+  1468 path-source and1468 terminal-unknown rows remain. Peak parity4.44e-16,
+  batch plus source scan566s, Recorder71.7MB inside frozen budgets; NAS
+  receipt/archive and scoped four-object readback passed. Discovery
+  2018/2019/2020 daily SOXL-minus-SOXX local means are
+  -1.477/-0.436/-1.042bp; fee differential is only +0.009/+0.009/+0.006bp,
+  so relative price/share lock path dominates. On common old one-order
+  events the fix adds only+0.013/+0.008/+0.013bp, while newly available
+  old-multiorder events average -0.915/-0.489/-1.679bp in those years.
+  Order repair removes future-order-shape selection but does not create mean
+  alpha or a candidate account. 2021/2022 values are sealed in Recorder and
+  uninspected for selection. Next fit only a pre-frozen matched information
+  screen against opening state/ordinary minute returns with live-intent,
+  no-fill, day-grouped and five-session purge accounting; discrete labels
+  still do not define a continuous final allocator or SOXX pass.
 - The historical old-cap joint capacity/asset-choice card is
   `docs/stage1_event_capacity_choice_implementation_20261029.md`. Its first
   read-only minute source/whole-share gate is

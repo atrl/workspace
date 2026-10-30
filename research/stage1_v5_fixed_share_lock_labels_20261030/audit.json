@@ -1,0 +1,107 @@
+{
+  "experiment": "stage1_v5_fixed_share_lock_labels_20261030",
+  "plan_sha256": "d1b792cb7f52b926a37614ce3ac41b6089c3c76b27cd6d0eb3f5817e8924dfee",
+  "batch_code_sha256": "5242a360d60281f1d80d3fa500aadd2fea6b5995a4d8a5097d02212cab0f2f86",
+  "order_code_sha256": "5bf69f1d17e266d869ce13ba6511ea8b1675b1b24e3d382fe4285f20d3deefe7",
+  "vector_code_sha256": "c813c720e56891ad5c75bf38ea454ad32c5615449fbc63644fe18a1c20b21f32",
+  "source": {
+    "annual": [
+      {
+        "year": 2018,
+        "days": 53,
+        "paired_funded_days": 53,
+        "paired_funded_rows": 19091,
+        "mature_path_rows": 19091,
+        "decision_no_whole_share": 0,
+        "decision_cash_insufficient": 0,
+        "insufficient_fill_cash": 0
+      },
+      {
+        "year": 2019,
+        "days": 252,
+        "paired_funded_days": 252,
+        "paired_funded_rows": 91944,
+        "mature_path_rows": 91944,
+        "decision_no_whole_share": 0,
+        "decision_cash_insufficient": 0,
+        "insufficient_fill_cash": 0
+      },
+      {
+        "year": 2020,
+        "days": 253,
+        "paired_funded_days": 249,
+        "paired_funded_rows": 91023,
+        "mature_path_rows": 91023,
+        "decision_no_whole_share": 0,
+        "decision_cash_insufficient": 0,
+        "insufficient_fill_cash": 0
+      },
+      {
+        "year": 2021,
+        "days": 252,
+        "paired_funded_days": 252,
+        "paired_funded_rows": 92304,
+        "mature_path_rows": 92304,
+        "decision_no_whole_share": 0,
+        "decision_cash_insufficient": 0,
+        "insufficient_fill_cash": 0
+      },
+      {
+        "year": 2022,
+        "days": 246,
+        "paired_funded_days": 242,
+        "paired_funded_rows": 88634,
+        "mature_path_rows": 88634,
+        "decision_no_whole_share": 0,
+        "decision_cash_insufficient": 0,
+        "insufficient_fill_cash": 0
+      }
+    ],
+    "opening_peak_max_error": 4.440892098500626e-16,
+    "intent_rows": 385932,
+    "mature_path_rows": 382996,
+    "paired_funded_rows": 382996
+  },
+  "source_gate_pass": true,
+  "mechanics": {
+    "elapsed_seconds": 407.82998008298455,
+    "opening_peak_max_error": 4.440892098500626e-16,
+    "intent_rows": 385932,
+    "mature_path_rows": 382996,
+    "paired_funded_rows": 382996
+  },
+  "discovery_annual": [
+    {
+      "year": 2018,
+      "days": 53,
+      "positive_days": 33,
+      "negative_days": 50,
+      "day_mean_relative_value": -0.00014766752636962075,
+      "day_mean_soxl_tail_damage": 0.0042855511300946125,
+      "day_mean_soxx_tail_damage": 0.004324882106575352
+    },
+    {
+      "year": 2019,
+      "days": 252,
+      "positive_days": 191,
+      "negative_days": 239,
+      "day_mean_relative_value": -4.3603065800687337e-05,
+      "day_mean_soxl_tail_damage": 0.0022570353929353545,
+      "day_mean_soxx_tail_damage": 0.002285718508441907
+    },
+    {
+      "year": 2020,
+      "days": 249,
+      "positive_days": 170,
+      "negative_days": 231,
+      "day_mean_relative_value": -0.00010418447214583049,
+      "day_mean_soxl_tail_damage": 0.0032391062149825928,
+      "day_mean_soxx_tail_damage": 0.0032937453716015393
+    }
+  ],
+  "discovery_sign_gate_pass": true,
+  "full_pre_recorder_elapsed_seconds": 566.2584909589787,
+  "held_2021_2022_value_columns_inspected": false,
+  "historical_research_passed": false,
+  "decision": "fixed_share_five_session_labels_source_and_sign_pass_information_unproven"
+}

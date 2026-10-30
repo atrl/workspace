@@ -1,0 +1,67 @@
+{
+  "experiment": "stage1_v5_fixed_share_lock_labels_20261030",
+  "frozen": true,
+  "type": "causal_fixed_raw_share_five_session_hold_soxl_soxx_fullminute_labels",
+  "parent": {
+    "card": "research/stage1_f696_oof_training_reference_20261028",
+    "recorder_id": "2994f6afbfc54f279cefec362b220001",
+    "summary_sha256": "00f276f2fe3e5641642a6f864e5e85da968599286aa8e9202a2d445cdf193584",
+    "manifest_sha256": "8699fd57be85d3b4b330f529e73612c8cc52967b5e7c3e8c0682c622c6e70f54",
+    "nas_archive_sha256": "e773cd3edf42b9ff9826270b70fdb9f9e90f4737e35f4d158ef0f5fcf5a4e9dd"
+  },
+  "frame": {
+    "card": "research/stage1_f696_exact_parent_training_reference_20261027",
+    "recorder_id": "748eb4209e314fb6a6c41c19498d6d03",
+    "summary_sha256": "8c0d00825fd7aa0177e4578face924fe8a3159898a5915a4c5cac26f20877cc2",
+    "manifest_sha256": "d0c696c91179e005c7859bac28b418ff827aa53c7005cf560d329f0896eb5618",
+    "nas_archive_sha256": "db1ae7040439b69ba4a264f00741a625e9c432cefe08a2d770d374b51d3591c8"
+  },
+  "provider_uri": "data/qlib/stage1_event_guard_fullminute_20261028",
+  "provider_manifest_sha256": "e9ab78e4e8fca7b70a5ccc27074893414a1308f13a4d37c3174c1690827db1e0",
+  "source_support_card": "research/stage1_v5_capfree_lock_fullminute_support_20261030",
+  "source_support_summary_sha256": "3df1caf293d7caadbfe967899759dd9216b0ad119e1b1216d79a7215fcce792d",
+  "source_support_perday_sha256": "36f8fae96a727d0b728a7732e2bc7d0c140e5052a6de654ef4f5bbcd1ac01f9d",
+  "fixed_order_code": "src/backtest/stage1_fixed_share_event.py",
+  "fixed_order_code_sha256": "5bf69f1d17e266d869ce13ba6511ea8b1675b1b24e3d382fe4285f20d3deefe7",
+  "vector_code": "src/analysis/stage1_capfree_lock_vectorized.py",
+  "vector_code_sha256": "c813c720e56891ad5c75bf38ea454ad32c5615449fbc63644fe18a1c20b21f32",
+  "mechanical_parity_card": "research/stage1_v5_fixed_share_path_parity_20261030",
+  "mechanical_parity_audit_sha256": "f9d46655e5a7ef97014b7700e0f3694dcbb451c2834d5d581abb7832f8f3009a",
+  "tariff_plan": "research/stage1_v5_equal_beta_value_labels_20261030/plan.json",
+  "tariff_plan_sha256": "dc1fae30166eafec597d05ba4ad42463114e58e84ef89f96d0db2db113772008",
+  "start": "2018-10-15",
+  "end": "2022-12-22",
+  "expected_sessions": 1056,
+  "expected_decision_clock_cash_intents": 385932,
+  "expected_mature_path_source_intents": 382996,
+  "action": "completed minute t: freeze SOXX floor(.10*decision_NAV/raw_close) or SOXL floor((.10/3)*decision_NAV/raw_close), each with same prior cash/Tiered state; next bar t+2 attempts only that raw share buy, no future-price resizing, no old beta/SOXL/cash hard caps",
+  "support_gate": {
+    "minimum_discovery_paired_funded_days_2018_2020": 200,
+    "minimum_2019_paired_funded_days": 50,
+    "minimum_2020_paired_funded_days": 100,
+    "minimum_2021_paired_funded_days": 100,
+    "minimum_2022_paired_funded_days": 100
+  },
+  "label": "same-state five-session cap-free lock, own whole-share Tiered fees, HOLD versus fixed SOXL/SOXX terminal next-open value and available-mark max drawdown; preserve both no-share and insufficient-fill-cash as actual HOLD value0, source/terminal unknown as NaN",
+  "maturity": "fifth session next-open +2min, day-grouped with at least five-session purge; 2021/22 economic values stored but not inspected for feature/sign/window selection",
+  "discovery_sign_gate": {
+    "minimum_2019_positive_days": 20,
+    "minimum_2019_negative_days": 20,
+    "minimum_2020_positive_days": 20,
+    "minimum_2020_negative_days": 20
+  },
+  "budget": {
+    "qlib_minute_reads": 1,
+    "source_scan_passes": 1,
+    "label_passes": 1,
+    "new_recorders": 1,
+    "new_model_fits": 0,
+    "new_candidate_accounts": 0,
+    "maximum_intent_rows": 400000,
+    "maximum_seconds": 900,
+    "maximum_recorder_bytes": 250000000,
+    "nas_archive_attempts": 1
+  },
+  "stop": "Source scan must pass frozen yearly/clock/maturity gates before any economic value calculation. Stop on source/hash/cash/order/fee/peak/day count mismatch or time/size breach. Do not change action size, years or signs on outcome.",
+  "as_of": "2026-10-30"
+}

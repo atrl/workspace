@@ -1,0 +1,50 @@
+{
+  "recorder_id": "b85e80ab42fa4d9c83c6c9667114fd5d",
+  "entries": [
+    {
+      "path": "qlib_recorder/670393730550395432/b85e80ab42fa4d9c83c6c9667114fd5d/artifacts/analysis/audit",
+      "sha256": "06a1c043318e68ed32f194453488f9d56ea0f49eeb1bc2be0eea18f358e12d29",
+      "bytes": 1476
+    },
+    {
+      "path": "qlib_recorder/670393730550395432/b85e80ab42fa4d9c83c6c9667114fd5d/artifacts/analysis/discovery_annual",
+      "sha256": "cdbc700713f791af2d7d4f15ac5259acb03948aa2c8f470cfeafbf27fcc6de4c",
+      "bytes": 1107
+    },
+    {
+      "path": "qlib_recorder/670393730550395432/b85e80ab42fa4d9c83c6c9667114fd5d/artifacts/analysis/labels",
+      "sha256": "f595b0651533a75eb0d274cfd06cd6d122096f89ee5aa3c844e41c04a99ee920",
+      "bytes": 71016941
+    },
+    {
+      "path": "qlib_recorder/670393730550395432/b85e80ab42fa4d9c83c6c9667114fd5d/artifacts/analysis/source_perday",
+      "sha256": "ab8aa261531ba3f6c25727dc35bbd1b895bad49e5ca7ab0762861bf49c0307cf",
+      "bytes": 94183
+    },
+    {
+      "path": "qlib_recorder/670393730550395432/b85e80ab42fa4d9c83c6c9667114fd5d/artifacts/inputs/plan",
+      "sha256": "9e695ee28c836c494b51613d3fcbc6be470edd837f7ead67e36b4b88053d2241",
+      "bytes": 3689
+    },
+    {
+      "path": "qlib_recorder/670393730550395432/b85e80ab42fa4d9c83c6c9667114fd5d/artifacts/inputs/source_gate",
+      "sha256": "c166d65812d9b90e421e584026208c6bcef1407c9bd22a8c0c83181025e27e4a",
+      "bytes": 733
+    },
+    {
+      "path": "qlib_recorder/670393730550395432/b85e80ab42fa4d9c83c6c9667114fd5d/artifacts/sources/batch_builder",
+      "sha256": "cb539609365dcfa9d882ac915ba681569e07dbad706162e1a15f514f77f25172",
+      "bytes": 14124
+    },
+    {
+      "path": "qlib_recorder/670393730550395432/b85e80ab42fa4d9c83c6c9667114fd5d/artifacts/sources/fixed_order",
+      "sha256": "845bb5d3993d44f80ad825a79cdc285ab234d5d6e69f6c788de60d862d628bfd",
+      "bytes": 4336
+    },
+    {
+      "path": "qlib_recorder/670393730550395432/b85e80ab42fa4d9c83c6c9667114fd5d/artifacts/sources/vectorized_path",
+      "sha256": "8da0657f81591691410ad8f84bdbd6b15a47c24a4a6152066478a4c073a95bda",
+      "bytes": 9889
+    }
+  ]
+}

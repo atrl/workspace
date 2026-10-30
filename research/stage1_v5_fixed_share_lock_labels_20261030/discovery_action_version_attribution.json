@@ -1,0 +1,53 @@
+{
+  "scope": "2018-2020 discovery only; matched source event clocks",
+  "new_recorder_id": "b85e80ab42fa4d9c83c6c9667114fd5d",
+  "old_recorder_id": "2da04a28956b4fb39d07954824ee457d",
+  "new_label_sha256": "f595b0651533a75eb0d274cfd06cd6d122096f89ee5aa3c844e41c04a99ee920",
+  "old_label_sha256": "187e1bd3eff8994afb24c2deed603597258ca925d75bb1c7742681863c9a9e0a",
+  "annual": [
+    {
+      "year": 2018,
+      "new_paired_rows": 19091,
+      "old_paired_common_rows": 17968,
+      "new_only_old_multiorder_rows": 1123,
+      "new_all_daymean_relative_bp": -1.4766752636962075,
+      "new_all_fee_component_bp": 0.008665036187242835,
+      "new_all_price_share_component_bp": -1.4853402998834504,
+      "common_new_minus_old_daymean_bp": 0.012571734579681759,
+      "new_only_daymean_relative_bp": -0.914773207358908
+    },
+    {
+      "year": 2019,
+      "new_paired_rows": 91944,
+      "old_paired_common_rows": 91304,
+      "new_only_old_multiorder_rows": 640,
+      "new_all_daymean_relative_bp": -0.4360306580068733,
+      "new_all_fee_component_bp": 0.00884457235429499,
+      "new_all_price_share_component_bp": -0.44487523036116833,
+      "common_new_minus_old_daymean_bp": 0.0077180269029395055,
+      "new_only_daymean_relative_bp": -0.48909167902476636
+    },
+    {
+      "year": 2020,
+      "new_paired_rows": 91023,
+      "old_paired_common_rows": 88334,
+      "new_only_old_multiorder_rows": 2689,
+      "new_all_daymean_relative_bp": -1.0418447214583049,
+      "new_all_fee_component_bp": 0.0064155411097174195,
+      "new_all_price_share_component_bp": -1.0482602625680222,
+      "common_new_minus_old_daymean_bp": 0.012930983217674599,
+      "new_only_daymean_relative_bp": -1.67915973199095
+    }
+  ],
+  "held_2021_2022_values_accessed": false,
+  "interpretation": "fee versus residual price/share accounting, and action-version contrast on same event; not model alpha or causal feature effect",
+  "calculation": {
+    "scope_filter": "trade_date year <=2020; fixed version status paired_funded; 2021/22 economic columns not accessed",
+    "event_join": "one_to_one on trade_date and bar_end_at between two verified Qlib label Recorders",
+    "fee_relative": "-(soxl_fee_usd-soxx_fee_usd)/decision_nav",
+    "price_share_relative": "relative_value_soxl_minus_soxx - fee_relative",
+    "year_aggregation": "first average each metric by trade_date over its minute events; then mean those daily values within each year",
+    "common_version_delta": "on old paired_funded intersection, fixed relative value minus old relative value; aggregate by day then year",
+    "new_only": "fixed paired_funded but old no_exact_whole_share_pair; day mean then year mean"
+  }
+}
