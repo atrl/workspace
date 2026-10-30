@@ -334,6 +334,26 @@ independent forward evidence remains a separate contract-v2 promotion gate.
   Next seek a materially different, decision-known mechanism for joint
   cross-session cash opportunity and SOXL-versus-SOXX selection/risk, then
   freeze its own-state economic task before fitting.
+- The cap3 own-holdings component audit
+  `research/stage1_cap3_cash_selection_components_20261030` reused the saved
+  native 0bp cap3, original f696 and SOXX books with the same raw corporate
+  action price points; daily cash/SOXL/fees/residual log components close
+  below1e-12 across944 sessions, all16 quarters and819 rolling126 windows.
+  Cap3/SOXX wealth remains0.883: cash log -0.51983, SOXL selection+0.39572,
+  direct fees-0.00723, residual+0.00691. Parent cash -0.60032 and selection
+  +0.22593: cap3 improves both yet cannot cover the cash opportunity deficit.
+  In weak2024Q3 cap3 cash protection+0.01340 and SOXL selection-0.06956
+  were both worse than parent; strong2026Q2 selection+0.31708 covered cash
+  -0.13862; weak2026Q3 cash-0.01502 and selection-0.12424 jointly lose
+  versus SOXX even though both improve over parent. Worst126 window
+  2023-05-15 to11-13 has both components negative; best126 2025-11-21 to
+  2026-05-27 has positive selection more than cash drag. These are saved-path
+  accounting, not a tradable switch or isolated causal risk-rule effect.
+  New derivative Recorder passed NAS scoped restore; cap3 source Recorder
+  itself still lacks NAS artifact receipt and must remain local. No new fit,
+  account or SOXX historical pass. A next feature needs decision-time evidence
+  for *both* cash opportunity and SOXL/SOXX relative value across weak and
+  good intervals, not another static cap or minute-only cash direction.
   Keep 2023+ outcomes out of feature/window/sign selection.
   This v5 document is **not yet a fit-ready model contract**: its few legal
   HOLD/buy/rotation actions are source and information controls, not a

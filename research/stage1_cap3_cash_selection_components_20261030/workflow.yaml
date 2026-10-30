@@ -1,0 +1,6 @@
+experiment: stage1_cap3_cash_selection_components_20261030
+kind: qlib_native_holdings_read_only_component_attribution
+plan: plan.json
+notebook: stage1_cap3_cash_selection_components_20261030.ipynb
+artifact_policy: slim_card_recorder_first
+recorder_only: [inputs, sources, analysis/daily, analysis/segments, analysis/rolling126]
