@@ -1,0 +1,7 @@
+{
+  "status": "mechanical_output_unit_error",
+  "original_plan_sha256": "50abdd7f3eb642cf6ba383fe08f7f32485a772bcc7f2b86d923350d5f2ef9de3",
+  "cause": "relative_value_soxl_minus_soxx did not end with value, so grand_mean_bp was stored in native units and its daily range omitted; tail_damage raw units were mislabeled bp",
+  "correction": "use explicit value-label set; keep all source years, formula, and outcome gates fixed; reread same verified Qlib Recorder once under amended read budget",
+  "new_market_outcome_years_accessed": []
+}

@@ -1,0 +1,38 @@
+{
+  "experiment": "stage1_v5_label_clock_variance_audit_20261030",
+  "plan_sha256": "b222ba5d5ef5ca1f96ea07949d74b5e561461e6268965b0a13af3ae51ac7d811",
+  "decision": "label_clock_geometry_diagnostic_no_candidate_policy",
+  "historical_research_passed": false,
+  "source_recorder_id": "b85e80ab42fa4d9c83c6c9667114fd5d",
+  "audit": "audit.json",
+  "mature_rows": 202058,
+  "mature_days": 554,
+  "soxx_within_day_fraction": 0.016812552275691756,
+  "soxl_within_day_fraction": 0.019126731171467997,
+  "relative_choice_within_day_fraction": 0.1196177959307898,
+  "annual_soxx_within_day_fraction": {
+    "2018": 0.025708151235527534,
+    "2019": 0.01205406106330239,
+    "2020": 0.018199716191346773
+  },
+  "annual_relative_choice_within_day_fraction": {
+    "2018": 0.09797005667046536,
+    "2019": 0.10945040541821946,
+    "2020": 0.1243436708630353
+  },
+  "new_model_fits": 0,
+  "new_candidate_accounts": 0,
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "analysis/labels"
+    ]
+  },
+  "limitations": [
+    "Equal-day-weighted variance decomposition is descriptive, not a bound on minute-feature predictive value.",
+    "The first 2018 year is a partial endpoint; 2021/22 economic values were not accessed.",
+    "Local fixed-share five-session branch labels do not constitute a continuous policy or SOXX funded account.",
+    "The decomposition does not identify price path, cash opportunity cost, fees, or risk-state feedback separately."
+  ]
+}

@@ -1,0 +1,44 @@
+{
+  "experiment": "stage1_v5_label_clock_variance_audit_20261030",
+  "frozen": true,
+  "type": "read_only_qlib_saved_label_between_vs_within_day_variance_audit",
+  "hypothesis": "In the dated cap-free fixed-share five-session local labels, most fee-net action-value variation is across trading days rather than between causal eligible minutes within a day. If true, a pointwise five-session regression on dense minute rows can look minute-grain yet mainly learn day-level risk/return.",
+  "closed_route_check": "Do not fit a firstbar close-location field: src/factor/intraday_15m_factors.py, src/data/intraday.py and prior cross_source_signal_search already use the close-location family; changing to one minute alone is window retuning. This card examines target geometry, not another feature or a trading rule.",
+  "source_card": "research/stage1_v5_fixed_share_lock_labels_20261030",
+  "source_recorder_id": "b85e80ab42fa4d9c83c6c9667114fd5d",
+  "source_summary_sha256": "a2609adb9c711c49fae7dcd3effc5008db19d78456329953462ed647601dd9a0",
+  "source_manifest_sha256": "69c868c918645f3e9678d7dafdd14a0d54b33db4a7280484b68bee4f088576f5",
+  "source_nas_archive_sha256": "e414b90045ec15aa7919ec5c49649824a3ed0df109bf3d8b2c1048ae1b279a8b",
+  "source_artifact_sha256": "f595b0651533a75eb0d274cfd06cd6d122096f89ee5aa3c844e41c04a99ee920",
+  "provider_uri": "data/qlib/stage1_event_guard_fullminute_20261028",
+  "provider_manifest_sha256": "e9ab78e4e8fca7b70a5ccc27074893414a1308f13a4d37c3174c1690827db1e0",
+  "discovery_years": [
+    2018,
+    2019,
+    2020
+  ],
+  "reserved_outcome_years": [
+    2021,
+    2022
+  ],
+  "labels": [
+    "soxx_value",
+    "soxl_value",
+    "relative_value_soxl_minus_soxx",
+    "soxx_tail_damage",
+    "soxl_tail_damage"
+  ],
+  "sample": "All source-known mature completed-minute intents from discovery years, including attempt_no_fill economically zero; retain unknown row counts by year without using later-year economic values. Do not filter by sign, funded status, known future return or chosen hour.",
+  "decomposition": "For each complete source day d, calculate day mean m_d, within variance mean_t(y_dt-m_d)^2, between variance (m_d-grand_mean)^2, equal day weight. Total equals within+between. Report each label for whole discovery, each year and each quarter. A variance share is descriptive, not an upper bound on predictive content of minute inputs.",
+  "additional": "Report per-day minute count, within-day p10/p50/p90 value range and first-versus-last value difference only as descriptive geometry; do not use extrema as tradable policies.",
+  "budget": {
+    "qlib_verified_recorder_object_reads": 1,
+    "qlib_calendar_reads": 1,
+    "new_model_fits": 0,
+    "new_accounts": 0,
+    "new_recorders": 0,
+    "new_market_requests": 0
+  },
+  "stop": "Source/hash/calendar/identity mismatch stops. Do not infer causal driver or retrain based on variance fractions; later-year outcomes stay unread. No SOXX account claim.",
+  "as_of": "2026-10-30"
+}
