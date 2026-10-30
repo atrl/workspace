@@ -244,6 +244,10 @@ independent forward evidence remains a separate contract-v2 promotion gate.
   action. Freeze source/whole-share support before reading value; use only
   2018–2020 for residual discovery,
   then freeze one feature hypothesis before 2021/2022 information tests.
+  Old 283513/226-day source counts retained SOXL30% and cash15% structure
+  and maximum common target room; they are neither an upper nor lower bound
+  on this fixed0.10 v5 action without those structures. Recount exact funded
+  **days**, not minute rows, before declaring the window sufficient.
   Keep 2023+ outcomes out of feature/window/sign selection.
   This v5 document is **not yet a fit-ready model contract**: its few legal
   HOLD/buy/rotation actions are source and information controls, not a
