@@ -1,0 +1,47 @@
+{
+  "experiment": "stage1_v5_minute_source_novelty_20261030",
+  "frozen": true,
+  "kind": "read_only_qlib_minute_source_novelty_and_timing_audit",
+  "provider_uri": "data/qlib/stage1_event_guard_fullminute_20261028",
+  "provider_manifest_sha256": "e9ab78e4e8fca7b70a5ccc27074893414a1308f13a4d37c3174c1690827db1e0",
+  "source_card": "research/stage1_event_minute_source_20261028",
+  "source_summary_sha256": "fd130feca16c3983b8c41f21a54987ad412ba82440c9c1b62c60ac7dbc7ecd6f",
+  "source_nas_archive_sha256": "280d19bb1137e77028f8b696c5b71ed0a8a319c10dc0b91d24e062545437f35d",
+  "discovery_start": "2018-10-15",
+  "discovery_end": "2020-12-31",
+  "reserved_years": [
+    2021,
+    2022
+  ],
+  "instruments": [
+    "SOXL",
+    "SOXX"
+  ],
+  "fields": [
+    "open",
+    "high",
+    "low",
+    "close",
+    "volume",
+    "raw_open",
+    "raw_high",
+    "raw_low",
+    "raw_close",
+    "raw_volume",
+    "price_valid"
+  ],
+  "gate": {
+    "maximum_relative_raw_adjusted_ohlc_ratio_spread_per_day": 1e-05,
+    "minimum_valid_pair_days": 200
+  },
+  "clock": "minute bar at timestamp t completes at t+1min and decision can be made after assumed receipt; next bar fill no earlier than t+2min; historical real first receipt unknown",
+  "budget": {
+    "qlib_minute_reads": 1,
+    "new_model_fits": 0,
+    "new_native_accounts": 0,
+    "new_recorders": 0,
+    "new_market_requests": 0
+  },
+  "stop": "Source hash mismatch or missing valid paired days stops. No future returns, no label fits, no inference that all functions of OHLCV are redundant.",
+  "as_of": "2026-10-30"
+}

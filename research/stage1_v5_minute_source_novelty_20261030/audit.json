@@ -1,0 +1,36 @@
+{
+  "experiment": "stage1_v5_minute_source_novelty_20261030",
+  "plan_sha256": "3d33399bee3355a63e2884c7291411ddfb5cd6407b1b5315e460f882c2f0a734",
+  "qlib_minute_rows": 432720,
+  "pair_days": 558,
+  "symbols": {
+    "SOXL": {
+      "days": 558,
+      "valid_bars": 216360,
+      "maximum_daily_ohlc_ratio_spread": 1.1766244123467828e-07,
+      "maximum_daily_volume_ratio_spread": 0.0
+    },
+    "SOXX": {
+      "days": 558,
+      "valid_bars": 216359,
+      "maximum_daily_ohlc_ratio_spread": 1.0436797182045154e-07,
+      "maximum_daily_volume_ratio_spread": 0.0
+    }
+  },
+  "raw_channels_per_symbol": 5,
+  "independent_market_instruments": 2,
+  "historical_first_receipt_qualified": false,
+  "discovery_years": [
+    2018,
+    2019,
+    2020
+  ],
+  "reserved_years_untouched": [
+    2021,
+    2022
+  ],
+  "new_model_fits": 0,
+  "new_native_accounts": 0,
+  "new_recorders": 0,
+  "decision": "raw_and_adjusted_prices_are_same_intraday_information_channel_with_source_receipt_unknown"
+}

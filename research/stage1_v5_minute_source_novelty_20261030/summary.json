@@ -1,0 +1,41 @@
+{
+  "experiment": "stage1_v5_minute_source_novelty_20261030",
+  "plan_sha256": "3d33399bee3355a63e2884c7291411ddfb5cd6407b1b5315e460f882c2f0a734",
+  "decision": "no_new_independent_intraday_channel_from_raw_adjusted_pair_ohlcv",
+  "historical_research_passed": false,
+  "audit": "audit.json",
+  "route_overlap": "route_overlap.json",
+  "metrics": {
+    "qlib_minute_rows": 432720,
+    "pair_days": 558,
+    "symbols": {
+      "SOXL": {
+        "days": 558,
+        "valid_bars": 216360,
+        "maximum_daily_ohlc_ratio_spread": 1.1766244123467828e-07,
+        "maximum_daily_volume_ratio_spread": 0.0
+      },
+      "SOXX": {
+        "days": 558,
+        "valid_bars": 216359,
+        "maximum_daily_ohlc_ratio_spread": 1.0436797182045154e-07,
+        "maximum_daily_volume_ratio_spread": 0.0
+      }
+    },
+    "historical_first_receipt_qualified": false
+  },
+  "new_model_fits": 0,
+  "new_native_accounts": 0,
+  "new_recorders": 0,
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": []
+  },
+  "limitations": [
+    "Scope is this dual-ETF full-minute provider; it does not disprove untested nonlinear OHLCV information.",
+    "No future label or candidate account was read or run.",
+    "Historical minute first receipt and actual broker fill remain unqualified.",
+    "2021/2022 held outcome years untouched."
+  ]
+}

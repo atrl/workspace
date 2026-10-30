@@ -408,6 +408,17 @@ independent forward evidence remains a separate contract-v2 promotion gate.
   own-state action labels or genuinely new decision-time information; require
   both before a new fit. The 2021/2022 outcomes were reserved and no candidate
   account or SOXX pass followed.
+- The Qlib dual-ETF minute source novelty audit is
+  `research/stage1_v5_minute_source_novelty_20261030`: 2018–2020 has
+  432720 paired SOXL/SOXX minute rows and 558 valid paired days. Raw versus
+  adjusted OHLC is a day-constant coordinate transform within 1.18e-7
+  relative; raw volume also adds no within-day channel. This provider has
+  only two market instruments and OHLCV plus validity fields. Do not count
+  raw/adjusted duplicates or a changed old OHLCV window as a new independent
+  source. The scope does not rule out all nonlinear OHLCV features. The
+  historical 60-second receipt is assumed, not verified. Before fitting,
+  check whether continuous own-account drawdown cushion is distinct from
+  prior categorical risk-state/holding controls and older cushion routes.
 - The historical old-cap joint capacity/asset-choice card is
   `docs/stage1_event_capacity_choice_implementation_20261029.md`. Its first
   read-only minute source/whole-share gate is

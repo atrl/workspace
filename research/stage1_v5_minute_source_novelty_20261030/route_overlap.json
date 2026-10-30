@@ -1,0 +1,32 @@
+[
+  {
+    "family": "ordinary completed SOXL/SOXX returns and volume",
+    "evidence": "research/stage1_v5_equal_beta_control_residual_20261030/conclusion.md",
+    "finding": "2020 ordinary-minute Ridge did not beat fixed training-mean control; this specific fit is closed"
+  },
+  {
+    "family": "SOXX trailing-15 VWAP proxy and short return timing",
+    "evidence": "research/stage1_intraday_cash_timing_information_20261028/conclusion.md",
+    "finding": "changed funded actions but failed 2021/2022 value and lower-bound gates"
+  },
+  {
+    "family": "completed-bar downside share / relative path energy",
+    "evidence": "research/stage1_minute_receiver_failure_audit_20261028/conclusion.md",
+    "finding": "fixed event receiver ignored minute fields; separate path-energy gate failed"
+  },
+  {
+    "family": "09:46 volume timing residual and signed volume",
+    "evidence": "research/stage1_f696_volume_timing_information_20261027/conclusion.md",
+    "finding": "fixed conditional information gate failed; 09:45 f696 route later found late-clock invalid"
+  },
+  {
+    "family": "SOXL/SOXX tracking deviation and minute neural allocation",
+    "evidence": "research/stage1_minute_receiver_failure_audit_20261028/conclusion.md",
+    "finding": "saved versions did not demonstrate stable full SOXX account excess"
+  },
+  {
+    "family": "raw versus adjusted OHLCV viewed as extra feature channels",
+    "evidence": "research/stage1_v5_minute_source_novelty_20261030/audit.json",
+    "finding": "raw and adjusted OHLC price ratios are day-constant within 1.18e-7 relative; volume ratio has zero within-day spread"
+  }
+]
