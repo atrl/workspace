@@ -97,3 +97,5 @@
 **跨资产条件信息来源（2026-10-30）：**[Qlib 5分钟来源卡](../research/stage1_v5_peer_downshock_resilience_source_20261030/conclusion.md)从当前已完成QQQ/SMH bar中，QQQ下跌才取SMH−QQQ相对收益，所有2018–2020的203526分钟意向p≤t映射且同行bar最多滞后4分钟；每日变化支持足，条件值与无条件同bar gap/普通SOXX ret5非近重复。该机制时钟/广泛科技条件不同于旧三同行同涨和前一会话gap，但只过来源门。2021/22值未读；下一信息卡必须先核其源时钟，控制原39/账户/普通分钟/已失败自身回撤/旧同业广度/无条件gap，新增只此一项，按日五会话purge和整股费后动作门，失败不改条件/符号/标的。
 
 **条件跨资产5分钟信息负门（2026-10-30）：**[固定Qlib卡](../research/stage1_v5_peer_downshock_information_20261030/conclusion.md)在控制原39/自身状态/普通分钟/旧回撤/旧同行广度/无条件QQQ-SMH差后，只加QQQ跌时SMH相对抗跌；来源全部385932意向点时覆盖，但2021/22候选/控制订单仅差4/1日、SOXX MSE两年略恶化、全部头不胜训练均值常数，2022对HOLD负且区块下界负。2022Q2 62日全在首分钟行动、61日仍买SOXX，预测+91.748bp、真实−20.859bp；2021Q3有限好段不能补Q2。固定版本关闭，不改QQQ条件、窗口、方向、模型或已复用年份；下一候选须有实质不同来源或经济接收任务，否则保持needs_distinct_decision_time_mechanism。
+
+**5分钟同行原始成交额语义负门（2026-10-30）：**[来源卡](../research/stage1_v5_peer_5m_turnover_source_20261030/conclusion.md)核QQQ/SMH NAS原字节、各1056日Qlib时钟和原价量一致；`turnover/volume`同bar高低价±1bp落入率93.2457%/99.7416%，未过分别≥99.9%的固定门。不能事后按量筛bar、只留SMH或称真实VWAP压力因子；该源版零拟合/账户。下一步核现有合格来源与关闭路线的有限候选队列，如无实质不同的决策前信息/经济任务则明确needs_distinct_decision_time_mechanism。

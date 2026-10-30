@@ -1,0 +1,20 @@
+{
+  "status": "passed",
+  "source_snapshot_id": "18f1fb3f17907932ddd13881aea9199369181a92c9b6c77395d0b255100c68c3",
+  "objects": [
+    {
+      "symbol": "QQQ",
+      "sha256": "0162127c3ae0ca487a2b58627cb9bdeb2f9746c3b05be6c5f6b7ae1ded94319d",
+      "bytes": 7948652,
+      "nas_sha256": "0162127c3ae0ca487a2b58627cb9bdeb2f9746c3b05be6c5f6b7ae1ded94319d",
+      "status": "passed"
+    },
+    {
+      "symbol": "SMH",
+      "sha256": "ef9cd86b5328dfb3242986d18a9e2f732784777b868fe4f9db31a2c506942323",
+      "bytes": 6954525,
+      "nas_sha256": "ef9cd86b5328dfb3242986d18a9e2f732784777b868fe4f9db31a2c506942323",
+      "status": "passed"
+    }
+  ]
+}

@@ -157,3 +157,5 @@
 [v5同日跨资产下跌抗跌来源](../research/stage1_v5_peer_downshock_resilience_source_20261030/conclusion.md)在QQQ当前已完成5分钟bar下跌时，以SMH−QQQ同bar对数收益衡量半导体相对抗跌，映射到每根合法SOXL/SOXX 1分钟决策；2018–2020的203526事前意向全有p≤t来源，最长老4分钟，53/252/253日有>1bp变化，条件值与无条件SMH−QQQ同bar差/普通SOXX ret5秩相关0.659/0.184，事前来源门通过。它不同于旧AMD/NVDA/SMH同涨人数及前一完整会话SMH−QQQ累计gap，但尚无2021/22经济值、模型和SOXX账户；历史首收未知。下一步控制旧同行广度、无条件gap、自身回撤和原39/分钟价量后单独检验固定条件量，Goal仍active。
 
 [v5条件跨资产5分钟信息门](../research/stage1_v5_peer_downshock_information_20261030/conclusion.md)虽385932条事前分钟意向同行来源点时覆盖，但四个Qlib DatasetH/Ridge头在2018–2020成熟200403行/549日训练、复用2021/22 180938行/494日评价后：SOXX新增系数正、分数变化，首次整股动作仅差4/1日，SOXX头两年MSE略差于匹配控制且全部头劣于训练均值常数，10会话块下界−1.03e−6，候选2022对HOLD局部和−0.109755。2022Q2 62日全在09:48行动、61日仍买SOXX，首分均预测+91.748bp而真实−20.859bp、费0.020bp；2021Q3小增益、Q2损伤，不能事后切换。固定版关闭，NAS七对象读回通过；无连续模型/完整账户，Goal active。
+
+[v5 QQQ/SMH原始5分钟成交额语义门](../research/stage1_v5_peer_5m_turnover_source_20261030/conclusion.md)独立核了现有Futu NONE QQQ/SMH 5m原件本地/NAS SHA、2018–2022各1056日共164088条Qlib时钟/原价成交量；但成交额/量同bar落在OHLC±1bp的比例QQQ93.2457%、SMH99.7416%，均低于事前99.9%门，不能事后只留SMH或改成交量阈值。固定真实VWAP解释拟合前关闭；0结果/账户，历史首收和成交过滤差异unknown，Goal仍active并需限定队列机制准入审计。

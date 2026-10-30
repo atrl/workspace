@@ -712,6 +712,18 @@ independent forward evidence remains a separate contract-v2 promotion gate.
   readback passed. Close this fixed condition/sign/window/model on reused
   2021/2022 history, no continuous allocator or2023+ account. Goal active,
   candidate admission needs a materially different decision-time mechanism.
+- The QQQ/SMH original Futu NONE 5-minute turnover source preflight is
+  `research/stage1_v5_peer_5m_turnover_source_20261030`. Both original
+  parquets match local/NAS SHA and align all164088 2018–2022 Qlib peer bars,
+  raw volume error0,1056 days per ETF, positive reported turnover on valid
+  positive-volume bars. But implied turnover/volume lies within same-bar raw
+  OHLC +/-1bp on only93.2457% QQQ and99.7416% SMH versus the frozen99.9%
+  per-symbol semantics gate. This fixed real-5m-VWAP interpretation closes
+  before fitting; do not rescue SMH alone, shift bars, or choose a volume
+  threshold after seeing the result. Futu docs call turnover trade value but
+  do not certify identical OHLC trade filtering; first historical receipt
+  remains unknown. No economic labels, fit, account or SOXX pass. Review the
+  finite current Qlib/NAS source/closed-route queue before another mechanism.
 - The historical old-cap joint capacity/asset-choice card is
   `docs/stage1_event_capacity_choice_implementation_20261029.md`. Its first
   read-only minute source/whole-share gate is

@@ -1,0 +1,121 @@
+{
+  "experiment": "stage1_v5_peer_5m_turnover_source_20261030",
+  "plan_sha256": "e28bb34ceadfadd74f1ad3b6cadf33fd1ef7e2e1ca8dcf340f94635232832eb4",
+  "qlib_rows": 164088,
+  "raw_rows": 164088,
+  "maximum_raw_volume_qlib_error": 0.0,
+  "maximum_raw_ohlc_qlib_error": 1.523437498462954e-05,
+  "symbol_summary": {
+    "QQQ": {
+      "positive_turnover_fraction": 1.0,
+      "same_bar_inside_ohlc_fraction": 0.9324573058497995,
+      "bars": 82037,
+      "days": 1056
+    },
+    "SMH": {
+      "positive_turnover_fraction": 1.0,
+      "same_bar_inside_ohlc_fraction": 0.997415768686918,
+      "bars": 82036,
+      "days": 1056
+    }
+  },
+  "annual": [
+    {
+      "symbol": "QQQ",
+      "year": 2018,
+      "source_days": 53,
+      "bars": 4062,
+      "novel_residual_days": 53,
+      "median_day_p90_abs_residual_bp": 7.356630780242401,
+      "inside_ohlc_fraction": 0.9492860659773511
+    },
+    {
+      "symbol": "QQQ",
+      "year": 2019,
+      "source_days": 252,
+      "bars": 19548,
+      "novel_residual_days": 252,
+      "median_day_p90_abs_residual_bp": 3.1312585799087715,
+      "inside_ohlc_fraction": 0.9612236545938203
+    },
+    {
+      "symbol": "QQQ",
+      "year": 2020,
+      "source_days": 253,
+      "bars": 19655,
+      "novel_residual_days": 253,
+      "median_day_p90_abs_residual_bp": 5.553693736160843,
+      "inside_ohlc_fraction": 0.9246502162299669
+    },
+    {
+      "symbol": "QQQ",
+      "year": 2021,
+      "source_days": 252,
+      "bars": 19620,
+      "novel_residual_days": 252,
+      "median_day_p90_abs_residual_bp": 4.6932614926602145,
+      "inside_ohlc_fraction": 0.917940876656473
+    },
+    {
+      "symbol": "QQQ",
+      "year": 2022,
+      "source_days": 246,
+      "bars": 19152,
+      "novel_residual_days": 246,
+      "median_day_p90_abs_residual_bp": 8.42288995555071,
+      "inside_ohlc_fraction": 0.9224101921470342
+    },
+    {
+      "symbol": "SMH",
+      "year": 2018,
+      "source_days": 53,
+      "bars": 4062,
+      "novel_residual_days": 53,
+      "median_day_p90_abs_residual_bp": 6.845051396990115,
+      "inside_ohlc_fraction": 0.9982767109798129
+    },
+    {
+      "symbol": "SMH",
+      "year": 2019,
+      "source_days": 252,
+      "bars": 19548,
+      "novel_residual_days": 252,
+      "median_day_p90_abs_residual_bp": 3.603069536977699,
+      "inside_ohlc_fraction": 0.9952424800491099
+    },
+    {
+      "symbol": "SMH",
+      "year": 2020,
+      "source_days": 253,
+      "bars": 19654,
+      "novel_residual_days": 253,
+      "median_day_p90_abs_residual_bp": 4.973749432643985,
+      "inside_ohlc_fraction": 0.9976086292866592
+    },
+    {
+      "symbol": "SMH",
+      "year": 2021,
+      "source_days": 252,
+      "bars": 19620,
+      "novel_residual_days": 252,
+      "median_day_p90_abs_residual_bp": 4.244394958979038,
+      "inside_ohlc_fraction": 0.9980122324159021
+    },
+    {
+      "symbol": "SMH",
+      "year": 2022,
+      "source_days": 246,
+      "bars": 19152,
+      "novel_residual_days": 246,
+      "median_day_p90_abs_residual_bp": 6.94084149591177,
+      "inside_ohlc_fraction": 0.9986424394319131
+    }
+  ],
+  "source_gate_pass": false,
+  "historical_first_receipt_qualified": false,
+  "economic_values_accessed": false,
+  "new_model_fits": 0,
+  "new_candidate_accounts": 0,
+  "historical_research_passed": false,
+  "decision": "peer_reported_5m_turnover_semantics_failed_before_fit"
+}

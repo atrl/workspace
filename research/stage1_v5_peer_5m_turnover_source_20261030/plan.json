@@ -1,0 +1,52 @@
+{
+  "experiment": "stage1_v5_peer_5m_turnover_source_20261030",
+  "frozen": true,
+  "type": "read_only_qqq_smh_futu_reported_5min_turnover_semantics_and_qlib_source_gate",
+  "source_manifest": "data/raw/external/semis_minute_none_20261012_v1/source_manifest.json",
+  "source_manifest_sha256": "18f1fb3f17907932ddd13881aea9199369181a92c9b6c77395d0b255100c68c3",
+  "nas_binding": "research/minute_information_pit_allocator_20261012/nas_binding.json",
+  "nas_binding_sha256": "67d8f88adae6a3ec11519b096dfbed2398e1835f9a62972f260ba86c4ce74428",
+  "original_parquets": {
+    "QQQ": {
+      "relative_path": "data/raw/external/semis_minute_none_20261012_v1/QQQ_none.parquet",
+      "sha256": "0162127c3ae0ca487a2b58627cb9bdeb2f9746c3b05be6c5f6b7ae1ded94319d",
+      "rows": 156012
+    },
+    "SMH": {
+      "relative_path": "data/raw/external/semis_minute_none_20261012_v1/SMH_none.parquet",
+      "sha256": "ef9cd86b5328dfb3242986d18a9e2f732784777b868fe4f9db31a2c506942323",
+      "rows": 156012
+    }
+  },
+  "qlib_provider_uri": "data/qlib/minute_information_pit_allocator_20261012/peer_5min",
+  "qlib_provider_manifest_sha256": "9e773cdaad954d65293e74794e4dcade3337dc878e6cff03b3c12bad6432cce6",
+  "discovery_years": [
+    2018,
+    2019,
+    2020
+  ],
+  "reserved_economic_years": [
+    2021,
+    2022
+  ],
+  "clock": "Futu NONE RTH K_5M right-edge bar p, assumed available p+1min; only current fully completed bar can enter later SOXL/SOXX minute decision. Historical first receipt unknown.",
+  "hypothesis": "reported QQQ/SMH five-minute turnover divided by volume is a validated within-bar traded price pressure channel distinct from existing peer OHLCV price path; not ETF create/redeem flow",
+  "gates": {
+    "minimum_positive_turnover_fraction_when_volume_positive": 0.995,
+    "minimum_each_symbol_same_bar_implied_vwap_inside_raw_ohlc_fraction_with_1bp_tolerance": 0.999,
+    "minimum_2018_source_days": 40,
+    "minimum_full_year_source_days": 200,
+    "minimum_discovery_days_with_daily_p90_abs_reported_vwap_minus_ohlc4_gt_0_25bp_each_symbol": 200,
+    "maximum_raw_volume_qlib_absolute_error": 0.0
+  },
+  "budget": {
+    "qlib_peer_provider_reads": 1,
+    "nas_original_scoped_hash_checks": 2,
+    "new_market_requests": 0,
+    "new_model_fits": 0,
+    "new_candidate_accounts": 0,
+    "new_recorders": 0
+  },
+  "stop": "Any local/NAS original hash, Qlib bar/volume, same-bar price-range semantics, coverage or novelty gate failure closes this fixed raw5m VWAP interpretation before fit; no posthoc volume cutoff or time shift.",
+  "as_of": "2026-10-30"
+}
