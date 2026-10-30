@@ -1,0 +1,7 @@
+experiment: stage1_v5_raw_turnover_minute_source_20261030
+kind: qlib_native_read_only_turnover_source_diagnostic
+plan: plan.json
+notebook: stage1_v5_raw_turnover_minute_source_20261030.ipynb
+artifact_policy: slim_card_recorder_first
+source_recorders: [nas_original_futu_snapshot, stage1_fullminute_provider]
+recorder_only: []

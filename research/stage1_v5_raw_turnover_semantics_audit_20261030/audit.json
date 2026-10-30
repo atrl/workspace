@@ -1,0 +1,375 @@
+{
+  "experiment": "stage1_v5_raw_turnover_semantics_audit_20261030",
+  "plan_sha256": "ab22e5f031f05b5d3f602acfd7c536b250302d5b1c7ebee8125f376c59b7e701",
+  "source_pair_rows": 820440,
+  "same_bar_inside_fraction": 0.9077165427805977,
+  "shifted_range_summary": [
+    {
+      "symbol": "SOXL",
+      "year": 2018,
+      "range_shift": -1,
+      "bars": 19860,
+      "days": 53,
+      "inside_fraction_1bp": 0.34536757301107757,
+      "outside_median_distance_bp": 10.7238142921313,
+      "outside_p90_distance_bp": 29.88782797063343
+    },
+    {
+      "symbol": "SOXL",
+      "year": 2018,
+      "range_shift": 0,
+      "bars": 19913,
+      "days": 53,
+      "inside_fraction_1bp": 0.8728468839451614,
+      "outside_median_distance_bp": 4.5671247526007,
+      "outside_p90_distance_bp": 19.286933460804086
+    },
+    {
+      "symbol": "SOXL",
+      "year": 2018,
+      "range_shift": 1,
+      "bars": 19860,
+      "days": 53,
+      "inside_fraction_1bp": 0.3368580060422961,
+      "outside_median_distance_bp": 12.45461087775615,
+      "outside_p90_distance_bp": 33.968808984516635
+    },
+    {
+      "symbol": "SOXL",
+      "year": 2019,
+      "range_shift": -1,
+      "bars": 95760,
+      "days": 252,
+      "inside_fraction_1bp": 0.3706140350877193,
+      "outside_median_distance_bp": 6.154449002441291,
+      "outside_p90_distance_bp": 17.579927934658862
+    },
+    {
+      "symbol": "SOXL",
+      "year": 2019,
+      "range_shift": 0,
+      "bars": 96012,
+      "days": 252,
+      "inside_fraction_1bp": 0.8423113777444486,
+      "outside_median_distance_bp": 3.514165044348025,
+      "outside_p90_distance_bp": 12.159858731512607
+    },
+    {
+      "symbol": "SOXL",
+      "year": 2019,
+      "range_shift": 1,
+      "bars": 95760,
+      "days": 252,
+      "inside_fraction_1bp": 0.3503237259816207,
+      "outside_median_distance_bp": 7.114849601633454,
+      "outside_p90_distance_bp": 20.352521504997906
+    },
+    {
+      "symbol": "SOXL",
+      "year": 2020,
+      "range_shift": -1,
+      "bars": 97890,
+      "days": 253,
+      "inside_fraction_1bp": 0.41116559403411995,
+      "outside_median_distance_bp": 7.739805814208692,
+      "outside_p90_distance_bp": 23.612959607255103
+    },
+    {
+      "symbol": "SOXL",
+      "year": 2020,
+      "range_shift": 0,
+      "bars": 98143,
+      "days": 253,
+      "inside_fraction_1bp": 0.8756304575975872,
+      "outside_median_distance_bp": 3.664164226546882,
+      "outside_p90_distance_bp": 13.459728613570809
+    },
+    {
+      "symbol": "SOXL",
+      "year": 2020,
+      "range_shift": 1,
+      "bars": 97890,
+      "days": 253,
+      "inside_fraction_1bp": 0.3928899785473491,
+      "outside_median_distance_bp": 9.088598301983403,
+      "outside_p90_distance_bp": 27.681718203936143
+    },
+    {
+      "symbol": "SOXL",
+      "year": 2021,
+      "range_shift": -1,
+      "bars": 97842,
+      "days": 252,
+      "inside_fraction_1bp": 0.6117413789579117,
+      "outside_median_distance_bp": 5.569821017196797,
+      "outside_p90_distance_bp": 17.641585337171
+    },
+    {
+      "symbol": "SOXL",
+      "year": 2021,
+      "range_shift": 0,
+      "bars": 98094,
+      "days": 252,
+      "inside_fraction_1bp": 0.9698962219911513,
+      "outside_median_distance_bp": 4.006912109940048,
+      "outside_p90_distance_bp": 14.625614675400112
+    },
+    {
+      "symbol": "SOXL",
+      "year": 2021,
+      "range_shift": 1,
+      "bars": 97842,
+      "days": 252,
+      "inside_fraction_1bp": 0.561844606610658,
+      "outside_median_distance_bp": 6.68293903622841,
+      "outside_p90_distance_bp": 21.391686032782257
+    },
+    {
+      "symbol": "SOXL",
+      "year": 2022,
+      "range_shift": -1,
+      "bars": 95514,
+      "days": 246,
+      "inside_fraction_1bp": 0.6867474925141864,
+      "outside_median_distance_bp": 7.806147167070739,
+      "outside_p90_distance_bp": 22.99488604365257
+    },
+    {
+      "symbol": "SOXL",
+      "year": 2022,
+      "range_shift": 0,
+      "bars": 95760,
+      "days": 246,
+      "inside_fraction_1bp": 0.9999582289055974,
+      "outside_median_distance_bp": 15.196119298290949,
+      "outside_p90_distance_bp": 136.83519047452126
+    },
+    {
+      "symbol": "SOXL",
+      "year": 2022,
+      "range_shift": 1,
+      "bars": 95514,
+      "days": 246,
+      "inside_fraction_1bp": 0.6157945432083255,
+      "outside_median_distance_bp": 9.919050941976842,
+      "outside_p90_distance_bp": 30.112651172457234
+    },
+    {
+      "symbol": "SOXX",
+      "year": 2018,
+      "range_shift": -1,
+      "bars": 20001,
+      "days": 53,
+      "inside_fraction_1bp": 0.4413779311034448,
+      "outside_median_distance_bp": 4.040366482088424,
+      "outside_p90_distance_bp": 10.863029742597584
+    },
+    {
+      "symbol": "SOXX",
+      "year": 2018,
+      "range_shift": 0,
+      "bars": 20054,
+      "days": 53,
+      "inside_fraction_1bp": 0.9407100827765035,
+      "outside_median_distance_bp": 2.5359792185620442,
+      "outside_p90_distance_bp": 7.737357793199113
+    },
+    {
+      "symbol": "SOXX",
+      "year": 2018,
+      "range_shift": 1,
+      "bars": 20001,
+      "days": 53,
+      "inside_fraction_1bp": 0.42377881105944704,
+      "outside_median_distance_bp": 4.343913934700544,
+      "outside_p90_distance_bp": 11.480021489964264
+    },
+    {
+      "symbol": "SOXX",
+      "year": 2019,
+      "range_shift": -1,
+      "bars": 94395,
+      "days": 252,
+      "inside_fraction_1bp": 0.47482387838338896,
+      "outside_median_distance_bp": 2.775597180430612,
+      "outside_p90_distance_bp": 7.364989345506344
+    },
+    {
+      "symbol": "SOXX",
+      "year": 2019,
+      "range_shift": 0,
+      "bars": 94647,
+      "days": 252,
+      "inside_fraction_1bp": 0.8539414878443057,
+      "outside_median_distance_bp": 2.4263255412472615,
+      "outside_p90_distance_bp": 6.607158571189207
+    },
+    {
+      "symbol": "SOXX",
+      "year": 2019,
+      "range_shift": 1,
+      "bars": 94395,
+      "days": 252,
+      "inside_fraction_1bp": 0.4218973462577467,
+      "outside_median_distance_bp": 3.0822575012006053,
+      "outside_p90_distance_bp": 8.219375531320852
+    },
+    {
+      "symbol": "SOXX",
+      "year": 2020,
+      "range_shift": -1,
+      "bars": 97737,
+      "days": 253,
+      "inside_fraction_1bp": 0.46127873783725715,
+      "outside_median_distance_bp": 3.3930939511242024,
+      "outside_p90_distance_bp": 9.83687333625218
+    },
+    {
+      "symbol": "SOXX",
+      "year": 2020,
+      "range_shift": 0,
+      "bars": 97990,
+      "days": 253,
+      "inside_fraction_1bp": 0.8715583222777834,
+      "outside_median_distance_bp": 2.392995504930548,
+      "outside_p90_distance_bp": 6.668062405566653
+    },
+    {
+      "symbol": "SOXX",
+      "year": 2020,
+      "range_shift": 1,
+      "bars": 97738,
+      "days": 253,
+      "inside_fraction_1bp": 0.4291166178968262,
+      "outside_median_distance_bp": 3.766764740353835,
+      "outside_p90_distance_bp": 10.6994142052451
+    },
+    {
+      "symbol": "SOXX",
+      "year": 2021,
+      "range_shift": -1,
+      "bars": 97840,
+      "days": 252,
+      "inside_fraction_1bp": 0.5129190515126738,
+      "outside_median_distance_bp": 2.924896519181158,
+      "outside_p90_distance_bp": 7.710100665769756
+    },
+    {
+      "symbol": "SOXX",
+      "year": 2021,
+      "range_shift": 0,
+      "bars": 98092,
+      "days": 252,
+      "inside_fraction_1bp": 0.9180259348366839,
+      "outside_median_distance_bp": 2.0442613699016063,
+      "outside_p90_distance_bp": 5.277274034249229
+    },
+    {
+      "symbol": "SOXX",
+      "year": 2021,
+      "range_shift": 1,
+      "bars": 97840,
+      "days": 252,
+      "inside_fraction_1bp": 0.49306009811937856,
+      "outside_median_distance_bp": 3.1615110710515197,
+      "outside_p90_distance_bp": 8.467146844673135
+    },
+    {
+      "symbol": "SOXX",
+      "year": 2022,
+      "range_shift": -1,
+      "bars": 95507,
+      "days": 246,
+      "inside_fraction_1bp": 0.4707194237071628,
+      "outside_median_distance_bp": 4.198725767410819,
+      "outside_p90_distance_bp": 11.105263450263992
+    },
+    {
+      "symbol": "SOXX",
+      "year": 2022,
+      "range_shift": 0,
+      "bars": 95753,
+      "days": 246,
+      "inside_fraction_1bp": 0.930174511503556,
+      "outside_median_distance_bp": 2.2665678660089625,
+      "outside_p90_distance_bp": 6.5705422817872625
+    },
+    {
+      "symbol": "SOXX",
+      "year": 2022,
+      "range_shift": 1,
+      "bars": 95507,
+      "days": 246,
+      "inside_fraction_1bp": 0.46240589694996176,
+      "outside_median_distance_bp": 4.465579420805664,
+      "outside_p90_distance_bp": 12.0075288933137
+    }
+  ],
+  "first_same_bar_outside_examples": [
+    {
+      "symbol": "SOXL",
+      "bar_end_at": "2018-10-15 09:37:00",
+      "raw_low": 115.12,
+      "raw_high": 115.12,
+      "raw_close": 115.12,
+      "volume": 126.0,
+      "turnover": 14543.68,
+      "implied_vwap": 115.42603174603175
+    },
+    {
+      "symbol": "SOXL",
+      "bar_end_at": "2018-10-15 09:45:00",
+      "raw_low": 114.85,
+      "raw_high": 115.05,
+      "raw_close": 115.021,
+      "volume": 2187.0,
+      "turnover": 251688.383,
+      "implied_vwap": 115.08385139460448
+    },
+    {
+      "symbol": "SOXL",
+      "bar_end_at": "2018-10-15 09:52:00",
+      "raw_low": 116.0,
+      "raw_high": 116.0,
+      "raw_close": 116.0,
+      "volume": 666.0,
+      "turnover": 77215.2,
+      "implied_vwap": 115.93873873873873
+    },
+    {
+      "symbol": "SOXX",
+      "bar_end_at": "2018-10-15 09:49:00",
+      "raw_low": 168.93,
+      "raw_high": 168.95,
+      "raw_close": 168.95,
+      "volume": 336.0,
+      "turnover": 56773.89,
+      "implied_vwap": 168.9699107142857
+    },
+    {
+      "symbol": "SOXX",
+      "bar_end_at": "2018-10-15 09:50:00",
+      "raw_low": 168.95,
+      "raw_high": 168.95,
+      "raw_close": 168.95,
+      "volume": 89.0,
+      "turnover": 15042.12,
+      "implied_vwap": 169.01258426966294
+    },
+    {
+      "symbol": "SOXX",
+      "bar_end_at": "2018-10-15 10:35:00",
+      "raw_low": 168.53,
+      "raw_high": 168.53,
+      "raw_close": 168.53,
+      "volume": 283.0,
+      "turnover": 47707.14,
+      "implied_vwap": 168.5764664310954
+    }
+  ],
+  "failed_original_gate_remains_failed": true,
+  "future_economic_values_accessed": false,
+  "new_model_fits": 0,
+  "new_candidate_accounts": 0,
+  "historical_research_passed": false
+}

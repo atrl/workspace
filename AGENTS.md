@@ -659,6 +659,25 @@ independent forward evidence remains a separate contract-v2 promotion gate.
   under a renamed card. Current new-feature admission is
   `needs_distinct_decision_time_mechanism`, while the historical Goal remains
   active and the fixed drawdown version stays closed.
+- Existing Futu NONE one-minute SOXL/SOXX raw parquets do include
+  `turnover`, but the fixed source audit
+  `research/stage1_v5_raw_turnover_minute_source_20261030` failed its
+  pre-registered same-bar VWAP semantics gate: original local and NAS bytes,
+  820440 Qlib bar timestamps and raw volume match, and reported amount is
+  positive on positive-volume bars, yet only90.77% of turnover/volume lies
+  within same-bar raw OHLC even with1bp tolerance versus99.9% required.
+  `research/stage1_v5_raw_turnover_semantics_audit_20261030` shows prior/next
+  bar ranges fit much worse (about45–51%), so do not silently shift clocks.
+  `research/stage1_v5_raw_turnover_activity_dedup_20261030` finds
+  discovery day-demeaned rank correlation >0.999999 against old
+  raw_close*raw_volume intensity, failing a frozen0.995 novelty gate.
+  Low-volume bars account for much of the OHLC inconsistency, but no
+  outcome-selected volume cutoff may rescue this version. Official Futu
+  documentation calls the field turnover/成交额 but does not certify the
+  OHLC trade universe. Do not present turnover/volume as proven minute VWAP,
+  turnover as ETF creation flow, or fit this fixed raw-field route. Both
+  source versions close before any model; Goal remains active with
+  needs_distinct_decision_time_mechanism.
 - The historical old-cap joint capacity/asset-choice card is
   `docs/stage1_event_capacity_choice_implementation_20261029.md`. Its first
   read-only minute source/whole-share gate is

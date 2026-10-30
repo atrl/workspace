@@ -1,0 +1,41 @@
+{
+  "experiment": "stage1_v5_raw_turnover_semantics_audit_20261030",
+  "frozen": true,
+  "type": "read_only_failed_turnover_semantics_source_diagnosis",
+  "failed_source_card": "research/stage1_v5_raw_turnover_minute_source_20261030",
+  "failed_source_plan_sha256": "56242835f2ff0de5eb83dacff366cdaebac781b0847c36165c47fd6e496c2f49",
+  "failed_source_audit_sha256": "2a9b28dc6747641511cd80ed0a0b873e6755f2f1657e50caf6112e2e8bfaa4fe",
+  "source_manifest": "data/raw/external/semis_minute_none_20261012_v1/source_manifest.json",
+  "source_manifest_sha256": "18f1fb3f17907932ddd13881aea9199369181a92c9b6c77395d0b255100c68c3",
+  "nas_binding": "research/minute_information_pit_allocator_20261012/nas_binding.json",
+  "nas_binding_sha256": "67d8f88adae6a3ec11519b096dfbed2398e1835f9a62972f260ba86c4ce74428",
+  "original_parquets": {
+    "SOXL": {
+      "relative_path": "data/raw/external/semis_minute_none_20261012_v1/SOXL_none.parquet",
+      "sha256": "94b2ee6bf16f76d2e3e453f45a8db533869a2fe6303e90c47505a61647d0dc2a",
+      "rows": 780060
+    },
+    "SOXX": {
+      "relative_path": "data/raw/external/semis_minute_none_20261012_v1/SOXX_none.parquet",
+      "sha256": "9133d01608d534d753015fa043d1fc538ccd12afbab8aaa1a01daa0f64448561",
+      "rows": 780060
+    }
+  },
+  "qlib_provider_uri": "data/qlib/stage1_event_guard_fullminute_20261028",
+  "qlib_provider_manifest_sha256": "e9ab78e4e8fca7b70a5ccc27074893414a1308f13a4d37c3174c1690827db1e0",
+  "comparison": "reported turnover/volume against same, immediately previous and immediately next completed 1min raw OHLC range within the same US trading session; 1bp tolerance unchanged; summarize out-of-range magnitude, volume and source year without economic labels",
+  "shifts_in_completed_bars": [
+    -1,
+    0,
+    1
+  ],
+  "tolerance_bps": 1,
+  "budget": {
+    "qlib_minute_reads": 1,
+    "new_model_fits": 0,
+    "new_candidate_accounts": 0,
+    "new_recorders": 0
+  },
+  "stop": "Read-only cause attribution cannot retroactively pass the failed same-bar99.9pct gate or silently shift timestamps; new source contract required if semantics proven different.",
+  "as_of": "2026-10-30"
+}

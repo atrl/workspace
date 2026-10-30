@@ -1,0 +1,20 @@
+{
+  "status": "passed",
+  "source_snapshot_id": "18f1fb3f17907932ddd13881aea9199369181a92c9b6c77395d0b255100c68c3",
+  "objects": [
+    {
+      "symbol": "SOXL",
+      "sha256": "94b2ee6bf16f76d2e3e453f45a8db533869a2fe6303e90c47505a61647d0dc2a",
+      "local_bytes": 34310680,
+      "nas_sha256": "94b2ee6bf16f76d2e3e453f45a8db533869a2fe6303e90c47505a61647d0dc2a",
+      "status": "passed"
+    },
+    {
+      "symbol": "SOXX",
+      "sha256": "9133d01608d534d753015fa043d1fc538ccd12afbab8aaa1a01daa0f64448561",
+      "local_bytes": 27412470,
+      "nas_sha256": "9133d01608d534d753015fa043d1fc538ccd12afbab8aaa1a01daa0f64448561",
+      "status": "passed"
+    }
+  ]
+}

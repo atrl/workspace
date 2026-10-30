@@ -1,0 +1,116 @@
+{
+  "experiment": "stage1_v5_raw_turnover_minute_source_20261030",
+  "plan_sha256": "56242835f2ff0de5eb83dacff366cdaebac781b0847c36165c47fd6e496c2f49",
+  "source_snapshot_id": "18f1fb3f17907932ddd13881aea9199369181a92c9b6c77395d0b255100c68c3",
+  "qlib_pair_rows": 820440,
+  "source_pair_rows": 820440,
+  "max_raw_volume_qlib_error": 0.0,
+  "max_raw_ohlc_qlib_error": 3.046874996925908e-05,
+  "positive_reported_turnover_fraction_when_volume_positive": 1.0,
+  "reported_vwap_inside_raw_ohlc_1bp_fraction": 0.9077165427805977,
+  "discovery_distinct_residual_days_pair_average": 558,
+  "annual": [
+    {
+      "symbol": "SOXL",
+      "year": 2018,
+      "days": 53,
+      "bars": 19913,
+      "days_p90_abs_ohlc4_residual_gt_0_25bp": 53,
+      "median_day_p90_abs_ohlc4_residual_bp": 10.32568403847606,
+      "median_day_median_abs_close_gap_bp": 5.746593089646791
+    },
+    {
+      "symbol": "SOXL",
+      "year": 2019,
+      "days": 252,
+      "bars": 96012,
+      "days_p90_abs_ohlc4_residual_gt_0_25bp": 252,
+      "median_day_p90_abs_ohlc4_residual_bp": 6.5064635486691955,
+      "median_day_median_abs_close_gap_bp": 3.127983678519729
+    },
+    {
+      "symbol": "SOXL",
+      "year": 2020,
+      "days": 253,
+      "bars": 98143,
+      "days_p90_abs_ohlc4_residual_gt_0_25bp": 253,
+      "median_day_p90_abs_ohlc4_residual_bp": 7.5934369777648785,
+      "median_day_median_abs_close_gap_bp": 4.609889545395299
+    },
+    {
+      "symbol": "SOXL",
+      "year": 2021,
+      "days": 252,
+      "bars": 98094,
+      "days_p90_abs_ohlc4_residual_gt_0_25bp": 252,
+      "median_day_p90_abs_ohlc4_residual_bp": 6.379392822127165,
+      "median_day_median_abs_close_gap_bp": 4.634685210534299
+    },
+    {
+      "symbol": "SOXL",
+      "year": 2022,
+      "days": 246,
+      "bars": 95760,
+      "days_p90_abs_ohlc4_residual_gt_0_25bp": 246,
+      "median_day_p90_abs_ohlc4_residual_bp": 10.464838873126453,
+      "median_day_median_abs_close_gap_bp": 8.478514042019748
+    },
+    {
+      "symbol": "SOXX",
+      "year": 2018,
+      "days": 53,
+      "bars": 20054,
+      "days_p90_abs_ohlc4_residual_gt_0_25bp": 53,
+      "median_day_p90_abs_ohlc4_residual_bp": 2.721239470926164,
+      "median_day_median_abs_close_gap_bp": 1.8390927183207664
+    },
+    {
+      "symbol": "SOXX",
+      "year": 2019,
+      "days": 252,
+      "bars": 94647,
+      "days_p90_abs_ohlc4_residual_gt_0_25bp": 252,
+      "median_day_p90_abs_ohlc4_residual_bp": 2.4395237794022355,
+      "median_day_median_abs_close_gap_bp": 0.9649810117990988
+    },
+    {
+      "symbol": "SOXX",
+      "year": 2020,
+      "days": 253,
+      "bars": 97990,
+      "days_p90_abs_ohlc4_residual_gt_0_25bp": 253,
+      "median_day_p90_abs_ohlc4_residual_bp": 2.870027638058428,
+      "median_day_median_abs_close_gap_bp": 1.4655746215793926
+    },
+    {
+      "symbol": "SOXX",
+      "year": 2021,
+      "days": 252,
+      "bars": 98092,
+      "days_p90_abs_ohlc4_residual_gt_0_25bp": 252,
+      "median_day_p90_abs_ohlc4_residual_bp": 2.1582985889034267,
+      "median_day_median_abs_close_gap_bp": 1.2721310227208003
+    },
+    {
+      "symbol": "SOXX",
+      "year": 2022,
+      "days": 246,
+      "bars": 95753,
+      "days_p90_abs_ohlc4_residual_gt_0_25bp": 246,
+      "median_day_p90_abs_ohlc4_residual_bp": 3.2117311983004457,
+      "median_day_median_abs_close_gap_bp": 2.33081386899625
+    }
+  ],
+  "old_route_conclusion_sha256": {
+    "research/stage1_intraday_cash_timing_information_20261028/conclusion.md": "6be0f9c4cd03f93f1eede1fb661a0c9ef0dac58fcd89b5806fd4f4d30f979bb6",
+    "research/stage1_0946_volume_timing_source_20261027/conclusion.md": "b46b9a3aebe60878d66a638714f97747f4f684016950c9ec9249203ce3e79e5b",
+    "research/stage1_relative_dollar_volume_h5_information_20261023/conclusion.md": "48e7736f57232d54b82b03f0c0f19bac35b0a3e8d004a64471c3f04bb9e9791f",
+    "research/stage1_futu_turnover_surprise_preflight_20261023/conclusion.md": "bb81d391d86eb319979f44d384f6ed95d948632eed4628598a47811b571e1f45"
+  },
+  "source_gate_pass": false,
+  "first_historical_receipt_qualified": false,
+  "new_model_fits": 0,
+  "new_candidate_accounts": 0,
+  "historical_research_passed": false,
+  "decision": "reported_minute_turnover_source_gate_failed"
+}

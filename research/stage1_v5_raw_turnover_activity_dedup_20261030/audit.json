@@ -1,0 +1,119 @@
+{
+  "experiment": "stage1_v5_raw_turnover_activity_dedup_20261030",
+  "plan_sha256": "d27161bc0a8ed23498d6e309bd5ec81a3796e9b3e830ca41dd4cf2a104c56004",
+  "qlib_rows": 432720,
+  "maximum_abs_day_demeaned_spearman": 0.9999999737956189,
+  "annual": [
+    {
+      "symbol": "SOXL",
+      "year": 2018,
+      "days": 53,
+      "bars": 19913,
+      "day_demeaned_spearman": 0.9999993373680883,
+      "median_abs_reported_vs_proxy_bp": 5.741489427091295,
+      "p90_abs_reported_vs_proxy_bp": 21.261886294286814,
+      "inside_ohlc_fraction": 0.8728468839451614
+    },
+    {
+      "symbol": "SOXL",
+      "year": 2019,
+      "days": 252,
+      "bars": 96012,
+      "day_demeaned_spearman": 0.9999998076886316,
+      "median_abs_reported_vs_proxy_bp": 3.15879706141331,
+      "p90_abs_reported_vs_proxy_bp": 12.682231413332811,
+      "inside_ohlc_fraction": 0.8423113777444486
+    },
+    {
+      "symbol": "SOXL",
+      "year": 2020,
+      "days": 253,
+      "bars": 98143,
+      "day_demeaned_spearman": 0.9999990279646196,
+      "median_abs_reported_vs_proxy_bp": 5.028621325724458,
+      "p90_abs_reported_vs_proxy_bp": 20.490455949211395,
+      "inside_ohlc_fraction": 0.8756202683838888
+    },
+    {
+      "symbol": "SOXX",
+      "year": 2018,
+      "days": 53,
+      "bars": 20054,
+      "day_demeaned_spearman": 0.9999998896654994,
+      "median_abs_reported_vs_proxy_bp": 1.8521534854665234,
+      "p90_abs_reported_vs_proxy_bp": 6.6711371159176025,
+      "inside_ohlc_fraction": 0.9407100827765035
+    },
+    {
+      "symbol": "SOXX",
+      "year": 2019,
+      "days": 252,
+      "bars": 94647,
+      "day_demeaned_spearman": 0.9999999737956189,
+      "median_abs_reported_vs_proxy_bp": 1.0131961726678185,
+      "p90_abs_reported_vs_proxy_bp": 4.2973382014857044,
+      "inside_ohlc_fraction": 0.8539520534195484
+    },
+    {
+      "symbol": "SOXX",
+      "year": 2020,
+      "days": 253,
+      "bars": 97990,
+      "day_demeaned_spearman": 0.9999999077337238,
+      "median_abs_reported_vs_proxy_bp": 1.5587160272811929,
+      "p90_abs_reported_vs_proxy_bp": 6.571641359762737,
+      "inside_ohlc_fraction": 0.8715685274007552
+    }
+  ],
+  "volume_bin_consistency": [
+    {
+      "symbol": "SOXL",
+      "volume_bin": "volume_le_100",
+      "bars": 10059,
+      "inside_ohlc_fraction": 0.18162839248434237,
+      "median_abs_price_residual_bp": 4.896760075006057
+    },
+    {
+      "symbol": "SOXL",
+      "volume_bin": "volume_101_1000",
+      "bars": 72382,
+      "inside_ohlc_fraction": 0.713409411179575,
+      "median_abs_price_residual_bp": 2.252852239870151
+    },
+    {
+      "symbol": "SOXL",
+      "volume_bin": "volume_gt_1000",
+      "bars": 131627,
+      "inside_ohlc_fraction": 0.9931397053795954,
+      "median_abs_price_residual_bp": 5.708607739123295
+    },
+    {
+      "symbol": "SOXX",
+      "volume_bin": "volume_le_100",
+      "bars": 15727,
+      "inside_ohlc_fraction": 0.35677497297641,
+      "median_abs_price_residual_bp": 1.7670707166317356
+    },
+    {
+      "symbol": "SOXX",
+      "volume_bin": "volume_101_1000",
+      "bars": 109648,
+      "inside_ohlc_fraction": 0.8437636801400846,
+      "median_abs_price_residual_bp": 0.8981149247766496
+    },
+    {
+      "symbol": "SOXX",
+      "volume_bin": "volume_gt_1000",
+      "bars": 87316,
+      "inside_ohlc_fraction": 0.9959915708461221,
+      "median_abs_price_residual_bp": 2.03936253159398
+    }
+  ],
+  "activity_novelty_gate_pass": false,
+  "original_same_bar_vwap_gate_pass": false,
+  "future_economic_labels_accessed": false,
+  "new_model_fits": 0,
+  "new_candidate_accounts": 0,
+  "historical_research_passed": false,
+  "decision": "reported_turnover_activity_near_duplicate_and_vwap_semantics_failed"
+}

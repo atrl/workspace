@@ -1,0 +1,25 @@
+{
+  "experiment": "stage1_v5_raw_turnover_activity_dedup_20261030",
+  "plan_sha256": "d27161bc0a8ed23498d6e309bd5ec81a3796e9b3e830ca41dd4cf2a104c56004",
+  "decision": "reported_turnover_activity_near_duplicate_of_close_times_volume",
+  "historical_research_passed": false,
+  "audit": "audit.json",
+  "new_model_fits": 0,
+  "new_candidate_accounts": 0,
+  "new_recorders": 0,
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": []
+  },
+  "limitations": [
+    "Source and representation only, no action-value or complete SOXX account.",
+    "Historical minute first receipt and raw turnover/OHLC trade-universe equivalence unqualified."
+  ],
+  "annual_activity_novelty": "annual_activity_novelty.csv",
+  "metrics": {
+    "qlib_rows": 432720,
+    "maximum_abs_day_demeaned_spearman": 0.9999999737956189,
+    "novelty_gate_pass": false
+  }
+}

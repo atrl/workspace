@@ -1,0 +1,8 @@
+{
+  "status": "stopped_after_qlib_diagnostic_before_notebook_completion",
+  "reason": "final display used tuple keys in JSON; audit/CSV were already calculated",
+  "plan_sha256": "9ed693049f0bdbaf46c2a66e02563c0a942b912fee50c9f2407d4558892862e5",
+  "qlib_minute_reads": 1,
+  "new_fits": 0,
+  "new_accounts": 0
+}

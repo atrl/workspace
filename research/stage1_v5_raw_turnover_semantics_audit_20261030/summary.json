@@ -1,0 +1,26 @@
+{
+  "experiment": "stage1_v5_raw_turnover_semantics_audit_20261030",
+  "plan_sha256": "ab22e5f031f05b5d3f602acfd7c536b250302d5b1c7ebee8125f376c59b7e701",
+  "decision": "adjacent_bar_shift_does_not_repair_turnover_semantics",
+  "historical_research_passed": false,
+  "audit": "audit.json",
+  "new_model_fits": 0,
+  "new_candidate_accounts": 0,
+  "new_recorders": 0,
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": []
+  },
+  "limitations": [
+    "Source and representation only, no action-value or complete SOXX account.",
+    "Historical minute first receipt and raw turnover/OHLC trade-universe equivalence unqualified."
+  ],
+  "shifted_range_summary": "shifted_range_summary.csv",
+  "first_attempt": "attempt1_serialization_failure.json",
+  "metrics": {
+    "same_bar_inside_fraction": 0.9077165427805977,
+    "source_rows": 820440
+  },
+  "qlib_minute_reads_actual": 2
+}

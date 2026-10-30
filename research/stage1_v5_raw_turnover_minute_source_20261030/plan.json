@@ -1,0 +1,58 @@
+{
+  "experiment": "stage1_v5_raw_turnover_minute_source_20261030",
+  "frozen": true,
+  "type": "read_only_futu_reported_minute_turnover_qlib_alignment_and_novelty_source_gate",
+  "source_manifest": "data/raw/external/semis_minute_none_20261012_v1/source_manifest.json",
+  "source_manifest_sha256": "18f1fb3f17907932ddd13881aea9199369181a92c9b6c77395d0b255100c68c3",
+  "nas_binding": "research/minute_information_pit_allocator_20261012/nas_binding.json",
+  "nas_binding_sha256": "67d8f88adae6a3ec11519b096dfbed2398e1835f9a62972f260ba86c4ce74428",
+  "original_parquets": {
+    "SOXL": {
+      "relative_path": "data/raw/external/semis_minute_none_20261012_v1/SOXL_none.parquet",
+      "sha256": "94b2ee6bf16f76d2e3e453f45a8db533869a2fe6303e90c47505a61647d0dc2a",
+      "rows": 780060
+    },
+    "SOXX": {
+      "relative_path": "data/raw/external/semis_minute_none_20261012_v1/SOXX_none.parquet",
+      "sha256": "9133d01608d534d753015fa043d1fc538ccd12afbab8aaa1a01daa0f64448561",
+      "rows": 780060
+    }
+  },
+  "qlib_provider_uri": "data/qlib/stage1_event_guard_fullminute_20261028",
+  "qlib_provider_manifest_sha256": "e9ab78e4e8fca7b70a5ccc27074893414a1308f13a4d37c3174c1690827db1e0",
+  "discovery_years": [
+    2018,
+    2019,
+    2020
+  ],
+  "reserved_years": [
+    2021,
+    2022
+  ],
+  "source_clock": "Futu NONE RTH one-minute right edge t; reported turnover and volume in original bytes, available at t+1 only as historical research assumption; next-bar fill t+2. Actual first receipt unknown.",
+  "hypothesis": "reported bar turnover/volume supplies within-bar traded-price VWAP relative to close/OHLC, distinct source field from old close*volume or open*volume proxies; a price-pressure hypothesis would still need a separate fixed information gate",
+  "old_routes": [
+    "research/stage1_intraday_cash_timing_information_20261028/conclusion.md",
+    "research/stage1_0946_volume_timing_source_20261027/conclusion.md",
+    "research/stage1_relative_dollar_volume_h5_information_20261023/conclusion.md",
+    "research/stage1_futu_turnover_surprise_preflight_20261023/conclusion.md"
+  ],
+  "gates": {
+    "minimum_positive_turnover_fraction_when_volume_positive": 0.995,
+    "minimum_vwap_inside_raw_ohlc_fraction_with_1bp_tolerance": 0.999,
+    "minimum_discovery_days_with_daily_p90_abs_vwap_minus_ohlc4_gt_0_25bp": 200,
+    "minimum_2018_source_days": 40,
+    "minimum_full_year_source_days": 200,
+    "maximum_raw_volume_qlib_absolute_error": 0.0
+  },
+  "budget": {
+    "qlib_minute_reads": 1,
+    "nas_scoped_source_readbacks": 2,
+    "new_model_fits": 0,
+    "new_candidate_accounts": 0,
+    "new_recorders": 0,
+    "new_market_requests": 0
+  },
+  "stop": "Any original/local/NAS hash, source-to-Qlib timestamp/volume, unit/price-range, coverage or novelty gate failure closes this fixed reported-turnover source version before model fit. Do not backfill absent bars or reinterpret turnover as ETF creation flow.",
+  "as_of": "2026-10-30"
+}

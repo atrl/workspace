@@ -1,0 +1,28 @@
+{
+  "experiment": "stage1_v5_raw_turnover_minute_source_20261030",
+  "plan_sha256": "56242835f2ff0de5eb83dacff366cdaebac781b0847c36165c47fd6e496c2f49",
+  "decision": "reported_minute_turnover_same_bar_vwap_semantics_failed",
+  "historical_research_passed": false,
+  "audit": "audit.json",
+  "new_model_fits": 0,
+  "new_candidate_accounts": 0,
+  "new_recorders": 0,
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": []
+  },
+  "limitations": [
+    "Source and representation only, no action-value or complete SOXX account.",
+    "Historical minute first receipt and raw turnover/OHLC trade-universe equivalence unqualified."
+  ],
+  "nas_original_readback": "nas_original_readback.json",
+  "annual_source_summary": "annual_source_summary.csv",
+  "metrics": {
+    "qlib_rows": 820440,
+    "positive_turnover_fraction": 1.0,
+    "same_bar_vwap_inside_fraction": 0.9077165427805977,
+    "required_inside_fraction": 0.999,
+    "discovery_novelty_days": 558
+  }
+}
