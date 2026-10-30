@@ -1,0 +1,17 @@
+{
+  "schema_version": "stage1_v5_equal_beta_control_residual_nas_binding_v1",
+  "source_label_recorder_id": "54bf06d027dc44bc805b87a659558dd6",
+  "evidence": {
+    "sha256": "7d582efc512571d2ec1b6357d8038dc15e54b9caeb39c5674baed493fbd051fd",
+    "size_bytes": 3103453,
+    "media_type": "application/gzip",
+    "storage_uri": "sha256/7d/58/7d582efc512571d2ec1b6357d8038dc15e54b9caeb39c5674baed493fbd051fd",
+    "uploaded_by": "soxl-minute-research",
+    "created_at": "2026-10-30 12:11:25.89668+08",
+    "duplicate": false,
+    "nas_path": "/volume1/docker/yanxuan/registry/research-artifacts/7d/58/7d582efc512571d2ec1b6357d8038dc15e54b9caeb39c5674baed493fbd051fd",
+    "recorder_id": "5f8e1a386cb349fd91f03811e1880cd5",
+    "experiment_id": "700120910755089356",
+    "archive_root": "qlib_recorder"
+  }
+}

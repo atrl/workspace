@@ -275,6 +275,23 @@ independent forward evidence remains a separate contract-v2 promotion gate.
   only2018–2020 for matched state/ordinary-minute control residual discovery;
   keep2021/2022 for a separately frozen information gate, and do not treat
   these local labels as full-account SOXX alpha.
+- The first v5 matched-control card is
+  `research/stage1_v5_equal_beta_control_residual_20261030`: Qlib DatasetH
+  trained exactly two fixed Ridge controls on 109795 mature 2018/2019 minute
+  rows across304 days, then evaluated 86676 paired 2020 rows across242 days;
+  2021/2022 label outcomes were not used. Day-weighted MSE was
+  1.803317e-8 state-only and1.798565e-8 with ordinary completed-minute
+  return/volume (0.26% improvement). A posthoc read-only training-day mean
+  constant scored1.240507e-8, 31% lower than the minute control; all four
+  2020 quarters had slightly negative realized SOXL-minus-SOXX value but
+  positive control predictions. Residual variance was71.1% between days,
+  28.9% within day. This control version is not a qualified feature-discovery
+  residual: first attribute its cross-year calibration/extrapolation failure
+  from saved coefficients and source feature distributions, without retuning
+  its alpha/fields on2020. The constant comparator was added after observing
+  this result and is diagnostic, not a frozen information gate. Models and
+  predictions passed native Qlib and NAS scoped readback. No candidate
+  feature, funded account or SOXX success followed.
   Keep 2023+ outcomes out of feature/window/sign selection.
   This v5 document is **not yet a fit-ready model contract**: its few legal
   HOLD/buy/rotation actions are source and information controls, not a

@@ -1,0 +1,10 @@
+{
+  "status": "passed",
+  "archive_sha256": "7d582efc512571d2ec1b6357d8038dc15e54b9caeb39c5674baed493fbd051fd",
+  "selected_artifacts": {
+    "models/ordinary_minute": "c2e23e2d82b3ef468f08c46e6bb66ba739a4dc5bd823fb2b5f83fa3f3c5d67b6",
+    "analysis/predictions": "1698c99b49c232e06eb183f251a28680876aefe7bc018d516b1d1b0e00cfb4eb",
+    "analysis/summary": "ba4eba42074ce2b2092027a7ac0cfd505938ba112bfbbb0f1bfdf9dfb75433c9"
+  },
+  "recorder_id": "5f8e1a386cb349fd91f03811e1880cd5"
+}

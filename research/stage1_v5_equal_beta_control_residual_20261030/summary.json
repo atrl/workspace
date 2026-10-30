@@ -1,0 +1,68 @@
+{
+  "experiment": "stage1_v5_equal_beta_control_residual_20261030",
+  "plan_sha256": "015afcd9e68cd814e4799b008dd01b4c74aa182a400eda1fd9246822499963dd",
+  "decision": "descriptive_2020_oof_control_residual_no_candidate_feature",
+  "training_rows": 109795,
+  "training_days": 304,
+  "evaluation_rows": 86676,
+  "evaluation_days": 242,
+  "metrics": {
+    "state_only": {
+      "test_days": 242,
+      "test_rows": 86676,
+      "day_weighted_mse": 1.8033172073075007e-08,
+      "mean_prediction": 2.6131182758443346e-05
+    },
+    "ordinary_minute": {
+      "test_days": 242,
+      "test_rows": 86676,
+      "day_weighted_mse": 1.7985649084532578e-08,
+      "mean_prediction": 2.6188593243518496e-05
+    }
+  },
+  "residual_variance": {
+    "total": 1.4907709368463362e-08,
+    "between_day": 1.0600964964894591e-08,
+    "within_day": 4.306744403568771e-09,
+    "within_day_share": 0.2888937728206259
+  },
+  "new_model_fits": 2,
+  "new_native_accounts": 0,
+  "historical_research_passed": false,
+  "recorder_id": "5f8e1a386cb349fd91f03811e1880cd5",
+  "experiment_id": "700120910755089356",
+  "recorder_uri": "/Users/rziiiii/dev/workspace/research/stage1_v5_equal_beta_control_residual_20261030/qlib_recorder",
+  "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/stage1_v5_equal_beta_control_residual_20261030/qlib_recorder/700120910755089356/5f8e1a386cb349fd91f03811e1880cd5",
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "inputs/*",
+      "models/*",
+      "analysis/*"
+    ]
+  },
+  "limits": [
+    "2020 residuals are discovery evidence, not a candidate feature or independent forward test.",
+    "Funded-pair conditioning uses future fill prices and is not a live-intent policy.",
+    "2021/2022 label outcomes were not evaluated."
+  ],
+  "constant_baseline_diagnostic": "constant_baseline_diagnostic.json",
+  "control_qualification": "failed_posthoc_constant_sanity_no_feature_selected",
+  "archive_status": "nas_receipt_and_scoped_readback_verified",
+  "nas_evidence": {
+    "sha256": "7d582efc512571d2ec1b6357d8038dc15e54b9caeb39c5674baed493fbd051fd",
+    "size_bytes": 3103453,
+    "media_type": "application/gzip",
+    "storage_uri": "sha256/7d/58/7d582efc512571d2ec1b6357d8038dc15e54b9caeb39c5674baed493fbd051fd",
+    "uploaded_by": "soxl-minute-research",
+    "created_at": "2026-10-30 12:11:25.89668+08",
+    "duplicate": false,
+    "nas_path": "/volume1/docker/yanxuan/registry/research-artifacts/7d/58/7d582efc512571d2ec1b6357d8038dc15e54b9caeb39c5674baed493fbd051fd",
+    "recorder_id": "5f8e1a386cb349fd91f03811e1880cd5",
+    "experiment_id": "700120910755089356",
+    "archive_root": "qlib_recorder"
+  },
+  "nas_scoped_readback": "nas_scoped_readback.json",
+  "archive_status_updated_after_recorder_summary": true
+}

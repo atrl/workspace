@@ -1,0 +1,9 @@
+{
+  "role": "posthoc_read_only_sanity_diagnostic_not_frozen_gate",
+  "train_mature_days": 304,
+  "train_day_weighted_constant": -7.937472660457046e-06,
+  "evaluation_days": 242,
+  "constant_day_weighted_mse": 1.240507273275426e-08,
+  "state_control_day_weighted_mse": 1.8033172073075007e-08,
+  "ordinary_minute_control_day_weighted_mse": 1.7985649084532578e-08
+}
