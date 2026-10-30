@@ -1,0 +1,34 @@
+{
+  "experiment": "stage1_v5_continuous_component_identity_20261030",
+  "plan_sha256": "59bd5fbebc03c6f11ee9610d599526313f43974da0343b3bd35be65571e0da95",
+  "decision": "not_admitted_continuous_amount_labels_are_algebraic_return_reweighting",
+  "historical_research_passed": false,
+  "source_recorder_ids": {
+    "components": "240945b6fe474524b4feff43ad7f2b6e",
+    "frame": "748eb4209e314fb6a6c41c19498d6d03",
+    "parent": "2994f6afbfc54f279cefec362b220001"
+  },
+  "metrics": {
+    "discovery_sessions": 558,
+    "cash_max_abs_error": 0.0,
+    "selection_nonrecovery_max_abs_error": 3.122502256758253e-17,
+    "recovery_days": 10,
+    "selection_recovery_max_abs_difference_from_static_formula": 7.453889935837843e-20
+  },
+  "annual_attribution": "annual_identity.csv",
+  "audit": "audit.json",
+  "new_model_fits": 0,
+  "new_native_accounts": 0,
+  "new_recorders": 0,
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": []
+  },
+  "source_archive_status": "all_three_source_recorders_have_nas_receipt_and_scoped_readback",
+  "limitations": [
+    "Adjusted-price development identity, not original-price dividend/corporate-action contract-v2 result.",
+    "Component identity is not a same-state action counterfactual or model information screen.",
+    "2021/2022 outcomes reserved; no 2023+ candidate account or SOXX gate."
+  ]
+}

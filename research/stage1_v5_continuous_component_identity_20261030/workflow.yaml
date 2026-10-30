@@ -1,0 +1,7 @@
+experiment: stage1_v5_continuous_component_identity_20261030
+kind: qlib_native_read_only_continuous_component_identity
+plan: plan.json
+notebook: stage1_v5_continuous_component_identity_20261030.ipynb
+artifact_policy: slim_card_recorder_first
+source_recorders: [components, frame, parent]
+recorder_only: []

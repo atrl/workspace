@@ -396,6 +396,18 @@ independent forward evidence remains a separate contract-v2 promotion gate.
   objective, exact whole-share/Tiered forward parity and finite fit budget
   before any retraining. A discrete action-value screen cannot be reported
   as the final continuous allocator. Until then record `training_ready=false`.
+- The read-only continuous-component identity audit is
+  `research/stage1_v5_continuous_component_identity_20261030`: on 558
+  2018–2020 dated-parent days, the cash and SOXL selection attribution amounts
+  exactly reduce to opening exposures times future SOXX and SOXL-minus-SOXX
+  next-open price returns (max errors 0 and 3.13e-17). All 10 recovery days
+  satisfy the selection identity; their separate residual is not a new label.
+  Do not rename these components as novel continuous targets and refit the same
+  original39/ordinary-minute return predictors. The fixed rename route is
+  closed before fitting. This does not rule out distinct path-dependent
+  own-state action labels or genuinely new decision-time information; require
+  both before a new fit. The 2021/2022 outcomes were reserved and no candidate
+  account or SOXX pass followed.
 - The historical old-cap joint capacity/asset-choice card is
   `docs/stage1_event_capacity_choice_implementation_20261029.md`. Its first
   read-only minute source/whole-share gate is

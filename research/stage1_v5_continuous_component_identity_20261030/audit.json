@@ -1,0 +1,55 @@
+{
+  "experiment": "stage1_v5_continuous_component_identity_20261030",
+  "plan_sha256": "59bd5fbebc03c6f11ee9610d599526313f43974da0343b3bd35be65571e0da95",
+  "source_recorder_ids": {
+    "components": "240945b6fe474524b4feff43ad7f2b6e",
+    "frame": "748eb4209e314fb6a6c41c19498d6d03",
+    "parent": "2994f6afbfc54f279cefec362b220001"
+  },
+  "discovery_sessions": 558,
+  "reserved_years_untouched": [
+    2021,
+    2022
+  ],
+  "cash_max_abs_error": 0.0,
+  "selection_nonrecovery_max_abs_error": 3.122502256758253e-17,
+  "recovery_days": 10,
+  "selection_recovery_max_abs_difference_from_static_formula": 7.453889935837843e-20,
+  "cash_nonzero_weight_days": 558,
+  "soxl_nonzero_weight_nonrecovery_days": 548,
+  "annual": [
+    {
+      "year": 2018,
+      "sessions": 53,
+      "recovery_sessions": 0,
+      "cash_max_abs_error": 0.0,
+      "selection_nonrecovery_max_abs_error": 2.6020852139652106e-17,
+      "cash_component_sum": 0.04314457121426784,
+      "selection_component_sum": -0.0475791744016353,
+      "relative_log_excess_sum": -0.00497069604413288
+    },
+    {
+      "year": 2019,
+      "sessions": 252,
+      "recovery_sessions": 0,
+      "cash_max_abs_error": 0.0,
+      "selection_nonrecovery_max_abs_error": 3.122502256758253e-17,
+      "cash_component_sum": -0.1333472548144639,
+      "selection_component_sum": 0.21787059908586337,
+      "relative_log_excess_sum": 0.08322201859413711
+    },
+    {
+      "year": 2020,
+      "sessions": 253,
+      "recovery_sessions": 10,
+      "cash_max_abs_error": 0.0,
+      "selection_nonrecovery_max_abs_error": 3.122502256758253e-17,
+      "cash_component_sum": -0.07291551156674009,
+      "selection_component_sum": 0.08259242665882593,
+      "relative_log_excess_sum": 0.03602397985689956
+    }
+  ],
+  "fits": 0,
+  "new_accounts": 0,
+  "decision": "continuous_component_amounts_are_exposure_scaled_future_price_returns_on_nonrecovery_days"
+}
