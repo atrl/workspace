@@ -1,0 +1,56 @@
+{
+  "experiment": "stage1_v5_peer_downshock_resilience_source_20261030",
+  "frozen": true,
+  "type": "read_only_same_day_5min_qqq_downshock_smh_relative_resilience_source_gate",
+  "peer_provider_uri": "data/qlib/minute_information_pit_allocator_20261012/peer_5min",
+  "peer_provider_manifest_sha256": "9e773cdaad954d65293e74794e4dcade3337dc878e6cff03b3c12bad6432cce6",
+  "peer_parent_card": "research/minute_information_pit_allocator_20261012",
+  "peer_parent_summary_sha256": "61c91f958323cf51b43f4b1554eeca5687011d30771e80bc7ff02d16b6d577ca",
+  "peer_parent_recorder_id": "68e31a0a0fad44e7ba1d1f7d856c7a0d",
+  "peer_parent_nas_archive_sha256": "ee328cab292f178bf3582ef574fb411561c93b82545cd3bb90842ecd9a9a24f1",
+  "peer_parent_source_id": "18f1fb3f17907932ddd13881aea9199369181a92c9b6c77395d0b255100c68c3",
+  "core_provider_uri": "data/qlib/stage1_event_guard_fullminute_20261028",
+  "core_provider_manifest_sha256": "e9ab78e4e8fca7b70a5ccc27074893414a1308f13a4d37c3174c1690827db1e0",
+  "intent_source_card": "research/stage1_v5_fixed_share_lock_labels_20261030",
+  "intent_source_recorder_id": "b85e80ab42fa4d9c83c6c9667114fd5d",
+  "intent_source_summary_sha256": "a2609adb9c711c49fae7dcd3effc5008db19d78456329953462ed647601dd9a0",
+  "intent_source_manifest_sha256": "69c868c918645f3e9678d7dafdd14a0d54b33db4a7280484b68bee4f088576f5",
+  "intent_source_nas_archive_sha256": "e414b90045ec15aa7919ec5c49649824a3ed0df109bf3d8b2c1048ae1b279a8b",
+  "source_years": [
+    2018,
+    2019,
+    2020
+  ],
+  "reserved_value_years": [
+    2021,
+    2022
+  ],
+  "formula": "for latest both-ETF completed valid5m bar p with p<=core completed1m bar t, q=log(QQQ_close/QQQ_open), h=log(SMH_close/SMH_open), feature=1{q<0}*(h-q); q>=0 maps0 by preregistered market-shock condition. No future bar, no learned sign/window.",
+  "first_available": "5m bar right edge p +1min under archived research assumption; core decision t+1 and p<=t; actual historical first receipt not certified",
+  "hypothesis": "semiconductor relative resilience conditional on broad-tech 5m selloff can distinguish genuine sector demand from a general market fall before choosing SOXX exposure",
+  "closed_route_checks": {
+    "research/stage1_0946_peer_breadth_joint_value_information_20261023/conclusion.md": "ec86a542961774530a34b9cd7304be9c7d1e76011ce93b2f3b1d759d9f2d7ac8",
+    "research/stage1_peer_breadth_0bp_action_information_20261023/conclusion.md": "c35764b9f6b5e504b1bdb0aa47c6a34513a9425da01e45a7f51b666dd4c54ff7",
+    "research/minute_information_pit_allocator_20261012/conclusion.md": "686c267f3606151db0b492db869f12f5bf37bdbcdd55c4dcbe2af2e982cbc0bf",
+    "research/stage1_0946_peer_breadth_cash_h5_information_20261023/conclusion.md": "8a4935ebd29af160be6d147c6adf8f9542a578e918ed0295342ca1d9639a9092"
+  },
+  "gates": {
+    "minimum_2018_source_days": 40,
+    "minimum_2019_source_days": 200,
+    "minimum_2020_source_days": 200,
+    "minimum_2018_days_with_range_gt_1bp": 40,
+    "minimum_2019_days_with_range_gt_1bp": 200,
+    "minimum_2020_days_with_range_gt_1bp": 200,
+    "maximum_abs_discovery_spearman_with_unconditional_smh_qqq_gap": 0.95,
+    "maximum_abs_discovery_spearman_with_core_soxx_ret5": 0.95
+  },
+  "budget": {
+    "qlib_provider_reads": 2,
+    "new_model_fits": 0,
+    "new_candidate_accounts": 0,
+    "new_recorders": 0,
+    "new_market_requests": 0
+  },
+  "stop": "Any source/NAS/clock/coverage/conditional-novelty gate failure closes this fixed source version before fit; no 2021/22 economic values or historical quarter sign selection.",
+  "as_of": "2026-10-30"
+}

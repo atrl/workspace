@@ -1,0 +1,7 @@
+experiment: stage1_v5_peer_downshock_resilience_source_20261030
+kind: qlib_native_same_day_peer_downshock_source_gate
+plan: plan.json
+notebook: stage1_v5_peer_downshock_resilience_source_20261030.ipynb
+artifact_policy: slim_card_recorder_first
+source_recorders: [minute_pit_allocator_peer_source, fixed_share_lock_labels]
+recorder_only: []

@@ -1,0 +1,57 @@
+{
+  "experiment": "stage1_v5_peer_downshock_resilience_source_20261030",
+  "plan_sha256": "0ad9b1e5ba2168cfbdaf1c2a5d45897e080f0c764f2569eb806b7b24d97dd6a4",
+  "decision": "same_day_qqq_downshock_smh_resilience_source_pass_needs_information",
+  "historical_research_passed": false,
+  "audit": "audit.json",
+  "annual_source_support": "annual_source_support.csv",
+  "metrics": {
+    "peer_qlib_rows": 86544,
+    "core_qlib_rows": 216360,
+    "source_intent_rows": 203526,
+    "mapped_source_rows": 203526,
+    "maximum_peer_bar_age_minutes": 4.0,
+    "annual": [
+      {
+        "year": 2018,
+        "intent_rows": 19091,
+        "source_days": 53,
+        "days_feature_range_gt_1bp": 53,
+        "negative_qqq_bar_fraction": 0.5091928133675554,
+        "feature_std": 0.0005841451929882169
+      },
+      {
+        "year": 2019,
+        "intent_rows": 91944,
+        "source_days": 252,
+        "days_feature_range_gt_1bp": 252,
+        "negative_qqq_bar_fraction": 0.47478900200121815,
+        "feature_std": 0.0004431285778991878
+      },
+      {
+        "year": 2020,
+        "intent_rows": 92491,
+        "source_days": 253,
+        "days_feature_range_gt_1bp": 253,
+        "negative_qqq_bar_fraction": 0.47976559881501984,
+        "feature_std": 0.0006056894781067967
+      }
+    ],
+    "spearman_conditional_vs_unconditional_gap": 0.6590210263127961,
+    "spearman_conditional_vs_core_soxx_ret5": 0.18397927024798494,
+    "source_gate_pass": true
+  },
+  "new_model_fits": 0,
+  "new_candidate_accounts": 0,
+  "new_recorders": 0,
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": []
+  },
+  "limitations": [
+    "Source pass only, no held-year economic value or signal model.",
+    "Historical true first receipt/finality of Futu5m bars unqualified; source clock uses documented research assumption.",
+    "Same-day conditional peer response is not the old prior-session aggregate but still uses reused market history; model and account gates remain."
+  ]
+}

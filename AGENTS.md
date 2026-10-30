@@ -678,6 +678,21 @@ independent forward evidence remains a separate contract-v2 promotion gate.
   turnover as ETF creation flow, or fit this fixed raw-field route. Both
   source versions close before any model; Goal remains active with
   needs_distinct_decision_time_mechanism.
+- A distinct, source-only cross-asset 5-minute mechanism passed in
+  `research/stage1_v5_peer_downshock_resilience_source_20261030`: at each
+  eligible SOXL/SOXX completed minute t, use the latest QQQ/SMH completed
+  5m bar p<=t and pre-frozen value 1{QQQ log(close/open)<0} times
+  [SMH log(close/open)-QQQ log(close/open)]. All203526 2018–2020
+  decision-known fixed-share intents mapped, peer bar age<=4min; source
+  variation>1bp on53/252/253 days. Discovery Spearman vs unconditional
+  same-bar SMH-QQQ gap0.659 and ordinary SOXX ret5 0.184, below frozen0.95
+  near-duplicate limits. This differs from old AMD/NVDA/SMH sign breadth
+  and prior-session SMH-QQQ aggregate, but these old routes and the failed
+  own-drawdown model must be in the matched information control. Qlib/NAS
+  source identity passed; historical first receipt remains unqualified.
+  No held2021/2022 economic values, fits or SOXX account. Freeze source
+  coverage on held years and one fixed conditional-feature information gate
+  before any economic claim.
 - The historical old-cap joint capacity/asset-choice card is
   `docs/stage1_event_capacity_choice_implementation_20261029.md`. Its first
   read-only minute source/whole-share gate is
