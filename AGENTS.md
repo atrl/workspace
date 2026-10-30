@@ -227,6 +227,19 @@ independent forward evidence remains a separate contract-v2 promotion gate.
   opening ACTION_FEATURES did not receive same-day dynamic minute bars.
   Preserve the source-versus-model-use distinction and do not call this
   audit a new feature fit, information pass or cap-free alpha.
+- The active next research design is
+  `docs/stage1_research_plan_v5_20261030.md`, superseding v4's old-cap
+  minute action and the cap3-only follow-ups. It redefines the economic task
+  as fee-net, own-state SOXL/SOXX/cash marginal value and tail damage at a
+  later completed-minute clock, with continuous target and identical
+  no-old-cap training/inference domains. Its first bounded hypothesis is a
+  30-completed-bar SOXL/SOXX downside-co-movement slope gap conditional on
+  actual SOXL exposure and f696 prior intent; this is **not admitted alpha**.
+  Before fitting, freeze source/hash and run only source availability,
+  redundancy against closed downside-beta/path-energy/tracking/volume routes,
+  and yearly whole-share support. If this is only a renamed old mechanism,
+  mark `not_admitted_duplicate_mechanism` and do not fit. Keep all 2023+
+  outcomes out of feature/window/sign selection.
 - The historical old-cap joint capacity/asset-choice card is
   `docs/stage1_event_capacity_choice_implementation_20261029.md`. Its first
   read-only minute source/whole-share gate is
