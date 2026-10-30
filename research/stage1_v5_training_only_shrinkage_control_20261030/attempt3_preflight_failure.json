@@ -1,0 +1,6 @@
+{
+  "status": "dataset_preparation_failed_before_model_fit",
+  "error": "pandas .dt.ge does not exist; compare converted datetime Series directly",
+  "plan_sha256": "e6bd46bef607abdc828bf258a1fab47066d1304ac32526b8dc5c61724948cd4e",
+  "model_fits_consumed": 0
+}

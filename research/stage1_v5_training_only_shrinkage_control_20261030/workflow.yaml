@@ -1,0 +1,6 @@
+experiment: stage1_v5_training_only_shrinkage_control_20261030
+kind: qlib_dataset_h_training_only_control_calibration
+plan: plan.json
+notebook: stage1_v5_training_only_shrinkage_control_20261030.ipynb
+artifact_policy: slim_card_recorder_first
+recorder_only: [inputs, models, analysis]

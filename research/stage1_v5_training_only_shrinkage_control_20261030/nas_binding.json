@@ -1,0 +1,17 @@
+{
+  "schema_version": "stage1_v5_training_only_shrinkage_control_nas_binding_v1",
+  "source_label_recorder_id": "54bf06d027dc44bc805b87a659558dd6",
+  "evidence": {
+    "sha256": "670f282d0df31107706eef76a73a54cb27d061c883d981b441cedcfe61055a4a",
+    "size_bytes": 2468143,
+    "media_type": "application/gzip",
+    "storage_uri": "sha256/67/0f/670f282d0df31107706eef76a73a54cb27d061c883d981b441cedcfe61055a4a",
+    "uploaded_by": "soxl-minute-research",
+    "created_at": "2026-10-30 12:31:37.239181+08",
+    "duplicate": false,
+    "nas_path": "/volume1/docker/yanxuan/registry/research-artifacts/67/0f/670f282d0df31107706eef76a73a54cb27d061c883d981b441cedcfe61055a4a",
+    "recorder_id": "cc5eddb451714fffb49f42961000adb5",
+    "experiment_id": "632444243825195187",
+    "archive_root": "qlib_recorder"
+  }
+}

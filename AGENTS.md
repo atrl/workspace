@@ -306,6 +306,20 @@ independent forward evidence remains a separate contract-v2 promotion gate.
   candidate account or SOXX pass. First freeze a control/calibration rule
   based only on2018/2019 training information before using2020 residuals
   to propose any new source-known mechanism.
+- The training-only shrinkage control is
+  `research/stage1_v5_training_only_shrinkage_control_20261030`: an inner
+  176-day fit and127-day 2019 validation chose lambda0 from the frozen
+  {0,.25,.5,1} grid; larger weights on the ordinary-minute Ridge increased
+  validation MSE. A final 304-day fit evaluated2020 once: shrunk control and
+  train-day mean constant both had dayweighted MSE1.240507e-8, while raw
+  Ridge had1.798565e-8. The preregistered strict-improvement control gate
+  failed, so there is no qualified SOXL-minus-SOXX residual from this fixed
+  input/Ridge receiver. Three prefit setup errors were preserved; exactly
+  two planned fits ran. Qlib model/prediction and NAS scoped readback passed.
+  Do not retune lambda/years/features on2020 or call this proof that all
+  minute data lack information. Next assess the distinct SOXX-versus-HOLD
+  cash-deployment economic target against closed old-cap/next-reset routes
+  before any fit; no candidate full account or SOXX pass occurred.
   Keep 2023+ outcomes out of feature/window/sign selection.
   This v5 document is **not yet a fit-ready model contract**: its few legal
   HOLD/buy/rotation actions are source and information controls, not a

@@ -1,0 +1,60 @@
+{
+  "experiment": "stage1_v5_training_only_shrinkage_control_20261030",
+  "plan_sha256": "e6bd46bef607abdc828bf258a1fab47066d1304ac32526b8dc5c61724948cd4e",
+  "decision": "not_admitted_training_only_shrinkage_control_failed_constant",
+  "metrics": {
+    "selected_lambda": 0.0,
+    "inner_train_days": 176,
+    "inner_validation_days": 127,
+    "outer_train_days": 304,
+    "outer_eval_days": 242,
+    "inner_scores": {
+      "0": 3.6352729990409826e-09,
+      "0.25": 3.810467123600292e-09,
+      "0.5": 4.180812625552748e-09,
+      "1.0": 5.506957761637107e-09
+    },
+    "outer_constant_day_mse": 1.240507273275426e-08,
+    "outer_raw_ridge_day_mse": 1.7985649084532578e-08,
+    "outer_shrunk_day_mse": 1.240507273275426e-08,
+    "raw_saved_prediction_max_error": 0.0,
+    "control_residual_qualified": false
+  },
+  "new_model_fits": 2,
+  "new_native_accounts": 0,
+  "historical_research_passed": false,
+  "recorder_id": "cc5eddb451714fffb49f42961000adb5",
+  "experiment_id": "632444243825195187",
+  "recorder_uri": "/Users/rziiiii/dev/workspace/research/stage1_v5_training_only_shrinkage_control_20261030/qlib_recorder",
+  "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/stage1_v5_training_only_shrinkage_control_20261030/qlib_recorder/632444243825195187/cc5eddb451714fffb49f42961000adb5",
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "inputs/*",
+      "models/*",
+      "analysis/*"
+    ]
+  },
+  "limitations": [
+    "Lambda was selected on 2019 inner validation, not2020; 2020 is reused development feedback.",
+    "2021/2022 labels were not evaluated.",
+    "Funded-pair conditioning is not a live-intent policy."
+  ],
+  "archive_status": "nas_receipt_and_scoped_readback_verified",
+  "nas_evidence": {
+    "sha256": "670f282d0df31107706eef76a73a54cb27d061c883d981b441cedcfe61055a4a",
+    "size_bytes": 2468143,
+    "media_type": "application/gzip",
+    "storage_uri": "sha256/67/0f/670f282d0df31107706eef76a73a54cb27d061c883d981b441cedcfe61055a4a",
+    "uploaded_by": "soxl-minute-research",
+    "created_at": "2026-10-30 12:31:37.239181+08",
+    "duplicate": false,
+    "nas_path": "/volume1/docker/yanxuan/registry/research-artifacts/67/0f/670f282d0df31107706eef76a73a54cb27d061c883d981b441cedcfe61055a4a",
+    "recorder_id": "cc5eddb451714fffb49f42961000adb5",
+    "experiment_id": "632444243825195187",
+    "archive_root": "qlib_recorder"
+  },
+  "nas_scoped_readback": "nas_scoped_readback.json",
+  "archive_status_updated_after_recorder_summary": true
+}

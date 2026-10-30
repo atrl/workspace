@@ -1,0 +1,7 @@
+{
+  "status": "preflight_failed_before_qlib_object_read_or_model_fit",
+  "error": "old control source archive digest omitted from plan binding",
+  "plan_sha256_before_repair": "bfecdad53f66baededf1faf05b98358b2e2acede783980e5d85e1931ac9333f6",
+  "plan_sha256_after_repair": "e6bd46bef607abdc828bf258a1fab47066d1304ac32526b8dc5c61724948cd4e",
+  "model_fits_consumed": 0
+}

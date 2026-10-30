@@ -1,0 +1,10 @@
+{
+  "status": "passed",
+  "archive_sha256": "670f282d0df31107706eef76a73a54cb27d061c883d981b441cedcfe61055a4a",
+  "selected_artifacts": {
+    "models/final_control": "c2e23e2d82b3ef468f08c46e6bb66ba739a4dc5bd823fb2b5f83fa3f3c5d67b6",
+    "analysis/predictions": "a18b565ac50c6dd3e44f150f531b475d01827443f2f0f8aeaea7e8d814ad5e19",
+    "analysis/summary": "9d91a88f3962b0eb9265ffd509ef3d41f8ce47bf482c94177ba6ed9f34383461"
+  },
+  "recorder_id": "cc5eddb451714fffb49f42961000adb5"
+}

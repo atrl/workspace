@@ -1,0 +1,6 @@
+{
+  "status": "preflight_failed_before_qlib_object_read_or_model_fit",
+  "error": "notebook copied prior control_source key; plan uses old_control_source",
+  "plan_sha256": "bfecdad53f66baededf1faf05b98358b2e2acede783980e5d85e1931ac9333f6",
+  "model_fits_consumed": 0
+}
