@@ -374,6 +374,20 @@ independent forward evidence remains a separate contract-v2 promotion gate.
   decision-known 2018–2022 inputs to test whether it distinguishes both
   cash and SOXL-relative path value across these opposite regimes; do not
   select a 2023+ outcome window or reuse stopped trend/VIX/price paths.
+- The fixed v5 joint-negative state-match card is
+  `research/stage1_v5_oof_joint_state_match_20261030`. In 558 discovery
+  days from 2018–2020, the *same day* had both cash opportunity and SOXL
+  selection negative only0/5/6 days by year. After prespecified matching
+  within year by prior SOXX20 return sign and known opening risk-state flag,
+  no cell has the required10 weak and10 stronger independent days; 2019's
+  five weak days occupy a different state cell from most2020 weak days.
+  The94 overlapping rolling126 windows with both cumulative components
+  negative are not94 independent same-day labels. Close this rare binary
+  joint-event feature version without relaxing cell support or using
+  2021/2022/2023+ outcomes to choose a VIX/trend threshold. No model fit or
+  account ran. Next evaluate cash and SOXL-relative **continuous amounts**
+  separately but under one own-state risk/wealth objective, after exact
+  closed-route and source-time review; do not automatically retrain them.
   Keep 2023+ outcomes out of feature/window/sign selection.
   This v5 document is **not yet a fit-ready model contract**: its few legal
   HOLD/buy/rotation actions are source and information controls, not a

@@ -1,0 +1,65 @@
+{
+  "experiment": "stage1_v5_oof_joint_state_match_20261030",
+  "schema_version": "stage1_v5_oof_joint_state_match_v1",
+  "frozen": true,
+  "type": "read_only_development_joint_loss_state_matching_no_feature_selection",
+  "component_source": {
+    "card": "research/stage1_v5_oof_cash_selection_components_20261030",
+    "recorder_id": "240945b6fe474524b4feff43ad7f2b6e",
+    "summary_sha256": "25e557c42650afb915d56455e42b622fc0893e3ac7c367809ccd4f6a04e2fbb9",
+    "manifest_sha256": "a6d17253be0f4e54a329078ff729dbeeca1fe018fa8c530fd7f5103ab280532b",
+    "nas_archive_sha256": "025371fda28299f87dea035b614f1307c14a1b1d5bb8f39056373c38e3537c04"
+  },
+  "frame_source": {
+    "card": "research/stage1_f696_exact_parent_training_reference_20261027",
+    "recorder_id": "748eb4209e314fb6a6c41c19498d6d03",
+    "summary_sha256": "8c0d00825fd7aa0177e4578face924fe8a3159898a5915a4c5cac26f20877cc2",
+    "manifest_sha256": "d0c696c91179e005c7859bac28b418ff827aa53c7005cf560d329f0896eb5618",
+    "nas_archive_sha256": "db1ae7040439b69ba4a264f00741a625e9c432cefe08a2d770d374b51d3591c8"
+  },
+  "provider_uri": "data/qlib/full_path_tiered_allocation_20261013",
+  "provider_manifest_sha256": "3a3d6f4e248d6016ea25a140587abb65fba0d8a346e45da402414095df772223",
+  "discovery_years": [
+    2018,
+    2019,
+    2020
+  ],
+  "reserved_years": [
+    2021,
+    2022
+  ],
+  "weak_label": "same-day cash_log<0 and soxl_selection_log<0",
+  "strong_label": "same-day paired_log_excess>0 and not weak",
+  "match_cells": [
+    "calendar_year",
+    "prior_soxx_ret20_sign",
+    "predecision_risk_state_nonzero"
+  ],
+  "minimum_each_class_per_cell": 10,
+  "preselected_coordinates": [
+    "soxl_ret3",
+    "soxx_ret5",
+    "soxx_ret20",
+    "soxx_vol20",
+    "soxx_drawdown60",
+    "vix",
+    "cross_breadth_pos_20",
+    "relative_momentum20",
+    "minute_soxx_rebound_from_low",
+    "alpha_probability",
+    "tail_probability",
+    "soxl_weight",
+    "soxx_weight",
+    "cash_weight",
+    "opening_cash_weight"
+  ],
+  "interpretation": "Matching on known state and outcome groups is descriptive. Feature differences are not selected signals or tradable thresholds. Keep 2021/2022 outcomes unread.",
+  "budget": {
+    "new_market_requests": 0,
+    "new_model_fits": 0,
+    "new_native_accounts": 0,
+    "new_recorders": 0
+  },
+  "stop": "If exact source identity or feature timing fails, stop. If matched cells lack support, report support failure; do not change class/matching thresholds or choose a feature from held years.",
+  "as_of": "2026-10-30"
+}

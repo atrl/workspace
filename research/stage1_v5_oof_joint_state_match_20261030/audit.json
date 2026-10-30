@@ -1,0 +1,53 @@
+{
+  "experiment": "stage1_v5_oof_joint_state_match_20261030",
+  "plan_sha256": "ac8eca5d2bbdcc622250d9c6372011828cc6426ff06f24b32d622fd279e07115",
+  "decision": "matched_state_support_failed_no_feature_admission",
+  "source_readback_entries": {
+    "components": 13,
+    "frame": 13
+  },
+  "discovery_years": [
+    2018,
+    2019,
+    2020
+  ],
+  "reserved_years_not_evaluated": [
+    2021,
+    2022
+  ],
+  "year_counts": [
+    {
+      "year": 2018,
+      "days": 53,
+      "weak_days": 0,
+      "strong_days": 24,
+      "both_negative_cash_selection_days": 0
+    },
+    {
+      "year": 2019,
+      "days": 252,
+      "weak_days": 5,
+      "strong_days": 132,
+      "both_negative_cash_selection_days": 5
+    },
+    {
+      "year": 2020,
+      "days": 253,
+      "weak_days": 6,
+      "strong_days": 130,
+      "both_negative_cash_selection_days": 6
+    }
+  ],
+  "matched_cells": 0,
+  "matched_weak_days_with_duplicates": 0,
+  "matched_strong_days_with_duplicates": 0,
+  "coordinate_summary": [],
+  "new_model_fits": 0,
+  "new_native_accounts": 0,
+  "candidate_feature_selected": false,
+  "limits": [
+    "Outcome-defined weak/strong groups and matching are descriptive, not a tradable switch.",
+    "Daily signs are short-horizon physical account components; 931 rolling windows overlap.",
+    "2018 partial sample and 2020 recovery residual require separate reporting; 2021/2022 outcomes not inspected."
+  ]
+}
