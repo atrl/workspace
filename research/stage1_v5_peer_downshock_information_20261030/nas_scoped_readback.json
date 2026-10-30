@@ -1,0 +1,15 @@
+{
+  "status": "passed",
+  "archive_sha256": "b89b9608e77ca551dbaa137ffff100b3997dcd102f8b5298a170445a5a8f8f60",
+  "receipt_size_bytes": 8071144,
+  "recorder_id": "bfd3400477d24a838181e97e01c6ebba",
+  "selected_artifacts": {
+    "models/control_soxl": "df3bf0ca99b90279c5bf404079cd12ff232ea27a05ecce4dd7c980724ada27d5",
+    "models/control_soxx": "a6b87c2bf6747789b861d0055fe4617241867d2a5df71cfb25cb2f4ac6f5189c",
+    "models/candidate_soxl": "239f680623a48b52ad8928d71fdeb4c0540be0edc5bb3c7c1705c075929c7d32",
+    "models/candidate_soxx": "88279ece4d43e0b30d83243f14e6260dfc602e5cf9533488dc1c4678694b5c98",
+    "analysis/predictions": "33513bce98a8b2c31577a5a3ddd66ff1a80b32e17e46ce08c519fd1dc8c4cbcc",
+    "analysis/daily_actions": "034e494c1c13ac5b635da9970dd8bee63f7569c9fd4db4f0f0a2cdd4a2aacfd3",
+    "analysis/audit": "a00e9930fcf0c316beb6a77acec2264bd8ba6e637eb3c459df3dcea04ca865b8"
+  }
+}

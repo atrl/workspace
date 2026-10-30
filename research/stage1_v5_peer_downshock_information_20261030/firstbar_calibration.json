@@ -1,0 +1,80 @@
+{
+  "source_information_recorder_id": "bfd3400477d24a838181e97e01c6ebba",
+  "source_label_recorder_id": "b85e80ab42fa4d9c83c6c9667114fd5d",
+  "firstbar_days": 494,
+  "quarterly": [
+    {
+      "quarter": "2021Q1",
+      "days": 61,
+      "candidate_soxx_pred_mean_bp": 25.772081823263772,
+      "control_soxx_pred_mean_bp": 25.776227735872844,
+      "actual_soxx_value_mean_bp": 11.879536549493178,
+      "fee_mean_bp": 0.020545127039668522,
+      "candidate_overprediction_mean_bp": 13.8925452737706
+    },
+    {
+      "quarter": "2021Q2",
+      "days": 63,
+      "candidate_soxx_pred_mean_bp": 34.43386262573051,
+      "control_soxx_pred_mean_bp": 34.43252888146763,
+      "actual_soxx_value_mean_bp": 1.4127862506698483,
+      "fee_mean_bp": 0.019871899360666245,
+      "candidate_overprediction_mean_bp": 33.02107637506067
+    },
+    {
+      "quarter": "2021Q3",
+      "days": 64,
+      "candidate_soxx_pred_mean_bp": 14.012901130300255,
+      "control_soxx_pred_mean_bp": 14.011758081047383,
+      "actual_soxx_value_mean_bp": -0.2684495439570815,
+      "fee_mean_bp": 0.018491686589816415,
+      "candidate_overprediction_mean_bp": 14.28135067425734
+    },
+    {
+      "quarter": "2021Q4",
+      "days": 64,
+      "candidate_soxx_pred_mean_bp": -23.819999075503606,
+      "control_soxx_pred_mean_bp": -23.81497588640433,
+      "actual_soxx_value_mean_bp": 17.152119223925272,
+      "fee_mean_bp": 0.01687908305207639,
+      "candidate_overprediction_mean_bp": -40.97211829942888
+    },
+    {
+      "quarter": "2022Q1",
+      "days": 62,
+      "candidate_soxx_pred_mean_bp": 16.156982308250548,
+      "control_soxx_pred_mean_bp": 16.168054643570102,
+      "actual_soxx_value_mean_bp": -12.268312652666694,
+      "fee_mean_bp": 0.017875523451774445,
+      "candidate_overprediction_mean_bp": 28.42529496091725
+    },
+    {
+      "quarter": "2022Q2",
+      "days": 62,
+      "candidate_soxx_pred_mean_bp": 91.74812847504657,
+      "control_soxx_pred_mean_bp": 91.75007906676092,
+      "actual_soxx_value_mean_bp": -20.859123180257377,
+      "fee_mean_bp": 0.0203465459386877,
+      "candidate_overprediction_mean_bp": 112.60725165530398
+    },
+    {
+      "quarter": "2022Q3",
+      "days": 64,
+      "candidate_soxx_pred_mean_bp": 142.5470341458007,
+      "control_soxx_pred_mean_bp": 142.5499322265892,
+      "actual_soxx_value_mean_bp": 0.6058912177091608,
+      "fee_mean_bp": 0.021341109650654513,
+      "candidate_overprediction_mean_bp": 141.94114292809152
+    },
+    {
+      "quarter": "2022Q4",
+      "days": 54,
+      "candidate_soxx_pred_mean_bp": 190.8231398110561,
+      "control_soxx_pred_mean_bp": 190.827598708536,
+      "actual_soxx_value_mean_bp": 6.53255236845502,
+      "fee_mean_bp": 0.022350684511156647,
+      "candidate_overprediction_mean_bp": 184.29058744260107
+    }
+  ],
+  "no_new_fits_or_accounts": true
+}

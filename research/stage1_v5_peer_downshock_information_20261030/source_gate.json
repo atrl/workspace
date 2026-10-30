@@ -1,0 +1,48 @@
+{
+  "experiment": "stage1_v5_peer_downshock_information_20261030",
+  "plan_sha256": "714e20047eed5c1f976d7cf5f306da9303ac2fb31083778058afc437de7205a2",
+  "core_source": {
+    "rows": 385932,
+    "maximum_decision_nav_error_usd": 5.820766091346741e-11,
+    "minute_features_available_rows": 385932
+  },
+  "peer_source": {
+    "rows": 385932,
+    "maximum_peer_age_minutes": 4.0,
+    "annual": [
+      {
+        "year": 2018,
+        "rows": 19091,
+        "days": 53,
+        "max_peer_age_minutes": 4.0
+      },
+      {
+        "year": 2019,
+        "rows": 91944,
+        "days": 252,
+        "max_peer_age_minutes": 4.0
+      },
+      {
+        "year": 2020,
+        "rows": 92491,
+        "days": 253,
+        "max_peer_age_minutes": 4.0
+      },
+      {
+        "year": 2021,
+        "rows": 92304,
+        "days": 252,
+        "max_peer_age_minutes": 4.0
+      },
+      {
+        "year": 2022,
+        "rows": 90102,
+        "days": 246,
+        "max_peer_age_minutes": 4.0
+      }
+    ],
+    "historical_first_receipt_qualified": false
+  },
+  "source_pass": true,
+  "reused_2021_2022_economic_values_accessed_before_fit": false
+}

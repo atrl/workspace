@@ -1,0 +1,8 @@
+{
+  "status": "stopped_before_model_fit_or_held_value_use",
+  "reason": "core feature builder received peer control columns before Qlib peer-asof join",
+  "plan_sha256": "c0ff960883a1f2cdbb853ecbf27795e5061e79a6f1bfd0121d7dfb0b5afb95e2",
+  "qlib_provider_reads": 2,
+  "new_model_fits": 0,
+  "new_accounts": 0
+}

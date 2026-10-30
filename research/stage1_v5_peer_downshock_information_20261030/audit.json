@@ -1,0 +1,189 @@
+{
+  "experiment": "stage1_v5_peer_downshock_information_20261030",
+  "plan_sha256": "714e20047eed5c1f976d7cf5f306da9303ac2fb31083778058afc437de7205a2",
+  "peer_code_sha256": "d01782053db1b9a93ab6fd76f087cf4efb5fa9248ba8a4cbbf7860842207389a",
+  "source_gate_pass": true,
+  "train_rows": 200403,
+  "train_days": 549,
+  "evaluation_rows": 180938,
+  "evaluation_days": 494,
+  "metrics": [
+    {
+      "model": "control",
+      "target": "soxl_value",
+      "year": 2021,
+      "days": 252,
+      "day_mse": 2.111215680596939e-05,
+      "train_mean_mse": 1.2022830468401984e-05
+    },
+    {
+      "model": "control",
+      "target": "soxl_value",
+      "year": 2022,
+      "days": 242,
+      "day_mse": 0.00018242843727108875,
+      "train_mean_mse": 3.0208267843215525e-05
+    },
+    {
+      "model": "candidate",
+      "target": "soxl_value",
+      "year": 2021,
+      "days": 252,
+      "day_mse": 2.11094294808157e-05,
+      "train_mean_mse": 1.2022830468401984e-05
+    },
+    {
+      "model": "candidate",
+      "target": "soxl_value",
+      "year": 2022,
+      "days": 242,
+      "day_mse": 0.0001824182578626786,
+      "train_mean_mse": 3.0208267843215525e-05
+    },
+    {
+      "model": "control",
+      "target": "soxx_value",
+      "year": 2021,
+      "days": 252,
+      "day_mse": 2.1325801903917492e-05,
+      "train_mean_mse": 1.1808141515234518e-05
+    },
+    {
+      "model": "control",
+      "target": "soxx_value",
+      "year": 2022,
+      "days": 242,
+      "day_mse": 0.00018925438990656288,
+      "train_mean_mse": 3.088069779777925e-05
+    },
+    {
+      "model": "candidate",
+      "target": "soxx_value",
+      "year": 2021,
+      "days": 252,
+      "day_mse": 2.132647992771781e-05,
+      "train_mean_mse": 1.1808141515234518e-05
+    },
+    {
+      "model": "candidate",
+      "target": "soxx_value",
+      "year": 2022,
+      "days": 242,
+      "day_mse": 0.0001892568730964315,
+      "train_mean_mse": 3.088069779777925e-05
+    }
+  ],
+  "candidate_soxx_added_coefficient": 1.4388510333689415e-06,
+  "relative_soxl_minus_soxx_added_coefficient": -7.4537067678416526e-06,
+  "prediction_changed_rows": 180938,
+  "same_model_zero_score_changed_rows": 88070,
+  "annual_actions": [
+    {
+      "year": 2021,
+      "days": 252,
+      "control_action_days": 197,
+      "candidate_action_days": 197,
+      "candidate_control_action_changed_days": 4,
+      "same_model_zero_action_changed_days": 7,
+      "control_value_sum": 0.12596512095325169,
+      "candidate_value_sum": 0.1261350421675255,
+      "candidate_minus_control_value_sum": 0.00016992121427380916,
+      "candidate_minus_control_tail_damage_sum": 0.0002892209347067354
+    },
+    {
+      "year": 2022,
+      "days": 242,
+      "control_action_days": 231,
+      "candidate_action_days": 231,
+      "candidate_control_action_changed_days": 1,
+      "same_model_zero_action_changed_days": 1,
+      "control_value_sum": -0.10991590784606234,
+      "candidate_value_sum": -0.10975510627986057,
+      "candidate_minus_control_value_sum": 0.00016080156620176464,
+      "candidate_minus_control_tail_damage_sum": -0.0004476466110457933
+    }
+  ],
+  "quarter_actions": [
+    {
+      "quarter": "2021Q1",
+      "days": 61,
+      "candidate_value_sum": 0.07096631677437748,
+      "control_value_sum": 0.07096631677437748,
+      "candidate_minus_control_value_sum": 0.0,
+      "candidate_minus_control_tail_sum": 0.0
+    },
+    {
+      "quarter": "2021Q2",
+      "days": 63,
+      "candidate_value_sum": 0.007769919449308169,
+      "control_value_sum": 0.007926022204368633,
+      "candidate_minus_control_value_sum": -0.00015610275506046432,
+      "candidate_minus_control_tail_sum": 5.78435947178324e-05
+    },
+    {
+      "quarter": "2021Q3",
+      "days": 64,
+      "candidate_value_sum": 0.005548133446940977,
+      "control_value_sum": 0.005222109477606704,
+      "candidate_minus_control_value_sum": 0.0003260239693342735,
+      "candidate_minus_control_tail_sum": 0.00023137733998890297
+    },
+    {
+      "quarter": "2021Q4",
+      "days": 64,
+      "candidate_value_sum": 0.041850672496898854,
+      "control_value_sum": 0.041850672496898854,
+      "candidate_minus_control_value_sum": 0.0,
+      "candidate_minus_control_tail_sum": 0.0
+    },
+    {
+      "quarter": "2022Q1",
+      "days": 62,
+      "candidate_value_sum": -0.019742830711462316,
+      "control_value_sum": -0.019742830711462316,
+      "candidate_minus_control_value_sum": 0.0,
+      "candidate_minus_control_tail_sum": 0.0
+    },
+    {
+      "quarter": "2022Q2",
+      "days": 62,
+      "candidate_value_sum": -0.12916576215139397,
+      "control_value_sum": -0.12932656371759574,
+      "candidate_minus_control_value_sum": 0.00016080156620176464,
+      "candidate_minus_control_tail_sum": -0.0004476466110457933
+    },
+    {
+      "quarter": "2022Q3",
+      "days": 64,
+      "candidate_value_sum": 0.003877703793338629,
+      "control_value_sum": 0.003877703793338629,
+      "candidate_minus_control_value_sum": 0.0,
+      "candidate_minus_control_tail_sum": 0.0
+    },
+    {
+      "quarter": "2022Q4",
+      "days": 54,
+      "candidate_value_sum": 0.03527578278965711,
+      "control_value_sum": 0.03527578278965711,
+      "candidate_minus_control_value_sum": 0.0,
+      "candidate_minus_control_tail_sum": 0.0
+    }
+  ],
+  "candidate_control_block_lower": -1.0346829105277198e-06,
+  "gates": {
+    "control_beats_training_mean": false,
+    "candidate_beats_control_mse": false,
+    "soxx_added_coefficient_positive": true,
+    "candidate_control_funded_action_change": false,
+    "same_model_zero_action_change": false,
+    "candidate_control_value_positive_each_year": true,
+    "candidate_hold_value_positive_each_year": false,
+    "candidate_control_block_lower_positive": false,
+    "candidate_tail_damage_not_worse_each_year": false
+  },
+  "information_gate_pass": false,
+  "new_model_fits": 4,
+  "new_candidate_accounts": 0,
+  "historical_research_passed": false,
+  "decision": "not_promoted_fixed_conditional_peer_downshock_information_failed"
+}

@@ -693,6 +693,25 @@ independent forward evidence remains a separate contract-v2 promotion gate.
   No held2021/2022 economic values, fits or SOXX account. Freeze source
   coverage on held years and one fixed conditional-feature information gate
   before any economic claim.
+- The fixed same-day QQQ-down/SMH-resilience five-session information
+  version is closed in `research/stage1_v5_peer_downshock_information_20261030`.
+  Qlib source clock covers all385932 2018–2022 decision intents, peer bar age
+  <=4min, but true first receipt remains unknown. Four DatasetH/Ridge heads
+  trained on200403 mature2018–2020 rows/549 days and evaluated reused
+  2021/2022 180938 rows/494 days. Matched control included original39,
+  own state, ordinary ETF minute data, prior failed own-drawdown, old three-
+  peer breadth, current QQQ5m return and unconditional SMH-QQQ gap; only the
+  downside-conditional gap was added. SOXX coefficient +1.44e-6 and scores
+  change, but first funded actions differ4/1 days (same-model zero7/1),
+  candidate SOXX MSE worsens both years, all head MSE loses to training-mean
+  constant, candidate2022 local value vsHOLD is-0.109755, 10-session block
+  lower-1.03e-6, and2021 tail damage worsens. In2022Q2 candidate acts09:48
+  on62/62 days and keeps SOXX on61; mean first SOXX score+91.748bp versus
+  realized-20.859bp and fee0.020bp. 2021Q3 small gain and2021Q2 damage
+  do not authorize hindsight switching. NAS archive and seven-object scoped
+  readback passed. Close this fixed condition/sign/window/model on reused
+  2021/2022 history, no continuous allocator or2023+ account. Goal active,
+  candidate admission needs a materially different decision-time mechanism.
 - The historical old-cap joint capacity/asset-choice card is
   `docs/stage1_event_capacity_choice_implementation_20261029.md`. Its first
   read-only minute source/whole-share gate is

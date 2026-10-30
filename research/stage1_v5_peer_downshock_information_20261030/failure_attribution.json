@@ -1,0 +1,152 @@
+{
+  "source_recorder_id": "bfd3400477d24a838181e97e01c6ebba",
+  "source_daily_actions_sha256": "034e494c1c13ac5b635da9970dd8bee63f7569c9fd4db4f0f0a2cdd4a2aacfd3",
+  "quarters": [
+    {
+      "quarter": "2021Q1",
+      "days": 61,
+      "candidate_arm_counts": {
+        "SOXX": 54,
+        "HOLD": 7
+      },
+      "control_arm_counts": {
+        "SOXX": 54,
+        "HOLD": 7
+      },
+      "candidate_first_0948_action_days": 48,
+      "changed_days": 0,
+      "candidate_value_sum": 0.07096631677437748,
+      "control_value_sum": 0.07096631677437748,
+      "candidate_control_value_sum": 0.0,
+      "candidate_control_tail_sum": 0.0
+    },
+    {
+      "quarter": "2021Q2",
+      "days": 63,
+      "candidate_arm_counts": {
+        "SOXX": 50,
+        "SOXL": 13
+      },
+      "control_arm_counts": {
+        "SOXX": 51,
+        "SOXL": 12
+      },
+      "candidate_first_0948_action_days": 63,
+      "changed_days": 1,
+      "candidate_value_sum": 0.007769919449308169,
+      "control_value_sum": 0.007926022204368633,
+      "candidate_control_value_sum": -0.00015610275506046432,
+      "candidate_control_tail_sum": 5.78435947178324e-05
+    },
+    {
+      "quarter": "2021Q3",
+      "days": 64,
+      "candidate_arm_counts": {
+        "SOXX": 54,
+        "SOXL": 9,
+        "HOLD": 1
+      },
+      "control_arm_counts": {
+        "SOXX": 51,
+        "SOXL": 12,
+        "HOLD": 1
+      },
+      "candidate_first_0948_action_days": 59,
+      "changed_days": 3,
+      "candidate_value_sum": 0.005548133446940977,
+      "control_value_sum": 0.005222109477606704,
+      "candidate_control_value_sum": 0.0003260239693342735,
+      "candidate_control_tail_sum": 0.00023137733998890297
+    },
+    {
+      "quarter": "2021Q4",
+      "days": 64,
+      "candidate_arm_counts": {
+        "HOLD": 47,
+        "SOXL": 15,
+        "SOXX": 2
+      },
+      "control_arm_counts": {
+        "HOLD": 47,
+        "SOXL": 15,
+        "SOXX": 2
+      },
+      "candidate_first_0948_action_days": 16,
+      "changed_days": 0,
+      "candidate_value_sum": 0.041850672496898854,
+      "control_value_sum": 0.041850672496898854,
+      "candidate_control_value_sum": 0.0,
+      "candidate_control_tail_sum": 0.0
+    },
+    {
+      "quarter": "2022Q1",
+      "days": 62,
+      "candidate_arm_counts": {
+        "SOXX": 50,
+        "HOLD": 11,
+        "SOXL": 1
+      },
+      "control_arm_counts": {
+        "SOXX": 50,
+        "HOLD": 11,
+        "SOXL": 1
+      },
+      "candidate_first_0948_action_days": 48,
+      "changed_days": 0,
+      "candidate_value_sum": -0.019742830711462316,
+      "control_value_sum": -0.019742830711462316,
+      "candidate_control_value_sum": 0.0,
+      "candidate_control_tail_sum": 0.0
+    },
+    {
+      "quarter": "2022Q2",
+      "days": 62,
+      "candidate_arm_counts": {
+        "SOXX": 61,
+        "SOXL": 1
+      },
+      "control_arm_counts": {
+        "SOXX": 62
+      },
+      "candidate_first_0948_action_days": 62,
+      "changed_days": 1,
+      "candidate_value_sum": -0.12916576215139397,
+      "control_value_sum": -0.12932656371759574,
+      "candidate_control_value_sum": 0.00016080156620176464,
+      "candidate_control_tail_sum": -0.0004476466110457933
+    },
+    {
+      "quarter": "2022Q3",
+      "days": 64,
+      "candidate_arm_counts": {
+        "SOXX": 64
+      },
+      "control_arm_counts": {
+        "SOXX": 64
+      },
+      "candidate_first_0948_action_days": 64,
+      "changed_days": 0,
+      "candidate_value_sum": 0.003877703793338629,
+      "control_value_sum": 0.003877703793338629,
+      "candidate_control_value_sum": 0.0,
+      "candidate_control_tail_sum": 0.0
+    },
+    {
+      "quarter": "2022Q4",
+      "days": 54,
+      "candidate_arm_counts": {
+        "SOXX": 54
+      },
+      "control_arm_counts": {
+        "SOXX": 54
+      },
+      "candidate_first_0948_action_days": 54,
+      "changed_days": 0,
+      "candidate_value_sum": 0.03527578278965711,
+      "control_value_sum": 0.03527578278965711,
+      "candidate_control_value_sum": 0.0,
+      "candidate_control_tail_sum": 0.0
+    }
+  ],
+  "scope": "reused2021/22 fixed local first-action screen, not own-state account"
+}
