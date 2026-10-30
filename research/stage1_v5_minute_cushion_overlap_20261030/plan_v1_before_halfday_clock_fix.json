@@ -1,0 +1,49 @@
+{
+  "experiment": "stage1_v5_minute_cushion_overlap_20261030",
+  "frozen": true,
+  "kind": "read_only_minute_own_drawdown_source_and_route_overlap",
+  "parent": {
+    "card": "research/stage1_f696_oof_training_reference_20261028",
+    "recorder_id": "2994f6afbfc54f279cefec362b220001",
+    "summary_sha256": "00f276f2fe3e5641642a6f864e5e85da968599286aa8e9202a2d445cdf193584",
+    "manifest_sha256": "8699fd57be85d3b4b330f529e73612c8cc52967b5e7c3e8c0682c622c6e70f54",
+    "nas_archive_sha256": "e773cd3edf42b9ff9826270b70fdb9f9e90f4737e35f4d158ef0f5fcf5a4e9dd"
+  },
+  "frame": {
+    "card": "research/stage1_f696_exact_parent_training_reference_20261027",
+    "recorder_id": "748eb4209e314fb6a6c41c19498d6d03",
+    "summary_sha256": "8c0d00825fd7aa0177e4578face924fe8a3159898a5915a4c5cac26f20877cc2",
+    "manifest_sha256": "d0c696c91179e005c7859bac28b418ff827aa53c7005cf560d329f0896eb5618",
+    "nas_archive_sha256": "db1ae7040439b69ba4a264f00741a625e9c432cefe08a2d770d374b51d3591c8"
+  },
+  "minute_provider_uri": "data/qlib/stage1_event_guard_fullminute_20261028",
+  "minute_provider_manifest_sha256": "e9ab78e4e8fca7b70a5ccc27074893414a1308f13a4d37c3174c1690827db1e0",
+  "discovery_years": [
+    2018,
+    2019,
+    2020
+  ],
+  "reserved_years": [
+    2021,
+    2022
+  ],
+  "account_clock": "reconstruct prior high-water peak from parent target known_equity and actual 16:00 position close; at each completed minute use actual post-09:47 or post-10:32 position and adjusted Qlib close; do not use future fills to decide a live action",
+  "comparator": "existing b472 opening ACTION_FEATURES portfolio_drawdown and prior fixed cushion_target_tiered account, plus v5 control risk_state/risk_clock/weights",
+  "metrics": [
+    "parent_open_drawdown_parity",
+    "within_day_minute_drawdown_range",
+    "difference_from_open",
+    "days_with_nonzero_range",
+    "recovery_day_separate",
+    "risk_state_category_nonidentifiability"
+  ],
+  "budget": {
+    "qlib_minute_reads": 1,
+    "new_model_fits": 0,
+    "new_native_accounts": 0,
+    "new_recorders": 0,
+    "new_market_requests": 0
+  },
+  "stop": "Any source hash or parent opening drawdown reconstruction mismatch above1e-8 stops; no future value labels or candidate account.",
+  "as_of": "2026-10-30"
+}

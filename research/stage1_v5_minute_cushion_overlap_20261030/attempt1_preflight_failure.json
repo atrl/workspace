@@ -1,0 +1,8 @@
+{
+  "attempt": 1,
+  "status": "stopped_before_metrics",
+  "reason": "assumed every source session closes at16:00 but Qlib native positions on2018-11-23 close at13:00; use actual session terminal position stamp",
+  "old_plan_sha256": "f7761af3bcf3906443a2edfa30acfd32eda8a8ea8f2f8d2ac66606eddaf6f65b",
+  "new_model_fits": 0,
+  "new_accounts": 0
+}

@@ -1,0 +1,90 @@
+{
+  "experiment": "stage1_v5_minute_cushion_overlap_20261030",
+  "plan_sha256": "d20a68631a4cc8451d60827581dc6f0e70673192ee67463541cbe7fa4ed6619e",
+  "decision": "minute_own_state_temporal_variation_source_pass_information_unproven",
+  "historical_research_passed": false,
+  "audit": "audit.json",
+  "first_attempt": "attempt1_preflight_failure.json",
+  "source_recorder_ids": {
+    "parent": "2994f6afbfc54f279cefec362b220001",
+    "frame": "748eb4209e314fb6a6c41c19498d6d03"
+  },
+  "metrics": {
+    "days": 558,
+    "minute_bars": 206874,
+    "max_parent_open_drawdown_error": 4.440892098500626e-16,
+    "recovery_days": 10,
+    "days_with_nonzero_minute_drawdown_range": 552,
+    "median_intraday_drawdown_range_pct_points": 1.2218207949221238,
+    "p90_intraday_drawdown_range_pct_points": 2.8344031308547457,
+    "days_minute_dd_differs_from_open_by_1pp": 267,
+    "by_risk_state": [
+      {
+        "risk_state": 0,
+        "days": 414,
+        "open_drawdown_min": 0.0,
+        "open_drawdown_max": 0.19269708004252828,
+        "median_minute_range_pp": 1.2028024738491738,
+        "days_open_to_minute_ge_1pp": 195
+      },
+      {
+        "risk_state": 1,
+        "days": 24,
+        "open_drawdown_min": 0.11347800477492653,
+        "open_drawdown_max": 0.1950576581450968,
+        "median_minute_range_pp": 0.40328755425436125,
+        "days_open_to_minute_ge_1pp": 2
+      },
+      {
+        "risk_state": 2,
+        "days": 60,
+        "open_drawdown_min": 0.06983861046397022,
+        "open_drawdown_max": 0.242068933121664,
+        "median_minute_range_pp": 0.9729249588065536,
+        "days_open_to_minute_ge_1pp": 25
+      },
+      {
+        "risk_state": 3,
+        "days": 60,
+        "open_drawdown_min": 0.03230865516096315,
+        "open_drawdown_max": 0.22625982403786682,
+        "median_minute_range_pp": 1.8558652784568808,
+        "days_open_to_minute_ge_1pp": 45
+      }
+    ],
+    "annual": [
+      {
+        "year": 2018,
+        "days": 53,
+        "median_range_pp": 1.2457686431888826,
+        "days_open_to_minute_ge_1pp": 29
+      },
+      {
+        "year": 2019,
+        "days": 252,
+        "median_range_pp": 1.2806501420049465,
+        "days_open_to_minute_ge_1pp": 117
+      },
+      {
+        "year": 2020,
+        "days": 253,
+        "median_range_pp": 1.194571290566715,
+        "days_open_to_minute_ge_1pp": 121
+      }
+    ]
+  },
+  "new_model_fits": 0,
+  "new_native_accounts": 0,
+  "new_recorders": 0,
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": []
+  },
+  "limitations": [
+    "Same raw dual-ETF minute prices; continuous drawdown was already an opening b472 feature, and direct fixed cushion allocation previously failed.",
+    "No action-value label, funded candidate, own-state counterfactual, or SOXX gate.",
+    "2021/2022 outcomes untouched; adjusted development price plane does not certify separate dividend receivables.",
+    "Historical minute first receipt and broker fills unqualified."
+  ]
+}

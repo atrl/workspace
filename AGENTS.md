@@ -419,6 +419,18 @@ independent forward evidence remains a separate contract-v2 promotion gate.
   historical 60-second receipt is assumed, not verified. Before fitting,
   check whether continuous own-account drawdown cushion is distinct from
   prior categorical risk-state/holding controls and older cushion routes.
+- The Qlib own-account minute drawdown overlap audit is
+  `research/stage1_v5_minute_cushion_overlap_20261030`: on 558
+  2018–2020 dated-parent days, 206874 valid post-open minutes reconstruct
+  opening drawdown within 4.44e-16. Intraday drawdown varies on 552 days;
+  267 days move at least 1 percentage point from opening. Risk-state=0
+  spans opening drawdown 0–19.27%. This is a later-clock transformation of
+  own holdings, cash, historical peak and existing pair prices, not a new raw
+  market channel. Existing b472 opening ACTION_FEATURES already includes
+  portfolio_drawdown, and the old fixed cushion target failed SOXX wealth.
+  A v5 minute path-value receiver is still untested; require a distinct
+  same-state path label and matched information gate before fitting or account.
+  Preserve the half-day clock correction receipt; 2021/2022 outcomes untouched.
 - The historical old-cap joint capacity/asset-choice card is
   `docs/stage1_event_capacity_choice_implementation_20261029.md`. Its first
   read-only minute source/whole-share gate is
