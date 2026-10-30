@@ -1,0 +1,71 @@
+{
+  "experiment": "stage1_v5_cash_label_route_identity_20261030",
+  "plan_sha256": "ffea37d1494c912e8131fb7ecc841a4e2da1087e777a86f9805685ad33f553fb",
+  "decision": "not_admitted_same_cash_direction_label",
+  "source_readback_entries": {
+    "old_source": 13,
+    "v5_source": 13
+  },
+  "discovery_years": [
+    2018,
+    2019,
+    2020
+  ],
+  "reserved_years_not_evaluated": [
+    2021,
+    2022
+  ],
+  "annual": [
+    {
+      "year": 2018,
+      "old_funded_rows": 8019,
+      "v5_soxx_funded_rows": 18114,
+      "shared_funded_rows": 7358,
+      "old_funded_days": 45,
+      "v5_soxx_funded_days": 53,
+      "shared_funded_days": 45,
+      "sign_agreement": 0.9762163631421582,
+      "normalized_spearman": 0.9927536870192564,
+      "old_mean_beta_increment": 0.010629306295974418,
+      "old_mean_local_value": -4.4328905119203606e-05,
+      "v5_mean_local_value": -0.00023628623596057662
+    },
+    {
+      "year": 2019,
+      "old_funded_rows": 41493,
+      "v5_soxx_funded_rows": 92051,
+      "shared_funded_rows": 41130,
+      "old_funded_days": 195,
+      "v5_soxx_funded_days": 252,
+      "shared_funded_days": 194,
+      "sign_agreement": 0.9676878191101386,
+      "normalized_spearman": 0.9950530135271521,
+      "old_mean_beta_increment": 0.013478697064652302,
+      "old_mean_local_value": 2.981380150011992e-05,
+      "v5_mean_local_value": 0.00024206699827557425
+    },
+    {
+      "year": 2020,
+      "old_funded_rows": 34816,
+      "v5_soxx_funded_rows": 86791,
+      "shared_funded_rows": 33654,
+      "old_funded_days": 182,
+      "v5_soxx_funded_days": 242,
+      "shared_funded_days": 179,
+      "sign_agreement": 0.9860343495572592,
+      "normalized_spearman": 0.996267667384276,
+      "old_mean_beta_increment": 0.022638990660264778,
+      "old_mean_local_value": 5.222672716929852e-05,
+      "v5_mean_local_value": 1.4414217604645545e-05
+    }
+  ],
+  "necessary_same_direction_gate": true,
+  "new_model_fits": 0,
+  "new_native_accounts": 0,
+  "new_recorders": 0,
+  "limits": [
+    "Shared funded rows condition on future next-bar fill and do not define a live event selection rule.",
+    "Old label resets at next open under original cap/cash floor; v5 is fixed-size cap-free before reset.",
+    "2021/2022 outcomes were not compared; no SOXX account or alpha evidence."
+  ]
+}

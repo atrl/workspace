@@ -1,0 +1,43 @@
+{
+  "experiment": "stage1_v5_cash_label_route_identity_20261030",
+  "schema_version": "stage1_v5_cash_label_route_identity_v1",
+  "frozen": true,
+  "type": "read_only_old_vs_v5_cash_value_overlap",
+  "old_source": {
+    "card": "research/stage1_intraday_cash_deployment_labels_20261028",
+    "recorder_id": "3d8bdf0b707c41128bd61c47c75b7314",
+    "summary_sha256": "6623fbe7eefd16ec45a955b317f3e720bdaaf5e72eed3f900c793ec5807afb42",
+    "manifest_sha256": "c8d1f5a8a88f9653ccea67a6533e61a18fda3a76c3d35c87aec6b14b0a200ca1",
+    "nas_status": "needs_nas_artifact_receipt_local_manifest_only"
+  },
+  "v5_source": {
+    "card": "research/stage1_v5_equal_beta_value_labels_20261030",
+    "recorder_id": "54bf06d027dc44bc805b87a659558dd6",
+    "summary_sha256": "e06d7d85d4777c407cf1bb760d5bd45ea79b25a5f9c9cfb7f0477501086492ab",
+    "manifest_sha256": "ff88a0e84ae49a9d91162960dd9a8d18d93b770a1fa11ffe602a8e1d25ad0a33",
+    "nas_archive_sha256": "09de9c27473fc795d13e93650d8bdbc4c73c6acde3a601ab8f4ee9579c1b16e9"
+  },
+  "discovery_years": [
+    2018,
+    2019,
+    2020
+  ],
+  "reserved_years": [
+    2021,
+    2022
+  ],
+  "join_key": [
+    "trade_date",
+    "bar_end_at"
+  ],
+  "comparison": "old funded next-open common-reset variable <=0.10 beta under original cap/cash15 versus v5 fixed+0.10 cap-free next-open no-reset SOXX-HOLD fee-net local value; compare same-event sign and Spearman after dividing each by its actual beta increment",
+  "necessary_distinction_gate": "If both2019 and2020 have >=90% sign agreement and >=0.90 normalized-value Spearman on shared funded events, close this as same economic direction unless a separately qualified new decision-time information mechanism exists. Failure of gate is not alpha; lower agreement only permits deeper label attribution, not automatic model fit.",
+  "budget": {
+    "new_model_fits": 0,
+    "new_native_accounts": 0,
+    "new_recorders": 0,
+    "market_requests": 0
+  },
+  "stop": "Any source identity, calendar or same-event clock mismatch stops; no2021/2022 label readout, no sign/size/year rescue.",
+  "as_of": "2026-10-30"
+}

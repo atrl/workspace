@@ -1,0 +1,14 @@
+{
+  "experiment": "stage1_v5_cash_label_route_identity_20261030",
+  "workflow_config": "workflow.yaml",
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "recorder_only_artifacts": []
+  },
+  "decision": "not_admitted_same_cash_direction_label",
+  "source_recorder_ids": ["3d8bdf0b707c41128bd61c47c75b7314", "54bf06d027dc44bc805b87a659558dd6"],
+  "interval_attribution": "annual_identity.csv",
+  "new_model_fits": 0,
+  "new_native_accounts": 0,
+  "historical_research_passed": false
+}

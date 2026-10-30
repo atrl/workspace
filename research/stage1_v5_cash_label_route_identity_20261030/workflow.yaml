@@ -1,0 +1,11 @@
+experiment: stage1_v5_cash_label_route_identity_20261030
+kind: qlib_recorder_read_only_same_event_route_comparison
+plan: plan.json
+notebook: stage1_v5_cash_label_route_identity_20261030.ipynb
+sources:
+  old_cash_label_recorder: stage1_intraday_cash_deployment_labels_20261028
+  v5_equal_beta_label_recorder: stage1_v5_equal_beta_value_labels_20261030
+artifacts:
+  small: [annual_identity.csv, audit.json, summary.json, conclusion.md]
+  recorder_only: []
+promotion: not_admitted_same_cash_direction_label

@@ -320,6 +320,20 @@ independent forward evidence remains a separate contract-v2 promotion gate.
   minute data lack information. Next assess the distinct SOXX-versus-HOLD
   cash-deployment economic target against closed old-cap/next-reset routes
   before any fit; no candidate full account or SOXX pass occurred.
+- The v5 cash-target route identity audit is
+  `research/stage1_v5_cash_label_route_identity_20261030`. On same-event
+  2019/2020 discovery intersections, old capped cash-to-SOXX next-open-reset
+  labels and v5 fixed+0.10 no-reset SOXX-HOLD labels agree in net-value sign
+  96.77/98.60% and normalized Spearman is0.9951/0.9963. The old average
+  beta increment was only1.35/2.26% versus v5's fixed10%, so magnitude and
+  potential own-state risk differ, but **short-horizon price direction is
+  not a distinct new information task**. Do not refit the stopped SOXX15m
+  return or VWAP-proxy signal under a renamed v5 cash label. The audit did
+  not read2021/2022 target outcomes, fit models or run accounts. Old label
+  Recorder remains local-only `needs_nas`; v5 label source passed NAS readback.
+  Next seek a materially different, decision-known mechanism for joint
+  cross-session cash opportunity and SOXL-versus-SOXX selection/risk, then
+  freeze its own-state economic task before fitting.
   Keep 2023+ outcomes out of feature/window/sign selection.
   This v5 document is **not yet a fit-ready model contract**: its few legal
   HOLD/buy/rotation actions are source and information controls, not a
