@@ -472,6 +472,22 @@ independent forward evidence remains a separate contract-v2 promotion gate.
   mechanical samples, not all-minute support, bulk labels, a trained
   continuous receiver or SOXX account. Next audit all causal minute intents,
   maturity, repeated lock triggers and budget before generating labels.
+- Full-minute cap-free five-session lock source support is
+  `research/stage1_v5_capfree_lock_fullminute_support_20261030`: Qlib read
+  820440 dual-ETF rows on all1056 dated-parent sessions. Of389100 causal
+  slots,3168 recovery-adjacent bars remain ordering-unknown;385932 have
+  decision-known positive fixed+0.10 cash intent. Five-session source/maturity
+  permits382996 rows, and332277 have two whole-share Tiered buy arms on
+  53/252/249/252/242 days by year2018–2022. 2020Mar10–13 lack a complete
+  future minute risk path because Mar16 has one invalid bar; the last four
+  2022 days lack a mature five-session terminal. Greedy nonoverlapping
+  five-session starts max at211 total, by year11/50/51/50/49; neither raw
+  minute count nor this upper bound is independent economic evidence.
+  Retrospective fill/path masks are label eligibility, never live inputs.
+  Two Qlib reads occurred after a JSON int64 serialization failure; preserve
+  the original plan and receipt. No path-value labels, fits, account or SOXX
+  pass. Next budget one full same-domain path-label generation with day
+  grouping and purge before any information gate.
 - The historical old-cap joint capacity/asset-choice card is
   `docs/stage1_event_capacity_choice_implementation_20261029.md`. Its first
   read-only minute source/whole-share gate is

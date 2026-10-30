@@ -1,0 +1,9 @@
+{
+  "attempt": 1,
+  "status": "stopped_after_qlib_support_calculation_before_audit_json",
+  "error": "numpy.int64 nonserializable in disjoint-by-year summary",
+  "plan_sha256": "fad24b8afa0c404a677d9c3e6321ece09a577d975b77337d1fbd245271b82abf",
+  "qlib_minute_reads": 1,
+  "new_fits": 0,
+  "new_accounts": 0
+}

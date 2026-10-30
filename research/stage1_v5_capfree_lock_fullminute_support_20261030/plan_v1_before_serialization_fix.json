@@ -1,0 +1,60 @@
+{
+  "experiment": "stage1_v5_capfree_lock_fullminute_support_20261030",
+  "frozen": true,
+  "type": "qlib_fullminute_live_intent_whole_share_and_five_session_maturity_support",
+  "parent": {
+    "card": "research/stage1_f696_oof_training_reference_20261028",
+    "recorder_id": "2994f6afbfc54f279cefec362b220001",
+    "summary_sha256": "00f276f2fe3e5641642a6f864e5e85da968599286aa8e9202a2d445cdf193584",
+    "manifest_sha256": "8699fd57be85d3b4b330f529e73612c8cc52967b5e7c3e8c0682c622c6e70f54",
+    "nas_archive_sha256": "e773cd3edf42b9ff9826270b70fdb9f9e90f4737e35f4d158ef0f5fcf5a4e9dd"
+  },
+  "saved_next_open_labels": {
+    "card": "research/stage1_v5_equal_beta_value_labels_20261030",
+    "recorder_id": "54bf06d027dc44bc805b87a659558dd6",
+    "summary_sha256": "e06d7d85d4777c407cf1bb760d5bd45ea79b25a5f9c9cfb7f0477501086492ab",
+    "manifest_sha256": "ff88a0e84ae49a9d91162960dd9a8d18d93b770a1fa11ffe602a8e1d25ad0a33",
+    "nas_archive_sha256": "09de9c27473fc795d13e93650d8bdbc4c73c6acde3a601ab8f4ee9579c1b16e9"
+  },
+  "minute_provider_uri": "data/qlib/stage1_event_guard_fullminute_20261028",
+  "minute_provider_manifest_sha256": "e9ab78e4e8fca7b70a5ccc27074893414a1308f13a4d37c3174c1690827db1e0",
+  "lock_module": "src/backtest/stage1_capfree_lock_episode.py",
+  "lock_module_sha256": "1b3d8988db90a29ddc5700759cc4aebabfc32ddd3d126fc84188fa6a1d1fd3c1",
+  "start": "2018-10-15",
+  "end": "2022-12-22",
+  "parent_sessions": 1056,
+  "decision_clock": "completed valid pair minute bar t, receipt assumed t+1, fill at t+2 next-bar open; actual XNYS close, first t>=09:48; event state is post09:47 parent and post10:32 native parent only if decision after scheduled recovery",
+  "unknown_ordering_bar_ends": [
+    "10:30",
+    "10:31",
+    "10:32"
+  ],
+  "action_probe": "from decision-known cash, fixed +0.10 nominal beta by +0.10 SOXX or +0.10/3 SOXL; original beta/SOXL30/cash15 caps absent; long-only no borrowing; future whole-share Tiered paired fill is label/support diagnostic only",
+  "label_horizon_sessions": 5,
+  "path_source": "both ETF adjusted minute closes from event fill through fifth session and fifth next-open must be valid; source validity not a live feature",
+  "support_gates": {
+    "minimum_discovery_days_2018_2020": 200,
+    "minimum_2019_days": 50,
+    "minimum_2020_days": 100,
+    "minimum_2021_days": 100,
+    "minimum_2022_days": 100
+  },
+  "budget": {
+    "qlib_minute_reads": 1,
+    "new_model_fits": 0,
+    "new_candidate_accounts": 0,
+    "new_recorders": 0,
+    "new_market_requests": 0,
+    "maximum_intent_slots": 400000
+  },
+  "stop": "Any source/hash/calendar/parent-position/Tiered identity failure stops. No future value columns used, no favorable minute or year selection, no old-cap capacity gate.",
+  "as_of": "2026-10-30",
+  "frame": {
+    "card": "research/stage1_f696_exact_parent_training_reference_20261027",
+    "recorder_id": "748eb4209e314fb6a6c41c19498d6d03",
+    "summary_sha256": "8c0d00825fd7aa0177e4578face924fe8a3159898a5915a4c5cac26f20877cc2",
+    "manifest_sha256": "d0c696c91179e005c7859bac28b418ff827aa53c7005cf560d329f0896eb5618",
+    "nas_archive_sha256": "db1ae7040439b69ba4a264f00741a625e9c432cefe08a2d770d374b51d3591c8"
+  },
+  "saved_label_plan_sha256": "dc1fae30166eafec597d05ba4ad42463114e58e84ef89f96d0db2db113772008"
+}

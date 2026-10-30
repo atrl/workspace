@@ -1,0 +1,108 @@
+{
+  "experiment": "stage1_v5_capfree_lock_fullminute_support_20261030",
+  "plan_sha256": "912cd2767ba084b8a4e8a80fb5d8c5c048f7e488294a6383e1d385705c7d32e6",
+  "decision": "fullminute_five_session_source_support_pass_not_information_or_account",
+  "historical_research_passed": false,
+  "audit": "audit.json",
+  "perday_support": "perday_support.csv",
+  "first_attempt": "attempt1_serialization_failure.json",
+  "module": "src/analysis/stage1_capfree_lock_support.py",
+  "module_sha256": "bccecf404abd36c960cba1edbdb804d9584f579688a526c4e73de0aaf88ca88a",
+  "metrics": {
+    "source_rows": 820440,
+    "parent_sessions": 1056,
+    "counts": {
+      "total_clock_slots": 389100,
+      "ambiguous_clock": 3168,
+      "decision_source_valid": 385932,
+      "cash_intents": 385932,
+      "fill_source_valid": 385932,
+      "mature_path_source_intents": 382996,
+      "soxl_funded": 382489,
+      "soxx_funded": 332757,
+      "paired_funded": 332277,
+      "no_whole_share_pair": 50719,
+      "saved_funding_reused": 379693,
+      "newly_settled_funding": 3303
+    },
+    "annual": [
+      {
+        "year": 2018,
+        "sessions": 53,
+        "mature_sessions": 53,
+        "days_with_cash_intent": 53,
+        "days_with_mature_path_source_intent": 53,
+        "days_with_paired_funded_path": 53,
+        "paired_funded_rows": 17968,
+        "ambiguous_clock_rows": 159
+      },
+      {
+        "year": 2019,
+        "sessions": 252,
+        "mature_sessions": 252,
+        "days_with_cash_intent": 252,
+        "days_with_mature_path_source_intent": 252,
+        "days_with_paired_funded_path": 252,
+        "paired_funded_rows": 91304,
+        "ambiguous_clock_rows": 756
+      },
+      {
+        "year": 2020,
+        "sessions": 253,
+        "mature_sessions": 253,
+        "days_with_cash_intent": 253,
+        "days_with_mature_path_source_intent": 249,
+        "days_with_paired_funded_path": 249,
+        "paired_funded_rows": 88334,
+        "ambiguous_clock_rows": 759
+      },
+      {
+        "year": 2021,
+        "sessions": 252,
+        "mature_sessions": 252,
+        "days_with_cash_intent": 252,
+        "days_with_mature_path_source_intent": 252,
+        "days_with_paired_funded_path": 252,
+        "paired_funded_rows": 56666,
+        "ambiguous_clock_rows": 756
+      },
+      {
+        "year": 2022,
+        "sessions": 246,
+        "mature_sessions": 242,
+        "days_with_cash_intent": 246,
+        "days_with_mature_path_source_intent": 242,
+        "days_with_paired_funded_path": 242,
+        "paired_funded_rows": 78005,
+        "ambiguous_clock_rows": 738
+      }
+    ],
+    "nonoverlap_earliest_start_upper_bound": {
+      "total": 211,
+      "by_year": {
+        "2018": 11,
+        "2019": 50,
+        "2020": 51,
+        "2021": 50,
+        "2022": 49
+      }
+    },
+    "source_support_gate_pass": true
+  },
+  "qlib_minute_reads_actual": 2,
+  "new_model_fits": 0,
+  "new_candidate_accounts": 0,
+  "new_recorders": 0,
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": []
+  },
+  "limitations": [
+    "Fixed+0.10 paired whole-share support is a probe, not full continuous target coverage or a candidate policy.",
+    "Future fill and five-session valid-path masks are diagnostic label eligibility, never decision features.",
+    "Greedy nonoverlap count is a source upper bound, not independent economic outcomes or qualified validation.",
+    "Recovery-adjacent 10:30-10:32 bars unresolved; historical first receipt and adjusted-price dividend cash remain unknown.",
+    "No path-value labels, prediction, funded candidate account or SOXX gate."
+  ]
+}

@@ -1,0 +1,8 @@
+experiment: stage1_v5_capfree_lock_fullminute_support_20261030
+kind: qlib_native_fullminute_capfree_lock_source_support
+plan: plan.json
+notebook: stage1_v5_capfree_lock_fullminute_support_20261030.ipynb
+module: src/analysis/stage1_capfree_lock_support.py
+artifact_policy: slim_card_recorder_first
+source_recorders: [dated_parent, covered_frame, saved_next_open_masks]
+recorder_only: []
