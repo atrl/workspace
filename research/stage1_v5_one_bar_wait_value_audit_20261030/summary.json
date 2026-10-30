@@ -1,0 +1,121 @@
+{
+  "experiment": "stage1_v5_one_bar_wait_value_audit_20261030",
+  "plan_sha256": "a9044953a6343fca451886bff99ee5890d645a3b36eaac754fb85919c133ec57",
+  "decision": "fixed_one_bar_wait_value_failed_no_information_model",
+  "historical_research_passed": false,
+  "source_recorder_id": "b85e80ab42fa4d9c83c6c9667114fd5d",
+  "audit": "audit.json",
+  "source_days": 558,
+  "valid_first_pairs": 554,
+  "all_adjacent_valid_pairs": 200950,
+  "annual": [
+    {
+      "year": 2018,
+      "source_days": 53,
+      "valid_first_pairs": 53,
+      "soxx_mean_bp": 0.5216113330389303,
+      "soxl_mean_bp": 0.18227603823884478,
+      "soxx_positive_days": 37,
+      "soxx_negative_days": 15,
+      "soxx_fee_mean_usd": -0.00012086792452830441,
+      "soxx_share_mean": -0.03773584905660377
+    },
+    {
+      "year": 2019,
+      "source_days": 252,
+      "valid_first_pairs": 252,
+      "soxx_mean_bp": -0.002084287895701917,
+      "soxl_mean_bp": 0.08031168749469442,
+      "soxx_positive_days": 118,
+      "soxx_negative_days": 126,
+      "soxx_fee_mean_usd": -3.8130952380952296e-05,
+      "soxx_share_mean": -0.011904761904761904
+    },
+    {
+      "year": 2020,
+      "source_days": 253,
+      "valid_first_pairs": 249,
+      "soxx_mean_bp": -0.02203409852046776,
+      "soxl_mean_bp": -0.10842907473756266,
+      "soxx_positive_days": 128,
+      "soxx_negative_days": 117,
+      "soxx_fee_mean_usd": 3.8590361445783495e-05,
+      "soxx_share_mean": 0.012048192771084338
+    }
+  ],
+  "quarter": [
+    {
+      "quarter": "2018Q4",
+      "days": 53,
+      "soxx_mean_bp": 0.5216113330389303,
+      "soxl_mean_bp": 0.18227603823884478
+    },
+    {
+      "quarter": "2019Q1",
+      "days": 61,
+      "soxx_mean_bp": -0.1150451528638537,
+      "soxl_mean_bp": 0.022575385849822244
+    },
+    {
+      "quarter": "2019Q2",
+      "days": 63,
+      "soxx_mean_bp": 0.04534768884703414,
+      "soxl_mean_bp": 0.24953723425004834
+    },
+    {
+      "quarter": "2019Q3",
+      "days": 64,
+      "soxx_mean_bp": 0.02520211311876597,
+      "soxl_mean_bp": 0.1179319008040177
+    },
+    {
+      "quarter": "2019Q4",
+      "days": 64,
+      "soxx_mean_bp": 0.031604283406469036,
+      "soxl_mean_bp": -0.06886001089666158
+    },
+    {
+      "quarter": "2020Q1",
+      "days": 58,
+      "soxx_mean_bp": -0.30867905249068506,
+      "soxl_mean_bp": -0.4590587138339253
+    },
+    {
+      "quarter": "2020Q2",
+      "days": 63,
+      "soxx_mean_bp": -0.10269754718179068,
+      "soxl_mean_bp": -0.14033253871460355
+    },
+    {
+      "quarter": "2020Q3",
+      "days": 64,
+      "soxx_mean_bp": 0.2511943236226544,
+      "soxl_mean_bp": 0.08934725023396824
+    },
+    {
+      "quarter": "2020Q4",
+      "days": 64,
+      "soxx_mean_bp": 0.04391255114790902,
+      "soxl_mean_bp": 0.0429576830743849
+    }
+  ],
+  "soxx_2019_2020_block_lower_bp": -0.12617051768641016,
+  "support_gate_passed": true,
+  "fixed_wait_value_gate_passed": false,
+  "new_model_fits": 0,
+  "new_candidate_accounts": 0,
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "analysis/labels"
+    ]
+  },
+  "limitations": [
+    "Read-only exact-parent fixed-share local five-session label comparison, not a complete candidate account or SOXX benchmark result.",
+    "2018 is a partial endpoint year; 2019/2020 are complete discovery years. 2021/22 economic values were not inspected.",
+    "No signal for when to wait was fitted; all adjacent pairs are highly dependent and cannot count as independent observations.",
+    "Entry price, share sizing, later price path and risk-state effects are not individually identified by the two saved branches.",
+    "Historical first-live minute receipt and actual broker fills remain unqualified."
+  ]
+}

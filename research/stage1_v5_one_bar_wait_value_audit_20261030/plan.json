@@ -1,0 +1,54 @@
+{
+  "experiment": "stage1_v5_one_bar_wait_value_audit_20261030",
+  "frozen": true,
+  "type": "read_only_one_completed_minute_wait_economic_source_and_value_audit",
+  "hypothesis": "The option to wait exactly one completed legal minute before a fixed raw-share cash-to-SOXX or cash-to-SOXL buy has positive fee-net five-session local value relative to acting at the first legal minute on the dated cap-free lock parent. This is an economic timing target, not a predictive minute feature or a candidate strategy.",
+  "closed_route_distinction": "Old cash timing used old beta-capped cash-to-SOXX and a 15-minute VWAP proxy; this card uses the new single raw-share dual-asset five-session same-state lock labels and tests a fixed one-bar wait without fitting, threshold selection, or later-year outcome access.",
+  "source_card": "research/stage1_v5_fixed_share_lock_labels_20261030",
+  "source_recorder_id": "b85e80ab42fa4d9c83c6c9667114fd5d",
+  "source_summary_sha256": "a2609adb9c711c49fae7dcd3effc5008db19d78456329953462ed647601dd9a0",
+  "source_manifest_sha256": "69c868c918645f3e9678d7dafdd14a0d54b33db4a7280484b68bee4f088576f5",
+  "source_nas_archive_sha256": "e414b90045ec15aa7919ec5c49649824a3ed0df109bf3d8b2c1048ae1b279a8b",
+  "source_artifact_sha256": "f595b0651533a75eb0d274cfd06cd6d122096f89ee5aa3c844e41c04a99ee920",
+  "provider_uri": "data/qlib/stage1_event_guard_fullminute_20261028",
+  "provider_manifest_sha256": "e9ab78e4e8fca7b70a5ccc27074893414a1308f13a4d37c3174c1690827db1e0",
+  "economic_years": [
+    2018,
+    2019,
+    2020
+  ],
+  "reserved_outcome_years": [
+    2021,
+    2022
+  ],
+  "decision_rule": "For each day, compare first and immediately next chronological source-eligible completed-minute intent, exactly one minute apart. At the first clock, NOW submits its frozen raw-share order for next-bar fill; WAIT holds one minute and at the next clock recomputes the same fixed-beta raw-share intent from then-known parent state for next-bar fill. Both are separate branch labels with identical five-session terminal date. No future-funded filter is an online action input.",
+  "pair_admissibility": "Both saved labels must be mature; both from same phase, have one-minute adjacent bar_end_at, positive first decision NAV and HOLD terminal NAV parity <=1e-7 USD. Keep unknown/no-fill source counts; attempt_no_fill is economically zero-valued, not silently dropped.",
+  "value": "For each asset, (WAIT_local_value*WAIT_decision_nav - NOW_local_value*NOW_decision_nav)/NOW_decision_nav. This compares USD terminal increments from the same HOLD terminal NAV, not raw percentages with different denominators. Report fees and share differences separately; price path remains confounded with share sizing.",
+  "all_minute_diagnostic": "Report count and distribution of every mature adjacent same-phase minute pair under the same HOLD parity, but only first-pair day values enter the fixed information gate; no hindsight best-minute action or hour selection.",
+  "support_gate": {
+    "min_2018_first_pairs": 40,
+    "min_2019_first_pairs": 200,
+    "min_2020_first_pairs": 200
+  },
+  "information_gate": {
+    "soxx_wait_value_positive_each_complete_year": [
+      2019,
+      2020
+    ],
+    "soxx_wait_value_10session_block_lower_positive": true,
+    "bootstrap_replicates": 10000,
+    "block_sessions": 10,
+    "seed": 20261030,
+    "one_sided_lower_quantile": 0.025
+  },
+  "budget": {
+    "qlib_recorder_object_reads": 1,
+    "qlib_calendar_reads": 1,
+    "model_fits": 0,
+    "new_accounts": 0,
+    "new_recorders": 0,
+    "new_market_requests": 0
+  },
+  "stop": "Any source/hash/clock/HOLD parity failure stops. A failed fixed one-bar timing gate closes only this WAIT policy; no delay length, year, asset, threshold, sign or bootstrap rescue. An economic pass only permits a separately frozen decision-time information test, not a SOXX account.",
+  "as_of": "2026-10-30"
+}
