@@ -37,10 +37,11 @@ def compile_lock_price_plane(frame_window: pd.DataFrame, quotes: pd.DataFrame) -
     for offset, row in frame_window.iterrows():
         day = pd.Timestamp(row.trade_date)
         bars = quotes.loc[quotes.index.normalize() == day]
+        if offset == 0:
+            bars = bars.loc[bars.index >= day + pd.Timedelta(hours=9, minutes=48)]
         if bars.empty or not bars[["SOXL_price_valid", "SOXX_price_valid"]].eq(1).all().all():
             raise ValueError("blocked: incomplete five-session minute source")
         if offset == 0:
-            bars = bars.loc[bars.index >= day + pd.Timedelta(hours=9, minutes=48)]
             pieces = [(bars.index, bars[["SOXL_close", "SOXX_close"]].to_numpy(float))]
         else:
             boundary = day + pd.Timedelta(hours=9, minutes=47)
@@ -78,7 +79,8 @@ def _path_risk(q, cash, peak, initial_drawdown, prices):
 
 
 def value_lock_event(plane: LockPricePlane, *, bar_end_at, fill_at,
-                     quantities, cash, starting_peak, fees, desired_weights):
+                     quantities, cash, starting_peak, fees, desired_weights,
+                     start_at=None):
     """Settle one arbitrary simplex target and return HOLD/EVENT path values."""
     bar_end, fill = pd.Timestamp(bar_end_at), pd.Timestamp(fill_at)
     if bar_end.normalize() != plane.first_day or fill != bar_end + pd.Timedelta(minutes=2):
@@ -88,7 +90,11 @@ def value_lock_event(plane: LockPricePlane, *, bar_end_at, fill_at,
     if q.shape != (2,) or q.min() < -1e-8 or cash < -1e-8 or starting_peak <= 0:
         raise ValueError("blocked: pre-event account state invalid")
     day = plane.first_day
-    start = day + pd.Timedelta(hours=9, minutes=48)
+    start = (pd.Timestamp(start_at) if start_at is not None else
+             day + pd.Timedelta(hours=9, minutes=48))
+    if (start.normalize() != day or
+            start < day + pd.Timedelta(hours=9, minutes=48) or start > bar_end):
+        raise ValueError("blocked: pre-event state availability clock differs")
     times = plane.stamps
     decision_index = int(np.searchsorted(times, bar_end.to_datetime64(), side="left"))
     fill_index = int(np.searchsorted(times, fill.to_datetime64(), side="left"))
@@ -98,6 +104,8 @@ def value_lock_event(plane: LockPricePlane, *, bar_end_at, fill_at,
             fill_index != decision_index + 2):
         raise ValueError("blocked: two completed prefill minute marks absent")
     start_index = int(np.searchsorted(times, start.to_datetime64(), side="left"))
+    if start_index >= len(times) or times[start_index] != start.to_datetime64():
+        raise ValueError("blocked: pre-event state start bar absent")
     prior_nav = plane.prices[start_index:decision_index + 1] @ q + cash
     decision_nav = float(prior_nav[-1])
     decision_peak = max(float(starting_peak), float(np.max(prior_nav)))

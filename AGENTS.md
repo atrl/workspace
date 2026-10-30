@@ -516,6 +516,19 @@ independent forward evidence remains a separate contract-v2 promotion gate.
   the fee-adjusted NAV at event fill. First runtime attempt required50 bars
   before10:32 where fewer existed; source-only correction to40 and two Qlib
   reads is recorded. No fits, account or SOXX pass.
+- The vectorized two-arm clock identity card is
+  `research/stage1_v5_lock_vectorized_clock_matrix_20261030`: the corrected
+  Qlib five-session price plane and explicit `start_at` state clock match the
+  reference episode with zero error in HOLD/EVENT terminal NAV, available-mark
+  max drawdown, shares, cash, Tiered fees and monthly counters across nine
+  fixed actions on four ordinary/half-day/pre/post-recovery cases. SOXL and
+  SOXX equal-beta buys, a two-sided SOXL sell/SOXX buy and synthetic no-fill
+  are covered. Late recovery starts at10:33 from verified post10:32 q/cash
+  with the earlier q0 peak retained; early event suppresses later recovery in
+  both branches. Current-day invalid bars before09:48 are outside the event
+  path, while future four sessions must be complete. This is not all-minute
+  labels, a continuous model or SOXX alpha. Next freeze one full-batch
+  Qlib Recorder/NAS budget and retain source/no-fill/unknown intention rows.
 - The historical old-cap joint capacity/asset-choice card is
   `docs/stage1_event_capacity_choice_implementation_20261029.md`. Its first
   read-only minute source/whole-share gate is

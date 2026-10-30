@@ -133,3 +133,5 @@
 [v5五会话风险mark时序修正](../research/stage1_v5_lock_risk_mark_order_correction_20261030/conclusion.md)发现旧锁定回放先记次日09:47开盘、再记次日09:31–09:47分钟bar，可能误算高水位/最大回撤；终端股数现金NAV不受影响。修正为早盘bar→09:47开盘→后续bar，四个原固定Qlib机械案例的订单、费用、终端NAV及最大回撤数值恰好未变；合成先80后120路径证明旧次序会把20%回撤误算33.33%，聚焦测试通过。旧卡/旧代码SHA保留，新批量风险标签只用修正SHA。仍无数值标签、模型或SOXX账户，Goal active。
 
 [v5五会话标签计算预算](../research/stage1_v5_lock_label_runtime_20261030/conclusion.md)在2019-12-19来源固定最早40分钟，顺序自身回放平均10.675毫秒/事件，382996成熟路径朴素外推约4088秒，超过事前1800秒预算；第一次50根早盘时钟不可能的预检失败已保留，仅按来源改40，零价值筛选。[向量化普通SOXX臂身份](../research/stage1_v5_lock_vectorized_parity_20261030/conclusion.md)把五会话价格/隔夜mark按真实顺序编译为1758点，40事件终端NAV、最大回撤、股数/现金、Tiered费用对参考引擎最大差0，40次耗时约12.7毫秒；单臂全量外推约125秒但未覆盖恢复、半日市、SOXL臂或Recorder/NAS。下一步先完成这些同域机械对账再批量生成标签；Goal仍active、SOXX未通过。
+
+[v5向量化双臂时钟身份](../research/stage1_v5_lock_vectorized_clock_matrix_20261030/conclusion.md)在四个固定Qlib机械事件的9个SOXX、SOXL及半日市双向动作上，向量化HOLD/EVENT的五会话终端NAV、可用mark最大回撤、股数/现金、Tiered费用和月计数对修正参考引擎最大差全0；合成无整股动作保留。恢复后用10:33已知股数/现金并继承恢复前高水位，恢复前锁定两支取消后续旧恢复。仅是机械身份，未有全分钟价值标签、模型或SOXX账户；下一步冻结双臂完整意向/Recorder/NAS预算后一次批量生成，Goal仍active。

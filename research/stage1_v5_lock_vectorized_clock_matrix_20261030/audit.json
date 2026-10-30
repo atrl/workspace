@@ -1,0 +1,85 @@
+{
+  "experiment": "stage1_v5_lock_vectorized_clock_matrix_20261030",
+  "plan_sha256": "d7d59cc3e4bb25f4b4ba69e1337ccba30dc4625e44c060994dad01af31b415a2",
+  "reference_module_sha256": "8654a7c8adff7d5eff67013e24b0b299eb24c2d5cd5175c8676ba4787672819d",
+  "vector_module_sha256": "aa1be2b7a9ece7e094360cf06e509d9cf28bf8ee456d33d44f01996fc48363b9",
+  "fixed_cases": 4,
+  "arms_checked": 9,
+  "max_parity_errors": {
+    "terminal_nav": 0.0,
+    "max_drawdown": 0.0,
+    "cash": 0.0,
+    "quantity": 0.0,
+    "fee": 0.0
+  },
+  "synthetic_no_fill_identity_passed": true,
+  "case_arm_order_counts": [
+    {
+      "case": "ordinary_early",
+      "arm": "SOXX",
+      "orders": 1,
+      "recovery_orders_before_event": 0,
+      "source_close": "2019-12-19 16:00:00"
+    },
+    {
+      "case": "ordinary_early",
+      "arm": "SOXL",
+      "orders": 1,
+      "recovery_orders_before_event": 0,
+      "source_close": "2019-12-19 16:00:00"
+    },
+    {
+      "case": "halfday_late_mixed",
+      "arm": "SOXX",
+      "orders": 1,
+      "recovery_orders_before_event": 0,
+      "source_close": "2018-11-23 13:00:00"
+    },
+    {
+      "case": "halfday_late_mixed",
+      "arm": "SOXL",
+      "orders": 1,
+      "recovery_orders_before_event": 0,
+      "source_close": "2018-11-23 13:00:00"
+    },
+    {
+      "case": "halfday_late_mixed",
+      "arm": "MIXED",
+      "orders": 2,
+      "recovery_orders_before_event": 0,
+      "source_close": "2018-11-23 13:00:00"
+    },
+    {
+      "case": "recovery_day_early",
+      "arm": "SOXX",
+      "orders": 1,
+      "recovery_orders_before_event": 0,
+      "source_close": "2020-03-09 16:00:00"
+    },
+    {
+      "case": "recovery_day_early",
+      "arm": "SOXL",
+      "orders": 1,
+      "recovery_orders_before_event": 0,
+      "source_close": "2020-03-09 16:00:00"
+    },
+    {
+      "case": "recovery_day_late",
+      "arm": "SOXX",
+      "orders": 1,
+      "recovery_orders_before_event": 1,
+      "source_close": "2020-03-09 16:00:00"
+    },
+    {
+      "case": "recovery_day_late",
+      "arm": "SOXL",
+      "orders": 1,
+      "recovery_orders_before_event": 1,
+      "source_close": "2020-03-09 16:00:00"
+    }
+  ],
+  "new_model_fits": 0,
+  "new_candidate_accounts": 0,
+  "historical_research_passed": false,
+  "decision": "vectorized_recovery_halfday_two_arm_parity_pass_not_bulk_labels"
+}

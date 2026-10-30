@@ -1,0 +1,67 @@
+{
+  "parent_card": "research/stage1_f696_oof_training_reference_20261028",
+  "parent_recorder_id": "2994f6afbfc54f279cefec362b220001",
+  "parent_summary_sha256": "00f276f2fe3e5641642a6f864e5e85da968599286aa8e9202a2d445cdf193584",
+  "parent_manifest_sha256": "8699fd57be85d3b4b330f529e73612c8cc52967b5e7c3e8c0682c622c6e70f54",
+  "old_source_card": "research/stage1_f696_exact_parent_training_reference_20261027",
+  "old_source_plan_sha256": "a86f99e11156bbcc474fbf302ff4e6804792e9533c368641033bed9a8667b1c6",
+  "minute_provider_uri": "data/qlib/stage1_event_guard_fullminute_20261028",
+  "minute_provider_manifest_sha256": "e9ab78e4e8fca7b70a5ccc27074893414a1308f13a4d37c3174c1690827db1e0",
+  "checkpoint_code": "src/backtest/stage1_event_checkpoint.py",
+  "checkpoint_code_sha256": "1e62923b270c6ec4f698b2e5d676d3abe2d476fbbdd4ded1e3e2b6408bd1c34b",
+  "cases": [
+    {
+      "name": "ordinary_early",
+      "trade_date": "2019-12-19",
+      "bar_end_at": "09:48",
+      "target_rule": "cash_to_soxx_0.10"
+    },
+    {
+      "name": "halfday_late_mixed",
+      "trade_date": "2018-11-23",
+      "bar_end_at": "12:00",
+      "target_rule": "soxl_minus_0.04_soxx_plus_0.08_cash_minus_0.04"
+    },
+    {
+      "name": "recovery_day_early",
+      "trade_date": "2020-03-09",
+      "bar_end_at": "09:48",
+      "target_rule": "cash_to_soxx_0.10"
+    },
+    {
+      "name": "recovery_day_late",
+      "trade_date": "2020-03-09",
+      "bar_end_at": "12:00",
+      "target_rule": "cash_to_soxx_0.10"
+    }
+  ],
+  "horizon_sessions": 5,
+  "experiment": "stage1_v5_lock_vectorized_clock_matrix_20261030",
+  "frozen": true,
+  "type": "vectorized_two_arm_recovery_halfday_mixed_and_nofill_parity",
+  "reference_module": "src/backtest/stage1_capfree_lock_episode.py",
+  "reference_module_sha256": "8654a7c8adff7d5eff67013e24b0b299eb24c2d5cd5175c8676ba4787672819d",
+  "vector_module": "src/analysis/stage1_capfree_lock_vectorized.py",
+  "vector_module_before_start_at_sha256": "348373d8e50328e4cb382a74a7a17a958321e68a3a1ea3c8fa9f830e820a3d4f",
+  "source_case_card": "research/stage1_v5_capfree_lock_clock_matrix_20261030",
+  "source_case_plan_sha256": "bc4e8845eb6291d98684927ae4391781f38bbe76ee3fc9456be5592dcbeeca77",
+  "single_arm_parity_card": "research/stage1_v5_lock_vectorized_parity_20261030",
+  "single_arm_audit_sha256": "e3ba78cd2c6786f83ec00d370be6f392dba02e588f19e040a61c0c44be5a6d5f",
+  "actions": [
+    "cash_to_soxx_0.10",
+    "cash_to_soxl_equal_beta_0.10",
+    "halfday_mixed_two_sided",
+    "synthetic_no_whole_share"
+  ],
+  "late_state_rule": "copy verified native post10:32 q/cash, commit recorded recovery orders to Tiered counter, start vectorized q1 price path at10:33 with peak from prior q0 minute marks through10:32",
+  "maximum_terminal_nav_error_usd": 1e-07,
+  "maximum_drawdown_error": 1e-10,
+  "budget": {
+    "qlib_minute_reads": 3,
+    "new_model_fits": 0,
+    "new_candidate_accounts": 0,
+    "new_recorders": 0
+  },
+  "stop": "Any clock/source/fee/order/cash/quantity/NAV/maxDD mismatch stops before full label batch; no economic sign or year selection.",
+  "as_of": "2026-10-30"
+}
