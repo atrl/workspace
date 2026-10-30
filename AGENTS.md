@@ -354,6 +354,26 @@ independent forward evidence remains a separate contract-v2 promotion gate.
   account or SOXX historical pass. A next feature needs decision-time evidence
   for *both* cash opportunity and SOXL/SOXX relative value across weak and
   good intervals, not another static cap or minute-only cash direction.
+- The dated development component audit
+  `research/stage1_v5_oof_cash_selection_components_20261030` uses 1056
+  f696+b472 annual-clock own-state Qlib sessions and true saved
+  09:47/10:32/close/next-open positions. Segment P&L plus Tiered fees
+  reproduces native NAV within1.16e-10 USD; adjusted-price cash/SOXL/fee/
+  recovery residual paired log excess closes within1.39e-17. The 2018–2022
+  adjusted-price development path has relative wealth1.2501 against the
+  same-price SOXX diagnostic, cash+0.00329, SOXL selection+0.19780,
+  fees-0.00569 and recovery/timing residual+0.02779 (mainly10 recovery
+  actions in2020). Its worst126 window 2020-03-19 to09-17 is cash-loss
+  dominated(-0.24045) with selection+0.01746; best126 2022-03-31 to09-30
+  is cash-protection dominated(+0.28019) despite selection-0.02872. Of931
+  overlapping windows94 have both cash/selection negative,522 cash only,
+  279 selection only and36 neither. This is a descriptive adjusted-price
+  development account, **not** contract-v2 original-price/dividend SOXX
+  qualification, nor a tradable 2020/2022 regime switch. The Qlib Recorder
+  passed NAS scoped readback. Before fitting a new feature, use only
+  decision-known 2018–2022 inputs to test whether it distinguishes both
+  cash and SOXL-relative path value across these opposite regimes; do not
+  select a 2023+ outcome window or reuse stopped trend/VIX/price paths.
   Keep 2023+ outcomes out of feature/window/sign selection.
   This v5 document is **not yet a fit-ready model contract**: its few legal
   HOLD/buy/rotation actions are source and information controls, not a

@@ -1,0 +1,91 @@
+{
+  "experiment": "stage1_v5_oof_cash_selection_components_20261030",
+  "plan_sha256": "fb20f355cd51165944c6c75e5f2827b4fb30206e827f91c64c7b532c07f7f4d8",
+  "decision": "read_only_oof_cash_selection_components_no_policy",
+  "sessions": 1056,
+  "quarters": 17,
+  "rolling126_windows": 931,
+  "full_relative_wealth_vs_adjusted_soxx": 1.2500622535594146,
+  "full_components": {
+    "cash_log": 0.0032930452284817557,
+    "soxl_selection_log": 0.19780244563382232,
+    "direct_fees_log": -0.005692385705301367,
+    "recovery_and_timing_residual_log": 0.02779024776461812
+  },
+  "max_native_nav_error_usd": 1.1641532182693481e-10,
+  "max_log_component_closure": 1.3877787807814457e-17,
+  "worst_window": {
+    "kind": "rolling126",
+    "period": "358",
+    "sessions": 126,
+    "first_trade": "2020-03-19",
+    "last_exit": "2020-09-17",
+    "paired_log_excess": -0.17007562036244103,
+    "cash_log": -0.24045162853095647,
+    "soxl_selection_log": 0.017460644989537144,
+    "direct_fees_log": -0.0008537045142821272,
+    "recovery_and_timing_residual_log": 0.053769067693260376,
+    "relative_wealth_vs_adjusted_soxx": 0.8436010207693361,
+    "mean_raw_soxl_weight": 0.22223999274891024,
+    "mean_opening_cash_weight": 0.45080475638430567,
+    "recovery_days": 6
+  },
+  "best_window": {
+    "kind": "rolling126",
+    "period": "871",
+    "sessions": 126,
+    "first_trade": "2022-03-31",
+    "last_exit": "2022-09-30",
+    "paired_log_excess": 0.25112699753390405,
+    "cash_log": 0.2801900751245645,
+    "soxl_selection_log": -0.028716583792775488,
+    "direct_fees_log": -0.0003474704185856784,
+    "recovery_and_timing_residual_log": 9.766207007321749e-07,
+    "relative_wealth_vs_adjusted_soxx": 1.2854733259076268,
+    "mean_raw_soxl_weight": 0.25581021219028954,
+    "mean_opening_cash_weight": 0.7012543766855729,
+    "recovery_days": 0
+  },
+  "joint_sign_window_counts": {
+    "both_negative": 94,
+    "cash_negative_only": 522,
+    "selection_negative_only": 279,
+    "both_nonnegative": 36
+  },
+  "new_model_fits": 0,
+  "new_native_accounts": 0,
+  "historical_research_passed": false,
+  "recorder_id": "240945b6fe474524b4feff43ad7f2b6e",
+  "experiment_id": "661138701687595413",
+  "recorder_uri": "/Users/rziiiii/dev/workspace/research/stage1_v5_oof_cash_selection_components_20261030/qlib_recorder",
+  "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/stage1_v5_oof_cash_selection_components_20261030/qlib_recorder/661138701687595413/240945b6fe474524b4feff43ad7f2b6e",
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "inputs/*",
+      "analysis/*"
+    ]
+  },
+  "limitations": [
+    "Development adjusted-price plane does not separately certify dividend receivable cash flows or exact contract-v2 SOXX total-return benchmark.",
+    "Cash/selection allocation is descriptive starting-holdings attribution; ten recovery days enter the residual.",
+    "Rolling windows overlap and future outcome groups are not decision-time switches."
+  ],
+  "archive_status": "nas_receipt_and_scoped_readback_verified",
+  "nas_evidence": {
+    "sha256": "025371fda28299f87dea035b614f1307c14a1b1d5bb8f39056373c38e3537c04",
+    "size_bytes": 234422,
+    "media_type": "application/gzip",
+    "storage_uri": "sha256/02/53/025371fda28299f87dea035b614f1307c14a1b1d5bb8f39056373c38e3537c04",
+    "uploaded_by": "soxl-minute-research",
+    "created_at": "2026-10-30 12:53:03.79327+08",
+    "duplicate": false,
+    "nas_path": "/volume1/docker/yanxuan/registry/research-artifacts/02/53/025371fda28299f87dea035b614f1307c14a1b1d5bb8f39056373c38e3537c04",
+    "recorder_id": "240945b6fe474524b4feff43ad7f2b6e",
+    "experiment_id": "661138701687595413",
+    "archive_root": "qlib_recorder"
+  },
+  "nas_scoped_readback": "nas_scoped_readback.json",
+  "archive_status_updated_after_recorder_summary": true
+}

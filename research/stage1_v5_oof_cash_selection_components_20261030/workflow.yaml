@@ -1,0 +1,6 @@
+experiment: stage1_v5_oof_cash_selection_components_20261030
+kind: qlib_native_dated_parent_read_only_adjusted_component_attribution
+plan: plan.json
+notebook: stage1_v5_oof_cash_selection_components_20261030.ipynb
+artifact_policy: slim_card_recorder_first
+recorder_only: [inputs, analysis/daily, analysis/rolling126]
