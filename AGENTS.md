@@ -985,3 +985,8 @@ Detailed current rules live in `docs/three_asset_research_contract.md` and
 `docs/research_operations.md`. Historical contracts and superseded instructions
 are kept under `docs/archive/`; do not apply them to new work unless a frozen
 card explicitly references them.
+
+## Effective sample and saved-model design guard
+
+- The saved v5 QQQ-down five-minute receiver has 200403 training minute rows but only 549 distinct training days and at most 112 nonoverlapping five-session source starts. Its 62-column weighted design has numeric rank 58 and spectral participation rank about 9.55; f696 and decision weights each sum to one. The read-only card is `research/stage1_v5_effective_sample_design_audit_20261030`. These are diagnostics, not exact independent sample size or proof that collinearity caused the loss. Do not use raw minute row count as independent economic support or tune the closed model after seeing 2021/22. A new receiver needs a distinct decision-time economic mechanism, predeclared low effective complexity, day-grouped/purged calibration, and funded action/value transmission before an account.
+- When writing Qlib evidence JSON, cast NumPy scalar counts to built-in types and serialize with `allow_nan=False` before ending an expensive run. Preserve a failed run and the corrected plan if a sidecar serialization issue occurs.

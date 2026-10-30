@@ -1,0 +1,36 @@
+{
+  "experiment": "stage1_v5_effective_sample_design_audit_20261030",
+  "plan_sha256": "a67b37e70c6014ea861a39104d7906d04c7cdd570bcd774fa84ce409ec37ee32",
+  "decision": "diagnostic_closed_no_new_fit_or_account",
+  "historical_research_passed": false,
+  "source_recorder_id": "bfd3400477d24a838181e97e01c6ebba",
+  "audit": "audit.json",
+  "firstbar_coefficient_contributions": "firstbar_coefficient_contributions.csv",
+  "train_minute_rows": 200403,
+  "train_distinct_days": 549,
+  "train_nonoverlap_5session_upper_bound": 112,
+  "eval_minute_rows": 180938,
+  "eval_distinct_days": 494,
+  "eval_nonoverlap_5session_upper_bound": 99,
+  "model_feature_columns": 62,
+  "gram_numeric_rank": 58,
+  "gram_participation_rank": 9.54635770440889,
+  "saved_prediction_max_error": 0.0,
+  "new_model_fits": 0,
+  "new_candidate_accounts": 0,
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "inputs/*",
+      "models/*",
+      "analysis/*"
+    ]
+  },
+  "limitations": [
+    "Spectral participation rank is a design diagnostic, not predictive degrees of freedom.",
+    "Nonoverlap count is a source upper bound, not an exact independent effective sample size.",
+    "The saved-model coefficient arithmetic is not a causal attribution of economic loss.",
+    "The closed information model remains failed; no SOXX funded account or 0/2/5bp result was run."
+  ]
+}

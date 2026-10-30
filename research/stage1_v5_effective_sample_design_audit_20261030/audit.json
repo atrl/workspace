@@ -1,0 +1,87 @@
+{
+  "experiment": "stage1_v5_effective_sample_design_audit_20261030",
+  "plan_sha256": "a67b37e70c6014ea861a39104d7906d04c7cdd570bcd774fa84ce409ec37ee32",
+  "source_recorder_id": "bfd3400477d24a838181e97e01c6ebba",
+  "model_feature_columns": 62,
+  "transformed_dimension": 62,
+  "train_minute_rows": 200403,
+  "train_distinct_days": 549,
+  "train_daily_weight_sum": 548.9999999999998,
+  "eval_minute_rows": 180938,
+  "eval_distinct_days": 494,
+  "five_session_nonoverlap_source_upper_bound_total": 211,
+  "five_session_nonoverlap_source_upper_bound_by_year": {
+    "2018": 11,
+    "2019": 50,
+    "2020": 51,
+    "2021": 50,
+    "2022": 49
+  },
+  "train_2018_2020_nonoverlap_upper_bound": 112,
+  "eval_2021_2022_nonoverlap_upper_bound": 99,
+  "gram_numeric_rank_at_maxeig_1e_minus10": 58,
+  "gram_participation_rank": 9.54635770440889,
+  "gram_ridge_alpha1_condition": 8885.236691018457,
+  "smallest_eigen": 0.0,
+  "largest_eigen": 8884.236691018457,
+  "f696_simplex_max_error": 3.3306690738754696e-16,
+  "decision_simplex_max_error": 3.3306690738754696e-16,
+  "saved_prediction_max_error": 0.0,
+  "2022Q2_firstbar_mean_score_contribution_net": 0.008310592887918012,
+  "2022Q2_firstbar_mean_score_contribution_absolute_sum": 0.06032181679909434,
+  "2022Q2_firstbar_cancellation_ratio": 7.2584251945237925,
+  "top_abs_2022Q2_firstbar_contributions": [
+    {
+      "feature": "dist_high_252",
+      "mean_2022Q2_firstbar_contribution": 0.011407250488711078
+    },
+    {
+      "feature": "range_pos_252",
+      "mean_2022Q2_firstbar_contribution": -0.010031206778852423
+    },
+    {
+      "feature": "rv20_expansion",
+      "mean_2022Q2_firstbar_contribution": -0.004212944585927755
+    },
+    {
+      "feature": "rv20",
+      "mean_2022Q2_firstbar_contribution": 0.003748878725543692
+    },
+    {
+      "feature": "soxx_trend60",
+      "mean_2022Q2_firstbar_contribution": 0.0035461918255711715
+    },
+    {
+      "feature": "soxx_vol20",
+      "mean_2022Q2_firstbar_contribution": 0.003163899192600207
+    },
+    {
+      "feature": "soxx_drawdown60",
+      "mean_2022Q2_firstbar_contribution": -0.002356396493505145
+    },
+    {
+      "feature": "high_chop_pressure",
+      "mean_2022Q2_firstbar_contribution": 0.002325056954890155
+    },
+    {
+      "feature": "tech_breadth_60",
+      "mean_2022Q2_firstbar_contribution": 0.002045864638260259
+    },
+    {
+      "feature": "soxx_ret5",
+      "mean_2022Q2_firstbar_contribution": 0.0019050008332700333
+    },
+    {
+      "feature": "soxl_ret5",
+      "mean_2022Q2_firstbar_contribution": -0.0018822441911259644
+    },
+    {
+      "feature": "soxl_ret3",
+      "mean_2022Q2_firstbar_contribution": 0.0014435634976870872
+    }
+  ],
+  "new_model_fits": 0,
+  "new_candidate_accounts": 0,
+  "historical_research_passed": false,
+  "decision": "saved_high_dimensional_overlapping_design_diagnostic_no_policy"
+}

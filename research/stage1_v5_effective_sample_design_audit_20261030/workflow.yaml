@@ -1,0 +1,8 @@
+experiment: stage1_v5_effective_sample_design_audit_20261030
+kind: qlib_native_read_only_saved_design_audit
+plan: plan.json
+notebook: stage1_v5_effective_sample_design_audit_20261030.ipynb
+artifact_policy: slim_card_recorder_first
+source_recorder: research/stage1_v5_peer_downshock_information_20261030/qlib_recorder
+recorder_only: [inputs, models, analysis]
+new_recorder: false

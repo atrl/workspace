@@ -1,0 +1,8 @@
+{
+  "status": "stopped_after_qlib_design_calculation_before_audit_json",
+  "reason": "numpy int64 nonoverlap by-year count not JSON serializable",
+  "plan_sha256": "d421dae3451e5b35a69d08314a2553ec499701916ce7b687bebe53a99027af7d",
+  "qlib_provider_reads": 2,
+  "new_model_fits": 0,
+  "new_accounts": 0
+}
