@@ -1,0 +1,21 @@
+{
+  "experiment": "stage1_v5_lock_label_runtime_20261030",
+  "plan_sha256": "08814e85b6eb78d14ea948001f2797bb6356c9e8c3b3d1635a46b702c6752e6e",
+  "episode_module_sha256": "8654a7c8adff7d5eff67013e24b0b299eb24c2d5cd5175c8676ba4787672819d",
+  "sample_events": 40,
+  "sample_day": "2019-12-19",
+  "elapsed_seconds": 0.4269927090208512,
+  "seconds_per_event": 0.01067481772552128,
+  "naive_full_path_projection_seconds": 4088.412489603748,
+  "maximum_budget_seconds": 1800,
+  "sequential_full_run_admitted": false,
+  "legacy_first_event_terminal_nav_errors_usd": {
+    "HOLD": 0.0,
+    "EVENT": 0.0
+  },
+  "all_sample_event_orders_one": true,
+  "new_model_fits": 0,
+  "new_candidate_accounts": 0,
+  "historical_research_passed": false,
+  "decision": "runtime_projection_requires_vectorization"
+}

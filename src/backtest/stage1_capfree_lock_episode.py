@@ -134,6 +134,11 @@ def replay_capfree_lock_episode(frame, checkpoint, quotes, *, event,
         if state.q.min() < -1e-8 or state.cash < -1e-8:
             raise ValueError("blocked: event branch borrowed or shorted")
         monitored = prefill_drawdown
+        fill_nav = float(state.q @ adjusted + state.cash)
+        if fill_nav <= 0 or not np.isfinite(fill_nav):
+            raise ValueError("blocked: event fill NAV invalid")
+        state.peak = max(float(state.peak), fill_nav)
+        monitored = max(monitored, 1.0 - fill_nav / float(state.peak))
         rows = []
         for offset in range(5):
             row = frame.iloc[checkpoint.index + offset]

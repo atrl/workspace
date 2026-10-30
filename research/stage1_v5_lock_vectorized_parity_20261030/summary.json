@@ -1,0 +1,37 @@
+{
+  "experiment": "stage1_v5_lock_vectorized_parity_20261030",
+  "plan_sha256": "322938c0077551329ffd7d7fcf1e833308a390268320e40ebba5e16c55efe249",
+  "decision": "vectorized_one_arm_parity_pass_budget_conditional",
+  "historical_research_passed": false,
+  "audit": "audit.json",
+  "module": "src/analysis/stage1_capfree_lock_vectorized.py",
+  "module_sha256": "348373d8e50328e4cb382a74a7a17a958321e68a3a1ea3c8fa9f830e820a3d4f",
+  "reference_module_sha256": "8654a7c8adff7d5eff67013e24b0b299eb24c2d5cd5175c8676ba4787672819d",
+  "sample_events": 40,
+  "compiled_marks": 1758,
+  "compile_seconds": 0.003284792008344084,
+  "vectorized_seconds": 0.01272774999961257,
+  "seconds_per_event": 0.00031819374999031425,
+  "projected_full_mature_rows_seconds_single_arm": 125.33567383210175,
+  "max_parity_errors": {
+    "terminal_nav": 0.0,
+    "max_drawdown": 0.0,
+    "cash": 0.0,
+    "quantity": 0.0,
+    "fee": 0.0
+  },
+  "single_arm_projection_within_1800_seconds": true,
+  "new_model_fits": 0,
+  "new_candidate_accounts": 0,
+  "new_recorders": 0,
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": []
+  },
+  "limitations": [
+    "Exact parity covers 40 prespecified early SOXX events on one 2019 day only.",
+    "Single-arm projection is conditional and excludes second arm, recovery state, half-days and Recorder/NAS cost.",
+    "No path-label batch, information model, native candidate account or SOXX gate."
+  ]
+}

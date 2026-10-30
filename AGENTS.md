@@ -501,6 +501,21 @@ independent forward evidence remains a separate contract-v2 promotion gate.
   the original plan and receipt. No path-value labels, fits, account or SOXX
   pass. Next budget one full same-domain path-label generation with day
   grouping and purge before any information gate.
+- Runtime and vectorized path-label core cards are
+  `research/stage1_v5_lock_label_runtime_20261030` and
+  `research/stage1_v5_lock_vectorized_parity_20261030`. Sequential corrected
+  five-session episode took10.675ms/event on 40 preselected2019 minutes,
+  projecting4088s for382996 mature source rows versus frozen1800s limit.
+  The vectorized same-economics SOXX core in
+  `src/analysis/stage1_capfree_lock_vectorized.py` compiled1758 ordered
+  five-session marks and processed40 events in12.7ms; 40/40 HOLD/EVENT
+  terminal NAV, max drawdown, shares, cash, Tiered fees and monthly counters
+  match the corrected reference exactly. Single-arm runtime projection125s
+  is conditional; do not claim full two-arm/recovery/half-day parity or launch
+  bulk labels before those cases match. The reference module also now marks
+  the fee-adjusted NAV at event fill. First runtime attempt required50 bars
+  before10:32 where fewer existed; source-only correction to40 and two Qlib
+  reads is recorded. No fits, account or SOXX pass.
 - The historical old-cap joint capacity/asset-choice card is
   `docs/stage1_event_capacity_choice_implementation_20261029.md`. Its first
   read-only minute source/whole-share gate is

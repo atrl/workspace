@@ -1,0 +1,9 @@
+{
+  "attempt": 1,
+  "status": "stopped_before_runtime_or_value_read",
+  "reason": "09:48 to pre-10:32 recovery boundary has fewer than frozen50 completed bars",
+  "plan_sha256": "e123cd5dd75d67ffcddf5e08e0ad5221e79d745d740d58adea8fa73f627769e2",
+  "qlib_minute_reads": 1,
+  "new_fits": 0,
+  "new_accounts": 0
+}

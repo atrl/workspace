@@ -1,0 +1,32 @@
+{
+  "experiment": "stage1_v5_lock_label_runtime_20261030",
+  "plan_sha256": "08814e85b6eb78d14ea948001f2797bb6356c9e8c3b3d1635a46b702c6752e6e",
+  "decision": "runtime_projection_requires_vectorization",
+  "historical_research_passed": false,
+  "audit": "audit.json",
+  "first_attempt": "attempt1_clock_count_failure.json",
+  "sample_events": 40,
+  "elapsed_seconds": 0.4269927090208512,
+  "seconds_per_event": 0.01067481772552128,
+  "naive_full_path_projection_seconds": 4088.412489603748,
+  "maximum_budget_seconds": 1800,
+  "sequential_full_run_admitted": false,
+  "legacy_first_event_terminal_nav_errors_usd": {
+    "HOLD": 0.0,
+    "EVENT": 0.0
+  },
+  "qlib_minute_reads_actual": 2,
+  "new_model_fits": 0,
+  "new_candidate_accounts": 0,
+  "new_recorders": 0,
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": []
+  },
+  "limitations": [
+    "One ordinary 2019 day and one SOXX arm; linear extrapolation is not actual full-batch timing.",
+    "No 2021/22 value inspection or alpha claim.",
+    "Chronology-preserving fill-NAV mark included in current reference module; old frozen cards retain their original hashes."
+  ]
+}

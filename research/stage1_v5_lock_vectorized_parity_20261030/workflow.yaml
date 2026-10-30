@@ -1,0 +1,8 @@
+experiment: stage1_v5_lock_vectorized_parity_20261030
+kind: qlib_native_vectorized_single_arm_path_parity
+plan: plan.json
+notebook: stage1_v5_lock_vectorized_parity_20261030.ipynb
+module: src/analysis/stage1_capfree_lock_vectorized.py
+artifact_policy: slim_card_recorder_first
+source_recorders: [dated_parent, covered_frame]
+recorder_only: []

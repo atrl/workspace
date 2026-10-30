@@ -1,0 +1,7 @@
+experiment: stage1_v5_lock_label_runtime_20261030
+kind: qlib_native_fixed_event_runtime_preflight
+plan: plan.json
+notebook: stage1_v5_lock_label_runtime_20261030.ipynb
+artifact_policy: slim_card_recorder_first
+source_recorders: [dated_parent, covered_frame]
+recorder_only: []
