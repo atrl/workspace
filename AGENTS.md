@@ -240,6 +240,13 @@ independent forward evidence remains a separate contract-v2 promotion gate.
   and yearly whole-share support. If this is only a renamed old mechanism,
   mark `not_admitted_duplicate_mechanism` and do not fit. Keep all 2023+
   outcomes out of feature/window/sign selection.
+  This v5 document is **not yet a fit-ready model contract**: its few legal
+  HOLD/buy/rotation actions are source and information controls, not a
+  continuous three-asset supervision surface. After the source gate, freeze
+  the numeric own-state action-value-to-continuous-target mapping, tail-risk
+  objective, exact whole-share/Tiered forward parity and finite fit budget
+  before any retraining. A discrete action-value screen cannot be reported
+  as the final continuous allocator. Until then record `training_ready=false`.
 - The historical old-cap joint capacity/asset-choice card is
   `docs/stage1_event_capacity_choice_implementation_20261029.md`. Its first
   read-only minute source/whole-share gate is
