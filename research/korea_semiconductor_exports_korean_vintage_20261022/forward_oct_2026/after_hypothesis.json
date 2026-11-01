@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "phase": "after_hypothesis",
+  "target_reference_month": "2026-10",
+  "plan_sha256": "fbc0bd1aeb3cfbed68ac45b7327bfc18049a3ede4b574317fb7f0b23a407b1de",
+  "binding_sha256": "40452d60617cddb9cb6a26a495c8f6e27e9f6573a6525415b76124c1e7eb39b6",
+  "observed_at_utc": "2026-11-01T10:10:42.673307+00:00",
+  "market_outcome_reads": 0,
+  "model_fits": 0,
+  "accounts": 0,
+  "PIT_qualified": false,
+  "status": "missed_window",
+  "http_GETs": 0,
+  "records": []
+}
