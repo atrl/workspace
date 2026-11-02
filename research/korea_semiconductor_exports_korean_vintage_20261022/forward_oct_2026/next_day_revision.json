@@ -1,0 +1,112 @@
+{
+  "schema_version": 1,
+  "phase": "next_day_revision",
+  "target_reference_month": "2026-10",
+  "plan_sha256": "fbc0bd1aeb3cfbed68ac45b7327bfc18049a3ede4b574317fb7f0b23a407b1de",
+  "binding_sha256": "40452d60617cddb9cb6a26a495c8f6e27e9f6573a6525415b76124c1e7eb39b6",
+  "observed_at_utc": "2026-11-02T02:11:52.095202+00:00",
+  "market_outcome_reads": 0,
+  "model_fits": 0,
+  "accounts": 0,
+  "PIT_qualified": false,
+  "status": "observed",
+  "http_GETs": 5,
+  "matching_article_ids": [
+    "172360"
+  ],
+  "records": [
+    {
+      "kind": "listing_1",
+      "url": "https://www.motir.go.kr/kor/article/ATCL3f49a5a8c/?displayAuthor=&endDtD=&mno=&pageIndex=1&rowPageC=0&schClear=on&searchCategory=0&searchCondition=1&searchKeyword=%EC%88%98%EC%B6%9C%EC%9E%85+%EB%8F%99%ED%96%A5&startDtD=",
+      "requested_at_utc": "2026-11-02T02:11:52.097052+00:00",
+      "http_status": 200,
+      "content_type": "text/html;charset=UTF-8",
+      "response_date": "Mon, 02 Nov 2026 02:11:54 GMT",
+      "response_age": null,
+      "cache_control": "no-cache, no-store, max-age=0, must-revalidate",
+      "last_modified": null,
+      "relative_path": "data/snapshots/korea_semiconductor_exports_korean_vintage_20261022/forward_oct_2026/next_day_revision/listing_1.html",
+      "bytes": 123288,
+      "sha256": "49e0851ab5036bf3b8353b088a730b4d49a2dba07b9ff34f6a0fe16510e57fa3",
+      "listing_rows": 10
+    },
+    {
+      "kind": "listing_2",
+      "url": "https://www.motir.go.kr/kor/article/ATCL3f49a5a8c/?displayAuthor=&endDtD=&mno=&pageIndex=1&rowPageC=0&schClear=on&searchCategory=0&searchCondition=1&searchKeyword=%EC%88%98%EC%B6%9C%EC%9E%85%EB%8F%99%ED%96%A5&startDtD=",
+      "requested_at_utc": "2026-11-02T02:11:55.372433+00:00",
+      "http_status": 200,
+      "content_type": "text/html;charset=UTF-8",
+      "response_date": "Mon, 02 Nov 2026 02:11:57 GMT",
+      "response_age": null,
+      "cache_control": "no-cache, no-store, max-age=0, must-revalidate",
+      "last_modified": null,
+      "relative_path": "data/snapshots/korea_semiconductor_exports_korean_vintage_20261022/forward_oct_2026/next_day_revision/listing_2.html",
+      "bytes": 122980,
+      "sha256": "fedf4a1368b1fd34eacebbd87fa0b1470ab9aa718dc4024e2d2d3ab2ce4e0980",
+      "listing_rows": 10
+    },
+    {
+      "kind": "article",
+      "url": "https://www.motir.go.kr/kor/article/ATCL3f49a5a8c/172360/view",
+      "requested_at_utc": "2026-11-02T02:11:58.641451+00:00",
+      "http_status": 200,
+      "content_type": "text/html;charset=UTF-8",
+      "response_date": "Mon, 02 Nov 2026 02:12:00 GMT",
+      "response_age": null,
+      "cache_control": "no-cache, no-store, max-age=0, must-revalidate",
+      "last_modified": null,
+      "relative_path": "data/snapshots/korea_semiconductor_exports_korean_vintage_20261022/forward_oct_2026/next_day_revision/article.html",
+      "bytes": 238649,
+      "sha256": "7c55b2915aaf80251eb2d2e60a455305e6c3aad8984ca6e59d8983a6de248781",
+      "article_id": "172360",
+      "title": "2026년 10월 수출입 동향",
+      "registration_date": "2026-11-01",
+      "attachment_links": [
+        {
+          "url": "https://www.motir.go.kr/attach/down/095a2dda9c864e1d90d751f7668a1117/4b9e478693e904949a18e5ab0b8307e4/9a9db098b587ee18b321c826f3707a49",
+          "label": "2026년 10월 수출입동향_3보_최종.pdf [1,707.9 KB]",
+          "kind": "pdf"
+        },
+        {
+          "url": "https://www.motir.go.kr/attach/down/095a2dda9c864e1d90d751f7668a1117/4b9e478693e904949a18e5ab0b8307e4/778bdbf5db9ced7c8fd52756c00bf0cd",
+          "label": "2026년 10월 수출입동향_3보_최종.hwpx [1,001.2 KB]",
+          "kind": "hwpx"
+        }
+      ]
+    },
+    {
+      "kind": "attachment_1.pdf",
+      "url": "https://www.motir.go.kr/attach/down/095a2dda9c864e1d90d751f7668a1117/4b9e478693e904949a18e5ab0b8307e4/9a9db098b587ee18b321c826f3707a49",
+      "requested_at_utc": "2026-11-02T02:12:02.836549+00:00",
+      "http_status": 200,
+      "content_type": "application/pdf",
+      "response_date": "Mon, 02 Nov 2026 02:12:04 GMT",
+      "response_age": null,
+      "cache_control": "no-cache, no-store, must-revalidate",
+      "last_modified": null,
+      "relative_path": "data/snapshots/korea_semiconductor_exports_korean_vintage_20261022/forward_oct_2026/next_day_revision/attachment_1.pdf",
+      "bytes": 1748879,
+      "sha256": "e78ea4dcb939da6a8dc7e01cb6b00e92374c8d29601b50486612ea3d5fe53a0f",
+      "label": "2026년 10월 수출입동향_3보_최종.pdf [1,707.9 KB]",
+      "attachment_type": "pdf",
+      "file_magic_valid": true
+    },
+    {
+      "kind": "attachment_2.hwpx",
+      "url": "https://www.motir.go.kr/attach/down/095a2dda9c864e1d90d751f7668a1117/4b9e478693e904949a18e5ab0b8307e4/778bdbf5db9ced7c8fd52756c00bf0cd",
+      "requested_at_utc": "2026-11-02T02:12:11.716611+00:00",
+      "http_status": 200,
+      "content_type": "application/octet-stream;charset=UTF-8",
+      "response_date": "Mon, 02 Nov 2026 02:12:13 GMT",
+      "response_age": null,
+      "cache_control": "no-cache, no-store, must-revalidate",
+      "last_modified": null,
+      "relative_path": "data/snapshots/korea_semiconductor_exports_korean_vintage_20261022/forward_oct_2026/next_day_revision/attachment_2.hwpx",
+      "bytes": 1025250,
+      "sha256": "8f4ed980affe40454d39f4287827bb200178a79a6d275a41a24c04d54ce18435",
+      "label": "2026년 10월 수출입동향_3보_최종.hwpx [1,001.2 KB]",
+      "attachment_type": "hwpx",
+      "file_magic_valid": true
+    }
+  ]
+}

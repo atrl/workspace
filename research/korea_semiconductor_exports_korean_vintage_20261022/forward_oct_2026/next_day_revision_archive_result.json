@@ -1,0 +1,35 @@
+{
+  "schema_version": 1,
+  "status": "exact_next_day_vintage_archived_and_remote_hash_verified",
+  "phase": "next_day_revision",
+  "article_id": "172360",
+  "article_title": "2026년 10월 수출입 동향",
+  "article_registration_date": "2026-11-01",
+  "same_url_revision_comparison": "unavailable_both_prior_windows_missed",
+  "member_sha256": {
+    "research/korea_semiconductor_exports_korean_vintage_20261022/forward_oct_2026/next_day_revision.json": "566697bc10da8a2d82325692234739a27f19b8eee8d2b15ae6f96afb22d8db6a",
+    "data/snapshots/korea_semiconductor_exports_korean_vintage_20261022/forward_oct_2026/next_day_revision/listing_1.html": "49e0851ab5036bf3b8353b088a730b4d49a2dba07b9ff34f6a0fe16510e57fa3",
+    "data/snapshots/korea_semiconductor_exports_korean_vintage_20261022/forward_oct_2026/next_day_revision/listing_2.html": "fedf4a1368b1fd34eacebbd87fa0b1470ab9aa718dc4024e2d2d3ab2ce4e0980",
+    "data/snapshots/korea_semiconductor_exports_korean_vintage_20261022/forward_oct_2026/next_day_revision/article.html": "7c55b2915aaf80251eb2d2e60a455305e6c3aad8984ca6e59d8983a6de248781",
+    "data/snapshots/korea_semiconductor_exports_korean_vintage_20261022/forward_oct_2026/next_day_revision/attachment_1.pdf": "e78ea4dcb939da6a8dc7e01cb6b00e92374c8d29601b50486612ea3d5fe53a0f",
+    "data/snapshots/korea_semiconductor_exports_korean_vintage_20261022/forward_oct_2026/next_day_revision/attachment_2.hwpx": "8f4ed980affe40454d39f4287827bb200178a79a6d275a41a24c04d54ce18435"
+  },
+  "archive_sha256": "9aa2921f02226ed572f783fc1b2457edb32af42a83617d31155fa85b4a529195",
+  "nas_evidence": {
+    "sha256": "9aa2921f02226ed572f783fc1b2457edb32af42a83617d31155fa85b4a529195",
+    "size_bytes": 2218647,
+    "media_type": "application/gzip",
+    "storage_uri": "sha256/9a/a2/9aa2921f02226ed572f783fc1b2457edb32af42a83617d31155fa85b4a529195",
+    "uploaded_by": "soxl-minute-research",
+    "created_at": "2026-11-02 10:12:38.757416+08",
+    "duplicate": false
+  },
+  "nas_path": "/volume1/docker/yanxuan/registry/research-artifacts/9a/a2/9aa2921f02226ed572f783fc1b2457edb32af42a83617d31155fa85b4a529195",
+  "remote_sha256": "9aa2921f02226ed572f783fc1b2457edb32af42a83617d31155fa85b4a529195",
+  "nas_error": null,
+  "qualified_historical_PIT": false,
+  "qualified_strategy_days": 0,
+  "market_outcome_reads": 0,
+  "model_fits": 0,
+  "accounts": 0
+}
