@@ -1,5 +1,10 @@
 # Stage1 历史回测优化 Goal
 
+> 本文保留逐轮历史收据与当时的下一步判断，不作为新任务的默认上下文。
+> 当前短入口见 [历史 Goal 简述](stage1_historical_goal_brief.md) 与
+> [活动 campaign](../research/three_asset_campaign.json)；本文旧“下一步”须按
+> 最新科学收据核对，不能直接执行。
+
 ## 完成口径
 
 本 Goal 的对象是精确 f696 配置及 b472 动作、风险、恢复链的改进。仅当一个事前冻结的 SOXL/SOXX/CASH 候选，在训练后的完整原生 Qlib 历史资金账户中，以自身持仓、现金、应收分红、费用和风险状态，通过合同 v2 的 SOXX 0/2/5bp 全部历史财富、回撤、CVaR5、完整年度、126 日窗口及预登记不确定性硬门，才记录 `historical_research_passed` 并完成客户端 Goal。0bp 是零额外滑点，仍扣 IBKR Tiered 费用。部分通过、源资格、训练指标或匹配 Stage1 增益均不能完成 Goal。

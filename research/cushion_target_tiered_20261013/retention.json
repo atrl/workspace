@@ -1,0 +1,266 @@
+{
+  "date": "2026-11-06",
+  "status": "closed_result_details_deleted_after_verified_nas_archive",
+  "decision": "not_promoted_cushion_target_gates_failed",
+  "reason": "Failed fixed cushion target; compact card retained, later plan references archive identity rather than local recorder; local full Recorder duplicates verified NAS archive.",
+  "recorder_id": "20674512ebef42f282d4082eb8ed2771",
+  "experiment_id": "690276546447236664",
+  "deleted_local_recorder": "research/cushion_target_tiered_20261013/qlib_recorder",
+  "deleted_files": 46,
+  "deleted_bytes": 228665691,
+  "archive_sha256": "25cacfe72ff08b875be6d6bbb69e5312c56877c8e27778cd921bfc29a0ec8950",
+  "archive_size_bytes": 23836377,
+  "nas_path": "/volume1/docker/yanxuan/registry/research-artifacts/25/ca/25cacfe72ff08b875be6d6bbb69e5312c56877c8e27778cd921bfc29a0ec8950",
+  "nas_readback": {
+    "status": "passed",
+    "archive_sha256": "25cacfe72ff08b875be6d6bbb69e5312c56877c8e27778cd921bfc29a0ec8950",
+    "objects_verified": 34,
+    "new_fits": 0,
+    "new_backtests": 0
+  },
+  "source_commit": "ad9b94854fabca45cd247beba5b4db6f10a2061e",
+  "file_manifest": [
+    {
+      "path": "0/meta.yaml",
+      "bytes": 303,
+      "sha256": "33b38d55b8fd008020f4b003605ff8dc2fa790a43c4ea4be07fc26f086606dbb"
+    },
+    {
+      "path": "690276546447236664/20674512ebef42f282d4082eb8ed2771/artifacts/analysis/annual",
+      "bytes": 35542,
+      "sha256": "b75ec0ac4e085a0afdc6b7cfe0833add99cf45d1e110115865118f102e7b7a94"
+    },
+    {
+      "path": "690276546447236664/20674512ebef42f282d4082eb8ed2771/artifacts/analysis/comparison",
+      "bytes": 7726,
+      "sha256": "e5ed22a880e4e208340d35a81193fa3bf0e93bcd37a10ea2d515d10e65829900"
+    },
+    {
+      "path": "690276546447236664/20674512ebef42f282d4082eb8ed2771/artifacts/analysis/native/cash_start_2023_constant_beta_0",
+      "bytes": 8752807,
+      "sha256": "8ed6e12f4257daaa73a375e08861df5da2a8fcd40dd6fe20706fc150925bb827"
+    },
+    {
+      "path": "690276546447236664/20674512ebef42f282d4082eb8ed2771/artifacts/analysis/native/cash_start_2023_constant_beta_2",
+      "bytes": 8752172,
+      "sha256": "cefd73fe68443e8556a78861e1c6b316a5c798b82d2ba85e5a0b1589c643febb"
+    },
+    {
+      "path": "690276546447236664/20674512ebef42f282d4082eb8ed2771/artifacts/analysis/native/cash_start_2023_constant_beta_5",
+      "bytes": 8740017,
+      "sha256": "f2df154db331f37428ba1351eeef7b40272190f6230c8caf17e8973ef808384b"
+    },
+    {
+      "path": "690276546447236664/20674512ebef42f282d4082eb8ed2771/artifacts/analysis/native/cash_start_2023_cushion_target_0",
+      "bytes": 8610124,
+      "sha256": "764a10bc1ad08e972430ccab4b3b5a6233752e3f9e5ebc89ba754bf907de039a"
+    },
+    {
+      "path": "690276546447236664/20674512ebef42f282d4082eb8ed2771/artifacts/analysis/native/cash_start_2023_cushion_target_2",
+      "bytes": 8596877,
+      "sha256": "698ee771be28b0e3a34a0c7911ef8dd9061592e1d412f571f0fcf761b309a0e8"
+    },
+    {
+      "path": "690276546447236664/20674512ebef42f282d4082eb8ed2771/artifacts/analysis/native/cash_start_2023_cushion_target_5",
+      "bytes": 8604921,
+      "sha256": "c2d0f20641357870fbde75883a41c14bab3226279c40fdea9232c0e50a3e0f26"
+    },
+    {
+      "path": "690276546447236664/20674512ebef42f282d4082eb8ed2771/artifacts/analysis/native/cash_start_2023_soxx_0",
+      "bytes": 6910148,
+      "sha256": "5340444b5dc9a73587e9c3f1fc1eb94722b647d53fc14ebe7536998ad5d34c59"
+    },
+    {
+      "path": "690276546447236664/20674512ebef42f282d4082eb8ed2771/artifacts/analysis/native/cash_start_2023_soxx_2",
+      "bytes": 6910148,
+      "sha256": "70137c455bc41d88fbffd7f8b551ad9a61a85bef7e9e8e7277067d65b5ded2a8"
+    },
+    {
+      "path": "690276546447236664/20674512ebef42f282d4082eb8ed2771/artifacts/analysis/native/cash_start_2023_soxx_5",
+      "bytes": 6910148,
+      "sha256": "a9a4c5d98d85b3de191e006f780f6b437b8b350ace8c1bbfe35122af188d5aa4"
+    },
+    {
+      "path": "690276546447236664/20674512ebef42f282d4082eb8ed2771/artifacts/analysis/native/continuous_2018_constant_beta_0",
+      "bytes": 18617797,
+      "sha256": "4cc65110570d9a663bcea864bb8de2f2d20ce82603b348188e3df17b6f6a8267"
+    },
+    {
+      "path": "690276546447236664/20674512ebef42f282d4082eb8ed2771/artifacts/analysis/native/continuous_2018_constant_beta_2",
+      "bytes": 18622532,
+      "sha256": "e9915cb45d72f17b85b3a0247872d0c7ed4b8645b86bc44d0b814bd232fa4e4b"
+    },
+    {
+      "path": "690276546447236664/20674512ebef42f282d4082eb8ed2771/artifacts/analysis/native/continuous_2018_constant_beta_5",
+      "bytes": 18623936,
+      "sha256": "5db6437cb11ffc193393b7f7e17f4f0f22d49948b510c0192ad5e9d2d2b98c87"
+    },
+    {
+      "path": "690276546447236664/20674512ebef42f282d4082eb8ed2771/artifacts/analysis/native/continuous_2018_cushion_target_0",
+      "bytes": 17985960,
+      "sha256": "04a3fb7d84c5291a102d3497050c96fbee6b805a88d82f481389c8fa1d026589"
+    },
+    {
+      "path": "690276546447236664/20674512ebef42f282d4082eb8ed2771/artifacts/analysis/native/continuous_2018_cushion_target_2",
+      "bytes": 17976031,
+      "sha256": "badfc9d0ffbd7887417e4a8636149d8c19d2e8331411ee7b835014c94130724f"
+    },
+    {
+      "path": "690276546447236664/20674512ebef42f282d4082eb8ed2771/artifacts/analysis/native/continuous_2018_cushion_target_5",
+      "bytes": 17951253,
+      "sha256": "3a0527ea07b61b0917ecabfc6e8ca334a4778b632272eaad7efacfdf6a8426a4"
+    },
+    {
+      "path": "690276546447236664/20674512ebef42f282d4082eb8ed2771/artifacts/analysis/native/continuous_2018_soxx_0",
+      "bytes": 14676476,
+      "sha256": "c1c8022669978cede0c622d1c011269e1202467b6428c992419821a031e68ac6"
+    },
+    {
+      "path": "690276546447236664/20674512ebef42f282d4082eb8ed2771/artifacts/analysis/native/continuous_2018_soxx_2",
+      "bytes": 14676476,
+      "sha256": "3f3dfc307f420e734a745e76448f7edec8f4f0975f3527d6efdaf0ec5dd20a4f"
+    },
+    {
+      "path": "690276546447236664/20674512ebef42f282d4082eb8ed2771/artifacts/analysis/native/continuous_2018_soxx_5",
+      "bytes": 14676476,
+      "sha256": "51961f5b3b1861b263ba22f0f6709f264a4092ed7f34171dbcbab0e2d0acd278"
+    },
+    {
+      "path": "690276546447236664/20674512ebef42f282d4082eb8ed2771/artifacts/analysis/summary",
+      "bytes": 9064,
+      "sha256": "dac083b732e60c7f7dc72ceb5a61fc0eb8825847a7ab75f618288548de8569e1"
+    },
+    {
+      "path": "690276546447236664/20674512ebef42f282d4082eb8ed2771/artifacts/analysis/uncertainty",
+      "bytes": 2433,
+      "sha256": "4da6c091c6e17d5adac1016de863ebc02d2f428ec20a1786e777dab421de1a40"
+    },
+    {
+      "path": "690276546447236664/20674512ebef42f282d4082eb8ed2771/artifacts/analysis/windows",
+      "bytes": 1274,
+      "sha256": "f872fb951a870070bf2f9062047062df3a75ffc7347918901a830834c3aa4365"
+    },
+    {
+      "path": "690276546447236664/20674512ebef42f282d4082eb8ed2771/artifacts/code_diff.txt",
+      "bytes": 404162,
+      "sha256": "20bc932aa1833e47d1d788b674f8c8a81c4c8d24b5b6db5bf6c6f0cd00bac188"
+    },
+    {
+      "path": "690276546447236664/20674512ebef42f282d4082eb8ed2771/artifacts/code_status.txt",
+      "bytes": 62737,
+      "sha256": "876eb6ef199f45996d7cf7873c4e678efda392841ae2e8bc7a4cf5929e6a5a66"
+    },
+    {
+      "path": "690276546447236664/20674512ebef42f282d4082eb8ed2771/artifacts/inputs/frame",
+      "bytes": 1514178,
+      "sha256": "54ea209033c3428ad5efcd55ec8a0e84927b9ad10d7891cbabef8538dd876ca7"
+    },
+    {
+      "path": "690276546447236664/20674512ebef42f282d4082eb8ed2771/artifacts/inputs/plan",
+      "bytes": 2884,
+      "sha256": "02f731e517779fa7e5bc088bc8cdaa5799b57b4b0b35f3d402ba85fd83648f07"
+    },
+    {
+      "path": "690276546447236664/20674512ebef42f282d4082eb8ed2771/artifacts/inputs/source_audit",
+      "bytes": 1277,
+      "sha256": "b98143b0075551984e67bdf2d806459f700b5a5d63791313b40601daff21a7a0"
+    },
+    {
+      "path": "690276546447236664/20674512ebef42f282d4082eb8ed2771/artifacts/sources/native",
+      "bytes": 9985,
+      "sha256": "0d62721d4fa0b228413ada1a08ad0340447a09b64a4942f06a4de2f82be270c3"
+    },
+    {
+      "path": "690276546447236664/20674512ebef42f282d4082eb8ed2771/artifacts/sources/policy",
+      "bytes": 1155,
+      "sha256": "27f101c0e81147ea64ead02ac46c32bf777de45d246f2e6f1923ad6a134ac25c"
+    },
+    {
+      "path": "690276546447236664/20674512ebef42f282d4082eb8ed2771/artifacts/sources/position",
+      "bytes": 2561,
+      "sha256": "71ad6c11560644248aed72fdca90062f46e69aca9d3ceeac7513fcd89999ad80"
+    },
+    {
+      "path": "690276546447236664/20674512ebef42f282d4082eb8ed2771/artifacts/sources/replay",
+      "bytes": 5588,
+      "sha256": "439e396450b5706bf528aa799ab9110b79020bbe7606cc6c8bb753de1cc4d108"
+    },
+    {
+      "path": "690276546447236664/20674512ebef42f282d4082eb8ed2771/artifacts/sources/workflow",
+      "bytes": 8932,
+      "sha256": "7cb8cd248281aec3f8f64c7b5aefe162ec5c209608f8c26c4bcd14ed6d0603f7"
+    },
+    {
+      "path": "690276546447236664/20674512ebef42f282d4082eb8ed2771/meta.yaml",
+      "bytes": 448,
+      "sha256": "6ab7d698970f7dfc197861dbd9d0853cd8588a19f0a19a91b6dc2138fc8693ca"
+    },
+    {
+      "path": "690276546447236664/20674512ebef42f282d4082eb8ed2771/metrics/completed_native_cases",
+      "bytes": 369,
+      "sha256": "9b28b423fb37daacc836b26ccd81232de962a8fdae204337bf0365d4c7aeead8"
+    },
+    {
+      "path": "690276546447236664/20674512ebef42f282d4082eb8ed2771/metrics/registered_artifact_count",
+      "bytes": 21,
+      "sha256": "adb5cb10300cfc39875dd5c18f6142044d95e0056b9341fb89d86c4e4a3e829e"
+    },
+    {
+      "path": "690276546447236664/20674512ebef42f282d4082eb8ed2771/params/cmd-sys.argv",
+      "bytes": 202,
+      "sha256": "ac777ef3417a941e0215a35f28a0d9710bda53f626934a7e7d350677e6410ad3"
+    },
+    {
+      "path": "690276546447236664/20674512ebef42f282d4082eb8ed2771/params/maximum_native_cases",
+      "bytes": 2,
+      "sha256": "4ec9599fc203d176a301536c2e091a19bc852759b255bd6818810a42c5fed14a"
+    },
+    {
+      "path": "690276546447236664/20674512ebef42f282d4082eb8ed2771/params/model_fits",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "690276546447236664/20674512ebef42f282d4082eb8ed2771/params/plan_sha256",
+      "bytes": 64,
+      "sha256": "d4d2bba4b5aff319ba8aab68f6b59a5a404d1e416a7cc4e337c01f208edda8e1"
+    },
+    {
+      "path": "690276546447236664/20674512ebef42f282d4082eb8ed2771/tags/mlflow.runName",
+      "bytes": 20,
+      "sha256": "06503f03754fee698f6a47f10d08a0f66746b296bb686ae2d46eed715c9cdc4c"
+    },
+    {
+      "path": "690276546447236664/20674512ebef42f282d4082eb8ed2771/tags/mlflow.source.name",
+      "bytes": 89,
+      "sha256": "2b91bc6c6ab0849037e6bbaa702be690e7bcaffff56b8048a68ff3f095ddf989"
+    },
+    {
+      "path": "690276546447236664/20674512ebef42f282d4082eb8ed2771/tags/mlflow.source.type",
+      "bytes": 8,
+      "sha256": "c5ce086a14ea48fd26ac36ef868d31af1a5638e960bceb5cc8f6686b002f04f0"
+    },
+    {
+      "path": "690276546447236664/20674512ebef42f282d4082eb8ed2771/tags/mlflow.user",
+      "bytes": 7,
+      "sha256": "794e1b40e6313c087fa15dfa63123c54353fa62090a43f453e84503f453aeceb"
+    },
+    {
+      "path": "690276546447236664/meta.yaml",
+      "bytes": 360,
+      "sha256": "d3d986f49df6cd5dbcf3a705eb1a4eed7b6602132cdd8089adc0e94237456acb"
+    }
+  ],
+  "small_metadata": {
+    "0/meta.yaml": "artifact_location: /Users/rziiiii/dev/workspace/research/cushion_target_tiered_20261013/qlib_recorder/0\ncreation_time: 1791892806120\neffective_trace_archival_retention: null\nexperiment_id: '0'\nlast_update_time: 1791892806120\nlifecycle_stage: active\nname: Default\ntrace_location: null\nworkspace: default\n",
+    "690276546447236664/20674512ebef42f282d4082eb8ed2771/meta.yaml": "artifact_uri: /Users/rziiiii/dev/workspace/research/cushion_target_tiered_20261013/qlib_recorder/690276546447236664/20674512ebef42f282d4082eb8ed2771/artifacts\nend_time: 1791892807214\nentry_point_name: ''\nexperiment_id: '690276546447236664'\nlifecycle_stage: active\nrun_id: 20674512ebef42f282d4082eb8ed2771\nrun_name: fixed_cushion_target\nsource_name: ''\nsource_type: 4\nsource_version: ''\nstart_time: 1791892806195\nstatus: 3\ntags: []\nuser_id: rziiiii\n",
+    "690276546447236664/20674512ebef42f282d4082eb8ed2771/metrics/completed_native_cases": "1791892812498 1.0 0\n1791892818059 2.0 0\n1791892821834 3.0 0\n1791892827236 4.0 0\n1791892832862 5.0 0\n1791892836758 6.0 0\n1791892842433 7.0 0\n1791892847644 8.0 0\n1791892851828 9.0 0\n1791892854239 10.0 0\n1791892857638 11.0 0\n1791892859409 12.0 0\n1791892861836 13.0 0\n1791892864274 14.0 0\n1791892865884 15.0 0\n1791892869397 16.0 0\n1791892871858 17.0 0\n1791892873465 18.0 0\n",
+    "690276546447236664/20674512ebef42f282d4082eb8ed2771/metrics/registered_artifact_count": "1791892874204 34.0 0\n",
+    "690276546447236664/20674512ebef42f282d4082eb8ed2771/params/cmd-sys.argv": "/Users/rziiiii/dev/workspace/qlib_venv/lib/python3.12/site-packages/ipykernel_launcher.py -f /private/var/folders/4n/bc8v7c391nq228754jxg84_w0000gn/T/tmpf6s5e347.json --HistoryManager.hist_file=:memory:",
+    "690276546447236664/20674512ebef42f282d4082eb8ed2771/params/maximum_native_cases": "18",
+    "690276546447236664/20674512ebef42f282d4082eb8ed2771/params/model_fits": "0",
+    "690276546447236664/20674512ebef42f282d4082eb8ed2771/params/plan_sha256": "93c1dbd38169075973bae9c2892294df590d5c69d2d0ee0ac3194c3eea9c84e8",
+    "690276546447236664/meta.yaml": "artifact_location: /Users/rziiiii/dev/workspace/research/cushion_target_tiered_20261013/qlib_recorder/690276546447236664\ncreation_time: 1791892806122\neffective_trace_archival_retention: null\nexperiment_id: '690276546447236664'\nlast_update_time: 1791892806122\nlifecycle_stage: active\nname: cushion_target_tiered_20261013\ntrace_location: null\nworkspace: default\n"
+  },
+  "reproduction_limit": "Restore the exact NAS archive before Qlib Recorder object access; card summary and notebook alone do not supply local Recorder objects."
+}

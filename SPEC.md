@@ -8,10 +8,9 @@ model choice, monitoring, and archival procedure are defined in
 `docs/research_operations.md`. Historical instructions are retained in
 `docs/archive/` and apply only to artifacts that explicitly reference them.
 
-Default implementation agents use Luna/medium, monitors Luna/low, and scoped
-reviewers Sol/high. Dispatch with an explicit model and short independent
-context; escalate concrete failures as needed. Do not default routine work to
-the owner's model or reasoning effort.
+Default implementation agents use Luna/medium and scoped reviewers Sol/high.
+Dispatch bounded tasks with short independent context; escalate concrete
+failures as needed. An idle campaign does not need a resident model monitor.
 
 ## Active campaign boundary
 
