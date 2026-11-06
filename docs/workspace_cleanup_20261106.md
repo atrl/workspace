@@ -36,6 +36,13 @@ NAS 完整归档 SHA 为
 此前 34 个选定对象限定读回通过。卡片、notebook、摘要和后续计划的
 归档身份仍在；新增 `retention.json` 保留逐文件大小/SHA、少量元数据及
 恢复路径。再次读取 Qlib 对象前须从 NAS 恢复，不能把摘要当本地 Recorder。
+删除前再次通过 SSH 核了远端归档的完整 SHA。
+
+对已关闭的 `research/minute_net_action_value_20261013`，同样在逐卡
+引用、工作区、归档 SHA 与 44 个原生/模型对象读回核验后，删除本地
+`qlib_recorder` 的 57 个文件、77,397,602 字节；`retention.json`
+保存逐文件 SHA、少量元数据和 NAS 恢复位置。两卡合计实际释放
+306,063,293 字节本地明细。
 
 研究目录约 17 GB；最大的三个目录是尚未提交的 2026-11-04/05
 own-state、continuous-policy 和 H8 Recorder（约 1.7/1.1/1.0 GB）。
@@ -45,6 +52,10 @@ own-state、continuous-policy 和 H8 Recorder（约 1.7/1.1/1.0 GB）。
 `code_cached.txt`；删它们几乎不省空间，却会改变原生记录的文件清单。
 其余约 300 MB 的 `code_diff/code_status/code_cached` 快照分散在 Recorder，
 需要逐卡核对引用、关闭状态和 NAS 恢复，不能按文件名批删。
+大于 50 MB 的旧卡筛查中，另有 NAS 归档的 IBKR Tiered 诊断、
+Stage1 分钟信息比较、完整路径 Tiered 父本和分钟 PIT 配置器仍被
+后续计划、工作流或测试作为实质对照引用，保留本地对象；
+无 NAS 对应读回的旧大卡也保留。
 
 后续删除候选须逐卡满足：固定结果已关闭、保留结论/摘要/notebook、没有
 生产或冻结路径引用、不是既有 WIP、原字节和 SHA 有恢复路径，并确认
