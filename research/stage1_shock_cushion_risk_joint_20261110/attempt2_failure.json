@@ -1,0 +1,10 @@
+{
+  "status": "postfit_setup_error",
+  "error": "ValueError cannot join with no overlapping index names",
+  "code_sha256": "56197b21472184f83e2c994fd1c1434a81560db6d29fb1e100c9867a37bd9543",
+  "plan_sha256": "b8ea06380c6f00753481bf57ad45b2c29ebfae0097798295ba641787779bdd71",
+  "model_fit_calls": 2,
+  "recorder_created": false,
+  "scientific_metrics_computed": false,
+  "next": "exact index-name repair and deterministic same-plan replay with model checkpoint"
+}

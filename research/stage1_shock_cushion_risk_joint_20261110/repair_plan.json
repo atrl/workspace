@@ -1,0 +1,16 @@
+{
+  "status": "frozen_implementation_replay_only",
+  "plan_sha256": "b8ea06380c6f00753481bf57ad45b2c29ebfae0097798295ba641787779bdd71",
+  "first_prefit_error": "DatasetH default infer col_set omitted grouped columns; 0 fits",
+  "second_postfit_error": "Prediction index names did not match decision_at,row_id join; two fits completed in memory, no Recorder and no metrics",
+  "previous_postfit_lost_model_calls": 2,
+  "additional_deterministic_replay_fit_budget": 2,
+  "maximum_total_fit_calls": 4,
+  "changes_allowed": [
+    "explicit Qlib learn groups",
+    "prediction index-name alignment",
+    "save model checkpoint immediately after replay fits"
+  ],
+  "scientific_features_labels_windows_alpha_sign_gates_changed": false,
+  "no_2020_result_seen_before_replay": true
+}

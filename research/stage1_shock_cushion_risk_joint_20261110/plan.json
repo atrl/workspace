@@ -1,0 +1,56 @@
+{
+  "experiment": "stage1_shock_cushion_risk_joint_20261110",
+  "status": "frozen_before_2020_risk_value_outcome_analysis",
+  "hypothesis": "Prior-session 21-day concentration of SOXX absolute daily shocks amplifies future five-segment path drawdown when the account already has a larger received-close drawdown. The joint state/source risk is distinct from a static cushion cap or a shock main effect.",
+  "assets": [
+    "SOXL",
+    "SOXX",
+    "CASH"
+  ],
+  "source_provider": "data/qlib/minute_information_pit_allocator_20261012/daily_prices",
+  "source_manifest_sha256": "d80a08d479b73098053006909b5e6227b03a56ab705681742d7261088e0a7e6c",
+  "source_formula": "shift one full session of rolling21 max(abs(SOXX daily log return))/sum(abs(SOXX daily log return))",
+  "state_feature": "z[5]=decision-known received_actual_close_drawdown in frozen pi2 state model",
+  "label_card": "research/stage1_own_state_policy_iteration_20261105/pi2_label_bulk",
+  "label_recorder_id": "79be0d3fe0e743d790b1455ede383a6b",
+  "label_summary_sha256": "9c6906cb7707409afd310e2945dcb7672f2da22d9ad16166338729d48d338453",
+  "label_manifest_sha256": "49debaee0517927319d88176440a2ecc8ab9a8c3744af22ae674165fd245a18b",
+  "label_target": "saved pi2 same-anchor qualified segment drawdown risk for frozen 13 physical actions; value is checked only for action comparison",
+  "train": "2018-10-15 to 2019-12-31 role=fit, risk_known and value_known, label_available_at before 2020-01-01",
+  "test": "2020-01-01 to 2020-12-31 role=held, risk_known and value_known, label_available_at before 2021-01-01; no 2021+ data exist in this label panel",
+  "matched_controls": "z0..z9 decision state, u0..u1 action, quoted fee fraction, shock concentration main effect; candidate adds shock*z5 interaction",
+  "expected_interaction_sign": "positive for path drawdown risk",
+  "model": "weighted StandardScaler plus Ridge(alpha=100) with one control fit and one candidate fit; each source day total train weight one",
+  "source_gate": "2018/19/20 full prior-session shock source and >=200 risk-known 2020 held days, state/decision clock and label maturity, nonconstant interaction beyond main effect",
+  "information_gate": "2020 held-action dayweighted candidate risk MSE strictly below matched control and training-day constant, positive standardized interaction coefficient, 10-session block lower for control-minus-candidate loss>0",
+  "action_gate": "Within each 2020 anchor, compare minimum predicted risk among the same three held physical actions; >=20 changed independent days, candidate minus control realized path-risk improvement block lower>0 and fee-net value damage upper bound<=0; unknown selected outcomes prohibit pass. This remains a local action screen, never a complete account.",
+  "bootstrap": {
+    "block_sessions": 10,
+    "draws": 2000,
+    "seed": 20261110,
+    "lower_quantile": 0.025
+  },
+  "budget": {
+    "model_fits": 2,
+    "new_accounts": 0,
+    "new_sources": 0,
+    "recorders": 1
+  },
+  "stop": "Close on first failed information or action gate; no sign, alpha, window, held-action choice or year rescue; no full candidate account",
+  "limits": [
+    "reused development history",
+    "risk label from pi2 fixed action path",
+    "not an OOF full strategy or SOXX account",
+    "historical first source receipt unverified"
+  ],
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "recorder_only_artifacts": [
+      "source_audit",
+      "models",
+      "predictions",
+      "action_rows",
+      "daily_metrics"
+    ]
+  }
+}

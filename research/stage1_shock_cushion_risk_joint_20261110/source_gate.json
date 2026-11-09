@@ -1,0 +1,12 @@
+{
+  "source_days": 553,
+  "shock_source_calendar_days": 558,
+  "risk_known_2020_held_days": 247,
+  "history_risk_known_is_not_fit_filter": true,
+  "source_manifest_sha256": "d80a08d479b73098053006909b5e6227b03a56ab705681742d7261088e0a7e6c",
+  "label_manifest_sha256": "49debaee0517927319d88176440a2ecc8ab9a8c3744af22ae674165fd245a18b",
+  "clock_and_key_identity": true,
+  "interaction_residual_std": 0.002341289641753081,
+  "target_value_analyzed_before_source_gate": false,
+  "source_limit": "adjusted historical daily price; first live receipt unverified"
+}

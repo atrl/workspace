@@ -1,0 +1,11 @@
+{
+  "status": "prefit_setup_error_repaired",
+  "error": "KeyError feature at DatasetH.prepare default infer col_set",
+  "initial_code_sha256": "32183e6edbd27dc6d336f864117bf41d4b24f71a0435f6296680fe06185f4ef3",
+  "repaired_code_sha256": "56197b21472184f83e2c994fd1c1434a81560db6d29fb1e100c9867a37bd9543",
+  "plan_sha256": "b8ea06380c6f00753481bf57ad45b2c29ebfae0097798295ba641787779bdd71",
+  "fits_before_error": 0,
+  "recorder_created_before_error": false,
+  "source_gate_saved_before_error": true,
+  "scientific_parameters_changed": false
+}

@@ -1,0 +1,8 @@
+{
+  "plan_sha256": "b8ea06380c6f00753481bf57ad45b2c29ebfae0097798295ba641787779bdd71",
+  "sha256": "f96c21e2b4ae3fe47ce23dbd608346e4b5944ed69b367af59161ab8c79a020c0",
+  "model_fits_this_attempt": 2,
+  "scientific_parameters_changed": false,
+  "local_checkpoint_removed_after_nas_readback": true,
+  "recovery": "candidate_model/control_model and scalers retained in native Qlib Recorder NAS archive"
+}

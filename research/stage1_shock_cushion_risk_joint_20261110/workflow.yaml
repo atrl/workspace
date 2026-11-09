@@ -1,0 +1,19 @@
+experiment: stage1_shock_cushion_risk_joint_20261110
+source_provider: data/qlib/minute_information_pit_allocator_20261012/daily_prices
+label_card: research/stage1_own_state_policy_iteration_20261105/pi2_label_bulk
+train: 2018-10-15 to 2019-12-31 role=fit, risk_known and value_known, label_available_at
+  before 2020-01-01
+test: 2020-01-01 to 2020-12-31 role=held, risk_known and value_known, label_available_at
+  before 2021-01-01; no 2021+ data exist in this label panel
+model: weighted StandardScaler plus Ridge(alpha=100) with one control fit and one
+  candidate fit; each source day total train weight one
+fit_budget: 2
+account_budget: 0
+artifact_policy:
+  policy: slim_card_recorder_first
+  recorder_only_artifacts:
+  - source_audit
+  - models
+  - predictions
+  - action_rows
+  - daily_metrics

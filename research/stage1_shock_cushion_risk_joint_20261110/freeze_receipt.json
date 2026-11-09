@@ -1,0 +1,20 @@
+{
+  "frozen_at": "2026-11-10",
+  "plan_sha256": "b8ea06380c6f00753481bf57ad45b2c29ebfae0097798295ba641787779bdd71",
+  "code_sha256": "0bfeb67cd3f118100f5438db88ade283c597a492764426381f27387d8bca05eb",
+  "risk_value_targets_analyzed_before_freeze": false,
+  "source_support_preflight": {
+    "2018_days": 53,
+    "2019_days": 252,
+    "2020_source_days": 248,
+    "2020_held_risk_known_days": 247,
+    "history_risk_known_not_filter": true
+  },
+  "model_fit_budget": 2,
+  "account_budget": 0,
+  "initial_code_sha256": "32183e6edbd27dc6d336f864117bf41d4b24f71a0435f6296680fe06185f4ef3",
+  "implementation_repair": "DatasetH default infer column set did not expose grouped feature/label/weight; explicitly requested learn data key and groups before any fit.",
+  "postfit_failed_code_sha256": "56197b21472184f83e2c994fd1c1434a81560db6d29fb1e100c9867a37bd9543",
+  "repair_plan_sha256": "e9434df8714c99558867ac35ea1d689c9158ddd455e4856b061f4cb0358bc7c9",
+  "total_fit_call_budget_after_implementation_repair": 4
+}

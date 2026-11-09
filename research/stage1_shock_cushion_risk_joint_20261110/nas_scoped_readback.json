@@ -1,0 +1,14 @@
+{
+  "status": "passed",
+  "archive_sha256": "07582f2ba6e56ae6ccd4684b25c714cdb6bcb17df0f2e07848d75124be71e232",
+  "recorder_id": "be415a07e7024c9483790172823d4900",
+  "objects_loaded": [
+    "result",
+    "predictions",
+    "action_rows",
+    "candidate_model"
+  ],
+  "prediction_rows": 3720,
+  "action_rows": 1240,
+  "result_equal": true
+}

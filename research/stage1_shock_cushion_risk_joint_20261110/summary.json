@@ -1,0 +1,97 @@
+{
+  "experiment": "stage1_shock_cushion_risk_joint_20261110",
+  "plan_sha256": "b8ea06380c6f00753481bf57ad45b2c29ebfae0097798295ba641787779bdd71",
+  "source_gate": {
+    "source_days": 553,
+    "shock_source_calendar_days": 558,
+    "risk_known_2020_held_days": 247,
+    "history_risk_known_is_not_fit_filter": true,
+    "source_manifest_sha256": "d80a08d479b73098053006909b5e6227b03a56ab705681742d7261088e0a7e6c",
+    "label_manifest_sha256": "49debaee0517927319d88176440a2ecc8ab9a8c3744af22ae674165fd245a18b",
+    "clock_and_key_identity": true,
+    "interaction_residual_std": 0.002341289641753081,
+    "target_value_analyzed_before_source_gate": false,
+    "source_limit": "adjusted historical daily price; first live receipt unverified"
+  },
+  "result": {
+    "status": "closed_fixed_shock_cushion_risk_interaction_failed",
+    "train_fit_days": 303,
+    "train_fit_rows": 15150,
+    "test_held_source_days": 248,
+    "test_held_known_days": 247,
+    "control_dayweighted_risk_mse": 0.001006729573641999,
+    "candidate_dayweighted_risk_mse": 0.0009311801691664471,
+    "trainmean_dayweighted_risk_mse": 0.017054326839259618,
+    "mse_improvement_block_lower": 3.4259443987504095e-07,
+    "mse_undefined_bootstrap": 0,
+    "interaction_standardized_coefficient": 0.02642003885432014,
+    "information_gate_passed": true,
+    "changed_action_days": 0,
+    "same_model_zero_changed_action_days": 0,
+    "candidate_selected_unknown_anchors": 5,
+    "risk_improvement_mean": 0.0,
+    "risk_improvement_block_lower": 0.0,
+    "value_damage_mean": 0.0,
+    "value_damage_block_upper": 0.0,
+    "action_undefined_bootstrap": 0,
+    "value_undefined_bootstrap": 0,
+    "action_gate_passed": false,
+    "model_fits": 2,
+    "fit_calls_in_this_attempt": 2,
+    "previous_postfit_lost_model_calls": 2,
+    "actual_solver_invocations_total": 4,
+    "candidate_accounts": 0,
+    "historical_research_passed": false,
+    "recorder_id": "be415a07e7024c9483790172823d4900",
+    "experiment_id": "384782890532216690"
+  },
+  "recorder_id": "be415a07e7024c9483790172823d4900",
+  "experiment_id": "384782890532216690",
+  "recorder_uri": "/Users/rziiiii/dev/workspace/research/stage1_shock_cushion_risk_joint_20261110/qlib_recorder",
+  "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/stage1_shock_cushion_risk_joint_20261110/qlib_recorder/384782890532216690/be415a07e7024c9483790172823d4900",
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "recorder_only_artifacts": [
+      "source_audit",
+      "models",
+      "predictions",
+      "action_rows",
+      "daily_metrics"
+    ]
+  },
+  "nas_evidence": {
+    "sha256": "07582f2ba6e56ae6ccd4684b25c714cdb6bcb17df0f2e07848d75124be71e232",
+    "size_bytes": 299112,
+    "media_type": "application/gzip",
+    "storage_uri": "sha256/07/58/07582f2ba6e56ae6ccd4684b25c714cdb6bcb17df0f2e07848d75124be71e232",
+    "uploaded_by": "soxl-minute-research",
+    "created_at": "2026-11-10 01:55:19.810451+08",
+    "duplicate": false,
+    "nas_path": "/volume1/docker/yanxuan/registry/research-artifacts/07/58/07582f2ba6e56ae6ccd4684b25c714cdb6bcb17df0f2e07848d75124be71e232",
+    "recorder_id": "be415a07e7024c9483790172823d4900",
+    "experiment_id": "384782890532216690",
+    "archive_root": "qlib_recorder"
+  },
+  "nas_scoped_readback": {
+    "status": "passed",
+    "archive_sha256": "07582f2ba6e56ae6ccd4684b25c714cdb6bcb17df0f2e07848d75124be71e232",
+    "recorder_id": "be415a07e7024c9483790172823d4900",
+    "objects_loaded": [
+      "result",
+      "predictions",
+      "action_rows",
+      "candidate_model"
+    ],
+    "prediction_rows": 3720,
+    "action_rows": 1240,
+    "result_equal": true
+  },
+  "implementation_attempts": {
+    "prefit_error_fits": 0,
+    "postfit_lost_fits": 2,
+    "final_replay_fits": 2,
+    "actual_total_fit_calls": 4,
+    "repair_plan": "repair_plan.json"
+  },
+  "scope_note": "The pi2 state/policy that generated these saved action labels was itself trained using 2018-2020 development data. Held denotes held physical action IDs, not a market out-of-sample policy. The 2020 risk information pass is conditional development evidence only."
+}
