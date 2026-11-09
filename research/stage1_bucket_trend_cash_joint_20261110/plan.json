@@ -1,0 +1,68 @@
+{
+  "experiment": "stage1_bucket_trend_cash_joint_20261110",
+  "status": "frozen_before_cash_value_label_read_or_fit",
+  "hypothesis": "When prior SOXX 20-session return is positive, completed-minute SOXX dollar-proxy bucket sell pressure is temporary liquidity stress; its interaction should raise five-session fee-net cash-to-SOXX value beyond state, ordinary minute price/volume and each main effect. The proxy is not actual order flow.",
+  "assets": [
+    "SOXL",
+    "SOXX",
+    "CASH"
+  ],
+  "source_clock": "prior-session SOXX20 return at current09:29, bucket state only after completed bar and feature_available_at<=decision_at; score all source intents before future fill",
+  "bucket_source_card": "research/stage1_dollar_bucket_imbalance_source_20261101",
+  "bucket_recorder_id": "21f8620aa2c04cfa90794be902e37d41",
+  "bucket_summary_sha256": "557bdb7ce2d24aac359c1db475fa5b0f7e1b82afd25d33657342657a337c7d44",
+  "bucket_manifest_sha256": "84068302cea43b7b115f582964734f4a0b5155d0acd56ca5da058a311540977a",
+  "impact_source_card": "research/stage1_impact_asymmetry_information_20261101",
+  "impact_recorder_id": "08b04a1509f9450fa8463c8d4426b4c0",
+  "impact_summary_sha256": "7a54a3640920a86564666cb2060687c39ddff2768177f12ad73f553141759daa",
+  "impact_manifest_sha256": "64413b81add749fb4546e227091586695e3f0015ce8a1f6c8ce53432e585efcd",
+  "minute_provider": "data/qlib/stage1_event_guard_fullminute_20261028",
+  "minute_provider_manifest_sha256": "e9ab78e4e8fca7b70a5ccc27074893414a1308f13a4d37c3174c1690827db1e0",
+  "daily_provider": "data/qlib/minute_information_pit_allocator_20261012/daily_prices",
+  "daily_provider_manifest_sha256": "d80a08d479b73098053006909b5e6227b03a56ab705681742d7261088e0a7e6c",
+  "source_features": {
+    "prior_mom20": "prior full-session SOXX close/close[-20]-1",
+    "positive_prior_mom20": "max(prior_mom20,0)",
+    "sell_pressure": "max(-bucket_signed_net,0) only when bucket_available",
+    "interaction": "sell_pressure*positive_prior_mom20"
+  },
+  "train": "2018-10-15 through 2019-12-31, known mature H5 labels strictly before 2020-01-01",
+  "test": "2020-01-01 through 2020-12-31, year-mature 2020 H5 labels; 2021+ outcomes never accessed",
+  "target": "saved same-state fixed-share five-session SOXX-HOLD fee-net local value, 0 for valid no-fill attempts; not continuous raw account alpha",
+  "control": "existing 13 state/ordinary-minute fields from impact source plus bucket_signed_net, sell_pressure, prior_mom20, positive_prior_mom20, bucket_available; no impact_asymmetry factor",
+  "candidate_addition": "sell_pressure*positive_prior_mom20",
+  "expected_candidate_coefficient_sign": "positive",
+  "model": "one weighted StandardScaler plus Ridge(alpha=100) for control, one for candidate; each source day total train weight one; missing numeric controls filled from train-only day-weighted means, bucket unavailable interaction=0 and candidate prediction forced to control",
+  "source_gate": "source/label identity keys unique; all availability<=decision; >=200 bucket-available days in 2019 and 2020; interaction nonconstant beyond main-effect controls before target read",
+  "information_gate": "2020 day-weighted candidate MSE strictly below control and train-day mean, interaction coefficient positive, 10-session day-block lower for control loss minus candidate loss >0",
+  "action_gate": "score all source intents, first positive prediction buys SOXX otherwise HOLD; >=20 independent changed-action days; candidate minus control and candidate minus HOLD daily fee-net local value means and 10-session block lowers positive, with zero selected unknown outcomes",
+  "bootstrap": {
+    "block_sessions": 10,
+    "draws": 2000,
+    "seed": 20261110,
+    "lower_quantile": 0.025
+  },
+  "budget": {
+    "model_fits": 2,
+    "candidate_accounts": 0,
+    "new_data_sources": 0,
+    "recorders": 1
+  },
+  "stop": "If any source, information or action gate fails, close fixed version without sign, threshold, window, year, model-capacity or action-size rescue; do not access 2021+ target outcomes or run account",
+  "limits": [
+    "reused development history",
+    "adjusted dated-parent fixed-share local H5 labels",
+    "historical first minute receipt unverified",
+    "no independent SOXX account or promotion"
+  ],
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "recorder_only_artifacts": [
+      "source_audit",
+      "models",
+      "predictions",
+      "action_rows",
+      "daily_metrics"
+    ]
+  }
+}

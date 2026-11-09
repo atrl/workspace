@@ -1,0 +1,28 @@
+{
+  "status": "summary_only_finalization_repaired",
+  "error": "KeyError recorder_local_dir after two fits and Qlib Recorder save",
+  "executed_code_sha256": "7edf49a6d41143c8a88a3e67763fe4ceaec3d46afe21708dd1c0fa3198413852",
+  "replay_code_sha256": "08b3b1209c0b18bec25a0b29e0ee6f1f5b13cb85ab144f373132ecc00d13b225",
+  "model_fits_before_error": 2,
+  "additional_model_fits": 0,
+  "recorder_id": "a48bca19964b4e54b9d04a4674fcb84a",
+  "recorder_status": 3,
+  "nas_archive_sha256": "4ee90af1abf244b8e3ac50af7b801202ca83baa9d392eb1becdca5c0248b17ec",
+  "nas_scoped_readback": {
+    "status": "passed",
+    "archive_sha256": "4ee90af1abf244b8e3ac50af7b801202ca83baa9d392eb1becdca5c0248b17ec",
+    "recorder_id": "a48bca19964b4e54b9d04a4674fcb84a",
+    "objects_loaded": [
+      "result",
+      "predictions",
+      "action_rows"
+    ],
+    "prediction_rows": 241,
+    "action_rows": 242,
+    "result_equal": true,
+    "source_scope": "2018-2020 only"
+  },
+  "summary_sha256": "85eeb22d40b3df36ad134aa8ad4ace60e580e5d985d544f3c0bc5675b025bc42",
+  "manifest_sha256": "651b668ac02d90fead3dddc2ce84491ff6d231073d6a6b804ea7f40598f52623",
+  "scope_note_added_after_repair": true
+}

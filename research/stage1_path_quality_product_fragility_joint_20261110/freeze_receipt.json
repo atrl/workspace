@@ -1,0 +1,12 @@
+{
+  "frozen_at": "2026-11-10",
+  "plan_sha256": "3ddb64658c5828db27bcc0d45a442cd5449fafb7526fdf2aaf519cc022a0f919",
+  "code_sha256": "7edf49a6d41143c8a88a3e67763fe4ceaec3d46afe21708dd1c0fa3198413852",
+  "outcomes_accessed_before_freeze": false,
+  "source_only_preflight": "558 complete 2018-2020 source days, signed-efficiency versus tracking-vol Spearman -0.0397; no target read",
+  "fit_budget": 2,
+  "account_budget": 0,
+  "executed_code_sha256": "7edf49a6d41143c8a88a3e67763fe4ceaec3d46afe21708dd1c0fa3198413852",
+  "replay_code_sha256": "08b3b1209c0b18bec25a0b29e0ee6f1f5b13cb85ab144f373132ecc00d13b225",
+  "postfit_repair": "Final summary lacked recorder_local_dir; native Qlib objects and two fits were already saved. Added the path for manifest publication only; no refit or target reread."
+}

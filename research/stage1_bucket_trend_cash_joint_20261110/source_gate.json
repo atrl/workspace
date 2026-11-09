@@ -1,0 +1,16 @@
+{
+  "source_intents": 203526,
+  "source_days": 558,
+  "bucket_available_days_by_year": {
+    "2018": 33,
+    "2019": 252,
+    "2020": 231
+  },
+  "bucket_available_rows": 187827,
+  "clock_and_key_identity": true,
+  "source_spearman_signed_net_bar_return": 0.008453783360827256,
+  "interaction_residual_std": 0.0024946146575742733,
+  "daily_provider_manifest_sha256": "d80a08d479b73098053006909b5e6227b03a56ab705681742d7261088e0a7e6c",
+  "minute_provider_manifest_sha256": "e9ab78e4e8fca7b70a5ccc27074893414a1308f13a4d37c3174c1690827db1e0",
+  "target_values_loaded_before_source_gate": false
+}

@@ -1,0 +1,101 @@
+{
+  "experiment": "stage1_path_quality_product_fragility_joint_20261110",
+  "plan_sha256": "3ddb64658c5828db27bcc0d45a442cd5449fafb7526fdf2aaf519cc022a0f919",
+  "source_audit": {
+    "source_gate": {
+      "source_days": 558,
+      "source_years": {
+        "2018": 53,
+        "2019": 252,
+        "2020": 253
+      },
+      "prior_completed_session_clock": true,
+      "provider_manifest_sha256": "d80a08d479b73098053006909b5e6227b03a56ab705681742d7261088e0a7e6c",
+      "source_price_sha256": {
+        "features/soxx/close.day.bin": "ee40293ef9a1cab290db994c80690a3b067a02748a78b5ca96a49333b81b3470",
+        "features/soxl/close.day.bin": "2940218928ca0b52a84fd0b4402942f8ac603b126725a440647731bf021086af"
+      },
+      "source_spearman": -0.03967595268517447,
+      "interaction_residual_std": 0.0004341022603693276,
+      "target_values_loaded_before_gate": false,
+      "source_limit": "adjusted historical daily prices; first live receipt unverified"
+    },
+    "source_intent_rows": 201130,
+    "paired_mature_rows": 195731,
+    "paired_mature_days": {
+      "2018": 52,
+      "2019": 251,
+      "2020": 241
+    },
+    "year_end_purged_rows": 1110,
+    "first_intent_days": 547,
+    "first_intent_paired_funded_days": 518,
+    "later_outcomes_accessed": false
+  },
+  "result": {
+    "status": "closed_fixed_joint_interaction_failed",
+    "train_days": 303,
+    "test_days": 241,
+    "control_mse": 7.902745545702531e-09,
+    "candidate_mse": 8.073573404837175e-09,
+    "interaction_standardized_coefficient": 1.0516853596124025e-06,
+    "information_gate_passed": false,
+    "first_intent_days": 242,
+    "first_intent_known_days": 227,
+    "first_intent_unknown_days": 15,
+    "funded_action_changes": 2,
+    "incremental_local_value_mean": -6.001366639210268e-07,
+    "incremental_local_value_block_lower": -1.8933560891044673e-06,
+    "undefined_bootstrap_draws": 0,
+    "action_gate_passed": false,
+    "model_fits": 2,
+    "candidate_accounts": 0,
+    "2021plus_target_outcomes_accessed": false,
+    "historical_research_passed": false,
+    "recorder_id": "a48bca19964b4e54b9d04a4674fcb84a",
+    "experiment_id": "473207250036339163"
+  },
+  "recorder_id": "a48bca19964b4e54b9d04a4674fcb84a",
+  "experiment_id": "473207250036339163",
+  "recorder_uri": "/Users/rziiiii/dev/workspace/research/stage1_path_quality_product_fragility_joint_20261110/qlib_recorder",
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "recorder_only_artifacts": [
+      "daily_source",
+      "daily_labels",
+      "models",
+      "predictions",
+      "action_rows",
+      "source_audit"
+    ]
+  },
+  "nas_evidence": {
+    "sha256": "4ee90af1abf244b8e3ac50af7b801202ca83baa9d392eb1becdca5c0248b17ec",
+    "size_bytes": 141072,
+    "media_type": "application/gzip",
+    "storage_uri": "sha256/4e/e9/4ee90af1abf244b8e3ac50af7b801202ca83baa9d392eb1becdca5c0248b17ec",
+    "uploaded_by": "soxl-minute-research",
+    "created_at": "2026-11-10 01:32:52.429079+08",
+    "duplicate": false,
+    "nas_path": "/volume1/docker/yanxuan/registry/research-artifacts/4e/e9/4ee90af1abf244b8e3ac50af7b801202ca83baa9d392eb1becdca5c0248b17ec",
+    "recorder_id": "a48bca19964b4e54b9d04a4674fcb84a",
+    "experiment_id": "473207250036339163",
+    "archive_root": "qlib_recorder"
+  },
+  "nas_scoped_readback": {
+    "status": "passed",
+    "archive_sha256": "4ee90af1abf244b8e3ac50af7b801202ca83baa9d392eb1becdca5c0248b17ec",
+    "recorder_id": "a48bca19964b4e54b9d04a4674fcb84a",
+    "objects_loaded": [
+      "result",
+      "predictions",
+      "action_rows"
+    ],
+    "prediction_rows": 241,
+    "action_rows": 242,
+    "result_equal": true,
+    "source_scope": "2018-2020 only"
+  },
+  "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/stage1_path_quality_product_fragility_joint_20261110/qlib_recorder/473207250036339163/a48bca19964b4e54b9d04a4674fcb84a",
+  "target_scope_note": "Saved Qlib label object was deserialized with its full sealed year range, then filtered to 2018-2020 before any target computation, fit or metric. The result field 2021plus_target_outcomes_accessed=false means no 2021+ target analysis; it does not mean those bytes were never loaded."
+}

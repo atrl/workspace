@@ -1,0 +1,18 @@
+{
+  "source_days": 558,
+  "source_years": {
+    "2018": 53,
+    "2019": 252,
+    "2020": 253
+  },
+  "prior_completed_session_clock": true,
+  "provider_manifest_sha256": "d80a08d479b73098053006909b5e6227b03a56ab705681742d7261088e0a7e6c",
+  "source_price_sha256": {
+    "features/soxx/close.day.bin": "ee40293ef9a1cab290db994c80690a3b067a02748a78b5ca96a49333b81b3470",
+    "features/soxl/close.day.bin": "2940218928ca0b52a84fd0b4402942f8ac603b126725a440647731bf021086af"
+  },
+  "source_spearman": -0.03967595268517447,
+  "interaction_residual_std": 0.0004341022603693276,
+  "target_values_loaded_before_gate": false,
+  "source_limit": "adjusted historical daily prices; first live receipt unverified"
+}

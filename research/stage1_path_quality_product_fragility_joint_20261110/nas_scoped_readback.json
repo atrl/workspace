@@ -1,0 +1,14 @@
+{
+  "status": "passed",
+  "archive_sha256": "4ee90af1abf244b8e3ac50af7b801202ca83baa9d392eb1becdca5c0248b17ec",
+  "recorder_id": "a48bca19964b4e54b9d04a4674fcb84a",
+  "objects_loaded": [
+    "result",
+    "predictions",
+    "action_rows"
+  ],
+  "prediction_rows": 241,
+  "action_rows": 242,
+  "result_equal": true,
+  "source_scope": "2018-2020 only"
+}

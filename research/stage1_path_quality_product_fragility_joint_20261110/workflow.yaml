@@ -1,0 +1,17 @@
+experiment: stage1_path_quality_product_fragility_joint_20261110
+provider_uri: data/qlib/minute_information_pit_allocator_20261012/daily_prices
+label_card: research/stage1_v5_equal_beta_value_labels_20261030
+train: 2018-10-15/2019-12-31
+test: 2020-01-01/2020-12-31
+models: Ridge alpha=10 control and one interaction candidate
+fit_budget: 2
+account_budget: 0
+artifact_policy:
+  policy: slim_card_recorder_first
+  recorder_only_artifacts:
+  - daily_source
+  - daily_labels
+  - models
+  - predictions
+  - action_rows
+  - source_audit

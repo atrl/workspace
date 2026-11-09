@@ -1,0 +1,20 @@
+experiment: stage1_bucket_trend_cash_joint_20261110
+minute_provider: data/qlib/stage1_event_guard_fullminute_20261028
+daily_provider: data/qlib/minute_information_pit_allocator_20261012/daily_prices
+source_cards:
+- research/stage1_dollar_bucket_imbalance_source_20261101
+- research/stage1_impact_asymmetry_information_20261101
+train: 2018-10-15 through 2019-12-31, known mature H5 labels strictly before 2020-01-01
+test: 2020-01-01 through 2020-12-31, year-mature 2020 H5 labels; 2021+ outcomes never
+  accessed
+models: weighted Ridge alpha100 control and one interaction candidate
+fit_budget: 2
+account_budget: 0
+artifact_policy:
+  policy: slim_card_recorder_first
+  recorder_only_artifacts:
+  - source_audit
+  - models
+  - predictions
+  - action_rows
+  - daily_metrics

@@ -1,0 +1,93 @@
+{
+  "experiment": "stage1_bucket_trend_cash_joint_20261110",
+  "plan_sha256": "89528f5798ba85763bf2bffcbc53fe0e31ee8ee524a6f8a85f42c12caf25e614",
+  "source_gate": {
+    "source_intents": 203526,
+    "source_days": 558,
+    "bucket_available_days_by_year": {
+      "2018": 33,
+      "2019": 252,
+      "2020": 231
+    },
+    "bucket_available_rows": 187827,
+    "clock_and_key_identity": true,
+    "source_spearman_signed_net_bar_return": 0.008453783360827256,
+    "interaction_residual_std": 0.0024946146575742733,
+    "daily_provider_manifest_sha256": "d80a08d479b73098053006909b5e6227b03a56ab705681742d7261088e0a7e6c",
+    "minute_provider_manifest_sha256": "e9ab78e4e8fca7b70a5ccc27074893414a1308f13a4d37c3174c1690827db1e0",
+    "target_values_loaded_before_source_gate": false
+  },
+  "result": {
+    "status": "closed_fixed_bucket_trend_cash_interaction_failed",
+    "training_days": 295,
+    "training_rows": 107725,
+    "test_source_days": 253,
+    "test_known_days": 244,
+    "control_dayweighted_mse": 2.2060455705730654e-05,
+    "candidate_dayweighted_mse": 2.2183642015673193e-05,
+    "trainmean_dayweighted_mse": 2.2557036684739523e-05,
+    "candidate_minus_control_mse_lower": -2.991212983209681e-07,
+    "mse_undefined_bootstrap": 0,
+    "interaction_standardized_coefficient": -0.0002149957125539954,
+    "information_gate_passed": false,
+    "changed_action_days": 25,
+    "same_model_zero_changed_action_days": 12,
+    "candidate_selected_unknown_days": 9,
+    "paired_action_known_days": 244,
+    "incremental_local_value_mean": 5.005488189272543e-06,
+    "incremental_local_value_lower": -2.918933777505133e-05,
+    "candidate_vs_hold_mean": 0.0012087854837383504,
+    "candidate_vs_hold_lower": 3.1968979903630375e-05,
+    "action_undefined_bootstrap": 0,
+    "hold_undefined_bootstrap": 0,
+    "action_gate_passed": false,
+    "model_fits": 2,
+    "candidate_accounts": 0,
+    "2021plus_target_outcomes_accessed": false,
+    "historical_research_passed": false,
+    "recorder_id": "fbc6a5d8414442aba56c41e2d4c3a00e",
+    "experiment_id": "183874888019901114"
+  },
+  "recorder_id": "fbc6a5d8414442aba56c41e2d4c3a00e",
+  "experiment_id": "183874888019901114",
+  "recorder_uri": "/Users/rziiiii/dev/workspace/research/stage1_bucket_trend_cash_joint_20261110/qlib_recorder",
+  "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/stage1_bucket_trend_cash_joint_20261110/qlib_recorder/183874888019901114/fbc6a5d8414442aba56c41e2d4c3a00e",
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "recorder_only_artifacts": [
+      "source_audit",
+      "models",
+      "predictions",
+      "action_rows",
+      "daily_metrics"
+    ]
+  },
+  "nas_evidence": {
+    "sha256": "532fe62401929aba42eb757c16bb72ad3d4041156366917cb36ca041985ff01f",
+    "size_bytes": 3199817,
+    "media_type": "application/gzip",
+    "storage_uri": "sha256/53/2f/532fe62401929aba42eb757c16bb72ad3d4041156366917cb36ca041985ff01f",
+    "uploaded_by": "soxl-minute-research",
+    "created_at": "2026-11-10 01:39:56.716869+08",
+    "duplicate": false,
+    "nas_path": "/volume1/docker/yanxuan/registry/research-artifacts/53/2f/532fe62401929aba42eb757c16bb72ad3d4041156366917cb36ca041985ff01f",
+    "recorder_id": "fbc6a5d8414442aba56c41e2d4c3a00e",
+    "experiment_id": "183874888019901114",
+    "archive_root": "qlib_recorder"
+  },
+  "nas_scoped_readback": {
+    "status": "passed",
+    "archive_sha256": "532fe62401929aba42eb757c16bb72ad3d4041156366917cb36ca041985ff01f",
+    "recorder_id": "fbc6a5d8414442aba56c41e2d4c3a00e",
+    "objects_loaded": [
+      "result",
+      "predictions",
+      "action_rows"
+    ],
+    "prediction_rows": 92491,
+    "action_rows": 253,
+    "result_equal": true,
+    "source_scope": "2018-2020 only"
+  },
+  "target_scope_note": "Saved Qlib label object was deserialized with its full sealed year range, then filtered to 2018-2020 before any target computation, fit or metric. The result field 2021plus_target_outcomes_accessed=false means no 2021+ target analysis; it does not mean those bytes were never loaded."
+}

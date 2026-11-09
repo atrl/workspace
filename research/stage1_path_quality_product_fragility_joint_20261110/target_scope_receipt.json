@@ -1,0 +1,6 @@
+{
+  "status": "post_run_scope_clarification",
+  "note": "Saved Qlib label object was deserialized with its full sealed year range, then filtered to 2018-2020 before any target computation, fit or metric. The result field 2021plus_target_outcomes_accessed=false means no 2021+ target analysis; it does not mean those bytes were never loaded.",
+  "additional_fits": 0,
+  "additional_accounts": 0
+}

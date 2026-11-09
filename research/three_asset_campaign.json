@@ -20,7 +20,12 @@
     "latest_fixed_H8": "research/stage1_h8_scalar_futility_20261105/held_risk_evaluation/scientific_decision.json",
     "latest_share_proxy": "research/soxl_share_activity_source_audit_20261106/independent_source_decision.json",
     "factor_retention_evidence": "research/stage1_factor_retention_evidence_20261101/summary.json",
-    "last_account_gate": "No registered candidate has passed the complete SOXX 0/2/5bp historical account contract."
+    "last_account_gate": "No registered candidate has passed the complete SOXX 0/2/5bp historical account contract.",
+    "latest_multifactor_batch": [
+      "research/stage1_path_quality_product_fragility_joint_20261110/summary.json",
+      "research/stage1_bucket_trend_cash_joint_20261110/summary.json"
+    ],
+    "latest_multifactor_status": "two_fixed_interactions_closed_on_2020_development_gate; 4 fits, 0 candidate accounts, no 2021plus target outcomes analyzed, historical_research_not_passed"
   },
   "client_goal_observation": {
     "last_recorded": "blocked_tool_verified_20261106",
@@ -28,11 +33,12 @@
     "rule": "Read client Goal directly before claiming active, paused, blocked or complete."
   },
   "current_task": {
-    "phase": "existing_data_factor_hypothesis_discovery",
+    "phase": "needs_distinct_existing_data_decision_time_mechanism",
     "status": "not_running",
-    "scope": "Use existing Qlib/NAS factors and saved account failure evidence to propose one bounded, materially distinct single- or multi-factor economic mechanism. Compare closed routes and freeze source clock, own-state label, controls, budget and failure gate before fitting.",
-    "next_output": "one frozen candidate plan or explicit needs_distinct_decision_time_mechanism; no fit or account in this cleanup task",
-    "authorization_scope": "Existing-data bounded hypothesis discovery is within the user-authorized research Goal; each fit/account still requires its frozen task budget and gates."
+    "scope": "Next bounded existing-data source/closed-route preflight: prior-session SOXX 21-day shock concentration x decision-known own received drawdown for same-state path-risk value, using saved pi2 state/label clocks. Check that this interaction is distinct from closed cushion and Q2 risk versions, full training-year support, and valid risk-known anchors before any fit.",
+    "next_output": "source-and-label identity/admission decision only; no fit/account until a distinct own-state risk mechanism and fixed matched information gate are frozen",
+    "authorization_scope": "Existing-data bounded hypothesis discovery is within the user-authorized research Goal; each fit/account still requires its frozen task budget and gates.",
+    "source_preflight_observation": "Read-only existing Qlib daily shock-concentration source covers all 558 2018-2020 pi2 state days. pi2 checkpoint history-risk-known anchors: 265/1260/250 by year; 2020 known anchors occur on only 50 Jan2-Mar13 days. This is not the same as path-risk label knownness, so reconcile definitions before support/admission."
   },
   "active_job": null,
   "active_index": "research/active_research_index.json",

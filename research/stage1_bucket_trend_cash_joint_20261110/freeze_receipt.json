@@ -1,0 +1,15 @@
+{
+  "frozen_at": "2026-11-10",
+  "plan_sha256": "89528f5798ba85763bf2bffcbc53fe0e31ee8ee524a6f8a85f42c12caf25e614",
+  "code_sha256": "6515fae4e7fe7f4e5a010fe235639909ba6d91e8e1b9ca23d593a8d1822be7c0",
+  "target_read_before_freeze": false,
+  "source_only_preflight": {
+    "2018_available_days": 33,
+    "2019_available_days": 252,
+    "2020_available_days": 231,
+    "signed_net_vs_bar_return_spearman": 0.00845,
+    "signed_net_vs_ret5_spearman": 0.02608
+  },
+  "fit_budget": 2,
+  "account_budget": 0
+}

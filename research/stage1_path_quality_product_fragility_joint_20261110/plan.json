@@ -1,0 +1,68 @@
+{
+  "experiment": "stage1_path_quality_product_fragility_joint_20261110",
+  "status": "frozen_before_target_read_or_fit",
+  "hypothesis": "On a positive prior SOXX path, high SOXL-specific tracking-error volatility reduces the next-open equal-nominal-beta SOXL-minus-SOXX fee-net action value. This is an interaction of path direction and product fragility, not a new market source.",
+  "assets": [
+    "SOXL",
+    "SOXX",
+    "CASH"
+  ],
+  "source_provider": "data/qlib/minute_information_pit_allocator_20261012/daily_prices",
+  "provider_manifest_sha256": "d80a08d479b73098053006909b5e6227b03a56ab705681742d7261088e0a7e6c",
+  "source_start": "2017-01-01",
+  "source_end": "2020-12-31",
+  "decision_clock": "prior full session close available for next session 09:29; no current-day minute input",
+  "source_features": {
+    "signed_path_efficiency_21": "sum prior21 SOXX log returns / sum prior21 absolute SOXX log returns",
+    "soxl_tracking_error_vol_21": "sample std prior21 SOXL log return minus log1p(3*SOXX daily pct return)",
+    "soxx_vol20": "sample std prior20 SOXX pct returns",
+    "prior_return": "prior SOXX pct return",
+    "signed_positive": "max(signed_path_efficiency_21,0)",
+    "candidate_interaction": "signed_positive * soxl_tracking_error_vol_21"
+  },
+  "factor_source_reference": "src/workflow/soxl_3x_state_factor_lab.py",
+  "factor_source_sha256": "501c1b5a4f2dbd60a8130bc05726b96678bdfe4aea2f9b5becf4e0c61ac51f48",
+  "label_card": "research/stage1_v5_equal_beta_value_labels_20261030",
+  "label_recorder_id": "54bf06d027dc44bc805b87a659558dd6",
+  "label_summary_sha256": "e06d7d85d4777c407cf1bb760d5bd45ea79b25a5f9c9cfb7f0477501086492ab",
+  "label_manifest_sha256": "ff88a0e84ae49a9d91162960dd9a8d18d93b770a1fa11ffe602a8e1d25ad0a33",
+  "target": "per-day equal-weight mean of saved same-event whole-share Tiered relative_value_soxl_minus_soxx on paired-funded and year-mature rows; exploratory conditional label, not own-account alpha",
+  "evaluation": "2018-10-15 through 2019-12-31 training; 2020-01-01 through 2020-12-31 one-time development test; do not access 2021+ labels",
+  "model": "Ridge alpha=10, train-only standardization, intercept, equal weight per day; exactly one control and one candidate fit",
+  "control_features": [
+    "signed_path_efficiency_21",
+    "signed_positive",
+    "soxl_tracking_error_vol_21",
+    "soxx_vol20",
+    "prior_return"
+  ],
+  "candidate_addition": "signed_positive * soxl_tracking_error_vol_21",
+  "expected_candidate_coefficient_sign": "negative",
+  "source_gate": "At least 200 paired mature training days in 2019 and 200 in 2020, all features finite, previous-session clock and original formula identity; interaction residual nonconstant beyond controls.",
+  "information_gate": "On 2020 day-equal labels, candidate MSE strictly below control and negative interaction coefficient.",
+  "action_gate": "At the first source intent of each 2020 day, compare sign-predicted SOXL versus SOXX selection against control on both-funded known local outcomes; require positive incremental fee-net mean and a positive 2.5th percentile of 10-session circular-block bootstrap. Preserve all no-fill/unknown days as unknown; this is conditional diagnostic, not live-intent proof.",
+  "bootstrap": {
+    "block_sessions": 10,
+    "draws": 2000,
+    "seed": 20261110,
+    "lower_quantile": 0.025
+  },
+  "budget": {
+    "model_fits": 2,
+    "candidate_accounts": 0,
+    "new_sources": 0,
+    "recorders": 1
+  },
+  "stop": "If source, information or action gate fails, close this fixed interaction without sign, alpha, window, threshold, year or size rescue; do not read 2021+ target outcomes.",
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "recorder_only_artifacts": [
+      "daily_source",
+      "daily_labels",
+      "models",
+      "predictions",
+      "action_rows",
+      "source_audit"
+    ]
+  }
+}
