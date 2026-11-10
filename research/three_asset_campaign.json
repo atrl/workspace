@@ -27,7 +27,8 @@
     ],
     "latest_multifactor_status": "two_fixed_interactions_closed_on_2020_development_gate; 4 fits, 0 candidate accounts, no 2021plus target outcomes analyzed, historical_research_not_passed",
     "followup_risk_screen": "research/stage1_shock_cushion_risk_joint_20261110/summary.json",
-    "followup_risk_status": "Conditional 2020 held-action risk information gate passed versus additive Ridge inside an in-sample pi2 state/policy; 0 changed days, 5 selected unknown anchors, 0 accounts; not market OOF or SOXX alpha"
+    "followup_risk_status": "Conditional 2020 held-action risk MSE improved inside in-sample pi2 state/policy, but fixed same-anchor argmin gate was algebraically incapable of transmitting a state-only shock x drawdown term. Read-only Qlib audit shows within-anchor shift spread<=1.11e-16 over1240 anchors; no full account/SOXX alpha.",
+    "action_invariance_audit": "research/stage1_shock_cushion_risk_joint_20261110/action_invariance_audit.json"
   },
   "client_goal_observation": {
     "last_recorded": "blocked_tool_verified_20261106",
@@ -35,10 +36,10 @@
     "rule": "Read client Goal directly before claiming active, paused, blocked or complete."
   },
   "current_task": {
-    "phase": "needs_distinct_value_risk_actor_contract",
+    "phase": "action_coupled_risk_value_design_pre_fit",
     "status": "not_running",
-    "scope": "Before another fit, design a genuinely distinct continuous own-state actor using decision-known shock-conditioned risk jointly with fee-net SOXX cash opportunity and SOXL/SOXX selection value; require OOF matched Q2/control comparison, legal funded action transmission and full SOXX account gate. The fixed Nov10 three-held-action ranking is closed and cannot be rescued by a new threshold or action subset.",
-    "next_output": "one prefit value-risk actor contract with exact causal sources, training/held clocks and finite budget, or needs_distinct_decision_time_mechanism; no automatic candidate account",
+    "scope": "Freeze a distinct decision-known source x own-state x physical-action marginal risk/value mechanism. Candidate shock21_prior * received_drawdown * (3*u_SOXL+u_SOXX) varies across 1230/1240 held anchors; compare against full existing state/action/fee/Q2 controls, not the closed state-only ranking. Require causal OOF, value damage, whole-share Tiered action transmission and SOXX account gates before training or success claims.",
+    "next_output": "one frozen matched action-value/risk actor contract with finite fit/account budget and independent design review, or explicit needs_distinct_decision_time_mechanism",
     "authorization_scope": "Existing-data bounded hypothesis discovery is within the user-authorized research Goal; each fit/account still requires its frozen task budget and gates.",
     "source_preflight_observation": "Read-only existing Qlib daily shock-concentration source covers all 558 2018-2020 pi2 state days. Saved pi2 future segment-risk labels are known on 53/252/247 days (2020: 16055/16120 rows, 247/248 source days). The separate history_risk_known flag covers only 50 days in 2020 and is not a training filter in src/workflow/stage1_policy_iteration_fit.py. Source support is sufficient for a bounded prefit design, but novelty beyond closed cushion/Q2 risk and actor-to-funded-account transmission remain unverified.",
     "source_preflight_evidence": {
@@ -47,7 +48,8 @@
       "risk_fit_filter_code": "src/workflow/stage1_policy_iteration_fit.py",
       "daily_source_provider": "data/qlib/minute_information_pit_allocator_20261012/daily_prices",
       "daily_source_manifest_sha256": "d80a08d479b73098053006909b5e6227b03a56ab705681742d7261088e0a7e6c",
-      "factor_formula": "shift one full session of rolling21 max(abs(SOXX log return))/sum(abs(SOXX log return))"
+      "factor_formula": "shift one full session of rolling21 max(abs(SOXX log return))/sum(abs(SOXX log return))",
+      "action_coupled_source_preflight": "research/stage1_shock_cushion_risk_joint_20261110/action_coupled_source_preflight.json"
     }
   },
   "active_job": null,

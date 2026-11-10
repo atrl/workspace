@@ -11,3 +11,7 @@
 原生 Qlib Recorder `be415a07e7024c9483790172823d4900` NAS 归档 SHA `07582f2ba6e56ae6ccd4684b25c714cdb6bcb17df0f2e07848d75124be71e232`；限定恢复读取 result、predictions、action_rows、candidate_model 通过。这个因子只能保留为条件风险信息线索；要成为配置方案，还须有事前冻结的风险与费用后价值共同目标、真正改变的合法行动、与既有 Q2 critic 的匹配增量，以及自身完整账户 SOXX 门。
 
 作用域补充：The pi2 state/policy that generated these saved action labels was itself trained using 2018-2020 development data. Held denotes held physical action IDs, not a market out-of-sample policy. The 2020 risk information pass is conditional development evidence only.
+
+**行动接口纠正（2026-11-11，只读，0拟合）：**保存预测的同模型交互置零差在 1240 个锚点的三动作内几乎完全相同，最大组内跨度 1.11e−16。因此原交互只给三动作风险分数共同加一项，按最小风险排序必然 0 天改变。这证明固定行动门设计无法检验该因子的动作边际作用；不能据 0 天变化否定潜在的“来源×动作风险”机制，也不能把风险 MSE 改善直接称为 SOXX 超额。旧版本保持关闭，另卡需事先冻结动作相关交互及匹配 Q2/价值控制。
+
+**后续来源机械预检（2026-11-11，0拟合）：**候选改为前日冲击集中度×已接收自身回撤×动作名义 beta 增量 ‘3u_SOXL+u_SOXX’。在包含十项状态、动作、状态×动作、动作二次项、费用和冲击主效应的来源控制后，2018–2019 训练源残差方差占原候选方差 1.95%；2020 年 1240 个预留动作锚点有 1230 个在三动作间实际变化。它解决“共同平移”的机械不可辨识性，但尚未读取新目标、拟合、比较 Q2 critic 或运行账户；仍是 `training_ready=false`。详见 `action_coupled_source_preflight.json`。

@@ -1,0 +1,18 @@
+{
+  "status": "read_only_action_invariance_proved",
+  "recorder_id": "be415a07e7024c9483790172823d4900",
+  "source_object": "predictions",
+  "source_model_object": "candidate_model",
+  "same_model_ablation": "candidate minus candidate_interaction_zero",
+  "anchors": 1240,
+  "max_within_anchor_prediction_shift_spread": 1.1102230246251565e-16,
+  "maximum_absolute_common_shift": 0.13040356499778294,
+  "same_model_action_change_days": 0,
+  "candidate_control_action_change_days": 0,
+  "mechanical_cause": "shock and z5 are state-only at a shared anchor; an additive Ridge interaction changes every held action risk score by the same amount and cannot change argmin ranking",
+  "fit_calls": 0,
+  "candidate_accounts": 0,
+  "claim_limit": "explains fixed action-gate failure; does not prove action-coupled shock factor or SOXX alpha",
+  "nas_cold_readback_verified": true,
+  "nas_archive_sha256": "07582f2ba6e56ae6ccd4684b25c714cdb6bcb17df0f2e07848d75124be71e232"
+}
