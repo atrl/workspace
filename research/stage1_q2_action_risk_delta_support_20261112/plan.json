@@ -1,0 +1,15 @@
+{
+  "experiment": "stage1_q2_action_risk_delta_support_20261112",
+  "kind": "read_only_frozen_q2_same_wallet_risk_target_support",
+  "question": "Do saved independent physical actions have enough action-specific segment drawdown variation to justify a separately frozen HOLD-relative risk-target method repair?",
+  "source_card": "research/stage1_own_state_policy_iteration_20261105/risk_failure_audit",
+  "source_recorder_id": "a08f6fb5e9ea46e58feac857709e3a56",
+  "source_summary_sha256": "e658dc361680c6621714511f7da98d15ab855936c2249ca4e111802f66a43b13",
+  "source_manifest_sha256": "3783520af92e329383c12b6035c0cd34746ed301aedf482309da6cd5b6453ded",
+  "read_only_artifacts": ["row_diagnostics", "report"],
+  "population": "Saved held_physical_independent and risk_known 2019/2020 rows only, day/anchor weighted before year summary. Reused development evidence, not independent validation.",
+  "fixed_support_rule": "At least 20 separate native days in each year have one held physical action with abs(actual risk minus same-wallet HOLD risk) greater than 0.0001, and at least 20 days have an action delta distinguishable from zero after excluding exact duplicates. Both conditions required before considering a new target fit.",
+  "descriptive_checks": ["annual row and independent-day counts", "annual mean and quantiles of true action delta", "fraction of action delta exactly zero", "annual and pooled rank correlation of saved predicted and actual action delta", "mean predicted minus actual action delta"],
+  "decision": "Support pass only permits a new separately frozen method proposal; it is not a model, action, native account, or SOXX success. Failure closes this risk-target route without changing tau, ridge, features, or thresholds.",
+  "budget": {"new_model_fits": 0, "new_native_accounts": 0, "new_market_outcome_reads": 0}
+}

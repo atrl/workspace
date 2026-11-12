@@ -1,0 +1,83 @@
+{
+  "experiment": "stage1_q2_action_risk_delta_support_20261112",
+  "decision": "risk_action_delta_support_pass_only",
+  "historical_research_passed": false,
+  "new_model_fits": 0,
+  "new_native_accounts": 0,
+  "source_recorder_id": "a08f6fb5e9ea46e58feac857709e3a56",
+  "source_manifest_sha256": "3783520af92e329383c12b6035c0cd34746ed301aedf482309da6cd5b6453ded",
+  "source_readback": {
+    "recorder_id": "a08f6fb5e9ea46e58feac857709e3a56",
+    "experiment": "stage1_Q2_risk_failure_audit",
+    "experiment_id": "878440433203505394",
+    "recorder_uri": "/Users/rziiiii/dev/workspace/research/stage1_own_state_policy_iteration_20261105/risk_failure_audit/qlib_recorder",
+    "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/stage1_own_state_policy_iteration_20261105/risk_failure_audit/qlib_recorder/878440433203505394/a08f6fb5e9ea46e58feac857709e3a56",
+    "summary_sha256": "e658dc361680c6621714511f7da98d15ab855936c2249ca4e111802f66a43b13",
+    "verification_manifest_sha256": "3783520af92e329383c12b6035c0cd34746ed301aedf482309da6cd5b6453ded",
+    "artifacts": {
+      "row_diagnostics": {
+        "artifact": "row_diagnostics",
+        "artifact_id": "a08f6fb5e9ea46e58feac857709e3a56:row_diagnostics",
+        "sha256": "f02d9c0c4d46d99e25b17975bb058dead32d5f338f0d6d1e08af442f406c02f0",
+        "bytes": 3822885,
+        "manifest_entry": "qlib_recorder/878440433203505394/a08f6fb5e9ea46e58feac857709e3a56/artifacts/row_diagnostics",
+        "local_path": "/Users/rziiiii/dev/workspace/research/stage1_own_state_policy_iteration_20261105/risk_failure_audit/qlib_recorder/878440433203505394/a08f6fb5e9ea46e58feac857709e3a56/artifacts/row_diagnostics"
+      },
+      "report": {
+        "artifact": "report",
+        "artifact_id": "a08f6fb5e9ea46e58feac857709e3a56:report",
+        "sha256": "b741febcf384c6ddd1f5408e94562ba41b57e42414798e75d12ea924d8702ea0",
+        "bytes": 1431,
+        "manifest_entry": "qlib_recorder/878440433203505394/a08f6fb5e9ea46e58feac857709e3a56/artifacts/report",
+        "local_path": "/Users/rziiiii/dev/workspace/research/stage1_own_state_policy_iteration_20261105/risk_failure_audit/qlib_recorder/878440433203505394/a08f6fb5e9ea46e58feac857709e3a56/artifacts/report"
+      }
+    },
+    "read_only": true,
+    "local_filestore_only": true,
+    "hashes_checked_before_unpickling": true,
+    "metadata_and_artifact_hashes_rechecked": true,
+    "source_api": [
+      "qlib.workflow.R.get_recorder",
+      "Recorder.load_object"
+    ]
+  },
+  "annual": {
+    "2019": {
+      "rows": 3780,
+      "days": 252,
+      "days_large_1bp": 252,
+      "days_nonzero": 252,
+      "large_1bp_day_fraction": 1.0,
+      "exact_zero_row_fraction": 0.07592592592592592,
+      "true_delta_day_mean": 0.001123458122499404,
+      "predicted_delta_day_mean": 0.00435006424307476,
+      "predicted_minus_actual_day_mean": 0.003226606120575355,
+      "true_delta_abs_p50": 0.000503400160386358,
+      "true_delta_abs_p90": 0.009822060667685806,
+      "delta_row_spearman": 0.3640172684629741
+    },
+    "2020": {
+      "rows": 3705,
+      "days": 247,
+      "days_large_1bp": 246,
+      "days_nonzero": 247,
+      "large_1bp_day_fraction": 0.9959514170040485,
+      "exact_zero_row_fraction": 0.08124156545209177,
+      "true_delta_day_mean": 0.00017223798308042696,
+      "predicted_delta_day_mean": 0.005197655281895326,
+      "predicted_minus_actual_day_mean": 0.005025417298814901,
+      "true_delta_abs_p50": 0.0005501504178964112,
+      "true_delta_abs_p90": 0.008281609466266882,
+      "delta_row_spearman": 0.1712973648746768
+    }
+  },
+  "support_pass": true,
+  "limitations": [
+    "Reused 2019-2020 in-sample optimization held actions, not temporal OOS or SOXX evidence",
+    "No causal inference or fitted residual risk model"
+  ],
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "recorder_only_artifacts": []
+  }
+}
