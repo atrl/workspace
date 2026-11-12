@@ -1,0 +1,41 @@
+{
+  "status": "read_only_f696_forward_input_not_ready",
+  "provider_manifest_sha256": {
+    "soxl": "6ef58a092ef97fec0ace49a3b00fe73867fd3f895c9c70af25b599ffc61c97ba",
+    "soxl_soxx_soxs": "7e9a1f7efd74c07ef803b57737c6a25c659617227f4a9670feb8ddb6cbc30211",
+    "dynamic_soxx_soxl_cash_allocation_wf_v1": "01a5ece449e4aa9bcd7c030d5a6106368de026e99c5459a1d834cb6154d00359",
+    "soxx_soxl_forward_raw_split_20261112": "b7e5b0d58ec8a673f5cbfafd171330f48f846554b17d7ff60ebb4f3a593d1798"
+  },
+  "provider_calendar_ends": {
+    "soxl": "2026-11-11",
+    "soxl_soxx_soxs": "2026-11-11",
+    "dynamic_soxx_soxl_cash_allocation_wf_v1": "2026-11-06",
+    "soxx_soxl_forward_raw_split_20261112": "2026-11-11"
+  },
+  "split_raw_price_crosscheck": {
+    "rows": 50,
+    "ohlc_values": 200,
+    "max_abs_difference": 0.0,
+    "source_independence_proven": false
+  },
+  "dynamic_underlying_soxx": {
+    "2026-10-29": 513.8599853515625,
+    "2026-10-30": 157.1699981689453,
+    "naive_return": -0.6941384673118591,
+    "last_available": "2026-11-06"
+  },
+  "qualified_f696_forward_inference": false,
+  "reason": "f696 primary reintegration reads the shared soxl daily provider with a mixed SOXX split-vintage seam; normalized/cross-market fields read the dynamic provider, whose SOXL underlying_close embeds the same naive -69.41pct crash and whose calendar ends 2026-11-06. The isolated price-only plane lacks frozen 39+16 feature/decision and account components.",
+  "new_fits": 0,
+  "new_accounts": 0,
+  "data_rewrites": 0,
+  "scope": "posthoc source-readiness audit, not a frozen scientific candidate or independent forward outcome",
+  "frozen_f696_input_contract": {
+    "primary_features": 39,
+    "common_features": 16,
+    "model_recorder_id": "f696f656b3d44e868588e09a5d97c905",
+    "previous_readiness_card": "research/daily_input_readiness_20261014/summary.json",
+    "primary_builder": "src/workflow/cash_floor_relative_feature_reintegration.py:_load_reintegrated_frame",
+    "common_builder": "src/workflow/pit_constituent_auxiliary_training_allocation.py:_soxx_common_training_frame"
+  }
+}
