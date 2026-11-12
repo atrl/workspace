@@ -115,7 +115,9 @@
     "latest_reversal_vol_source": "research/stage1_reversal_vol_compounding_source_20261112/summary.json",
     "latest_reversal_vol_source_status": "Fixed SOXX autocorr20 negative-part x variance20 source supports 252/253 days in 2019/2020 but only 1.46pct residual variance beyond matched main-effect/path/product controls vs preregistered 5pct gate; closed before labels/fits/accounts. Recorder and NAS readback passed; no SOXX pass.",
     "latest_27baa_all_cost_attribution": "research/raw_27baa_all_cost_window_attribution_20261112/summary.json",
-    "latest_27baa_all_cost_attribution_status": "Read-only six saved native books, 0 fits/accounts: at0/2/5bp 262/266,265/270,272/280 losing rolling126 windows have negative cash-opportunity component; mean SOXL-selection component in losing groups is near zero/positive. All 266 zero-bp losing windows also lose at2/5bp; daily log identities close <=1.39e-17. Hindsight accounting only, no SOXX pass."
+    "latest_27baa_all_cost_attribution_status": "Read-only six saved native books, 0 fits/accounts: at0/2/5bp 262/266,265/270,272/280 losing rolling126 windows have negative cash-opportunity component; mean SOXL-selection component in losing groups is near zero/positive. All 266 zero-bp losing windows also lose at2/5bp; daily log identities close <=1.39e-17. Hindsight accounting only, no SOXX pass.",
+    "latest_27baa_projection_layer": "research/raw_27baa_all_cost_window_attribution_20261112/projection_layer_attribution.json",
+    "latest_27baa_projection_layer_status": "Posthoc read-only: controlled opening cash exceeds raw target on259 days per cost. At2bp that group contributes SOXX relative log -0.07354, but risk state1 72-day subset contributes +0.11909; blanket projection removal is unsupported. No fit/account."
   },
   "client_goal_observation": {
     "thread_id": "01a1afb6-261c-7422-8f3e-94438afda74a",
@@ -127,7 +129,7 @@
   "current_task": {
     "phase": "needs_distinct_cash_to_soxx_decision_time_mechanism",
     "status": "not_running",
-    "scope": "27baa all-cost actual-holdings attribution identifies cash opportunity as the dominant negative component in most losing rolling126 windows, while mean SOXL selection there is near zero/positive. The priority is a new predecision, source/PIT-qualified signal and funded continuous action for cash-to-SOXX value under own risk capacity, checked against matched strong-window damage. This is not a 27baa fixed-threshold rescue or a hindsight switch; exact f696+b472 remains Stage1 attribution baseline.",
+    "scope": "27baa losing-window cash drag is widespread, but controller-increased-cash days include a 72-day risk-state1 protective subset. A new predecision mechanism must distinguish positive from negative funded cash-to-SOXX marginal value within legal own-risk capacity, preserve strong/protective intervals, and pass native account gates; no blanket risk-projection removal or old threshold rescue.",
     "next_output": "One materially distinct cash-to-SOXX economic hypothesis from existing data with source clock, matched control, one bounded action-value and own-state account gate; otherwise scoped needs_distinct_decision_time_mechanism.",
     "authorization_scope": "Existing-data bounded hypothesis discovery is within the user-authorized research Goal; each fit/account still requires its frozen task budget and gates.",
     "source_preflight_observation": "Read-only existing Qlib daily shock-concentration source covers all 558 2018-2020 pi2 state days. Saved pi2 future segment-risk labels are known on 53/252/247 days (2020: 16055/16120 rows, 247/248 source days). The separate history_risk_known flag covers only 50 days in 2020 and is not a training filter in src/workflow/stage1_policy_iteration_fit.py. Source support is sufficient for a bounded prefit design, but novelty beyond closed cushion/Q2 risk and actor-to-funded-account transmission remain unverified.",

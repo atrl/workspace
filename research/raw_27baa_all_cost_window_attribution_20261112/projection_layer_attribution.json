@@ -1,0 +1,249 @@
+{
+  "status": "posthoc_descriptive_projection_layer_attribution",
+  "source_recorder_id": "1a9c74200fd94ba2a301ca36c0a77e4c",
+  "source_manifest_sha256": "e9db0bed2051adea0800a49cdfb30045e00391ddc4f4037b7f6112a91d8a6724",
+  "definition": "controlled opening cash target strictly exceeds raw proposal cash target by >1e-10; no controller-off path, no causal effect",
+  "costs": {
+    "0": {
+      "projection_increased_days": 259,
+      "projection_increased_relative_log_sum": -0.06746179510520306,
+      "projection_increased_cash_log_sum": -0.0681881192074435,
+      "other_relative_log_sum": 0.26491419175055414,
+      "by_state": [
+        {
+          "risk_state": 0,
+          "cash_target_increased": false,
+          "days": 474,
+          "cash_log_sum": -0.02154406723547118,
+          "selection_log_sum": 0.1754363179512957,
+          "relative_log_sum": 0.16838784520276062,
+          "mean_raw_cash_target": 0.2974978931230513,
+          "mean_controlled_cash_target": 0.0012114125804726053
+        },
+        {
+          "risk_state": 0,
+          "cash_target_increased": true,
+          "days": 39,
+          "cash_log_sum": -0.05619265001918358,
+          "selection_log_sum": 0.0,
+          "relative_log_sum": -0.05566568693419305,
+          "mean_raw_cash_target": 0.2892047447466221,
+          "mean_controlled_cash_target": 0.41538461538461546
+        },
+        {
+          "risk_state": 1,
+          "cash_target_increased": true,
+          "days": 72,
+          "cash_log_sum": 0.1303515903232873,
+          "selection_log_sum": 0.0,
+          "relative_log_sum": 0.12145559842562692,
+          "mean_raw_cash_target": 0.3329020396522513,
+          "mean_controlled_cash_target": 0.7999999999999999
+        },
+        {
+          "risk_state": 2,
+          "cash_target_increased": false,
+          "days": 66,
+          "cash_log_sum": 0.023344402561491503,
+          "selection_log_sum": 0.006951404122752041,
+          "relative_log_sum": 0.03130772969953609,
+          "mean_raw_cash_target": 0.387880889561795,
+          "mean_controlled_cash_target": 0.15582263979927674
+        },
+        {
+          "risk_state": 2,
+          "cash_target_increased": true,
+          "days": 114,
+          "cash_log_sum": -0.06882597540258603,
+          "selection_log_sum": 0.0,
+          "relative_log_sum": -0.062391729602432285,
+          "mean_raw_cash_target": 0.3656541095253409,
+          "mean_controlled_cash_target": 0.6712483481352284
+        },
+        {
+          "risk_state": 3,
+          "cash_target_increased": false,
+          "days": 145,
+          "cash_log_sum": 0.00023296670620477633,
+          "selection_log_sum": 0.06594832042558665,
+          "relative_log_sum": 0.06521861684825742,
+          "mean_raw_cash_target": 0.4099435061000318,
+          "mean_controlled_cash_target": 0.027145353396833716
+        },
+        {
+          "risk_state": 3,
+          "cash_target_increased": true,
+          "days": 34,
+          "cash_log_sum": -0.07352108410896119,
+          "selection_log_sum": 0.0,
+          "relative_log_sum": -0.07085997699420472,
+          "mean_raw_cash_target": 0.31183521134810804,
+          "mean_controlled_cash_target": 0.6205882352941176
+        }
+      ]
+    },
+    "2": {
+      "projection_increased_days": 259,
+      "projection_increased_relative_log_sum": -0.07354267515832788,
+      "projection_increased_cash_log_sum": -0.06776097019658367,
+      "other_relative_log_sum": 0.2578464200111025,
+      "by_state": [
+        {
+          "risk_state": 0,
+          "cash_target_increased": false,
+          "days": 474,
+          "cash_log_sum": -0.021035366821646403,
+          "selection_log_sum": 0.1753318731437748,
+          "relative_log_sum": 0.1648930855136433,
+          "mean_raw_cash_target": 0.2974978931230513,
+          "mean_controlled_cash_target": 0.0012114125804726053
+        },
+        {
+          "risk_state": 0,
+          "cash_target_increased": true,
+          "days": 39,
+          "cash_log_sum": -0.05603733804005684,
+          "selection_log_sum": 0.0,
+          "relative_log_sum": -0.05753919932100606,
+          "mean_raw_cash_target": 0.2892047447466221,
+          "mean_controlled_cash_target": 0.41538461538461546
+        },
+        {
+          "risk_state": 1,
+          "cash_target_increased": true,
+          "days": 72,
+          "cash_log_sum": 0.1304242004229145,
+          "selection_log_sum": 0.0,
+          "relative_log_sum": 0.11909144031028944,
+          "mean_raw_cash_target": 0.3329020396522513,
+          "mean_controlled_cash_target": 0.7999999999999999
+        },
+        {
+          "risk_state": 2,
+          "cash_target_increased": false,
+          "days": 66,
+          "cash_log_sum": 0.02327708004371048,
+          "selection_log_sum": 0.006971307131109615,
+          "relative_log_sum": 0.029718462399432072,
+          "mean_raw_cash_target": 0.387880889561795,
+          "mean_controlled_cash_target": 0.15582263979927674
+        },
+        {
+          "risk_state": 2,
+          "cash_target_increased": true,
+          "days": 114,
+          "cash_log_sum": -0.06859761539833348,
+          "selection_log_sum": 0.0,
+          "relative_log_sum": -0.06360277329169041,
+          "mean_raw_cash_target": 0.3656541095253409,
+          "mean_controlled_cash_target": 0.6712483481352284
+        },
+        {
+          "risk_state": 3,
+          "cash_target_increased": false,
+          "days": 145,
+          "cash_log_sum": 0.00011523743756121016,
+          "selection_log_sum": 0.0658113168174683,
+          "relative_log_sum": 0.06323487209802706,
+          "mean_raw_cash_target": 0.4099435061000318,
+          "mean_controlled_cash_target": 0.027145353396833716
+        },
+        {
+          "risk_state": 3,
+          "cash_target_increased": true,
+          "days": 34,
+          "cash_log_sum": -0.07355021718110784,
+          "selection_log_sum": 0.0,
+          "relative_log_sum": -0.07149214285592088,
+          "mean_raw_cash_target": 0.31183521134810804,
+          "mean_controlled_cash_target": 0.6205882352941176
+        }
+      ]
+    },
+    "5": {
+      "projection_increased_days": 259,
+      "projection_increased_relative_log_sum": -0.08331234182856848,
+      "projection_increased_cash_log_sum": -0.0677461134522282,
+      "other_relative_log_sum": 0.24712836421545453,
+      "by_state": [
+        {
+          "risk_state": 0,
+          "cash_target_increased": false,
+          "days": 474,
+          "cash_log_sum": -0.021337775663619985,
+          "selection_log_sum": 0.1754243381912612,
+          "relative_log_sum": 0.1588625271578094,
+          "mean_raw_cash_target": 0.2974978931230513,
+          "mean_controlled_cash_target": 0.0012114125804726053
+        },
+        {
+          "risk_state": 0,
+          "cash_target_increased": true,
+          "days": 39,
+          "cash_log_sum": -0.05605813842577089,
+          "selection_log_sum": 0.0,
+          "relative_log_sum": -0.060604668842678615,
+          "mean_raw_cash_target": 0.2892047447466221,
+          "mean_controlled_cash_target": 0.41538461538461546
+        },
+        {
+          "risk_state": 1,
+          "cash_target_increased": true,
+          "days": 72,
+          "cash_log_sum": 0.1305047933493347,
+          "selection_log_sum": 0.0,
+          "relative_log_sum": 0.11549530258494267,
+          "mean_raw_cash_target": 0.3329020396522513,
+          "mean_controlled_cash_target": 0.7999999999999999
+        },
+        {
+          "risk_state": 2,
+          "cash_target_increased": false,
+          "days": 66,
+          "cash_log_sum": 0.02340926042202281,
+          "selection_log_sum": 0.0069580244927440514,
+          "relative_log_sum": 0.027524037428944284,
+          "mean_raw_cash_target": 0.387880889561795,
+          "mean_controlled_cash_target": 0.15582263979927674
+        },
+        {
+          "risk_state": 2,
+          "cash_target_increased": true,
+          "days": 114,
+          "cash_log_sum": -0.06868408881165614,
+          "selection_log_sum": 0.0,
+          "relative_log_sum": -0.0658486026913131,
+          "mean_raw_cash_target": 0.3656541095253409,
+          "mean_controlled_cash_target": 0.6712483481352284
+        },
+        {
+          "risk_state": 3,
+          "cash_target_increased": false,
+          "days": 145,
+          "cash_log_sum": 9.803506378387727e-05,
+          "selection_log_sum": 0.06590671522420527,
+          "relative_log_sum": 0.06074179962870087,
+          "mean_raw_cash_target": 0.4099435061000318,
+          "mean_controlled_cash_target": 0.027145353396833716
+        },
+        {
+          "risk_state": 3,
+          "cash_target_increased": true,
+          "days": 34,
+          "cash_log_sum": -0.07350867956413591,
+          "selection_log_sum": 0.0,
+          "relative_log_sum": -0.07235437287951943,
+          "mean_raw_cash_target": 0.31183521134810804,
+          "mean_controlled_cash_target": 0.6205882352941176
+        }
+      ]
+    }
+  },
+  "new_fits": 0,
+  "new_accounts": 0,
+  "limitations": [
+    "Grouping uses endogenous saved account state and realized future SOXX returns",
+    "Cannot remove projection or select favorable risk states from this grouping",
+    "Saved book daily account is not a new forward observation"
+  ]
+}
