@@ -1,0 +1,25 @@
+experiment: stage1_shock_action_marginal_value_risk_20261112
+provider_uri: data/qlib/minute_information_pit_allocator_20261012/daily_prices
+label_card: research/stage1_own_state_policy_iteration_20261105/pi2_label_bulk
+train: 2018-10-15 through 2019-12-31 role=fit, risk_known and value_known with label_available_at
+  strictly before 2020-01-01
+test: 2020-01-01 through 2020-12-31 role=held, score every saved physical action before
+  outcome; mature known labels only for metrics, full 248 source-day calendar retained
+model: shared fee-net value Ridge(alpha=100), matched risk control Ridge(alpha=100),
+  risk candidate Ridge(alpha=100) adding only candidate feature; weighted StandardScaler
+  fit on training days only; each day total weight one
+budget:
+  value_fits: 1
+  risk_control_fits: 1
+  risk_candidate_fits: 1
+  candidate_accounts: 0
+  new_sources: 0
+  recorders: 1
+artifact_policy:
+  policy: slim_card_recorder_first
+  recorder_only_artifacts:
+  - source_audit
+  - models
+  - predictions
+  - action_rows
+  - daily_metrics

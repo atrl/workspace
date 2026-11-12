@@ -1,0 +1,63 @@
+{
+  "experiment": "stage1_shock_action_marginal_value_risk_20261112",
+  "status": "frozen_before_new_target_analysis_or_fit",
+  "hypothesis": "High prior-session SOXX shock concentration amplifies marginal segment drawdown of adding nominal beta when own received drawdown is already high; a fee-net value maximizing actor can then avoid harmful added risk without surrendering good SOXX/SOXL opportunities.",
+  "portfolio_assets": [
+    "SOXL",
+    "SOXX",
+    "CASH"
+  ],
+  "source_provider": "data/qlib/minute_information_pit_allocator_20261012/daily_prices",
+  "source_manifest_sha256": "d80a08d479b73098053006909b5e6227b03a56ab705681742d7261088e0a7e6c",
+  "label_card": "research/stage1_own_state_policy_iteration_20261105/pi2_label_bulk",
+  "label_recorder_id": "79be0d3fe0e743d790b1455ede383a6b",
+  "label_summary_sha256": "9c6906cb7707409afd310e2945dcb7672f2da22d9ad16166338729d48d338453",
+  "label_manifest_sha256": "49debaee0517927319d88176440a2ecc8ab9a8c3744af22ae674165fd245a18b",
+  "source_preflight": "research/stage1_shock_cushion_risk_joint_20261110/action_coupled_source_preflight.json",
+  "source_preflight_sha256": "022e268db38e8bfab502da9226cf3e9af130f3b51f04225732be6fc6f2652b8a",
+  "source_clock": "shock21 prior full session known before 09:29; z5 own received drawdown and projected u action known at each legal minute; next-bar fill remains future",
+  "candidate_feature": "shock21_prior * z5_received_drawdown * (3*u_SOXL + u_SOXX)",
+  "expected_risk_coefficient_sign": "positive",
+  "control_basis": "z0..z9, u0/u1, all z_i*u_j, quadratic u0²/u0u1/u1², quoted_fee_fraction, shock main, shock*z5 state-only; same rows and scaler for matched arms",
+  "training": "2018-10-15 through 2019-12-31 role=fit, risk_known and value_known with label_available_at strictly before 2020-01-01",
+  "evaluation": "2020-01-01 through 2020-12-31 role=held, score every saved physical action before outcome; mature known labels only for metrics, full 248 source-day calendar retained",
+  "models": "shared fee-net value Ridge(alpha=100), matched risk control Ridge(alpha=100), risk candidate Ridge(alpha=100) adding only candidate feature; weighted StandardScaler fit on training days only; each day total weight one",
+  "risk_prediction": "clip both risk heads to [received_drawdown,1]; shared value forecast unchanged",
+  "local_actor": "For each anchor choose maximum shared predicted fee-net value among three saved held physical actions and HOLD whose predicted risk <=0.30; fixed ties prefer HOLD then action_id. HOLD predicted risk is scored at u=(0,0), fee=0, not future realized HOLD risk. If no arm passes, choose HOLD. Candidate/control/same-model-zero use identical rule.",
+  "information_gate": "On 2020 held actions candidate day-weighted risk MSE strictly below matched control and train-day mean, coefficient positive, 10-session circular-block lower on control-minus-candidate loss positive",
+  "action_gate": "At least20 independent days changed by candidate versus same-model-zero and versus matched control; selected unknown outcomes zero; candidate-minus-control realized fee-net local value mean and 10-session block lower positive; candidate value versus HOLD lower positive; candidate-minus-control realized risk damage 10-session upper <=0 Shared value calibration gate must also pass.",
+  "account_admission": "Local held-action gate passing is necessary only. A later continuous own-state Qlib actor with full action support, PSD/quantile risk parity, next-open whole shares/Tiered/dividends and exact f696+b472 matched parent must be frozen and run before any SOXX claim.",
+  "bootstrap": {
+    "sessions": 10,
+    "draws": 2000,
+    "seed": 20261112,
+    "lower": 0.025,
+    "upper": 0.975
+  },
+  "budget": {
+    "value_fits": 1,
+    "risk_control_fits": 1,
+    "risk_candidate_fits": 1,
+    "candidate_accounts": 0,
+    "new_sources": 0,
+    "recorders": 1
+  },
+  "stop": "If source, information or action gate fails, close this exact source/state/action version without changing alpha, sign, risk budget, action set, year or threshold; record method/coverage and move to a distinct mechanism.",
+  "limits": [
+    "pi2 state policy was trained on reused 2018-2020 development history; held means held physical action IDs not independent market OOF",
+    "three held actions plus HOLD are not continuous full action space",
+    "historical first receipt of daily source unverified",
+    "no full SOXX account from this card"
+  ],
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "recorder_only_artifacts": [
+      "source_audit",
+      "models",
+      "predictions",
+      "action_rows",
+      "daily_metrics"
+    ]
+  },
+  "value_calibration_gate": "2020 held-action day-weighted shared value MSE strictly below train-day mean constant, with 10-session block lower on constant-minus-value loss >0; if failed, action result remains diagnostic and cannot admit account."
+}

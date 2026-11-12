@@ -1,0 +1,90 @@
+{
+  "experiment": "stage1_shock_action_marginal_value_risk_20261112",
+  "plan_sha256": "6c42ecf7e576231d0ec6cd1a149d83deebd92fd5568939d484c20969152f62cc",
+  "source_gate": {
+    "train_source_rows": 15250,
+    "test_source_rows": 3720,
+    "test_source_days": 248,
+    "held_anchors": 1240,
+    "held_anchors_with_action_variation": 1230,
+    "residual_std_beyond_full_control_basis": 0.0049758576376426715,
+    "source_manifest_sha256": "d80a08d479b73098053006909b5e6227b03a56ab705681742d7261088e0a7e6c",
+    "label_manifest_sha256": "49debaee0517927319d88176440a2ecc8ab9a8c3744af22ae674165fd245a18b",
+    "decision_time_clock_pass": true,
+    "label_outcomes_analyzed_before_source_gate": false,
+    "source_limit": "historical daily first receipt remains unverified"
+  },
+  "result": {
+    "status": "closed_fixed_action_marginal_joint_failed",
+    "train_days": 303,
+    "train_rows": 15150,
+    "test_source_days": 248,
+    "test_known_days": 247,
+    "risk_control_day_mse": 0.0008048779209757328,
+    "risk_candidate_day_mse": 0.0007989379705553599,
+    "risk_trainmean_day_mse": 0.010979253682717936,
+    "risk_loss_improvement_block_lower": 1.7238392294129563e-06,
+    "risk_candidate_interaction_coef": -0.002857010028001583,
+    "risk_information_pass": false,
+    "value_model_day_mse": 0.00016999062400013695,
+    "value_trainmean_day_mse": 0.0001715868716341998,
+    "value_loss_improvement_block_lower": -9.228467072547329e-07,
+    "value_calibration_pass": false,
+    "matched_changed_action_days": 1,
+    "same_model_direct_changed_days": 4,
+    "candidate_selected_unknown_anchors": 5,
+    "local_value_improvement_mean": 5.8913703955897555e-06,
+    "local_value_improvement_block_lower": 0.0,
+    "candidate_vs_hold_block_lower": -0.0006427404609004458,
+    "risk_damage_block_upper": 4.095188964813015e-05,
+    "action_gate_pass": false,
+    "model_fit_calls_this_attempt": 3,
+    "candidate_accounts": 0,
+    "historical_research_passed": false,
+    "recorder_id": "5c6014213d6b4c13b12582e39bbae030",
+    "experiment_id": "586529690342698935"
+  },
+  "recorder_id": "5c6014213d6b4c13b12582e39bbae030",
+  "experiment_id": "586529690342698935",
+  "recorder_uri": "/Users/rziiiii/dev/workspace/research/stage1_shock_action_marginal_value_risk_20261112/qlib_recorder",
+  "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/stage1_shock_action_marginal_value_risk_20261112/qlib_recorder/586529690342698935/5c6014213d6b4c13b12582e39bbae030",
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "recorder_only_artifacts": [
+      "source_audit",
+      "models",
+      "predictions",
+      "action_rows",
+      "daily_metrics"
+    ]
+  },
+  "nas_evidence": {
+    "sha256": "79baa021124d408c53b274df976d59efbfa2561b1aff54a2e0637dfa3253e106",
+    "size_bytes": 321300,
+    "media_type": "application/gzip",
+    "storage_uri": "sha256/79/ba/79baa021124d408c53b274df976d59efbfa2561b1aff54a2e0637dfa3253e106",
+    "uploaded_by": "soxl-minute-research",
+    "created_at": "2026-11-12 10:19:25.844908+08",
+    "duplicate": false,
+    "nas_path": "/volume1/docker/yanxuan/registry/research-artifacts/79/ba/79baa021124d408c53b274df976d59efbfa2561b1aff54a2e0637dfa3253e106",
+    "recorder_id": "5c6014213d6b4c13b12582e39bbae030",
+    "experiment_id": "586529690342698935",
+    "archive_root": "qlib_recorder"
+  },
+  "nas_scoped_readback": {
+    "status": "passed",
+    "archive_sha256": "79baa021124d408c53b274df976d59efbfa2561b1aff54a2e0637dfa3253e106",
+    "recorder_id": "5c6014213d6b4c13b12582e39bbae030",
+    "objects_loaded": [
+      "result",
+      "predictions",
+      "action_rows",
+      "risk_candidate_model"
+    ],
+    "prediction_rows": 3720,
+    "action_rows": 1240,
+    "result_equal": true
+  },
+  "methodology_increment": "action-dependent source variation and same-model ablation are necessary; both risk and fee-net value calibration plus funded action/account transmission remain required",
+  "read_only_value_failure_attribution": "value_failure_attribution.json"
+}

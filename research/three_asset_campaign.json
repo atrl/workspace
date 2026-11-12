@@ -28,18 +28,23 @@
     "latest_multifactor_status": "two_fixed_interactions_closed_on_2020_development_gate; 4 fits, 0 candidate accounts, no 2021plus target outcomes analyzed, historical_research_not_passed",
     "followup_risk_screen": "research/stage1_shock_cushion_risk_joint_20261110/summary.json",
     "followup_risk_status": "Conditional 2020 held-action risk MSE improved inside in-sample pi2 state/policy, but fixed same-anchor argmin gate was algebraically incapable of transmitting a state-only shock x drawdown term. Read-only Qlib audit shows within-anchor shift spread<=1.11e-16 over1240 anchors; no full account/SOXX alpha.",
-    "action_invariance_audit": "research/stage1_shock_cushion_risk_joint_20261110/action_invariance_audit.json"
+    "action_invariance_audit": "research/stage1_shock_cushion_risk_joint_20261110/action_invariance_audit.json",
+    "latest_action_marginal_result": "research/stage1_shock_action_marginal_value_risk_20261112/summary.json",
+    "latest_action_marginal_status": "fixed action-coupled shock x own-drawdown x beta-u screen closed: risk MSE improved 0.74pct but preregistered coefficient sign, value calibration and action-value gates failed; 3 fits, 0 accounts, no SOXX pass",
+    "latest_methodology_increment": "docs/research_failure_to_feature_sop.md#候选漏斗"
   },
   "client_goal_observation": {
-    "last_recorded": "blocked_tool_verified_20261106",
-    "current_status": "unverified_in_this_task",
-    "rule": "Read client Goal directly before claiming active, paused, blocked or complete."
+    "thread_id": "01a1afb6-261c-7422-8f3e-94438afda74a",
+    "observed_status": "active",
+    "observed_at_utc": "2026-11-12T02:21:31Z",
+    "source": "get_goal direct readback",
+    "scientific_status_separate": "historical_research_not_passed"
   },
   "current_task": {
-    "phase": "action_coupled_risk_value_design_pre_fit",
+    "phase": "needs_distinct_cross_session_value_mechanism",
     "status": "not_running",
-    "scope": "Freeze a distinct decision-known source x own-state x physical-action marginal risk/value mechanism. Candidate shock21_prior * received_drawdown * (3*u_SOXL+u_SOXX) varies across 1230/1240 held anchors; compare against full existing state/action/fee/Q2 controls, not the closed state-only ranking. Require causal OOF, value damage, whole-share Tiered action transmission and SOXX account gates before training or success claims.",
-    "next_output": "one frozen matched action-value/risk actor contract with finite fit/account budget and independent design review, or explicit needs_distinct_decision_time_mechanism",
+    "scope": "Use saved 2020 Qlib value forecast/label failure attribution to identify a materially different decision-known cross-session cash opportunity plus SOXL-relative selection mechanism, not a 2020 quarter switch or a sign/alpha/threshold rescue of the Nov12 closed interaction. Freeze own-state fee-net and risk action target with OOF controls before any new fit.",
+    "next_output": "one bounded falsifiable mechanism with exact source clock, train-only calibration, legal funded action and full account path, or scoped needs_distinct_decision_time_mechanism",
     "authorization_scope": "Existing-data bounded hypothesis discovery is within the user-authorized research Goal; each fit/account still requires its frozen task budget and gates.",
     "source_preflight_observation": "Read-only existing Qlib daily shock-concentration source covers all 558 2018-2020 pi2 state days. Saved pi2 future segment-risk labels are known on 53/252/247 days (2020: 16055/16120 rows, 247/248 source days). The separate history_risk_known flag covers only 50 days in 2020 and is not a training filter in src/workflow/stage1_policy_iteration_fit.py. Source support is sufficient for a bounded prefit design, but novelty beyond closed cushion/Q2 risk and actor-to-funded-account transmission remain unverified.",
     "source_preflight_evidence": {

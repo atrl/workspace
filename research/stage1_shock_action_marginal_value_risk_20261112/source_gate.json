@@ -1,0 +1,13 @@
+{
+  "train_source_rows": 15250,
+  "test_source_rows": 3720,
+  "test_source_days": 248,
+  "held_anchors": 1240,
+  "held_anchors_with_action_variation": 1230,
+  "residual_std_beyond_full_control_basis": 0.0049758576376426715,
+  "source_manifest_sha256": "d80a08d479b73098053006909b5e6227b03a56ab705681742d7261088e0a7e6c",
+  "label_manifest_sha256": "49debaee0517927319d88176440a2ecc8ab9a8c3744af22ae674165fd245a18b",
+  "decision_time_clock_pass": true,
+  "label_outcomes_analyzed_before_source_gate": false,
+  "source_limit": "historical daily first receipt remains unverified"
+}

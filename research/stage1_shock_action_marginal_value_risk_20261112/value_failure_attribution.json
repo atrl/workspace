@@ -1,0 +1,42 @@
+{
+  "status": "read_only_failure_attribution",
+  "source_recorder_id": "5c6014213d6b4c13b12582e39bbae030",
+  "source_label_recorder_id": "79be0d3fe0e743d790b1455ede383a6b",
+  "known_action_rows": 3705,
+  "known_days": 247,
+  "quarterly": [
+    {
+      "quarter": "2020Q1",
+      "days": 61,
+      "actual_day_mean": -0.0018087627383023756,
+      "forecast_day_mean": -0.0006067375950619015,
+      "bias": 0.001202025143240474
+    },
+    {
+      "quarter": "2020Q2",
+      "days": 63,
+      "actual_day_mean": 0.001181587104404358,
+      "forecast_day_mean": 0.0005113694324205015,
+      "bias": -0.0006702176719838564
+    },
+    {
+      "quarter": "2020Q3",
+      "days": 64,
+      "actual_day_mean": -0.0005654123282265112,
+      "forecast_day_mean": -0.0007939378299759783,
+      "bias": -0.0002285255017494671
+    },
+    {
+      "quarter": "2020Q4",
+      "days": 59,
+      "actual_day_mean": -0.0013776879640078298,
+      "forecast_day_mean": 7.336069121123698e-07,
+      "bias": 0.001378421570919942
+    }
+  ],
+  "changed_action_days": 1,
+  "same_model_direct_changed_days": 4,
+  "fits": 0,
+  "accounts": 0,
+  "limitation": "Q1-Q4 are hindsight attribution on reused 2020 development, not tradable regime rules"
+}
