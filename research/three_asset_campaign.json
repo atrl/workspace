@@ -123,7 +123,9 @@
     "latest_27baa_source_gate": "research/nvda_own_guidance_realization_training_20261015/summary.json",
     "latest_27baa_source_gate_status": "Upstream 27baa first-public timestamp and all interim guidance updates unverified. Account numbers valid as saved historical development, but cannot directly qualify a promotion candidate on this parent.",
     "latest_ramp_bucket_capacity_triage": "research/stage1_ramp_bucket_capacity_triage_20261112/summary.json",
-    "latest_ramp_bucket_capacity_status": "Retrospective verified Qlib source/capacity intersection: f696 risk_state2 plus available dollar-bucket plus positive old cash-to-SOXX capacity gives 2019 25 days/22 funded, 2020 14/10; median day-max weight0.429/0.336pct NAV. Specific ramp-only bucket receiver not fitted, no account/SOXX pass; target bytes co-deserialized but values not analyzed."
+    "latest_ramp_bucket_capacity_status": "Retrospective verified Qlib source/capacity intersection: f696 risk_state2 plus available dollar-bucket plus positive old cash-to-SOXX capacity gives 2019 25 days/22 funded, 2020 14/10; median day-max weight0.429/0.336pct NAV. Specific ramp-only bucket receiver not fitted, no account/SOXX pass; target bytes co-deserialized but values not analyzed.",
+    "reported_concentration_source_scope": "research/stage1_soxx_concentration_amendment_gap_resolution_20261023/summary.json",
+    "reported_concentration_triage": "Existing reported SOXX top5/HHI maps 3020 training and 944 reused held days but only 48/15 distinct active filing events; HHI is ownership concentration, not volatility-adjusted risk concentration. Exact intraday first-public receipts and historical constituent volatility plane are unqualified. No cash-value fit/account launched; source retained, not declared economically useless."
   },
   "client_goal_observation": {
     "thread_id": "01a1afb6-261c-7422-8f3e-94438afda74a",
@@ -135,19 +137,9 @@
   "current_task": {
     "phase": "needs_distinct_qualified_decision_time_mechanism",
     "status": "not_running",
-    "scope": "The exact f696+b472 ramp-state-only bucket sell-pressure idea has insufficient 2020 funded support (10 days) and sub-0.5pct median day-max capacity; do not fit or rescue by selecting 2022. 27baa remains diagnostic only due unqualified NVDA guidance clock. Next mechanism must jointly change allocation intent and legal risk capacity at broader independent-day support while preserving protective state1 intervals; existing-data and SOXX gates unchanged.",
-    "next_output": "A materially distinct, decision-known mechanism with broad cash-to-SOXX funded action capacity on a qualified parent and matched info/account gates, or scoped needs_distinct_decision_time_mechanism.",
-    "authorization_scope": "Existing-data bounded hypothesis discovery is within the user-authorized research Goal; each fit/account still requires its frozen task budget and gates.",
-    "source_preflight_observation": "Read-only existing Qlib daily shock-concentration source covers all 558 2018-2020 pi2 state days. Saved pi2 future segment-risk labels are known on 53/252/247 days (2020: 16055/16120 rows, 247/248 source days). The separate history_risk_known flag covers only 50 days in 2020 and is not a training filter in src/workflow/stage1_policy_iteration_fit.py. Source support is sufficient for a bounded prefit design, but novelty beyond closed cushion/Q2 risk and actor-to-funded-account transmission remain unverified.",
-    "source_preflight_evidence": {
-      "risk_label_summary": "research/stage1_own_state_policy_iteration_20261105/pi2_label_bulk/summary.json",
-      "risk_label_recorder_id": "79be0d3fe0e743d790b1455ede383a6b",
-      "risk_fit_filter_code": "src/workflow/stage1_policy_iteration_fit.py",
-      "daily_source_provider": "data/qlib/minute_information_pit_allocator_20261012/daily_prices",
-      "daily_source_manifest_sha256": "d80a08d479b73098053006909b5e6227b03a56ab705681742d7261088e0a7e6c",
-      "factor_formula": "shift one full session of rolling21 max(abs(SOXX log return))/sum(abs(SOXX log return))",
-      "action_coupled_source_preflight": "research/stage1_shock_cushion_risk_joint_20261110/action_coupled_source_preflight.json"
-    }
+    "scope": "Closed cash-value, minute-volume, funding-spread and risk-state-only routes have no qualified actionable continuation. Reported SOXX concentration has 48/15 independent filing events over training/reused held periods, and HHI alone lacks constituent volatility for a risk-concentration mechanism. Do not turn repeated daily carry into independent support or fit a source-only lead. Seek one materially different, decision-known existing-data mechanism with legal whole-share cash-to-SOXX transmission; otherwise state needs_distinct_decision_time_mechanism or the exact needs_data gap.",
+    "next_output": "One frozen source/PIT and matched action-value plan with sufficient independent mechanism support and an own-state 0/2/5bp account path, or a scoped evidence-based impasse; no new vendor, purchase, or dataset expansion.",
+    "authorization_scope": "Existing-data bounded hypothesis discovery is within the user-authorized research Goal; each fit/account still requires its frozen task budget and gates."
   },
   "active_job": null,
   "active_index": "research/active_research_index.json",
