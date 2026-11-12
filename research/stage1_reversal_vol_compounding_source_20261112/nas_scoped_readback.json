@@ -1,0 +1,32 @@
+{
+  "recorder_id": "9efed5ef1e5840beaa02f3a0e2ca6d3b",
+  "nas_evidence": {
+    "sha256": "38c3c729e675e2f2fb582d8361db7b134beec2e69f0fe1d8d0be6f22d47a325b",
+    "size_bytes": 102171,
+    "media_type": "application/gzip",
+    "storage_uri": "sha256/38/c3/38c3c729e675e2f2fb582d8361db7b134beec2e69f0fe1d8d0be6f22d47a325b",
+    "uploaded_by": "soxl-minute-research",
+    "created_at": "2026-11-12 11:48:32.226619+08",
+    "duplicate": false,
+    "nas_path": "/volume1/docker/yanxuan/registry/research-artifacts/38/c3/38c3c729e675e2f2fb582d8361db7b134beec2e69f0fe1d8d0be6f22d47a325b",
+    "recorder_id": "9efed5ef1e5840beaa02f3a0e2ca6d3b",
+    "experiment_id": "640404647950513318",
+    "archive_root": "qlib_recorder"
+  },
+  "scoped_readback_verified": true,
+  "files_verified": [
+    "qlib_recorder/640404647950513318/meta.yaml",
+    "qlib_recorder/640404647950513318/9efed5ef1e5840beaa02f3a0e2ca6d3b/artifacts/code_cached.txt",
+    "qlib_recorder/640404647950513318/9efed5ef1e5840beaa02f3a0e2ca6d3b/artifacts/code_diff.txt",
+    "qlib_recorder/640404647950513318/9efed5ef1e5840beaa02f3a0e2ca6d3b/artifacts/code_status.txt",
+    "qlib_recorder/640404647950513318/9efed5ef1e5840beaa02f3a0e2ca6d3b/artifacts/frozen_plan",
+    "qlib_recorder/640404647950513318/9efed5ef1e5840beaa02f3a0e2ca6d3b/artifacts/source_audit",
+    "qlib_recorder/640404647950513318/9efed5ef1e5840beaa02f3a0e2ca6d3b/artifacts/source_frame",
+    "qlib_recorder/640404647950513318/9efed5ef1e5840beaa02f3a0e2ca6d3b/meta.yaml",
+    "qlib_recorder/640404647950513318/9efed5ef1e5840beaa02f3a0e2ca6d3b/params/cmd-sys.argv",
+    "qlib_recorder/640404647950513318/9efed5ef1e5840beaa02f3a0e2ca6d3b/tags/mlflow.runName",
+    "qlib_recorder/640404647950513318/9efed5ef1e5840beaa02f3a0e2ca6d3b/tags/mlflow.source.name",
+    "qlib_recorder/640404647950513318/9efed5ef1e5840beaa02f3a0e2ca6d3b/tags/mlflow.source.type",
+    "qlib_recorder/640404647950513318/9efed5ef1e5840beaa02f3a0e2ca6d3b/tags/mlflow.user"
+  ]
+}

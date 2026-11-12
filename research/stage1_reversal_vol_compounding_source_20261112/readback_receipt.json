@@ -1,0 +1,40 @@
+{
+  "recorder_id": "9efed5ef1e5840beaa02f3a0e2ca6d3b",
+  "summary_sha256": "e4a1b16c280c10c90b19a7440d43e00e5c589f994ca163a6956b6d043e81309b",
+  "manifest_sha256": "b0c5f55e57b76a06be150aa55e3d11168a2651999506f4e8e4c63ece060dd0a8",
+  "readback": {
+    "recorder_id": "9efed5ef1e5840beaa02f3a0e2ca6d3b",
+    "experiment": "stage1_reversal_vol_compounding_source_20261112",
+    "experiment_id": "640404647950513318",
+    "recorder_uri": "/Users/rziiiii/dev/workspace/research/stage1_reversal_vol_compounding_source_20261112/qlib_recorder",
+    "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/stage1_reversal_vol_compounding_source_20261112/qlib_recorder/640404647950513318/9efed5ef1e5840beaa02f3a0e2ca6d3b",
+    "summary_sha256": "e4a1b16c280c10c90b19a7440d43e00e5c589f994ca163a6956b6d043e81309b",
+    "verification_manifest_sha256": "b0c5f55e57b76a06be150aa55e3d11168a2651999506f4e8e4c63ece060dd0a8",
+    "artifacts": {
+      "source_frame": {
+        "artifact": "source_frame",
+        "artifact_id": "9efed5ef1e5840beaa02f3a0e2ca6d3b:source_frame",
+        "sha256": "d237f9a516f15429d820c6bb66a857bfc6b82ac3559b5b1c7e6dd9a47d4b2bc9",
+        "bytes": 32377,
+        "manifest_entry": "qlib_recorder/640404647950513318/9efed5ef1e5840beaa02f3a0e2ca6d3b/artifacts/source_frame",
+        "local_path": "/Users/rziiiii/dev/workspace/research/stage1_reversal_vol_compounding_source_20261112/qlib_recorder/640404647950513318/9efed5ef1e5840beaa02f3a0e2ca6d3b/artifacts/source_frame"
+      },
+      "source_audit": {
+        "artifact": "source_audit",
+        "artifact_id": "9efed5ef1e5840beaa02f3a0e2ca6d3b:source_audit",
+        "sha256": "21d5af086be702b3d00588e59004745b0e90c2696ce0136ee552e8fc379abb26",
+        "bytes": 741,
+        "manifest_entry": "qlib_recorder/640404647950513318/9efed5ef1e5840beaa02f3a0e2ca6d3b/artifacts/source_audit",
+        "local_path": "/Users/rziiiii/dev/workspace/research/stage1_reversal_vol_compounding_source_20261112/qlib_recorder/640404647950513318/9efed5ef1e5840beaa02f3a0e2ca6d3b/artifacts/source_audit"
+      }
+    },
+    "read_only": true,
+    "local_filestore_only": true,
+    "hashes_checked_before_unpickling": true,
+    "metadata_and_artifact_hashes_rechecked": true,
+    "source_api": [
+      "qlib.workflow.R.get_recorder",
+      "Recorder.load_object"
+    ]
+  }
+}

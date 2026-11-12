@@ -1,0 +1,51 @@
+{
+  "experiment": "stage1_reversal_vol_compounding_source_20261112",
+  "recorder_id": "9efed5ef1e5840beaa02f3a0e2ca6d3b",
+  "experiment_id": "640404647950513318",
+  "recorder_uri": "/Users/rziiiii/dev/workspace/research/stage1_reversal_vol_compounding_source_20261112/qlib_recorder",
+  "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/stage1_reversal_vol_compounding_source_20261112/qlib_recorder/640404647950513318/9efed5ef1e5840beaa02f3a0e2ca6d3b",
+  "plan_sha256": "86e57b9a4638beb4d9fc22ba2a476ae2ad1eff6d670463aea7836147ab031ace",
+  "decision": "fixed_source_or_novelty_gate_failed",
+  "historical_research_passed": false,
+  "new_model_fits": 0,
+  "new_native_accounts": 0,
+  "provider_manifest_sha256": "d80a08d479b73098053006909b5e6227b03a56ab705681742d7261088e0a7e6c",
+  "qlib_calendar_rows": 1007,
+  "raw_close_rows": 2014,
+  "annual": {
+    "2018": {
+      "native_days": 54,
+      "eligible_days": 54,
+      "positive_factor_days": 38
+    },
+    "2019": {
+      "native_days": 252,
+      "eligible_days": 252,
+      "positive_factor_days": 181
+    },
+    "2020": {
+      "native_days": 253,
+      "eligible_days": 253,
+      "positive_factor_days": 215
+    }
+  },
+  "source_gate": true,
+  "spearman_to_controls": {
+    "ac20": -0.9045386228807195,
+    "vol20_squared": 0.6095424402939407,
+    "SOXX_return20": 0.02416547326960256,
+    "signed_path_efficiency21": -0.20788180678198576,
+    "SOXL_tracking_error_vol21": 0.437849985009233
+  },
+  "residual_variance_fraction": 0.014608439561832304,
+  "novelty_gate": false,
+  "scope": "prior-session source only; no target label, account, alpha or independent forward evidence",
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "recorder_only_artifacts": [
+      "frozen_plan",
+      "source_frame",
+      "source_audit"
+    ]
+  }
+}

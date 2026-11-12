@@ -1,0 +1,19 @@
+{
+  "experiment": "stage1_reversal_vol_compounding_source_20261112",
+  "phase": "source_and_mechanism_novelty_only",
+  "economic_hypothesis": "In high-volatility SOXX regimes with negative serial return correlation, daily-reset SOXL may lose relative compounding value versus SOXX. A positive compounding state could also alter cash participation, but no sign is asserted for that head.",
+  "paper_lead": "https://arxiv.org/abs/2504.20116",
+  "paper_scope": "The paper models leverage compounding with return autocorrelation and volatility on SPY/QQQ; it does not establish SOXL/SOXX alpha or supply historical point-in-time features.",
+  "source_provider": "data/qlib/minute_information_pit_allocator_20261012/daily_prices",
+  "source_manifest_sha256": "d80a08d479b73098053006909b5e6227b03a56ab705681742d7261088e0a7e6c",
+  "clock": "Use only completed SOXX/SOXL daily close values through previous native session for current session 09:29 f696 decision; no same-day information.",
+  "source_formula": "SOXX raw adjusted close-to-close returns r. At each prior completed session s: ac20=corr(r_j,r_{j-1}) over exactly j=s-19..s; vol20=sample std(r_j) over same20; reversal_vol=max(-ac20,0)*vol20^2. Shift one native session to decision day.",
+  "controls": ["ac20", "vol20_squared", "SOXX_return20", "signed_path_efficiency21", "SOXL_tracking_error_vol21"],
+  "prior_scope": ["stage1_soxx_autocorr_cash_h5_information_20261023 tested ac10 main effect on cash H5 and failed", "stage1_path_quality_product_fragility_joint_20261110 tested positive path efficiency times product tracking volatility on next-open equal-beta value and failed", "legacy soxl_compounding_regime_sparse_execution.py contains ac20/rv20 thresholds but no saved three-asset source/action/account card; do not treat its thresholds as a candidate"],
+  "read_population": "2018-10-12 through 2020-12-31 source dates only; no economic label, saved account outcome, or 2021plus market result read",
+  "source_gate": "At least200 complete source days in each of2019 and2020; exactly one prior completed native session lag; no nonfinite factor on eligible rows; positive factor on at least20 days in each full year.",
+  "novelty_gate": "Training 2019-2020 source only: no control has abs Spearman>=0.95 with reversal_vol; OLS residual variance fraction beyond intercept and all listed controls>=0.05. These are source representation gates only, not conditional economic information.",
+  "if_pass": "Separately freeze matched same-wallet whole-share SOXL-vs-SOXX and SOXX-vs-cash fee-net action-value tests, with all main effects and old state/price controls, train/eval clock, one interaction coefficient sign only for SOXL relative value, and finite fit/account budget. Any complete account must use exact f696+b472 parent and SOXX 0/2/5bp hard gates.",
+  "if_fail": "Close this fixed source formula; do not change window, sign, nonlinear cutoff, provider or source years on reused history.",
+  "budget": {"model_fits": 0, "native_accounts": 0, "external_market_downloads": 0}
+}
