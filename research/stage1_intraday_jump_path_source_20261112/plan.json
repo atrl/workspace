@@ -1,0 +1,46 @@
+{
+  "experiment": "stage1_intraday_jump_path_source_20261112",
+  "status": "source_only_after_read_only_pilot_before_any_value_label",
+  "hypothesis": "The prior complete session share of one-minute realized variance not explained by bipower variation represents a different path coordinate than the existing 20-daily-return jump ratio; if source-valid it may distinguish transient discontinuity from diffuse volatility for later SOXL-versus-SOXX action-value research. This is a hypothesis, not a proven jump or alpha factor.",
+  "method_reference": "Barndorff-Nielsen and Shephard, Power and Bipower Variation with Stochastic Volatility and Jumps, Journal of Financial Econometrics 2004, https://academic.oup.com/jfec/article-abstract/2/1/1/960705",
+  "minute_provider": "data/qlib/stage1_event_guard_fullminute_20261028",
+  "minute_manifest_sha256": "e9ab78e4e8fca7b70a5ccc27074893414a1308f13a4d37c3174c1690827db1e0",
+  "daily_provider": "data/qlib/minute_information_pit_allocator_20261012/daily_prices",
+  "daily_manifest_sha256": "d80a08d479b73098053006909b5e6227b03a56ab705681742d7261088e0a7e6c",
+  "source_years": [
+    2018,
+    2019,
+    2020,
+    2021,
+    2022
+  ],
+  "source_start": "2018-10-12 09:31:00",
+  "source_end": "2022-12-22 16:00:00",
+  "formula": "Within each valid SOXX raw-price session, r1=log(first raw CLOSE/first raw OPEN), later ri=log(raw CLOSE_i/raw CLOSE_i-1); RV=sum(ri^2); BV=(pi/2)*n/(n-1)*sum_{i=2..n}|ri*ri-1|; proxy=clip((RV-BV)/RV,0,1). The next native session receives the completed prior-session value only.",
+  "validity": "Only complete scheduled 390- or 210-bar sessions with contiguous one-minute right edges, first09:31, terminal16:00/13:00, price_valid=1 and finite positive raw OPEN/CLOSE; invalid entire day remains unknown, no nearby-bar substitution or fill.",
+  "matched_existing_daily_family": "Old soxx_jump_ratio_20 uses 20 daily SOXX returns and daily bipower; compare prior-session value, SOXX daily RV20, downside semivariance share20, prior return and momentum20 on same native sessions.",
+  "source_gate": "2018>=50 and 2019/20/21/22 each>=200 valid decision-source days; source is not a near duplicate of old daily jump ratio (absolute Spearman<0.995); 2018-2019 residual variance fraction beyond five fixed daily controls>0.05. Source gate is structural only, not predictive approval.",
+  "pilot_observation_before_plan": {
+    "2018_2020_source_days": 558,
+    "valid_days": 557,
+    "invalid_day": "2020-03-16",
+    "intraday_vs_old_daily_jump_spearman": -0.1028,
+    "train_residual_variance_fraction": 0.8699445904134296,
+    "outcomes_read": false
+  },
+  "budget": {
+    "new_market_downloads": 0,
+    "model_fits": 0,
+    "accounts": 0,
+    "recorders": 1
+  },
+  "next_economic_gate": "Only after source qualification, freeze same-anchor fee-net high-SOXL versus higher-SOXX physical action-value and matched original39/state/ordinary-minute/daily-jump/volatility controls, with day grouping and full account transmission. No current approval for a fit or SOXX claim.",
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "recorder_only_artifacts": [
+      "daily_source",
+      "decision_source",
+      "source_audit"
+    ]
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "recorder_id": "ebf99a85f6dc448885dd822f7543c9f2",
+  "entries": [
+    {
+      "path": "qlib_recorder/522510511106379822/ebf99a85f6dc448885dd822f7543c9f2/artifacts/daily_source",
+      "sha256": "57413f1558a73f9858315e75c665aed10d52d6a395e3c7e2e549b8e0c452d87f",
+      "bytes": 63897
+    },
+    {
+      "path": "qlib_recorder/522510511106379822/ebf99a85f6dc448885dd822f7543c9f2/artifacts/decision_source",
+      "sha256": "96c845c49ab2c3fa96b333ac026ef4942bf39c828802dffe288fec6b64a4eb79",
+      "bytes": 104044
+    },
+    {
+      "path": "qlib_recorder/522510511106379822/ebf99a85f6dc448885dd822f7543c9f2/artifacts/frozen_plan",
+      "sha256": "d6fe24ddf7bf00747b90c3dd36b22b5c93eff385800ff36963fe6d6c9099851e",
+      "bytes": 3016
+    },
+    {
+      "path": "qlib_recorder/522510511106379822/ebf99a85f6dc448885dd822f7543c9f2/artifacts/source_audit",
+      "sha256": "fe94dc36018eb9b68db93e059ce042094fd639cd6d38cbe6e6f22d1a2b7194ee",
+      "bytes": 845
+    }
+  ]
+}

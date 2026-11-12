@@ -1,0 +1,69 @@
+{
+  "status": "read_only_fixed_action_failure_attribution",
+  "recorder_id": "da46c803b1184a06b57b227febfd9ef8",
+  "source_days": 248,
+  "known_action_rows": 1235,
+  "changed_known_rows": 33,
+  "changed_days": 26,
+  "same_model_direct_changed_days": 69,
+  "quarter_direction_rows": [
+    {
+      "quarter": "2020Q1",
+      "direction": "higher_SOXX -> high_SOXL",
+      "changed_anchors": 16,
+      "changed_days": 11,
+      "value_gain_sum": -0.04113507927219086,
+      "value_gain_mean": -0.0025709424545119286,
+      "risk_damage_mean": 0.0034395447191951783
+    },
+    {
+      "quarter": "2020Q2",
+      "direction": "high_SOXL -> higher_SOXX",
+      "changed_anchors": 6,
+      "changed_days": 6,
+      "value_gain_sum": 0.006444911483090321,
+      "value_gain_mean": 0.0010741519138483867,
+      "risk_damage_mean": -0.000664534272507363
+    },
+    {
+      "quarter": "2020Q3",
+      "direction": "high_SOXL -> higher_SOXX",
+      "changed_anchors": 1,
+      "changed_days": 1,
+      "value_gain_sum": 0.0019707582312574906,
+      "value_gain_mean": 0.0019707582312574906,
+      "risk_damage_mean": -0.0018274322062203918
+    },
+    {
+      "quarter": "2020Q3",
+      "direction": "higher_SOXX -> high_SOXL",
+      "changed_anchors": 2,
+      "changed_days": 2,
+      "value_gain_sum": -0.0015545297706366932,
+      "value_gain_mean": -0.0007772648853183466,
+      "risk_damage_mean": 6.95406976952695e-05
+    },
+    {
+      "quarter": "2020Q4",
+      "direction": "high_SOXL -> higher_SOXX",
+      "changed_anchors": 4,
+      "changed_days": 3,
+      "value_gain_sum": 0.0013629894046070612,
+      "value_gain_mean": 0.0003407473511517653,
+      "risk_damage_mean": -0.00010602824725039484
+    },
+    {
+      "quarter": "2020Q4",
+      "direction": "higher_SOXX -> high_SOXL",
+      "changed_anchors": 4,
+      "changed_days": 3,
+      "value_gain_sum": -0.0015562088881431214,
+      "value_gain_mean": -0.00038905222203578036,
+      "risk_damage_mean": 0.0004988836221593573
+    }
+  ],
+  "daily_value_closure_max_error": 0.0,
+  "new_fits": 0,
+  "new_accounts": 0,
+  "limitation": "Reused 2020 development local pairwise value, not full own-state account; quarter and direction attribution are ex post, not a policy."
+}

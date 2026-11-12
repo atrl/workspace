@@ -1,0 +1,13 @@
+{
+  "status": "passed",
+  "archive_sha256": "7c73013edd42134813c263daa3cf72f52bc7eb49da7eecd1aaec50ef26d61ffb",
+  "recorder_id": "ebf99a85f6dc448885dd822f7543c9f2",
+  "objects_loaded": [
+    "source_audit",
+    "daily_source",
+    "decision_source"
+  ],
+  "daily_rows": 1057,
+  "decision_rows": 1056,
+  "audit_equal": true
+}

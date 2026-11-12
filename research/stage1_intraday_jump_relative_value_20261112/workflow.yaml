@@ -1,0 +1,25 @@
+experiment: stage1_intraday_jump_relative_value_20261112
+source_card: research/stage1_intraday_jump_path_source_20261112
+label_card: research/stage1_own_state_policy_iteration_20261105/pi2_label_bulk
+train: 2018-10-15 through2019-12-31 role=fit, all within-anchor unordered action pairs
+  oriented by strictly larger SOXL action u0, both fee-net value/risk known and label_available_at
+  before2020-01-01; each source day total weight1
+test: 2020-01-01 through2020-12-31 fixed held high_SOXL60_SOXX20_cash20 minus held_SOXL25_SOXX50_cash25
+  pair on each anchor; 248 source-day calendar retained, invalid source or unknown
+  mature label kept unknown
+model: weighted StandardScaler and Ridge(alpha=100), exactly one matched control and
+  one candidate fit; same train rows/weights/label, no hyperparameter selection
+budget:
+  model_fits: 2
+  candidate_accounts: 0
+  new_sources: 0
+  recorders: 1
+artifact_policy:
+  policy: slim_card_recorder_first
+  recorder_only_artifacts:
+  - source_audit
+  - pairwise_dataset
+  - models
+  - predictions
+  - actions
+  - daily_metrics

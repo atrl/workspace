@@ -1,0 +1,15 @@
+{
+  "status": "passed",
+  "archive_sha256": "f81b8660844861b2955394465eaff16df835c426a544a9c01010ef291413fedf",
+  "recorder_id": "da46c803b1184a06b57b227febfd9ef8",
+  "objects_loaded": [
+    "result",
+    "pairwise_dataset",
+    "predictions",
+    "action_rows"
+  ],
+  "pair_rows": 58342,
+  "prediction_rows": 1240,
+  "action_rows": 1240,
+  "result_equal": true
+}

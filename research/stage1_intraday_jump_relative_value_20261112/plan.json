@@ -1,0 +1,59 @@
+{
+  "experiment": "stage1_intraday_jump_relative_value_20261112",
+  "status": "frozen_before_pairwise_target_read_or_fit",
+  "economic_hypothesis": "A high previous-session SOXX one-minute discontinuity proxy signals fragile next-five-segment SOXL relative value at the same funded state and market beta, beyond prior daily jump/volatility/downside/path controls. Negative candidate coefficient is expected for higher-SOXL action; source novelty does not imply predictability.",
+  "portfolio_assets": [
+    "SOXL",
+    "SOXX",
+    "CASH"
+  ],
+  "source_card": "research/stage1_intraday_jump_path_source_20261112",
+  "source_recorder_id": "ebf99a85f6dc448885dd822f7543c9f2",
+  "source_summary_sha256": "4e66ca96d133cc0375d4f699e8531c4d0d805583d11d28b553dd3c459579797a",
+  "source_manifest_sha256": "42500eb4ee629227c16e1f47a1c0cfd593f1b7a9fac673daee65f104c2404d98",
+  "source_overlap_sha256": "cc3ff901b2267c719cbb3d65475780f9c232a5afacd963a23052cced828fe6c0",
+  "label_card": "research/stage1_own_state_policy_iteration_20261105/pi2_label_bulk",
+  "label_recorder_id": "79be0d3fe0e743d790b1455ede383a6b",
+  "label_summary_sha256": "9c6906cb7707409afd310e2945dcb7672f2da22d9ad16166338729d48d338453",
+  "label_manifest_sha256": "49debaee0517927319d88176440a2ecc8ab9a8c3744af22ae674165fd245a18b",
+  "clock": "only prior complete SOXX session proxy by next session09:29; z and physical projected u at decision; label mature after five-segment continuation; invalid2020-03-16 source remains unknown",
+  "train": "2018-10-15 through2019-12-31 role=fit, all within-anchor unordered action pairs oriented by strictly larger SOXL action u0, both fee-net value/risk known and label_available_at before2020-01-01; each source day total weight1",
+  "test": "2020-01-01 through2020-12-31 fixed held high_SOXL60_SOXX20_cash20 minus held_SOXL25_SOXX50_cash25 pair on each anchor; 248 source-day calendar retained, invalid source or unknown mature label kept unknown",
+  "target": "same-anchor high-minus-middle fee-net physical five-segment value difference, and selected path-risk difference; not full account alpha",
+  "control_basis": "action differences delta_u0/delta_u1, z10 times delta_u0/delta_u1, quadratic action differences, fee difference, and old daily jump ratio20/RV20/downside20/prior SOXX return/momentum20 plus prior intraday down share/max-bar share/RV/signed path efficiency each coupled to delta_u0; prior intraday jump proxy coupled to delta nominal beta 3delta_u0+delta_u1",
+  "candidate_addition": "prior intraday jump proxy * delta_u0, one extra SOXL-specific action-value coordinate",
+  "model": "weighted StandardScaler and Ridge(alpha=100), exactly one matched control and one candidate fit; same train rows/weights/label, no hyperparameter selection",
+  "source_gate": "full Qlib source/label identity and clocks, 2019>=200 and 2020>=200 valid paired source days, distinct candidate residual variance beyond matched controls, no target use before gate",
+  "information_gate": "2020 day-equal candidate pairwise value MSE strictly below control and train-day mean, expected negative standardized coefficient, and 10-session circular-block 2.5% lower bound of control-minus-candidate loss positive",
+  "action_gate": "score all 2020 held source anchors before outcome; predicted high-minus-middle >0 selects high else middle, candidate fallback to control on unknown source; at least20 independent changed days both across separately fitted models and same-model candidate-coordinate-zero ablation; candidate-minus-control fee-net local gain mean and 10-session lower positive, realized risk damage upper<=0 and zero selected unknown outcomes",
+  "bootstrap": {
+    "block_sessions": 10,
+    "draws": 2000,
+    "seed": 20261112,
+    "lower": 0.025,
+    "upper": 0.975
+  },
+  "budget": {
+    "model_fits": 2,
+    "candidate_accounts": 0,
+    "new_sources": 0,
+    "recorders": 1
+  },
+  "stop": "On any gate failure close this exact feature/target/receiver without sign, alpha, source threshold, bar frequency, action size, year or label rescue; no2021+ target outcome access",
+  "limits": [
+    "2020 is reused development and pi2 source policy in-sample, held denotes action IDs only",
+    "raw one-minute price proxy is not certified true jumps nor historical first transport",
+    "pairwise fixed physical action value is not continuous three-asset account or SOXX alpha"
+  ],
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "recorder_only_artifacts": [
+      "source_audit",
+      "pairwise_dataset",
+      "models",
+      "predictions",
+      "actions",
+      "daily_metrics"
+    ]
+  }
+}

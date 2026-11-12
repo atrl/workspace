@@ -1,0 +1,82 @@
+{
+  "experiment": "stage1_intraday_jump_path_source_20261112",
+  "decision": "conditional_novel_intraday_path_source_only",
+  "plan_sha256": "227be7072b2a3a2911aa118facc30d37abecd4d3ad96f55f60fb18c14017bf6e",
+  "source_audit": {
+    "source_days": 1057,
+    "decision_days": 1056,
+    "valid_decision_days": 1055,
+    "valid_decision_days_by_year": {
+      "2018": 53,
+      "2019": 252,
+      "2020": 252,
+      "2021": 252,
+      "2022": 246
+    },
+    "invalid_source_days": [
+      "2020-03-16"
+    ],
+    "bar_count_distribution": {
+      "390": 1048,
+      "210": 9
+    },
+    "proxy_quantiles": {
+      "0.0": 0.0,
+      "0.05": 0.0,
+      "0.5": 0.10555468429568418,
+      "0.95": 0.35042895999757806,
+      "1.0": 0.6054297695026974
+    },
+    "intraday_vs_daily_jump_spearman": -0.02516337068832154,
+    "train_residual_variance_fraction": 0.8472103818906425,
+    "minute_manifest_sha256": "e9ab78e4e8fca7b70a5ccc27074893414a1308f13a4d37c3174c1690827db1e0",
+    "daily_manifest_sha256": "d80a08d479b73098053006909b5e6227b03a56ab705681742d7261088e0a7e6c",
+    "decision_clock_pass": true,
+    "target_outcomes_read": false,
+    "new_fits": 0,
+    "candidate_accounts": 0,
+    "claim_limit": "Source and nonduplicate coordinate only. One-minute microstructure and historical first receipt are unqualified; no economic information or SOXX pass."
+  },
+  "new_fits": 0,
+  "candidate_accounts": 0,
+  "historical_research_passed": false,
+  "recorder_id": "ebf99a85f6dc448885dd822f7543c9f2",
+  "experiment_id": "522510511106379822",
+  "recorder_uri": "/Users/rziiiii/dev/workspace/research/stage1_intraday_jump_path_source_20261112/qlib_recorder",
+  "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/stage1_intraday_jump_path_source_20261112/qlib_recorder/522510511106379822/ebf99a85f6dc448885dd822f7543c9f2",
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "recorder_only_artifacts": [
+      "daily_source",
+      "decision_source",
+      "source_audit"
+    ]
+  },
+  "nas_evidence": {
+    "sha256": "7c73013edd42134813c263daa3cf72f52bc7eb49da7eecd1aaec50ef26d61ffb",
+    "size_bytes": 189209,
+    "media_type": "application/gzip",
+    "storage_uri": "sha256/7c/73/7c73013edd42134813c263daa3cf72f52bc7eb49da7eecd1aaec50ef26d61ffb",
+    "uploaded_by": "soxl-minute-research",
+    "created_at": "2026-11-12 10:36:59.776002+08",
+    "duplicate": false,
+    "nas_path": "/volume1/docker/yanxuan/registry/research-artifacts/7c/73/7c73013edd42134813c263daa3cf72f52bc7eb49da7eecd1aaec50ef26d61ffb",
+    "recorder_id": "ebf99a85f6dc448885dd822f7543c9f2",
+    "experiment_id": "522510511106379822",
+    "archive_root": "qlib_recorder"
+  },
+  "nas_scoped_readback": {
+    "status": "passed",
+    "archive_sha256": "7c73013edd42134813c263daa3cf72f52bc7eb49da7eecd1aaec50ef26d61ffb",
+    "recorder_id": "ebf99a85f6dc448885dd822f7543c9f2",
+    "objects_loaded": [
+      "source_audit",
+      "daily_source",
+      "decision_source"
+    ],
+    "daily_rows": 1057,
+    "decision_rows": 1056,
+    "audit_equal": true
+  },
+  "source_family_overlap_audit": "source_family_overlap_audit.json"
+}

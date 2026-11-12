@@ -1,0 +1,12 @@
+{
+  "goal_thread_id": "01a1afb6-261c-7422-8f3e-94438afda74a",
+  "frozen_at": "2026-11-12",
+  "plan_sha256": "227be7072b2a3a2911aa118facc30d37abecd4d3ad96f55f60fb18c14017bf6e",
+  "code_sha256": "a2f22157772ea8ebcfbc0d904969a371a6e82f1aee10aa3c65f9f1c25592ccf8",
+  "target_outcomes_analyzed_before_freeze": false,
+  "source_pilot_preceded_freeze": true,
+  "model_fit_budget": 0,
+  "account_budget": 0,
+  "initial_code_sha256": "38fb457b6b690c20a6ec1d8e7a5d50f4b5ac44a7ab9a36195b152666f1e02a5b",
+  "implementation_repair": "DatetimeIndex.year comparison uses <= rather than .le; global DeprecationWarning suppression avoids one warning per bar. Source formula and gates unchanged."
+}

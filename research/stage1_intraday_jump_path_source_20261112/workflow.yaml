@@ -1,0 +1,20 @@
+experiment: stage1_intraday_jump_path_source_20261112
+minute_provider: data/qlib/stage1_event_guard_fullminute_20261028
+daily_provider: data/qlib/minute_information_pit_allocator_20261012/daily_prices
+source_start: '2018-10-12 09:31:00'
+source_end: '2022-12-22 16:00:00'
+source_gate: 2018>=50 and 2019/20/21/22 each>=200 valid decision-source days; source
+  is not a near duplicate of old daily jump ratio (absolute Spearman<0.995); 2018-2019
+  residual variance fraction beyond five fixed daily controls>0.05. Source gate is
+  structural only, not predictive approval.
+budget:
+  new_market_downloads: 0
+  model_fits: 0
+  accounts: 0
+  recorders: 1
+artifact_policy:
+  policy: slim_card_recorder_first
+  recorder_only_artifacts:
+  - daily_source
+  - decision_source
+  - source_audit

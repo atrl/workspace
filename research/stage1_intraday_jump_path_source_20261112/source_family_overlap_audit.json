@@ -1,0 +1,23 @@
+{
+  "status": "read_only_source_family_overlap",
+  "source_recorder_id": "ebf99a85f6dc448885dd822f7543c9f2",
+  "source_days": 1055,
+  "train_days": 305,
+  "spearman": {
+    "intraday_down_share": 0.05288897164737493,
+    "intraday_max_bar_share": 0.4537209086125035,
+    "intraday_rv": -0.4992379678768645,
+    "intraday_signed_eff": 0.029005628019687167,
+    "daily_jump_ratio20": -0.025163370688321543,
+    "daily_rv20": -0.42221646986657974,
+    "daily_down_share20": -0.2722224197864061,
+    "prior_return": 0.05258346706147347,
+    "mom20": 0.237699466188498
+  },
+  "train_residual_variance_fraction_after_intraday_and_daily_controls": 0.6473015654630297,
+  "source_rv_identity_max_error": 0.0,
+  "target_outcomes_read": false,
+  "model_fits": 0,
+  "candidate_accounts": 0,
+  "claim_limit": "Source-only overlap, not predictive information or SOXX account proof"
+}

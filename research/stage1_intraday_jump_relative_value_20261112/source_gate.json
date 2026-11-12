@@ -1,0 +1,18 @@
+{
+  "source_days": 558,
+  "valid_source_days_by_year": {
+    "2018": 53,
+    "2019": 252,
+    "2020": 252
+  },
+  "train_source_pair_rows": 57102,
+  "train_source_days": 305,
+  "test_source_anchors": 1240,
+  "test_valid_source_days": 247,
+  "candidate_residual_std_beyond_controls": 0.016818253495589984,
+  "source_clock_pass": true,
+  "target_value_analyzed_before_source_gate": false,
+  "source_summary_sha256": "4e66ca96d133cc0375d4f699e8531c4d0d805583d11d28b553dd3c459579797a",
+  "label_summary_sha256": "9c6906cb7707409afd310e2945dcb7672f2da22d9ad16166338729d48d338453",
+  "claim_limit": "Action-space and prior-session source support only; no predictor or account pass."
+}

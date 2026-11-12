@@ -1,0 +1,92 @@
+{
+  "experiment": "stage1_intraday_jump_relative_value_20261112",
+  "plan_sha256": "388530e9ec0cf8695f7a79c690510d6971befb7febde794b3a33017e8b9c9b30",
+  "source_gate": {
+    "source_days": 558,
+    "valid_source_days_by_year": {
+      "2018": 53,
+      "2019": 252,
+      "2020": 252
+    },
+    "train_source_pair_rows": 57102,
+    "train_source_days": 305,
+    "test_source_anchors": 1240,
+    "test_valid_source_days": 247,
+    "candidate_residual_std_beyond_controls": 0.016818253495589984,
+    "source_clock_pass": true,
+    "target_value_analyzed_before_source_gate": false,
+    "source_summary_sha256": "4e66ca96d133cc0375d4f699e8531c4d0d805583d11d28b553dd3c459579797a",
+    "label_summary_sha256": "9c6906cb7707409afd310e2945dcb7672f2da22d9ad16166338729d48d338453",
+    "claim_limit": "Action-space and prior-session source support only; no predictor or account pass."
+  },
+  "result": {
+    "status": "closed_fixed_intraday_jump_relative_value_failed",
+    "train_days": 303,
+    "train_pair_rows": 56737,
+    "test_source_days": 248,
+    "test_known_days": 246,
+    "source_unknown_days": 1,
+    "control_day_mse": 0.0001590684927895275,
+    "candidate_day_mse": 0.00015902800072155468,
+    "trainmean_day_mse": 0.0001670962133561545,
+    "loss_improvement_block_lower": -1.4934029407511204e-07,
+    "candidate_standardized_coefficient": 0.0002753849920883216,
+    "information_gate_pass": false,
+    "matched_changed_days": 26,
+    "same_model_direct_changed_days": 69,
+    "changed_selected_unknown_rows": 5,
+    "local_value_improvement_mean": -2.7908630617016825e-05,
+    "local_value_improvement_block_lower": -0.0001392046457017114,
+    "risk_damage_block_upper": 0.0001264970531976049,
+    "action_gate_pass": false,
+    "model_fit_calls": 2,
+    "candidate_accounts": 0,
+    "historical_research_passed": false,
+    "recorder_id": "da46c803b1184a06b57b227febfd9ef8",
+    "experiment_id": "850536154610151445"
+  },
+  "recorder_id": "da46c803b1184a06b57b227febfd9ef8",
+  "experiment_id": "850536154610151445",
+  "recorder_uri": "/Users/rziiiii/dev/workspace/research/stage1_intraday_jump_relative_value_20261112/qlib_recorder",
+  "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/stage1_intraday_jump_relative_value_20261112/qlib_recorder/850536154610151445/da46c803b1184a06b57b227febfd9ef8",
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "recorder_only_artifacts": [
+      "source_audit",
+      "pairwise_dataset",
+      "models",
+      "predictions",
+      "actions",
+      "daily_metrics"
+    ]
+  },
+  "nas_evidence": {
+    "sha256": "f81b8660844861b2955394465eaff16df835c426a544a9c01010ef291413fedf",
+    "size_bytes": 8759997,
+    "media_type": "application/gzip",
+    "storage_uri": "sha256/f8/1b/f81b8660844861b2955394465eaff16df835c426a544a9c01010ef291413fedf",
+    "uploaded_by": "soxl-minute-research",
+    "created_at": "2026-11-12 10:45:31.81433+08",
+    "duplicate": false,
+    "nas_path": "/volume1/docker/yanxuan/registry/research-artifacts/f8/1b/f81b8660844861b2955394465eaff16df835c426a544a9c01010ef291413fedf",
+    "recorder_id": "da46c803b1184a06b57b227febfd9ef8",
+    "experiment_id": "850536154610151445",
+    "archive_root": "qlib_recorder"
+  },
+  "nas_scoped_readback": {
+    "status": "passed",
+    "archive_sha256": "f81b8660844861b2955394465eaff16df835c426a544a9c01010ef291413fedf",
+    "recorder_id": "da46c803b1184a06b57b227febfd9ef8",
+    "objects_loaded": [
+      "result",
+      "pairwise_dataset",
+      "predictions",
+      "action_rows"
+    ],
+    "pair_rows": 58342,
+    "prediction_rows": 1240,
+    "action_rows": 1240,
+    "result_equal": true
+  },
+  "read_only_failure_attribution": "read_only_failure_attribution.json"
+}
