@@ -1,0 +1,36 @@
+{
+  "recorder_id": "e8df7168ef0b4554a7803caad9b0a4d8",
+  "nas_evidence": {
+    "sha256": "4b33f1188163a97d9fc6857a3c28ec4f11a392a82895c16ee5325810e0c01a39",
+    "size_bytes": 302181,
+    "media_type": "application/gzip",
+    "storage_uri": "sha256/4b/33/4b33f1188163a97d9fc6857a3c28ec4f11a392a82895c16ee5325810e0c01a39",
+    "uploaded_by": "soxl-minute-research",
+    "created_at": "2026-11-12 11:40:37.70201+08",
+    "duplicate": false,
+    "nas_path": "/volume1/docker/yanxuan/registry/research-artifacts/4b/33/4b33f1188163a97d9fc6857a3c28ec4f11a392a82895c16ee5325810e0c01a39",
+    "recorder_id": "e8df7168ef0b4554a7803caad9b0a4d8",
+    "experiment_id": "293985070183604336",
+    "archive_root": "qlib_recorder"
+  },
+  "scoped_readback_verified": true,
+  "file_count": 16,
+  "files_verified": [
+    "qlib_recorder/293985070183604336/meta.yaml",
+    "qlib_recorder/293985070183604336/e8df7168ef0b4554a7803caad9b0a4d8/artifacts/code_cached.txt",
+    "qlib_recorder/293985070183604336/e8df7168ef0b4554a7803caad9b0a4d8/artifacts/code_diff.txt",
+    "qlib_recorder/293985070183604336/e8df7168ef0b4554a7803caad9b0a4d8/artifacts/code_status.txt",
+    "qlib_recorder/293985070183604336/e8df7168ef0b4554a7803caad9b0a4d8/artifacts/conditional_risk_model",
+    "qlib_recorder/293985070183604336/e8df7168ef0b4554a7803caad9b0a4d8/artifacts/daily_improvements",
+    "qlib_recorder/293985070183604336/e8df7168ef0b4554a7803caad9b0a4d8/artifacts/frozen_plan",
+    "qlib_recorder/293985070183604336/e8df7168ef0b4554a7803caad9b0a4d8/artifacts/held_predictions",
+    "qlib_recorder/293985070183604336/e8df7168ef0b4554a7803caad9b0a4d8/artifacts/report",
+    "qlib_recorder/293985070183604336/e8df7168ef0b4554a7803caad9b0a4d8/artifacts/source_readbacks",
+    "qlib_recorder/293985070183604336/e8df7168ef0b4554a7803caad9b0a4d8/meta.yaml",
+    "qlib_recorder/293985070183604336/e8df7168ef0b4554a7803caad9b0a4d8/params/cmd-sys.argv",
+    "qlib_recorder/293985070183604336/e8df7168ef0b4554a7803caad9b0a4d8/tags/mlflow.runName",
+    "qlib_recorder/293985070183604336/e8df7168ef0b4554a7803caad9b0a4d8/tags/mlflow.source.name",
+    "qlib_recorder/293985070183604336/e8df7168ef0b4554a7803caad9b0a4d8/tags/mlflow.source.type",
+    "qlib_recorder/293985070183604336/e8df7168ef0b4554a7803caad9b0a4d8/tags/mlflow.user"
+  ]
+}

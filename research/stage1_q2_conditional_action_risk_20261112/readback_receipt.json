@@ -1,0 +1,49 @@
+{
+  "status": "passed_after_metadata_repair",
+  "recorder_id": "e8df7168ef0b4554a7803caad9b0a4d8",
+  "summary_sha256": "44c170779fb5b5eda984c62a0d1201495590cedd9bd76fca79236bfdcb012002",
+  "manifest_sha256": "5c4d7ddd5f0cd0c4a7910b08ce2589f13e33cc38805225e31d3f4027cf194693",
+  "readback": {
+    "recorder_id": "e8df7168ef0b4554a7803caad9b0a4d8",
+    "experiment": "stage1_q2_conditional_action_risk_20261112",
+    "experiment_id": "293985070183604336",
+    "recorder_uri": "/Users/rziiiii/dev/workspace/research/stage1_q2_conditional_action_risk_20261112/qlib_recorder",
+    "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/stage1_q2_conditional_action_risk_20261112/qlib_recorder/293985070183604336/e8df7168ef0b4554a7803caad9b0a4d8",
+    "summary_sha256": "44c170779fb5b5eda984c62a0d1201495590cedd9bd76fca79236bfdcb012002",
+    "verification_manifest_sha256": "5c4d7ddd5f0cd0c4a7910b08ce2589f13e33cc38805225e31d3f4027cf194693",
+    "artifacts": {
+      "report": {
+        "artifact": "report",
+        "artifact_id": "e8df7168ef0b4554a7803caad9b0a4d8:report",
+        "sha256": "b1bd3e106e211899bc780ee597f7e5ae67eff2eb09ea4c7bdffe693c3017759e",
+        "bytes": 1019,
+        "manifest_entry": "qlib_recorder/293985070183604336/e8df7168ef0b4554a7803caad9b0a4d8/artifacts/report",
+        "local_path": "/Users/rziiiii/dev/workspace/research/stage1_q2_conditional_action_risk_20261112/qlib_recorder/293985070183604336/e8df7168ef0b4554a7803caad9b0a4d8/artifacts/report"
+      },
+      "daily_improvements": {
+        "artifact": "daily_improvements",
+        "artifact_id": "e8df7168ef0b4554a7803caad9b0a4d8:daily_improvements",
+        "sha256": "387528aa61592c3d57728a66ea9c8a7525aadfb974cdc1e02caa1e2461b8d7bd",
+        "bytes": 13180,
+        "manifest_entry": "qlib_recorder/293985070183604336/e8df7168ef0b4554a7803caad9b0a4d8/artifacts/daily_improvements",
+        "local_path": "/Users/rziiiii/dev/workspace/research/stage1_q2_conditional_action_risk_20261112/qlib_recorder/293985070183604336/e8df7168ef0b4554a7803caad9b0a4d8/artifacts/daily_improvements"
+      },
+      "conditional_risk_model": {
+        "artifact": "conditional_risk_model",
+        "artifact_id": "e8df7168ef0b4554a7803caad9b0a4d8:conditional_risk_model",
+        "sha256": "ef3e7c7572dd2a4e6c9f5297b96ab716ec17c001dbe9849fd60824a1765b9dc1",
+        "bytes": 1009,
+        "manifest_entry": "qlib_recorder/293985070183604336/e8df7168ef0b4554a7803caad9b0a4d8/artifacts/conditional_risk_model",
+        "local_path": "/Users/rziiiii/dev/workspace/research/stage1_q2_conditional_action_risk_20261112/qlib_recorder/293985070183604336/e8df7168ef0b4554a7803caad9b0a4d8/artifacts/conditional_risk_model"
+      }
+    },
+    "read_only": true,
+    "local_filestore_only": true,
+    "hashes_checked_before_unpickling": true,
+    "metadata_and_artifact_hashes_rechecked": true,
+    "source_api": [
+      "qlib.workflow.R.get_recorder",
+      "Recorder.load_object"
+    ]
+  }
+}

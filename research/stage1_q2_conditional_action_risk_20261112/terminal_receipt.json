@@ -1,0 +1,13 @@
+{
+  "status": "terminal_scientific_gate_failed",
+  "frozen_version_closed": true,
+  "model_fits": 1,
+  "native_accounts": 0,
+  "recorder_id": "e8df7168ef0b4554a7803caad9b0a4d8",
+  "local_readback": "passed_after_metadata_repair",
+  "nas_scoped_readback": true,
+  "nas_sha256": "4b33f1188163a97d9fc6857a3c28ec4f11a392a82895c16ee5325810e0c01a39",
+  "original_execution_error_preserved": "execution_receipt.json",
+  "repair": "metadata-only readback; no rerun",
+  "historical_research_passed": false
+}

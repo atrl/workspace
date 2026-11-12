@@ -77,7 +77,9 @@
     "latest_exposure_matched_diagnostic": "research/independent_tree_exposure_matched_reference_20261112/summary.json",
     "latest_exposure_matched_status": "Saved 944d XGB unrestricted 0bp wealth/SOXX1.872604 did not exceed posthoc same-average-exposure static63.607968pct SOXL/cash native Qlib account wealth/SOXX1.878022: XGB/static0.997115, XGB drawdown/CVaR worse, 0 new fits, 1 diagnostic reference account, no qualified SOXX pass.",
     "latest_q2_action_risk_support": "research/stage1_q2_action_risk_delta_support_20261112/summary.json",
-    "latest_q2_action_risk_support_status": "Read-only saved held-action labels: 2019 252/252 and 2020 246/247 independent days exceed 1bp action-vs-HOLD risk difference; old Q2 predicts 43.50/51.98bp mean action delta vs actual 11.23/1.72bp. Support for separate method design only; 0 fits/accounts, no SOXX pass."
+    "latest_q2_action_risk_support_status": "Read-only saved held-action labels: 2019 252/252 and 2020 246/247 independent days exceed 1bp action-vs-HOLD risk difference. Saved 95pct-quantile prediction differences are not comparable to realized action-delta means for calibration; old Q2 fails its pre-registered pinball/block gate. Support only; 0 fits/accounts, no SOXX pass.",
+    "latest_q2_conditional_action_risk": "research/stage1_q2_conditional_action_risk_20261112/summary.json",
+    "latest_q2_conditional_action_risk_status": "One frozen fit closed: objective algebraically reduces to old joint Q2 action subproblem; coefficients differ <=1.55e-8, held predictions <=1.74e-7, 0 action/30pct feasible-set changed days in 2019/2020, annual pinball and block gates fail. Recorder/NAS readback passed after metadata-only repair; 0 accounts, no SOXX pass."
   },
   "client_goal_observation": {
     "thread_id": "01a1afb6-261c-7422-8f3e-94438afda74a",
@@ -87,10 +89,10 @@
     "scientific_status_separate": "historical_research_not_passed"
   },
   "current_task": {
-    "phase": "q2_action_relative_risk_method_design",
+    "phase": "needs_distinct_decision_time_mechanism",
     "status": "not_running",
-    "scope": "Saved Q2 action-risk labels show broad physical-action support but material overprediction of action-specific drawdown. Freeze a genuinely different HOLD-relative risk-target method with matched absolute-risk control and causal actor transmission before any new fit; preserve closed Q2 version. Existing XGB exposure result remains diagnostic only.",
-    "next_output": "One separately frozen HOLD-relative risk target design with matched control, year/block/action and own-state account gates, or scoped needs_distinct_decision_time_mechanism if target information cannot be made causal.",
+    "scope": "Saved Q2 labels support action-dependent risk, but the tested fixed-state residual fit is algebraically equivalent to the closed joint Q2 optimum and failed its fixed information/action gates. Any new target must differ in loss, supervision, state path, constraints or decision-known information with a causal economic mechanism and prefit equivalence proof; no retune of this route. Exact f696+b472 account remains matched attribution parent.",
+    "next_output": "One genuinely distinct and source/PIT-qualified decision-time mechanism with matched action value/risk gate, or scoped needs_distinct_decision_time_mechanism.",
     "authorization_scope": "Existing-data bounded hypothesis discovery is within the user-authorized research Goal; each fit/account still requires its frozen task budget and gates.",
     "source_preflight_observation": "Read-only existing Qlib daily shock-concentration source covers all 558 2018-2020 pi2 state days. Saved pi2 future segment-risk labels are known on 53/252/247 days (2020: 16055/16120 rows, 247/248 source days). The separate history_risk_known flag covers only 50 days in 2020 and is not a training filter in src/workflow/stage1_policy_iteration_fit.py. Source support is sufficient for a bounded prefit design, but novelty beyond closed cushion/Q2 risk and actor-to-funded-account transmission remain unverified.",
     "source_preflight_evidence": {

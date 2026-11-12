@@ -1,0 +1,35 @@
+{
+  "recorder_id": "e8df7168ef0b4554a7803caad9b0a4d8",
+  "entries": [
+    {
+      "path": "qlib_recorder/293985070183604336/e8df7168ef0b4554a7803caad9b0a4d8/artifacts/frozen_plan",
+      "sha256": "cedbb82d366babb88818d92af5fcf6eda9bbefbb4091e7e31eefdda6c886417f",
+      "bytes": 3654
+    },
+    {
+      "path": "qlib_recorder/293985070183604336/e8df7168ef0b4554a7803caad9b0a4d8/artifacts/conditional_risk_model",
+      "sha256": "ef3e7c7572dd2a4e6c9f5297b96ab716ec17c001dbe9849fd60824a1765b9dc1",
+      "bytes": 1009
+    },
+    {
+      "path": "qlib_recorder/293985070183604336/e8df7168ef0b4554a7803caad9b0a4d8/artifacts/report",
+      "sha256": "b1bd3e106e211899bc780ee597f7e5ae67eff2eb09ea4c7bdffe693c3017759e",
+      "bytes": 1019
+    },
+    {
+      "path": "qlib_recorder/293985070183604336/e8df7168ef0b4554a7803caad9b0a4d8/artifacts/daily_improvements",
+      "sha256": "387528aa61592c3d57728a66ea9c8a7525aadfb974cdc1e02caa1e2461b8d7bd",
+      "bytes": 13180
+    },
+    {
+      "path": "qlib_recorder/293985070183604336/e8df7168ef0b4554a7803caad9b0a4d8/artifacts/held_predictions",
+      "sha256": "151dceb7a67ff061f81108652c4508f5a6f07dc19d1e713b39a7c7caa632c8c8",
+      "bytes": 544591
+    },
+    {
+      "path": "qlib_recorder/293985070183604336/e8df7168ef0b4554a7803caad9b0a4d8/artifacts/source_readbacks",
+      "sha256": "00f6c922916b5ce35a3c09fe053056bbe382f793696a1fd08cc245e2797cc9e6",
+      "bytes": 3788
+    }
+  ]
+}

@@ -1,0 +1,10 @@
+{
+  "status": "readback_metadata_repair_only",
+  "failed_phase": "after one OPTIMAL fit, after Qlib Recorder saved and summary written, before readback verification",
+  "error": "summary omitted recorder_local_dir required by verified readback helper",
+  "allowed_change": "add exact existing local Recorder path to summary; rerun readback only; no refit or gate recomputation",
+  "recorder_id": "e8df7168ef0b4554a7803caad9b0a4d8",
+  "experiment_id": "293985070183604336",
+  "summary_before_sha256": "7deaf9ea78f51001e72062c92482af80fc30081e7aa5e2466617a316af5f6f88",
+  "manifest_sha256": "5c4d7ddd5f0cd0c4a7910b08ce2589f13e33cc38805225e31d3f4027cf194693"
+}

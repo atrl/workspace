@@ -1,0 +1,14 @@
+{
+  "status": "read_only_joint_optimum_equivalence_attribution",
+  "max_abs_coefficient_difference": {
+    "c0": 1.1816061981292925e-08,
+    "C": 1.5435003595555552e-08,
+    "H_raw": 2.9603174934176094e-09,
+    "H_used": 2.898322457197105e-09
+  },
+  "max_abs_saved_held_prediction_difference": 1.7347328740147105e-07,
+  "median_abs_saved_held_prediction_difference": 9.6514860825625e-09,
+  "objective_argument": "The closed Q2 jointly minimizes identical tau=.95 pinball plus lambda1 penalties in state and action coefficients. Freezing its optimum state coefficients and re-solving the same action subproblem has the same optimum; subtracting the fixed state baseline from labels is an algebraic rewrite, not a new supervised objective.",
+  "new_fits": 0,
+  "new_accounts": 0
+}

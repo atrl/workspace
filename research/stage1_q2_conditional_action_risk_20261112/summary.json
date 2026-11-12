@@ -1,0 +1,79 @@
+{
+  "experiment": "stage1_q2_conditional_action_risk_20261112",
+  "recorder_id": "e8df7168ef0b4554a7803caad9b0a4d8",
+  "experiment_id": "293985070183604336",
+  "recorder_uri": "/Users/rziiiii/dev/workspace/research/stage1_q2_conditional_action_risk_20261112/qlib_recorder",
+  "plan_sha256": "edaf8e1e3cb7390b6b1b9c0cd0676433432f53c882c2f073322dbb30b6f0251a",
+  "model_code_sha256": "dca8f8b26364e8fc97a5bad36115a7bf62875ed62c6d648842d0ad75edc01d68",
+  "status": "conditional_action_risk_fixed_gate_failed",
+  "historical_research_passed": false,
+  "new_model_fits": 1,
+  "new_native_accounts": 0,
+  "fit_audit": {
+    "head": "risk",
+    "source_rows": 35945,
+    "fit_rows": 27600,
+    "fit_days": 552,
+    "fit_anchors": 2760,
+    "total_day_weight": 552.0,
+    "held_rows_used": 0,
+    "history_risk_used_as_filter": false,
+    "training_clock": "2018-2020 optimization, not OOF",
+    "maximum_label_available_at": "2020-12-24 09:49:00"
+  },
+  "fit_solver_status": "optimal",
+  "fit_solver_iterations": 21,
+  "held_rows": 7485,
+  "support_days": {
+    "2019": 252,
+    "2020": 247
+  },
+  "annual_dayweighted_pinball_improvement": {
+    "2019": {
+      "improve_vs_baseline": -9.234037879033598e-05,
+      "improve_vs_old_q2": -4.6521794263147136e-11
+    },
+    "2020": {
+      "improve_vs_baseline": 0.0005619878709269213,
+      "improve_vs_old_q2": 2.3924407422307216e-10
+    }
+  },
+  "block": {
+    "native_positions": 505,
+    "length_days": 20,
+    "resamples": 10000,
+    "seed": 20261112,
+    "alpha": 0.0125,
+    "undefined": [
+      0,
+      0
+    ],
+    "lower": [
+      -0.00013454422252717104,
+      -1.5501050322636426e-10
+    ]
+  },
+  "transmission_changed_days": {
+    "2019": 0,
+    "2020": 0
+  },
+  "gates": {
+    "support": true,
+    "annual": false,
+    "block": false,
+    "transmission": false
+  },
+  "scope": "reused 2018-2020 optimization held actions; not temporal OOS, actor, account or SOXX result",
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "recorder_only_artifacts": [
+      "frozen_plan",
+      "conditional_risk_model",
+      "report",
+      "daily_improvements",
+      "held_predictions",
+      "source_readbacks"
+    ]
+  },
+  "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/stage1_q2_conditional_action_risk_20261112/qlib_recorder/293985070183604336/e8df7168ef0b4554a7803caad9b0a4d8"
+}

@@ -1,0 +1,40 @@
+{
+  "experiment": "stage1_q2_conditional_action_risk_20261112",
+  "status": "frozen_before_new_fit",
+  "objective": "Test whether fitting the action-dependent 95pct risk residual conditional on the saved state-only Q2 baseline improves absolute segment-risk pinball on independent physical actions.",
+  "scope": "Different supervised target/parameterization from closed joint Q2 absolute-risk head; saved Q2 weights and labels remain frozen. This is reused 2018-2020 optimization history, not temporal OOS or SOXX evidence.",
+  "sources": {
+    "labels_card": "research/stage1_own_state_policy_iteration_20261105/pi2_label_bulk",
+    "labels_recorder_id": "79be0d3fe0e743d790b1455ede383a6b",
+    "labels_manifest_sha256": "49debaee0517927319d88176440a2ecc8ab9a8c3744af22ae674165fd245a18b",
+    "saved_models_card": "research/stage1_own_state_policy_iteration_20261105/pi2_critics/model_pair",
+    "saved_models_recorder_id": "10b109ef6bc64ffb85526bb7d85a255e",
+    "saved_models_manifest_sha256": "272ea1342db0b182c1a33059addce254358ae593945fa24abf31e789ffa69202",
+    "support_card": "research/stage1_q2_action_risk_delta_support_20261112",
+    "old_gate_card": "research/stage1_own_state_policy_iteration_20261105/q2_interpolation",
+    "old_gate_recorder_id": "2bb68f291eb84b4d8995ed2df611dc06",
+    "old_gate_manifest_sha256": "3d9866544024113b10e7d8264599ec6f61bdf4d11a3caba31c51ec29f1fda415"
+  },
+  "clock_and_population": "2018-2020 matured source labels only. Fit source: same day/anchor/action weights and known-mask as closed Q2 risk head, excluding held_physical_independent. Evaluate saved independent physical held actions on all 2019-2020 native days; preserve unknown day positions. No 2021plus outcome read.",
+  "training_target": "r_i = actual absolute segment max drawdown_i minus saved Q2 prediction at u=0 before received-DD clipping. For fixed z, quantile translation makes q95(r_i|z,u)+Q2_0(z) a q95 absolute-risk estimate. Do not fit on realized HOLD risk or compare quantile differences with realized means.",
+  "model": "One cvxpy CLARABEL tau0.95 pinball fit of r_i on (c0+C standardized_z) dot physical u plus 0.5 u' H u, H PSD, no intercept or state-only term, Q2 saved weighted state scaler, ridge lambda1 on c0,C,H, same day/anchor/action weights, OPTIMAL only. This retains zero action correction at u=0.",
+  "inference": "predicted absolute risk=max(saved Q2 raw(z,0)+fitted action correction(z,u), genuinely received close drawdown). Baseline=max(saved Q2 raw(z,0), received drawdown). Closed Q2 comparator=its saved full action prediction with same floor.",
+  "fixed_information_gates": {
+    "support": "at least100 distinct joint-known held-action days in each of2019 and2020",
+    "annual": "positive dayweighted pinball improvement vs both baseline and closed Q2 separately in each year",
+    "uncertainty": "20-native-day circular blocks,10000 resamples,seed20261112, one-sided alpha0.0125 for each of two pooled contrasts; both lower bounds positive",
+    "transmission": "On saved held physical actions grouped by same day/anchor, candidate minimum-risk action (fixed action_id lexicographic tie rule within1e-10) or the set with predicted absolute risk<=0.30 differs from closed Q2 on at least20 distinct native days in each year. No actor is created by this diagnostic."
+  },
+  "after_gate": "If all information gates pass, separately freeze a continuous three-asset actor and exact f696+b472 matched own-state 0/2/5bp Qlib account; no direct account or promotion from this card. If a fixed gate fails, close this model without lambda/tau/action-grid/year rescue.",
+  "budget": {
+    "new_model_fits": 1,
+    "new_native_accounts": 0,
+    "parameter_searches": 0
+  },
+  "portfolio_assets": [
+    "SOXL",
+    "SOXX",
+    "CASH"
+  ],
+  "paper_sim_unchanged": true
+}

@@ -74,6 +74,7 @@
   "support_pass": true,
   "limitations": [
     "Reused 2019-2020 in-sample optimization held actions, not temporal OOS or SOXX evidence",
+    "Difference of conditional 95pct quantile predictions is not the conditional mean or 95pct quantile of realized action-risk differences; mean comparison is not calibration evidence",
     "No causal inference or fitted residual risk model"
   ],
   "artifact_policy": {
