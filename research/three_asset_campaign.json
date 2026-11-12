@@ -95,7 +95,14 @@
           -0.000273,
           -0.000295
         ],
-        "decision": "not_promoted: rolling/block fail at all costs; full-minute risk and independent forward unqualified; 27baa proposals differ from f696"
+        "decision": "not_promoted: rolling/block fail at all costs; full-minute risk and independent forward unqualified; 27baa proposals differ from f696",
+        "positive_rolling126_windows_0_2_5bp": [
+          553,
+          549,
+          539
+        ],
+        "required_positive_rolling126_windows": 574,
+        "0bp_windows_short": 21
       }
     },
     "result_reporting_rule": "Report highest-return trained, sampled-risk-feasible all-costs, and best same-parent results separately; never omit 27baa sampled-risk-feasible near-miss or infer promotion from terminal wealth.",
@@ -106,7 +113,9 @@
     "latest_q2_conditional_action_risk": "research/stage1_q2_conditional_action_risk_20261112/summary.json",
     "latest_q2_conditional_action_risk_status": "One frozen fit closed: objective algebraically reduces to old joint Q2 action subproblem; coefficients differ <=1.55e-8, held predictions <=1.74e-7, 0 action/30pct feasible-set changed days in 2019/2020, annual pinball and block gates fail. Recorder/NAS readback passed after metadata-only repair; 0 accounts, no SOXX pass.",
     "latest_reversal_vol_source": "research/stage1_reversal_vol_compounding_source_20261112/summary.json",
-    "latest_reversal_vol_source_status": "Fixed SOXX autocorr20 negative-part x variance20 source supports 252/253 days in 2019/2020 but only 1.46pct residual variance beyond matched main-effect/path/product controls vs preregistered 5pct gate; closed before labels/fits/accounts. Recorder and NAS readback passed; no SOXX pass."
+    "latest_reversal_vol_source_status": "Fixed SOXX autocorr20 negative-part x variance20 source supports 252/253 days in 2019/2020 but only 1.46pct residual variance beyond matched main-effect/path/product controls vs preregistered 5pct gate; closed before labels/fits/accounts. Recorder and NAS readback passed; no SOXX pass.",
+    "latest_27baa_all_cost_attribution": "research/raw_27baa_all_cost_window_attribution_20261112/summary.json",
+    "latest_27baa_all_cost_attribution_status": "Read-only six saved native books, 0 fits/accounts: at0/2/5bp 262/266,265/270,272/280 losing rolling126 windows have negative cash-opportunity component; mean SOXL-selection component in losing groups is near zero/positive. All 266 zero-bp losing windows also lose at2/5bp; daily log identities close <=1.39e-17. Hindsight accounting only, no SOXX pass."
   },
   "client_goal_observation": {
     "thread_id": "01a1afb6-261c-7422-8f3e-94438afda74a",
@@ -116,10 +125,10 @@
     "scientific_status_separate": "historical_research_not_passed"
   },
   "current_task": {
-    "phase": "needs_distinct_decision_time_mechanism",
+    "phase": "needs_distinct_cash_to_soxx_decision_time_mechanism",
     "status": "not_running",
-    "scope": "The saved 27baa raw-share account is the strongest all-cost sampled-risk-feasible trained reference: SOXX wealth1.218/1.202/1.178 at0/2/5bp and sampled DD/CVaR/complete-years pass, but rolling126 67.52/67.03/65.81pct and SOXX block lowers fail; full-minute risk/forward unqualified. Treat it as a separate independent research parent, not exact f696. A new mechanism must address its weak windows and remain distinct from closed weak-trend/recovery adjustments; exact f696+b472 remains Stage1-derived attribution baseline.",
-    "next_output": "A source/PIT-qualified, genuinely different economic mechanism that can improve the 27baa all-cost weak-window and block gaps with matched own-state account testing, or scoped needs_distinct_decision_time_mechanism; no 27baa threshold/window rescue.",
+    "scope": "27baa all-cost actual-holdings attribution identifies cash opportunity as the dominant negative component in most losing rolling126 windows, while mean SOXL selection there is near zero/positive. The priority is a new predecision, source/PIT-qualified signal and funded continuous action for cash-to-SOXX value under own risk capacity, checked against matched strong-window damage. This is not a 27baa fixed-threshold rescue or a hindsight switch; exact f696+b472 remains Stage1 attribution baseline.",
+    "next_output": "One materially distinct cash-to-SOXX economic hypothesis from existing data with source clock, matched control, one bounded action-value and own-state account gate; otherwise scoped needs_distinct_decision_time_mechanism.",
     "authorization_scope": "Existing-data bounded hypothesis discovery is within the user-authorized research Goal; each fit/account still requires its frozen task budget and gates.",
     "source_preflight_observation": "Read-only existing Qlib daily shock-concentration source covers all 558 2018-2020 pi2 state days. Saved pi2 future segment-risk labels are known on 53/252/247 days (2020: 16055/16120 rows, 247/248 source days). The separate history_risk_known flag covers only 50 days in 2020 and is not a training filter in src/workflow/stage1_policy_iteration_fit.py. Source support is sufficient for a bounded prefit design, but novelty beyond closed cushion/Q2 risk and actor-to-funded-account transmission remain unverified.",
     "source_preflight_evidence": {

@@ -1,0 +1,189 @@
+{
+  "experiment": "raw_27baa_all_cost_window_attribution_20261112",
+  "recorder_id": "1a9c74200fd94ba2a301ca36c0a77e4c",
+  "experiment_id": "824237658226160071",
+  "recorder_uri": "/Users/rziiiii/dev/workspace/research/raw_27baa_all_cost_window_attribution_20261112/qlib_recorder",
+  "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/raw_27baa_all_cost_window_attribution_20261112/qlib_recorder/824237658226160071/1a9c74200fd94ba2a301ca36c0a77e4c",
+  "plan_sha256": "b0d80b753710d9dfb0765fd6872964ea2121ec28f1cfbb58114aa09a241bb13f",
+  "status": "read_only_27baa_all_cost_components_closed_no_policy",
+  "historical_research_passed": false,
+  "new_fits": 0,
+  "new_accounts": 0,
+  "source_recorder_id": "55b4223a73d44fee89c86608edf8f58c",
+  "daily_sessions_per_cost": 944,
+  "windows_per_cost": 819,
+  "group_summary": {
+    "0_winner": {
+      "windows": 553,
+      "cash_negative": 217,
+      "selection_negative": 106,
+      "both_negative": 0,
+      "mean_cash_log": 0.024200263618446516,
+      "mean_selection_log": 0.04984259220885556,
+      "mean_fee_log": -0.0009036386779337691,
+      "mean_residual_log": 0.0038971051949288262
+    },
+    "0_loser": {
+      "windows": 266,
+      "cash_negative": 262,
+      "selection_negative": 142,
+      "both_negative": 138,
+      "mean_cash_log": -0.046304884267577076,
+      "mean_selection_log": 0.0005386551063207536,
+      "mean_fee_log": -0.001179340875756979,
+      "mean_residual_log": 0.0022382070200345173
+    },
+    "2_winner": {
+      "windows": 549,
+      "cash_negative": 213,
+      "selection_negative": 105,
+      "both_negative": 0,
+      "mean_cash_log": 0.02473870169610389,
+      "mean_selection_log": 0.05009416240277116,
+      "mean_fee_log": -0.00280837151335763,
+      "mean_residual_log": 0.003873896307804853
+    },
+    "2_loser": {
+      "windows": 270,
+      "cash_negative": 265,
+      "selection_negative": 143,
+      "both_negative": 138,
+      "mean_cash_log": -0.045962593703469896,
+      "mean_selection_log": 0.0008100010882663812,
+      "mean_fee_log": -0.0029865401928911963,
+      "mean_residual_log": 0.0022523155537803484
+    },
+    "5_winner": {
+      "windows": 539,
+      "cash_negative": 207,
+      "selection_negative": 103,
+      "both_negative": 0,
+      "mean_cash_log": 0.025587527656394275,
+      "mean_selection_log": 0.050576527177455755,
+      "mean_fee_log": -0.005668774188483473,
+      "mean_residual_log": 0.0038445196242647196
+    },
+    "5_loser": {
+      "windows": 280,
+      "cash_negative": 272,
+      "selection_negative": 145,
+      "both_negative": 138,
+      "mean_cash_log": -0.04511021669954216,
+      "mean_selection_log": 0.0016059452721046141,
+      "mean_fee_log": -0.005698124203069168,
+      "mean_residual_log": 0.0022833441833717007
+    }
+  },
+  "annual_components": {
+    "0": {
+      "2023": {
+        "relative_log": -0.04833347654044132,
+        "cash_log": -0.0682531867324052,
+        "selection_log": 0.02577853275882972,
+        "fee_log": -0.002710976967488391,
+        "residual_log": -0.003147845599377443
+      },
+      "2024": {
+        "relative_log": 0.13645114569833278,
+        "cash_log": 0.08518766726069311,
+        "selection_log": 0.05414375579877487,
+        "fee_log": -0.001847458840808634,
+        "residual_log": -0.0010328185203266093
+      },
+      "2025": {
+        "relative_log": 0.051210994431850704,
+        "cash_log": 0.007110399528739986,
+        "selection_log": 0.03774994539046851,
+        "fee_log": -0.0020252246840204253,
+        "residual_log": 0.008375874196662712
+      },
+      "2026": {
+        "relative_log": 0.0581237330556089,
+        "cash_log": -0.09019969723224625,
+        "selection_log": 0.1306638085515613,
+        "fee_log": -0.0007507832087534466,
+        "residual_log": 0.01841040494504729
+      }
+    },
+    "2": {
+      "2023": {
+        "relative_log": -0.052135316855190114,
+        "cash_log": -0.06813679274728986,
+        "selection_log": 0.025313604176441806,
+        "fee_log": -0.006289414951269549,
+        "residual_log": -0.003022713333072531
+      },
+      "2024": {
+        "relative_log": 0.1334170148402236,
+        "cash_log": 0.085690850280389,
+        "selection_log": 0.05449959832319351,
+        "fee_log": -0.005721324069248805,
+        "residual_log": -0.0010521096941100724
+      },
+      "2025": {
+        "relative_log": 0.0477150889702843,
+        "cash_log": 0.0073261333733709785,
+        "selection_log": 0.03778558324322997,
+        "fee_log": -0.00573639509293591,
+        "residual_log": 0.008339767446619264
+      },
+      "2026": {
+        "relative_log": 0.055306957897456724,
+        "cash_log": -0.0902842104434286,
+        "selection_log": 0.13051571134948747,
+        "fee_log": -0.0033018802663532546,
+        "residual_log": 0.01837733725775109
+      }
+    },
+    "5": {
+      "2023": {
+        "relative_log": -0.0572146313502154,
+        "cash_log": -0.068319810974517,
+        "selection_log": 0.025541986782201254,
+        "fee_log": -0.011602012772007377,
+        "residual_log": -0.0028347943858922716
+      },
+      "2024": {
+        "relative_log": 0.12739372070803687,
+        "cash_log": 0.08570967361831774,
+        "selection_log": 0.054337069979704715,
+        "fee_log": -0.011572010881667826,
+        "residual_log": -0.0010810120083177021
+      },
+      "2025": {
+        "relative_log": 0.042089890399556296,
+        "cash_log": 0.007328047206774824,
+        "selection_log": 0.03777318812034494,
+        "fee_log": -0.011296988195367392,
+        "residual_log": 0.008285643267804035
+      },
+      "2026": {
+        "relative_log": 0.05154704262950826,
+        "cash_log": -0.09029450348061709,
+        "selection_log": 0.13063683302595963,
+        "fee_log": -0.007122853487514516,
+        "residual_log": 0.01832756657168022
+      }
+    }
+  },
+  "cross_cost_window_overlap": {
+    "all_three_losing": 266,
+    "0_and_5_losing": 266,
+    "5_only_vs_0": 14
+  },
+  "limitations": [
+    "overlapping hindsight windows are descriptions, not independent market evidence or a trading switch",
+    "cash and selection terms are accounting components, not executable marginal actions",
+    "historical first receipt, full-minute risk and qualified forward remain unknown"
+  ],
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "recorder_only_artifacts": [
+      "frozen_plan",
+      "source_readback",
+      "report",
+      "daily_components",
+      "rolling_components"
+    ]
+  }
+}

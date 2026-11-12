@@ -1,0 +1,16 @@
+{
+  "experiment": "raw_27baa_all_cost_window_attribution_20261112",
+  "kind": "read_only_saved_native_own_account_error_attribution",
+  "question": "On all saved 27baa 0/2/5bp native raw-share accounts, which actual holding components explain SOXX-relative losing versus winning 126-session windows?",
+  "source_card": "research/frozen_policy_raw_cashbook_20261015",
+  "source_recorder_id": "55b4223a73d44fee89c86608edf8f58c",
+  "source_summary_sha256": "86aadee052f678ea70ced12ccf27406281d0fd6b8f8d36a1e6aa1d7a86efc492",
+  "source_manifest_sha256": "bd63e0f24735d4ef323e908dc35b5d9f01fef12c811bb3f31ac404b0d474f054",
+  "source_artifacts": ["inputs/frame", "inputs/raw_points", "inputs/schedule", "native/raw_candidate27baa_0", "native/raw_candidate27baa_2", "native/raw_candidate27baa_5", "native/raw_SOXX_0", "native/raw_SOXX_2", "native/raw_SOXX_5"],
+  "prices_and_cash": "Use saved raw point prices, splits, dividends, actual own holdings/cash/receivable and Tiered fees. Verify each candidate daily arithmetic return against native authority at 1e-9 and benchmark returns against saved raw SOXX book. No policy replay or new market data.",
+  "decomposition": "For each of four actual holding segments, with weights relative to the same day's pretrade NAV, cash opportunity is -(1-w_SOXL-w_SOXX)*SOXX segment total return; SOXL selection is w_SOXL*(SOXL segment total return-SOXX segment total return). Direct fees are saved negative fee/pretradeNAV. Residual is actual strategy minus benchmark daily arithmetic return minus these components, including intraday benchmark compounding and accounting differences. Multiply each arithmetic component by the same exact per-day log-difference conversion scalar, retaining the residual. No component alone is a tradable counterfactual.",
+  "population": "All944 saved sessions, both partial end years, both complete years, all16 quarters and all819 contiguous126-session windows at each cost; no selected winning or losing interval exclusion.",
+  "report": ["cash-negative, selection-negative, both-negative counts among losing and winning windows", "mean cash, selection, fee, residual log components in both window groups", "all-year/quarter and worst-window descriptive context", "cross-cost overlap of losing windows"],
+  "stop": "Any source hash, calendar, share/cash/fee, daily arithmetic return, daily log excess, period/window count or decomposed identity mismatch stops. No future outcome-selected switch, threshold, fit, new account, or promotion.",
+  "budget": {"new_market_requests": 0, "new_model_fits": 0, "new_native_accounts": 0, "read_only_native_books": 6, "writable_recorders": 1}
+}

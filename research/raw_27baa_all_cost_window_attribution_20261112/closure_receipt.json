@@ -1,0 +1,59 @@
+{
+  "status": "verified_saved_recorder_read_only",
+  "recorder_id": "1a9c74200fd94ba2a301ca36c0a77e4c",
+  "costs": {
+    "0": {
+      "daily_log_closure_max_error": 6.938893903907228e-18,
+      "daily_rows": 944,
+      "rolling_windows": 819,
+      "positive_windows": 553
+    },
+    "2": {
+      "daily_log_closure_max_error": 1.3877787807814457e-17,
+      "daily_rows": 944,
+      "rolling_windows": 819,
+      "positive_windows": 549
+    },
+    "5": {
+      "daily_log_closure_max_error": 1.3877787807814457e-17,
+      "daily_rows": 944,
+      "rolling_windows": 819,
+      "positive_windows": 539
+    }
+  },
+  "readback": {
+    "recorder_id": "1a9c74200fd94ba2a301ca36c0a77e4c",
+    "experiment": "raw_27baa_all_cost_window_attribution_20261112",
+    "experiment_id": "824237658226160071",
+    "recorder_uri": "/Users/rziiiii/dev/workspace/research/raw_27baa_all_cost_window_attribution_20261112/qlib_recorder",
+    "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/raw_27baa_all_cost_window_attribution_20261112/qlib_recorder/824237658226160071/1a9c74200fd94ba2a301ca36c0a77e4c",
+    "summary_sha256": "cb0e14797b5f979b73bb7f9f619474e1013426bdb235ddc720badc5d23a2e261",
+    "verification_manifest_sha256": "e9db0bed2051adea0800a49cdfb30045e00391ddc4f4037b7f6112a91d8a6724",
+    "artifacts": {
+      "daily_components": {
+        "artifact": "daily_components",
+        "artifact_id": "1a9c74200fd94ba2a301ca36c0a77e4c:daily_components",
+        "sha256": "3158d9b292b0b90721966d2c7f97c5d5b0245e7a1b0c75f137963e6ec299063d",
+        "bytes": 570940,
+        "manifest_entry": "qlib_recorder/824237658226160071/1a9c74200fd94ba2a301ca36c0a77e4c/artifacts/daily_components",
+        "local_path": "/Users/rziiiii/dev/workspace/research/raw_27baa_all_cost_window_attribution_20261112/qlib_recorder/824237658226160071/1a9c74200fd94ba2a301ca36c0a77e4c/artifacts/daily_components"
+      },
+      "rolling_components": {
+        "artifact": "rolling_components",
+        "artifact_id": "1a9c74200fd94ba2a301ca36c0a77e4c:rolling_components",
+        "sha256": "da811803e7240e42e733a923f2ed77b5163dbf10ef755270f800e5dbfec73fb4",
+        "bytes": 186329,
+        "manifest_entry": "qlib_recorder/824237658226160071/1a9c74200fd94ba2a301ca36c0a77e4c/artifacts/rolling_components",
+        "local_path": "/Users/rziiiii/dev/workspace/research/raw_27baa_all_cost_window_attribution_20261112/qlib_recorder/824237658226160071/1a9c74200fd94ba2a301ca36c0a77e4c/artifacts/rolling_components"
+      }
+    },
+    "read_only": true,
+    "local_filestore_only": true,
+    "hashes_checked_before_unpickling": true,
+    "metadata_and_artifact_hashes_rechecked": true,
+    "source_api": [
+      "qlib.workflow.R.get_recorder",
+      "Recorder.load_object"
+    ]
+  }
+}
