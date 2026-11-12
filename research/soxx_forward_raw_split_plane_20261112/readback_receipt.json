@@ -1,0 +1,48 @@
+{
+  "recorder_id": "eb4d3106937c4e21b612d83c47ce0d28",
+  "summary_sha256": "da61c1285e7156d3809d261f1c7dba82ac74376f73b1519f4c762d35a5f39ee5",
+  "manifest_sha256": "36826aa06af67e74ad01d6fe5a8c0dc37063b85bacf6b7f03bafa456c1b3134a",
+  "readback": {
+    "recorder_id": "eb4d3106937c4e21b612d83c47ce0d28",
+    "experiment": "soxx_forward_raw_split_plane_20261112",
+    "experiment_id": "379788321839291108",
+    "recorder_uri": "/Users/rziiiii/dev/workspace/research/soxx_forward_raw_split_plane_20261112/qlib_recorder",
+    "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/soxx_forward_raw_split_plane_20261112/qlib_recorder/379788321839291108/eb4d3106937c4e21b612d83c47ce0d28",
+    "summary_sha256": "da61c1285e7156d3809d261f1c7dba82ac74376f73b1519f4c762d35a5f39ee5",
+    "verification_manifest_sha256": "36826aa06af67e74ad01d6fe5a8c0dc37063b85bacf6b7f03bafa456c1b3134a",
+    "artifacts": {
+      "derived_raw_prices": {
+        "artifact": "derived_raw_prices",
+        "artifact_id": "eb4d3106937c4e21b612d83c47ce0d28:derived_raw_prices",
+        "sha256": "05e794a85c46b0e218299515ec0e796aa5d01dea0be719b8aa59f44a8e817bd8",
+        "bytes": 3108,
+        "manifest_entry": "qlib_recorder/379788321839291108/eb4d3106937c4e21b612d83c47ce0d28/artifacts/derived_raw_prices",
+        "local_path": "/Users/rziiiii/dev/workspace/research/soxx_forward_raw_split_plane_20261112/qlib_recorder/379788321839291108/eb4d3106937c4e21b612d83c47ce0d28/artifacts/derived_raw_prices"
+      },
+      "price_checks": {
+        "artifact": "price_checks",
+        "artifact_id": "eb4d3106937c4e21b612d83c47ce0d28:price_checks",
+        "sha256": "5d40e4392ffb9bb546d7be896c14fa866a1735d44a9e12d87140e14760e419e7",
+        "bytes": 5171,
+        "manifest_entry": "qlib_recorder/379788321839291108/eb4d3106937c4e21b612d83c47ce0d28/artifacts/price_checks",
+        "local_path": "/Users/rziiiii/dev/workspace/research/soxx_forward_raw_split_plane_20261112/qlib_recorder/379788321839291108/eb4d3106937c4e21b612d83c47ce0d28/artifacts/price_checks"
+      },
+      "report": {
+        "artifact": "report",
+        "artifact_id": "eb4d3106937c4e21b612d83c47ce0d28:report",
+        "sha256": "0113e781820766ee4bcbaf22b04d0c850fbc74c28996b78d13dc15c7dfb41e37",
+        "bytes": 939,
+        "manifest_entry": "qlib_recorder/379788321839291108/eb4d3106937c4e21b612d83c47ce0d28/artifacts/report",
+        "local_path": "/Users/rziiiii/dev/workspace/research/soxx_forward_raw_split_plane_20261112/qlib_recorder/379788321839291108/eb4d3106937c4e21b612d83c47ce0d28/artifacts/report"
+      }
+    },
+    "read_only": true,
+    "local_filestore_only": true,
+    "hashes_checked_before_unpickling": true,
+    "metadata_and_artifact_hashes_rechecked": true,
+    "source_api": [
+      "qlib.workflow.R.get_recorder",
+      "Recorder.load_object"
+    ]
+  }
+}

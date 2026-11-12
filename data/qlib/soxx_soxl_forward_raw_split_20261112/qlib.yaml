@@ -1,0 +1,8 @@
+# Qlib configuration
+provider_uri: /Users/rziiiii/dev/workspace/data/qlib/soxx_soxl_forward_raw_split_20261112
+redis:
+  host: null
+  port: null
+market:
+  market: all
+  market_type: stock

@@ -1,0 +1,35 @@
+{
+  "recorder_id": "eb4d3106937c4e21b612d83c47ce0d28",
+  "entries": [
+    {
+      "path": "qlib_recorder/379788321839291108/eb4d3106937c4e21b612d83c47ce0d28/artifacts/frozen_plan",
+      "sha256": "ea4075160aaaaa29d6248767de70b07b748a49b621beeb5c876ebeaf6741bfed",
+      "bytes": 2392
+    },
+    {
+      "path": "qlib_recorder/379788321839291108/eb4d3106937c4e21b612d83c47ce0d28/artifacts/source_identity",
+      "sha256": "0668839d1b31b12fa77b8a4f224e509f28fb872249c1509ef9c1813dc2b09816",
+      "bytes": 563
+    },
+    {
+      "path": "qlib_recorder/379788321839291108/eb4d3106937c4e21b612d83c47ce0d28/artifacts/derived_raw_prices",
+      "sha256": "05e794a85c46b0e218299515ec0e796aa5d01dea0be719b8aa59f44a8e817bd8",
+      "bytes": 3108
+    },
+    {
+      "path": "qlib_recorder/379788321839291108/eb4d3106937c4e21b612d83c47ce0d28/artifacts/price_checks",
+      "sha256": "5d40e4392ffb9bb546d7be896c14fa866a1735d44a9e12d87140e14760e419e7",
+      "bytes": 5171
+    },
+    {
+      "path": "qlib_recorder/379788321839291108/eb4d3106937c4e21b612d83c47ce0d28/artifacts/provider_manifest",
+      "sha256": "8e3b0b8aff6395364f21a6009498681691c4edede7882ad77cf75bbe63a8b0a6",
+      "bytes": 723
+    },
+    {
+      "path": "qlib_recorder/379788321839291108/eb4d3106937c4e21b612d83c47ce0d28/artifacts/report",
+      "sha256": "0113e781820766ee4bcbaf22b04d0c850fbc74c28996b78d13dc15c7dfb41e37",
+      "bytes": 939
+    }
+  ]
+}

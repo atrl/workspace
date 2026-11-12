@@ -1,0 +1,41 @@
+{
+  "experiment": "soxx_forward_raw_split_plane_20261112",
+  "recorder_id": "eb4d3106937c4e21b612d83c47ce0d28",
+  "experiment_id": "379788321839291108",
+  "recorder_uri": "/Users/rziiiii/dev/workspace/research/soxx_forward_raw_split_plane_20261112/qlib_recorder",
+  "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/soxx_forward_raw_split_plane_20261112/qlib_recorder/379788321839291108/eb4d3106937c4e21b612d83c47ce0d28",
+  "plan_sha256": "a0bf23b48901e5ec299b37b66cd760e44e6420cf02423bff2939116e0678296f",
+  "status": "price_only_forward_raw_plane_qualified_under_split_source",
+  "historical_research_passed": false,
+  "soxl_source_sha256": "c330e51e5b3a8504616325918e66f10ce542919ab54b9d94a695575c9346a942",
+  "soxx_source_sha256": "3f62b1686c3220d3072e0c4078188c2b69384125b92c4e9759457f39de6ae4b9",
+  "anchor_panel_sha256": "2b436f4b8aae165ae60feb6e37f13539fff5e1dd2765481d609c9ec37bc1b95a",
+  "provider_manifest_sha256": "b7e5b0d58ec8a673f5cbfafd171330f48f846554b17d7ff60ebb4f3a593d1798",
+  "rows": 50,
+  "source_sessions": 24,
+  "split_day": "2026-11-05",
+  "split_ratio": 3,
+  "pre_split_adjustment_days": [
+    "2026-10-30",
+    "2026-11-02",
+    "2026-11-03",
+    "2026-11-04"
+  ],
+  "max_prior_close_error": 5.15000010636868e-07,
+  "max_vendor_return_error": 9.196203243355683e-10,
+  "qlib_ohlc_error_bound": 5e-05,
+  "new_fits": 0,
+  "new_candidate_accounts": 0,
+  "source_scope": "derived existing-source price only; no certified physical volume, complete post-Oct9 dividends, first receipt, broker execution or strategy forward pass",
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "recorder_only_artifacts": [
+      "frozen_plan",
+      "source_identity",
+      "derived_raw_prices",
+      "price_checks",
+      "provider_manifest",
+      "report"
+    ]
+  }
+}

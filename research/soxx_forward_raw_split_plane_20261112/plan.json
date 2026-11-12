@@ -1,0 +1,20 @@
+{
+  "experiment": "soxx_forward_raw_split_plane_20261112",
+  "kind": "derived_existing_source_price_identity_repair_only",
+  "objective": "Construct an isolated 2026-10-08 through 2026-11-11 daily SOXL/SOXX raw-share OHLC research plane from already retained Futu rows and the official SOXX 3:1 split timing; do not alter the shared panel or run a strategy account.",
+  "sources": {
+    "soxl_futu": "data/raw/external/futu_history_kline_US_SOXL.csv",
+    "soxl_sha256": "c330e51e5b3a8504616325918e66f10ce542919ab54b9d94a695575c9346a942",
+    "soxx_futu": "data/raw/external/futu_history_kline_US_SOXX.csv",
+    "soxx_sha256": "3f62b1686c3220d3072e0c4078188c2b69384125b92c4e9759457f39de6ae4b9",
+    "prior_anchor_panel": "data/processed/panels/soxl_soxx_vix_full.csv",
+    "prior_anchor_sha256": "2b436f4b8aae165ae60feb6e37f13539fff5e1dd2765481d609c9ec37bc1b95a",
+    "official_split": "https://www.sec.gov/Archives/edgar/data/1100663/000119312526430480/d156277d497.htm"
+  },
+  "clock": "Use the already retained 2026-10-08 close as the prior anchor and 24 existing Futu daily rows 2026-10-09 to 2026-11-11. No new fetch or claim of historical first receipt.",
+  "transform": "SOXL OHLC unchanged. SOXX OHLC unchanged through2026-10-29; multiply Futu adjusted OHLC by3 on2026-10-30, 11-02, 11-03 and11-04 to recover presplit raw-share quotes; leave SOXX from 2026-11-05 onward unchanged. Record a 3:1 raw-share split at 2026-11-05 open. Do not infer physical volume from adjusted volume.",
+  "checks": ["exact daily calendar and one row per asset/day", "positive finite OHLC with low<=open,close<=high", "previous raw close equals Futu last_close in the same share basis, except the official split boundary where previous raw close/3 equals Futu last_close", "same-share return, with split share-count conversion at 2026-11-05, matches Futu reported change_rate within1e-6 on every retained day", "Qlib D readback matches derived OHLC within float32 tolerance5e-5", "old 2026-10-08 anchor matches both Futu 2026-10-09 last_close values"],
+  "output_provider": "data/qlib/soxx_soxl_forward_raw_split_20261112",
+  "qualification_limit": "This is a derived price-only plane. It has no volume, verified first receipt, full post-2026-10-09 cash-dividend schedule, broker fills, saved frozen-model decisions or native own-state account; no SOXX historical/forward strategy pass follows.",
+  "budget": {"new_market_fetches": 0, "model_fits": 0, "candidate_accounts": 0}
+}

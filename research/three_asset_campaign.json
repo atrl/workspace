@@ -127,7 +127,9 @@
     "reported_concentration_source_scope": "research/stage1_soxx_concentration_amendment_gap_resolution_20261023/summary.json",
     "reported_concentration_triage": "Existing reported SOXX top5/HHI maps 3020 training and 944 reused held days but only 48/15 distinct active filing events; HHI is ownership concentration, not volatility-adjusted risk concentration. Exact intraday first-public receipts and historical constituent volatility plane are unqualified. No cash-value fit/account launched; source retained, not declared economically useless.",
     "latest_forward_daily_basis_audit": "research/soxx_forward_daily_basis_seam_audit_20261112/summary.json",
-    "latest_forward_daily_basis_status": "Current shared data/qlib/soxl extends to2026-11-11 but stitches old SOXX close513.86 on2026-10-29 to new adjusted close157.17 on10-30, false -69.41pct; retained Futu last_close171.286666495 implies -8.24pct and exact3x basis ratio. Official split effective2026-11-05. Existing new days are needs_source_basis_repair, not qualified forward/account evidence. Guarded future append; no data rewrite."
+    "latest_forward_daily_basis_status": "Current shared data/qlib/soxl extends to2026-11-11 but stitches old SOXX close513.86 on2026-10-29 to new adjusted close157.17 on10-30, false -69.41pct; retained Futu last_close171.286666495 implies -8.24pct and exact3x basis ratio. Official split effective2026-11-05. Existing new days are needs_source_basis_repair, not qualified forward/account evidence. Guarded future append; no data rewrite.",
+    "latest_forward_raw_split_plane": "research/soxx_forward_raw_split_plane_20261112/summary.json",
+    "latest_forward_raw_split_status": "Derived existing-source isolated price-only Qlib provider spans 2026-10-08..11-11 with 50 SOXL/SOXX OHLC rows and official 2026-11-05 SOXX 3:1 share event. Across24 new sessions max retained Futu previous-close discrepancy5.15e-7 USD and return discrepancy9.20e-10, Qlib readback passed; shared dirty panel unchanged. No original volume, complete dividend/receivable schedule, first receipt, model decisions or native account; not qualified forward strategy evidence."
   },
   "client_goal_observation": {
     "thread_id": "01a1afb6-261c-7422-8f3e-94438afda74a",
@@ -139,8 +141,8 @@
   "current_task": {
     "phase": "needs_distinct_qualified_decision_time_mechanism",
     "status": "not_running",
-    "scope": "Historical SOXX pass remains unmet and no distinct fit-ready qualified cash-to-SOXX mechanism is registered. The newly present shared daily Qlib rows through2026-11-11 cannot yet provide forward evidence because SOXX price vintages are stitched across a3:1 adjustment seam on2026-10-30, before the official Nov5 split. Preserve current dirty data, repair only via one source-identified raw-share/corporate-action price plane if forward use is justified; continue searching existing qualified historical mechanisms without reusing closed fixed versions.",
-    "next_output": "A distinct source/PIT-qualified and funded cash-to-SOXX mechanism with native own-state gates; for forward evidence first reconstruct a single split-consistent existing-source price/whole-share plane and verify its independent receipts. No vendor or dataset purchase.",
+    "scope": "Historical SOXX goal remains unmet with no distinct qualified cash-to-SOXX mechanism admitted. The shared current daily Qlib source is basis-mixed, but an isolated existing-source SOXL/SOXX raw OHLC price-only plane through2026-11-11 now passes split-aware source identity. It is not a forward account: original volume, full dividends/receivable, first receipt, frozen model decisions and whole-share Tiered own-state path remain missing. Continue mechanism discovery on existing qualified data; do not count this price repair as alpha or alter paper SIM.",
+    "next_output": "One materially distinct existing-data cash-to-SOXX hypothesis with matched information/action and full 0/2/5bp own-account gates; for forward evidence, separately qualify corporate cash, decision/fill clocks and a frozen model on the isolated price plane.",
     "authorization_scope": "Existing-data bounded hypothesis discovery is within the user-authorized research Goal; each fit/account still requires its frozen task budget and gates."
   },
   "active_job": null,
