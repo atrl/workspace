@@ -31,20 +31,22 @@
     "action_invariance_audit": "research/stage1_shock_cushion_risk_joint_20261110/action_invariance_audit.json",
     "latest_action_marginal_result": "research/stage1_shock_action_marginal_value_risk_20261112/summary.json",
     "latest_action_marginal_status": "fixed action-coupled shock x own-drawdown x beta-u screen closed: risk MSE improved 0.74pct but preregistered coefficient sign, value calibration and action-value gates failed; 3 fits, 0 accounts, no SOXX pass",
-    "latest_methodology_increment": "docs/research_failure_to_feature_sop.md#候选漏斗"
+    "latest_methodology_increment": "docs/research_failure_to_feature_sop.md#候选漏斗",
+    "latest_value_action_difference_attribution": "research/stage1_shock_action_marginal_value_risk_20261112/value_action_difference_attribution.json",
+    "latest_value_action_difference_status": "Read-only 2020 held-action attribution: forecast high SOXL-vs-higher-SOXX positive241/248 days, realized positive137/248, false positive108; 0 fits/accounts. Descriptive reused development, no quarter switch or SOXX pass."
   },
   "client_goal_observation": {
     "thread_id": "01a1afb6-261c-7422-8f3e-94438afda74a",
     "observed_status": "active",
-    "observed_at_utc": "2026-11-12T02:21:31Z",
+    "observed_at_utc": "2026-11-12T02:28:15Z",
     "source": "get_goal direct readback",
     "scientific_status_separate": "historical_research_not_passed"
   },
   "current_task": {
-    "phase": "needs_distinct_cross_session_value_mechanism",
+    "phase": "needs_distinct_relative_soxl_selection_mechanism",
     "status": "not_running",
-    "scope": "Use saved 2020 Qlib value forecast/label failure attribution to identify a materially different decision-known cross-session cash opportunity plus SOXL-relative selection mechanism, not a 2020 quarter switch or a sign/alpha/threshold rescue of the Nov12 closed interaction. Freeze own-state fee-net and risk action target with OOF controls before any new fit.",
-    "next_output": "one bounded falsifiable mechanism with exact source clock, train-only calibration, legal funded action and full account path, or scoped needs_distinct_decision_time_mechanism",
+    "scope": "From the saved same-anchor high-SOXL versus higher-SOXX false-positive action-value error, identify a decision-known existing-data mechanism that is economically and informationally distinct from closed trend, path, product-vol, shock and breadth routes. Preserve matched exact-parent own-state fee-net risk/value target and full account transmission; do not choose a 2020 quarter switch or refit the closed Nov12 model.",
+    "next_output": "one frozen falsifiable relative-SOXL-selection mechanism with source/PIT, same-anchor value difference, train-only calibration, legal funded action, finite model/account budget, or scoped needs_distinct_decision_time_mechanism",
     "authorization_scope": "Existing-data bounded hypothesis discovery is within the user-authorized research Goal; each fit/account still requires its frozen task budget and gates.",
     "source_preflight_observation": "Read-only existing Qlib daily shock-concentration source covers all 558 2018-2020 pi2 state days. Saved pi2 future segment-risk labels are known on 53/252/247 days (2020: 16055/16120 rows, 247/248 source days). The separate history_risk_known flag covers only 50 days in 2020 and is not a training filter in src/workflow/stage1_policy_iteration_fit.py. Source support is sufficient for a bounded prefit design, but novelty beyond closed cushion/Q2 risk and actor-to-funded-account transmission remain unverified.",
     "source_preflight_evidence": {

@@ -1,0 +1,120 @@
+{
+  "status": "read_only_action_interval_attribution",
+  "source_recorder_id": "5c6014213d6b4c13b12582e39bbae030",
+  "label_recorder_id": "79be0d3fe0e743d790b1455ede383a6b",
+  "source_rows": 3720,
+  "source_days": 248,
+  "rows": [
+    {
+      "quarter": "2020Q1",
+      "action_id": "held_SOXL25_SOXX25_cash50",
+      "days": 62,
+      "actual_mean": -0.00104365172553316,
+      "predicted_mean": -0.000829704862574495,
+      "forecast_minus_actual": 0.00021394686295866504,
+      "positive_actual_days": 28
+    },
+    {
+      "quarter": "2020Q1",
+      "action_id": "held_SOXL25_SOXX50_cash25",
+      "days": 62,
+      "actual_mean": -0.001505190947086711,
+      "predicted_mean": -0.0006769723410812664,
+      "forecast_minus_actual": 0.0008282186060054445,
+      "positive_actual_days": 28
+    },
+    {
+      "quarter": "2020Q1",
+      "action_id": "held_SOXL60_SOXX20_cash20",
+      "days": 62,
+      "actual_mean": -0.004812216851030016,
+      "predicted_mean": -0.00022951551185275152,
+      "forecast_minus_actual": 0.004582701339177264,
+      "positive_actual_days": 26
+    },
+    {
+      "quarter": "2020Q2",
+      "action_id": "held_SOXL25_SOXX25_cash50",
+      "days": 63,
+      "actual_mean": -0.0002189101823533271,
+      "predicted_mean": 0.00019365795014363114,
+      "forecast_minus_actual": 0.00041256813249695827,
+      "positive_actual_days": 29
+    },
+    {
+      "quarter": "2020Q2",
+      "action_id": "held_SOXL25_SOXX50_cash25",
+      "days": 63,
+      "actual_mean": 0.0007457552580201483,
+      "predicted_mean": 0.00024763563175305,
+      "forecast_minus_actual": -0.0004981196262670983,
+      "positive_actual_days": 39
+    },
+    {
+      "quarter": "2020Q2",
+      "action_id": "held_SOXL60_SOXX20_cash20",
+      "days": 63,
+      "actual_mean": 0.003017916237546252,
+      "predicted_mean": 0.0010928147153648233,
+      "forecast_minus_actual": -0.0019251015221814288,
+      "positive_actual_days": 37
+    },
+    {
+      "quarter": "2020Q3",
+      "action_id": "held_SOXL25_SOXX25_cash50",
+      "days": 64,
+      "actual_mean": -0.0007388264300181178,
+      "predicted_mean": -0.0009861327093540013,
+      "forecast_minus_actual": -0.0002473062793358835,
+      "positive_actual_days": 24
+    },
+    {
+      "quarter": "2020Q3",
+      "action_id": "held_SOXL25_SOXX50_cash25",
+      "days": 64,
+      "actual_mean": -0.0005943264577441768,
+      "predicted_mean": -0.0008397620350988098,
+      "forecast_minus_actual": -0.00024543557735463297,
+      "positive_actual_days": 23
+    },
+    {
+      "quarter": "2020Q3",
+      "action_id": "held_SOXL60_SOXX20_cash20",
+      "days": 64,
+      "actual_mean": -0.00036308409691723873,
+      "predicted_mean": -0.000555918745475124,
+      "forecast_minus_actual": -0.00019283464855788526,
+      "positive_actual_days": 22
+    },
+    {
+      "quarter": "2020Q4",
+      "action_id": "held_SOXL25_SOXX25_cash50",
+      "days": 59,
+      "actual_mean": -0.0014847444562113299,
+      "predicted_mean": -0.00017399646800560974,
+      "forecast_minus_actual": 0.00131074798820572,
+      "positive_actual_days": 24
+    },
+    {
+      "quarter": "2020Q4",
+      "action_id": "held_SOXL25_SOXX50_cash25",
+      "days": 59,
+      "actual_mean": -0.0016817259052259116,
+      "predicted_mean": -2.87796641451418e-05,
+      "forecast_minus_actual": 0.00165294624108077,
+      "positive_actual_days": 22
+    },
+    {
+      "quarter": "2020Q4",
+      "action_id": "held_SOXL60_SOXX20_cash20",
+      "days": 59,
+      "actual_mean": -0.0009665935305862481,
+      "predicted_mean": 0.00020497695288708865,
+      "forecast_minus_actual": 0.0011715704834733367,
+      "positive_actual_days": 22
+    }
+  ],
+  "new_fits": 0,
+  "new_accounts": 0,
+  "claim_limit": "2020 reused-development action and quarter descriptions, not causal feature importance, tradable quarter switch, independent validation or SOXX excess"
+}

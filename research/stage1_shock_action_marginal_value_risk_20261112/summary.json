@@ -86,5 +86,7 @@
     "result_equal": true
   },
   "methodology_increment": "action-dependent source variation and same-model ablation are necessary; both risk and fee-net value calibration plus funded action/account transmission remain required",
-  "read_only_value_failure_attribution": "value_failure_attribution.json"
+  "read_only_value_failure_attribution": "value_failure_attribution.json",
+  "read_only_action_difference_attribution": "value_action_difference_attribution.json",
+  "diagnostic_priority": "2020 held-action high-SOXL versus higher-SOXX fee-net value difference was forecast positive on241/248 days but positive on only137/248, with108 false-positive days; descriptive reused-development evidence, not a trading rule"
 }

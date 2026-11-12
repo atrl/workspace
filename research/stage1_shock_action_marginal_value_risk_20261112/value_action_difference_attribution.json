@@ -1,0 +1,185 @@
+{
+  "status": "read_only_same_anchor_value_difference_attribution",
+  "source_recorder_id": "5c6014213d6b4c13b12582e39bbae030",
+  "label_recorder_id": "79be0d3fe0e743d790b1455ede383a6b",
+  "rows": [
+    {
+      "comparison": "high_vs_cash",
+      "period": "all",
+      "anchors": 1240,
+      "days": 248,
+      "actual_mean": 0.00010035258307743732,
+      "predicted_mean": 0.0005796441188491958,
+      "bias": 0.0004792915357717585,
+      "direction_agreement_days": 131,
+      "direction_days": 248
+    },
+    {
+      "comparison": "high_vs_cash",
+      "period": "2020Q1",
+      "anchors": 310,
+      "days": 62,
+      "actual_mean": -0.003768565125496857,
+      "predicted_mean": 0.0006001893507217435,
+      "bias": 0.004368754476218601,
+      "direction_agreement_days": 29,
+      "direction_days": 62
+    },
+    {
+      "comparison": "high_vs_cash",
+      "period": "2020Q2",
+      "anchors": 315,
+      "days": 63,
+      "actual_mean": 0.0032368264198995803,
+      "predicted_mean": 0.0008991567652211921,
+      "bias": -0.0023376696546783884,
+      "direction_agreement_days": 30,
+      "direction_days": 63
+    },
+    {
+      "comparison": "high_vs_cash",
+      "period": "2020Q3",
+      "anchors": 320,
+      "days": 64,
+      "actual_mean": 0.00037574233310087927,
+      "predicted_mean": 0.0004302139638788774,
+      "bias": 5.447163077799814e-05,
+      "direction_agreement_days": 38,
+      "direction_days": 64
+    },
+    {
+      "comparison": "high_vs_cash",
+      "period": "2020Q4",
+      "anchors": 295,
+      "days": 59,
+      "actual_mean": 0.000518150925625082,
+      "predicted_mean": 0.00037897342089269836,
+      "bias": -0.00013917750473238364,
+      "direction_agreement_days": 34,
+      "direction_days": 59
+    },
+    {
+      "comparison": "high_vs_soxx",
+      "period": "all",
+      "anchors": 1240,
+      "days": 248,
+      "actual_mean": -1.9746544909984607e-05,
+      "predicted_mean": 0.0004554282928247062,
+      "bias": 0.0004751748377346908,
+      "direction_agreement_days": 136,
+      "direction_days": 248
+    },
+    {
+      "comparison": "high_vs_soxx",
+      "period": "2020Q1",
+      "anchors": 310,
+      "days": 62,
+      "actual_mean": -0.0033070259039433064,
+      "predicted_mean": 0.00044745682922851495,
+      "bias": 0.0037544827331718214,
+      "direction_agreement_days": 28,
+      "direction_days": 62
+    },
+    {
+      "comparison": "high_vs_soxx",
+      "period": "2020Q2",
+      "anchors": 315,
+      "days": 63,
+      "actual_mean": 0.0022721609795261044,
+      "predicted_mean": 0.0008451790836117732,
+      "bias": -0.0014269818959143313,
+      "direction_agreement_days": 36,
+      "direction_days": 63
+    },
+    {
+      "comparison": "high_vs_soxx",
+      "period": "2020Q3",
+      "anchors": 320,
+      "days": 64,
+      "actual_mean": 0.00023124236082693833,
+      "predicted_mean": 0.0002838432896236859,
+      "bias": 5.260092879674758e-05,
+      "direction_agreement_days": 38,
+      "direction_days": 64
+    },
+    {
+      "comparison": "high_vs_soxx",
+      "period": "2020Q4",
+      "anchors": 295,
+      "days": 59,
+      "actual_mean": 0.0007151323746396637,
+      "predicted_mean": 0.00023375661703223043,
+      "bias": -0.0004813757576074333,
+      "direction_agreement_days": 34,
+      "direction_days": 59
+    },
+    {
+      "comparison": "soxx_vs_cash",
+      "period": "all",
+      "anchors": 1240,
+      "days": 248,
+      "actual_mean": 0.00012009912798742223,
+      "predicted_mean": 0.0001242158260244896,
+      "bias": 4.116698037067356e-06,
+      "direction_agreement_days": 132,
+      "direction_days": 248
+    },
+    {
+      "comparison": "soxx_vs_cash",
+      "period": "2020Q1",
+      "anchors": 310,
+      "days": 62,
+      "actual_mean": -0.00046153922155355064,
+      "predicted_mean": 0.0001527325214932286,
+      "bias": 0.0006142717430467793,
+      "direction_agreement_days": 30,
+      "direction_days": 62
+    },
+    {
+      "comparison": "soxx_vs_cash",
+      "period": "2020Q2",
+      "anchors": 315,
+      "days": 63,
+      "actual_mean": 0.0009646654403734755,
+      "predicted_mean": 5.3977681609418824e-05,
+      "bias": -0.0009106877587640567,
+      "direction_agreement_days": 35,
+      "direction_days": 63
+    },
+    {
+      "comparison": "soxx_vs_cash",
+      "period": "2020Q3",
+      "anchors": 320,
+      "days": 64,
+      "actual_mean": 0.0001444999722739409,
+      "predicted_mean": 0.0001463706742551915,
+      "bias": 1.870701981250588e-06,
+      "direction_agreement_days": 38,
+      "direction_days": 64
+    },
+    {
+      "comparison": "soxx_vs_cash",
+      "period": "2020Q4",
+      "anchors": 295,
+      "days": 59,
+      "actual_mean": -0.00019698144901458177,
+      "predicted_mean": 0.00014521680386046792,
+      "bias": 0.0003421982528750497,
+      "direction_agreement_days": 29,
+      "direction_days": 59
+    }
+  ],
+  "new_fits": 0,
+  "new_accounts": 0,
+  "claim_limit": "2020 reused development, three fixed held actions, adjusted parent local value. Quarter groups are hindsight diagnostics, not executable switches or SOXX account alpha.",
+  "high_soxl_vs_soxx_daily_direction": {
+    "days": 248,
+    "predicted_positive_days": 241,
+    "realized_positive_days": 137,
+    "true_positive_days": 133,
+    "false_positive_days": 108,
+    "scope": "day-mean of five same-state held anchors in 2020; retrospective and overlapping path labels"
+  },
+  "source_recorder_manifest_sha256": "5bf888367d01dce3899da703c7b89b03ed7fc70afcd28ed7e7acc14b5a6c97b3",
+  "label_manifest_sha256": "49debaee0517927319d88176440a2ecc8ab9a8c3744af22ae674165fd245a18b"
+}
