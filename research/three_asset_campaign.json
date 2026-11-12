@@ -41,7 +41,37 @@
     "latest_H8_relative_value": "research/stage1_h8_relative_value_triage_20261112/summary.json",
     "latest_H8_relative_value_status": "Zero-fit conditional H8 high-SOXL relative value screen closed: 2019 partial IC -0.023 with63-day interval crossing0, 2020 -0.142 interval negative; first network receipt unqualified, 0 model/account/SOXX pass.",
     "risk_budget_feasibility_preflight": "research/stage1_shock_cushion_risk_joint_20261110/risk_budget_feasibility_preflight.json",
-    "risk_budget_feasibility_status": "State-only shock x own-drawdown source shifts 2020 three-action 30pct-budget feasibility on5 independent days by same-model zero ablation, below existing20-day action support; 0 fits/accounts, not SOXX alpha"
+    "risk_budget_feasibility_status": "State-only shock x own-drawdown source shifts 2020 three-action 30pct-budget feasibility on5 independent days by same-model zero ablation, below existing20-day action support; 0 fits/accounts, not SOXX alpha",
+    "best_saved_account_snapshot": {
+      "qualified_historical_candidate": null,
+      "highest_return_trained_944d_0bp": {
+        "card": "research/independent_tree_allocation_20261027/summary.json",
+        "case": "xgb_unrestricted_0",
+        "soxx_relative_wealth": 1.872604,
+        "available_drawdown_pct": -79.2429,
+        "cvar5_pct": -11.7537,
+        "rolling126_positive_fraction": 0.617827,
+        "complete_year_positive_fraction": 0.5,
+        "decision": "not_promoted_0bp_gate_failed; independent route, not exact f696 parent"
+      },
+      "older_944d_near_miss_wrong_parent": {
+        "card": "research/stage1_beta_composition_0bp_20261022/summary.json",
+        "soxx_relative_wealth": 1.077455,
+        "available_drawdown_pct": -30.8558,
+        "rolling126_positive_fraction": 0.559219,
+        "decision": "not_promoted; 27baa parent, zero new fits"
+      },
+      "short_training_fee_aware": {
+        "card": "research/stage1_fee_aware_tracking_receiver_20261104/summary.json",
+        "case": "index18",
+        "sessions": 305,
+        "soxx_relative_wealth": 1.057232,
+        "daily_cvar5_pct": -4.62554,
+        "soxx_daily_cvar5_pct": -3.68973,
+        "decision": "development only; CVaR5 and paired lower failed, zero new fits"
+      }
+    },
+    "result_reporting_rule": "Each handoff states best saved complete-account results by scope and exact SOXX gates first; local factor/model fits are not strategy returns."
   },
   "client_goal_observation": {
     "thread_id": "01a1afb6-261c-7422-8f3e-94438afda74a",
