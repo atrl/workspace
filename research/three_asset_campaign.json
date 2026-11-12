@@ -37,20 +37,22 @@
     "latest_intraday_jump_source": "research/stage1_intraday_jump_path_source_20261112/summary.json",
     "latest_intraday_jump_source_status": "existing Qlib one-minute SOXX prior-session discontinuity proxy structurally distinct from old daily jump/ordinary intraday controls, 1055/1056 valid decision days; source-only, not alpha",
     "latest_intraday_jump_value": "research/stage1_intraday_jump_relative_value_20261112/summary.json",
-    "latest_intraday_jump_value_status": "fixed pairwise high-SOXL versus higher-SOXX local value gate failed: candidate point MSE improved only0.025pct, block lower negative, coefficient wrong sign, candidate-control fee-net value negative, 0 accounts and no SOXX pass"
+    "latest_intraday_jump_value_status": "fixed pairwise high-SOXL versus higher-SOXX local value gate failed: candidate point MSE improved only0.025pct, block lower negative, coefficient wrong sign, candidate-control fee-net value negative, 0 accounts and no SOXX pass",
+    "latest_H8_relative_value": "research/stage1_h8_relative_value_triage_20261112/summary.json",
+    "latest_H8_relative_value_status": "Zero-fit conditional H8 high-SOXL relative value screen closed: 2019 partial IC -0.023 with63-day interval crossing0, 2020 -0.142 interval negative; first network receipt unqualified, 0 model/account/SOXX pass."
   },
   "client_goal_observation": {
     "thread_id": "01a1afb6-261c-7422-8f3e-94438afda74a",
     "observed_status": "active",
-    "observed_at_utc": "2026-11-12T02:46:57Z",
+    "observed_at_utc": "2026-11-12T02:57:41Z",
     "source": "get_goal direct readback",
     "scientific_status_separate": "historical_research_not_passed"
   },
   "current_task": {
     "phase": "needs_distinct_decision_time_mechanism",
     "status": "not_running",
-    "scope": "Do not refit the closed Nov12 intraday jump value route or relabel its sign/window. With existing Qlib/NAS only, identify a materially different decision-known economic mechanism for both cash opportunity and SOXL relative selection/tail risk. Start from verified own-state account failure and same-anchor pairwise false positives, compare to closed price/volatility/jump/breadth/credit routes, then freeze legal action and complete-account transmission before any fit.",
-    "next_output": "one genuinely distinct source/time/own-state hypothesis with exact matched controls and finite information/action/account budget, or scoped needs_distinct_decision_time_mechanism",
+    "scope": "Current existing-data price families and H8 relative-value fixed versions are closed. CFTC VIX concentration has only198/252 source-known 2019 days,42 distinct reports and current-vintage first-publication uncertainty; no new predictive fit from it. Seek a materially different causal own-state action-value/risk mechanism with exact source and full-account transmission, or record scoped needs_distinct_decision_time_mechanism without repeating a closed factor/window.",
+    "next_output": "new source/time and economic mechanism admission supported by existing Qlib/NAS evidence, or a concrete method-defect repair with frozen same-parent account path; no automatic fit or account",
     "authorization_scope": "Existing-data bounded hypothesis discovery is within the user-authorized research Goal; each fit/account still requires its frozen task budget and gates.",
     "source_preflight_observation": "Read-only existing Qlib daily shock-concentration source covers all 558 2018-2020 pi2 state days. Saved pi2 future segment-risk labels are known on 53/252/247 days (2020: 16055/16120 rows, 247/248 source days). The separate history_risk_known flag covers only 50 days in 2020 and is not a training filter in src/workflow/stage1_policy_iteration_fit.py. Source support is sufficient for a bounded prefit design, but novelty beyond closed cushion/Q2 risk and actor-to-funded-account transmission remain unverified.",
     "source_preflight_evidence": {

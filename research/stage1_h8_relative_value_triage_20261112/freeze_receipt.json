@@ -1,0 +1,14 @@
+{
+  "goal_thread_id": "01a1afb6-261c-7422-8f3e-94438afda74a",
+  "frozen_at": "2026-11-12",
+  "plan_sha256": "347f8807cb1e138df0ae5cc7e1a44da2c0a3990fdd67451dac23b937e92f073b",
+  "code_sha256": "55186da2c4aa14b4403ace590dc6f70de8e79d82d94d593d0d6d0c9f050d9cc5",
+  "relative_value_outcomes_analyzed_before_freeze": false,
+  "source_support_observed_before_freeze": {
+    "2018_pair_usable_days": 52,
+    "2019_pair_usable_days": 247,
+    "2020_pair_usable_days": 244
+  },
+  "model_fit_budget": 0,
+  "account_budget": 0
+}

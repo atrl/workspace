@@ -1,0 +1,54 @@
+{
+  "experiment": "stage1_h8_relative_value_triage_20261112",
+  "status": "frozen_before_relative_value_outcome_read",
+  "hypothesis": "When large-bank minus small-bank same-vintage NSA deposit growth rises (relative small-bank funding weakness), incremental high-SOXL versus higher-SOXX fee-net five-segment value should fall under the same own state; this is a conditional funding-risk hypothesis, not identified bank-run causality.",
+  "target": "held_SOXL60_SOXX20_cash20 minus held_SOXL25_SOXX50_cash25 saved same-anchor pi2 physical fee-net value",
+  "source_card": "research/stage1_h8_bank_funding_source_scout_20261105/clock_source_pack",
+  "source_recorder_id": "3dd7545a069c4091994ea9f36e3cc622",
+  "source_summary_sha256": "e49cf212901523eb2e77575fa2d358b1668fe661709be0fe4d2c850a607b15bc",
+  "source_manifest_sha256": "6756f28ce1856159b9b0a2d30258df3ebe4ecebf974b180674cb3110a6ec5073",
+  "label_card": "research/stage1_own_state_policy_iteration_20261105/pi2_label_bulk",
+  "label_recorder_id": "79be0d3fe0e743d790b1455ede383a6b",
+  "label_summary_sha256": "9c6906cb7707409afd310e2945dcb7672f2da22d9ad16166338729d48d338453",
+  "label_manifest_sha256": "49debaee0517927319d88176440a2ecc8ab9a8c3744af22ae674165fd245a18b",
+  "daily_provider": "data/qlib/minute_information_pit_allocator_20261012/daily_prices",
+  "daily_manifest_sha256": "d80a08d479b73098053006909b5e6227b03a56ab705681742d7261088e0a7e6c",
+  "source_clock": "original publisher issue, strict next native trading session09:29; source_available_at_local<=pi2 decision_at; historical network first receipt unverified, no fallback or backfill",
+  "discovery": "2018 partial descriptive only and complete2019; 2020 one frozen follow-up evaluation on reused development history",
+  "controls": [
+    "SOXX prior20 log return",
+    "SOXX prior20 realized volatility",
+    "z0 f696_SOXL_weight",
+    "z1 f696_SOXX_weight",
+    "z5 received_actual_drawdown",
+    "z7 completed_SOXL_ret5m",
+    "z8 completed_SOXX_ret5m"
+  ],
+  "statistics": "daily mean pairwise value and source coordinate, annual raw and partial Spearman after rank residualization with intercept and seven fixed controls; 63-native-session circular-block 2000 resamples per year, preserve unknown calendar positions and count undefined",
+  "expected_sign": "negative",
+  "support_gate": "2019 and2020 each>=200 independent known days and>=40 distinct selected original issue ids, pair label mature within year and exact two-held-action identity",
+  "information_gate": "both2019 and2020 partial rank IC negative and each 95pct 63-native-session block upper<0; no multiple candidate or sign rescue",
+  "budget": {
+    "predictive_fits": 0,
+    "accounts": 0,
+    "new_sources": 0,
+    "recorders": 1
+  },
+  "stop": "If source or information gate fails, close this exact H8 relative-value mapping; old H8 gamma/quantile versions remain closed. If it passes, it is still not fit-ready until first-public/revision evidence and full matched action/account design.",
+  "limitations": [
+    "source annual series current release provenance with issue timestamps but first network receipt not certified",
+    "pi2 state policy trained on reused2018-2020 history",
+    "weekly reports, not independent daily observations",
+    "local held-action value is not a continuous full account"
+  ],
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "recorder_only_artifacts": [
+      "paired_source",
+      "daily_pairs",
+      "metrics",
+      "source_receipts",
+      "audit"
+    ]
+  }
+}

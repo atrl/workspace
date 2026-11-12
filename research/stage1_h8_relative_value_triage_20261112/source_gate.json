@@ -1,0 +1,31 @@
+{
+  "support": {
+    "2018": {
+      "calendar_days": 53,
+      "eligible_anchors": 260,
+      "eligible_days": 52,
+      "distinct_reports": 11,
+      "source_unknown_anchors": 0
+    },
+    "2019": {
+      "calendar_days": 252,
+      "eligible_anchors": 1235,
+      "eligible_days": 247,
+      "distinct_reports": 52,
+      "source_unknown_anchors": 20
+    },
+    "2020": {
+      "calendar_days": 248,
+      "eligible_anchors": 1220,
+      "eligible_days": 244,
+      "distinct_reports": 51,
+      "source_unknown_anchors": 15
+    }
+  },
+  "source_clock_pass": true,
+  "same_anchor_state_identity": true,
+  "target_values_analyzed_before_gate": false,
+  "current_annual_vintage_not_first_network_receipt": true,
+  "source_summary_sha256": "e49cf212901523eb2e77575fa2d358b1668fe661709be0fe4d2c850a607b15bc",
+  "label_summary_sha256": "9c6906cb7707409afd310e2945dcb7672f2da22d9ad16166338729d48d338453"
+}

@@ -1,0 +1,14 @@
+{
+  "status": "passed",
+  "archive_sha256": "83d9bd27a3d4a6275597d586033709376eab2635fbf47cdc80f18242536024fb",
+  "recorder_id": "c0da6b2ecf2f4a48a53fa0e39814f973",
+  "objects_loaded": [
+    "result",
+    "paired_source",
+    "daily_pairs",
+    "metrics"
+  ],
+  "pair_rows": 2765,
+  "daily_rows": 558,
+  "metrics_equal": true
+}

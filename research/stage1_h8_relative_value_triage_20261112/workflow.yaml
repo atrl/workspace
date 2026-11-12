@@ -1,0 +1,23 @@
+experiment: stage1_h8_relative_value_triage_20261112
+source_card: research/stage1_h8_bank_funding_source_scout_20261105/clock_source_pack
+label_card: research/stage1_own_state_policy_iteration_20261105/pi2_label_bulk
+daily_provider: data/qlib/minute_information_pit_allocator_20261012/daily_prices
+statistics: daily mean pairwise value and source coordinate, annual raw and partial
+  Spearman after rank residualization with intercept and seven fixed controls; 63-native-session
+  circular-block 2000 resamples per year, preserve unknown calendar positions and
+  count undefined
+gate: both2019 and2020 partial rank IC negative and each 95pct 63-native-session block
+  upper<0; no multiple candidate or sign rescue
+budget:
+  predictive_fits: 0
+  accounts: 0
+  new_sources: 0
+  recorders: 1
+artifact_policy:
+  policy: slim_card_recorder_first
+  recorder_only_artifacts:
+  - paired_source
+  - daily_pairs
+  - metrics
+  - source_receipts
+  - audit
