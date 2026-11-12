@@ -1,0 +1,40 @@
+{
+  "recorder_id": "c6060e4393844a11a174fef112931781",
+  "summary_sha256": "ebe1488538f3dd814bb9750fd6da68b72f775e14c0d95fa121766d21d4ed2c59",
+  "manifest_sha256": "72dbd63e174397f1157caeb5dbae54c5fc122108be2cad5c877f2c8b0e3aa38b",
+  "readback": {
+    "recorder_id": "c6060e4393844a11a174fef112931781",
+    "experiment": "soxx_forward_daily_basis_seam_audit_20261112",
+    "experiment_id": "176554879756623130",
+    "recorder_uri": "/Users/rziiiii/dev/workspace/research/soxx_forward_daily_basis_seam_audit_20261112/qlib_recorder",
+    "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/soxx_forward_daily_basis_seam_audit_20261112/qlib_recorder/176554879756623130/c6060e4393844a11a174fef112931781",
+    "summary_sha256": "ebe1488538f3dd814bb9750fd6da68b72f775e14c0d95fa121766d21d4ed2c59",
+    "verification_manifest_sha256": "72dbd63e174397f1157caeb5dbae54c5fc122108be2cad5c877f2c8b0e3aa38b",
+    "artifacts": {
+      "audit": {
+        "artifact": "audit",
+        "artifact_id": "c6060e4393844a11a174fef112931781:audit",
+        "sha256": "43aea8dee3890e4cd8a04214fa04e8f99daba76669fc523be5e1518be3291d07",
+        "bytes": 1117,
+        "manifest_entry": "qlib_recorder/176554879756623130/c6060e4393844a11a174fef112931781/artifacts/audit",
+        "local_path": "/Users/rziiiii/dev/workspace/research/soxx_forward_daily_basis_seam_audit_20261112/qlib_recorder/176554879756623130/c6060e4393844a11a174fef112931781/artifacts/audit"
+      },
+      "qlib_rows": {
+        "artifact": "qlib_rows",
+        "artifact_id": "c6060e4393844a11a174fef112931781:qlib_rows",
+        "sha256": "38b5b2db05e97183e2e22b6f65741037c784d634951d01f3aa2e2f20924a37cf",
+        "bytes": 1582,
+        "manifest_entry": "qlib_recorder/176554879756623130/c6060e4393844a11a174fef112931781/artifacts/qlib_rows",
+        "local_path": "/Users/rziiiii/dev/workspace/research/soxx_forward_daily_basis_seam_audit_20261112/qlib_recorder/176554879756623130/c6060e4393844a11a174fef112931781/artifacts/qlib_rows"
+      }
+    },
+    "read_only": true,
+    "local_filestore_only": true,
+    "hashes_checked_before_unpickling": true,
+    "metadata_and_artifact_hashes_rechecked": true,
+    "source_api": [
+      "qlib.workflow.R.get_recorder",
+      "Recorder.load_object"
+    ]
+  }
+}

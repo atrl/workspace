@@ -197,6 +197,26 @@ def merge_market_panel(
 
     existing_dates = set(existing["date"].astype(str))
     fetched_dates = set(fetched["date"].astype(str))
+    overlap = existing.loc[existing["date"].astype(str).isin(fetched_dates)].merge(
+        fetched, on="date", suffixes=("_existing", "_fetched"), validate="one_to_one"
+    )
+    if fetched_dates - existing_dates and overlap.empty:
+        raise ValueError("blocked: market append needs an overlapping date to check price basis")
+    for symbol in ("soxl", "soxx"):
+        for field in ("open", "high", "low", "close"):
+            old = overlap[f"{symbol}_{field}_existing"]
+            new = overlap[f"{symbol}_{field}_fetched"]
+            if (old.isna() | new.isna() | old.le(0) | new.le(0)).any():
+                raise ValueError(f"blocked: invalid overlapping {symbol.upper()} {field} price")
+            relative = (new - old).abs() / pd.concat([old.abs(), new.abs()], axis=1).max(axis=1)
+            changed = relative > 0.05
+            if changed.any():
+                first = overlap.loc[changed].iloc[0]
+                raise ValueError(
+                    "blocked: overlapping market price basis changed over 5% "
+                    f"for {symbol.upper()} {field} on {first['date']}; "
+                    "rebuild a single qualified price vintage before appending"
+                )
     appended_rows = len(fetched_dates - existing_dates)
     replaced_rows = len(existing_dates & fetched_dates) if replace_overlap else 0
 
@@ -207,6 +227,35 @@ def merge_market_panel(
         append_only = fetched.loc[~fetched["date"].astype(str).isin(existing_dates)]
         merged = pd.concat([existing, append_only], ignore_index=True)
     return _normalize_panel(merged), int(appended_rows), int(replaced_rows)
+
+
+def _require_futu_previous_close_parity(
+    existing: pd.DataFrame, updated: pd.DataFrame, frames: MarketDataFrames
+) -> None:
+    """Reject appended QFQ rows whose vendor prior close uses another price basis."""
+    if frames.provider != "futu":
+        return
+    old_dates = set(existing["date"].astype(str))
+    for symbol in ("SOXL", "SOXX"):
+        raw = frames.raw_provider_frames.get(f"futu_history_kline_US_{symbol}")
+        if raw is None or "last_close" not in raw:
+            continue
+        close = updated.set_index("date")[f"{symbol.lower()}_close"]
+        prior = close.shift(1)
+        for row in raw.loc[~raw["date"].astype(str).isin(old_dates)].itertuples():
+            day = str(row.date)
+            if day not in prior.index or pd.isna(prior.loc[day]):
+                continue
+            vendor_prior = float(row.last_close)
+            merged_prior = float(prior.loc[day])
+            if not (vendor_prior > 0 and merged_prior > 0):
+                raise ValueError(f"blocked: invalid Futu previous close for {symbol} on {day}")
+            difference = abs(vendor_prior - merged_prior) / max(vendor_prior, merged_prior)
+            if difference > 0.05:
+                raise ValueError(
+                    f"blocked: Futu previous close differs from merged {symbol} price basis "
+                    f"on {day}; rebuild one qualified vintage before publishing"
+                )
 
 
 def _write_csv(frame: pd.DataFrame, path: Path) -> None:
@@ -830,6 +879,7 @@ def update_market_data(
             fetched_panel,
             replace_overlap=replace_overlap,
         )
+        _require_futu_previous_close_parity(existing, updated_panel, frames)
         if not dry_run:
             _write_csv(updated_panel, paths.panel_csv)
 

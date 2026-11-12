@@ -1,0 +1,17 @@
+{
+  "experiment": "soxx_forward_daily_basis_seam_audit_20261112",
+  "kind": "retrospective_read_only_current_inventory_quality_audit",
+  "question": "Can the existing updated daily Qlib SOXL/SOXX store be used as a new independent forward SOXX return/account input after the 2026 split?",
+  "local_sources": {
+    "panel": "data/processed/panels/soxl_soxx_vix_full.csv",
+    "panel_sha256": "2b436f4b8aae165ae60feb6e37f13539fff5e1dd2765481d609c9ec37bc1b95a",
+    "qlib_manifest": "data/qlib/soxl/qlib_store_manifest.json",
+    "qlib_manifest_sha256": "6ef58a092ef97fec0ace49a3b00fe73867fd3f895c9c70af25b599ffc61c97ba",
+    "futu_raw": "data/raw/external/futu_history_kline_US_SOXX.csv",
+    "futu_raw_sha256": "3f62b1686c3220d3072e0c4078188c2b69384125b92c4e9759457f39de6ae4b9"
+  },
+  "official_split_reference": "https://www.sec.gov/Archives/edgar/data/1100663/000119312526430480/d156277d497.htm",
+  "official_split_semantics": "SEC-filed SOXX 3:1 forward split recognized at Nasdaq open 2026-11-05; this reference supports event timing only, not market-price observations.",
+  "fixed_checks": ["Qlib D.calendar/D.features identity to saved panel on 2026-10-29/30 and 2026-11-04/05", "naive panel return vs retained Futu last_close and change_rate", "price-basis ratio existing close/vendor prior close", "no new strategy inference or account"],
+  "budget": {"new_market_fetches": 0, "new_fits": 0, "new_accounts": 0, "data_rewrites": 0}
+}

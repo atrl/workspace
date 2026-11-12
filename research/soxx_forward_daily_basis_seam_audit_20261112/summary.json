@@ -1,0 +1,46 @@
+{
+  "experiment": "soxx_forward_daily_basis_seam_audit_20261112",
+  "recorder_id": "c6060e4393844a11a174fef112931781",
+  "experiment_id": "176554879756623130",
+  "recorder_uri": "/Users/rziiiii/dev/workspace/research/soxx_forward_daily_basis_seam_audit_20261112/qlib_recorder",
+  "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/soxx_forward_daily_basis_seam_audit_20261112/qlib_recorder/176554879756623130/c6060e4393844a11a174fef112931781",
+  "plan_sha256": "3987efd757580a55a701f1c749938aa7bf1a364cb16adc540d6f5c318ba082d4",
+  "status": "needs_source_basis_repair_before_forward",
+  "historical_research_passed": false,
+  "source_identity": {
+    "panel": "2b436f4b8aae165ae60feb6e37f13539fff5e1dd2765481d609c9ec37bc1b95a",
+    "qlib_manifest": "6ef58a092ef97fec0ace49a3b00fe73867fd3f895c9c70af25b599ffc61c97ba",
+    "futu_raw": "3f62b1686c3220d3072e0c4078188c2b69384125b92c4e9759457f39de6ae4b9"
+  },
+  "qlib_as_of": "2026-11-11",
+  "calendar_end": "2026-11-11",
+  "checked_dates": [
+    "2026-10-29",
+    "2026-10-30",
+    "2026-11-04",
+    "2026-11-05"
+  ],
+  "split_effective_open_from_official_sec": "2026-11-05",
+  "panel_2026_10_29_close": 513.86,
+  "panel_2026_10_30_close": 157.169999842,
+  "vendor_2026_10_30_last_close": 171.286666495,
+  "panel_naive_return": -0.6941384816058849,
+  "vendor_reported_change_rate": -0.08241544389803429,
+  "vendor_price_derived_return": -0.08241544389803424,
+  "old_panel_to_vendor_prior_close_ratio": 3.000000003006656,
+  "max_qlib_panel_close_error_lt": 5e-05,
+  "new_fits": 0,
+  "new_accounts": 0,
+  "data_rewrites": 0,
+  "scope": "existing append-only daily panel mixes SOXX QFQ price vintages; cannot use these new rows for forward SOXX return or native account until a single qualified price basis is rebuilt and split shares/cash are reconciled",
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "recorder_only_artifacts": [
+      "frozen_plan",
+      "audit",
+      "qlib_rows",
+      "panel_rows",
+      "futu_row"
+    ]
+  }
+}

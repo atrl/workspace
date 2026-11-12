@@ -125,7 +125,9 @@
     "latest_ramp_bucket_capacity_triage": "research/stage1_ramp_bucket_capacity_triage_20261112/summary.json",
     "latest_ramp_bucket_capacity_status": "Retrospective verified Qlib source/capacity intersection: f696 risk_state2 plus available dollar-bucket plus positive old cash-to-SOXX capacity gives 2019 25 days/22 funded, 2020 14/10; median day-max weight0.429/0.336pct NAV. Specific ramp-only bucket receiver not fitted, no account/SOXX pass; target bytes co-deserialized but values not analyzed.",
     "reported_concentration_source_scope": "research/stage1_soxx_concentration_amendment_gap_resolution_20261023/summary.json",
-    "reported_concentration_triage": "Existing reported SOXX top5/HHI maps 3020 training and 944 reused held days but only 48/15 distinct active filing events; HHI is ownership concentration, not volatility-adjusted risk concentration. Exact intraday first-public receipts and historical constituent volatility plane are unqualified. No cash-value fit/account launched; source retained, not declared economically useless."
+    "reported_concentration_triage": "Existing reported SOXX top5/HHI maps 3020 training and 944 reused held days but only 48/15 distinct active filing events; HHI is ownership concentration, not volatility-adjusted risk concentration. Exact intraday first-public receipts and historical constituent volatility plane are unqualified. No cash-value fit/account launched; source retained, not declared economically useless.",
+    "latest_forward_daily_basis_audit": "research/soxx_forward_daily_basis_seam_audit_20261112/summary.json",
+    "latest_forward_daily_basis_status": "Current shared data/qlib/soxl extends to2026-11-11 but stitches old SOXX close513.86 on2026-10-29 to new adjusted close157.17 on10-30, false -69.41pct; retained Futu last_close171.286666495 implies -8.24pct and exact3x basis ratio. Official split effective2026-11-05. Existing new days are needs_source_basis_repair, not qualified forward/account evidence. Guarded future append; no data rewrite."
   },
   "client_goal_observation": {
     "thread_id": "01a1afb6-261c-7422-8f3e-94438afda74a",
@@ -137,8 +139,8 @@
   "current_task": {
     "phase": "needs_distinct_qualified_decision_time_mechanism",
     "status": "not_running",
-    "scope": "Closed cash-value, minute-volume, funding-spread and risk-state-only routes have no qualified actionable continuation. Reported SOXX concentration has 48/15 independent filing events over training/reused held periods, and HHI alone lacks constituent volatility for a risk-concentration mechanism. Do not turn repeated daily carry into independent support or fit a source-only lead. Seek one materially different, decision-known existing-data mechanism with legal whole-share cash-to-SOXX transmission; otherwise state needs_distinct_decision_time_mechanism or the exact needs_data gap.",
-    "next_output": "One frozen source/PIT and matched action-value plan with sufficient independent mechanism support and an own-state 0/2/5bp account path, or a scoped evidence-based impasse; no new vendor, purchase, or dataset expansion.",
+    "scope": "Historical SOXX pass remains unmet and no distinct fit-ready qualified cash-to-SOXX mechanism is registered. The newly present shared daily Qlib rows through2026-11-11 cannot yet provide forward evidence because SOXX price vintages are stitched across a3:1 adjustment seam on2026-10-30, before the official Nov5 split. Preserve current dirty data, repair only via one source-identified raw-share/corporate-action price plane if forward use is justified; continue searching existing qualified historical mechanisms without reusing closed fixed versions.",
+    "next_output": "A distinct source/PIT-qualified and funded cash-to-SOXX mechanism with native own-state gates; for forward evidence first reconstruct a single split-consistent existing-source price/whole-share plane and verify its independent receipts. No vendor or dataset purchase.",
     "authorization_scope": "Existing-data bounded hypothesis discovery is within the user-authorized research Goal; each fit/account still requires its frozen task budget and gates."
   },
   "active_job": null,

@@ -73,3 +73,8 @@ XGB/该参照0.9971，且回撤与CVaR更差。参照由XGB事后均值定权，
 方法与旧详细结论分别在 `docs/research_failure_to_feature_sop.md` 和原卡。
 
 客户端 Goal 2026-11-12 已直接读回 active；科学状态仍未通过。
+共享 `data/qlib/soxl` 虽已延长到2026-11-11，
+[SOXX拆分尺度审计](../research/soxx_forward_daily_basis_seam_audit_20261112/conclusion.md)
+发现10月29/30日拼接出假的−69.41%收益；Futu同日行按同尺度前收为−8.24%，
+发行人3:1拆分在11月5日开盘生效。当前追加日线先标 `needs_source_basis_repair`，
+不能直接计入前向SOXX账户或填补历史稳定门。

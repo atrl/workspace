@@ -1,0 +1,8 @@
+{
+  "status": "guard_rejected_actual_retained_seam",
+  "message": "blocked: Futu previous close differs from merged SOXX price basis on 2026-10-30; rebuild one qualified vintage before publishing",
+  "existing_last_date": "2026-10-29",
+  "attempted_new_date": "2026-10-30",
+  "new_fetches": 0,
+  "data_rewrites": 0
+}

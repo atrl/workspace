@@ -59,8 +59,8 @@ def test_market_update_preserves_existing_overlap_and_appends_new_rows(tmp_path,
         return market_update.MarketDataFrames(
             provider="futu",
             source_api=["futu.OpenQuoteContext.request_history_kline", "yahoo.chart"],
-            soxl=_panel([_ohlcv("2026-06-10", 999.0), _ohlcv("2026-06-11", 223.99)]),
-            soxx=_panel([_ohlcv("2026-06-10", 888.0), _ohlcv("2026-06-11", 586.65)]),
+            soxl=_panel([_ohlcv("2026-06-10", 180.01), _ohlcv("2026-06-11", 223.99)]),
+            soxx=_panel([_ohlcv("2026-06-10", 540.01), _ohlcv("2026-06-11", 586.65)]),
             vix=_panel(
                 [
                     {"date": "2026-06-10", "vix": 18.2},
@@ -87,6 +87,58 @@ def test_market_update_preserves_existing_overlap_and_appends_new_rows(tmp_path,
     assert result["appended_rows"] == 1
     assert updated.loc[updated["date"] == "2026-06-10", "soxl_close"].item() == 180.0
     assert updated.loc[updated["date"] == "2026-06-11", "soxl_close"].item() == 223.99
+
+
+def test_market_append_rejects_split_adjustment_vintage_seam():
+    from src.data.market_update import merge_market_panel
+
+    existing = _panel([{
+        "date": "2026-10-29", "soxl_open": 101.0, "soxl_high": 104.0,
+        "soxl_low": 100.0, "soxl_close": 102.39, "soxl_volume": 1000,
+        "soxx_open": 512.03, "soxx_high": 518.74, "soxx_low": 506.59,
+        "soxx_close": 513.86, "soxx_volume": 1000, "vix": 17.2,
+    }])
+    fetched = _panel([{
+        "date": "2026-10-29", "soxl_open": 101.0, "soxl_high": 104.0,
+        "soxl_low": 100.0, "soxl_close": 102.39, "soxl_volume": 1000,
+        "soxx_open": 512.03 / 3, "soxx_high": 518.74 / 3,
+        "soxx_low": 506.59 / 3, "soxx_close": 513.86 / 3,
+        "soxx_volume": 3000, "vix": 17.2,
+    }, {
+        "date": "2026-10-30", "soxl_open": 78.0, "soxl_high": 80.0,
+        "soxl_low": 75.0, "soxl_close": 77.05, "soxl_volume": 1000,
+        "soxx_open": 159.79, "soxx_high": 161.13, "soxx_low": 153.37,
+        "soxx_close": 157.17, "soxx_volume": 3000, "vix": 19.4,
+    }])
+    with pytest.raises(ValueError, match="SOXX open on 2026-10-29"):
+        merge_market_panel(existing, fetched)
+
+
+def test_futu_previous_close_rejects_unadjusted_append_boundary():
+    from src.data.market_update import MarketDataFrames, _require_futu_previous_close_parity
+
+    existing = _panel([{
+        "date": "2026-10-29", "soxl_open": 101.0, "soxl_high": 104.0,
+        "soxl_low": 100.0, "soxl_close": 102.39, "soxl_volume": 1000,
+        "soxx_open": 512.03, "soxx_high": 518.74, "soxx_low": 506.59,
+        "soxx_close": 513.86, "soxx_volume": 1000, "vix": 17.2,
+    }])
+    updated = pd.concat([existing, _panel([{
+        "date": "2026-10-30", "soxl_open": 78.0, "soxl_high": 80.0,
+        "soxl_low": 75.0, "soxl_close": 77.05, "soxl_volume": 1000,
+        "soxx_open": 159.79, "soxx_high": 161.13, "soxx_low": 153.37,
+        "soxx_close": 157.17, "soxx_volume": 3000, "vix": 19.4,
+    }])], ignore_index=True)
+    frames = MarketDataFrames(
+        provider="futu", source_api=[], soxl=pd.DataFrame(),
+        soxx=pd.DataFrame(), vix=pd.DataFrame(), raw_provider_frames={
+            "futu_history_kline_US_SOXX": pd.DataFrame([{
+                "date": "2026-10-30", "last_close": 171.286666495,
+            }]),
+        },
+    )
+    with pytest.raises(ValueError, match="Futu previous close differs.*SOXX.*2026-10-30"):
+        _require_futu_previous_close_parity(existing, updated, frames)
 
 
 def test_futu_daily_end_fails_closed_before_us_daily_settlement():
