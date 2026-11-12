@@ -96,5 +96,7 @@
   "scope_note": "The pi2 state/policy that generated these saved action labels was itself trained using 2018-2020 development data. Held denotes held physical action IDs, not a market out-of-sample policy. The 2020 risk information pass is conditional development evidence only.",
   "posthoc_action_invariance_audit": "action_invariance_audit.json",
   "interpretation": "The fixed state-only interaction improved conditional risk MSE but was algebraically incapable of changing same-anchor minimum-risk action ranking. Keep fixed version closed; source factor not rejected for a separately frozen action-coupled risk/value mechanism.",
-  "next_action_coupled_source_preflight": "action_coupled_source_preflight.json"
+  "next_action_coupled_source_preflight": "action_coupled_source_preflight.json",
+  "risk_budget_feasibility_preflight": "risk_budget_feasibility_preflight.json",
+  "risk_budget_transmission_status": "source_only_insufficient_5_direct_changed_days_below_existing20day_support"
 }
