@@ -1,0 +1,59 @@
+{
+  "experiment": "independent_tree_exposure_matched_reference_20261112",
+  "status": "frozen_before_new_reference_account",
+  "type": "read_only_exposure_matched_diagnostic_not_candidate",
+  "source_card": "research/independent_tree_allocation_20261027",
+  "source_summary_sha256": "03c31f8be6f0ba921814d29533feb74d1ba498f1041283ddce49ece8b2de1820",
+  "source_manifest_sha256": "2f9c8fea4dde888f5847d3bc59ac58a519e335d2d81e65f69cb325995cf71575",
+  "source_xgb_recorder_id": "c9687c23744246b8bac15dce3efde67d",
+  "full_path_source_card": "research/full_path_tiered_allocation_20261013",
+  "full_path_source_recorder_id": "35f69540c3d94b4db81bfe32859607ae",
+  "provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/full_path_tiered_allocation_20261013",
+  "provider_manifest_sha256": "3a3d6f4e248d6016ea25a140587abb65fba0d8a346e45da402414095df772223",
+  "source_plan_sha256": "0a9275010719b45ad9524b3b8de2fb2c43fe180365dd1a479f8fdafd649f7359",
+  "source_account_case": "xgb_unrestricted_0",
+  "fixed_soxl_weight": 0.6360796773855757,
+  "fixed_soxx_weight": 0.0,
+  "fixed_cash_weight": 0.3639203226144243,
+  "weight_origin": "saved XGB 944-session average ending SOXL weight; outcome-path chosen post hoc, attribution only",
+  "sessions": 944,
+  "test_start": "2023-01-03",
+  "test_end": "2026-10-09",
+  "slippage_bps": 0,
+  "fees": "frozen existing IBKR Tiered tariff and 100000 USD, whole shares, same original/adjusted Qlib point marks; zero added slippage still pays fees",
+  "comparisons": [
+    "same-window SOXX native account",
+    "saved unrestricted XGB native account",
+    "new constant-target exposure-matched native account"
+  ],
+  "metrics": [
+    "relative wealth and return",
+    "available/monitored drawdown",
+    "CVaR5",
+    "complete 2024/2025 years",
+    "all rolling126 windows",
+    "cash/SOXL exposure and fees",
+    "paired 63-session bootstrap uncertainty"
+  ],
+  "account_budget": 1,
+  "new_model_fits": 0,
+  "selection_rule": "No weight choice after account result. Compare XGB to matched static exposure as descriptive model-timing attribution, never as independent alpha or a new strategy candidate.",
+  "stop": "One 0bp native reference account and readback only. No 2/5bp, no threshold/weight sweep, no candidate promotion, no current paper SIM change.",
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "recorder_only_artifacts": [
+      "source_bindings",
+      "reference_native_account",
+      "comparison",
+      "annual",
+      "rolling126",
+      "bootstrap"
+    ]
+  },
+  "mechanical_code_sha256": {
+    "src/backtest/full_path_tiered.py": "28fa550d277fde9562e2858880fa9219dda2daa698657e05de1243f51bddae70",
+    "src/backtest/stage1_ibkr.py": "28565c7897974aceb03ceaf21b1a29e97470f4afcb2a9c7b1bdb770494905529",
+    "src/backtest/qlib_continuous_position.py": "f06bb596b6d3d3f875e9b6c59490080684d13fbe9f6763bd039d1b2afa4c5721",
+    "src/analysis/integrated_allocation.py": "63a04045c59e8266efc2642a4db3d080845bdefbad6c2ac914a2194d26c17fc4"
+  }
+}

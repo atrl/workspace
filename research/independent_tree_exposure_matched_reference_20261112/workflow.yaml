@@ -1,0 +1,21 @@
+experiment: independent_tree_exposure_matched_reference_20261112
+source_card: research/independent_tree_allocation_20261027
+provider_uri: /Users/rziiiii/dev/workspace/data/qlib/full_path_tiered_allocation_20261013
+weight:
+- 0.6360796773855757
+- 0
+- 0.3639203226144243
+sessions: 944
+slippage_bps: 0
+budget:
+  model_fits: 0
+  native_reference_accounts: 1
+artifact_policy:
+  policy: slim_card_recorder_first
+  recorder_only_artifacts:
+  - source_bindings
+  - reference_native_account
+  - comparison
+  - annual
+  - rolling126
+  - bootstrap

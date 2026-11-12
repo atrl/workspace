@@ -52,7 +52,9 @@
         "cvar5_pct": -11.7537,
         "rolling126_positive_fraction": 0.617827,
         "complete_year_positive_fraction": 0.5,
-        "decision": "not_promoted_0bp_gate_failed; independent route, not exact f696 parent"
+        "decision": "not_promoted_0bp_gate_failed; independent route, not exact f696 parent",
+        "exposure_matched_diagnostic": "research/independent_tree_exposure_matched_reference_20261112/summary.json",
+        "posthoc_xgb_vs_static_wealth": 0.997115
       },
       "older_944d_near_miss_wrong_parent": {
         "card": "research/stage1_beta_composition_0bp_20261022/summary.json",
@@ -71,20 +73,22 @@
         "decision": "development only; CVaR5 and paired lower failed, zero new fits"
       }
     },
-    "result_reporting_rule": "Each handoff states best saved complete-account results by scope and exact SOXX gates first; local factor/model fits are not strategy returns."
+    "result_reporting_rule": "Each handoff states best saved complete-account results by scope and exact SOXX gates first; local factor/model fits are not strategy returns.",
+    "latest_exposure_matched_diagnostic": "research/independent_tree_exposure_matched_reference_20261112/summary.json",
+    "latest_exposure_matched_status": "Saved 944d XGB unrestricted 0bp wealth/SOXX1.872604 did not exceed posthoc same-average-exposure static63.607968pct SOXL/cash native Qlib account wealth/SOXX1.878022: XGB/static0.997115, XGB drawdown/CVaR worse, 0 new fits, 1 diagnostic reference account, no qualified SOXX pass."
   },
   "client_goal_observation": {
     "thread_id": "01a1afb6-261c-7422-8f3e-94438afda74a",
     "observed_status": "active",
-    "observed_at_utc": "2026-11-12T03:01:38Z",
+    "observed_at_utc": "2026-11-12T03:20:36Z",
     "source": "get_goal direct readback",
     "scientific_status_separate": "historical_research_not_passed"
   },
   "current_task": {
     "phase": "needs_distinct_decision_time_mechanism",
     "status": "not_running",
-    "scope": "Current existing-data price/jump and H8 fixed relative-value routes, current-vintage CFTC admission, and state-only30pct risk-budget transmission have no admitted own-state SOXX candidate. Seek a materially different point-in-time economic mechanism or a proven method defect with at least existing independent-day action support; preserve complete SOXX historical goal and do not relax source, action, wealth, tail, year/window or cost gates.",
-    "next_output": "distinct existing-data source/action-value/risk mechanism with frozen full-account path, or scoped needs_distinct_decision_time_mechanism; no old-version refit",
+    "scope": "The high-return independent XGB path is binary SOXL/cash (zero SOXX targets) and did not beat a posthoc same-average-exposure static Qlib reference on the saved944-day path; both violate SOXX risk gates. Return to the frozen exact f696+b472 own-state baseline and require genuinely different decision-known information for cash opportunity and SOXL/SOXX middle selection/tail risk. Do not optimize XGB based on leverage-driven terminal wealth or retune closed versions.",
+    "next_output": "one source/PIT and action-value/risk qualified distinct mechanism with continuous target and matched native account path, or scoped needs_distinct_decision_time_mechanism",
     "authorization_scope": "Existing-data bounded hypothesis discovery is within the user-authorized research Goal; each fit/account still requires its frozen task budget and gates.",
     "source_preflight_observation": "Read-only existing Qlib daily shock-concentration source covers all 558 2018-2020 pi2 state days. Saved pi2 future segment-risk labels are known on 53/252/247 days (2020: 16055/16120 rows, 247/248 source days). The separate history_risk_known flag covers only 50 days in 2020 and is not a training filter in src/workflow/stage1_policy_iteration_fit.py. Source support is sufficient for a bounded prefit design, but novelty beyond closed cushion/Q2 risk and actor-to-funded-account transmission remain unverified.",
     "source_preflight_evidence": {

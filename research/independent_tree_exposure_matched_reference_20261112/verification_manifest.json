@@ -1,0 +1,50 @@
+{
+  "recorder_id": "bf31023505284457b49bc2748be0e219",
+  "entries": [
+    {
+      "path": "qlib_recorder/105638116646293942/bf31023505284457b49bc2748be0e219/artifacts/annual_static_vs_soxx",
+      "sha256": "380061d63cb53a72a2d4ddfd6aec015cf6509d8856fd84a9fe0822e504660381",
+      "bytes": 3101
+    },
+    {
+      "path": "qlib_recorder/105638116646293942/bf31023505284457b49bc2748be0e219/artifacts/annual_xgb_vs_static",
+      "sha256": "f510632b4b04be534f2ce03460fa6ade3f8d5e41f3a6d745e221bd8f2398eede",
+      "bytes": 3101
+    },
+    {
+      "path": "qlib_recorder/105638116646293942/bf31023505284457b49bc2748be0e219/artifacts/bootstrap_xgb_vs_static",
+      "sha256": "ddcec2f28845d64888df6c93d0ef932c56ed2c79fdb8e73015d4dda8fc551a9b",
+      "bytes": 690
+    },
+    {
+      "path": "qlib_recorder/105638116646293942/bf31023505284457b49bc2748be0e219/artifacts/comparison",
+      "sha256": "e899e5ac6a2572c6cdc0a460070a795397b4fac48e6973ffc5b891fd38e2f2cc",
+      "bytes": 3345
+    },
+    {
+      "path": "qlib_recorder/105638116646293942/bf31023505284457b49bc2748be0e219/artifacts/frozen_plan",
+      "sha256": "a9e119d56396d1de23aaefeedf87d94ef8f65ca079cf553dc6d0e4395f40a9db",
+      "bytes": 2747
+    },
+    {
+      "path": "qlib_recorder/105638116646293942/bf31023505284457b49bc2748be0e219/artifacts/reference_native_account",
+      "sha256": "53fb5c0898b184f40bd235ccb5e16db72faaa3a8bc2be0bfa83e74b008b41b8e",
+      "bytes": 7943825
+    },
+    {
+      "path": "qlib_recorder/105638116646293942/bf31023505284457b49bc2748be0e219/artifacts/rolling126_static_vs_soxx",
+      "sha256": "dd2bdf7169143467de6be903d5bc9940f045f1a1fdb947d5fb3a63173476bd4c",
+      "bytes": 20309
+    },
+    {
+      "path": "qlib_recorder/105638116646293942/bf31023505284457b49bc2748be0e219/artifacts/rolling126_xgb_vs_static",
+      "sha256": "d7732da3b0cf3fc74aa3a1e64340d06f96b4e6e608583ba1b56484c23723a90e",
+      "bytes": 20309
+    },
+    {
+      "path": "qlib_recorder/105638116646293942/bf31023505284457b49bc2748be0e219/artifacts/source_readbacks",
+      "sha256": "e85a7aedc55a4f719ce6a68183adbf4efe11dc56dc2973caa2a160f2df5774bb",
+      "bytes": 2857
+    }
+  ]
+}

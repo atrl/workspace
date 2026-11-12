@@ -1,0 +1,15 @@
+{
+  "status": "passed",
+  "archive_sha256": "cf140d9bd0f8e44d28b40266e5e8490d22ffae95c8ec4eaea73ce985c47982ac",
+  "recorder_id": "bf31023505284457b49bc2748be0e219",
+  "objects_loaded": [
+    "reference_native_account",
+    "comparison",
+    "annual_xgb_vs_static",
+    "rolling126_xgb_vs_static"
+  ],
+  "account_days": 944,
+  "annual_rows": 4,
+  "rolling_windows": 819,
+  "relative_wealth_parity": true
+}

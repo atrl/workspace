@@ -1,0 +1,13 @@
+{
+  "status": "prefit_native_account_setup_failed",
+  "plan_sha256": "edacf0185c224033f9c6c33d972f5ff289cee27c5699800b98765d9f8370bd14",
+  "code_sha256": "640abd7c4d285fc3d9e26edf3e8d0104b896732b2c25b5df2e3e1d39df03c6d2",
+  "recorder_id": "8ceb12e9ec0044239a1f68d896756a61",
+  "account_invocations": 1,
+  "completed_native_accounts": 0,
+  "error": "RecorderInitializationError at qlib.init before native account processing",
+  "execution_receipt": "execution_receipt_attempt1.json",
+  "repair_plan": "repair_plan.json",
+  "job_handle": "job_handle_attempt1.json",
+  "repaired_code_sha256": "a68f3bbb627129e93f262dae88247b316dc995073bc2bb2ffc52abe750b9d0f3"
+}

@@ -1,0 +1,62 @@
+{
+  "status": "read_only_exposure_and_cost_attribution",
+  "recorder_id": "bf31023505284457b49bc2748be0e219",
+  "source_xgb_recorder_id": "c9687c23744246b8bac15dce3efde67d",
+  "static_target_soxl_weight": 0.6360796773855757,
+  "average_soxl_weight_pct": {
+    "static": 63.65943546727977,
+    "xgb": 63.60796773855757
+  },
+  "average_nominal_beta": {
+    "static": 1.9097830640183928,
+    "xgb": 1.908239032156727
+  },
+  "xgb_target_soxx_nonzero_days": 0,
+  "fees_usd": {
+    "static": 809.7588049707947,
+    "xgb": 16679.362817843303
+  },
+  "orders": {
+    "static": 938,
+    "xgb": 390
+  },
+  "annual_xgb_vs_static": [
+    {
+      "year": 2023,
+      "sessions": 250,
+      "relative_wealth": 0.9869924433914138,
+      "return_pct": 102.32494259406728,
+      "benchmark_return_pct": 104.99137956807114
+    },
+    {
+      "year": 2024,
+      "sessions": 252,
+      "relative_wealth": 1.0097683368945316,
+      "return_pct": 18.58009769913191,
+      "benchmark_return_pct": 17.43297285773124
+    },
+    {
+      "year": 2025,
+      "sessions": 250,
+      "relative_wealth": 1.1263826063838112,
+      "return_pct": 89.35670607010182,
+      "benchmark_return_pct": 68.11046708011679
+    },
+    {
+      "year": 2026,
+      "sessions": 192,
+      "relative_wealth": 0.888226479589491,
+      "return_pct": 101.05021428366909,
+      "benchmark_return_pct": 126.35016958353668
+    }
+  ],
+  "xgb_vs_static_relative_wealth": 0.9971149497966937,
+  "xgb_vs_static_block_lower_per_day": -0.0018203942777277426,
+  "new_fits": 0,
+  "new_accounts": 0,
+  "limitations": [
+    "Static weight chosen post hoc from XGB own average ending holdings; not a prospective policy or independent reference",
+    "Fee difference and timing/holding path change together; fee-only causal effect not identified",
+    "Both accounts fail SOXX risk/stability gates; no 2/5bp or forward claim"
+  ]
+}

@@ -1,0 +1,11 @@
+{
+  "pid": 90701,
+  "start_identity": "ps:Thu Nov 12 11:14:24 2026",
+  "job_id": "independent_tree_exposure_matched_reference_20261112",
+  "phase": "one_native_reference_account",
+  "started_at_utc": "2026-11-12T03:14:25.383078+00:00",
+  "status": "failed",
+  "finished_at_utc": "2026-11-12T03:14:32.846861+00:00",
+  "exit_code": 1,
+  "error": "CellExecutionError: 5;28mgetattr\u001b[39m(\u001b[38;5;28mself\u001b[39m._provider, \u001b[33m\"\u001b[39m\u001b[33mexp_manager\u001b[39m\u001b[33m\"\u001b[39m)\n\u001b[32m    664\u001b[39m     \u001b[38;5;28;01mif\u001b[39;00m expm.active_experiment \u001b[38;5;129;01mis\u001b[39;00m \u001b[38;5;129;01mnot\u001b[39;00m \u001b[38;5;28;01mNone\u001b[39;00m:\n\u001b[32m--> \u001b[39m\u001b[32m665\u001b[39m         \u001b[38;5;28;01mraise\u001b[39;00m RecorderInitializationError(\n\u001b[32m    666\u001b[39m             \u001b[33m\"\u001b[39m\u001b[33mPlease don\u001b[39m\u001b[33m'\u001b[39m\u001b[33mt reinitialize Qlib if QlibRecorder is already activated. Otherwise, the experiment stored location will be modified.\u001b[39m\u001b[33m\"\u001b[39m\n\u001b[32m    667\u001b[39m         )\n\u001b[32m    668\u001b[39m \u001b[38;5;28mself\u001b[39m._provider = provider\n\n\u001b[31mRecorderInitializationError\u001b[39m: Please don't reinitialize Qlib if QlibRecorder is already activated. Otherwise, the experiment stored location will be modified.\n"
+}

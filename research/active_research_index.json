@@ -21,5 +21,6 @@
     "sha256": "a170a2ec7222b7c7ace8b62ca983dc617c6531af7b727afdd7b28d2672077353",
     "source_commit": "ad9b94854fabca45cd247beba5b4db6f10a2061e"
   },
-  "source_only_candidate": "research/stage1_intraday_jump_path_source_20261112/summary.json"
+  "source_only_candidate": "research/stage1_intraday_jump_path_source_20261112/summary.json",
+  "latest_exposure_diagnostic": "research/independent_tree_exposure_matched_reference_20261112/summary.json"
 }

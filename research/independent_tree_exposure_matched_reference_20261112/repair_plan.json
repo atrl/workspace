@@ -1,0 +1,21 @@
+{
+  "status": "frozen_exact_implementation_repair_before_second_invocation",
+  "plan_sha256": "edacf0185c224033f9c6c33d972f5ff289cee27c5699800b98765d9f8370bd14",
+  "initial_code_sha256": "640abd7c4d285fc3d9e26edf3e8d0104b896732b2c25b5df2e3e1d39df03c6d2",
+  "failure": "RecorderInitializationError: native_tiered_stage1 calls qlib.init inside active R.start",
+  "first_attempt_recorder_id": "8ceb12e9ec0044239a1f68d896756a61",
+  "first_attempt_recorder_status": "FAILED",
+  "first_attempt_artifacts_only": [
+    "frozen_plan",
+    "source_readbacks",
+    "code_diff.txt",
+    "code_cached.txt",
+    "code_status.txt"
+  ],
+  "first_attempt_completed_native_accounts": 0,
+  "scientific_weight_calendar_tariff_source_or_gate_changes": false,
+  "allowed_change": "End R.start before native_tiered_stage1, then save account objects via the retained recorder object as in frozen independent_tree_allocation workflow.",
+  "maximum_completed_native_reference_accounts": 1,
+  "maximum_account_invocations_including_prefit_setup_failure": 2,
+  "no_model_fits": true
+}
