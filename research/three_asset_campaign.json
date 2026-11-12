@@ -71,9 +71,34 @@
         "daily_cvar5_pct": -4.62554,
         "soxx_daily_cvar5_pct": -3.68973,
         "decision": "development only; CVaR5 and paired lower failed, zero new fits"
+      },
+      "sampled_risk_feasible_trained_944d_all_costs": {
+        "card": "research/frozen_policy_raw_cashbook_20261015/summary.json",
+        "case": "raw_candidate27baa",
+        "soxx_relative_wealth_0_2_5bp": [
+          1.218295,
+          1.202381,
+          1.177998
+        ],
+        "sampled_drawdown_pct_0_2_5bp": [
+          27.17103,
+          27.22301,
+          27.31693
+        ],
+        "rolling126_positive_fraction_0_2_5bp": [
+          0.675214,
+          0.67033,
+          0.65812
+        ],
+        "soxx_block_lower_daily_0_2_5bp": [
+          -0.000259,
+          -0.000273,
+          -0.000295
+        ],
+        "decision": "not_promoted: rolling/block fail at all costs; full-minute risk and independent forward unqualified; 27baa proposals differ from f696"
       }
     },
-    "result_reporting_rule": "Each handoff states best saved complete-account results by scope and exact SOXX gates first; local factor/model fits are not strategy returns.",
+    "result_reporting_rule": "Report highest-return trained, sampled-risk-feasible all-costs, and best same-parent results separately; never omit 27baa sampled-risk-feasible near-miss or infer promotion from terminal wealth.",
     "latest_exposure_matched_diagnostic": "research/independent_tree_exposure_matched_reference_20261112/summary.json",
     "latest_exposure_matched_status": "Saved 944d XGB unrestricted 0bp wealth/SOXX1.872604 did not exceed posthoc same-average-exposure static63.607968pct SOXL/cash native Qlib account wealth/SOXX1.878022: XGB/static0.997115, XGB drawdown/CVaR worse, 0 new fits, 1 diagnostic reference account, no qualified SOXX pass.",
     "latest_q2_action_risk_support": "research/stage1_q2_action_risk_delta_support_20261112/summary.json",
@@ -93,8 +118,8 @@
   "current_task": {
     "phase": "needs_distinct_decision_time_mechanism",
     "status": "not_running",
-    "scope": "The Q2 residual risk refit was algebraically equivalent to old Q2 and is closed. A separate reversal x volatility compounding source was tested before outcomes and failed the fixed 5pct novelty gate (1.46pct residual). Require a materially different decision-known information mechanism addressing both cash opportunity and SOXL/SOXX choice; do not rescue either fixed formula on reused years.",
-    "next_output": "One genuinely distinct and source/PIT-qualified decision-time mechanism with matched action value/risk gate, or scoped needs_distinct_decision_time_mechanism.",
+    "scope": "The saved 27baa raw-share account is the strongest all-cost sampled-risk-feasible trained reference: SOXX wealth1.218/1.202/1.178 at0/2/5bp and sampled DD/CVaR/complete-years pass, but rolling126 67.52/67.03/65.81pct and SOXX block lowers fail; full-minute risk/forward unqualified. Treat it as a separate independent research parent, not exact f696. A new mechanism must address its weak windows and remain distinct from closed weak-trend/recovery adjustments; exact f696+b472 remains Stage1-derived attribution baseline.",
+    "next_output": "A source/PIT-qualified, genuinely different economic mechanism that can improve the 27baa all-cost weak-window and block gaps with matched own-state account testing, or scoped needs_distinct_decision_time_mechanism; no 27baa threshold/window rescue.",
     "authorization_scope": "Existing-data bounded hypothesis discovery is within the user-authorized research Goal; each fit/account still requires its frozen task budget and gates.",
     "source_preflight_observation": "Read-only existing Qlib daily shock-concentration source covers all 558 2018-2020 pi2 state days. Saved pi2 future segment-risk labels are known on 53/252/247 days (2020: 16055/16120 rows, 247/248 source days). The separate history_risk_known flag covers only 50 days in 2020 and is not a training filter in src/workflow/stage1_policy_iteration_fit.py. Source support is sufficient for a bounded prefit design, but novelty beyond closed cushion/Q2 risk and actor-to-funded-account transmission remain unverified.",
     "source_preflight_evidence": {
