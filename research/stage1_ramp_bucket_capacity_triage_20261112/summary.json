@@ -1,0 +1,73 @@
+{
+  "experiment": "stage1_ramp_bucket_capacity_triage_20261112",
+  "status": "not_admitted_sparse_ramp_bucket_cash_action_support",
+  "historical_research_passed": false,
+  "source_identities": {
+    "parent": {
+      "card": "research/stage1_f696_oof_training_reference_20261028",
+      "recorder_id": "2994f6afbfc54f279cefec362b220001",
+      "manifest_sha256": "8699fd57be85d3b4b330f529e73612c8cc52967b5e7c3e8c0682c622c6e70f54",
+      "verified": true
+    },
+    "bucket": {
+      "card": "research/stage1_dollar_bucket_imbalance_source_20261101",
+      "recorder_id": "21f8620aa2c04cfa90794be902e37d41",
+      "manifest_sha256": "84068302cea43b7b115f582964734f4a0b5155d0acd56ca5da058a311540977a",
+      "verified": true
+    },
+    "action": {
+      "card": "research/stage1_intraday_cash_deployment_labels_20261028",
+      "recorder_id": "3d8bdf0b707c41128bd61c47c75b7314",
+      "manifest_sha256": "c8d1f5a8a88f9653ccea67a6533e61a18fda3a76c3d35c87aec6b14b0a200ca1",
+      "verified": true
+    }
+  },
+  "joined_intentions": 381528,
+  "annual": {
+    "2018": {
+      "parent_state2_days": 3,
+      "source_capacity_days": 3,
+      "funded_days": 2,
+      "positive_sell_pressure_days": 1,
+      "median_day_max_capacity_pct": 0.17466773686675707
+    },
+    "2019": {
+      "parent_state2_days": 27,
+      "source_capacity_days": 25,
+      "funded_days": 22,
+      "positive_sell_pressure_days": 19,
+      "median_day_max_capacity_pct": 0.42904790853727226
+    },
+    "2020": {
+      "parent_state2_days": 30,
+      "source_capacity_days": 14,
+      "funded_days": 10,
+      "positive_sell_pressure_days": 10,
+      "median_day_max_capacity_pct": 0.3361748604204684
+    },
+    "2021": {
+      "parent_state2_days": 20,
+      "source_capacity_days": 19,
+      "funded_days": 13,
+      "positive_sell_pressure_days": 17,
+      "median_day_max_capacity_pct": 0.2855510877936118
+    },
+    "2022": {
+      "parent_state2_days": 96,
+      "source_capacity_days": 88,
+      "funded_days": 71,
+      "positive_sell_pressure_days": 72,
+      "median_day_max_capacity_pct": 0.33942279982641793
+    }
+  },
+  "new_model_fits": 0,
+  "new_native_accounts": 0,
+  "target_values_analyzed": false,
+  "target_bytes_deserialized_with_saved_action_object": true,
+  "limitations": [
+    "Retrospective source/capacity counts are not a frozen alpha test",
+    "Risk state and legal capacity are predecision but account-endogenous",
+    "funded_change is a postfill audit outcome and never a live feature/filter",
+    "Source bar first live receipt remains unqualified"
+  ]
+}

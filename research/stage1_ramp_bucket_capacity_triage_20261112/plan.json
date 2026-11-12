@@ -1,0 +1,20 @@
+{
+  "experiment": "stage1_ramp_bucket_capacity_triage_20261112",
+  "kind": "retrospective_read_only_mechanism_admission_triage",
+  "decision_scope": "Count independent days where saved exact f696+b472 predecision risk_state=2, completed-minute dollar-bucket source is available, and the old legal cash-to-SOXX action has positive decision-known capacity. No predictive, fee-net, or account claim.",
+  "source_cards": {
+    "parent": "research/stage1_f696_oof_training_reference_20261028",
+    "bucket": "research/stage1_dollar_bucket_imbalance_source_20261101",
+    "action": "research/stage1_intraday_cash_deployment_labels_20261028"
+  },
+  "source_artifacts": {
+    "parent": "analysis/native/dated_f696_0",
+    "bucket": "source_intention_bucket_panel",
+    "action": "analysis/labels"
+  },
+  "clock": "Join exact trade_date/bar_end_at/decision_at/fill_at. The action object includes outcome columns in the saved serialization, but this triage accesses only predecision weights, cap, and funded_change mechanics, never local_advantage or later prices.",
+  "capacity": "min(0.10, max(cash_weight-0.15,0), max(current_beta_cap-(3*SOXL_weight+SOXX_weight),0), max(1-SOXX_weight,0)) at the decision, using old legal action geometry; strictly positive above1e-10.",
+  "period": "Full saved 2018-2022 source days, grouped by native trade_date; 2018 partial year disclosed.",
+  "interpretation": "Observed support counts are design inputs, not a preregistered information gate. A 2020 cell with fewer than20 independent source-and-funded days is too sparse for the existing action-support convention; do not fit or rescue by changing state/window/parent on reused history.",
+  "budget": {"new_market_reads": 0, "new_model_fits": 0, "new_accounts": 0, "new_recorders": 0}
+}

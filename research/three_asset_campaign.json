@@ -121,7 +121,9 @@
     "latest_27baa_projection_layer": "research/raw_27baa_all_cost_window_attribution_20261112/projection_layer_attribution.json",
     "latest_27baa_projection_layer_status": "Posthoc read-only: controlled opening cash exceeds raw target on259 days per cost. At2bp that group contributes SOXX relative log -0.07354, but risk state1 72-day subset contributes +0.11909; blanket projection removal is unsupported. No fit/account.",
     "latest_27baa_source_gate": "research/nvda_own_guidance_realization_training_20261015/summary.json",
-    "latest_27baa_source_gate_status": "Upstream 27baa first-public timestamp and all interim guidance updates unverified. Account numbers valid as saved historical development, but cannot directly qualify a promotion candidate on this parent."
+    "latest_27baa_source_gate_status": "Upstream 27baa first-public timestamp and all interim guidance updates unverified. Account numbers valid as saved historical development, but cannot directly qualify a promotion candidate on this parent.",
+    "latest_ramp_bucket_capacity_triage": "research/stage1_ramp_bucket_capacity_triage_20261112/summary.json",
+    "latest_ramp_bucket_capacity_status": "Retrospective verified Qlib source/capacity intersection: f696 risk_state2 plus available dollar-bucket plus positive old cash-to-SOXX capacity gives 2019 25 days/22 funded, 2020 14/10; median day-max weight0.429/0.336pct NAV. Specific ramp-only bucket receiver not fitted, no account/SOXX pass; target bytes co-deserialized but values not analyzed."
   },
   "client_goal_observation": {
     "thread_id": "01a1afb6-261c-7422-8f3e-94438afda74a",
@@ -133,8 +135,8 @@
   "current_task": {
     "phase": "needs_distinct_qualified_decision_time_mechanism",
     "status": "not_running",
-    "scope": "27baa saved all-cost account is a useful strong matched reference and cash-drag diagnostic, but its NVDA own-guidance realization feature has unverified first-public clock and update completeness. Do not make 27baa the directly promotable next parent without source qualification. Continue on already-held qualified Qlib/NAS input and exact f696+b472 or other qualified independent parent; require new predecision cash-to-SOXX mechanism that preserves protective intervals and passes full native account gates.",
-    "next_output": "One materially distinct cash-to-SOXX hypothesis on qualified existing-source parent with source clock, matched action-value gate and finite full-account path; otherwise scoped needs_distinct_decision_time_mechanism/needs_data. No new vendor or 27baa threshold rescue.",
+    "scope": "The exact f696+b472 ramp-state-only bucket sell-pressure idea has insufficient 2020 funded support (10 days) and sub-0.5pct median day-max capacity; do not fit or rescue by selecting 2022. 27baa remains diagnostic only due unqualified NVDA guidance clock. Next mechanism must jointly change allocation intent and legal risk capacity at broader independent-day support while preserving protective state1 intervals; existing-data and SOXX gates unchanged.",
+    "next_output": "A materially distinct, decision-known mechanism with broad cash-to-SOXX funded action capacity on a qualified parent and matched info/account gates, or scoped needs_distinct_decision_time_mechanism.",
     "authorization_scope": "Existing-data bounded hypothesis discovery is within the user-authorized research Goal; each fit/account still requires its frozen task budget and gates.",
     "source_preflight_observation": "Read-only existing Qlib daily shock-concentration source covers all 558 2018-2020 pi2 state days. Saved pi2 future segment-risk labels are known on 53/252/247 days (2020: 16055/16120 rows, 247/248 source days). The separate history_risk_known flag covers only 50 days in 2020 and is not a training filter in src/workflow/stage1_policy_iteration_fit.py. Source support is sufficient for a bounded prefit design, but novelty beyond closed cushion/Q2 risk and actor-to-funded-account transmission remain unverified.",
     "source_preflight_evidence": {
